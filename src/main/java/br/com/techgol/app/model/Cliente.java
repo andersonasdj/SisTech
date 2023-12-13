@@ -16,10 +16,6 @@ public class Cliente extends Usuario {
 	
 	@Column(length = 50)
 	private String nomeCliente;
-	@Column(length = 20)
-	private String usuarioCliente;
-	@Column(length = 50)
-	private String senhaCliente;
 	@Column(length = 50)
 	private String endereco;
 	@Column(length = 20)
