@@ -20,7 +20,8 @@ public record DtoListarFuncionarios(
 	
 	public DtoListarFuncionarios(Funcionario f) {
 		this(f.getId(), f.getNomeFuncionario(), f.getUsuario(), f.getFuncao(), f.getAtivo(),
-				f.getMfa(), new ConverteDataToString().convert(f.getDataAtualizacao()), new ConverteDataToString().convert(f.getDataUltimoLogin()));
+				f.getMfa(), new ConverteDataToString().convert(f.getDataAtualizacao()), 
+				new ConverteDataToString().convert(f.getDataUltimoLogin()));
 	}
 
 }
