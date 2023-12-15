@@ -8,19 +8,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.legacy.DtoSolicitacaoLegacyListar;
+import br.com.techgol.app.orm.SolicitacaoLegacyProjecao;
 import br.com.techgol.app.repository.legacy.SolicitacaoLegacyRepository;
 
 @RestController
-@RequestMapping("solicitacao/legacy")
+@RequestMapping("solicitacao/legacy/")
 public class SolicitacaoLegacyRestController {
 
 	@Autowired
 	SolicitacaoLegacyRepository repository;
 	
-	@GetMapping
-	public Page<DtoSolicitacaoLegacyListar> listar(Pageable page) {
+	@GetMapping("full")
+	public Page<DtoSolicitacaoLegacyListar> listarFull(Pageable page) {
 		
 		return repository.findAll(page).map(DtoSolicitacaoLegacyListar::new);
+		
+	
+	}
+	
+	@GetMapping("short")
+	public Page<SolicitacaoLegacyProjecao> listarShort(Pageable page) {
+		
+		return repository.listarSolicitacoes(page);
 		
 	
 	}

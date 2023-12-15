@@ -4,7 +4,9 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.techgol.app.dto.DTOCadastroSolicitacao;
 import br.com.techgol.app.model.enums.FormaAbeertura;
+import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,7 +51,10 @@ public class Solicitacao {
 	private String resolucao;
 	@Column(length = 300)
 	private String observacao;
-	
+	@Column(length = 20)
+	private String abertoPor;
+	@Enumerated(EnumType.STRING)
+	private Prioridade prioridade;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@OneToOne
@@ -58,5 +63,18 @@ public class Solicitacao {
 	private Funcionario fucnionario;
 	
 	private Boolean excluido;
+	
+	
+	public Solicitacao(DTOCadastroSolicitacao dados) {
+		
+		this.afetado = dados.usuario();
+        this.dataAbertura = dados.dataAbertura();
+        this.solicitante = dados.solicitante();
+        this.resolucao = dados.resolucao();
+        this.descricao = dados.descricaoProblema();
+        this.observacao = dados.obs();
+        this.abertoPor = dados.abriuCHamado();
+		
+	}
 
 }
