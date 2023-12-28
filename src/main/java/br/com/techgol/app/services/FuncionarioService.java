@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
+import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.repository.FuncionarioRepository;
@@ -28,6 +29,27 @@ public class FuncionarioService {
 	public List<DtoListarFuncionarios> listar() {
 		
 		 return repository.findAll().stream().map(DtoListarFuncionarios::new).toList();
+	}
+	
+	
+	public DtoFuncionarioEdit editar(Long id) {
+		if(repository.existsById(id)) {
+			return new DtoFuncionarioEdit(repository.getReferenceById(id));
+		}else {
+			return null;
+		}
+		
+	}
+	
+	
+	public boolean deletar(Long id) {
+		if(repository.existsById(id)) {
+			repository.deleteById(id);
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 }

@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClienteController {
 	
 	
-	@GetMapping
-	public String login() {
-		return "templates/cliente.html";
+	@GetMapping("/list")
+	public String listar() {
+		return "clienteList.html";
+	}
+	
+	@GetMapping("/form")
+	public String formulario() {
+		return "clienteForm.html";
 	}
 
 }
