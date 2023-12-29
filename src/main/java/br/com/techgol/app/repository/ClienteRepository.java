@@ -13,6 +13,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	public List<String> listarNomesCliente();
 	
 	
+	@Query(value = "SELECT c.id FROM clientes c ORDER BY c.nomeCliente", nativeQuery = true)
+	public List<String> listarIdCliente();
+	
+	
 	public Cliente findBynomeCliente(String nomeCliente);
-
+	
 }

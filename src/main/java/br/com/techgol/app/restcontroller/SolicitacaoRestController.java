@@ -54,7 +54,11 @@ public class SolicitacaoRestController {
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		
-		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesCliente(), repositoryFuncionario.listarNomesFuncionarios());
+		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesCliente(),
+				repositoryCliente.listarIdCliente(), 
+				repositoryFuncionario.listarNomesFuncionarios(),
+				repositoryFuncionario.listarIdFuncionarios()
+				);
 	}
 	
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
@@ -88,10 +92,15 @@ public class SolicitacaoRestController {
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public String cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
-		Cliente cliente = repositoryCliente.findBynomeCliente(dados.nomeCliente()); 
+		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
 
+		System.out.println(dados.nomeCliente());
+		System.out.println(dados.nomeFuncionario());
+		
+		
+		
 		if(dados.nomeFuncionario() != null) {
-			Funcionario funcionario = repositoryFuncionario.findBynomeFuncionario(dados.nomeFuncionario());
+			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
 			repository.save(new Solicitacao(dados, cliente, funcionario));
 		}else {
 			repository.save(new Solicitacao(dados, cliente));

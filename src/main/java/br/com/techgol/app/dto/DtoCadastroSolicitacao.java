@@ -21,8 +21,8 @@ public record DtoCadastroSolicitacao(
 		Local local,
 		Status status,
 		@NotBlank
-		String nomeCliente,
-		String nomeFuncionario
+		Long nomeCliente,
+		Long nomeFuncionario
 		
 		) {
 		

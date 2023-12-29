@@ -51,7 +51,6 @@ public class FuncionarioRestController {
 	
 	@DeleteMapping("/{id}")
 	public boolean deletar(@PathVariable Long id ) {
-		System.out.println("passei aqui");
 		return service.deletar(id);
 		
 	}

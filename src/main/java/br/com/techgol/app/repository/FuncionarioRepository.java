@@ -13,6 +13,9 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	@Query(value = "SELECT f.nomeFuncionario FROM funcionarios f ORDER BY f.nomeFuncionario", nativeQuery = true)
 	public List<String> listarNomesFuncionarios();
 	
+	@Query(value = "SELECT f.id FROM funcionarios f ORDER BY f.nomeFuncionario", nativeQuery = true)
+	public List<String> listarIdFuncionarios();
+	
 	
 	public Funcionario findBynomeFuncionario(String nomeFuncionario);
 }

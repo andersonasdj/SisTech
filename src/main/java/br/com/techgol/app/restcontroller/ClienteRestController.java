@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.techgol.app.dto.DTOAtualizarCliente;
 import br.com.techgol.app.dto.DTOCadastroCliente;
 import br.com.techgol.app.dto.DadosClienteEditDTO;
 import br.com.techgol.app.model.Cliente;
@@ -33,6 +35,14 @@ public class ClienteRestController {
 		repository.save(new Cliente(dados));
 		
 	}
+	
+	@PutMapping
+	public DTOAtualizarCliente atualizar(@RequestBody DTOAtualizarCliente dados) {
+		
+		return new DTOAtualizarCliente(repository.save(new Cliente(dados)));
+		
+	}
+	
 
 	@GetMapping
 	public Page<Cliente> listar(@PageableDefault(sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){

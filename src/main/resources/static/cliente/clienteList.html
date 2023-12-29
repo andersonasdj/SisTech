@@ -11,10 +11,11 @@
 <body>
 	<div class="container">
 		<br />
-			<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;">
+					SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +26,8 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
 						</li>
-						
-							<li class="nav-item dropdown">
+
+						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
 								Solicitações
@@ -44,7 +45,7 @@
 								<li><a class="dropdown-item" href="#">Relatórios</a></li>
 							</ul>
 						</li>
-						
+
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -90,7 +91,8 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#">Perfil</a></li>
 								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
@@ -100,9 +102,9 @@
 								<li><a class="dropdown-item" href="/sistech/roleslist">Roles</a></li>
 							</ul>
 						</li>
-							<a href="/techpass/logout">
-								<img src="../assets/img/logout.png" style="width: 60px; border: none;" >
-							</a>
+						<a href="/techpass/logout">
+							<img src="../assets/img/logout.png" style="width: 60px; border: none;">
+						</a>
 					</ul>
 				</div>
 			</div>
@@ -128,36 +130,36 @@
 		<footer class="text-center text-white">
 			<div class="container ">
 				<!-- Grid container -->
-			<div class="p-4 pb-0">
-				<!-- Section: Social media -->
-				<section class="mb-4">
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(249, 240, 107);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(248, 228, 92);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(246, 211, 45);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(245, 194, 17);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(229, 165, 10);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(255, 190, 111);" href="#!"
-						role="button"></a>
-				</section>
-				<!-- Section: Social media -->
-			</div>
-			<!-- Grid container -->
+				<div class="p-4 pb-0">
+					<!-- Section: Social media -->
+					<section class="mb-4">
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(249, 240, 107);"
+							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(248, 228, 92);"
+							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(246, 211, 45);"
+							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(245, 194, 17);"
+							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(229, 165, 10);"
+							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(255, 190, 111);"
+							href="#!" role="button"></a>
+					</section>
+					<!-- Section: Social media -->
+				</div>
+				<!-- Grid container -->
 
-			<!-- Copyright -->
-			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-				© 2022 Copyright:
-				<a class="text-white" href="#">TechGold</a>
-			</div>
-			<!-- Copyright -->
-			</footer>
+				<!-- Copyright -->
+				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2022 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
 		</footer>
 
-		<!-- Modal -->
+		<!-- Modal CLIENTE EDIT -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -166,14 +168,113 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<label class="form-label" for="id">ID</label>
-						<input type="text" id="idmodal" class="form-control" readonly>
-						<label class="form-label" for="nome">Nome</label>
-						<input type="text" id="nomemodal" class="form-control">
+
+						<div class="row">
+							<div class="col-md-8">
+								<label class="form-label" for="nome">Nome</label>
+								<input type="text" id="nomemodal" class="form-control"><br />
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label" for="id">ID</label>
+								<input type="text" id="idmodal" class="form-control" readonly>
+								</di>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label" for="nome">Usuario</label>
+								<input type="text" id="usuariomodal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label" for="nome">Senha</label>
+								<input type="password" id="senhamodal" class="form-control">
+
+								</di>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label" for="nome">Telefone</label>
+								<input type="text" id="telefonemodal" class="form-control">
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label" for="nome">CNPJ</label>
+								<input type="text" id="cnpjmodal" class="form-control"><br />
+
+								</di>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label" for="nome">Endereço</label>
+								<input type="text" id="enderecomodal" class="form-control"><br />
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+							<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL COLABORADOR LIST -->
+		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">
+							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
+								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
+							<input hidden id="idColaboradoCliente" name="idColaboradoCliente">
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<table class="table" id="tabela-colaboradores">
+						<thead>
+							<tr>
+								<th scope="col">Nome</th>
+								<th scope="col">Celular</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody id="tbColaboradoresCorpo">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal ADICIONA COLABORADOR -->
+		<div class="modal fade" id="addColaboradorModal" tabindex="-1" aria-labelledby="addColaboradorModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<label class="form-label" for="idAddModal">Id Cliente</label>
+						<input type="text" id="idAddModal" class="form-control" readonly>
+						<label class="form-label" for="id">Nome</label>
+						<input type="text" id="nomeAddmodal" class="form-control">
+						<label class="form-label" for="nome">Celular</label>
+						<input type="text" id="celularAddmodal" class="form-control">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+						<button type="button" class="btn btn-primary" onclick="salvarColaborador()">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -196,12 +297,13 @@
 			url: "/sistech/clientes",
 			success: function (data) {
 				var itens = data.content.map(i =>
-				
+
 					'<tr id=linha' + i.id + '>'
 					+ '<td>' + i.nomeCliente + '</td>'
 					+ '<td>' + i.ativo + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + i.id + ')>Colaboradores</button>'
 					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
 					+ '</td>'
 					+ '</tr>'
@@ -212,12 +314,12 @@
 				alert(e.totalPages);
 			}
 		});
-		
-		
+
+
 	</script>
 	<script>
 		function excluir(id) {
-			if (confirm("Tem certeza que deseja excluir o cliente de ID: " + id +" ?") == true) {
+			if (confirm("Tem certeza que deseja excluir o cliente de ID: " + id + " ?") == true) {
 				var t = "#linha" + id;
 				var remove = $(t).closest('tr');
 				$.ajax({
@@ -248,8 +350,14 @@
 					$('#idmodal').val("");
 					$('#nomemodal').val("");
 					$('#enderecomodal').val("");
+
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
+					$('#enderecomodal').val(data.endereco);
+					$('#telefonemodal').val(data.telefone);
+					$('#usuariomodal').val(data.usuario);
+					$('#senhamodal').val(data.senha);
+					$('#cnpjmodal').val(data.cnpj);
 				},
 				error: function (e) {
 					alert(e);
@@ -257,25 +365,104 @@
 			});
 		}
 
+		function editarColaborador(id) {
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/list/" + id,
+				success: function (data) {
+					$('#tbColaboradoresCorpo').empty();
+					$('#idColaboradoCliente').empty();
+					$('#idColaboradoCliente').append(id);
+
+					var itens = data.map(i =>
+
+						'<tr id=linha' + i.id + '>'
+						+ '<td>' + i.nomeColaborador + '</td>'
+						+ '<td>' + i.celular + '</t}>'
+						+ '<td>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addColaboradorModal" onclick=editar(' + i.id + ')>Editar</button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
+						+ '</td>'
+						+ '</tr>'
+					);
+					$('#tabela-colaboradores').append(itens);
+
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
+
+		function novoColaborador() {
+			var id = $('#idColaboradoCliente').text();
+			$('#idAddModal').val("");
+			$('#nomeAddmodal').val("");
+			$('#celularAddmodal').val("");
+
+			$('#idAddModal').val(id);
+		}
+
+		function salvarColaborador() {
+
+			var clienteId = $('#idAddModal').val();
+			var nomeAddmodal = $('#nomeAddmodal').val();
+			var celularAddmodal = $('#celularAddmodal').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/colaborador",
+				data: JSON.stringify(
+					{
+						"clienteId": clienteId,
+						"nomeColaborador": nomeAddmodal,
+						"celular": celularAddmodal
+					}
+				),
+				success: function (data) {
+
+					alert("salvo com sucesso!");
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+
+		}
+
 		function atualiza() {
 			var id = $('#idmodal').val();
-			var nome = $('#nomemodal').val();
+			var nomeCliente = $('#nomemodal').val();
+			var usuario = $('#usuariomodal').val();
+			var senha = $('#senhamodal').val();
+			var telefone = $('#telefonemodal').val();
+			var cnpj = $('#cnpjmodal').val();
+			var endereco = $('#enderecomodal').val();
 
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
-				url: "/sistech/cliente",
+				url: "/sistech/clientes",
 				data: JSON.stringify({
 					"id": id,
-					"nome": nome
+					"nomeCliente": nomeCliente,
+					"usuario": usuario,
+					"senha": senha,
+					"telefone": telefone,
+					"cnpj": cnpj,
+					"endereco": endereco
 				}),
 				success: function (data) {
 
 					var itens =
 						'<tr id=linha' + data.id + '>'
-						+ '<td>' + data.nome + '</td>'
+						+ '<td>' + data.nomeCliente + '</td>'
+						+ '<td>' + data.ativo + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
+						+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + data.id + ')>Colaboradores</button>'
 						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')>Excluir</button>'
 						+ '</td>'
 						+ '</tr>';
