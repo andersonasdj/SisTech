@@ -19,6 +19,16 @@ public interface SolicitacaoLegacyRepository extends JpaRepository<SolicitacaoLe
 	public Page<SolicitacaoLegacyProjecao> listarSolicitacoes(Pageable page);
 	
 	
+	
+	@Query(value = "SELECT s.id, s.abriuChamado, s.Agendado, s.dataAbertura, "
+			+ "s.descricaoProblema, s.formaAbertura, s.nivelDeIncidencia, "
+			+ "s.obs, s.onsiteOffsite, s.prioridade, s.resolucao, "
+			+ "s.solicitante, s.status, s.usuario, c.nome FROM Solicitacao s "
+			+ "INNER JOIN Cliente c ON s.cliente_id=c.id "
+			+ "WHERE s.id=:id", nativeQuery = true)
+	public SolicitacaoLegacyProjecao listarSolicitacaoLegacyPorId(Long id);
+	
+	
 	public Page<SolicitacaoLegacy> findByUsuarioLike(String usuario, Pageable page);
 
 }

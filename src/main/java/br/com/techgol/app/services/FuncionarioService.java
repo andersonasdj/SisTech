@@ -51,5 +51,10 @@ public class FuncionarioService {
 		}
 		
 	}
+
+
+	public List<String> listarNomesCliente() {
+		return repository.listarNomesFuncionarios();
+	}
 	
 }

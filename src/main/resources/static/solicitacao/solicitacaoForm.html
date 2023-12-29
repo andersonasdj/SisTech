@@ -1,0 +1,529 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="assets/img/ico.png" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="stylesheet" href="asset/css/stylePersonal.css">
+	<!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/jquery-ui.css">
+	<link rel="stylesheet" href="assets/css/jquery.ui.timepiker.css">
+	
+	<title>Sistech | Solocitação Form</title>
+</head>
+
+<body>
+	<div class="container">
+		<br />
+			<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
+						</li>
+						
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Solicitações
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Relatórios</a></li>
+							</ul>
+						</li>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Clientes
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Funcionarios
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Notas
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/listarnotas">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/notaform">Novo</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Perfil</a></li>
+								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/roleslist">Roles</a></li>
+							</ul>
+						</li>
+							<a href="/techpass/logout">
+								<img src="../assets/img/logout.png" style="width: 60px; border: none;" >
+							</a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		
+		<div id="form-solicitacao">
+		<fieldset>
+			<legend>Solicitação de Atendimento</legend>
+			<p class="pull-right">
+				<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>
+			</p>
+			
+			<div class="row">
+				<div class="col-md-4">
+					<div class="control-group">
+					<label class="control-label"><b>Cliente</b></label>
+					<div class="controls">
+						<select class="form-select" id="nomeCliente"
+							name="nomeCliente" style="width: 250px;">
+	
+						</select>
+						<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
+						<span id="vip" style="font-size: 18px ;color:#04B404 ; font-weight:bold"></span>
+					</div>
+			</div>
+
+			<br/>
+			
+			</div>
+				<div class="col-md-8 ms-auto"> 
+					<div class="control-group">
+					<label class="control-label"><b>Forma de Abertura</b></label>
+					<div class="controls">
+						<select class="form-select" id="formaAbertura"
+							name="formaAbertura" style="width: 250px;">
+							<option></option>
+							<option value="TELEFONE">Telefone</option>
+							<option value="EMAIL">E-mail</option>
+							<option value="WHATSAPP">Whatsapp</option>
+							<option value="LOCAL">No local</option>
+							<option>
+						</select>
+					</div>
+					</div>
+				</div>
+			</div>
+			
+			
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+						<label class="control-label"><b>Solicitante</b></label> 
+			            <div class="controls">
+			                <select class="form-control solicitante" name="solicitante" id="solicitante" style="width: 250px;">
+								
+								<option>teste</option>
+							</select>
+			            	<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">  </span>
+			                <span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">  </span>
+			            </div>
+        				</div>
+					</div>
+					<div class="col-md-8 ms-auto"> 
+						
+						<div class="form-group">
+							<label class="control-label"><b>Usuário Afetado *</b></label>
+				            <div class="controls">
+				                <select class="form-control usuario" name="afetado" id="afetado" style="width: 250px;">
+									<option>teste</option>
+								</select>
+				                <span id="cargoUsuario" style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+				                <span id="celularUsuario" style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+				            </div>
+			        	</div>
+						
+					</div>
+				</div>
+				<br/>
+			
+			
+			<div class="row">
+					<div class="col-md-4">
+						
+						<div class="control-group">
+							<label class="control-label"><b>Problema Relatado *</b></label>
+							<div class="controls">
+								<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text" placeholder="Problema Relatado" 
+									onkeyup="limite_textarea_prob(this.value)" style="width: 300px;" class="input-xlarge" required></textarea>
+								<span id="contProb">255</span> Restantes <br>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					<div class="col-md-8 ms-auto"> 
+						
+						
+						<div class="control-group">
+							<label class="control-label"><b>Observações</b></label>
+							<div class="controls">
+								<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text" placeholder="Observações da solicitação"
+									value="" onkeyup="limite_textarea_obs(this.value)" style="width: 300px;"class=input-xlarge"></textarea>
+									<span id="contObs">255</span> Restantes <br>
+							</div>
+						</div>
+						
+						
+					</div>
+			</div>
+			<br/>
+			
+			
+			
+			
+			<div class="row">
+					<div class="col-md-4">
+			
+						<div class="control-group">
+							<label class="control-label"><b>Categoria</b></label>
+							<div class="controls">
+								<select class="form-select" id="categoria"
+									name="categoria" style="width: 250px;">
+									<option></option>
+									<option value="HARDWARE">Hardware</option>
+									<option value="SOFTWARE">Software</option>
+									<option value="REDE">Rede</option>
+									<option value="CABEAMENTO">Cabeamento</option>
+									<option value="SMARTPHONE">Smartphone</option>
+									<option value="PROJETO">Projeto</option>
+									<option value="BACKUP">Backup</option>
+									<option value="OUTROS">Outros</option>
+								</select>
+							</div>
+						</div>
+			
+					</div>
+					
+					
+					<div class="col-md-8 ms-auto"> 
+						
+						
+						<div class="control-group">
+							<label class="control-label"><b>Classificação</b></label>
+							<div class="controls">
+								<select class="form-select" id="classificacao"
+									name="classificacao" style="width: 250px;">
+									<option></option>
+									<option value="PROBLEMA">Problema</option>
+									<option value="INCIDENTE">Incidente</option>
+									<option value="SOLICITACAO">Solicitação</option>
+									<option value="BACKUP">Backup</option>
+								</select>
+							</div>
+						</div>
+						
+					</div>
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+					<div class="col-md-4">
+					
+						<div class="control-group">
+							<label class="control-label"><b>Prioridade</b></label>
+							<div class="controls">
+								<select class="form-select" id="prioridade"
+									name="prioridade" style="width: 250px;">
+									<option></option>
+									<option value="CRITICA">Crítico</option>
+									<option value="ALTA">Alta</option>
+									<option value="MEDIA">Media</option>
+									<option value="BAIXA">Baixa</option>
+									<option value="PLANEJADA">Planejada</option>
+								</select>
+							</div>
+						</div>
+			
+			
+					</div>
+					
+					
+					<div class="col-md-8 ms-auto"> 
+						
+						<div class="control-group">
+							<label class="control-label"><b>Onsite / Offsite</b></label>
+							<div class="controls">
+								<select class="form-select" id="local"
+									name="local" style="width: 250px;">
+									<option></option>
+									<option value="ONSITE">Onsite</option>
+									<option value="OFFSITE">Offsite</option>
+								</select>
+							</div>
+						</div>
+						
+					</div>
+			</div>
+			
+			<br/>
+			
+			
+			<div class="row">
+					<div class="col-md-4">
+						
+						
+						<div class="control-group">
+							<label class="control-label"><b>Técnico Responsável</b></label>
+							<div class="controls">
+								<select class="form-select" alertaFuncionario" id="nomeFuncionario"
+									name="nomeFuncionario" style="width: 250px;">
+									 
+								</select>
+							</div>
+						</div>
+					
+					</div>
+					
+					
+					<div class="col-md-8 ms-auto"> 
+						
+						<div class="control-group">
+							<label class="control-label"><b>Status</b></label>
+							<div class="controls">
+								<select class="form-select alertaFuncionario" id="status" name="status" style="width: 250px;">
+									<option value="ABERTO">Abrir</option>
+									<option value="ANDAMENTO">Em andamento</option>
+									<option value="AGENDADO">Agendar</option>
+								</select>
+							</div>
+						</div>
+						
+					</div>
+					
+			</div>
+			
+			<br/>
+			<div class="control-group">
+				<label class="control-label"></label>
+				<div class="controls">
+					<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>
+					<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
+				</div>
+			</div>
+        	
+			
+			<div id="agendamentos" style="display: none">
+				<div class="control-group" id="opAgendamentoData">
+					<label class="control-label">Data de Agendamento</label>
+					<div class="controls">
+						<input id="datepicker" name="agendado" type="text" placeholder="Data de agendamento" maxlength="10"
+							value=""/> <i class="fa fa-calendar fa-lg"> </i>
+					</div>
+				</div><br/>
+				<div class="control-group" id="opAgendamentoHora">
+					<label class="control-label">Hora de Agendamento</label>
+					<div class="controls">
+						<input id="timepicker" name="agendadoHora" type="text" placeholder="Hora de agendamento" maxlength="10"
+							value="" /> <i class="fa fa-clock-o fa-lg"> </i>
+					</div>
+				</div>
+			</div><br/>
+			<br/><br/>
+			<input type="hidden" name="abriuChamado" id="abriuChamado" value="">
+			
+			<legend></legend>
+		</fieldset>
+	</div>
+		 
+		<br />
+		<footer class="text-center text-white">
+			<div class="container">
+				<!-- Grid container -->
+			<div class="p-4 pb-0">
+				<!-- Section: Social media -->
+				<section id="removetocel" class="mb-4">
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
+						role="button"></a>
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
+						role="button"></a>
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
+						role="button"></a>
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
+						role="button"></a>
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
+						role="button"></a>
+					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
+						role="button"></a>
+				</section>
+				<!-- Section: Social media -->
+			</div>
+			<!-- Grid container -->
+
+			<!-- Copyright -->
+			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+				2023 Copyright:
+				<a class="text-white" href="#">Techgold</a>
+			</div>
+			<!-- Copyright -->
+			</footer>
+		</footer>
+	</div>
+
+	
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+		</script>
+		
+	<script>
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/getData",
+			success: function (data) {
+				
+				for(var i= 0 ; i < data.clientes.length ; i++){
+					$('#nomeCliente').append('<option>'+ data.clientes[i] + '</option>');
+				}
+				
+				for(var i= 0 ; i < data.funcionarios.length ; i++){
+					$('#nomeFuncionario').append('<option>'+ data.funcionarios[i] + '</option>');
+				}
+				
+			},
+			error: function (e) {
+				alert(e);
+			}
+		});
+		
+		
+		function salvar() {
+			var solicitante = $('#solicitante').val();
+			var descricao = $('#descricao').val();
+			var afetado = $('#afetado').val();
+			var observacao = $('#observacao').val();
+			
+			var abertoPor = $('#abertoPor').val();
+			var prioridade = $('#prioridade').val();
+			var formaAbertura = $('#formaAbertura').val();
+			var categoria = $('#categoria').val();
+			
+			var classificacao = $('#classificacao').val();
+			var local = $('#local').val();
+			var status = $('#status').val();
+			var nomeCliente = $('#nomeCliente').val();
+			var nomeFuncionario = $('#nomeFuncionario').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/solicitacao",
+				data: JSON.stringify({
+					"solicitante": solicitante,
+					"descricao": descricao,
+					"afetado": afetado,
+					"observacao": observacao,
+					
+					"abertoPor": abertoPor,
+					"prioridade": prioridade,
+					"formaAbertura": formaAbertura,
+					"categoria": categoria,
+					
+					"classificacao": classificacao,
+					"local": local,
+					"status": status,
+					"nomeCliente": nomeCliente,
+					"nomeFuncionario": nomeFuncionario
+				}),
+				success: function (data) {
+					$('#solicitante').val("");
+					$('#descricao').val("");
+					$('#afetado').val("");
+					$('#observacao').val("");
+					
+					$('#abertoPor').val("");
+					$('#prioridade').val("");
+					$('#formaAbertura').val("");
+					$('#categoria').val("");
+					
+					$('#classificacao').val("");
+					$('#local').val("");
+					$('#status').val("");
+					$('#nomeCliente').val("");
+					$('#nomeFuncionario').val("");
+
+					alert(data);
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
+	</script>
+		
+<!--	<script src="assets/js/jquery-ui.js"></script>-->
+<!--	<script src="assets/js/jquery.ui.timepiker.js"></script>-->
+<!--	<script src="assets/js/calendario.js"></script>-->
+<!--	<script src="assets/js/controle-vip.js"></script>-->
+<!--	<script>-->
+<!--		  $( function() {-->
+<!--		    $( "#datepicker" ).datepicker();-->
+<!--		  } );-->
+<!--	 </script>-->
+</body>
+
+</html>

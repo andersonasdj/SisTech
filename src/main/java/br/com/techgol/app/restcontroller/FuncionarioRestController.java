@@ -35,6 +35,12 @@ public class FuncionarioRestController {
 		return service.listar();
 	}
 	
+	@GetMapping("/nomes")
+	public List<String> listaClientesNome(){
+		
+		return service.listarNomesCliente();
+	}
+	
 	
 	@GetMapping("/{id}")
 	public DtoFuncionarioEdit editar(@PathVariable Long id ) {

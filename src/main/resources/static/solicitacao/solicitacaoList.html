@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<title>TechPass - Clientes</title>
+	<title>Sistech - Solicitações</title>
 </head>
 
 <body>
@@ -111,30 +111,25 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div id="form-cliente">
-			
-			<label for="nome" class="form-laber">Nome</label>
-			<input type="text" id="nomeCliente" class="form-control" style="width: 400px;">
-			
-			<label for="endereco" class="form-laber">Endereco</label>
-			<input type="text" id="endereco" class="form-control" style="width: 400px;">
-			
-			<label for="telefone" class="form-laber">telefone</label>
-			<input type="text" id="telefone" class="form-control" style="width: 200px;">
-			
-			<label for="usuario" class="form-laber">Usuario</label>
-			<input type="text" id="usuario" class="form-control" style="width: 200px;">
-		
-			<label for="senha" class="form-laber">Senha</label>
-			<input type="password" id="senha" class="form-control" style="width: 300px;">
-			
-			<label for="cnpj" class="form-laber">CNPJ</label>
-			<input type="text" id="cnpj" class="form-control" style="width: 300px;">
-			
-		</div>
-		
-		<br />
-		<button class="btn btn-success" onclick="salvar()">Salvar</button>
+		<table class="table" id="tabela-usuarios">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Cliente</th>
+					<th scope="col">Solicitante</th>
+					<th scope="col">Afetado</th>
+					<th scope="col">Descrição</th>
+					<th scope="col">Prioridade</th>
+					<th scope="col">Responsável</th>
+					<th scope="col">Status</th>
+					<th scope="col">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				</tr>
+			</tbody>
+		</table>
 
 		<br /><br />
 		<footer class="text-center text-white">
@@ -168,6 +163,64 @@
 			<!-- Copyright -->
 			</footer>
 		</footer>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+							<div class="row">
+								<div class="col-md-4">
+									<label class="form-label mt-1" for="idmodal">ID</label>
+									<input type="text" id="idmodal" class="form-control" style="width: 120px;"readonly>  	
+								</div>
+								<div class="col-md-4 ms-auto"> 
+									<label class="form-label mt-1" for="role">Status</label>
+									<select class="form-select" id="statusmodal" aria-label="Default select example">
+				
+									</select>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-6 ms-auto">
+									<label class="form-label mt-1" for="descricaomodal">Descrição</label>
+									<textarea class="form-control" rows="3" id="descricaomodal" class="form-control"></textarea>
+								</div>
+								<div class="col-md-6 ms-auto"> 
+									<label class="form-label mt-1" for="observacaomodal">Observação</label>
+									<textarea class="form-control" rows="3" id="observacaomodal" class="form-control" ></textarea>
+								</div>
+							</div>
+					
+					
+							<label class="form-label mt-1" for="resolucaomodal">Resolução</label>
+							<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control" ></textarea>
+									
+							
+									
+							
+								
+					
+							
+							
+						  	
+						  	
+							
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
 		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
@@ -179,35 +232,112 @@
 		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
 		</script>
 	<script>
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/short",
+			success: function (data) {
+				var itens = data.content.map(i =>
+					'<tr id=linha' + i.id + '>'
+					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.solicitante + '</td>'
+					+ '<td>' + i.afetado + '</td>'
+					+ '<td>' + i.descricao + '</td>'
+					+ '<td>' + i.prioridade + '</td>'
+					+ '<td>' + i.nomeFuncionario + '</td>'
+					+ '<td>' + i.status + '</td>'
+					+ '<td>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
+					+ '</td>'
+					+ '</tr>'
+				);
+				$('#tabela-usuarios').append(itens);
+			},
+			error: function (e) {
+				alert(e);
+			}
+		});
 		
-		function salvar() {
-			var nomeCliente = $('#nomeCliente').val();
-			var endereco = $('#endereco').val();
-			var telefone = $('#telefone').val();
-			var usuario = $('#usuario').val();
-			var senha = $('#senha').val();
-			var cnpj = $('#cnpj').val();
-			
+		function editar(id) {
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				contentType: "application/json",
-				url: "/sistech/clientes",
-				data: JSON.stringify(
-					{
-						"nomeCliente": nomeCliente,
-						"endereco": endereco,
-					    "telefone": telefone,
-					    "usuario": usuario,
-					    "senha": senha,
-					    "cnpj": cnpj
-					}
-				),
+				url: "/sistech/solicitacao/busca/" + id,
 				success: function (data) {
+					
+					$('#idmodal').val("");
+					$('#descricaomodal').val("");
+					$('#resolucaomodal').val("");
+					$('#observacaomodal').val("");
+					$('#statusmodal').empty();
 
-					alert("salvo com sucesso!");
+					$('#idmodal').val(data.id);
+					$('#descricaomodal').val(data.descricao);
+					$('#resolucaomodal').val(data.resolucao);
+					$('#observacaomodal').val(data.observacao);
+					
+					if(data.status == 'ABERTO'){
+						$('#statusmodal').append("<option value="+data.status+">"+data.status+"</option>");
+						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+					}if(data.status == 'ANDAMENTO'){
+						$('#statusmodal').append("<option value="+data.status+">"+data.status+"</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
+						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+					}if(data.status == 'AGENDADO'){
+						$('#statusmodal').append("<option value="+data.status+">"+data.status+"</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
+						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+					}
+
 				},
 				error: function (e) {
 					alert(e);
+				}
+			});
+		}
+		
+		function atualiza() {
+			var id = $('#idmodal').val();
+			var descricao = $('#descricaomodal').val();
+			var resolucao = $('#resolucaomodal').val();
+			var observacao = $('#observacaomodal').val();
+			var status = $('#statusmodal').val();
+			
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/edicaoRapida",
+				data: JSON.stringify({
+					"id": id,
+					"descricao": descricao,
+					"resolucao": resolucao,
+					"observacao": observacao,
+					"status": status
+				}),
+				success: function (data) {
+					
+					var itens =
+						'<tr id=linha' + data.id + '>'
+						+ '<td id=name' + data.id + '>' + data.id + '</td>'
+						+ '<td>' + data.cliente.nomeCliente + '</td>'
+						+ '<td>' + data.solicitante + '</td>'
+						+ '<td>' + data.afetado + '</td>'
+						+ '<td>' + data.descricao + '</td>'
+						+ '<td>' + data.prioridade + '</td>'
+						+ '<td>' + data.funcionario.nomeFuncionario + '</td>'
+						+ '<td>' + data.status + '</td>'
+						+ '<td>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
+						+ '</td>'
+						+ '</tr>'
+					$('#linha' + data.id).remove();
+					$('#tabela-usuarios').append(itens);
+					alert("atualizado com sucesso");
+				},
+				error: function (e) {
+					alert(e.data);
 				}
 			});
 		}

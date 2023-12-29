@@ -32,12 +32,16 @@
 								Solicitações
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/sistech/cliente">Novo</a></li>
-								<li><a class="dropdown-item" href="/sistech/cliente/form">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
 								<li><a class="dropdown-item" href="#">Something else here</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Relatórios</a></li>
 							</ul>
 						</li>
 						
@@ -120,9 +124,9 @@
 			</tbody>
 		</table>
 
-		<br /><br />
+		<br />
 		<footer class="text-center text-white">
-			<div class="container fixed-bottom ">
+			<div class="container ">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->
@@ -191,11 +195,11 @@
 			contentType: "application/json",
 			url: "/sistech/clientes",
 			success: function (data) {
-				//alert(data.content[1].nomeCliente);
 				var itens = data.content.map(i =>
+				
 					'<tr id=linha' + i.id + '>'
 					+ '<td>' + i.nomeCliente + '</td>'
-					+ '<td>' + i.ativo + '</td>'
+					+ '<td>' + i.ativo + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
 					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'

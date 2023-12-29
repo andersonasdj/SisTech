@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +24,6 @@ import lombok.ToString;
 @ToString
 public class Funcionario extends Usuario {
 	
-	@NotBlank
 	@Column(length = 50)
 	private String nomeFuncionario;
 	@Enumerated(EnumType.STRING)
