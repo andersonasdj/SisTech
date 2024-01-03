@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,23 +38,23 @@ public class FuncionarioRestController {
 	
 	@GetMapping("/nomes")
 	public List<String> listaClientesNome(){
-		
 		return service.listarNomesCliente();
 	}
 	
 	
 	@GetMapping("/{id}")
 	public DtoFuncionarioEdit editar(@PathVariable Long id ) {
-		
 		return service.editar(id);
-		
 	}
 	
 	@DeleteMapping("/{id}")
 	public boolean deletar(@PathVariable Long id ) {
 		return service.deletar(id);
-		
 	}
 	
+	@PutMapping
+	public DtoListarFuncionarios atualizar(@RequestBody DtoFuncionarioEdit dados) {
+		return service.atualizarFuncionario(dados);
+	}
 	
 }

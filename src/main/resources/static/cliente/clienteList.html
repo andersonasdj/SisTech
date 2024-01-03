@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -133,18 +134,18 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(249, 240, 107);"
-							href="#!" role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(248, 228, 92);"
-							href="#!" role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(246, 211, 45);"
-							href="#!" role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(245, 194, 17);"
-							href="#!" role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(229, 165, 10);"
-							href="#!" role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(255, 190, 111);"
-							href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
+							role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -152,11 +153,11 @@
 
 				<!-- Copyright -->
 				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-					© 2022 Copyright:
+					© 2024 Copyright:
 					<a class="text-white" href="#">TechGold</a>
 				</div>
 				<!-- Copyright -->
-		</footer>
+
 		</footer>
 
 		<!-- Modal CLIENTE EDIT -->
@@ -171,12 +172,12 @@
 
 						<div class="row">
 							<div class="col-md-8">
-								<label class="form-label" for="nome">Nome</label>
+								<label class="form-label" for="nomemodal">Nome</label>
 								<input type="text" id="nomemodal" class="form-control"><br />
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<label class="form-label" for="id">ID</label>
+								<label class="form-label" for="idmodal">ID</label>
 								<input type="text" id="idmodal" class="form-control" readonly>
 								</di>
 							</div>
@@ -184,11 +185,11 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="nome">Usuario</label>
+								<label class="form-label" for="usuariomodal">Usuario</label>
 								<input type="text" id="usuariomodal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label" for="nome">Senha</label>
+								<label class="form-label" for="senhamodal">Senha</label>
 								<input type="password" id="senhamodal" class="form-control">
 
 								</di>
@@ -197,11 +198,11 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="nome">Telefone</label>
+								<label class="form-label" for="telefonemodal">Telefone</label>
 								<input type="text" id="telefonemodal" class="form-control">
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label" for="nome">CNPJ</label>
+								<label class="form-label" for="cnpjmodal">CNPJ</label>
 								<input type="text" id="cnpjmodal" class="form-control"><br />
 
 								</di>
@@ -210,7 +211,7 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<label class="form-label" for="nome">Endereço</label>
+								<label class="form-label" for="enderecomodal">Endereço</label>
 								<input type="text" id="enderecomodal" class="form-control"><br />
 							</div>
 						</div>
@@ -241,6 +242,7 @@
 					<table class="table" id="tabela-colaboradores">
 						<thead>
 							<tr>
+								<th scope="col">Id</th>
 								<th scope="col">Nome</th>
 								<th scope="col">Celular</th>
 								<th scope="col">Ação</th>
@@ -267,9 +269,9 @@
 					<div class="modal-body">
 						<label class="form-label" for="idAddModal">Id Cliente</label>
 						<input type="text" id="idAddModal" class="form-control" readonly>
-						<label class="form-label" for="id">Nome</label>
+						<label class="form-label" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
-						<label class="form-label" for="nome">Celular</label>
+						<label class="form-label" for="celularAddmodal">Celular</label>
 						<input type="text" id="celularAddmodal" class="form-control">
 					</div>
 					<div class="modal-footer">
@@ -320,7 +322,7 @@
 	<script>
 		function excluir(id) {
 			if (confirm("Tem certeza que deseja excluir o cliente de ID: " + id + " ?") == true) {
-				var t = "#linha" + id;
+				var t = "#linhaModalColaborador" + id;
 				var remove = $(t).closest('tr');
 				$.ajax({
 					type: "DELETE",
@@ -335,6 +337,28 @@
 					},
 					error: function (e) {
 						alert("Erro: Esse cliente possui notas cadastradas!");
+					}
+				});
+			}
+		}
+		
+		function excluirColaborador(id) {
+			if (confirm("Tem certeza que deseja excluir o colaborador de ID: " + id + " ?") == true) {
+				var t = "#linhaModalColaborador" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/colaborador/delete/" + id,
+					success: function () {
+						if (confirm("Tem certeza que deseja excluir?") == true) {
+							remove.fadeOut(1000, function () {
+								remove.remove();
+							});
+						}
+					},
+					error: function (e) {
+						alert("Erro ao tentar excluir o colaborador!");
 					}
 				});
 			}
@@ -377,12 +401,13 @@
 
 					var itens = data.map(i =>
 
-						'<tr id=linha' + i.id + '>'
+						'<tr id=linhaModalColaborador' + i.id + '>'
+						+ '<td>' + i.id + '</td>'
 						+ '<td>' + i.nomeColaborador + '</td>'
 						+ '<td>' + i.celular + '</t}>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addColaboradorModal" onclick=editar(' + i.id + ')>Editar</button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')>Excluir</button>'
 						+ '</td>'
 						+ '</tr>'
 					);
@@ -400,7 +425,6 @@
 			$('#idAddModal').val("");
 			$('#nomeAddmodal').val("");
 			$('#celularAddmodal').val("");
-
 			$('#idAddModal').val(id);
 		}
 
@@ -422,6 +446,8 @@
 					}
 				),
 				success: function (data) {
+					$('#nomeAddmodal').val("");
+					$('#celularAddmodal').val("");
 
 					alert("salvo com sucesso!");
 				},

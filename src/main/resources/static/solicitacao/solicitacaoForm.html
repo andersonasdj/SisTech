@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -6,12 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<link rel="stylesheet" href="asset/css/stylePersonal.css">
 	<!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-	<link rel="stylesheet" href="assets/css/jquery-ui.css">
-	<link rel="stylesheet" href="assets/css/jquery.ui.timepiker.css">
 
 	<title>Sistech | Solocitação Form</title>
 </head>
@@ -118,9 +117,7 @@
 			</div>
 		</nav>
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
-
 		<hr class="bg-danger border-2 border-top border-danger">
-
 
 		<div id="form-solicitacao">
 			<fieldset>
@@ -132,7 +129,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="control-group">
-							<label class="control-label"><b>Cliente</b></label>
+							<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
 							<div class="controls">
 								<select class="form-select" id="nomeCliente" name="nomeCliente" style="width: 250px;">
 									<option> </option>
@@ -147,7 +144,7 @@
 					</div>
 					<div class="col-md-8 ms-auto">
 						<div class="control-group">
-							<label class="control-label"><b>Forma de Abertura</b></label>
+							<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
 							<div class="controls">
 								<select class="form-select" id="formaAbertura" name="formaAbertura"
 									style="width: 250px;">
@@ -163,11 +160,10 @@
 					</div>
 				</div>
 
-
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label"><b>Solicitante</b></label>
+							<label class="control-label" for="solicitante"><b>Solicitante *</b></label>
 							<div class="controls">
 								<select class="form-control solicitante" name="solicitante" id="solicitante"
 									style="width: 250px;">
@@ -180,10 +176,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-8 ms-auto">
 
+					<div class="col-md-8 ms-auto">
 						<div class="form-group">
-							<label class="control-label"><b>Usuário Afetado *</b></label>
+							<label class="control-label" for="afetado"><b>Usuário Afetado *</b></label>
 							<div class="controls">
 								<select class="form-control usuario" name="afetado" id="afetado" style="width: 250px;">
 								</select>
@@ -193,17 +189,14 @@
 									style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<br />
 
-
 				<div class="row">
 					<div class="col-md-4">
-
 						<div class="control-group">
-							<label class="control-label"><b>Problema Relatado *</b></label>
+							<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
 							<div class="controls">
 								<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
 									placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)"
@@ -212,37 +205,25 @@
 
 							</div>
 						</div>
-
 					</div>
 
-
 					<div class="col-md-8 ms-auto">
+						<label class="control-label" for="observacao"><b>Observações</b></label>
+						<div class="controls">
+							<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
+								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)"
+								style="width: 300px;" class="input-xlarge" required></textarea>
+							<span id="contObs">255</span> Restantes <br>
 
-
-						<div class="control-group">
-							<label class="control-label"><b>Observações</b></label>
-							<div class="controls">
-								<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
-									placeholder="Observações da solicitação" value=""
-									onkeyup="limite_textarea_obs(this.value)" style="width: 300px;"
-									class=input-xlarge"></textarea>
-								<span id="contObs">255</span> Restantes <br>
-							</div>
 						</div>
-
-
 					</div>
 				</div>
 				<br />
 
-
-
-
 				<div class="row">
 					<div class="col-md-4">
-
 						<div class="control-group">
-							<label class="control-label"><b>Categoria</b></label>
+							<label class="control-label" for="categoria"><b>Categoria *</b></label>
 							<div class="controls">
 								<select class="form-select" id="categoria" name="categoria" style="width: 250px;">
 									<option></option>
@@ -257,15 +238,11 @@
 								</select>
 							</div>
 						</div>
-
 					</div>
 
-
 					<div class="col-md-8 ms-auto">
-
-
 						<div class="control-group">
-							<label class="control-label"><b>Classificação</b></label>
+							<label class="control-label" for="classificacao"><b>Classificação *</b></label>
 							<div class="controls">
 								<select class="form-select" id="classificacao" name="classificacao"
 									style="width: 250px;">
@@ -285,9 +262,8 @@
 
 				<div class="row">
 					<div class="col-md-4">
-
 						<div class="control-group">
-							<label class="control-label"><b>Prioridade</b></label>
+							<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
 							<div class="controls">
 								<select class="form-select" id="prioridade" name="prioridade" style="width: 250px;">
 									<option></option>
@@ -299,15 +275,11 @@
 								</select>
 							</div>
 						</div>
-
-
 					</div>
 
-
 					<div class="col-md-8 ms-auto">
-
 						<div class="control-group">
-							<label class="control-label"><b>Onsite / Offsite</b></label>
+							<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
 							<div class="controls">
 								<select class="form-select" id="local" name="local" style="width: 250px;">
 									<option></option>
@@ -316,34 +288,27 @@
 								</select>
 							</div>
 						</div>
-
 					</div>
 				</div>
 
 				<br />
 
-
 				<div class="row">
 					<div class="col-md-4">
-
-
 						<div class="control-group">
-							<label class="control-label"><b>Técnico Responsável</b></label>
+							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 							<div class="controls">
-								<select class="form-select" id="nomeFuncionario"
-									name="nomeFuncionario" style="width: 250px;">
-
+								<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"
+									style="width: 250px;">
+									<option></option>
 								</select>
 							</div>
 						</div>
-
 					</div>
 
-
 					<div class="col-md-8 ms-auto">
-
 						<div class="control-group">
-							<label class="control-label"><b>Status</b></label>
+							<label class="control-label" for="status"><b>Status *</b></label>
 							<div class="controls">
 								<select class="form-select alertaFuncionario" id="status" name="status"
 									style="width: 250px;">
@@ -353,14 +318,12 @@
 								</select>
 							</div>
 						</div>
-
 					</div>
-
 				</div>
 
 				<br />
 				<div class="control-group">
-					<label class="control-label"></label>
+					<label class="control-label" for="enviar"></label>
 					<div class="controls">
 						<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i
 								class="fa fa-floppy-o fa-lg"></i></button>
@@ -369,17 +332,16 @@
 					</div>
 				</div>
 
-
 				<div id="agendamentos" style="display: none">
 					<div class="control-group" id="opAgendamentoData">
-						<label class="control-label">Data de Agendamento</label>
+						<label class="control-label" for="datepicker">Data de Agendamento</label>
 						<div class="controls">
 							<input id="datepicker" name="agendado" type="text" placeholder="Data de agendamento"
 								maxlength="10" value="" /> <i class="fa fa-calendar fa-lg"> </i>
 						</div>
 					</div><br />
 					<div class="control-group" id="opAgendamentoHora">
-						<label class="control-label">Hora de Agendamento</label>
+						<label class="control-label" for="timepicker">Hora de Agendamento</label>
 						<div class="controls">
 							<input id="timepicker" name="agendadoHora" type="text" placeholder="Hora de agendamento"
 								maxlength="10" value="" /> <i class="fa fa-clock-o fa-lg"> </i>
@@ -418,14 +380,13 @@
 
 				<!-- Copyright -->
 				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-					2023 Copyright:
+					2024 Copyright:
 					<a class="text-white" href="#">Techgold</a>
 				</div>
 				<!-- Copyright -->
 		</footer>
 		</footer>
 	</div>
-
 
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
 		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
@@ -445,13 +406,12 @@
 			success: function (data) {
 
 				for (var i = 0; i < data.clientes.length; i++) {
-					$('#nomeCliente').append('<option value="'+ data.clientesId[i] +'">' + data.clientes[i] + '</option>');
+					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
 				}
 
 				for (var i = 0; i < data.funcionarios.length; i++) {
-					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i]+ '">' + data.funcionarios[i] + '</option>');
+					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
 				}
-
 			},
 			error: function (e) {
 				alert(e);
@@ -485,12 +445,10 @@
 					"descricao": descricao,
 					"afetado": afetado,
 					"observacao": observacao,
-
 					"abertoPor": abertoPor,
 					"prioridade": prioridade,
 					"formaAbertura": formaAbertura,
 					"categoria": categoria,
-
 					"classificacao": classificacao,
 					"local": local,
 					"status": status,
@@ -502,18 +460,15 @@
 					$('#descricao').val("");
 					$('#afetado').val("");
 					$('#observacao').val("");
-
 					$('#abertoPor').val("");
 					$('#prioridade').val("");
 					$('#formaAbertura').val("");
 					$('#categoria').val("");
-
 					$('#classificacao').val("");
 					$('#local').val("");
 					$('#status').val("");
 					$('#nomeCliente').val("");
 					$('#nomeFuncionario').val("");
-
 					alert(data);
 				},
 				error: function (e) {
@@ -524,57 +479,73 @@
 	</script>
 	<script>
 		$(document).ready(function () {
-    		var divCliente = $("#nomeCliente");
-    		divCliente.on("change", function(){
+			var divCliente = $("#nomeCliente");
+			divCliente.on("change", function () {
 
 				var nomeCliente = $("#nomeCliente").val();
-				
-	    		var json = {"nomeCliente" : nomeCliente};
-	    		
-		        $.ajax({
-		            url: "/sistech/colaborador/list/"+nomeCliente,
-		            type: "GET",
-		            data: json,
-		            success: function (data) {
-							
-							if (data != null) {
-		                    var boxSolicitante = $('#solicitante');
-		                    boxSolicitante.find('option').remove();
-		                    
-		                    var boxAfetado = $('#afetado');
-		                    boxAfetado.find('option').remove();
-		                    
-		                    $('#boxSolicitante').append('<option value="" slected="selected"></option>');
-		                    $('#boxAfetado').append('<option value="" slected="selected"></option>');
-		                    
-		                    
-		                  //  document.getElementById("cargoUsuario").innerHTML="";
-		                  //  document.getElementById("cargoSolicitante").innerHTML="";
-		                    
-		                    
-		                    $.each(data, function (i, item) {
-		                    	$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
-		                    });
-		                    	$('#solicitante').append('<option value="ProviderOne" slected="selected">ProviderOne</option>');
-		                    	$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
-		                    	
-		                    $.each(data, function (i, item) {
-		                    	$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
-		                    });	
-		                    	$('#afetado').append('<option value="ProviderOne" slected="selected">ProviderOne</option>');
-		                    	$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
-		                }
+				var json = {"nomeCliente": nomeCliente};
 
-		            },
-			        erro : function(request, status, error) {},
-			        complete : function(data) {}
-		        })
-	    		
-	    		
-    		}); 
-    	});
-		
-		
+				$.ajax({
+					url: "/sistech/colaborador/list/" + nomeCliente,
+					type: "GET",
+					data: json,
+					success: function (data) {
+
+						if (data != null) {
+							var boxSolicitante = $('#solicitante');
+							boxSolicitante.find('option').remove();
+
+							var boxAfetado = $('#afetado');
+							boxAfetado.find('option').remove();
+
+							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
+							$('#boxAfetado').append('<option value="" slected="selected"></option>');
+
+							//  document.getElementById("cargoUsuario").innerHTML="";
+							//  document.getElementById("cargoSolicitante").innerHTML="";
+
+							$.each(data, function (i, item) {
+								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#solicitante').append('<option value="ProviderOne" slected="selected">ProviderOne</option>');
+							$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
+
+							$.each(data, function (i, item) {
+								$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#afetado').append('<option value="ProviderOne" slected="selected">ProviderOne</option>');
+							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+						}
+					},
+					erro: function (request, status, error) { },
+					complete: function (data) { }
+				})
+			});
+		});
+
+
+	</script>
+	<script>
+		function limite_textarea_prob(valor) {
+			quant = 255;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contProb').innerHTML = resto;
+			} else {
+				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_obs(valor) {
+			quant = 255;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contObs').innerHTML = resto;
+			} else {
+				document.getElementById('observacao').value = valor.substr(0, quant);
+			}
+		}
 	</script>
 
 	<!--	<script src="assets/js/jquery-ui.js"></script>-->

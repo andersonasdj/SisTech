@@ -16,7 +16,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
-			+ "INNER JOIN funcionarios f ON s.funcionario_id=f.id", nativeQuery = true)
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id", nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page);
 
 }

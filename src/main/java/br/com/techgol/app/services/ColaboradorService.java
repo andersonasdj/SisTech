@@ -38,5 +38,13 @@ public class ColaboradorService {
 		
 	}
 	
+	public boolean existeColaborador(Long id) {
+		return repository.existsById(id);
+	}
+	
+	public void excluirColaborador(Long id) {
+		repository.deleteById(id);
+	}
+	
 	
 }

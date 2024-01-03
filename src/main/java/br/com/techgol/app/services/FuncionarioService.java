@@ -1,5 +1,6 @@
 package br.com.techgol.app.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,19 @@ public class FuncionarioService {
 		}else {
 			return null;
 		}
+	}
+	
+	@Transactional
+	public DtoListarFuncionarios atualizarFuncionario(DtoFuncionarioEdit dados) {
+	
+		Funcionario funcionario = repository.getReferenceById(dados.id());
+		funcionario.setUsuario(dados.usuario());
+		funcionario.setNomeFuncionario(dados.nomeFuncionario());
+		funcionario.setMfa(dados.mfa());
+		funcionario.setAtivo(dados.ativo());
+		funcionario.setFuncao(dados.funcao());
+		funcionario.setDataAtualizacao(new Date());
+		return new DtoListarFuncionarios(funcionario);
 		
 	}
 	

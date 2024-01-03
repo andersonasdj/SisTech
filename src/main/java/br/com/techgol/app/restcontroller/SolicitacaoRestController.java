@@ -93,11 +93,6 @@ public class SolicitacaoRestController {
 	public String cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
 		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
-
-		System.out.println(dados.nomeCliente());
-		System.out.println(dados.nomeFuncionario());
-		
-		
 		
 		if(dados.nomeFuncionario() != null) {
 			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());

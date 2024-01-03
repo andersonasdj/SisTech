@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,10 +12,11 @@
 <body>
 	<div class="container">
 		<br />
-			<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;">
+					SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +27,8 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
 						</li>
-						
-							<li class="nav-item dropdown">
+
+						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
 								Solicitações
@@ -44,7 +46,7 @@
 								<li><a class="dropdown-item" href="#">Relatórios</a></li>
 							</ul>
 						</li>
-						
+
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -90,7 +92,8 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#">Perfil</a></li>
 								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
@@ -100,9 +103,9 @@
 								<li><a class="dropdown-item" href="/sistech/roleslist">Roles</a></li>
 							</ul>
 						</li>
-							<a href="/techpass/logout">
-								<img src="../assets/img/logout.png" style="width: 60px; border: none;" >
-							</a>
+						<a href="/techpass/logout">
+							<img src="../assets/img/logout.png" style="width: 60px; border: none;">
+						</a>
 					</ul>
 				</div>
 			</div>
@@ -116,7 +119,7 @@
 				<tr>
 					<th scope="col">Nome</th>
 					<th scope="col">Usuário</th>
-					<th scope="col">Status</th>
+					<th scope="col">Ativo</th>
 					<th scope="col">MFA</th>
 					<th scope="col">Ação</th>
 				</tr>
@@ -129,38 +132,38 @@
 
 		<br /><br />
 		<footer class="text-center text-white">
-			<div class="container fixed-bottom ">
+			<div class="container">
 				<!-- Grid container -->
-			<div class="p-4 pb-0">
-				<!-- Section: Social media -->
-				<section class="mb-4">
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(249, 240, 107);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(248, 228, 92);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(246, 211, 45);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(245, 194, 17);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(229, 165, 10);" href="#!"
-						role="button"></a>
-					<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(255, 190, 111);" href="#!"
-						role="button"></a>
-				</section>
-				<!-- Section: Social media -->
-			</div>
-			<!-- Grid container -->
+				<div class="p-4 pb-0">
+					<!-- Section: Social media -->
+					<section class="mb-4">
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
+							role="button"></a>
+					</section>
+					<!-- Section: Social media -->
+				</div>
+				<!-- Grid container -->
 
-			<!-- Copyright -->
-			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-				© 2022 Copyright:
-				<a class="text-white" href="#">TechGold</a>
-			</div>
-			<!-- Copyright -->
-			</footer>
+				<!-- Copyright -->
+				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2024 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
 		</footer>
 
-		<!-- Modal -->
+		<!-- MODAL -  EDIÇÃO DE FUNCIONARIO -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -169,23 +172,53 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<label class="form-label mt-2" for="idmodal">ID</label>
-						<input type="text" id="idmodal" class="form-control" readonly>
-						<label class="form-label mt-2" for="nomemodal">Nome</label>
-						<input type="text" id="nomemodal" class="form-control">
-						<label class="form-label mt-2" for="usuariomodal">Usuario</label>
-						<input type="text" id="usuariomodal" class="form-control">
-						<label class="form-label mt-2" for="senhamodal">Senha</label>
-						<input type="password" id="senhamodal" class="form-control">
+
+						<div class="row">
+							<div class="col-md-9">
+								<label class="form-label mt-2" for="nomemodal">Nome *</label>
+								<input type="text" id="nomemodal" class="form-control">
+							</div>
+							<div class="col-md-3 ms-auto">
+								<label class="form-label mt-2" for="idmodal">ID</label>
+								<input type="text" id="idmodal" class="form-control" style="width: 95px;" readonly>
+								
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="usuariomodal">Usuario *</label>
+								<input type="text" id="usuariomodal" class="form-control">
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="funcaomodal">Função</label>
+								<select class="form-select" id="funcaomodal" aria-label="Default select example">
+
+								</select>
+							</div>
+						</div>
 						
-						<label class="form-label" for="role">Função</label>
-						<select class="form-select" id="funcaomodal" aria-label="Default select example" style="width: 180px;">
-	
-						</select>
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="statusModal">Status</label>
+								<select class="form-select" id="statusModal" aria-label="Default select example"
+									style="width: 180px;">
+		
+								</select>
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="mfaModal">MFA</label>
+								<select class="form-select" id="mfaModal" aria-label="Default select example"
+									style="width: 180px;">
+		
+								</select>
+							</div>
+						</div>
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizar()">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -205,7 +238,7 @@
 						<input type="text" id="idmodalsenha" class="form-control" style="width: 70px;" readonly>
 						<label class="form-label mt-2" for="senha">Nova Senha</label>
 						<button onclick="changeviewer()" style="border: none; background: none;">
-							<img src="./assets/img/olho.png" style="height: 15px">
+							<img src="../assets/img/olho.png" style="height: 15px">
 						</button>
 						<input type="password" id="senha" class="form-control mt-2" minlength="8" maxlength="50"
 							onKeyUp="verificaForcaSenha();" style="width: 300px;">
@@ -305,25 +338,45 @@
 				contentType: "application/json",
 				url: "/sistech/funcionarios/" + id,
 				success: function (data) {
-					
+
 					$('#idmodal').val("");
 					$('#nomemodal').val("");
 					$('#usuariomodal').val("");
 					$('#senhamodal').val("");
-					$("#funcaomodal").empty();
+					$('#funcaomodal').empty();
+					$('#statusModal').empty();
+					$('#mfaModal').empty();
+					
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeFuncionario);
 					$('#usuariomodal').val(data.usuario);
 					$('#senhamodal').val(data.senha);
-					if(data.funcao == 'ADMINISTRADOR'){
-					$('#funcaomodal').append("<option value="+data.funcao+">"+data.funcao+"</option>");
-						$('#funcaomodal').append("<option value=TECNICO>Tecnico</option>");
-					}else{
-						$('#funcaomodal').append("<option value="+data.funcao+">"+data.funcao+"</option>");
-						$('#funcaomodal').append("<option value=ADMINISTRADOR>Administrador</option>");
+					
+					if (data.funcao == 'ADMINISTRADOR') {
+						$('#funcaomodal').append("<option value=" + data.funcao + ">" + data.funcao + "</option>");
+						$('#funcaomodal').append("<option value=TECNICO>TECNICO</option>");
+					} else {
+						$('#funcaomodal').append("<option value=" + data.funcao + ">" + data.funcao + "</option>");
+						$('#funcaomodal').append("<option value=ADMINISTRADOR>ADMINISTRADOR</option>");
 					}
 					
+					if (data.ativo == true) {
+						$('#statusModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
+						$('#statusModal').append("<option value=false>false</option>");
+					} else {
+						$('#statusModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
+						$('#statusModal').append("<option value=true>true</option>");
+					}
+					
+					if (data.mfa == true) {
+						$('#mfaModal').append("<option value=" + data.mfa + ">" + data.mfa + "</option>");
+						$('#mfaModal').append("<option value=false>false</option>");
+					} else {
+						$('#mfaModal').append("<option value=" + data.mfa + ">" + data.mfa + "</option>");
+						$('#mfaModal').append("<option value=true>true</option>");
+					}
+
 
 				},
 				error: function (e) {
@@ -369,38 +422,44 @@
 			}
 
 		}
-		function atualiza() {
+		function atualizar() {
 			var id = $('#idmodal').val();
-			var name = $('#nomemodal').val();
-			var username = $('#usuariomodal').val();
-			var email = $('#emailmodal').val();
-			var roles = $('#roleModal').val();
-			
+			var nomeFuncionario = $('#nomemodal').val();
+			var usuario = $('#usuariomodal').val();
+			var funcao = $('#funcaomodal').val();
+			var ativo = $('#statusModal').val();
+			var mfa = $('#mfaModal').val();
+
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
 				url: "/sistech/funcionarios",
 				data: JSON.stringify({
 					"id": id,
-					"name": name,
-					"username": username,
-					"email": email,
-					"roles": roles
+					"nomeFuncionario": nomeFuncionario,
+					"usuario": usuario,
+					"funcao": funcao,
+					"ativo": ativo,
+					"mfa": mfa
 				}),
 				success: function (data) {
-					var itens =
+					var itens = 
+					
 						'<tr id=linha' + data.id + '>'
-						+ '<td>' + data.name + '</td>'
-						+ '<td>' + data.username + '</td>'
-						+ '<td>' + data.email + '</td>'
+						+ '<td id=name' + data.id + '>' + data.nomeFuncionario + '</td>'
+						+ '<td>' + data.usuario + '</td>'
+						+ '<td>' + data.ativo + '</td>'
+						+ '<td>' + data.mfa + '</td>'
 						+ '<td>'
 						+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + data.id + ')" style="border: none; background: none;">'
-						+ '<img src="./assets/img/key-change.png" style="height: 18px">'
+						+ '<img src="../assets/img/key-change.png" style="height: 18px">'
 						+ '</button>'
+	
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
 						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')>Excluir</button>'
 						+ '</td>'
 						+ '</tr>';
+						
 					$('#linha' + data.id).remove();
 					$('#tabela-usuarios').append(itens);
 					alert("atualizado com sucesso");
