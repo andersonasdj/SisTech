@@ -14,9 +14,11 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario FROM solicitacoes s "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura "
+			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
-			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id", nativeQuery = true)
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.excluido = false", nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page);
 
 }

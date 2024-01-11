@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.repository.FuncionarioRepository;
 import br.com.techgol.app.repository.SolicitacaoRepository;
+import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
 @RequestMapping("solicitacao")
@@ -37,6 +39,8 @@ public class SolicitacaoRestController {
 	private ClienteRepository repositoryCliente;
 	@Autowired
 	private FuncionarioRepository repositoryFuncionario;
+	@Autowired
+	private SolicitacaoService solicitacaoService;
 	
 	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
 	private List<Solicitacao> listar(){
@@ -64,13 +68,7 @@ public class SolicitacaoRestController {
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
 	private Solicitacao edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
 		
-		Solicitacao solicitacao = repository.getReferenceById(dados.id());
-		
-		solicitacao.setDescricao(dados.descricao());
-		solicitacao.setResolucao(dados.resolucao());
-		solicitacao.setObservacao(dados.observacao());
-		solicitacao.setStatus(dados.status());
-		return repository.save(solicitacao);
+		return solicitacaoService.edicaoRapida(dados);
 				
 	}
 	
@@ -78,7 +76,6 @@ public class SolicitacaoRestController {
 	public DtoDadosEdicaoRapida buscaPorId(@PathVariable Long id) {
 		
 		return new DtoDadosEdicaoRapida(repository.getReferenceById(id));
-		
 	}
 	
 	
@@ -104,5 +101,12 @@ public class SolicitacaoRestController {
 		return "Solicitação cadastrada com sucesso!";
 	}
 
+
+	@DeleteMapping("/excluir/{id}")
+	public String excluir(@PathVariable Long id) {
+		
+		return solicitacaoService.exclusaoLogigaSolicitacao(id);
+		
+	}
 	
 }

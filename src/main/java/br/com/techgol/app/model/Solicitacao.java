@@ -91,32 +91,36 @@ public class Solicitacao {
 
 
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente, Funcionario funcionario) {
-		this.setCliente(cliente);
-		this.setFormaAbertura(dados.formaAbertura());
-		this.setSolicitante(dados.solicitante());
-		this.setAfetado(dados.afetado());
-		this.setDescricao(dados.descricao());
-		this.setObservacao(dados.observacao());
-		this.setCategoria(dados.categoria());
-		this.setClassificacao(dados.classificacao());
-		this.setPrioridade(dados.prioridade());
-		this.setLocal(dados.local());
-		this.setFuncionario(funcionario);
-		this.setStatus(dados.status());
+		this.cliente = cliente;
+		this.formaAbertura = dados.formaAbertura();
+		this.solicitante = dados.solicitante();
+		this.afetado = dados.afetado();
+		this.descricao = dados.descricao();
+		this.observacao = dados.observacao();
+		this.categoria = dados.categoria();
+		this.classificacao = dados.classificacao();
+		this.prioridade = dados.prioridade();
+		this.local = dados.local();
+		this.funcionario = funcionario;
+		this.status = dados.status();
+		this.excluido = false;
+		this.dataAbertura = new Date();
 	}
 	
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente) {
-		this.setCliente(cliente);
-		this.setFormaAbertura(dados.formaAbertura());
-		this.setSolicitante(dados.solicitante());
-		this.setAfetado(dados.afetado());
-		this.setDescricao(dados.descricao());
-		this.setObservacao(dados.observacao());
-		this.setCategoria(dados.categoria());
-		this.setClassificacao(dados.classificacao());
-		this.setPrioridade(dados.prioridade());
-		this.setLocal(dados.local());
-		this.setStatus(dados.status());
+		this.cliente = cliente;
+		this.formaAbertura = dados.formaAbertura();
+		this.solicitante = dados.solicitante();
+		this.afetado = dados.afetado();
+		this.descricao = dados.descricao();
+		this.observacao = dados.observacao();
+		this.categoria = dados.categoria();
+		this.classificacao = dados.classificacao();
+		this.prioridade = dados.prioridade();
+		this.local = dados.local();
+		this.status = dados.status();
+		this.excluido = false;
+		this.dataAbertura = new Date();
 	}
 
 }

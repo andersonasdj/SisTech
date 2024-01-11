@@ -17,5 +17,6 @@ public interface SolicitacaoProjecao {
 	String getStatus();
 	String getNomeCliente();
 	String getNomeFuncionario();
+	String getDataAbertura();
 
 }
