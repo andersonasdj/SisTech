@@ -27,9 +27,7 @@ public class Usuario {
 	@Column(length = 20)
 	private String usuario;
 	@NotBlank
-	@Column(length = 50)
 	private String senha;
-	@Column(length = 100)
 	private String ip;
 	private Boolean ativo;
 	private Boolean mfa;

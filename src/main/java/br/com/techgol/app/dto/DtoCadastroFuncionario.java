@@ -1,6 +1,6 @@
 package br.com.techgol.app.dto;
 
-import br.com.techgol.app.model.enums.Funcao;
+import br.com.techgol.app.model.UserRole;
 import jakarta.validation.constraints.NotBlank;
 
 public record DtoCadastroFuncionario(
@@ -11,6 +11,6 @@ public record DtoCadastroFuncionario(
 		String usuario,
 		@NotBlank
 		String senha,
-		Funcao funcao) {
+		UserRole role) {
 
 }

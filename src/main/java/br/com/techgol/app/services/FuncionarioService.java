@@ -19,8 +19,15 @@ public class FuncionarioService {
 	@Autowired
 	FuncionarioRepository repository;
 	
+	
+	
+	
+	
+	
 	@Transactional
 	public void salvar(DtoCadastroFuncionario dados) {
+		
+		
 		
 		Funcionario funcionario = repository.save(new Funcionario(dados));
 		System.out.println(funcionario);
@@ -49,7 +56,7 @@ public class FuncionarioService {
 		funcionario.setNomeFuncionario(dados.nomeFuncionario());
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAtivo(dados.ativo());
-		funcionario.setFuncao(dados.funcao());
+		funcionario.setRole(dados.role());
 		funcionario.setDataAtualizacao(new Date());
 		return new DtoListarFuncionarios(funcionario);
 		

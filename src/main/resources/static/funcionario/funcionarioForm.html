@@ -126,11 +126,10 @@
 				onKeyUp="verificaForcaSenha();" style="width: 300px;">
 			<span id="password-status"></span><br />
 
-			<label class="form-label" for="funcao">Função</label>
-			
-			<select class="form-select" id="funcao" aria-label="Default select example" style="width: 180px;">
-					<option value="ADMINISTRADOR">Administrador</option>
-					<option value="TECNICO">Tecnico</option>
+			<label class="form-label" for="role">Role</label>
+			<select class="form-select" id="role" aria-label="Default select example" style="width: 180px;">
+					<option value="ADMIN">ADMIN</option>
+					<option value="USER">USER</option>
 			</select>
 
 		</div>
@@ -212,7 +211,7 @@
 			var nomeFuncionario = $('#nomeFuncionario').val();
 			var usuario = $('#usuario').val();
 			var senha = $('#senha').val();
-			var funcao = $('#funcao').val();
+			var role = $('#role').val();
 
 			$.ajax({
 				type: "POST",
@@ -222,7 +221,7 @@
 					"nomeFuncionario": nomeFuncionario,
 					"usuario": usuario,
 					"senha": senha,
-					"funcao": funcao
+					"role": role
 				}),
 				success: function (data) {
 					$('#nomeFuncionario').val("")

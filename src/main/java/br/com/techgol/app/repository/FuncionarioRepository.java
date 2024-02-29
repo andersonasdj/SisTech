@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.techgol.app.model.Funcionario;
 
@@ -18,4 +19,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	
 	
 	public Funcionario findBynomeFuncionario(String nomeFuncionario);
+	
+	public UserDetails findByUsuario(String usuario);
 }

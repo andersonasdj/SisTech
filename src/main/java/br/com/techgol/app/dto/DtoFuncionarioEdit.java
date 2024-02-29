@@ -3,6 +3,7 @@ package br.com.techgol.app.dto;
 import java.util.Date;
 
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.model.UserRole;
 import br.com.techgol.app.model.enums.Funcao;
 
 public record DtoFuncionarioEdit(
@@ -11,6 +12,7 @@ public record DtoFuncionarioEdit(
 		String usuario,
 		String senha,
 		Funcao funcao,
+		UserRole role,
 		Boolean ativo,
 		Boolean mfa,
 		Date dataAtualizacao,
@@ -24,6 +26,7 @@ public record DtoFuncionarioEdit(
 				f.getUsuario(), 
 				f.getSenha(), 
 				f.getFuncao(),
+				f.getRole(),
 				f.getAtivo(),
 				f.getMfa(),
 				f.getDataAtualizacao(),

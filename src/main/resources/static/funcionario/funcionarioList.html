@@ -353,12 +353,12 @@
 					$('#usuariomodal').val(data.usuario);
 					$('#senhamodal').val(data.senha);
 					
-					if (data.funcao == 'ADMINISTRADOR') {
-						$('#funcaomodal').append("<option value=" + data.funcao + ">" + data.funcao + "</option>");
-						$('#funcaomodal').append("<option value=TECNICO>TECNICO</option>");
+					if (data.role == 'ADMIN') {
+						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
+						$('#funcaomodal').append("<option value=USER>USER</option>");
 					} else {
-						$('#funcaomodal').append("<option value=" + data.funcao + ">" + data.funcao + "</option>");
-						$('#funcaomodal').append("<option value=ADMINISTRADOR>ADMINISTRADOR</option>");
+						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
+						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
 					}
 					
 					if (data.ativo == true) {
@@ -402,7 +402,7 @@
 				$.ajax({
 					type: "PUT",
 					contentType: "application/json",
-					url: "/techpass/usuario/senha",
+					url: "/sistech/usuario/senha",
 					data: JSON.stringify({
 						"id": idModalSenha,
 						"password": senhaModal
@@ -426,7 +426,7 @@
 			var id = $('#idmodal').val();
 			var nomeFuncionario = $('#nomemodal').val();
 			var usuario = $('#usuariomodal').val();
-			var funcao = $('#funcaomodal').val();
+			var role = $('#funcaomodal').val();
 			var ativo = $('#statusModal').val();
 			var mfa = $('#mfaModal').val();
 
@@ -438,7 +438,7 @@
 					"id": id,
 					"nomeFuncionario": nomeFuncionario,
 					"usuario": usuario,
-					"funcao": funcao,
+					"role": role,
 					"ativo": ativo,
 					"mfa": mfa
 				}),
