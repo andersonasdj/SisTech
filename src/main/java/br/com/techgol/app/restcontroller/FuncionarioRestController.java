@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
+import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.services.FuncionarioService;
 import jakarta.validation.Valid;
 
@@ -55,6 +56,11 @@ public class FuncionarioRestController {
 	@PutMapping
 	public DtoListarFuncionarios atualizar(@RequestBody DtoFuncionarioEdit dados) {
 		return service.atualizarFuncionario(dados);
+	}
+	
+	@PutMapping("/senha")
+	public String atualizar(@RequestBody DtoSenha dados) {
+		return service.atualizarSenha(dados);
 	}
 	
 }

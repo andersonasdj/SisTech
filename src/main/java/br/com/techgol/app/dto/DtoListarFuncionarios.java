@@ -8,7 +8,7 @@ public record DtoListarFuncionarios(
 		
 		Long id,
 		String nomeFuncionario,
-		String usuario,
+		String username,
 		Funcao funcao,
 		Boolean ativo,
 		Boolean mfa,
@@ -19,7 +19,7 @@ public record DtoListarFuncionarios(
 	
 	
 	public DtoListarFuncionarios(Funcionario f) {
-		this(f.getId(), f.getNomeFuncionario(), f.getUsuario(), f.getFuncao(), f.getAtivo(),
+		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getFuncao(), f.getAtivo(),
 				f.getMfa(), new ConverteDataToString().convert(f.getDataAtualizacao()), 
 				new ConverteDataToString().convert(f.getDataUltimoLogin()));
 	}

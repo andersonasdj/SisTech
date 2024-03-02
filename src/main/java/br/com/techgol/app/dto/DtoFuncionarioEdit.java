@@ -9,8 +9,8 @@ import br.com.techgol.app.model.enums.Funcao;
 public record DtoFuncionarioEdit(
 		Long id,
 		String nomeFuncionario,
-		String usuario,
-		String senha,
+		String username,
+		String password,
 		Funcao funcao,
 		UserRole role,
 		Boolean ativo,
@@ -23,8 +23,8 @@ public record DtoFuncionarioEdit(
 		this(
 				f.getId(), 
 				f.getNomeFuncionario(), 
-				f.getUsuario(), 
-				f.getSenha(), 
+				f.getUsername(), 
+				f.getPassword(), 
 				f.getFuncao(),
 				f.getRole(),
 				f.getAtivo(),

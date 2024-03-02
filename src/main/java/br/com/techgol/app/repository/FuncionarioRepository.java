@@ -20,5 +20,14 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	
 	public Funcionario findBynomeFuncionario(String nomeFuncionario);
 	
-	public UserDetails findByUsuario(String usuario);
+	
+	@Query(value = "SELECT * FROM funcionarios f  WHERE f.username=:username", nativeQuery = true)
+	public Funcionario buscarPorUsername(String username);
+	
+	
+	public UserDetails findByUsername(String username);
+
+	public Boolean existsByUsername(String username);
+	
+	public Boolean existsByNomeFuncionario(String nomeFuncionario);
 }

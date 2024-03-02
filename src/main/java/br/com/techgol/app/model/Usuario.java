@@ -2,7 +2,6 @@ package br.com.techgol.app.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,10 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @MappedSuperclass
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
@@ -24,14 +25,15 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	@Column(length = 20)
-	private String usuario;
+	protected String username;
 	@NotBlank
-	private String senha;
+	protected String password;
 	private String ip;
 	private Boolean ativo;
 	private Boolean mfa;
 	private Date dataAtualizacao;
 	private Date dataUltimoLogin;
+	
+	
 
 }

@@ -26,11 +26,12 @@ import lombok.ToString;
 @Table(name = "funcionarios")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Funcionario extends Usuario implements UserDetails {
 	
+	private static final long serialVersionUID = 3474835326939061879L;
 	@Column(length = 50)
 	private String nomeFuncionario;
 	@Enumerated(EnumType.STRING)
@@ -41,12 +42,12 @@ public class Funcionario extends Usuario implements UserDetails {
 	
 	public Funcionario(DtoCadastroFuncionario dados) {
 		
-		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.senha());
+		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.password());
 		
 		this.nomeFuncionario = dados.nomeFuncionario();
 		this.setRole(dados.role());
-		this.setUsuario(dados.usuario());
-		this.setSenha(senhaEncriptada);
+		this.setUsername(dados.username());
+		this.setPassword(senhaEncriptada);
 		this.setAtivo(true);
 		this.setMfa(false);
 		this.setDataAtualizacao(new Date());
@@ -62,37 +63,31 @@ public class Funcionario extends Usuario implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return getUsuario();
+		return username;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

@@ -6,9 +6,9 @@ public record DTOCadastroCliente(
 		@NotBlank
 		String nomeCliente,
 		@NotBlank
-		String usuario,
+		String username,
 		@NotBlank
-		String senha,
+		String password,
 		String endereco,
 		String telefone,
 		String cnpj

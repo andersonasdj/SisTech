@@ -10,9 +10,9 @@ public record DTOAtualizarCliente(
 		@NotBlank
 		String nomeCliente,
 		@NotBlank
-		String usuario,
+		String username,
 		@NotBlank
-		String senha,
+		String password,
 		String endereco,
 		String telefone,
 		String cnpj,
@@ -20,7 +20,7 @@ public record DTOAtualizarCliente(
 
 	public DTOAtualizarCliente(Cliente c) {
 		
-		this(c.getId(),c.getNomeCliente(),c.getUsuario(),c.getSenha(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo());
+		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo());
 	}
 
 }

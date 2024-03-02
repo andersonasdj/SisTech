@@ -8,9 +8,9 @@ public record DtoCadastroFuncionario(
 		@NotBlank
 		String nomeFuncionario,
 		@NotBlank
-		String usuario,
+		String username,
 		@NotBlank
-		String senha,
+		String password,
 		UserRole role) {
 
 }

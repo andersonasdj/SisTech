@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.techgol.app.dto.DTOCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
+import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
@@ -73,9 +74,9 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/busca/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
-	public DtoDadosEdicaoRapida buscaPorId(@PathVariable Long id) {
-		
-		return new DtoDadosEdicaoRapida(repository.getReferenceById(id));
+	public DtoDadosEdicaoRapidaMaisFuncionarios buscaPorId(@PathVariable Long id) {
+		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
+		return new DtoDadosEdicaoRapidaMaisFuncionarios(repository.getReferenceById(id), funcionarios);
 	}
 	
 	

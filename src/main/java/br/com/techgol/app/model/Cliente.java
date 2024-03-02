@@ -33,8 +33,8 @@ public class Cliente extends Usuario {
 	public Cliente(DTOCadastroCliente dados) {
 		
 		this.nomeCliente = dados.nomeCliente();
-		this.setUsuario(dados.usuario());
-		this.setSenha(dados.senha());
+		this.setUsername(dados.username());
+		this.setPassword(dados.password());
 		this.setAtivo(true);
 		this.setMfa(false);
 		this.setDataAtualizacao(new Date());
@@ -49,8 +49,8 @@ public Cliente(DTOAtualizarCliente dados) {
 		
 		this.setId(dados.id());
 		this.nomeCliente = dados.nomeCliente();
-		this.setUsuario(dados.usuario());
-		this.setSenha(dados.senha());
+		this.setUsername(dados.username());
+		this.setPassword(dados.password());
 		this.setAtivo(true);
 		this.setMfa(false);
 		this.setDataAtualizacao(new Date());

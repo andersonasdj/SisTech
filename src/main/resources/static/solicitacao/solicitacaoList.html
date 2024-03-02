@@ -76,20 +76,6 @@
 								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Notas
-							</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/sistech/listarnotas">Listar</a></li>
-								<li><a class="dropdown-item" href="/sistech/notaform">Novo</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
-							</ul>
-						</li>
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
@@ -185,19 +171,15 @@
 								<input type="text" id="idmodal" class="form-control" readonly>
 							</div>
 
-
-
 							<div class="col-md-4">
-									<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+									<label class="form-label mt-1" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
 									<div class="controls">
-										<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"
+										<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal"
 											style="width: 250px;">
 											<option></option>
 										</select>
 								</div>
 							</div>
-
-
 
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-1" for="statusmodal"><b>Status</b></label>
@@ -296,11 +278,18 @@
 					$('#resolucaomodal').val("");
 					$('#observacaomodal').val("");
 					$('#statusmodal').empty();
+					$('#nomeFuncionarioModal').empty();
 
 					$('#idmodal').val(data.id);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
+					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+					
 
 					if (data.status == 'ABERTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
@@ -349,7 +338,10 @@
 			var resolucao = $('#resolucaomodal').val();
 			var observacao = $('#observacaomodal').val();
 			var status = $('#statusmodal').val();
+			var nomeFuncionario = $('#nomeFuncionarioModal').val();
 
+			alert(nomeFuncionario);
+		
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -359,7 +351,8 @@
 					"descricao": descricao,
 					"resolucao": resolucao,
 					"observacao": observacao,
-					"status": status
+					"status": status,
+					"funcionario": nomeFuncionario
 				}),
 				success: function (data) {
 					

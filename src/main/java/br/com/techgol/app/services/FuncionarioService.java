@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
+import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
@@ -20,14 +22,23 @@ public class FuncionarioService {
 	FuncionarioRepository repository;
 	
 	
+	public Boolean existe(DtoCadastroFuncionario dados) {
+		
+		return repository.existsByUsername(dados.username());
+	}
 	
+	public Boolean existePorNomeFuncionario(String nome) {
 	
+		return repository.existsByNomeFuncionario(nome);
+	}
+	
+	public Funcionario buscaPorNome(String nome) {
+		return repository.findBynomeFuncionario(nome);
+	}
 	
 	
 	@Transactional
 	public void salvar(DtoCadastroFuncionario dados) {
-		
-		
 		
 		Funcionario funcionario = repository.save(new Funcionario(dados));
 		System.out.println(funcionario);
@@ -52,7 +63,7 @@ public class FuncionarioService {
 	public DtoListarFuncionarios atualizarFuncionario(DtoFuncionarioEdit dados) {
 	
 		Funcionario funcionario = repository.getReferenceById(dados.id());
-		funcionario.setUsuario(dados.usuario());
+		funcionario.setUsername(dados.username());
 		funcionario.setNomeFuncionario(dados.nomeFuncionario());
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAtivo(dados.ativo());
@@ -76,6 +87,18 @@ public class FuncionarioService {
 
 	public List<String> listarNomesCliente() {
 		return repository.listarNomesFuncionarios();
+	}
+
+	@Transactional
+	public String atualizarSenha(DtoSenha dados) {
+		if(repository.existsById(dados.id())) {
+			Funcionario f = repository.getReferenceById(dados.id());
+			f.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()) );
+			return "Senha alterada com sucesso!";
+		}else {
+			return "A senha não foi alterada";
+		}
+
 	}
 	
 }

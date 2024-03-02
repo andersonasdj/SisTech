@@ -8,12 +8,12 @@ public record DadosClienteEditDTO(
 		String nomeCliente,
 		String endereco,
 		String telefone,
-		String usuario,
-		String senha,
+		String username,
+		String password,
 		String cnpj) {
 	
 	public DadosClienteEditDTO(Cliente c) {
-		this(c.getId(),c.getAtivo(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsuario(),c.getSenha(),c.getCnpj());
+		this(c.getId(),c.getAtivo(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj());
 		
 	}
 	
