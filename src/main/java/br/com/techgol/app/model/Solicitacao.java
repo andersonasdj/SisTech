@@ -47,9 +47,9 @@ public class Solicitacao {
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
 	
-	@Column(length = 20)
+	@Column(length = 60)
 	private String solicitante;
-	@Column(length = 20)
+	@Column(length = 60)
 	private String afetado;
 	@Column(length = 300)
 	private String descricao;
@@ -57,7 +57,7 @@ public class Solicitacao {
 	private String resolucao;
 	@Column(length = 300)
 	private String observacao;
-	@Column(length = 20)
+	@Column(length = 60)
 	private String abertoPor;
 	@Enumerated(EnumType.STRING)
 	private Prioridade prioridade;
