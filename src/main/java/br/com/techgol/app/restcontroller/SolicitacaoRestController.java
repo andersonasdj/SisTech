@@ -59,8 +59,8 @@ public class SolicitacaoRestController {
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		
-		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesCliente(),
-				repositoryCliente.listarIdCliente(), 
+		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesClienteAtivos(),
+				repositoryCliente.listarIdClienteAtivos(), 
 				repositoryFuncionario.listarNomesFuncionarios(),
 				repositoryFuncionario.listarIdFuncionarios()
 				);

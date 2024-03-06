@@ -51,7 +51,7 @@ public Cliente(DTOAtualizarCliente dados) {
 		this.nomeCliente = dados.nomeCliente();
 		this.setUsername(dados.username());
 		this.setPassword(dados.password());
-		this.setAtivo(true);
+		this.setAtivo(dados.ativo());
 		this.setMfa(false);
 		this.setDataAtualizacao(new Date());
 		this.endereco = dados.endereco();

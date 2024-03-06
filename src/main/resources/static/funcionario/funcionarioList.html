@@ -281,10 +281,10 @@
 			var alfabeto = /([a-zA-Z])/;
 			var chEspeciais = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
 
-			if ($('#password').val().length < 8) {
+			if ($('#idpasswordmodal').val().length < 8) {
 				$('#password-status').html("<span style='color:red'>Fraco, insira no mínimo 8 caracteres</span>");
 			} else {
-				if ($('#password').val().match(numeros) && $('#password').val().match(alfabeto) && $('#password').val().match(chEspeciais)) {
+				if ($('#idpasswordmodal').val().match(numeros) && $('#idpasswordmodal').val().match(alfabeto) && $('#idpasswordmodal').val().match(chEspeciais)) {
 					$('#password-status').html("<span style='color:green'><b>Forte</b></span>");
 				} else {
 					$('#password-status').html("<span style='color:orange'>Médio, insira um caracter especial</span>");
@@ -292,11 +292,11 @@
 			}
 		}
 		function changeviewer() {
-			var tipo = $('#password').attr("type").toString();
+			var tipo = $('#idpasswordmodal').attr("type").toString();
 			if (tipo == 'password' && tipo != '') {
-				$('#password').attr("type", 'text');
+				$('#idpasswordmodal').attr("type", 'text');
 			} else {
-				$('#password').attr("type", 'password');
+				$('#idpasswordmodal').attr("type", 'password');
 			}
 		}
 		function excluir(id) {
@@ -372,19 +372,19 @@
 		}
 		function preencheModalPassword(id) {
 			$('#idmodalsenha').val("");
-			$('#password').val("");
+			$('#idpasswordmodal').val("");
 			$('#nomeUsuarioModal').val("");
+			$('#password-status').text('');
+			
 			$('#idmodalsenha').val(id);
 			$('#nomeUsuarioModal').text($('#name' + id).text());
 			$('#btnSave').removeAttr('disabled');
-			$('#password-status').text('');
 		}
 
 		function changePassword() {
 			var idModalSenha = $('#idmodalsenha').val();
 			var senhaModal = $('#idpasswordmodal').val();
 			
-			alert(idModalSenha + "  " + senhaModal )
 			if (senhaModal.length >= 8) {
 				$.ajax({
 					type: "PUT",

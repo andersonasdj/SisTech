@@ -1,8 +1,13 @@
 package br.com.techgol.app.restcontroller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
+import br.com.techgol.app.dto.DtoFuncionarioHome;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
+import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.services.FuncionarioService;
 import jakarta.validation.Valid;
 
@@ -31,10 +38,38 @@ public class FuncionarioRestController {
 		service.salvar(dados);
 	}
 	
-
 	@GetMapping
 	public List<DtoListarFuncionarios> listar(){
 		return service.listar();
+	}
+	
+	@GetMapping("/home")
+	public DtoFuncionarioHome funcionarioHome() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Funcionario funcionario = (Funcionario) authentication.getPrincipal();
+		Funcionario funcionarioBase = service.buscaPorNome(funcionario.getNomeFuncionario());
+		Date dataHoje = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		DateFormat dateFormatNumber = new SimpleDateFormat("HH");
+		
+		int hora = Integer.valueOf( dateFormatNumber.format(dataHoje)); 
+		String saudacao;
+		
+		if(hora >= 0 && hora < 12) {
+			saudacao = "Bom dia, ";
+		}if (hora > 12 && hora < 18) {
+			saudacao = "Boa tarde, ";
+		} else {
+			saudacao = "Boa noite, ";
+		}
+		
+		return new DtoFuncionarioHome(
+						saudacao, 
+						funcionario.getNomeFuncionario(), 
+						dateFormat.format(dataHoje),
+						service.buscaSolicitacoes(funcionarioBase)
+					);
 	}
 	
 	@GetMapping("/nomes")

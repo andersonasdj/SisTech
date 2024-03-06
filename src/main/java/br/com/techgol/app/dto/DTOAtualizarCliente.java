@@ -16,7 +16,7 @@ public record DTOAtualizarCliente(
 		String endereco,
 		String telefone,
 		String cnpj,
-		boolean ativo) {
+		Boolean ativo) {
 
 	public DTOAtualizarCliente(Cliente c) {
 		

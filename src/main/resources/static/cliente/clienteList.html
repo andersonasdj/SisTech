@@ -201,7 +201,17 @@
 								<input type="text" id="enderecomodal" class="form-control"><br />
 							</div>
 						</div>
-
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-2" for="ativoModal">Ativo</label>
+								<select class="form-select" id="ativoModal" aria-label="Default select example"
+									style="width: 180px;">
+		
+								</select>
+							</div>
+						</div>
+						</br>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 							<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
@@ -267,6 +277,53 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<!-- Modal EDIÇÃO DE COLABORADOR -->
+		<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					
+					<div class="modal-body">
+					
+						<div class="row">
+							<div class="col-md-8">
+								<label class="form-label" for="nomeEdicaoModal">Nome</label>
+								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label" for="idEdicaoModal">ID</label>
+								<input type="text" id="idEdicaoModal" class="form-control" readonly>
+								</di>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label" for="celularEdicaoModal">Celular</label>
+								<input type="text" id="celularEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="statusEdicaoModal">VIP</label>
+								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
+		
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
@@ -291,7 +348,7 @@
 					+ '<td>' + i.ativo + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
-					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + i.id + ')>Colaboradores</button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')>Colaboradores</button>'
 					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
 					+ '</td>'
 					+ '</tr>'
@@ -302,8 +359,6 @@
 				alert(e.totalPages);
 			}
 		});
-
-
 	</script>
 	<script>
 		function excluir(id) {
@@ -360,14 +415,24 @@
 					$('#idmodal').val("");
 					$('#nomemodal').val("");
 					$('#enderecomodal').val("");
+					$('#ativoModal').empty();
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
 					$('#enderecomodal').val(data.endereco);
 					$('#telefonemodal').val(data.telefone);
-					$('#usuariomodal').val(data.usuario);
-					$('#senhamodal').val(data.senha);
+					$('#usuariomodal').val(data.username);
+					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
+
+					if (data.ativo == true) {
+						$('#ativoModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
+						$('#ativoModal').append("<option value=false>false</option>");
+					} else {
+						$('#ativoModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
+						$('#ativoModal').append("<option value=true>true</option>");
+					}
+
 				},
 				error: function (e) {
 					alert(e);
@@ -375,7 +440,7 @@
 			});
 		}
 
-		function editarColaborador(id) {
+		function editarColaboradores(id) {
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
@@ -392,7 +457,7 @@
 						+ '<td>' + i.nomeColaborador + '</td>'
 						+ '<td>' + i.celular + '</t}>'
 						+ '<td>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addColaboradorModal" onclick=editar(' + i.id + ')>Editar</button>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')>Editar</button>'
 						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')>Excluir</button>'
 						+ '</td>'
 						+ '</tr>'
@@ -404,6 +469,72 @@
 					alert(e);
 				}
 			});
+		}
+		
+		
+		function editarColaborador(id){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit/" + id,
+				success: function (data) {
+					$('#idEdicaoModal').val("");
+					$('#nomeEdicaoModal').val("");
+					$('#celularEdicaoModal').val("");
+					$('#statusEdicaoModal').empty();
+					
+					
+					
+					$('#idEdicaoModal').val(data.id);
+					$('#nomeEdicaoModal').val(data.nomeColaborador);
+					$('#celularEdicaoModal').val(data.celular);
+					
+					if (data.vip == true) {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=false>false</option>");
+					} else {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=true>true</option>");
+					}
+
+					
+
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+			
+			
+		}		
+		
+		
+		function atualizarColaborador(){
+			var id = $('#idEdicaoModal').val();
+			var nomeColaborador = $('#nomeEdicaoModal').val();
+			var celular = $('#celularEdicaoModal').val();
+			var vip = $('#statusEdicaoModal').val();
+
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit",
+				data: JSON.stringify({
+					"id": id,
+					"nomeColaborador": nomeColaborador,
+					"celular": celular,
+					"vip": vip
+				}),
+				success: function (data) {
+
+					
+					alert("atualizado com sucesso");
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+			
 		}
 
 		function novoColaborador() {
@@ -447,11 +578,12 @@
 		function atualiza() {
 			var id = $('#idmodal').val();
 			var nomeCliente = $('#nomemodal').val();
-			var usuario = $('#usuariomodal').val();
-			var senha = $('#senhamodal').val();
+			var username = $('#usuariomodal').val();
+			var password = $('#senhamodal').val();
 			var telefone = $('#telefonemodal').val();
 			var cnpj = $('#cnpjmodal').val();
 			var endereco = $('#enderecomodal').val();
+			var ativo = $('#ativoModal').val();
 
 			$.ajax({
 				type: "PUT",
@@ -460,11 +592,12 @@
 				data: JSON.stringify({
 					"id": id,
 					"nomeCliente": nomeCliente,
-					"usuario": usuario,
-					"senha": senha,
+					"username": username,
+					"password": password,
 					"telefone": telefone,
 					"cnpj": cnpj,
-					"endereco": endereco
+					"endereco": endereco,
+					"ativo": ativo
 				}),
 				success: function (data) {
 

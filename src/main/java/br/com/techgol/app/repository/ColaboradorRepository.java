@@ -13,5 +13,9 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 	@Query(value = "SELECT co.id, co.nomeColaborador, co.celular, co.vip, co.cliente_id FROM colaboradores co "
 			+ "WHERE co.cliente_id=:id ", nativeQuery = true)
 	List<ColaboradorProjecao> buscaColaboradoresPorIdCliente(Long id);
+	
+	
+	@Query(value = "SELECT * FROM colaboradores co WHERE co.id=:id", nativeQuery = true)
+	public Colaborador buscaPorId(Long id);
 
 }

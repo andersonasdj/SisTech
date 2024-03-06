@@ -11,6 +11,7 @@ import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
+import br.com.techgol.app.dto.DtoSolicitacoesFuncionario;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,22 @@ public class FuncionarioService {
 
 	@Autowired
 	FuncionarioRepository repository;
+	
+	
+	
+	public DtoSolicitacoesFuncionario buscaSolicitacoes(Funcionario funcionario) {
+	
+		int abertas, agendadas, andamento;
+		abertas = repository.buscaPorFuncionario(funcionario.getId(), "ABERTO");
+		andamento = repository.buscaPorFuncionario(funcionario.getId(), "ANDAMENTO");
+		agendadas = repository.buscaPorFuncionario(funcionario.getId(), "AGENDADO");
+		System.out.println("Abertas: " + abertas);
+		System.out.println("Andamento: " + andamento);
+		System.out.println("Agendadas: " + agendadas);
+		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas);
+	}
+	
+	
 	
 	
 	public Boolean existe(DtoCadastroFuncionario dados) {
