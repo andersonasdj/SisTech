@@ -2,8 +2,6 @@ package br.com.techgol.app.model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import br.com.techgol.app.dto.DTOCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.model.enums.Categoria;
@@ -41,8 +39,10 @@ public class Solicitacao {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MM-yyyy HH:MM")
 	private Date dataAbertura;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAndamento;
 	
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;

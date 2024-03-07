@@ -341,19 +341,28 @@
 			contentType: "application/json",
 			url: "/sistech/clientes",
 			success: function (data) {
-				var itens = data.content.map(i =>
-
+				data.content.map(i => {
+					
+					
+					var status;
+					if(i.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					var itens = 
 					'<tr id=linha' + i.id + '>'
 					+ '<td>' + i.nomeCliente + '</td>'
-					+ '<td>' + i.ativo + '</t}>'
+					+ '<td>' + status + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
 					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')>Colaboradores</button>'
 					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
 					+ '</td>'
 					+ '</tr>'
-				);
 				$('#tabela-clientes').append(itens);
+				});
 			},
 			error: function (e) {
 				alert(e.totalPages);
@@ -424,13 +433,21 @@
 					$('#usuariomodal').val(data.username);
 					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
+					
+					var status;
+					if(data.ativo == true){
+						status = "Ativado";
+					}else{
+						status = "Desativado";
+					}
+					
 
 					if (data.ativo == true) {
-						$('#ativoModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
-						$('#ativoModal').append("<option value=false>false</option>");
+						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#ativoModal').append("<option value=false>Desativado</option>");
 					} else {
-						$('#ativoModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
-						$('#ativoModal').append("<option value=true>true</option>");
+						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#ativoModal').append("<option value=true>Ativado</option>");
 					}
 
 				},
@@ -600,11 +617,21 @@
 					"ativo": ativo
 				}),
 				success: function (data) {
+					
+					
+					var status;
+					if(data.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					
 
 					var itens =
 						'<tr id=linha' + data.id + '>'
 						+ '<td>' + data.nomeCliente + '</td>'
-						+ '<td>' + data.ativo + '</td>'
+						+ '<td>' + status + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
 						+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + data.id + ')>Colaboradores</button>'

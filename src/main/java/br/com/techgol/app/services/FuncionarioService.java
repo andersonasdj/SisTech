@@ -38,9 +38,6 @@ public class FuncionarioService {
 		agendadas = repository.buscaPorFuncionario(funcionario.getId(), "AGENDADO");
 		aguardando = repository.buscaPorFuncionario(funcionario.getId(), "AGUARDANDO");
 		total = abertas + agendadas + andamento + aguardando;
-		System.out.println("Abertas: " + abertas);
-		System.out.println("Andamento: " + andamento);
-		System.out.println("Agendadas: " + agendadas);
 		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas, aguardando, total);
 	}
 	
@@ -52,13 +49,8 @@ public class FuncionarioService {
 		agendadas = repository.buscaContagemGeral("AGENDADO");
 		aguardando = repository.buscaContagemGeral("AGUARDANDO");
 		total = abertas + agendadas + andamento + aguardando;
-		System.out.println("Abertas: " + abertas);
-		System.out.println("Andamento: " + andamento);
-		System.out.println("Agendadas: " + agendadas);
 		return new DtoSolicitacoesGerais(abertas, andamento, agendadas, aguardando, total);
 	}
-	
-	
 	
 	
 	public Boolean existe(DtoCadastroFuncionario dados) {
@@ -79,8 +71,7 @@ public class FuncionarioService {
 	@Transactional
 	public void salvar(DtoCadastroFuncionario dados) {
 		
-		Funcionario funcionario = repository.save(new Funcionario(dados));
-		System.out.println(funcionario);
+		repository.save(new Funcionario(dados));
 	}
 	
 	
@@ -120,9 +111,7 @@ public class FuncionarioService {
 		}else {
 			return false;
 		}
-		
 	}
-
 
 	public List<String> listarNomesCliente() {
 		return repository.listarNomesFuncionarios();

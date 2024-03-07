@@ -27,7 +27,6 @@ import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.repository.FuncionarioRepository;
-import br.com.techgol.app.repository.SolicitacaoRepository;
 import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
@@ -35,25 +34,22 @@ import br.com.techgol.app.services.SolicitacaoService;
 public class SolicitacaoRestController {
 	
 	@Autowired
-	private SolicitacaoRepository repository;
-	@Autowired
 	private ClienteRepository repositoryCliente;
 	@Autowired
 	private FuncionarioRepository repositoryFuncionario;
+	
+	
 	@Autowired
 	private SolicitacaoService solicitacaoService;
 	
 	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
 	private List<Solicitacao> listar(){
-		return repository.findAll();
+		return solicitacaoService.buscarTodos();
 	}
-	
 	
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<SolicitacaoProjecao> listaResumida(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		
-		return repository.listarSolicitacoes(page);
-		
+		return solicitacaoService.listarSolicitacoes(page);
 	}
 	
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS
@@ -76,38 +72,31 @@ public class SolicitacaoRestController {
 	@GetMapping("/busca/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
 	public DtoDadosEdicaoRapidaMaisFuncionarios buscaPorId(@PathVariable Long id) {
 		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
-		return new DtoDadosEdicaoRapidaMaisFuncionarios(repository.getReferenceById(id), funcionarios);
+		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios);
 	}
-	
 	
 	@PostMapping("/salvaLista") //RECEBE UMA LISTA DE SOLICITAÇÕES E SALVA NO BANCO
 	public void cadastrar(@RequestBody List<DTOCadastroSolicitacao> dados) {
-		
-		dados.forEach(s -> repository.save(new Solicitacao(s)));
-		
+		dados.forEach(s -> solicitacaoService.salvarNovaSolicitacao(new Solicitacao(s)));
 	}
 	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public String cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
 		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
-		
 		if(dados.nomeFuncionario() != null) {
 			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
-			repository.save(new Solicitacao(dados, cliente, funcionario));
+			solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente, funcionario));
 		}else {
-			repository.save(new Solicitacao(dados, cliente));
+			solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente));
 		}
 		
 		return "Solicitação cadastrada com sucesso!";
 	}
 
-
 	@DeleteMapping("/excluir/{id}")
 	public String excluir(@PathVariable Long id) {
-		
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
-		
 	}
 	
 }

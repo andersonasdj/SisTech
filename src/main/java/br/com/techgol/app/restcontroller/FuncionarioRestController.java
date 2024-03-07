@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,10 +44,9 @@ public class FuncionarioRestController {
 	
 	@GetMapping("/home")
 	public DtoFuncionarioHome funcionarioHome() {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Funcionario funcionario = (Funcionario) authentication.getPrincipal();
-		Funcionario funcionarioBase = service.buscaPorNome(funcionario.getNomeFuncionario());
+	
+		//Funcionario funcionario = (Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		Date dataHoje = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		DateFormat dateFormatNumber = new SimpleDateFormat("HH");
@@ -69,7 +67,7 @@ public class FuncionarioRestController {
 						saudacao, 
 						funcionario.getNomeFuncionario(), 
 						dateFormat.format(dataHoje),
-						service.buscaSolicitacoes(funcionarioBase),
+						service.buscaSolicitacoes(funcionario),
 						service.buscaSolicitacoesGerais()
 					);
 	}

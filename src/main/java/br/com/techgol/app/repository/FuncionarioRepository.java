@@ -35,10 +35,10 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	public Boolean existsByNomeFuncionario(String nomeFuncionario);
 	
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.funcionario_id=:funcionarioId AND s.status=:status", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.funcionario_id=:funcionarioId AND s.status=:status AND s.excluido=0", nativeQuery = true)
 	public int buscaPorFuncionario(Long funcionarioId, String status);
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status=:status", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status=:status AND s.excluido=0", nativeQuery = true)
 	public int buscaContagemGeral(String status);
 
 	
