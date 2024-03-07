@@ -295,14 +295,22 @@
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
 					} if (data.status == 'ANDAMENTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
 					} if (data.status == 'AGENDADO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+					} if (data.status == 'AGUARDANDO') {
+						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
+						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 					}
 
 				},

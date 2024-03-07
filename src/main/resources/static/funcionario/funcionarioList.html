@@ -254,11 +254,23 @@
 			contentType: "application/json",
 			url: "/sistech/funcionarios",
 			success: function (data) {
-				var itens = data.map(i =>
+				
+				
+				
+				data.map(i => {
+					
+					var status;
+					if(i.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.username + '</td>'
-					+ '<td>' + i.ativo + '</td>'
+					+ '<td>' + status + '</td>'
 					+ '<td>' + i.mfa + '</td>'
 					+ '<td>'
 					+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + i.id + ')" style="border: none; background: none;">'
@@ -269,8 +281,8 @@
 					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
 					+ '</td>'
 					+ '</tr>'
-				);
 				$('#tabela-usuarios').append(itens);
+				});
 			},
 			error: function (e) {
 				alert(e);
@@ -339,6 +351,13 @@
 					$('#usuariomodal').val(data.username);
 					$('#senhamodal').val(data.password);
 					
+					var status;
+					if(data.ativo == true){
+						status = "Ativado";
+					}else{
+						status = "Desativado";
+					}
+					
 					if (data.role == 'ADMIN') {
 						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
 						$('#funcaomodal').append("<option value=USER>USER</option>");
@@ -348,11 +367,11 @@
 					}
 					
 					if (data.ativo == true) {
-						$('#statusModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
-						$('#statusModal').append("<option value=false>false</option>");
+						$('#statusModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#statusModal').append("<option value=false>Desativado</option>");
 					} else {
-						$('#statusModal').append("<option value=" + data.ativo + ">" + data.ativo + "</option>");
-						$('#statusModal').append("<option value=true>true</option>");
+						$('#statusModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#statusModal').append("<option value=true>Ativado</option>");
 					}
 					
 					if (data.mfa == true) {
@@ -430,12 +449,20 @@
 					"mfa": mfa
 				}),
 				success: function (data) {
+					
+					var status;
+					if(data.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
 					var itens = 
 					
 						'<tr id=linha' + data.id + '>'
 						+ '<td id=name' + data.id + '>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.username + '</td>'
-						+ '<td>' + data.ativo + '</td>'
+						+ '<td>' + status + '</td>'
 						+ '<td>' + data.mfa + '</td>'
 						+ '<td>'
 						+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + data.id + ')" style="border: none; background: none;">'

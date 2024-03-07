@@ -29,7 +29,8 @@ public class SecurityConfiguration {
                 		.requestMatchers("/templates/**").permitAll()
                 		.requestMatchers("/assets/**").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/login").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/create").permitAll()
+                		.requestMatchers(HttpMethod.GET, "/create").permitAll()
                         .anyRequest().authenticated()
                 ).httpBasic().and()
                 .formLogin(formLogin ->

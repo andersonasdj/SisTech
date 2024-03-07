@@ -4,7 +4,8 @@ public record DtoFuncionarioHome(
 		String saudacao,
 		String nomeFuncionario,
 		String dataHoje,
-		DtoSolicitacoesFuncionario solicitacoes
+		DtoSolicitacoesFuncionario solicitacoes,
+		DtoSolicitacoesGerais gerais
 		) {
 	
 }

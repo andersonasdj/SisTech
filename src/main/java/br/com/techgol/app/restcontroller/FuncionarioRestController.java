@@ -56,19 +56,21 @@ public class FuncionarioRestController {
 		int hora = Integer.valueOf( dateFormatNumber.format(dataHoje)); 
 		String saudacao;
 		
+		
 		if(hora >= 0 && hora < 12) {
 			saudacao = "Bom dia, ";
-		}if (hora > 12 && hora < 18) {
+		} else if (hora >= 12 && hora < 18) {
 			saudacao = "Boa tarde, ";
 		} else {
 			saudacao = "Boa noite, ";
 		}
-		
+		System.out.println(hora);
 		return new DtoFuncionarioHome(
 						saudacao, 
 						funcionario.getNomeFuncionario(), 
 						dateFormat.format(dataHoje),
-						service.buscaSolicitacoes(funcionarioBase)
+						service.buscaSolicitacoes(funcionarioBase),
+						service.buscaSolicitacoesGerais()
 					);
 	}
 	

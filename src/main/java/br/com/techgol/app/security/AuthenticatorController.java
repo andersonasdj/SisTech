@@ -33,16 +33,14 @@ public class AuthenticatorController {
 	}
 	
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody DtoCadastroFuncionario dados ) {
+	@PostMapping("/create")
+	public String register(@RequestBody DtoCadastroFuncionario dados ) {
 		
-		if(service.existe(dados)) {
-			return ResponseEntity.badRequest().build();
-		}
-		else {
-			
+		if(service.existeFuncionarios() == 0) {
 			service.salvar(dados);
-			return ResponseEntity.ok().build();
+			return "Usuário cadastrado com sucesso!";
+		} else {
+			return "Erro!";
 		}
 		
 	}

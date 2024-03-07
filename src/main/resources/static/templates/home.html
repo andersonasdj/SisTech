@@ -119,10 +119,23 @@
 			<p><span class="linhaSolicitacoes" id="andamento"></span></p>
 			<p><span class="linhaSolicitacoes" id="agendadas"></span></p>
 	</div>
+	
+	<div class="container">
+		 <div class="row justify-content-between">
+		    <div class="col-4">
+				<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
+		    </div>
+		    <div class="col-4">
+		    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
+		    </div>
+		  </div>
+  		
+	</div>
+
 
 		<br/><br/>
 		<footer class="text-center text-white">
-			<div class="container fixed-bottom ">
+			<div class="container">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->
@@ -163,6 +176,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
 		</script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 		$(document).ready(function () {
 
@@ -185,6 +199,90 @@
 						}
 						
 						
+						const ctx = document.getElementById('minhasSolicitacoes');
+						
+						new Chart(ctx, {
+					    type: 'bar',
+					    data: {
+					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando'],
+					      datasets: [{
+					        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
+					        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando],
+					         backgroundColor: [
+							      'rgba(255, 99, 132, 0.2)',
+							      'rgba(255, 159, 64, 0.2)',
+							      'rgba(255, 205, 86, 0.2)',
+							      'rgba(75, 192, 192, 0.2)',
+							      'rgba(54, 162, 235, 0.2)',
+							      'rgba(153, 102, 255, 0.2)',
+							      'rgba(201, 203, 207, 0.2)'
+							    ],
+							    borderColor: [
+							      'rgb(255, 99, 132)',
+							      'rgb(255, 159, 64)',
+							      'rgb(255, 205, 86)',
+							      'rgb(75, 192, 192)',
+							      'rgb(54, 162, 235)',
+							      'rgb(153, 102, 255)',
+							      'rgb(201, 203, 207)'
+					    	],
+					        borderWidth: 1
+					      }]
+					    },
+					    options: {
+							 responsive: true,
+					      scales: {
+					        y: {
+					          beginAtZero: true
+					        }
+					      }
+					    }
+					  });
+					  
+					  
+					  const ctx2 = document.getElementById('geralSolicitacoes');
+					  
+					  
+					  new Chart(ctx2, {
+					    type: 'line',
+					    data: {
+					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando'],
+					      datasets: [{
+					        label: 'Solicitações gerais: ' + data.gerais.total,
+					        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.solicitacoes.aguardando],
+					         backgroundColor: [
+							      'rgba(255, 99, 132, 0.2)',
+							      'rgba(255, 159, 64, 0.2)',
+							      'rgba(255, 205, 86, 0.2)',
+							      'rgba(75, 192, 192, 0.2)',
+							      'rgba(54, 162, 235, 0.2)',
+							      'rgba(153, 102, 255, 0.2)',
+							      'rgba(201, 203, 207, 0.2)'
+							    ],
+							    borderColor: [
+							      'rgb(255, 99, 132)',
+							      'rgb(255, 159, 64)',
+							      'rgb(255, 205, 86)',
+							      'rgb(75, 192, 192)',
+							      'rgb(54, 162, 235)',
+							      'rgb(153, 102, 255)',
+							      'rgb(201, 203, 207)'
+					    	],
+					        borderWidth: 1
+					      }]
+					    },
+					    options: {
+							 responsive: true,
+					      scales: {
+					        y: {
+					          beginAtZero: true
+					        }
+					      }
+					    }
+					  });
+					  
+						
+						
 					},
 					erro: function (request, status, error) { 
 					},
@@ -194,6 +292,11 @@
 		
 		
 		
+	</script>
+	<script>
+		
+
+		  
 	</script>
 
 </body>

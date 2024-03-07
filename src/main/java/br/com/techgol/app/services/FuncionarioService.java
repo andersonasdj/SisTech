@@ -12,6 +12,7 @@ import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.dto.DtoSolicitacoesFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacoesGerais;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
@@ -21,19 +22,40 @@ public class FuncionarioService {
 
 	@Autowired
 	FuncionarioRepository repository;
+
 	
+	public int existeFuncionarios() {
+		
+		return repository.existsFuncionarios();
+	}
 	
 	
 	public DtoSolicitacoesFuncionario buscaSolicitacoes(Funcionario funcionario) {
 	
-		int abertas, agendadas, andamento;
+		int abertas, agendadas, andamento, aguardando, total;
 		abertas = repository.buscaPorFuncionario(funcionario.getId(), "ABERTO");
 		andamento = repository.buscaPorFuncionario(funcionario.getId(), "ANDAMENTO");
 		agendadas = repository.buscaPorFuncionario(funcionario.getId(), "AGENDADO");
+		aguardando = repository.buscaPorFuncionario(funcionario.getId(), "AGUARDANDO");
+		total = abertas + agendadas + andamento + aguardando;
 		System.out.println("Abertas: " + abertas);
 		System.out.println("Andamento: " + andamento);
 		System.out.println("Agendadas: " + agendadas);
-		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas);
+		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas, aguardando, total);
+	}
+	
+	public DtoSolicitacoesGerais buscaSolicitacoesGerais() {
+		
+		int abertas, agendadas, andamento, aguardando, total;
+		abertas = repository.buscaContagemGeral("ABERTO");
+		andamento = repository.buscaContagemGeral("ANDAMENTO");
+		agendadas = repository.buscaContagemGeral("AGENDADO");
+		aguardando = repository.buscaContagemGeral("AGUARDANDO");
+		total = abertas + agendadas + andamento + aguardando;
+		System.out.println("Abertas: " + abertas);
+		System.out.println("Andamento: " + andamento);
+		System.out.println("Agendadas: " + agendadas);
+		return new DtoSolicitacoesGerais(abertas, andamento, agendadas, aguardando, total);
 	}
 	
 	
