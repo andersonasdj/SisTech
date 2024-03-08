@@ -27,5 +27,11 @@ public class SolicitacaoController {
 		return "solicitacaoLegacyList.html";
 	}
 	
+	@GetMapping("/dashboard/geral")
+	public String dashboardAtivos() {
+		
+		return "dashboard.html";
+	}
+	
 
 }

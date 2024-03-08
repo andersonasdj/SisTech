@@ -75,6 +75,20 @@
 								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Dashboard
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Geral</a></li>
+								<li><a class="dropdown-item" href="#">Ativas</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
@@ -231,11 +245,12 @@
 					    },
 					    options: {
 							 responsive: true,
-					      scales: {
-					        y: {
-					          beginAtZero: true
-					        }
-					      }
+						     scales: {
+										 y: { // defining min and max so hiding the dataset does not change scale range
+									        min: 0,
+									        max: data.solicitacoes.total
+									      }
+								}
 					    }
 					  });
 					  
@@ -273,11 +288,12 @@
 					    },
 					    options: {
 							 responsive: true,
-					      scales: {
-					        y: {
-					          beginAtZero: true
-					        }
-					      }
+						      scales: {
+									 y: { // defining min and max so hiding the dataset does not change scale range
+								        min: 0,
+								        max: data.gerais.total
+								      }
+								}
 					    }
 					  });
 					  

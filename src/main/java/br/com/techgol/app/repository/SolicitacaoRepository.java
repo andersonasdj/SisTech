@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.techgol.app.model.Solicitacao;
+import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.Local;
+import br.com.techgol.app.model.enums.Prioridade;
+import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
@@ -20,5 +24,11 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
 			+ "WHERE s.excluido = false", nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page);
+
+	public int countByLocal(Local local);
+	public int countByClassificacao(Classificacao classificacao);
+	public int countByPrioridade(Prioridade prioridade);
+	public int countByStatus(Status status);
+	public int countByFuncionarioId(long id);
 
 }

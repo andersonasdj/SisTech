@@ -21,6 +21,7 @@ import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
+import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
@@ -98,5 +99,17 @@ public class SolicitacaoRestController {
 	public String excluir(@PathVariable Long id) {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
 	}
+	
+	//########################### DASHBOARD ###############################################
+	
+	
+	@GetMapping("/dashboard")
+	public DtoDashboard dashboard() {
+		
+		return solicitacaoService.geraDashboard();
+		
+	}
+	
+	//########################### DASHBOARD ###############################################
 	
 }

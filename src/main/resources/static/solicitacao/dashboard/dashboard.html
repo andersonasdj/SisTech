@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<title>SisTech - DashBoard</title>
+</head>
+
+<body>
+	<div class="container">
+		<br />
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../../assets/img/key.png" style="height: 18px;">
+					SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Solicitações
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/legacy">Listar legadas</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Relatórios</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Clientes
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Funcionarios
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Perfil</a></li>
+								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/roleslist">Roles</a></li>
+							</ul>
+						</li>
+						<a href="/sistech/logout">
+							<img src="../../assets/img/logout.png" style="width: 60px; border: none;">
+						</a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+
+		<hr class="bg-danger border-2 border-top border-danger">
+
+
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-3">
+					<h5 style="text-align: center;">Localicação das solicitações</h5>
+					<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>
+				</div>
+				<div class="col-3">
+					<h5 style="text-align: center;">Prioridade das solicitações</h5>
+					<canvas id="prioridadeSolicitacoes" style="height:60vh; width:40vw"></canvas>
+				</div>
+				<div class="col-3">
+					<h5 style="text-align: center;">Classificação das solicitações</h5>
+					<canvas id="classificacaoSolicitacoes" style="height:60vh; width:40vw"></canvas>
+				</div>
+			</div>
+		</div>
+		<hr class="bg-danger border-2 border-top border-danger">
+
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-3">
+					<h5 style="text-align: center;">Status das solicitações</h5>
+					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
+
+				</div>
+				<div class="col-3">
+				</div>
+				<div class="col-3">
+					<h5 style="text-align: center;">Solicitações por funcionarios</h5>
+					<canvas id="funcionariosSolicitacoes" style="height:60vh; width:40vw"></canvas>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<br /><br />
+
+
+		<br /><br />
+		<footer class="text-center text-white">
+			<div class="container">
+				<!-- Grid container -->
+				<div class="p-4 pb-0">
+					<!-- Section: Social media -->
+					<section class="mb-4">
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
+							role="button"></a>
+					</section>
+					<!-- Section: Social media -->
+				</div>
+				<!-- Grid container -->
+
+				<!-- Copyright -->
+				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2024 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			$.ajax({
+				url: "/sistech/solicitacao/dashboard",
+				type: "GET",
+				success: function (data) {
+
+					const ctx = document.getElementById('localSolicitacoes');
+
+					new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: ['Onsite', 'Offsite'],
+							datasets: [{
+								label: 'Local das Solicitações: ',
+								data: [data.onsite, data.offsite],
+								backgroundColor: [
+									'rgba(225, 15, 15, 0.5)',
+									'rgba(26, 26, 209, 0.5)',
+									'rgba(255, 205, 86, 0.2)',
+									'rgba(121, 125, 127, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(201, 203, 207, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132, 0.5)',
+									'rgb(0, 150, 255, 0.5)',
+									'rgb(255, 205, 86)',
+									'rgb(121, 125, 127)',
+									'rgb(54, 162, 235)',
+									'rgb(153, 102, 255)',
+									'rgb(201, 203, 207)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							scales: {
+								 y: { // defining min and max so hiding the dataset does not change scale range
+							        min: 0,
+							        max: data.totalSolicitacoes
+							      }
+							}
+						}
+					});
+
+
+					const ctx2 = document.getElementById('classificacaoSolicitacoes');
+
+
+					new Chart(ctx2, {
+						type: 'pie',
+						data: {
+							labels: ['Problema', 'Incidente', 'Solicitação', 'Backup'],
+							datasets: [{
+								label: 'CLassificação Solicitações: ',
+								data: [data.problema, data.incidente, data.solicitacao, data.backup],
+								backgroundColor: [
+									'rgba(225, 15, 15, 0.5)',
+									'rgba(218, 121, 12, 0.5)',
+									'rgba(26, 26, 209, 0.5)',
+									'rgba(12, 218, 205, 0.5)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(201, 203, 207, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132, 0.5)',
+									'rgb(0, 150, 255, 0.5)',
+									'rgb(255, 205, 86, 0.5)',
+									'rgb(121, 125, 127, 0.5)',
+									'rgb(54, 162, 235)',
+									'rgb(153, 102, 255)',
+									'rgb(201, 203, 207)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							
+						}
+					});
+
+
+
+					const ctx3 = document.getElementById('prioridadeSolicitacoes');
+
+					new Chart(ctx3, {
+						type: 'bar',
+						data: {
+							labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
+							datasets: [{
+								label: 'Prioridade das Solicitações: ',
+								data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
+								backgroundColor: [
+									'rgba(12, 218, 205, 0.5)',
+									'rgba(190, 218, 12, 0.5)',
+									'rgba(218, 121, 12, 0.5)',
+									'rgba(225, 15, 15, 0.5)',
+									'rgba(26, 26, 209, 0.5)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(201, 203, 207, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132, 0.5)',
+									'rgb(0, 150, 255, 0.5)',
+									'rgb(255, 205, 86, 0.5)',
+									'rgb(121, 125, 127, 0.5)',
+									'rgb(54, 162, 235, 0.5)',
+									'rgb(153, 102, 255)',
+									'rgb(201, 203, 207)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							scales: {
+								 y: { // defining min and max so hiding the dataset does not change scale range
+							        min: 0,
+							        max: data.totalSolicitacoes
+							      }
+							}
+						}
+					});
+					
+					
+					const ctx4 = document.getElementById('statusSolicitacoes');
+
+
+					new Chart(ctx4, {
+						type: 'pie',
+						data: {
+							labels: ['Aberto', 'Andamento', 'Agendado', 'Aguardando'],
+							datasets: [{
+								label: 'Status Solicitações: ',
+								data: [data.aberto, data.andamento, data.agendado, data.aguardando],
+								backgroundColor: [
+									'rgba(225, 15, 15, 0.5)',
+									'rgba(218, 121, 12, 0.5)',
+									'rgba(26, 26, 209, 0.5)',
+									'rgba(12, 218, 205, 0.5)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(201, 203, 207, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132, 0.5)',
+									'rgb(0, 150, 255, 0.5)',
+									'rgb(255, 205, 86, 0.5)',
+									'rgb(121, 125, 127, 0.5)',
+									'rgb(54, 162, 235)',
+									'rgb(153, 102, 255)',
+									'rgb(201, 203, 207)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							
+						}
+					});
+					
+					const ctx5 = document.getElementById('funcionariosSolicitacoes');
+
+					var stringLabel=[];
+					var stringLabel2=[];
+					
+					for(var i=0; i < data.totalFuncionarios ; i++){
+						stringLabel[i]=data.funcionario[i].nome;
+						stringLabel2[i]=data.funcionario[i].qtd;
+					}
+
+					new Chart(ctx5, {
+						type: 'doughnut',
+						data: {
+							labels: stringLabel,
+							datasets: [{
+								label: 'Status Solicitações: ',
+								data: stringLabel2,
+								backgroundColor: [
+									'rgba(225, 15, 15, 0.5)',
+									'rgba(218, 121, 12, 0.5)',
+									'rgba(6, 26, 209, 0.5)',
+									'rgba(12, 218, 205, 0.5)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(201, 203, 207, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132, 0.5)',
+									'rgb(0, 150, 255, 0.5)',
+									'rgb(255, 205, 86, 0.5)',
+									'rgb(121, 125, 127, 0.5)',
+									'rgb(54, 162, 235)',
+									'rgb(153, 102, 255)',
+									'rgb(201, 203, 207)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							
+						}
+					});
+
+
+				},
+				erro: function (request, status, error) {
+				},
+				complete: function (data) { }
+			})
+		});
+		
+			
+
+	</script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 package br.com.techgol.app.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
+import br.com.techgol.app.dto.DtoListarFuncionarios;
+import br.com.techgol.app.dto.dashboard.DtoDashboard;
+import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
+import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.Local;
+import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.SolicitacaoRepository;
@@ -48,11 +55,9 @@ public class SolicitacaoService {
 			}
 		}
 		if(dados.status().equals(Status.ANDAMENTO)) {
-			System.out.println(dados.status());
 			solicitacao.setDataAndamento(new Date());
 		}
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
-			System.out.println(dados.status());
 			solicitacao.setDataAndamento(null);
 		}
 		
@@ -80,5 +85,39 @@ public class SolicitacaoService {
 		solicitacao.setAbertoPor(funcionarioBase.getNomeFuncionario());
 		repository.save(solicitacao);
 	}
+
+	public DtoDashboard geraDashboard() {
+		
+		int onsite,offsite,problema,incidente,solicitacao,backup,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,totalSolicitacoes;
+		
+		onsite = repository.countByLocal(Local.ONSITE);
+		offsite = repository.countByLocal(Local.OFFSITE);
+		problema = repository.countByClassificacao(Classificacao.PROBLEMA);
+		incidente = repository.countByClassificacao(Classificacao.INCIDENTE);
+		solicitacao = repository.countByClassificacao(Classificacao.SOLICITACAO);
+		backup = repository.countByClassificacao(Classificacao.BACKUP);
+		baixa = repository.countByPrioridade(Prioridade.BAIXA);
+		media = repository.countByPrioridade(Prioridade.MEDIA);
+		alta = repository.countByPrioridade(Prioridade.ALTA);
+		critica = repository.countByPrioridade(Prioridade.CRITICA);
+		planejada = repository.countByPrioridade(Prioridade.PLANEJADA);
+		aberto = repository.countByStatus(Status.ABERTO);
+		andamento = repository.countByStatus(Status.ANDAMENTO);
+		agendado = repository.countByStatus(Status.AGENDADO);
+		aguardando = repository.countByStatus(Status.AGUARDANDO);
+		totalSolicitacoes = aberto+andamento+agendado+aguardando;
+		
+		List<DtoListarFuncionarios> funcionarios = funcionarioService.listar();
+		List<DtoDashboardResumoFuncionario> listaDto = new ArrayList<>();
+		
+		int totalFUncionarios = funcionarios.size();
+		
+		funcionarios.forEach(f -> {
+			listaDto.add(new DtoDashboardResumoFuncionario(f.nomeFuncionario(),repository.countByFuncionarioId(f.id())));
+		});
+		
+		
+		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,backup,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,totalSolicitacoes,totalFUncionarios,listaDto);
+	} 
 
 }
