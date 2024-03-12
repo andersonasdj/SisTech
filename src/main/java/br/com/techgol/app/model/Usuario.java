@@ -1,6 +1,6 @@
 package br.com.techgol.app.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,8 +31,8 @@ public class Usuario {
 	private String ip;
 	private Boolean ativo;
 	private Boolean mfa;
-	private Date dataAtualizacao;
-	private Date dataUltimoLogin;
+	private LocalDateTime dataAtualizacao;
+	private LocalDateTime dataUltimoLogin;
 	
 	
 

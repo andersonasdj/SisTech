@@ -4,7 +4,7 @@ import br.com.techgol.app.model.Cliente;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DTOAtualizarCliente(
+public record DtoAtualizarCliente(
 		@NotNull
 		Long id,
 		@NotBlank
@@ -18,7 +18,7 @@ public record DTOAtualizarCliente(
 		String cnpj,
 		Boolean ativo) {
 
-	public DTOAtualizarCliente(Cliente c) {
+	public DtoAtualizarCliente(Cliente c) {
 		
 		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo());
 	}

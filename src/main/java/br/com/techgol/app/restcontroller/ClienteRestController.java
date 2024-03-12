@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.techgol.app.dto.DTOAtualizarCliente;
-import br.com.techgol.app.dto.DTOCadastroCliente;
+import br.com.techgol.app.dto.DtoAtualizarCliente;
+import br.com.techgol.app.dto.DtoCadastroCliente;
 import br.com.techgol.app.dto.DadosClienteEditDTO;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.repository.ClienteRepository;
@@ -30,16 +30,16 @@ public class ClienteRestController {
 	private ClienteRepository repository;
 	
 	@PostMapping
-	public void cadastrar(@RequestBody DTOCadastroCliente dados) {
+	public void cadastrar(@RequestBody DtoCadastroCliente dados) {
 		
 		repository.save(new Cliente(dados));
 		
 	}
 	
 	@PutMapping
-	public DTOAtualizarCliente atualizar(@RequestBody DTOAtualizarCliente dados) {
+	public DtoAtualizarCliente atualizar(@RequestBody DtoAtualizarCliente dados) {
 		
-		return new DTOAtualizarCliente(repository.save(new Cliente(dados)));
+		return new DtoAtualizarCliente(repository.save(new Cliente(dados)));
 		
 	}
 	

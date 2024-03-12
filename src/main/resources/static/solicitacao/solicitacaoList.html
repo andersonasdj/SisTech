@@ -35,8 +35,7 @@
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;">
-					SisTech</a>
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -47,8 +46,8 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
 						</li>
-
-						<li class="nav-item dropdown">
+						
+							<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
 								Solicitações
@@ -59,14 +58,14 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/legacy">Listar legadas</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
 								<li><a class="dropdown-item" href="#">Relatórios</a></li>
 							</ul>
 						</li>
-
+						
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -95,11 +94,24 @@
 								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Dashboard
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Geral</a></li>
+								<li><a class="dropdown-item" href="#">Ativas</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</li>
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#">Perfil</a></li>
 								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
@@ -109,9 +121,9 @@
 								<li><a class="dropdown-item" href="/sistech/roleslist">Roles</a></li>
 							</ul>
 						</li>
-						<a href="/techpass/logout">
-							<img src="../assets/img/logout.png" style="width: 60px; border: none;">
-						</a>
+							<a href="/sistech/logout">
+								<img src="../assets/img/logout.png" style="width: 60px; border: none;" >
+							</a>
 					</ul>
 				</div>
 			</div>
@@ -123,6 +135,7 @@
 		<div class="container">
 		  <div class="row">
 		    <div class="col">
+					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-info" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -135,26 +148,28 @@
 		  </div>
 		</div>
 
-		<table class="table table-hover table-bordered results" id="tabela-usuarios">
-			<thead>
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Data Abertura</th>
-					<th scope="col">Cliente</th>
-					<th scope="col">Solicitante</th>
-					<th scope="col">Afetado</th>
-					<th scope="col">Descrição</th>
-					<th scope="col">Prioridade</th>
-					<th scope="col">Responsável</th>
-					<th scope="col">Status</th>
-					<th scope="col">Ações</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered results" id="tabela-usuarios">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Data Abertura</th>
+						<th scope="col">Cliente</th>
+						<th scope="col">Solicitante</th>
+						<th scope="col">Afetado</th>
+						<th scope="col">Descrição</th>
+						<th scope="col">Prioridade</th>
+						<th scope="col">Responsável</th>
+						<th scope="col">Status</th>
+						<th scope="col">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 		<br /><br />
 		<footer class="text-center text-white">
@@ -248,6 +263,165 @@
 			</div>
 		</div>
 		<!-- Modal -->
+		
+		
+		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
+		<div class="modal fade" id="modalNovaSolicitacao" tabindex="-1" aria-labelledby="modalNovaSolicitacao" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="nomeCliente"><b>Cliente *</b></label>
+								<div class="controls">
+									<select class="form-select" id="nomeCliente" name="nomeCliente" style="width: 250px;">
+										<option> </option>
+									</select>
+									<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
+									<span id="vip" style="font-size: 18px ;color:#04B404 ; font-weight:bold"></span>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="solicitante"><b>Solicitante *</b></label>
+								<div class="controls">
+									<select class="form-control solicitante" name="solicitante" id="solicitante"
+										style="width: 250px;">
+										<option> </option>
+									</select>
+									<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+									</span>
+									<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+									</span>
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
+								<div class="controls">
+									<select class="form-control usuario" name="afetado" id="afetado" style="width: 240px;">
+									</select>
+									<span id="cargoUsuario"
+										style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+									<span id="celularUsuario"
+										style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
+										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)"
+										style="width: 380px;" class="input-xlarge" required></textarea>
+									<span id="contProb">300</span> Restantes <br>
+								</div>
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
+										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)"
+										style="width: 370px;" class="input-xlarge" required></textarea>
+									<span id="contObs">300</span> Restantes <br>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="categoria"><b>Categoria *</b></label>
+								<div class="controls">
+									<div class="controls">
+										<select class="form-select" id="categoria" name="categoria" style="width: 250px;">
+											<option value="SOFTWARE">Software</option>
+											<option value="HARDWARE">Hardware</option>
+											<option value="OUTROS">Outros</option>
+											<option value="REDE">Rede</option>
+											<option value="CABEAMENTO">Cabeamento</option>
+											<option value="SMARTPHONE">Smartphone</option>
+											<option value="PROJETO">Projeto</option>
+											<option value="BACKUP">Backup</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
+								<div class="controls">
+									<select class="form-select" id="classificacao" name="classificacao"
+										style="width: 250px;">
+										<option value="INCIDENTE">Incidente</option>
+										<option value="PROBLEMA">Problema</option>
+										<option value="SOLICITACAO">Solicitação</option>
+										<option value="BACKUP">Backup</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-1" for="prioridade"><b>Prioridade *</b></label>
+								<div class="controls">
+									<select class="form-select" id="prioridade" name="prioridade" style="width: 240px;">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="local"><b>Onsite / Offsite *</b></label>
+								<div class="controls">
+									<select class="form-select" id="local" name="local" style="width: 250px;">
+										<option value="OFFSITE">Offsite</option>
+										<option value="ONSITE">Onsite</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+								<div class="controls">
+									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"
+										style="width: 250px;">
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-1" for="status"><b>Status *</b></label>
+								<div class="controls">
+									<select class="form-select alertaFuncionario" id="status" name="status"
+										style="width: 240px;">
+										<option value="ABERTO">Abrir</option>
+										<option value="ANDAMENTO">Em andamento</option>
+										<option value="AGENDADO">Agendar</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="salvar()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
+		
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
 		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
@@ -335,32 +509,31 @@
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
 					}
-					
 
 					if (data.status == 'ABERTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusmodal').append("<option value=FINALIZAR>FINALIZAR</option>");
+						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
 					} if (data.status == 'ANDAMENTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusmodal').append("<option value=FINALIZAR>FINALIZAR</option>");
+						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
 					} if (data.status == 'AGENDADO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusmodal').append("<option value=FINALIZAR>FINALIZAR</option>");
+						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
 					} if (data.status == 'AGUARDANDO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusmodal').append("<option value=FINALIZAR>FINALIZAR</option>");
+						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
 					}
 
 				},
@@ -408,18 +581,130 @@
 					"resolucao": resolucao,
 					"observacao": observacao,
 					"status": status,
-					"funcionario": nomeFuncionario
+					"nomeFuncionario": nomeFuncionario
+				}),
+				success: function (data) {
+					
+					if(data.status == "FINALIZADO"){
+						$('#linha' + data.id).remove();
+						alert("atualizado com sucesso");
+						
+					}else{
+						var funcionario;
+						if(data.nomeFuncionario == null){
+							funcionario = "Não Atribuído";
+						}else{
+							funcionario = data.nomeFuncionario;
+						}
+						
+						var status;
+						if(data.status == "ABERTO"){
+							status = "class='table-danger'"
+						}if(data.status == "AGENDADO"){
+							status = "class='table-warning'"
+						}if(data.status == "ANDAMENTO"){
+							status = "class='table-info'"
+						}if(data.status == "AGUARDANDO"){
+							status = "class='table-secondary'"
+						}
+						
+						
+						var itens =
+						'<tr '+ status + ' id=linha' + data.id + '>'
+						+ '<td id=name' + data.id + '>' + data.id + '</td>'
+						+ '<td>' + data.dataAbertura + '</td>'
+						+ '<td>' + data.nomeCliente + '</td>'
+						+ '<td>' + data.solicitante + '</td>'
+						+ '<td>' + data.afetado + '</td>'
+						+ '<td>' + data.descricao + '</td>'
+						+ '<td>' + data.prioridade + '</td>'
+						+ '<td>' + funcionario + '</td>'
+						+ '<td>' + data.status + '</td>'
+						+ '<td>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')><i class="bi bi-trash"></i></button>'
+						+ '</td>'
+						+ '</tr>'
+						$('#linha' + data.id).remove();
+						$('#tabela-usuarios').append(itens);
+					}
+					
+				},
+				error: function (e) {
+					alert(e.data);
+				}
+			});
+		}
+		
+		//######################################### MODAL SOLICITACAO NOVA #############################################
+		
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/getData",
+			success: function (data) {
+
+				for (var i = 0; i < data.clientes.length; i++) {
+					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+				}
+
+				for (var i = 0; i < data.funcionarios.length; i++) {
+					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+				}
+			},
+			error: function (e) {
+				alert(e);
+			}
+		});
+		
+		function salvar() {
+			var solicitante = $('#solicitante').val();
+			var descricao = $('#descricao').val();
+			var afetado = $('#afetado').val();
+			var observacao = $('#observacao').val();
+
+			var abertoPor = $('#abertoPor').val();
+			var prioridade = $('#prioridade').val();
+			var formaAbertura = $('#formaAbertura').val();
+			var categoria = $('#categoria').val();
+
+			var classificacao = $('#classificacao').val();
+			var local = $('#local').val();
+			var status = $('#status').val();
+			var nomeCliente = $('#nomeCliente').val();
+			var nomeFuncionario = $('#nomeFuncionario').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/solicitacao",
+				data: JSON.stringify({
+					"solicitante": solicitante,
+					"descricao": descricao,
+					"afetado": afetado,
+					"observacao": observacao,
+					"abertoPor": abertoPor,
+					"prioridade": prioridade,
+					"formaAbertura": formaAbertura,
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"local": local,
+					"status": status,
+					"nomeCliente": nomeCliente,
+					"nomeFuncionario": nomeFuncionario
 				}),
 				success: function (data) {
 					
 					var funcionario;
-					if(data.funcionario == null){
+					var status;
+					
+					if(data.nomeFuncionario == null){
 						funcionario = "Não Atribuído";
 					}else{
-						funcionario = data.funcionario.nomeFuncionario;
+						funcionario = data.nomeFuncionario;
 					}
 					
-					var status;
+				
 					if(data.status == "ABERTO"){
 						status = "class='table-danger'"
 					}if(data.status == "AGENDADO"){
@@ -435,7 +720,7 @@
 						'<tr '+ status + ' id=linha' + data.id + '>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.cliente.nomeCliente + '</td>'
+						+ '<td>' + data.nomeCliente + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
 						+ '<td>' + data.descricao + '</td>'
@@ -449,13 +734,81 @@
 						+ '</tr>'
 					$('#linha' + data.id).remove();
 					$('#tabela-usuarios').append(itens);
-					alert("atualizado com sucesso");
+					alert("Solicitação adicionada com sucesso!");
 				},
 				error: function (e) {
-					alert(e.data);
+					alert("Verifique se todos os Box foram marcados!!");
 				}
 			});
 		}
+		
+		function limite_textarea_prob(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contProb').innerHTML = resto;
+			} else {
+				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_obs(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contObs').innerHTML = resto;
+			} else {
+				document.getElementById('observacao').value = valor.substr(0, quant);
+			}
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			var divCliente = $("#nomeCliente");
+			divCliente.on("change", function () {
+
+				var nomeCliente = $("#nomeCliente").val();
+				var json = {"nomeCliente": nomeCliente};
+
+				$.ajax({
+					url: "/sistech/colaborador/list/" + nomeCliente,
+					type: "GET",
+					data: json,
+					success: function (data) {
+
+						if (data != null) {
+							var boxSolicitante = $('#solicitante');
+							boxSolicitante.find('option').remove();
+
+							var boxAfetado = $('#afetado');
+							boxAfetado.find('option').remove();
+
+							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
+							$('#boxAfetado').append('<option value="" slected="selected"></option>');
+
+							//  document.getElementById("cargoUsuario").innerHTML="";
+							//  document.getElementById("cargoSolicitante").innerHTML="";
+
+							$.each(data, function (i, item) {
+								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#solicitante').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
+
+							$.each(data, function (i, item) {
+								$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+						}
+					},
+					erro: function (request, status, error) { },
+					complete: function (data) { }
+				})
+			});
+		});
+		//######################################### MODAL SOLICITACAO NOVA #############################################
 	</script>
 	<script>
 		$(document).ready(function() {
@@ -485,6 +838,8 @@
 				  });
 		});
 	</script>
+	
+	
 </body>
 
 </html>

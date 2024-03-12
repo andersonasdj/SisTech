@@ -1,7 +1,7 @@
 package br.com.techgol.app.model;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -50,7 +50,7 @@ public class Funcionario extends Usuario implements UserDetails {
 		this.setPassword(senhaEncriptada);
 		this.setAtivo(true);
 		this.setMfa(false);
-		this.setDataAtualizacao(new Date());
+		this.setDataAtualizacao(LocalDateTime.now());
 		
 	}
 

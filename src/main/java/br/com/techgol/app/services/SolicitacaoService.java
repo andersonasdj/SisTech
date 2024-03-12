@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
+import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.model.Funcionario;
@@ -48,9 +49,11 @@ public class SolicitacaoService {
 	public Solicitacao edicaoRapida(DtoDadosEdicaoRapida dados) {
 		
 		Solicitacao solicitacao = repository.getReferenceById(dados.id());
-		if(dados.funcionario() != null && dados.funcionario() != "") {
-			if(funcionarioService.existePorNomeFuncionario(dados.funcionario())) {
-				Funcionario funcionario = funcionarioService.buscaPorNome(dados.funcionario());
+		
+		System.out.println("#############" + dados.status());
+		if(dados.nomeFuncionario() != null && dados.nomeFuncionario() != "") {
+			if(funcionarioService.existePorNomeFuncionario(dados.nomeFuncionario())) {
+				Funcionario funcionario = funcionarioService.buscaPorNome(dados.nomeFuncionario());
 				solicitacao.setFuncionario(funcionario);
 			}
 		}
@@ -60,11 +63,14 @@ public class SolicitacaoService {
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
 			solicitacao.setDataAndamento(null);
 		}
-		
+		if(dados.status().equals(Status.FINALIZADO)) {
+			solicitacao.setDataFinalizado(new Date());
+		}
+		System.out.println(solicitacao.getStatus());
+		solicitacao.setStatus(dados.status());
 		solicitacao.setDescricao(dados.descricao());
 		solicitacao.setResolucao(dados.resolucao());
 		solicitacao.setObservacao(dados.observacao());
-		solicitacao.setStatus(dados.status());
 		return repository.save(solicitacao);
 	}
 
@@ -72,18 +78,20 @@ public class SolicitacaoService {
 		return repository.findAll();
 	}
 
-	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page) {
-		return repository.listarSolicitacoes(page);
+	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean exluida) {
+		return repository.listarSolicitacoes(page, status, exluida);
+		
 	}
 
 	public Solicitacao buscarPorId(Long id) {
 		return repository.getReferenceById(id);
 	}
 
-	public void salvarNovaSolicitacao(Solicitacao solicitacao) {
+	public DtoSolicitacaoComFuncionario salvarNovaSolicitacao(Solicitacao solicitacao) {
 		Funcionario funcionarioBase = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		solicitacao.setAbertoPor(funcionarioBase.getNomeFuncionario());
-		repository.save(solicitacao);
+		return new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
+		
 	}
 
 	public DtoDashboard geraDashboard() {

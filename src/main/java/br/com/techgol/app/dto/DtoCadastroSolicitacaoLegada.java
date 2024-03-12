@@ -2,7 +2,7 @@ package br.com.techgol.app.dto;
 
 import java.util.Date;
 
-public record DTOCadastroSolicitacao(
+public record DtoCadastroSolicitacaoLegada(
 		
 		String usuario,
         Date dataAbertura,

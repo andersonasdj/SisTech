@@ -16,15 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.techgol.app.dto.DTOCadastroSolicitacao;
+import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
+import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
+import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.repository.FuncionarioRepository;
@@ -49,8 +51,8 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> listaResumida(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		return solicitacaoService.listarSolicitacoes(page);
+	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), false);
 	}
 	
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS
@@ -64,9 +66,9 @@ public class SolicitacaoRestController {
 	}
 	
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
-	private Solicitacao edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
-		
-		return solicitacaoService.edicaoRapida(dados);
+	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
+		System.out.println("#### STATUS EDICAORAPIDA" + dados.status() );
+		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
 				
 	}
 	
@@ -77,22 +79,21 @@ public class SolicitacaoRestController {
 	}
 	
 	@PostMapping("/salvaLista") //RECEBE UMA LISTA DE SOLICITAÇÕES E SALVA NO BANCO
-	public void cadastrar(@RequestBody List<DTOCadastroSolicitacao> dados) {
+	public void cadastrar(@RequestBody List<DtoCadastroSolicitacaoLegada> dados) {
 		dados.forEach(s -> solicitacaoService.salvarNovaSolicitacao(new Solicitacao(s)));
 	}
 	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
-	public String cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
+	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
 		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
+		System.out.println("#############" + dados.nomeFuncionario());
 		if(dados.nomeFuncionario() != null) {
 			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
-			solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente, funcionario));
+			return solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente, funcionario));
 		}else {
-			solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente));
+			return solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente));
 		}
-		
-		return "Solicitação cadastrada com sucesso!";
 	}
 
 	@DeleteMapping("/excluir/{id}")

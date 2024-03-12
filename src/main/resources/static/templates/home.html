@@ -118,8 +118,8 @@
 					<aside class="">
 								<img id="imagem" src="./assets/img/login.png" style="width: 180px" class="img-thumbnail" alt="...">
 						<div id="perfil">
-							
 							<p class="asid-linha"> <span id="dataHoje"> </p>
+							<p class="asid-linha"> <span id="dataUltimoLogin"> </p>
 							<p class="asid-linha"> <span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b>   </p>
 						</div>
 					</aside>
@@ -142,8 +142,7 @@
 		    <div class="col-4">
 		    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
 		    </div>
-		  </div>
-  		
+		 </div>
 	</div>
 
 
@@ -200,7 +199,8 @@
 					success: function (data) {
 						$('#saudacao').text(data.saudacao);
 						$('#nomeFuncionario').text(data.nomeFuncionario);
-						$('#dataHoje').text(data.dataHoje);
+						$('#dataHoje').text("Data de hoje: " + data.dataHoje);
+						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
 						
 						if(data.solicitacoes.abertas >= 1){
 							$('#abertas').text("Solicitações abertas: " + data.solicitacoes.abertas);

@@ -2,7 +2,7 @@ package br.com.techgol.app.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DTOCadastroCliente(
+public record DtoCadastroCliente(
 		@NotBlank
 		String nomeCliente,
 		@NotBlank

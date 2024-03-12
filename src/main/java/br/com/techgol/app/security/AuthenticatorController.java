@@ -1,10 +1,6 @@
 package br.com.techgol.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,21 +14,8 @@ import br.com.techgol.app.services.FuncionarioService;
 public class AuthenticatorController {
 	
 	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
 	private FuncionarioService service;
-	
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody AuthenticationDTO data)  {
-		
-		String senhaEncriptada = new BCryptPasswordEncoder().encode(data.password());
-		var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), senhaEncriptada);
-		var auth = this.authenticationManager.authenticate(usernamePassword);
-		return ResponseEntity.ok().build();
-	}
-	
-	
+
 	@PostMapping("/create")
 	public String register(@RequestBody DtoCadastroFuncionario dados ) {
 		
@@ -47,3 +30,16 @@ public class AuthenticatorController {
 	
 
 }
+//	@Autowired
+//	private AuthenticationManager authenticationManager;
+
+//	@PostMapping("/login")
+//	public ResponseEntity<?> login(@RequestBody AuthenticationDTO data)  {
+//		
+//		System.out.println("CONTROLLER LOGIN POST");
+//		
+//		String senhaEncriptada = new BCryptPasswordEncoder().encode(data.password());
+//		var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), senhaEncriptada);
+//		var auth = this.authenticationManager.authenticate(usernamePassword);
+//		return ResponseEntity.ok().build();
+//	}

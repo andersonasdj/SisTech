@@ -2,7 +2,7 @@ package br.com.techgol.app.model;
 
 import java.util.Date;
 
-import br.com.techgol.app.dto.DTOCadastroSolicitacao;
+import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
@@ -44,6 +44,9 @@ public class Solicitacao {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAndamento;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataFinalizado;
+	
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
 	
@@ -77,7 +80,7 @@ public class Solicitacao {
 	private Boolean excluido;
 	
 	
-	public Solicitacao(DTOCadastroSolicitacao dados) {
+	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
 		
 		this.afetado = dados.usuario();
         this.dataAbertura = dados.dataAbertura();

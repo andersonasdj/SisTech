@@ -2,6 +2,7 @@ package br.com.techgol.app.restcontroller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -62,11 +63,11 @@ public class FuncionarioRestController {
 		} else {
 			saudacao = "Boa noite, ";
 		}
-		System.out.println(hora);
 		return new DtoFuncionarioHome(
 						saudacao, 
 						funcionario.getNomeFuncionario(), 
-						dateFormat.format(dataHoje),
+						dateFormat.format(dataHoje).toString(),
+						funcionario.getDataUltimoLogin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
 						service.buscaSolicitacoes(funcionario),
 						service.buscaSolicitacoesGerais()
 					);

@@ -1,9 +1,9 @@
 package br.com.techgol.app.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import br.com.techgol.app.dto.DTOAtualizarCliente;
-import br.com.techgol.app.dto.DTOCadastroCliente;
+import br.com.techgol.app.dto.DtoAtualizarCliente;
+import br.com.techgol.app.dto.DtoCadastroCliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -30,14 +30,14 @@ public class Cliente extends Usuario {
 	private boolean redFlag;
 	private boolean vip;
 	
-	public Cliente(DTOCadastroCliente dados) {
+	public Cliente(DtoCadastroCliente dados) {
 		
 		this.nomeCliente = dados.nomeCliente();
 		this.setUsername(dados.username());
 		this.setPassword(dados.password());
 		this.setAtivo(true);
 		this.setMfa(false);
-		this.setDataAtualizacao(new Date());
+		this.setDataAtualizacao(LocalDateTime.now());
 		this.endereco = dados.endereco();
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();
@@ -45,7 +45,7 @@ public class Cliente extends Usuario {
 		this.vip = false;
 	}
 	
-public Cliente(DTOAtualizarCliente dados) {
+public Cliente(DtoAtualizarCliente dados) {
 		
 		this.setId(dados.id());
 		this.nomeCliente = dados.nomeCliente();
@@ -53,7 +53,7 @@ public Cliente(DTOAtualizarCliente dados) {
 		this.setPassword(dados.password());
 		this.setAtivo(dados.ativo());
 		this.setMfa(false);
-		this.setDataAtualizacao(new Date());
+		this.setDataAtualizacao(LocalDateTime.now());
 		this.endereco = dados.endereco();
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();

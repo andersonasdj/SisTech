@@ -10,7 +10,7 @@ public record DtoDadosEdicaoRapida(
 		String resolucao,
 		String observacao,
 		Status status,
-		String funcionario) {
+		String nomeFuncionario) {
 
 	public DtoDadosEdicaoRapida(Solicitacao dados) {
 		this(dados.getId(), dados.getDescricao(), dados.getResolucao(), dados.getObservacao(), dados.getStatus(), dados.getFuncionario().getNomeFuncionario());

@@ -2,7 +2,6 @@ package br.com.techgol.app.dto;
 
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.enums.Funcao;
-import br.com.techgol.app.util.ConverteDataToString;
 
 public record DtoListarFuncionarios(
 		
@@ -12,17 +11,14 @@ public record DtoListarFuncionarios(
 		Funcao funcao,
 		Boolean ativo,
 		Boolean mfa,
-		String dataAtualizacao,
-		String dataUltimoLogin
-		
+		String dataAtualizacao
 		) {
 	
 	
 	public DtoListarFuncionarios(Funcionario f) {
-		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getFuncao(), f.getAtivo(),
-				f.getMfa(), new ConverteDataToString().convert(f.getDataAtualizacao()), 
-				new ConverteDataToString().convert(f.getDataUltimoLogin()));
+		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getFuncao(), f.getAtivo(), f.getMfa(), f.getDataAtualizacao().toString());
 	}
+	
 
 }
  

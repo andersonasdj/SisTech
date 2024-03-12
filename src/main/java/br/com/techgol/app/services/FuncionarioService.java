@@ -1,9 +1,10 @@
 package br.com.techgol.app.services;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +68,10 @@ public class FuncionarioService {
 		return repository.findBynomeFuncionario(nome);
 	}
 	
+	public UserDetails buscaPorUserDetails(String nome) {
+		return repository.findByUsername(nome);
+	}
+	
 	
 	@Transactional
 	public void salvar(DtoCadastroFuncionario dados) {
@@ -98,7 +103,7 @@ public class FuncionarioService {
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAtivo(dados.ativo());
 		funcionario.setRole(dados.role());
-		funcionario.setDataAtualizacao(new Date());
+		funcionario.setDataAtualizacao(LocalDateTime.now());
 		return new DtoListarFuncionarios(funcionario);
 		
 	}
@@ -127,6 +132,14 @@ public class FuncionarioService {
 			return "A senha não foi alterada";
 		}
 
+	}
+	
+	@Transactional
+	public void atualizaDataLogin(String nome) {
+		
+		Funcionario funcionario = repository.buscarPorUsername(nome);
+		funcionario.setDataUltimoLogin(LocalDateTime.now());
+		
 	}
 	
 }

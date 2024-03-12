@@ -22,8 +22,9 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.excluido = false", nativeQuery = true)
-	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page);
+			+ "WHERE s.status != :status " 
+			+ "AND s.excluido = :excluida",nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean excluida);
 
 	public int countByLocal(Local local);
 	public int countByClassificacao(Classificacao classificacao);

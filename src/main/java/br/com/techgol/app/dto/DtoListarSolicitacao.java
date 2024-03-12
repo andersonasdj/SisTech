@@ -4,7 +4,7 @@ import java.util.Date;
 
 import br.com.techgol.app.model.Solicitacao;
 
-public record DTOListarSolicitacao(
+public record DtoListarSolicitacao(
 		Long id,
         Date dataAbertura,
         String solicitante,
@@ -15,7 +15,7 @@ public record DTOListarSolicitacao(
 		
 		){
 	
-	DTOListarSolicitacao(Solicitacao s){
+	DtoListarSolicitacao(Solicitacao s){
 		this(s.getId(), s.getDataAbertura(), s.getSolicitante(), s.getResolucao(), s.getDescricao(), s.getObservacao(), s.getAbertoPor());
 		
 	}
