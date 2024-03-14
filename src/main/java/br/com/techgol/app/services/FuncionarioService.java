@@ -64,6 +64,10 @@ public class FuncionarioService {
 		return repository.existsByNomeFuncionario(nome);
 	}
 	
+	public String buscaNomeFuncionarioPorId(Long id) {
+		return repository.buscarNomePorId(id);
+	}
+	
 	public Funcionario buscaPorNome(String nome) {
 		return repository.findBynomeFuncionario(nome);
 	}
@@ -120,6 +124,10 @@ public class FuncionarioService {
 
 	public List<String> listarNomesCliente() {
 		return repository.listarNomesFuncionarios();
+	}
+	
+	public List<Long> listarIdFuncionarosLong() {
+		return repository.listarIdFuncionariosLong();
 	}
 
 	@Transactional

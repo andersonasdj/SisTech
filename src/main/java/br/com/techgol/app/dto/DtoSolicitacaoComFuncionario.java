@@ -1,6 +1,6 @@
 package br.com.techgol.app.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Prioridade;
@@ -8,7 +8,7 @@ import br.com.techgol.app.model.enums.Status;
 
 public record DtoSolicitacaoComFuncionario(
 		Long id,
-		Date dataAbertura,
+		LocalDateTime dataAbertura,
 		String nomeCliente,
 		String solicitante,
 		String afetado,

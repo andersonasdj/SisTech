@@ -1,4 +1,4 @@
-.asid-linha{margin-left: 200px; margin-top: -78px; font: 19px arial, verdana, helvetica, sans-serif; }
+.asid-linha{margin-left: 200px; margin-top: -78px; font: 18px arial, verdana, helvetica, sans-serif; }
 
 
 .linhaSolicitacoes{font: 19px arial, verdana, helvetica, sans-serif;}
@@ -63,7 +63,7 @@ div.containerPerfil{
 	background-color: #EFF8FB;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 780px) {
   #imagem{display: none;}
   #removetocel{display: none;}
   .btn-toggle{display: block;}
@@ -77,9 +77,9 @@ div.containerPerfil{
   .btn-toggle{display: block;}
 }
 
-@media (max-width: 550px) {
+@media (max-width: 780px) {
   #perfil{height: 50px; 
-  width: 550px; 
+  width: 780px; 
   margin-left: -200px; 
   margin-top: 200px;
   font: 8px Verdana, arial, helvetica, sans-serif;}
@@ -105,4 +105,61 @@ div.containerPerfil{
     max-height:50px;
     width: auto;
     height: auto;
+}
+
+
+.calender{
+  width: 130px;
+  height: 130px;
+  background-color: rgb(153, 193, 241);
+  border-radius: 10%;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.top{
+  width: 100%;
+  height: 50px;
+  background-color: rgb(153, 193, 241);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#months{
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+}
+#days{
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-top: 50px;
+}
+#dates{
+  font-size: 5rem;
+  font-weight: 700;
+}
+#years{
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.time-title{
+  background-color: rgb(28, 113, 216);
+  border-radius: 30px;
+  color: #fff;
+  padding: 3px 10px;
+  margin: 5px;
+}
+.time{
+  display: flex;
+  gap: 10px;
+  font-weight: 700;
 }

@@ -43,7 +43,7 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="#">Relatórios</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
 						
@@ -113,38 +113,63 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
+		<!-- ######################################################################################### -->
 		<div class="container">
-			<div id="containerPerfil">
-					<aside class="">
-								<img id="imagem" src="./assets/img/login.png" style="width: 180px" class="img-thumbnail" alt="...">
-						<div id="perfil">
-							<p class="asid-linha"> <span id="dataHoje"> </p>
-							<p class="asid-linha"> <span id="dataUltimoLogin"> </p>
-							<p class="asid-linha"> <span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b>   </p>
-						</div>
-					</aside>
-				<br/><br/>
-			</div>
+		 <div class="row justify-content-between">
+		    <div class="col-8">
+				<div class="container">
+					<div id="containerPerfil">
+							<aside class="">
+										<img id="imagem" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
+								<div id="perfil">
+									<p class="asid-linha"> <span id="dataUltimoLogin"> </p>
+									<p class="asid-linha"> <span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b>   </p>
+								</div>
+							</aside>
+						<br/><br/>
+					</div>
+				</div>
+		    </div>
+		    <div class="col-4">
+				<div class="calender">
+					<div class="top">
+						<span id="months">Janeiro</span>
+					</div>
+						
+					<span id="days">Sabado</span>
+					<span id="dates">01</span>
+					<span id="years">2024</span>
+				</div>
+				<p class="time-title">Hoje</p>
+				<div class="time">
+				    <div id="hours">00</div>
+				    <div id="minutes">00</div>
+				    <div id="seconds">00</div>
+				    <div id="ampm">00</div>
+				</div>
+		    </div>
+		 </div>
 		</div>
+		<!-- ######################################################################################### -->
+		
 		<br/><br/>
 		
-	<div class="container">
+		<div class="container">
 			<p><span class="linhaSolicitacoes" id="abertas"></span></p>
 			<p><span class="linhaSolicitacoes" id="andamento"></span></p>
 			<p><span class="linhaSolicitacoes" id="agendadas"></span></p>
-	</div>
+		</div>
 	
-	<div class="container">
-		 <div class="row justify-content-between">
-		    <div class="col-4">
-				<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
-		    </div>
-		    <div class="col-4">
-		    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
-		    </div>
-		 </div>
-	</div>
-
+		<div class="container">
+			 <div class="row justify-content-between">
+			    <div class="col-4">
+					<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
+			    </div>
+			    <div class="col-4">
+			    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
+			    </div>
+			 </div>
+		</div>
 
 		<br/><br/>
 		<footer class="text-center text-white">
@@ -199,7 +224,6 @@
 					success: function (data) {
 						$('#saudacao').text(data.saudacao);
 						$('#nomeFuncionario').text(data.nomeFuncionario);
-						$('#dataHoje').text("Data de hoje: " + data.dataHoje);
 						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
 						
 						if(data.solicitacoes.abertas >= 1){
@@ -214,7 +238,6 @@
 						
 						
 						const ctx = document.getElementById('minhasSolicitacoes');
-						
 						new Chart(ctx, {
 					    type: 'bar',
 					    data: {
@@ -254,10 +277,7 @@
 					    }
 					  });
 					  
-					  
 					  const ctx2 = document.getElementById('geralSolicitacoes');
-					  
-					  
 					  new Chart(ctx2, {
 					    type: 'line',
 					    data: {
@@ -296,7 +316,6 @@
 								}
 					    }
 					  });
-					  
 						
 						
 					},
@@ -306,12 +325,61 @@
 				})
 		});
 		
-		
-		
 	</script>
 	<script>
+		setInterval(() => {
+		  const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julio","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+		  const weekday = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sabado"];
 		
-
+		  // Day
+		  let months = document.getElementById("months");
+		  let days = document.getElementById("days");
+		  let dates = document.getElementById("dates");
+		  let years = document.getElementById("years");
+		
+		  // time
+		  let hours = document.getElementById("hours");
+		  let minutes = document.getElementById("minutes");
+		  let seconds = document.getElementById("seconds");
+		  let ampm = document.getElementById("ampm");
+		
+		  //Date
+		  let ma = month[new Date().getMonth()];
+		  let dy = weekday[new Date().getUTCDay()];
+		  let dt = new Date().getDate();
+		  let yr = new Date().getFullYear();
+		
+		  //time
+		  let h = new Date().getHours();
+		  let m = new Date().getMinutes();
+		  let s = new Date().getSeconds();
+		  let am = h >= 12 ? "PM" : "AM";
+		
+		
+		  //convart time 12 hours
+		  if (h > 12){
+		    h = h - 12;
+		  }
+		
+		  // add zero
+		  h = (h < 10) ? "0" + h : h;
+		  m = (m < 10) ? "0" + m : m;
+		  s = (s < 10) ? "0" + s : s;
+		  dt = (dt < 10) ? "0" + dt : dt;
+		  
+		
+		  // date
+		  months.innerHTML = ma;
+		  days.innerHTML = dy;
+		  dates.innerHTML = dt;
+		  years.innerHTML = yr;
+		
+		  // time
+		  hours.innerHTML = h;
+		  minutes.innerHTML = m;
+		  seconds.innerHTML = s;
+		  ampm.innerHTML = am;
+		})
 		  
 	</script>
 

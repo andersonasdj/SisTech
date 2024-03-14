@@ -1,7 +1,8 @@
 package br.com.techgol.app.services;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
+import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.model.Funcionario;
@@ -58,13 +61,19 @@ public class SolicitacaoService {
 			}
 		}
 		if(dados.status().equals(Status.ANDAMENTO)) {
-			solicitacao.setDataAndamento(new Date());
+			solicitacao.setDataAndamento(LocalDateTime.now());
 		}
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
 			solicitacao.setDataAndamento(null);
 		}
 		if(dados.status().equals(Status.FINALIZADO)) {
-			solicitacao.setDataFinalizado(new Date());
+			solicitacao.setDataFinalizado(LocalDateTime.now());
+			if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() < 15) {
+				solicitacao.setDuracao(15l);
+			}else {
+				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+			}
+			
 		}
 		System.out.println(solicitacao.getStatus());
 		solicitacao.setStatus(dados.status());
@@ -90,6 +99,9 @@ public class SolicitacaoService {
 	public DtoSolicitacaoComFuncionario salvarNovaSolicitacao(Solicitacao solicitacao) {
 		Funcionario funcionarioBase = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		solicitacao.setAbertoPor(funcionarioBase.getNomeFuncionario());
+		if(solicitacao.getStatus() == Status.ANDAMENTO) {
+			solicitacao.setDataAndamento(LocalDateTime.now());
+		}
 		return new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
 		
 	}
@@ -126,6 +138,28 @@ public class SolicitacaoService {
 		
 		
 		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,backup,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,totalSolicitacoes,totalFUncionarios,listaDto);
+	}
+
+	public DtoSolicitacaoRelatorios geraRelatorios() {
+		
+		Long abertosHoje, finalizadosHoje;
+		List<Long> idFuncionarios = funcionarioService.listarIdFuncionarosLong();
+		List<DtoSolicitacoesRelatorioFuncionario> relatorioFuncionario = new ArrayList<>();
+		
+
+		idFuncionarios.forEach(f -> {
+			Long abertos, andamento, agendados, aguardando, total;
+			abertos = repository.countByStatusAndFuncionarioId(Status.ABERTO, f);
+			andamento = repository.countByStatusAndFuncionarioId(Status.ANDAMENTO, f);
+			agendados = repository.countByStatusAndFuncionarioId(Status.AGENDADO, f);
+			aguardando = repository.countByStatusAndFuncionarioId(Status.AGUARDANDO, f);
+			total = abertos+andamento+agendados+aguardando;
+			relatorioFuncionario.add(new DtoSolicitacoesRelatorioFuncionario(funcionarioService.buscaNomeFuncionarioPorId(f), abertos, andamento, agendados, aguardando, total));
+			
+		});
+		
+		
+		return new DtoSolicitacaoRelatorios(10l,2l, relatorioFuncionario);
 	} 
 
 }

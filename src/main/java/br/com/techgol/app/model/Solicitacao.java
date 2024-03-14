@@ -1,9 +1,9 @@
 package br.com.techgol.app.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
+import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
 import br.com.techgol.app.model.enums.FormaAbertura;
@@ -39,13 +39,16 @@ public class Solicitacao {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataAbertura;
+	private LocalDateTime dataAbertura;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataAndamento;
+	private LocalDateTime dataAndamento;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataFinalizado;
+	private LocalDateTime dataFinalizado;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime dataAgendado;
 	
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
@@ -79,6 +82,7 @@ public class Solicitacao {
 	
 	private Boolean excluido;
 	
+	private Long duracao;
 	
 	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
 		
@@ -107,7 +111,7 @@ public class Solicitacao {
 		this.funcionario = funcionario;
 		this.status = dados.status();
 		this.excluido = false;
-		this.dataAbertura = new Date();
+		this.dataAbertura = LocalDateTime.now();
 	}
 	
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente) {
@@ -123,7 +127,7 @@ public class Solicitacao {
 		this.local = dados.local();
 		this.status = dados.status();
 		this.excluido = false;
-		this.dataAbertura = new Date();
+		this.dataAbertura = LocalDateTime.now();
 	}
 
 }

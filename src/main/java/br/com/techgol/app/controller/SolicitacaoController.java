@@ -27,6 +27,12 @@ public class SolicitacaoController {
 		return "solicitacaoLegacyList.html";
 	}
 	
+	@GetMapping("/relatorios")
+	public String relatorios() {
+		
+		return "solicitacaoRelatorios.html";
+	}
+	
 	@GetMapping("/dashboard/geral")
 	public String dashboardAtivos() {
 		

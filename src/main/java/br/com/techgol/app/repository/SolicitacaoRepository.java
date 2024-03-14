@@ -30,6 +30,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public int countByClassificacao(Classificacao classificacao);
 	public int countByPrioridade(Prioridade prioridade);
 	public int countByStatus(Status status);
+	public Long countByStatusAndFuncionarioId(Status status, Long id);
 	public int countByFuncionarioId(long id);
 
 }

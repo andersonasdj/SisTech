@@ -1,11 +1,11 @@
 package br.com.techgol.app.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record DtoCadastroSolicitacaoLegada(
 		
 		String usuario,
-        Date dataAbertura,
+        LocalDateTime dataAbertura,
         String solicitante,
         String resolucao,
         String descricaoProblema,

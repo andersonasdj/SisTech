@@ -11,7 +11,7 @@
 	<!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<title>Sistech | Solocitação Form</title>
 </head>
 
@@ -223,6 +223,10 @@
 								<select class="form-select" id="categoria" name="categoria" style="width: 250px;">
 									<option value="SOFTWARE">Software</option>
 									<option value="HARDWARE">Hardware</option>
+									<option value="EMAIL">Email</option>
+									<option value="SHAREPOINT">SharePoint</option>
+									<option value="INTERNET">Internet</option>
+									<option value="SERVIDORES">Servidores</option>
 									<option value="OUTROS">Outros</option>
 									<option value="REDE">Rede</option>
 									<option value="CABEAMENTO">Cabeamento</option>
@@ -243,6 +247,8 @@
 									<option value="INCIDENTE">Incidente</option>
 									<option value="PROBLEMA">Problema</option>
 									<option value="SOLICITACAO">Solicitação</option>
+									<option value="ACESSO">Acesso</option>
+									<option value="EVENTO">Evento</option>
 									<option value="BACKUP">Backup</option>
 								</select>
 							</div>
@@ -302,9 +308,9 @@
 							<div class="controls">
 								<select class="form-select alertaFuncionario" id="status" name="status"
 									style="width: 250px;">
-									<option value="ABERTO">Abrir</option>
-									<option value="ANDAMENTO">Em andamento</option>
-									<option value="AGENDADO">Agendar</option>
+									<option value="ABERTO">ABERTO</option>
+									<option value="ANDAMENTO">ANDAMENTO</option>
+									<option value="AGENDADO">AGENDADO</option>
 								</select>
 							</div>
 						</div>
@@ -312,6 +318,25 @@
 				</div>
 
 				<br />
+				
+				<div class="row">
+					<div class="col-md-4" id="agendamentos" style="display: none">
+						<div class="control-group">
+							<label class="control-label"><b>Data Agendamento *</b></label>
+							<div class="datetimepicker">
+								<input type="date" id="date" name="date" value="">
+								<span></span>
+								<input type="time" id="time" name="time" value="">
+							</div>
+							<div class="info">
+								<strong>Compatibility check:</strong>
+								Date "<span id="date-output"></span>",
+								Time "<span id="time-output"></span>"
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<div class="control-group">
 					<label class="control-label" for="enviar"></label>
 					<div class="controls">
@@ -322,22 +347,7 @@
 					</div>
 				</div>
 
-				<div id="agendamentos" style="display: none">
-					<div class="control-group" id="opAgendamentoData">
-						<label class="control-label" for="datepicker">Data de Agendamento</label>
-						<div class="controls">
-							<input id="datepicker" name="agendado" type="text" placeholder="Data de agendamento"
-								maxlength="10" value="" /> <i class="fa fa-calendar fa-lg"> </i>
-						</div>
-					</div><br />
-					<div class="control-group" id="opAgendamentoHora">
-						<label class="control-label" for="timepicker">Hora de Agendamento</label>
-						<div class="controls">
-							<input id="timepicker" name="agendadoHora" type="text" placeholder="Hora de agendamento"
-								maxlength="10" value="" /> <i class="fa fa-clock-o fa-lg"> </i>
-						</div>
-					</div>
-				</div><br />
+				
 				<br /><br />
 
 				<legend></legend>
@@ -425,6 +435,8 @@
 			var status = $('#status').val();
 			var nomeCliente = $('#nomeCliente').val();
 			var nomeFuncionario = $('#nomeFuncionario').val();
+			var dataAgendado = $('#date').val();
+			var horaAgendado = $('#time').val();
 
 			$.ajax({
 				type: "POST",
@@ -443,7 +455,9 @@
 					"local": local,
 					"status": status,
 					"nomeCliente": nomeCliente,
-					"nomeFuncionario": nomeFuncionario
+					"nomeFuncionario": nomeFuncionario,
+					"dataAgendado": dataAgendado,
+					"horaAgendado": horaAgendado
 				}),
 				success: function (data) {
 					$('#solicitante').val("");
@@ -482,6 +496,7 @@
 					success: function (data) {
 
 						if (data != null) {
+							
 							var boxSolicitante = $('#solicitante');
 							boxSolicitante.find('option').remove();
 
@@ -536,6 +551,25 @@
 				document.getElementById('observacao').value = valor.substr(0, quant);
 			}
 		}
+		
+		
+		
+		var divStatus = $("#status");
+		var status = $("#status").val();
+		divStatus.on("change", function(){
+			var status = $("#status").val();
+			if(status === 'AGENDADO'){
+				$("#agendamentos").stop().slideToggle(1000);
+			}else {
+				document.getElementById('agendamentos').style.display = 'none';
+			}
+		} );
+		
+		var dateEl = document.getElementById('date');
+		var timeEl = document.getElementById('time');
+		
+		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
 	</script>
 
 	<!--	<script src="assets/js/jquery-ui.js"></script>-->

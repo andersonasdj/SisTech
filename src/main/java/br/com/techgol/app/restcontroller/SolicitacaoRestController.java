@@ -1,5 +1,6 @@
 package br.com.techgol.app.restcontroller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
+import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
@@ -87,13 +89,17 @@ public class SolicitacaoRestController {
 	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
 		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
-		System.out.println("#############" + dados.nomeFuncionario());
+		Solicitacao solicitacao = new Solicitacao(dados, cliente);
+		
 		if(dados.nomeFuncionario() != null) {
 			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
-			return solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente, funcionario));
-		}else {
-			return solicitacaoService.salvarNovaSolicitacao(new Solicitacao(dados, cliente));
+			solicitacao.setFuncionario(funcionario);
 		}
+		
+		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
+			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
+		}
+		return solicitacaoService.salvarNovaSolicitacao(solicitacao);
 	}
 
 	@DeleteMapping("/excluir/{id}")
@@ -103,11 +109,17 @@ public class SolicitacaoRestController {
 	
 	//########################### DASHBOARD ###############################################
 	
-	
 	@GetMapping("/dashboard")
 	public DtoDashboard dashboard() {
 		
 		return solicitacaoService.geraDashboard();
+		
+	}
+	
+	@GetMapping("/relatorio")
+	public DtoSolicitacaoRelatorios relatorios() {
+		
+		return solicitacaoService.geraRelatorios();
 		
 	}
 	

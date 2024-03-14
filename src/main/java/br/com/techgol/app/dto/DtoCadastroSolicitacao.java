@@ -22,7 +22,9 @@ public record DtoCadastroSolicitacao(
 		Status status,
 		@NotBlank
 		Long nomeCliente,
-		Long nomeFuncionario
+		Long nomeFuncionario,
+		String dataAgendado,
+		String horaAgendado
 		
 		) {
 		

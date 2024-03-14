@@ -1,12 +1,12 @@
 package br.com.techgol.app.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import br.com.techgol.app.model.Solicitacao;
 
 public record DtoListarSolicitacao(
 		Long id,
-        Date dataAbertura,
+        LocalDateTime dataAbertura,
         String solicitante,
         String resolucao,
         String descricaoProblema,
