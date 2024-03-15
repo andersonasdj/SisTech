@@ -3,6 +3,9 @@ package br.com.techgol.app.dto;
 import java.time.LocalDateTime;
 
 import br.com.techgol.app.model.Solicitacao;
+import br.com.techgol.app.model.enums.Categoria;
+import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.Local;
 import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
 
@@ -14,6 +17,9 @@ public record DtoSolicitacaoComFuncionario(
 		String afetado,
 		String descricao,
 		Prioridade prioridade,
+		Classificacao classificacao,
+		Local local,
+		Categoria categoria,
 		String nomeFuncionario,
 		Status status
 		) {
@@ -26,7 +32,10 @@ public record DtoSolicitacaoComFuncionario(
 					s.getSolicitante(), 
 					s.getAfetado(), 
 					s.getDescricao(), 
-					s.getPrioridade(), 
+					s.getPrioridade(),
+					s.getClassificacao(),
+					s.getLocal(),
+					s.getCategoria(),
 					s.getFuncionario().getNomeFuncionario(), 
 					s.getStatus());
 		}

@@ -63,7 +63,7 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="#">Relatórios</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
 						
@@ -158,8 +158,10 @@
 						<th scope="col">Cliente</th>
 						<th scope="col">Solicitante</th>
 						<th scope="col">Afetado</th>
+						<th scope="col">Classificações</th>
 						<th scope="col">Descrição</th>
 						<th scope="col">Prioridade</th>
+						<th scope="col">Classificação</th>
 						<th scope="col">Responsável</th>
 						<th scope="col">Status</th>
 						<th scope="col">Ações</th>
@@ -210,53 +212,130 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida</h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida ID:  <span id="idmodal"> </span></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 
 						<div class="row">
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>
-								<input type="text" id="idmodal" class="form-control" readonly>
+									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
+									<select class="form-select" id="localmodal" aria-label="Default select example">
+	
+									</select>
 							</div>
-
 							<div class="col-md-4">
-									<label class="form-label mt-1" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
+									
+									<label class="form-label mt-2" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
 									<div class="controls">
 										<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal"
 											style="width: 250px;">
 											<option></option>
 										</select>
+<!--								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>-->
+<!--								<input type="text" id="idmodal" class="form-control" readonly>-->
+									</div>
+									
+							</div>
+
+							<div class="col-md-4 ms-auto" id="divstatusmodal">
+									<label class="form-label mt-2" for="statusmodal"><b>Status</b></label>
+									<select class="form-select" id="statusmodal" aria-label="Default select example">
+	
+									</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8-auto" id="agendamentosmodal" style="display: none">
+								<div class="control-group">
+									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
+									<div class="datetimepickerModal">
+										<input type="date" id="dateModal" name="dateModal" value="">
+										<span></span>
+										<input type="time" id="timeModal" name="timeModal" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
+								<div class="controls">
+									<div class="controls">
+										<select class="form-select" id="categoriamodal" name="categoriamodal" style="width: 250px;">
+											<option value="SOFTWARE">Software</option>
+											<option value="HARDWARE">Hardware</option>
+											<option value="EMAIL">Email</option>
+											<option value="SHAREPOINT">SharePoint</option>
+											<option value="INTERNET">Internet</option>
+											<option value="SERVIDORES">Servidores</option>
+											<option value="OUTROS">Outros</option>
+											<option value="REDE">Rede</option>
+											<option value="CABEAMENTO">Cabeamento</option>
+											<option value="SMARTPHONE">Smartphone</option>
+											<option value="PROJETO">Projeto</option>
+											<option value="BACKUP">Backup</option>
+										</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="statusmodal"><b>Status</b></label>
-								<select class="form-select" id="statusmodal" aria-label="Default select example">
+								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
+								<div class="controls">
+									<select class="form-select" id="classificacaomodal" name="classificacaomodal"
+										style="width: 250px;">
+										<option value="INCIDENTE">Incidente</option>
+										<option value="PROBLEMA">Problema</option>
+										<option value="SOLICITACAO">Solicitação</option>
+										<option value="ACESSO">Acesso</option>
+										<option value="EVENTO">Evento</option>
+										<option value="BACKUP">Backup</option>
+									</select>
+								</div>
+							</div>
 
-								</select>
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
+								<div class="controls">
+									<select class="form-select" id="prioridademodal" name="prioridademodal" style="width: 240px;">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
+								</div>
 							</div>
 						</div>
+						
 
 						<div class="row">
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="descricaomodal"><b>Descrição</b></label>
+								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
 								<textarea class="form-control" rows="3" id="descricaomodal"
 									class="form-control"></textarea>
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="observacaomodal"><b>Observação</b></label>
+								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
 								<textarea class="form-control" rows="3" id="observacaomodal"
 									class="form-control"></textarea>
 							</div>
 						</div>
 
-						<label class="form-label mt-1" for="resolucaomodal"><b>Resolução</b></label>
+						<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
 
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -410,7 +489,7 @@
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-1" for="status"><b>Status *</b></label>
 								<div class="controls">
-									<select class="form-select alertaFuncionario" id="status" name="status"
+									<select class="form-select" id="status" name="status"
 										style="width: 240px;">
 										<option value="ABERTO">Abrir</option>
 										<option value="ANDAMENTO">Em andamento</option>
@@ -435,7 +514,7 @@
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
 				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -483,21 +562,22 @@
 						status = "class='table-secondary'"
 					}
 					
-					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + '>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
 					+ '<td>' + i.descricao + '</td>'
 					+ '<td>' + i.prioridade + '</td>'
+					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + funcionario + '</td>'
 					+ '<td>' + i.status + '</td>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
-					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
+					+ ' '
 					+ '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
@@ -517,18 +597,56 @@
 				url: "/sistech/solicitacao/busca/" + id,
 				success: function (data) {
 
-					$('#idmodal').val("");
+					$('#idmodal').text("");
 					$('#descricaomodal').val("");
 					$('#resolucaomodal').val("");
 					$('#observacaomodal').val("");
 					$('#statusmodal').empty();
+					$('#categoriamodal').empty();
+					$('#classificacaomodal').empty();
+					$('#prioridademodal').empty();
+					$('#localmodal').empty();
 					$('#nomeFuncionarioModal').empty();
+					
+					$('#dateModal').val("");
+					$('#timeModal').val("");
 
-					$('#idmodal').val(data.id);
+					$('#idmodal').text(data.id);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
 					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
+						+'<option value="SOFTWARE">SOFTWARE</option>'
+						+'<option value="HARDWARE">HARDWARE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="SHAREPOINT">SHAREPOINT</option>'
+						+'<option value="INTERNET">INTERNET</option>'
+						+'<option value="SERVIDORES">SERVIDORES</option>'
+						+'<option value="OUTROS">OUTROS</option>'
+						+'<option value="REDE">REDE</option>'
+						+'<option value="CABEAMENTO">CABEAMENTO</option>'
+						+'<option value="SMARTPHONE">SMARTPHONE</option>'
+						+'<option value="PROJETO">PROJETO</option>'
+						+'<option value="BACKUP">BACKUP</option>"');
+					$('#classificacaomodal').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
+						+'<option value="INCIDENTE">INCIDENTE</option>'
+						+'<option value="PROBLEMA">PROBLEMA</option>'
+						+'<option value="SOLICITACAO">SOLICITACAO</option>'
+						+'<option value="ACESSO">ACESSO</option>'
+						+'<option value="EVENTO">EVENTO</option>'
+						+'<option value="BACKUP">BACKUP</option>');
+						
+					$('#prioridademodal').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
+						+'<option value="BAIXA">BAIXA</option>'
+						+'<option value="MEDIA">MEDIA</option>'
+						+'<option value="ALTA">ALTA</option>'
+						+'<option value="CRITICA">CRITICA</option>'
+						+'<option value="PLANEJADA">PLANEJADA</option>');
+						
+					$('#localmodal').append("<option value="+ data.local +">"+ data.local+"</option>"
+						+'<option value="ONSITE">ONSITE</option>'
+						+'<option value="OFFSITE">OFFSITE</option>');
 					
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
@@ -539,25 +657,28 @@
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
+						document.getElementById('agendamentosmodal').style.display = 'none';
 					} if (data.status == 'ANDAMENTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
 						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
+						document.getElementById('agendamentosmodal').style.display = 'none';
 					} if (data.status == 'AGENDADO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
+						document.getElementById('agendamentosmodal').style.display = '';
+						$('#dateModal').val(data.dataAgendado);
+						$('#timeModal').val(data.horaAgendado);
 					} if (data.status == 'AGUARDANDO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
+						document.getElementById('agendamentosmodal').style.display = 'none';
 					}
 
 				},
@@ -567,8 +688,9 @@
 			});
 		}
 		
-		function excluir(id) {
+		function excluir() {
 			if (confirm("Tem certeza que deseja excluir a solicitação de ID: " + id + " ?") == true) {
+				var id = $('#idmodal').text();
 				var t = "#linha" + id;
 				var remove = $(t).closest('tr');
 				$.ajax({
@@ -579,6 +701,7 @@
 							remove.fadeOut(800, function () {
 								remove.remove();
 							});
+							$('#exampleModal').modal('hide');
 					},
 					error: function (e) {
 						alert("Erro: Não foi possivel excluir a solicitação!");
@@ -588,12 +711,19 @@
 		}
 
 		function atualiza() {
-			var id = $('#idmodal').val();
+			var id = $('#idmodal').text();
 			var descricao = $('#descricaomodal').val();
 			var resolucao = $('#resolucaomodal').val();
 			var observacao = $('#observacaomodal').val();
 			var status = $('#statusmodal').val();
+			var categoria = $('#categoriamodal').val();
+			var classificacao = $('#classificacaomodal').val();
+			var prioridade = $('#prioridademodal').val();
+			var local = $('#localmodal').val();
 			var nomeFuncionario = $('#nomeFuncionarioModal').val();
+			var dataAgendado = $('#dateModal').val();
+			var horaAgendado = $('#timeModal').val();
+			
 		
 			$.ajax({
 				type: "PUT",
@@ -605,7 +735,13 @@
 					"resolucao": resolucao,
 					"observacao": observacao,
 					"status": status,
-					"nomeFuncionario": nomeFuncionario
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"prioridade": prioridade,
+					"local": local,
+					"nomeFuncionario": nomeFuncionario,
+					"dataAgendado": dataAgendado,
+					"horaAgendado": horaAgendado
 				}),
 				success: function (data) {
 					
@@ -634,23 +770,25 @@
 						
 						
 						var itens =
-						'<tr '+ status + ' id=linha' + data.id + '>'
+						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
 						+ '<td>' + data.nomeCliente + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
+						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
 						+ '<td>' + data.descricao + '</td>'
 						+ '<td>' + data.prioridade + '</td>'
+						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + funcionario + '</td>'
 						+ '<td>' + data.status + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')><i class="bi bi-trash"></i></button>'
 						+ '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);
+						$('#exampleModal').modal('hide');
 					}
 					
 				},
@@ -746,19 +884,20 @@
 					
 					
 					var itens =
-						'<tr '+ status + ' id=linha' + data.id + '>'
+						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
 						+ '<td>' + data.nomeCliente + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
+						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
 						+ '<td>' + data.descricao + '</td>'
 						+ '<td>' + data.prioridade + '</td>'
+						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + funcionario + '</td>'
 						+ '<td>' + data.status + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')><i class="bi bi-trash"></i></button>'
 						+ '</td>'
 						+ '</tr>'
 					$('#linha' + data.id).remove();
@@ -862,6 +1001,26 @@
 		
 		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
 		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
+		
+		
+		var divstatusmodal = $("#statusmodal");
+		divstatusmodal.on("change", function(){
+			var statusModal = $("#statusmodal").val();
+			if(statusModal === 'AGENDADO'){
+				$("#agendamentosmodal").stop().slideToggle(1000);
+			}else {
+				document.getElementById('agendamentosmodal').style.display = 'none';
+			}
+		} );
+		
+		var dateEl = document.getElementById('dateModal');
+		var timeEl = document.getElementById('timeModal');
+		
+		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
+		
+		
+		
 		//######################################### MODAL SOLICITACAO NOVA #############################################
 	</script>
 	<script>

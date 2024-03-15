@@ -26,11 +26,11 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.excluido = :excluida",nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean excluida);
 
-	public int countByLocal(Local local);
-	public int countByClassificacao(Classificacao classificacao);
-	public int countByPrioridade(Prioridade prioridade);
-	public int countByStatus(Status status);
+	public int countByLocalAndExcluido(Local local, Boolean excluido);
+	public int countByClassificacaoAndExcluido(Classificacao classificacao, Boolean excluido);
+	public int countByPrioridadeAndExcluido(Prioridade prioridade, Boolean excluido);
+	public int countByStatusAndExcluido(Status status, Boolean excluido);
 	public Long countByStatusAndFuncionarioId(Status status, Long id);
-	public int countByFuncionarioId(long id);
+	public int countByFuncionarioIdAndExcluido(long id, Boolean excluido);
 
 }

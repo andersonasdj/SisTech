@@ -33,6 +33,12 @@ public class SolicitacaoController {
 		return "solicitacaoRelatorios.html";
 	}
 	
+	@GetMapping("/excluidas")
+	public String excluidas() {
+		
+		return "solicitacaoExcluidas.html";
+	}
+	
 	@GetMapping("/dashboard/geral")
 	public String dashboardAtivos() {
 		

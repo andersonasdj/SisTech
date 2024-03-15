@@ -22,6 +22,7 @@ import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
+import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
@@ -69,8 +70,14 @@ public class SolicitacaoRestController {
 	
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
 	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
-		System.out.println("#### STATUS EDICAORAPIDA" + dados.status() );
 		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
+				
+	}
+	
+	@PutMapping("/restaurar") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
+	private DtoDadosRestauracao restaurar(@RequestBody DtoDadosRestauracao dado) {
+		return	solicitacaoService.restaurar(dado.id());
+
 				
 	}
 	
@@ -105,6 +112,11 @@ public class SolicitacaoRestController {
 	@DeleteMapping("/excluir/{id}")
 	public String excluir(@PathVariable Long id) {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
+	}
+	
+	@GetMapping("/excluido") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<SolicitacaoProjecao> excluidas(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
 	}
 	
 	//########################### DASHBOARD ###############################################
