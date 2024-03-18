@@ -101,8 +101,10 @@
 								Dashboard
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Geral</a></li>
-								<li><a class="dropdown-item" href="#">Ativas</a></li>
+								<li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+								<li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -491,9 +493,9 @@
 								<div class="controls">
 									<select class="form-select" id="status" name="status"
 										style="width: 240px;">
-										<option value="ABERTO">Abrir</option>
-										<option value="ANDAMENTO">Em andamento</option>
-										<option value="AGENDADO">Agendar</option>
+										<option value="ABERTO">ABERTO</option>
+										<option value="ANDAMENTO">ANDAMENTO</option>
+										<option value="AGENDADO">AGENDADO</option>
 									</select>
 								</div>
 							</div>
@@ -560,6 +562,8 @@
 						status = "class='table-info'"
 					}if(i.status == "AGUARDANDO"){
 						status = "class='table-secondary'"
+					}if(i.status == "PAUSADO"){
+						status = "class='table-light'"
 					}
 					
 					var itens = 
@@ -660,24 +664,31 @@
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					} if (data.status == 'ANDAMENTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
-						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
 						$('#statusmodal').append("<option value=FINALIZADO>FINALIZADO</option>");
+						$('#statusmodal').append("<option value=PAUSADO>PAUSADO</option>");
+						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					} if (data.status == 'AGENDADO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosmodal').style.display = '';
 						$('#dateModal').val(data.dataAgendado);
 						$('#timeModal').val(data.horaAgendado);
 					} if (data.status == 'AGUARDANDO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
+						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+						document.getElementById('agendamentosmodal').style.display = 'none';
+					} if (data.status == 'PAUSADO') {
+						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					}
 
@@ -747,15 +758,10 @@
 					
 					if(data.status == "FINALIZADO"){
 						$('#linha' + data.id).remove();
+						$('#exampleModal').modal('hide');
 						alert("atualizado com sucesso");
 						
 					}else{
-						var funcionario;
-						if(data.nomeFuncionario == null){
-							funcionario = "Não Atribuído";
-						}else{
-							funcionario = data.nomeFuncionario;
-						}
 						
 						var status;
 						if(data.status == "ABERTO"){
@@ -766,6 +772,8 @@
 							status = "class='table-info'"
 						}if(data.status == "AGUARDANDO"){
 							status = "class='table-secondary'"
+						}if(data.status == "PAUSADO"){
+							status = "class='table-light'"
 						}
 						
 						
@@ -780,7 +788,7 @@
 						+ '<td>' + data.descricao + '</td>'
 						+ '<td>' + data.prioridade + '</td>'
 						+ '<td>' + data.classificacao + '</td>'
-						+ '<td>' + funcionario + '</td>'
+						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'

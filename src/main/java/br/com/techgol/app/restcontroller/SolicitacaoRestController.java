@@ -23,7 +23,9 @@ import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
+import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
@@ -87,6 +89,12 @@ public class SolicitacaoRestController {
 		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios);
 	}
 	
+	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
+	public DtoSolicitacaoProjecaoCompleta buscaFinalizadaPorId(@PathVariable Long id) {
+		System.out.println("#####" + id);
+		return solicitacaoService.buscarFinalizada(id);
+	}
+	
 	@PostMapping("/salvaLista") //RECEBE UMA LISTA DE SOLICITAÇÕES E SALVA NO BANCO
 	public void cadastrar(@RequestBody List<DtoCadastroSolicitacaoLegada> dados) {
 		dados.forEach(s -> solicitacaoService.salvarNovaSolicitacao(new Solicitacao(s)));
@@ -119,6 +127,18 @@ public class SolicitacaoRestController {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
 	}
 	
+	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesFinalizadas(page,Status.FINALIZADO.toString(), false);
+	}
+	
+	@GetMapping("/finalizado/cliente/{id}")
+	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		
+		return solicitacaoService.listarSolicitacoesFinalizadasPorCliente(page, id);
+		
+	}
+	
 	//########################### DASHBOARD ###############################################
 	
 	@GetMapping("/dashboard")
@@ -127,6 +147,14 @@ public class SolicitacaoRestController {
 		return solicitacaoService.geraDashboard();
 		
 	}
+	
+	@GetMapping("/dashboard/cliente/{id}")
+	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
+		
+		return solicitacaoService.geraDashboardCliente(id);
+		
+	}
+	
 	
 	@GetMapping("/relatorio")
 	public DtoSolicitacaoRelatorios relatorios() {

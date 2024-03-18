@@ -5,6 +5,7 @@ public record DtoSolicitacoesGerais(
 		int andamento,
 		int agendados,
 		int aguardando,
+		int pausado,
 		int total) {
 
 }

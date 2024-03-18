@@ -1,8 +1,6 @@
-package br.com.techgol.app.dto.dashboard;
+package br.com.techgol.app.dto;
 
-import java.util.List;
-
-public record DtoDashboard(
+public record DtoDashboardCliente(
 		
 		int onsite,
 		int offsite,
@@ -22,10 +20,7 @@ public record DtoDashboard(
 		int agendado,
 		int aguardando,
 		int pausado,
-		int totalSolicitacoes,
-		int totalFuncionarios,
-		List<DtoDashboardResumoFuncionario> funcionario
-		
-		) {
+		int finalizado,
+		int totalSolicitacoes) {
 
 }

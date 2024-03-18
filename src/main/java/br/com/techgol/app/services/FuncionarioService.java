@@ -33,24 +33,26 @@ public class FuncionarioService {
 	
 	public DtoSolicitacoesFuncionario buscaSolicitacoes(Funcionario funcionario) {
 	
-		int abertas, agendadas, andamento, aguardando, total;
+		int abertas, agendadas, andamento, aguardando, pausado, total;
 		abertas = repository.buscaPorFuncionario(funcionario.getId(), "ABERTO");
 		andamento = repository.buscaPorFuncionario(funcionario.getId(), "ANDAMENTO");
 		agendadas = repository.buscaPorFuncionario(funcionario.getId(), "AGENDADO");
 		aguardando = repository.buscaPorFuncionario(funcionario.getId(), "AGUARDANDO");
-		total = abertas + agendadas + andamento + aguardando;
-		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas, aguardando, total);
+		pausado = repository.buscaPorFuncionario(funcionario.getId(), "PAUSADO");
+		total = abertas + agendadas + andamento + aguardando + pausado;
+		return new DtoSolicitacoesFuncionario(abertas, andamento, agendadas, aguardando, pausado, total);
 	}
 	
 	public DtoSolicitacoesGerais buscaSolicitacoesGerais() {
 		
-		int abertas, agendadas, andamento, aguardando, total;
+		int abertas, agendadas, andamento, aguardando, pausado, total;
 		abertas = repository.buscaContagemGeral("ABERTO");
 		andamento = repository.buscaContagemGeral("ANDAMENTO");
 		agendadas = repository.buscaContagemGeral("AGENDADO");
 		aguardando = repository.buscaContagemGeral("AGUARDANDO");
-		total = abertas + agendadas + andamento + aguardando;
-		return new DtoSolicitacoesGerais(abertas, andamento, agendadas, aguardando, total);
+		pausado = repository.buscaContagemGeral("PAUSADO");
+		total = abertas + agendadas + andamento + aguardando + pausado;
+		return new DtoSolicitacoesGerais(abertas, andamento, agendadas, aguardando, pausado, total);
 	}
 	
 	

@@ -80,8 +80,10 @@
 								Dashboard
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Geral</a></li>
-								<li><a class="dropdown-item" href="#">Ativas</a></li>
+								<li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+								<li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -215,7 +217,7 @@
 								label: 'Local das Solicitações: ',
 								data: [data.onsite, data.offsite],
 								backgroundColor: [
-									'rgba(225, 15, 15, 0.5)',
+									'rgba(255, 0, 0, 0.5)',
 									'rgba(12, 218, 205, 0.5)',
 									'rgba(255, 205, 86, 0.2)',
 									'rgba(121, 125, 127, 0.2)',
@@ -224,7 +226,7 @@
 									'rgba(201, 203, 207, 0.2)'
 								],
 								borderColor: [
-									'rgb(255, 99, 132, 0.5)',
+									'rgb(255, 0, 0, 0.5)',
 									'rgb(12, 218, 205, 0.5)',
 									'rgb(255, 205, 86)',
 									'rgb(121, 125, 127)',
@@ -248,46 +250,41 @@
 
 
 					const ctx2 = document.getElementById('classificacaoSolicitacoes');
-
-
 					new Chart(ctx2, {
-						type: 'pie',
+						type: 'doughnut',
 						data: {
-							labels: ['Problema', 'Incidente', 'Solicitação', 'Backup'],
+							labels: ['Problema ' + data.problema, 'Incidente ' + data.incidente, 'Solicitação ' + data.solicitacao, 'Acesso ' + data.acesso, 'Backup ' + data.backup, 'Evento ' + data.evento],
 							datasets: [{
 								label: 'CLassificação Solicitações: ',
-								data: [data.problema, data.incidente, data.solicitacao, data.backup],
+								data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
 								backgroundColor: [
-									'rgba(225, 15, 15, 0.5)',
-									'rgba(218, 121, 12, 0.5)',
-									'rgba(26, 26, 209, 0.5)',
-									'rgba(12, 218, 205, 0.5)',
+									'rgba(255, 0, 0, 0.5)',
+									'rgba(255, 135, 0, 0.5)',
+									'rgba(255, 240, 0, 0.5)',
+									'rgba(158, 255, 0, 0.5)',
 									'rgba(54, 162, 235, 0.2)',
 									'rgba(153, 102, 255, 0.2)',
 									'rgba(201, 203, 207, 0.2)'
 								],
 								borderColor: [
-									'rgb(255, 99, 132, 0.5)',
-									'rgb(0, 150, 255, 0.5)',
-									'rgb(255, 205, 86, 0.5)',
-									'rgb(121, 125, 127, 0.5)',
-									'rgb(54, 162, 235)',
-									'rgb(153, 102, 255)',
-									'rgb(201, 203, 207)'
+									'rgb(255, 0, 0, 0.5)',
+									'rgb(255, 135, 0, 0.5)',
+									'rgb(255, 240, 0, 0.5)',
+									'rgb(158, 255, 0, 0.5)',
+									'rgb(54, 162, 235, 0.2)',
+									'rgb(153, 102, 255, 0.2)',
+									'rgb(201, 203, 207, 0.2)'
 								],
 								borderWidth: 1
 							}]
 						},
 						options: {
 							responsive: true,
-							
 						}
 					});
 
 
-
 					const ctx3 = document.getElementById('prioridadeSolicitacoes');
-
 					new Chart(ctx3, {
 						type: 'bar',
 						data: {
@@ -297,21 +294,21 @@
 								data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
 								backgroundColor: [
 									'rgba(12, 218, 205, 0.5)',
-									'rgba(190, 218, 12, 0.5)',
-									'rgba(218, 121, 12, 0.5)',
-									'rgba(225, 15, 15, 0.5)',
+									'rgba(255, 240, 0, 0.5)',
+									'rgba(255, 135, 0, 0.5)',
+									'rgba(255, 0, 0, 0.5)',
 									'rgba(26, 26, 209, 0.5)',
 									'rgba(153, 102, 255, 0.2)',
 									'rgba(201, 203, 207, 0.2)'
 								],
 								borderColor: [
-									'rgb(255, 99, 132, 0.5)',
-									'rgb(0, 150, 255, 0.5)',
-									'rgb(255, 205, 86, 0.5)',
-									'rgb(121, 125, 127, 0.5)',
-									'rgb(54, 162, 235, 0.5)',
-									'rgb(153, 102, 255)',
-									'rgb(201, 203, 207)'
+									'rgb(12, 218, 205, 0.5)',
+									'rgb(255, 240, 0, 0.5)',
+									'rgb(255, 135, 0, 0.5)',
+									'rgb(255, 0, 0, 0.5)',
+									'rgb(26, 26, 209, 0.5)',
+									'rgb(153, 102, 255, 0.2)',
+									'rgb(201, 203, 207, 0.2)'
 								],
 								borderWidth: 1
 							}]
@@ -327,20 +324,17 @@
 						}
 					});
 					
-					
 					const ctx4 = document.getElementById('statusSolicitacoes');
-
-
 					new Chart(ctx4, {
-						type: 'pie',
+						type: 'doughnut',
 						data: {
-							labels: ['Aberto', 'Agendado', 'Andamento', 'Aguardando'],
+							labels: ['Aberto ' + data.aberto, 'Agendado ' + data.agendado, 'Andamento ' + data.andamento, 'Aguardando ' + data.aguardando, 'Pausado ' + data.pausado],
 							datasets: [{
 								label: 'Status Solicitações: ',
-								data: [data.aberto, data.agendado, data.andamento, data.aguardando],
+								data: [data.aberto, data.agendado, data.andamento, data.aguardando, data.pausado],
 								backgroundColor: [
-									'rgba(225, 15, 15, 0.5)',
-									'rgba(218, 121, 12, 0.5)',
+									'rgba(255, 0, 0, 0.5)',
+									'rgba(255, 135, 0, 0.5)',
 									'rgba(12, 218, 205, 0.5)',
 									'rgba(26, 26, 209, 0.5)',
 									'rgba(54, 162, 235, 0.2)',
@@ -348,43 +342,42 @@
 									'rgba(201, 203, 207, 0.2)'
 								],
 								borderColor: [
-									'rgb(255, 99, 132, 0.5)',
-									'rgb(0, 150, 255, 0.5)',
-									'rgb(121, 125, 127, 0.5)',
-									'rgb(255, 205, 86, 0.5)',
-									'rgb(54, 162, 235)',
-									'rgb(153, 102, 255)',
-									'rgb(201, 203, 207)'
+									'rgb(255, 0, 0, 0.5)',
+									'rgb(255, 135, 0, 0.5)',
+									'rgb(12, 218, 205, 0.5)',
+									'rgb(26, 26, 209, 0.5)',
+									'rgb(54, 162, 235, 0.2)',
+									'rgb(153, 102, 255, 0.2)',
+									'rgb(201, 203, 207, 0.2)'
 								],
 								borderWidth: 1
 							}]
 						},
 						options: {
 							responsive: true,
-							
 						}
 					});
 					
 					const ctx5 = document.getElementById('funcionariosSolicitacoes');
 
-					var stringLabel=[];
-					var stringLabel2=[];
+					var labelNomes=[];
+					var labelQuantidades=[];
 					
 					for(var i=0; i < data.totalFuncionarios ; i++){
-						stringLabel[i]=data.funcionario[i].nome;
-						stringLabel2[i]=data.funcionario[i].qtd;
+						labelNomes[i]=data.funcionario[i].nome + " " + data.funcionario[i].qtd;
+						labelQuantidades[i]=data.funcionario[i].qtd;
 					}
 
 					new Chart(ctx5, {
-						type: 'doughnut',
+						type: 'bar',
 						data: {
-							labels: stringLabel,
+							labels: labelNomes,
 							datasets: [{
 								label: 'Status Solicitações: ',
-								data: stringLabel2,
+								data: labelQuantidades,
 								backgroundColor: [
-									'rgba(225, 15, 15, 0.5)',
-									'rgba(218, 121, 12, 0.5)',
+									'rgba(255, 0, 0, 0.5)',
+									'rgba(255, 135, 0, 0.5)',
 									'rgba(6, 26, 209, 0.5)',
 									'rgba(12, 218, 205, 0.5)',
 									'rgba(54, 162, 235, 0.2)',
@@ -392,23 +385,21 @@
 									'rgba(201, 203, 207, 0.2)'
 								],
 								borderColor: [
-									'rgb(255, 99, 132, 0.5)',
-									'rgb(0, 150, 255, 0.5)',
-									'rgb(255, 205, 86, 0.5)',
-									'rgb(121, 125, 127, 0.5)',
-									'rgb(54, 162, 235)',
-									'rgb(153, 102, 255)',
-									'rgb(201, 203, 207)'
+									'rgb(255, 0, 0, 0.5)',
+									'rgb(255, 135, 0, 0.5)',
+									'rgb(6, 26, 209, 0.5)',
+									'rgb(12, 218, 205, 0.5)',
+									'rgb(54, 162, 235, 0.2)',
+									'rgb(153, 102, 255, 0.2)',
+									'rgb(201, 203, 207, 0.2)'
 								],
 								borderWidth: 1
 							}]
 						},
 						options: {
 							responsive: true,
-							
 						}
 					});
-
 
 				},
 				erro: function (request, status, error) {
@@ -416,8 +407,6 @@
 				complete: function (data) { }
 			})
 		});
-		
-			
 
 	</script>
 </body>

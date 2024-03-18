@@ -30,7 +30,7 @@ public class SolicitacaoController {
 	@GetMapping("/relatorios")
 	public String relatorios() {
 		
-		return "solicitacaoRelatorios.html";
+		return "solicitacaoOpcoesRelatorios.html";
 	}
 	
 	@GetMapping("/excluidas")
@@ -39,10 +39,22 @@ public class SolicitacaoController {
 		return "solicitacaoExcluidas.html";
 	}
 	
+	@GetMapping("/finalizadas")
+	public String finalizadas() {
+		
+		return "solicitacaoFinalizadas.html";
+	}
+	
 	@GetMapping("/dashboard/geral")
 	public String dashboardAtivos() {
 		
 		return "dashboard.html";
+	}
+	
+	@GetMapping("/dashboard/cliente")
+	public String dashboardCliente() {
+		
+		return "dashboardCliente.html";
 	}
 	
 

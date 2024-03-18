@@ -138,7 +138,7 @@
 		<div class="container">
 		  <div class="row">
 		    <div class="col">
-				<h4>Solicitações Excluídas</h4>
+				<h4>Solicitações finalizadas</h4>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -166,7 +166,6 @@
 						<th scope="col">Classificação</th>
 						<th scope="col">Responsável</th>
 						<th scope="col">Status</th>
-						<th scope="col">Desfazer</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -175,8 +174,105 @@
 				</tbody>
 			</table>
 		</div>
-
 		<br /><br />
+
+		<!-- ################################# Modal ########################################### -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-2" id="exampleModal"> <span id="nomeClienteModal"> </span></h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+						
+						<div class="row">
+							<div class="col-md-12 mt-3">
+								<h5>Aberto por: <b><span id="abertoPorModal"></span></b></h5>	
+							</div>
+							
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 mt-3">
+								<h5>Data de abertura: <b><span id="dataAberturaModal"></span></b></h5>	
+							</div>
+							
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 ms-auto mt-3">
+								<h5>Solicitante: <b><span id="solicitanteModal"></span></b></h5>
+							</div>
+
+							<div class="col-md-6 ms-auto mt-3">
+								<h5>Usuário afetado: <b><span id="afetadoModal"></span></b></h5>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 mt-3">
+								<h5>Categoria: <b><span id="categoriaModal"></span></b></h5>	
+							</div>
+
+							
+							<div class="col-md-6 ms-auto mt-3">
+								<h5>Local: <b><span id="localModal"></span></b></h5>	
+							</div>
+						</div>
+						
+						
+
+						<div class="row">
+							<div class="col-md-12 ms-auto mt-3">
+								<h5>Descrição: <b><span id="descricaoModal"></span></b></h5>
+
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 ms-auto mt-3">
+								<h5>Observação: <b><span id="observacaoModal"></span></b></h5>
+
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 ms-auto mt-3">
+								<h5>Resolução: <b><span id="resolucaoModal"></span></b></h5>
+
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 ms-auto mt-3">
+								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"></span></b></h5>
+
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 ms-auto mt-3">
+								<h5>Classificação: <b><span id="prioridadeModal"></span></b></h5>	
+							</div>
+							<div class="col-md-6 ms-auto mt-3">
+								<h5>Duração: <b><span id="duracaoModal"></span></b></h5>
+							</div>
+
+						</div>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################# Modal ########################################### -->
+
 		<footer class="text-center text-white">
 			<div class="container ">
 				<!-- Grid container -->
@@ -209,66 +305,7 @@
 		</footer>
 		</footer>
 
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-
-						<div class="row">
-							<div class="col-md-4">
-								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>
-								<input type="text" id="idmodal" class="form-control" readonly>
-							</div>
-
-							<div class="col-md-4">
-									<label class="form-label mt-1" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
-									<div class="controls">
-										<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal"
-											style="width: 250px;">
-											<option></option>
-										</select>
-								</div>
-							</div>
-
-							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="statusmodal"><b>Status</b></label>
-								<select class="form-select" id="statusmodal" aria-label="Default select example">
-
-								</select>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="descricaomodal"><b>Descrição</b></label>
-								<textarea class="form-control" rows="3" id="descricaomodal"
-									class="form-control"></textarea>
-							</div>
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="observacaomodal"><b>Observação</b></label>
-								<textarea class="form-control" rows="3" id="observacaomodal"
-									class="form-control"></textarea>
-							</div>
-						</div>
-
-						<label class="form-label mt-1" for="resolucaomodal"><b>Resolução</b></label>
-						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		
+				
 		
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
@@ -284,13 +321,13 @@
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "/sistech/solicitacao/excluido",
+			url: "/sistech/solicitacao/finalizado",
 			success: function (data) {
 				
 				data.content.map(i => {
 					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + '>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=verificar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente + '</td>'
@@ -302,9 +339,6 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '</td>'
-					+ '<td>'
-					+ ' <button class="btn btn-primary btn-sm" onclick=restaurar(' + i.id + ')><i class="bi bi-skip-backward"></i></button>'
-					+ '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -316,55 +350,69 @@
 			}
 		});
 
-		function editar(id) {
+		function verificar(id) {
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
-				url: "/sistech/solicitacao/busca/" + id,
+				url: "/sistech/solicitacao/finalizada/" + id,
 				success: function (data) {
-					$('#idmodal').val("");
-					$('#descricaomodal').val("");
-					$('#resolucaomodal').val("");
-					$('#observacaomodal').val("");
-					$('#statusmodal').empty();
-					$('#nomeFuncionarioModal').empty();
-
-					$('#idmodal').val(data.id);
-					$('#descricaomodal').val(data.descricao);
-					$('#resolucaomodal').val(data.resolucao);
-					$('#observacaomodal').val(data.observacao);
-					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
 					
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					var minutos = data.duracao;
+					
+					if(minutos > 60){
+						$('#duracaoModal').text("");
+						$('#duracaoModal').text(Math.round(data.duracao / 60) + " horas");
+					} else{
+						$('#duracaoModal').text("");
+						$('#duracaoModal').text(data.duracao + " minutos");
 					}
+					
+					$('#nomeClienteModal').text("");
+					$('#nomeClienteModal').text(data.nomeCliente);
+					
+					$('#dataAberturaModal').text("");
+					$('#dataAberturaModal').text(data.dataAbertura);
+					
+					$('#solicitanteModal').text("");
+					$('#solicitanteModal').text(data.solicitante);
+					
+					
+					$('#afetadoModal').text("");
+					$('#afetadoModal').text(data.afetado);
+					
+					$('#descricaoModal').text("");
+					$('#descricaoModal').text(data.descricao);
+					
+					$('#observacaoModal').text("");
+					$('#observacaoModal').text(data.observacao);
+					
+					$('#categoriaModal').text("");
+					$('#categoriaModal').text(data.categoria);
+					
+					$('#classificacaoModal').text("");
+					$('#classificacaoModal').text(data.classificacao);
+					
+					$('#localModal').text("");
+					$('#localModal').text(data.local);
+					
+					$('#resolucaoModal').text("");
+					$('#resolucaoModal').text(data.resolucao);
+					
+					$('#nomeFuncionarioModal').text("");
+					$('#nomeFuncionarioModal').text(data.nomeFuncionario);
+					
+					$('#prioridadeModal').text("");
+					$('#prioridadeModal').text(data.prioridade);
+					
+					$('#abertoPorModal').text("");
+					$('#abertoPorModal').text(data.abertoPor);
+					
+					
+					
 
-					if (data.status == 'EXCLUIDO') {
-						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
-					} 
 				},
 				error: function (e) {
 					alert(e);
-				}
-			});
-		}
-
-		function restaurar(id) {
-			$.ajax({
-				type: "PUT",
-				contentType: "application/json",
-				url: "/sistech/solicitacao/restaurar",
-				data: JSON.stringify({
-					"id": id
-				}),
-				success: function (data) {
-					 
-					$('#linha' + data.id).remove();
-					
-				},
-				error: function (e) {
-					alert(e.data);
 				}
 			});
 		}

@@ -1,0 +1,80 @@
+		<!-- ################################################## Modal ######################################################### -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida ID:  <span id="idmodal"> </span></h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<div class="row">
+							<div class="col-md-4">
+									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
+									<select class="form-select" id="localmodal" aria-label="Default select example">
+	
+									</select>
+							</div>
+							<div class="col-md-4">
+									
+									
+							</div>
+
+							<div class="col-md-4 ms-auto" id="divstatusmodal">
+									
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8-auto" id="agendamentosmodal" style="display: none">
+								
+
+							</div>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
+								
+
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
+								
+
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
+								
+
+							</div>
+						</div>
+						
+
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								
+
+							</div>
+							<div class="col-md-6 ms-auto">
+								
+
+							</div>
+						</div>
+
+						<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
+						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################################## Modal ######################################################### -->

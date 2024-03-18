@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
+import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
@@ -78,7 +80,7 @@ public class SolicitacaoService {
 			}
 			
 		}
-		if(dados.status().equals(Status.AGUARDANDO)) {
+		if(dados.status().equals(Status.AGUARDANDO) || dados.status().equals(Status.PAUSADO)) {
 			
 			if(solicitacao.getDataAndamento() != null) {
 				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
@@ -122,7 +124,14 @@ public class SolicitacaoService {
 
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean exluida) {
 		return repository.listarSolicitacoes(page, status, exluida);
-		
+	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadas(Pageable page, String status, Boolean exluida) {
+		return repository.listarSolicitacoesFinalizadas(page, status, exluida);
+	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id) {
+		return repository.listarSolicitacoesFinalizadasPorCliente(page, id);
 	}
 
 	public Solicitacao buscarPorId(Long id) {
@@ -138,27 +147,62 @@ public class SolicitacaoService {
 		return new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
 		
 	}
+	
+	public DtoDashboardCliente geraDashboardCliente(Long id) {
+		
+		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
+		
+		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString() , false);
+		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString() , false);
+		problema = repository.totalPorClassificacaoPorCliente(id, Classificacao.PROBLEMA.toString(), false);
+		incidente = repository.totalPorClassificacaoPorCliente(id, Classificacao.INCIDENTE.toString(), false);
+		solicitacao = repository.totalPorClassificacaoPorCliente(id, Classificacao.SOLICITACAO.toString(), false);
+		backup = repository.totalPorClassificacaoPorCliente(id, Classificacao.BACKUP.toString(), false);
+		acesso = repository.totalPorClassificacaoPorCliente(id, Classificacao.ACESSO.toString(), false);
+		evento = repository.totalPorClassificacaoPorCliente(id, Classificacao.EVENTO.toString(), false);
+		
+		baixa = repository.totalPorPrioridadePorCliente(id, Prioridade.BAIXA.toString(), false);
+		media = repository.totalPorPrioridadePorCliente(id, Prioridade.MEDIA.toString(), false);
+		alta = repository.totalPorPrioridadePorCliente(id, Prioridade.ALTA.toString(), false);
+		critica = repository.totalPorPrioridadePorCliente(id, Prioridade.CRITICA.toString(), false);
+		planejada = repository.totalPorPrioridadePorCliente(id, Prioridade.PLANEJADA.toString(), false);
+		
+		aberto = repository.countByClienteIdAndStatusAndExcluido(id, Status.ABERTO, false);
+		andamento = repository.countByClienteIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
+		agendado = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGENDADO, false);
+		aguardando = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGUARDANDO, false);
+		pausado = repository.countByClienteIdAndStatusAndExcluido(id, Status.PAUSADO, false);
+		finalizado = repository.countByClienteIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
+		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+
+		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes);
+		
+	}
+	
 
 	public DtoDashboard geraDashboard() {
 		
-		int onsite,offsite,problema,incidente,solicitacao,backup,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,totalSolicitacoes;
+		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,totalSolicitacoes;
 		
-		onsite = repository.countByLocalAndExcluido(Local.ONSITE, false);
-		offsite = repository.countByLocalAndExcluido(Local.OFFSITE, false);
-		problema = repository.countByClassificacaoAndExcluido(Classificacao.PROBLEMA, false);
-		incidente = repository.countByClassificacaoAndExcluido(Classificacao.INCIDENTE, false);
-		solicitacao = repository.countByClassificacaoAndExcluido(Classificacao.SOLICITACAO, false);
-		backup = repository.countByClassificacaoAndExcluido(Classificacao.BACKUP, false);
-		baixa = repository.countByPrioridadeAndExcluido(Prioridade.BAIXA, false);
-		media = repository.countByPrioridadeAndExcluido(Prioridade.MEDIA, false);
-		alta = repository.countByPrioridadeAndExcluido(Prioridade.ALTA, false);
-		critica = repository.countByPrioridadeAndExcluido(Prioridade.CRITICA, false);
-		planejada = repository.countByPrioridadeAndExcluido(Prioridade.PLANEJADA, false);
+		onsite = repository.totalPorLocal(Local.ONSITE.toString() , false, Status.FINALIZADO.toString());
+		offsite = repository.totalPorLocal(Local.OFFSITE.toString() , false, Status.FINALIZADO.toString());
+		problema = repository.totalPorClassificacao(Classificacao.PROBLEMA.toString(), false, Status.FINALIZADO.toString());
+		incidente = repository.totalPorClassificacao(Classificacao.INCIDENTE.toString(), false, Status.FINALIZADO.toString());
+		solicitacao = repository.totalPorClassificacao(Classificacao.SOLICITACAO.toString(), false, Status.FINALIZADO.toString());
+		backup = repository.totalPorClassificacao(Classificacao.BACKUP.toString(), false, Status.FINALIZADO.toString());
+		acesso = repository.totalPorClassificacao(Classificacao.ACESSO.toString(), false, Status.FINALIZADO.toString());
+		evento = repository.totalPorClassificacao(Classificacao.EVENTO.toString(), false, Status.FINALIZADO.toString());
+		baixa = repository.totalPorPrioridade(Prioridade.BAIXA.toString(), false, Status.FINALIZADO.toString());
+		media = repository.totalPorPrioridade(Prioridade.MEDIA.toString(), false, Status.FINALIZADO.toString());
+		alta = repository.totalPorPrioridade(Prioridade.ALTA.toString(), false, Status.FINALIZADO.toString());
+		critica = repository.totalPorPrioridade(Prioridade.CRITICA.toString(), false, Status.FINALIZADO.toString());
+		planejada = repository.totalPorPrioridade(Prioridade.PLANEJADA.toString(), false, Status.FINALIZADO.toString());
 		aberto = repository.countByStatusAndExcluido(Status.ABERTO, false);
 		andamento = repository.countByStatusAndExcluido(Status.ANDAMENTO, false);
 		agendado = repository.countByStatusAndExcluido(Status.AGENDADO, false);
 		aguardando = repository.countByStatusAndExcluido(Status.AGUARDANDO, false);
-		totalSolicitacoes = aberto+andamento+agendado+aguardando;
+		pausado = repository.countByStatusAndExcluido(Status.PAUSADO, false);
+		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado;
 		
 		List<DtoListarFuncionarios> funcionarios = funcionarioService.listar();
 		List<DtoDashboardResumoFuncionario> listaDto = new ArrayList<>();
@@ -166,19 +210,18 @@ public class SolicitacaoService {
 		int totalFUncionarios = funcionarios.size();
 		
 		funcionarios.forEach(f -> {
-			listaDto.add(new DtoDashboardResumoFuncionario(f.nomeFuncionario(),repository.countByFuncionarioIdAndExcluido(f.id(), false)));
+			listaDto.add(new DtoDashboardResumoFuncionario(f.nomeFuncionario(),repository.totalPorFuncionario(f.id(), false, Status.FINALIZADO.toString())));
 		});
 		
 		
-		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,backup,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,totalSolicitacoes,totalFUncionarios,listaDto);
+		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,totalSolicitacoes,totalFUncionarios,listaDto);
 	}
 
 	public DtoSolicitacaoRelatorios geraRelatorios() {
 		
-		Long abertosHoje, finalizadosHoje;
+		//Long abertosHoje, finalizadosHoje;
 		List<Long> idFuncionarios = funcionarioService.listarIdFuncionarosLong();
 		List<DtoSolicitacoesRelatorioFuncionario> relatorioFuncionario = new ArrayList<>();
-		
 
 		idFuncionarios.forEach(f -> {
 			Long abertos, andamento, agendados, aguardando, total;
@@ -190,7 +233,6 @@ public class SolicitacaoService {
 			relatorioFuncionario.add(new DtoSolicitacoesRelatorioFuncionario(funcionarioService.buscaNomeFuncionarioPorId(f), abertos, andamento, agendados, aguardando, total));
 			
 		});
-		
 		
 		return new DtoSolicitacaoRelatorios(10l,2l, relatorioFuncionario);
 	}
@@ -205,6 +247,10 @@ public class SolicitacaoService {
 		solicitacao.setDataAgendado(null);
 		return new DtoDadosRestauracao(solicitacao.getId());
 				
+	}
+
+	public DtoSolicitacaoProjecaoCompleta buscarFinalizada(Long id) {
+		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoFinalizada(id, Status.FINALIZADO.toString()));
 	} 
 
 }
