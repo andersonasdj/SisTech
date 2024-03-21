@@ -1,5 +1,7 @@
 package br.com.techgol.app.orm;
 
+import java.time.LocalDateTime;
+
 public interface SolicitacaoProjecaoCompleta {
 	
 	Long getId();
@@ -18,6 +20,9 @@ public interface SolicitacaoProjecaoCompleta {
 	String getDuracao();
 	String getNomeCliente();
 	String getNomeFuncionario();
-	String getDataAbertura();
+	LocalDateTime getDataAbertura();
+	LocalDateTime getDataAndamento();
+	LocalDateTime getDataFinalizado();
+	LocalDateTime getDataAtualizacao();
 
 }

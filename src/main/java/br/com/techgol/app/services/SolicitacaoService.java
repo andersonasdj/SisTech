@@ -2,6 +2,7 @@ package br.com.techgol.app.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
@@ -27,6 +29,8 @@ import br.com.techgol.app.model.enums.Classificacao;
 import br.com.techgol.app.model.enums.Local;
 import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
+import br.com.techgol.app.orm.DtoUltimaAtualizada;
+import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.SolicitacaoRepository;
 import jakarta.transaction.Transactional;
@@ -46,6 +50,7 @@ public class SolicitacaoService {
 		if(repository.existsById(id)) {
 			Solicitacao solicitacao = repository.getReferenceById(id);
 			solicitacao.setStatus(Status.EXCLUIDO);
+			solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 			solicitacao.setExcluido(true);
 			solicitacao.setDataAgendado(null);
 			solicitacao.setDataAndamento(null);
@@ -53,6 +58,42 @@ public class SolicitacaoService {
 		}else {
 			return "Não foi possível excluir";
 		}
+	}
+	
+	@Transactional
+	public void edicaoFinalizada(DtoSolicitacaoFinalizada dados) {
+		Solicitacao solicitacao = repository.getReferenceById(dados.id());
+		
+		solicitacao.setLocal(dados.local());
+		solicitacao.setCategoria(dados.categoria());
+		solicitacao.setDescricao(dados.descricao());
+		solicitacao.setObservacao(dados.observacao());
+		solicitacao.setPrioridade(dados.prioridade());
+		solicitacao.setResolucao(dados.resolucao());
+		solicitacao.setClassificacao(dados.classificacao());
+		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
+
+		solicitacao.setDataAbertura(LocalDateTime.parse(dados.dataAbertura()+"T"+dados.horaAbertura()));
+
+		boolean andamento = false;
+		boolean finalizado = false;
+		
+		String dataHoraAndamento, dataHoraFinalizado;
+		dataHoraAndamento = LocalDateTime.parse(dados.dataAndamento()+"T"+dados.horaAndamento()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+		dataHoraFinalizado = LocalDateTime.parse(dados.dataFinalizado()+"T"+dados.horaFinalizado()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+		
+		if(!solicitacao.getDataAndamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")).equals(dataHoraAndamento)) {
+			solicitacao.setDataAndamento(LocalDateTime.parse(dados.dataAndamento()+"T"+dados.horaAndamento()));
+			andamento = true;
+		}
+		if(!solicitacao.getDataFinalizado().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")).equals(dataHoraFinalizado)){
+			solicitacao.setDataFinalizado(LocalDateTime.parse(dados.dataFinalizado()+"T"+dados.horaFinalizado()));
+			finalizado = true;
+		}
+		if(andamento || finalizado) {
+			solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), solicitacao.getDataFinalizado()).toMinutes());
+		}
+		
 	}
 	
 	public Solicitacao edicaoRapida(DtoDadosEdicaoRapida dados) {
@@ -65,8 +106,10 @@ public class SolicitacaoService {
 				solicitacao.setFuncionario(funcionario);
 			}
 		}
-		if(dados.status().equals(Status.ANDAMENTO)) {
-			solicitacao.setDataAndamento(LocalDateTime.now());
+		if(dados.status().equals(Status.ANDAMENTO) && !solicitacao.getStatus().equals(Status.ANDAMENTO)) {
+			
+			solicitacao.setDataAndamento(LocalDateTime.now().withNano(0));
+			
 			solicitacao.setDataAgendado(null);
 		}
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
@@ -90,7 +133,7 @@ public class SolicitacaoService {
 			
 		}
 		if(dados.status().equals(Status.FINALIZADO)) {
-			solicitacao.setDataFinalizado(LocalDateTime.now());
+			solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
 			if(solicitacao.getDuracao() == null) {
 				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() < 15) {
 					solicitacao.setDuracao(15l);
@@ -107,6 +150,7 @@ public class SolicitacaoService {
 			solicitacao.setExcluido(false);
 			solicitacao.setDataAndamento(null);
 		}
+		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		solicitacao.setStatus(dados.status());
 		solicitacao.setDescricao(dados.descricao());
 		solicitacao.setResolucao(dados.resolucao());
@@ -142,7 +186,7 @@ public class SolicitacaoService {
 		Funcionario funcionarioBase = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		solicitacao.setAbertoPor(funcionarioBase.getNomeFuncionario());
 		if(solicitacao.getStatus() == Status.ANDAMENTO) {
-			solicitacao.setDataAndamento(LocalDateTime.now());
+			solicitacao.setDataAndamento(LocalDateTime.now().withNano(0));
 		}
 		return new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
 		
@@ -151,6 +195,9 @@ public class SolicitacaoService {
 	public DtoDashboardCliente geraDashboardCliente(Long id) {
 		
 		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
+		int totalMesCorrente;
+		Long totalMinutosMes=0l;
+		LocalDateTime dataDePesquisa = LocalDateTime.now().plusDays(-LocalDateTime.now().getDayOfMonth());
 		
 		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString() , false);
 		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString() , false);
@@ -160,13 +207,11 @@ public class SolicitacaoService {
 		backup = repository.totalPorClassificacaoPorCliente(id, Classificacao.BACKUP.toString(), false);
 		acesso = repository.totalPorClassificacaoPorCliente(id, Classificacao.ACESSO.toString(), false);
 		evento = repository.totalPorClassificacaoPorCliente(id, Classificacao.EVENTO.toString(), false);
-		
 		baixa = repository.totalPorPrioridadePorCliente(id, Prioridade.BAIXA.toString(), false);
 		media = repository.totalPorPrioridadePorCliente(id, Prioridade.MEDIA.toString(), false);
 		alta = repository.totalPorPrioridadePorCliente(id, Prioridade.ALTA.toString(), false);
 		critica = repository.totalPorPrioridadePorCliente(id, Prioridade.CRITICA.toString(), false);
 		planejada = repository.totalPorPrioridadePorCliente(id, Prioridade.PLANEJADA.toString(), false);
-		
 		aberto = repository.countByClienteIdAndStatusAndExcluido(id, Status.ABERTO, false);
 		andamento = repository.countByClienteIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
 		agendado = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGENDADO, false);
@@ -174,9 +219,14 @@ public class SolicitacaoService {
 		pausado = repository.countByClienteIdAndStatusAndExcluido(id, Status.PAUSADO, false);
 		finalizado = repository.countByClienteIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
 		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
-
-		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes);
+		totalMesCorrente = repository.countByClienteIdAndExcluidoAndDataAberturaAfter(id, false, dataDePesquisa);
 		
+		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);;
+		
+		for (PojecaoResumidaFinalizados s : solicitacoes) {
+			totalMinutosMes += s.getDuracao();
+		}
+		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, totalMinutosMes);
 	}
 	
 
@@ -240,7 +290,9 @@ public class SolicitacaoService {
 	@Transactional
 	public DtoDadosRestauracao restaurar(Long id) {
 		
+		
 		Solicitacao solicitacao = repository.getReferenceById(id);
+		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		solicitacao.setExcluido(false);
 		solicitacao.setStatus(Status.ABERTO);
 		solicitacao.setDataAndamento(null);
@@ -251,6 +303,11 @@ public class SolicitacaoService {
 
 	public DtoSolicitacaoProjecaoCompleta buscarFinalizada(Long id) {
 		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoFinalizada(id, Status.FINALIZADO.toString()));
+	}
+
+	public DtoUltimaAtualizada ultimaAtualizada() {
+		
+		return repository.buscaUltimaAtualizada();
 	} 
 
 }

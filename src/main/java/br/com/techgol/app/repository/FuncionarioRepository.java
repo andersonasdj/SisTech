@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
@@ -50,4 +51,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	
 	@Query(value = "SELECT COUNT(*) FROM funcionarios", nativeQuery = true)
 	public int existsFuncionarios();
+
+	@Query(value = "SELECT f.id, f.nomeFuncionario, f.userName, f.dataAtualizacao FROM funcionarios f WHERE f.id = :id", nativeQuery = true)
+	public DtoFuncionarioEditSimplificado buscaFuncionarioSimplificadoPorId(Long id);
 }

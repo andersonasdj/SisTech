@@ -15,8 +15,14 @@ public class FuncionarioController {
 	}
 	
 	@GetMapping("/form")
-	public String formilario() {
+	public String formulario() {
 		return "funcionarioForm.html";
+		
+	}
+	
+	@GetMapping("/perfil")
+	public String perfil() {
+		return "perfil.html";
 		
 	}
 	

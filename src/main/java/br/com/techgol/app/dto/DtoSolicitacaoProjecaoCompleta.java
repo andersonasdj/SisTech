@@ -1,5 +1,7 @@
 package br.com.techgol.app.dto;
 
+import java.time.format.DateTimeFormatter;
+
 import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 
 public record DtoSolicitacaoProjecaoCompleta(
@@ -19,7 +21,13 @@ public record DtoSolicitacaoProjecaoCompleta(
 		String duracao,
 		String nomeCliente,
 		String nomeFuncionario,
-		String dataAbertura
+		String dataAbertura,
+		String horaAbertura,
+		String dataAndamento,
+		String horaAndamento,
+		String dataFinalizado,
+		String horaFinalizado,
+		String dataAtualizacao
 		
 		) {
 
@@ -41,7 +49,13 @@ public record DtoSolicitacaoProjecaoCompleta(
 				s.getDuracao(),
 				s.getNomeCliente(),
 				s.getNomeFuncionario(),
-				s.getDataAbertura()
+				s.getDataAbertura().toLocalDate().toString(),
+				s.getDataAbertura().format(DateTimeFormatter.ofPattern("HH:mm")),
+				s.getDataAndamento().toLocalDate().toString(),
+				s.getDataAndamento().format(DateTimeFormatter.ofPattern("HH:mm")),
+				s.getDataFinalizado().toLocalDate().toString(),
+				s.getDataFinalizado().format(DateTimeFormatter.ofPattern("HH:mm")),
+				s.getDataAtualizacao().toString()
 				);
 	}
 

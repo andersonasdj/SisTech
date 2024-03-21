@@ -1,5 +1,8 @@
 package br.com.techgol.app.repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
+import br.com.techgol.app.orm.DtoUltimaAtualizada;
+import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 
@@ -16,7 +21,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -27,7 +32,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura,  s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -39,7 +44,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.duracao "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, "
+			+ "s.dataAbertura, s.duracao, s.dataAndamento, s.dataFinalizado, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -52,7 +58,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, "
+			+ "s.duracao, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -61,8 +68,9 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.excluido = false",nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id);
 	
-
+	
 	public int countByStatusAndExcluido(Status status, Boolean excluido);
+	
 
 	public Long countByStatusAndFuncionarioId(Status status, Long id);
 
@@ -82,6 +90,10 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	public int countByClienteIdAndStatusAndExcluido(Long id, Status status, Boolean excluido);
 	
+	public int countByClienteIdAndExcluidoAndDataAberturaAfter(Long id, Boolean excluido, LocalDateTime dataAbertura);
+	
+	public List<PojecaoResumidaFinalizados> findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(Long id, Boolean excluido, Status status, LocalDateTime dataFechamento);
+	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorLocalPorCliente(Long id, String local, Boolean excluido);
 	
@@ -90,6 +102,10 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.prioridade = :prioridade AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorPrioridadePorCliente(Long id, String prioridade, Boolean excluido);
+
+	
+	@Query(value = "SELECT s.id, s.dataAtualizacao FROM solicitacoes s WHERE s.excluido = 'false' AND s.status != 'FINALIZADO' ORDER BY s.dataAtualizacao DESC LIMIT 1", nativeQuery = true)
+	public DtoUltimaAtualizada buscaUltimaAtualizada();
 	
 
 }

@@ -25,6 +25,7 @@ import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
@@ -32,6 +33,7 @@ import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
+import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.repository.FuncionarioRepository;
@@ -50,6 +52,7 @@ public class SolicitacaoRestController {
 	@Autowired
 	private SolicitacaoService solicitacaoService;
 	
+	
 	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
 	private List<Solicitacao> listar(){
 		return solicitacaoService.buscarTodos();
@@ -60,7 +63,7 @@ public class SolicitacaoRestController {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), false);
 	}
 	
-	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS
+	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		
 		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesClienteAtivos(),
@@ -70,29 +73,79 @@ public class SolicitacaoRestController {
 				);
 	}
 	
-	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
-	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
-		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
-				
-	}
-	
-	@PutMapping("/restaurar") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
-	private DtoDadosRestauracao restaurar(@RequestBody DtoDadosRestauracao dado) {
-		return	solicitacaoService.restaurar(dado.id());
-
-				
-	}
-	
 	@GetMapping("/busca/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
 	public DtoDadosEdicaoRapidaMaisFuncionarios buscaPorId(@PathVariable Long id) {
 		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
 		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios);
 	}
 	
-	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
+
+	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
 	public DtoSolicitacaoProjecaoCompleta buscaFinalizadaPorId(@PathVariable Long id) {
-		System.out.println("#####" + id);
 		return solicitacaoService.buscarFinalizada(id);
+	}
+	
+	@GetMapping("/excluido") //RETORNA DTO COM PROJEÇÃO DAS SOLICITAÇÕES EXCLUIDAS-LIXEIRA
+	public Page<SolicitacaoProjecao> excluidas(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
+	}
+	
+	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DE TODAS AS SOLICITACOES EXCLUÍDAS-LIXEIRA
+	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesFinalizadas(page,Status.FINALIZADO.toString(), false);
+	}
+	
+	@GetMapping("/finalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
+	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesFinalizadasPorCliente(page, id);
+		
+	}
+	
+	@GetMapping("/dashboard") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD GERAL
+	public DtoDashboard dashboard() {
+		
+		return solicitacaoService.geraDashboard();
+		
+	}
+	
+	@GetMapping("/dashboard/cliente/{id}") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD POR CLIENTE
+	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
+		
+		return solicitacaoService.geraDashboardCliente(id);
+		
+	}
+	
+	@GetMapping("/relatorio") //RETORNA UMA DTO COM TODOS OS DADOS PARA A VIEWER DE RELATORIOS
+	public DtoSolicitacaoRelatorios relatorios() {
+		
+		return solicitacaoService.geraRelatorios();
+		
+	}
+	
+	@GetMapping("/ultima/atualizada") //RETORNA ID E DATA DA ULTIMA SOLICITACAO ATUALIZADA
+	public DtoUltimaAtualizada ultimaSolicitacaoAtualizada() {
+		return solicitacaoService.ultimaAtualizada();
+	}
+	
+	
+	
+	
+	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
+	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
+		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
+				
+	}
+	
+	@PutMapping("/finalizada/atualizar") //ATUALIZA SOLICITACAO FINALIZADA
+	private void edicaoFinalizada(@RequestBody DtoSolicitacaoFinalizada dados) {
+		solicitacaoService.edicaoFinalizada(dados);
+				
+	}
+	
+	@PutMapping("/restaurar") //RESTAURA UM ITEM ENVIADO PARA LIXEIRA
+	private DtoDadosRestauracao restaurar(@RequestBody DtoDadosRestauracao dado) {
+		return	solicitacaoService.restaurar(dado.id());
+				
 	}
 	
 	@PostMapping("/salvaLista") //RECEBE UMA LISTA DE SOLICITAÇÕES E SALVA NO BANCO
@@ -117,52 +170,9 @@ public class SolicitacaoRestController {
 		return solicitacaoService.salvarNovaSolicitacao(solicitacao);
 	}
 
-	@DeleteMapping("/excluir/{id}")
+	@DeleteMapping("/excluir/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
 	public String excluir(@PathVariable Long id) {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
 	}
-	
-	@GetMapping("/excluido") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> excluidas(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
-	}
-	
-	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		return solicitacaoService.listarSolicitacoesFinalizadas(page,Status.FINALIZADO.toString(), false);
-	}
-	
-	@GetMapping("/finalizado/cliente/{id}")
-	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		
-		return solicitacaoService.listarSolicitacoesFinalizadasPorCliente(page, id);
-		
-	}
-	
-	//########################### DASHBOARD ###############################################
-	
-	@GetMapping("/dashboard")
-	public DtoDashboard dashboard() {
-		
-		return solicitacaoService.geraDashboard();
-		
-	}
-	
-	@GetMapping("/dashboard/cliente/{id}")
-	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
-		
-		return solicitacaoService.geraDashboardCliente(id);
-		
-	}
-	
-	
-	@GetMapping("/relatorio")
-	public DtoSolicitacaoRelatorios relatorios() {
-		
-		return solicitacaoService.geraRelatorios();
-		
-	}
-	
-	//########################### DASHBOARD ###############################################
 	
 }

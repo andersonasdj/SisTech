@@ -21,6 +21,8 @@ public record DtoDashboardCliente(
 		int aguardando,
 		int pausado,
 		int finalizado,
-		int totalSolicitacoes) {
+		int totalSolicitacoes,
+		int totalMesCorrente,
+		Long totalMinutosMes) {
 
 }

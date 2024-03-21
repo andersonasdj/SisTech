@@ -23,6 +23,7 @@ import br.com.techgol.app.dto.DtoFuncionarioHome;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 import br.com.techgol.app.services.FuncionarioService;
 import jakarta.validation.Valid;
 
@@ -41,6 +42,13 @@ public class FuncionarioRestController {
 	@GetMapping
 	public List<DtoListarFuncionarios> listar(){
 		return service.listar();
+	}
+	
+	@GetMapping("/perfil")
+	public DtoFuncionarioEditSimplificado perfil(){
+		
+		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		return service.buscaDadosFuncionario(funcionario.getId());
 	}
 	
 	@GetMapping("/home")
@@ -95,8 +103,20 @@ public class FuncionarioRestController {
 	}
 	
 	@PutMapping("/senha")
-	public String atualizar(@RequestBody DtoSenha dados) {
+	public boolean atualizar(@RequestBody DtoSenha dados) {
 		return service.atualizarSenha(dados);
+	}
+	
+	@PutMapping("/senha/pessoal")
+	public boolean atualizarSenhaPessoal(@RequestBody DtoSenha dados) {
+		
+		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		if(funcionario.getId() == dados.id()) {
+			return service.atualizarSenha(dados);
+		}else {
+			return false;
+		}
+		
 	}
 	
 }

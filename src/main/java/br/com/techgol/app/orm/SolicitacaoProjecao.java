@@ -18,5 +18,7 @@ public interface SolicitacaoProjecao {
 	String getNomeCliente();
 	String getNomeFuncionario();
 	String getDataAbertura();
+	String getDuracao();
+	String getDataAtualizacao();
 
 }

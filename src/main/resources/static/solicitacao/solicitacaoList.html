@@ -116,7 +116,7 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">Perfil</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
 								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
 								<li>
 									<hr class="dropdown-divider">
@@ -125,7 +125,7 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<img src="../assets/img/logout.png" style="width: 60px; border: none;" >
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
 							</a>
 					</ul>
 				</div>
@@ -209,16 +209,16 @@
 		</footer>
 		</footer>
 
-		<!-- Modal -->
+		<!-- #################################  Modal EDIÇÃO ######################################################## -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida ID:  <span id="idmodal"> </span></h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<h1 class="modal-title fs-6" id="exampleModalLabel">Edição ID: <span id="idmodal"> </span></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-
+							
 						<div class="row">
 							<div class="col-md-4">
 									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
@@ -334,6 +334,12 @@
 
 						<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+						
+						<div class="row">
+							<div class="col-md-6 mt-3">
+								Ultima atualização: <span id="dataAtualizacaoModal"></span>
+							</div>
+						</div>
 
 					</div>
 					<div class="modal-footer">
@@ -344,7 +350,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Modal -->
+		<!-- #################################  Modal EDIÇÃO ######################################################## -->
 		
 		
 		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
@@ -602,6 +608,7 @@
 				success: function (data) {
 
 					$('#idmodal').text("");
+					$('#dataAtualizacaoModal').text("");
 					$('#descricaomodal').val("");
 					$('#resolucaomodal').val("");
 					$('#observacaomodal').val("");
@@ -616,6 +623,7 @@
 					$('#timeModal').val("");
 
 					$('#idmodal').text(data.id);
+					$('#dataAtualizacaoModal').text(data.dataAtualizacao);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);

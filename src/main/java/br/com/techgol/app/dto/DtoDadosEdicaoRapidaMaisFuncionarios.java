@@ -24,6 +24,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 		String funcionario,
 		String dataAgendado,
 		String horaAgendado,
+		String dataAtualizacao,
 		List<String> funcionarios) {
 
 	public DtoDadosEdicaoRapidaMaisFuncionarios(Solicitacao dados, List<String> s) {
@@ -40,6 +41,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				dados.getFuncionario().getNomeFuncionario(),
 				(dados.getDataAgendado()!= null) ? dados.getDataAgendado().toLocalDate().toString() : "",
 				(dados.getDataAgendado()!= null) ? dados.getDataAgendado().toLocalTime().toString() : "",
+				(dados.getDataAtualizacao().toLocalDate() + " - "+ dados.getDataAtualizacao().toLocalTime()).toString(),
 				s);
 	}
 		

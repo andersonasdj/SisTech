@@ -15,6 +15,7 @@ import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.dto.DtoSolicitacoesFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacoesGerais;
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 import br.com.techgol.app.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
 
@@ -28,6 +29,10 @@ public class FuncionarioService {
 	public int existeFuncionarios() {
 		
 		return repository.existsFuncionarios();
+	}
+	
+	public DtoFuncionarioEditSimplificado buscaDadosFuncionario(Long id) {
+		return repository.buscaFuncionarioSimplificadoPorId(id);
 	}
 	
 	
@@ -133,13 +138,22 @@ public class FuncionarioService {
 	}
 
 	@Transactional
-	public String atualizarSenha(DtoSenha dados) {
+	public boolean atualizarSenha(DtoSenha dados) {
 		if(repository.existsById(dados.id())) {
-			Funcionario f = repository.getReferenceById(dados.id());
-			f.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()) );
-			return "Senha alterada com sucesso!";
+			System.out.println("SENHA: " + dados.password() +"");
+			System.out.println("SENHA: " + dados.password().trim());
+			System.out.println(dados.password().isBlank());
+			if(dados.password().isBlank() || dados.password().isEmpty()) {
+				return false;
+				
+			}else {
+				Funcionario f = repository.getReferenceById(dados.id());
+				f.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()) );
+				return true;
+			}
+			
 		}else {
-			return "A senha não foi alterada";
+			return false;
 		}
 
 	}

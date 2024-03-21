@@ -14,6 +14,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -50,6 +51,9 @@ public class Solicitacao {
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime dataAgendado;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime dataAtualizacao;
+	
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
 	
@@ -75,9 +79,9 @@ public class Solicitacao {
 	private Classificacao classificacao;
 	@Enumerated(EnumType.STRING)
 	private Local local;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Funcionario funcionario;
 	
 	private Boolean excluido;
@@ -127,7 +131,8 @@ public class Solicitacao {
 		this.local = dados.local();
 		this.status = dados.status();
 		this.excluido = false;
-		this.dataAbertura = LocalDateTime.now();
+		this.dataAbertura = LocalDateTime.now().withNano(0);
+		this.dataAtualizacao = LocalDateTime.now().withNano(0);
 	}
 
 }
