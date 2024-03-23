@@ -33,6 +33,7 @@ public class Usuario {
 	private Boolean mfa;
 	private LocalDateTime dataAtualizacao;
 	private LocalDateTime dataUltimoLogin;
+	private String pais;
 	
 	
 

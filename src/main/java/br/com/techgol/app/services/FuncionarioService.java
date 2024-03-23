@@ -114,7 +114,7 @@ public class FuncionarioService {
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAtivo(dados.ativo());
 		funcionario.setRole(dados.role());
-		funcionario.setDataAtualizacao(LocalDateTime.now());
+		funcionario.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		return new DtoListarFuncionarios(funcionario);
 		
 	}
@@ -140,15 +140,12 @@ public class FuncionarioService {
 	@Transactional
 	public boolean atualizarSenha(DtoSenha dados) {
 		if(repository.existsById(dados.id())) {
-			System.out.println("SENHA: " + dados.password() +"");
-			System.out.println("SENHA: " + dados.password().trim());
-			System.out.println(dados.password().isBlank());
 			if(dados.password().isBlank() || dados.password().isEmpty()) {
 				return false;
-				
 			}else {
 				Funcionario f = repository.getReferenceById(dados.id());
 				f.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()) );
+				f.setDataAtualizacao(LocalDateTime.now().withNano(0));
 				return true;
 			}
 			
@@ -159,10 +156,11 @@ public class FuncionarioService {
 	}
 	
 	@Transactional
-	public void atualizaDataLogin(String nome) {
-		
-		Funcionario funcionario = repository.buscarPorUsername(nome);
-		funcionario.setDataUltimoLogin(LocalDateTime.now());
+	public void atualizaIpLogin(Funcionario f, String ip, String pais) {
+		Funcionario funcionario = repository.getReferenceById(f.getId());
+		funcionario.setDataUltimoLogin(LocalDateTime.now().withNano(0));
+		funcionario.setIp(ip);
+		funcionario.setPais(pais);
 		
 	}
 	

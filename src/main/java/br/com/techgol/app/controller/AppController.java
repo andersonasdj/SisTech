@@ -17,6 +17,11 @@ public class AppController {
 		return "templates/login.html";
 	}
 	
+	@GetMapping("/mfa")
+	public String mfa() {
+		return "templates/mfa.html";
+	}
+	
 	@GetMapping("/create")	//ENDPOINT PARA CRIACAO DO PRIMEIRO USUARIO DO SISTEMA
 	public String create() {
 		if(service.existeFuncionarios() == 0) {
@@ -29,6 +34,11 @@ public class AppController {
 	@GetMapping("/home")
 	public String home() {
 		return "templates/home.html";
+	}
+	
+	@GetMapping("/logAcesso")
+	public String logsAcesso() {
+		return "templates/logsAcesso.html";
 	}
 
 }

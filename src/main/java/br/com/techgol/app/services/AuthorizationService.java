@@ -14,12 +14,11 @@ public class AuthorizationService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		//var user = repository.findByUsername(username);
 		var user = service.buscaPorUserDetails(username);
 		if(user == null) {
+			
 			throw new Error("User does not exists!");
 		}else {
-			service.atualizaDataLogin(user.getUsername());
 			return user;
 		}
 	}
