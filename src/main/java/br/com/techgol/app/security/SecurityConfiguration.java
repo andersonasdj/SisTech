@@ -31,7 +31,7 @@ public class SecurityConfiguration {
 		httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 		
 		 httpSecurity
-		 		.sessionManagement(session -> session.maximumSessions(1))
+		 		.sessionManagement(session -> session.maximumSessions(2).expiredUrl("/login?invalid-session=true"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.disable())
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -49,10 +49,10 @@ public class SecurityConfiguration {
                     .defaultSuccessUrl("/home")
                     .permitAll()
                 		)
-        		.logout().logoutSuccessUrl("/login")
-        		.logoutUrl("/logout")
-        		.invalidateHttpSession(true)
-        		.deleteCookies("JSESSIONID")
+        		.logout(logout -> logout.logoutSuccessUrl("/login")
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
         		;
 		 
 //		 httpSecurity.sessionManagement()

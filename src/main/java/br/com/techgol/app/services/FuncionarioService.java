@@ -84,7 +84,6 @@ public class FuncionarioService {
 	}
 	
 	
-	@Transactional
 	public void salvar(DtoCadastroFuncionario dados) {
 		
 		repository.save(new Funcionario(dados));
@@ -109,7 +108,7 @@ public class FuncionarioService {
 	public DtoListarFuncionarios atualizarFuncionario(DtoFuncionarioEdit dados) {
 	
 		Funcionario funcionario = repository.getReferenceById(dados.id());
-		funcionario.setUsername(dados.username());
+		funcionario.setUsername(dados.username().toLowerCase());
 		funcionario.setNomeFuncionario(dados.nomeFuncionario());
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAtivo(dados.ativo());

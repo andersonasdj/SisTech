@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
 	<meta charset="utf-8">
-	<link rel="shortcut icon" href="assets/img/ico.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>Sistech | Solocitação Form</title>
 </head>
 
@@ -122,16 +117,16 @@
 		<div id="form-solicitacao">
 			<fieldset>
 				<legend>Solicitação de Atendimento</legend>
-				<p class="pull-right">
-					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>
-				</p>
+<!--				<p class="pull-right">-->
+<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
+<!--				</p>-->
 
 				<div class="row">
 					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
 							<div class="controls">
-								<select class="form-select" id="nomeCliente" name="nomeCliente" style="width: 250px;">
+								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente" style="width: 250px;">
 									<option> </option>
 								</select>
 								<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
@@ -145,7 +140,7 @@
 						<div class="control-group">
 							<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
 							<div class="controls">
-								<select class="form-select" id="formaAbertura" name="formaAbertura"
+								<select class="form-select mt-2" id="formaAbertura" name="formaAbertura"
 									style="width: 250px;">
 									<option></option>
 									<option value="TELEFONE">Telefone</option>
@@ -162,15 +157,22 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label" for="solicitante"><b>Solicitante *</b></label>
+							<label class="control-label" for="solicitante"><b>Solicitante * </b>
+								<span id="botaoColaboradores">
+									
+								</span>
+								
+							</label>
 							<div class="controls">
-								<select class="form-control solicitante" name="solicitante" id="solicitante"
-									style="width: 250px;">
+								
+								<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"
+								style="width: 250px;">
 								</select>
 								<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
 								</span>
 								<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
 								</span>
+								
 							</div>
 						</div>
 					</div>
@@ -179,7 +181,7 @@
 						<div class="form-group">
 							<label class="control-label" for="afetado"><b>Usuário Afetado *</b></label>
 							<div class="controls">
-								<select class="form-control usuario" name="afetado" id="afetado" style="width: 250px;">
+								<select class="form-control usuario mt-2" name="afetado" id="afetado" style="width: 250px;">
 								</select>
 								<span id="cargoUsuario"
 									style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
@@ -196,10 +198,10 @@
 						<div class="control-group">
 							<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
 							<div class="controls">
-								<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
+								<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
 									placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)"
 									style="width: 300px;" class="input-xlarge" required></textarea>
-								<span id="contProb">255</span> Restantes <br>
+								<span id="contProb">300</span> Restantes <br>
 							</div>
 						</div>
 					</div>
@@ -207,10 +209,10 @@
 					<div class="col-md-8 ms-auto">
 						<label class="control-label" for="observacao"><b>Observações</b></label>
 						<div class="controls">
-							<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
+							<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
 								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)"
 								style="width: 300px;" class="input-xlarge" required></textarea>
-							<span id="contObs">255</span> Restantes <br>
+							<span id="contObs">300</span> Restantes <br>
 
 						</div>
 					</div>
@@ -222,7 +224,7 @@
 						<div class="control-group">
 							<label class="control-label" for="categoria"><b>Categoria *</b></label>
 							<div class="controls">
-								<select class="form-select" id="categoria" name="categoria" style="width: 250px;">
+								<select class="form-select mt-2" id="categoria" name="categoria" style="width: 250px;">
 									<option value="SOFTWARE">Software</option>
 									<option value="HARDWARE">Hardware</option>
 									<option value="EMAIL">Email</option>
@@ -244,7 +246,7 @@
 						<div class="control-group">
 							<label class="control-label" for="classificacao"><b>Classificação *</b></label>
 							<div class="controls">
-								<select class="form-select" id="classificacao" name="classificacao"
+								<select class="form-select mt-2" id="classificacao" name="classificacao"
 									style="width: 250px;">
 									<option value="INCIDENTE">Incidente</option>
 									<option value="PROBLEMA">Problema</option>
@@ -266,7 +268,7 @@
 						<div class="control-group">
 							<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
 							<div class="controls">
-								<select class="form-select" id="prioridade" name="prioridade" style="width: 250px;">
+								<select class="form-select mt-2" id="prioridade" name="prioridade" style="width: 250px;">
 									<option value="BAIXA">Baixa</option>
 									<option value="MEDIA">Media</option>
 									<option value="ALTA">Alta</option>
@@ -281,7 +283,7 @@
 						<div class="control-group">
 							<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
 							<div class="controls">
-								<select class="form-select" id="local" name="local" style="width: 250px;">
+								<select class="form-select mt-2" id="local" name="local" style="width: 250px;">
 									<option value="OFFSITE">Offsite</option>
 									<option value="ONSITE">Onsite</option>
 								</select>
@@ -297,7 +299,7 @@
 						<div class="control-group">
 							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 							<div class="controls">
-								<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"
+								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"
 									style="width: 250px;">
 								</select>
 							</div>
@@ -308,7 +310,7 @@
 						<div class="control-group">
 							<label class="control-label" for="status"><b>Status *</b></label>
 							<div class="controls">
-								<select class="form-select alertaFuncionario" id="status" name="status"
+								<select class="form-select mt-2" id="status" name="status"
 									style="width: 250px;">
 									<option value="ABERTO">ABERTO</option>
 									<option value="ANDAMENTO">ANDAMENTO</option>
@@ -340,15 +342,13 @@
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label" for="enviar"></label>
 					<div class="controls">
-						<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i
-								class="fa fa-floppy-o fa-lg"></i></button>
-						<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i
-								class="fa fa-reply-all fa-lg"></i></a>
+						<span id="botaoSalvar">
+									
+						</span>
+						<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
 					</div>
 				</div>
-
 				
 				<br /><br />
 
@@ -388,17 +388,269 @@
 				<!-- Copyright -->
 		</footer>
 		</footer>
+		
+		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
+		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">
+							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
+								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
+							<input hidden id="idColaboradoCliente" name="idColaboradoCliente">
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<table class="table" id="tabela-colaboradores">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Celular</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody id="tbColaboradoresCorpo">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
+
+		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
+		<div class="modal fade" id="addColaboradorModal" tabindex="-1" aria-labelledby="addColaboradorModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<label class="form-label" for="idAddModal">Id Cliente</label>
+						<input type="text" id="idAddModal" class="form-control" readonly>
+						<label class="form-label" for="nomeAddmodal">Nome</label>
+						<input type="text" id="nomeAddmodal" class="form-control">
+						<label class="form-label" for="celularAddmodal">Celular</label>
+						<input type="text" id="celularAddmodal" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="salvarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
+		
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+		<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-8">
+								<label class="form-label" for="nomeEdicaoModal">Nome</label>
+								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label" for="idEdicaoModal">ID</label>
+								<input type="text" id="idEdicaoModal" class="form-control" readonly>
+								</di>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label" for="celularEdicaoModal">Celular</label>
+								<input type="text" id="celularEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="statusEdicaoModal">VIP</label>
+								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
+		
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.6.3.js"
-		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-		</script>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script>
+		function editarColaboradores() {
+			
+			var idCliente = $('#nomeCliente').val();
+			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/list/" + idCliente,
+				success: function (data) {
+					$('#tbColaboradoresCorpo').empty();
+					$('#idColaboradoCliente').empty();
+					$('#idColaboradoCliente').append(idCliente);
+
+					var itens = data.map(i =>
+						'<tr id=linhaModalColaborador' + i.id + '>'
+						+ '<td>' + i.id + '</td>'
+						+ '<td>' + i.nomeColaborador + '</td>'
+						+ '<td>' + i.celular + '</t}>'
+						+ '<td>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')>Editar</button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')>Excluir</button>'
+						+ '</td>'
+						+ '</tr>'
+					);
+					$('#tabela-colaboradores').append(itens);
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
+		
+		function editarColaborador(id){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit/" + id,
+				success: function (data) {
+					$('#idEdicaoModal').val("");
+					$('#nomeEdicaoModal').val("");
+					$('#celularEdicaoModal').val("");
+					$('#statusEdicaoModal').empty();
+					
+					$('#idEdicaoModal').val(data.id);
+					$('#nomeEdicaoModal').val(data.nomeColaborador);
+					$('#celularEdicaoModal').val(data.celular);
+					
+					if (data.vip == true) {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=false>false</option>");
+					} else {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=true>true</option>");
+					}
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
+		
+		function atualizarColaborador(){
+			var id = $('#idEdicaoModal').val();
+			var nomeColaborador = $('#nomeEdicaoModal').val();
+			var celular = $('#celularEdicaoModal').val();
+			var vip = $('#statusEdicaoModal').val();
+
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit",
+				data: JSON.stringify({
+					"id": id,
+					"nomeColaborador": nomeColaborador,
+					"celular": celular,
+					"vip": vip
+				}),
+				success: function (data) {
+					editarColaboradores();
+					preencheSolicitante();
+					alert("atualizado com sucesso");
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
+		function novoColaborador() {
+			var id = $('#idColaboradoCliente').text();
+			$('#idAddModal').val("");
+			$('#nomeAddmodal').val("");
+			$('#celularAddmodal').val("");
+			$('#idAddModal').val(id);
+		}
+
+		function salvarColaborador() {
+
+			var clienteId = $('#idAddModal').val();
+			var nomeAddmodal = $('#nomeAddmodal').val();
+			var celularAddmodal = $('#celularAddmodal').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/colaborador",
+				data: JSON.stringify(
+					{
+						"clienteId": clienteId,
+						"nomeColaborador": nomeAddmodal,
+						"celular": celularAddmodal
+					}
+				),
+				success: function (data) {
+					preencheSolicitante();
+					$('#nomeAddmodal').val("");
+					$('#celularAddmodal').val("");
+					alert("salvo com sucesso!");
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+
+		}
+		function excluirColaborador(id) {
+			if (confirm("Tem certeza que deseja excluir o colaborador de ID: " + id + " ?") == true) {
+				var t = "#linhaModalColaborador" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/colaborador/delete/" + id,
+					success: function () {
+						if (confirm("Tem certeza que deseja excluir?") == true) {
+							remove.fadeOut(1000, function () {
+								preencheSolicitante();
+								remove.remove();
+							});
+						}
+					},
+					error: function (e) {
+						alert("Erro ao tentar excluir o colaborador!");
+					}
+				});
+			}
+		}
+	</script>
 
 	<script>
 		$.ajax({
@@ -406,7 +658,6 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/getData",
 			success: function (data) {
-
 				for (var i = 0; i < data.clientes.length; i++) {
 					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
 				}
@@ -420,18 +671,15 @@
 			}
 		});
 
-
 		function salvar() {
 			var solicitante = $('#solicitante').val();
 			var descricao = $('#descricao').val();
 			var afetado = $('#afetado').val();
 			var observacao = $('#observacao').val();
-
 			var abertoPor = $('#abertoPor').val();
 			var prioridade = $('#prioridade').val();
 			var formaAbertura = $('#formaAbertura').val();
 			var categoria = $('#categoria').val();
-
 			var classificacao = $('#classificacao').val();
 			var local = $('#local').val();
 			var status = $('#status').val();
@@ -487,11 +735,46 @@
 		$(document).ready(function () {
 			var divCliente = $("#nomeCliente");
 			divCliente.on("change", function () {
-
+				preencheSolicitante();
+			});
+		});
+		
+		var divStatus = $("#status");
+		var status = $("#status").val();
+		divStatus.on("change", function(){
+			var status = $("#status").val();
+			if(status === 'AGENDADO'){
+				$("#agendamentos").stop().slideToggle(1000);
+			}else {
+				document.getElementById('agendamentos').style.display = 'none';
+			}
+		} );
+		
+		var dateEl = document.getElementById('date');
+		var timeEl = document.getElementById('time');
+		
+		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
+	</script>
+	<script>
+		function preencheSolicitante(){
+			
 				var nomeCliente = $("#nomeCliente").val();
 				var json = {"nomeCliente": nomeCliente};
-
-				$.ajax({
+			
+				if(nomeCliente > 0){
+					$("#botaoSalvar").empty();
+					
+					$('#botaoSalvar').append(
+						'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+					);
+					
+					$('#botaoColaboradores').empty();
+					$('#botaoColaboradores').append(
+						'<button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick="editarColaboradores()"><i class="bi bi-people"></i></button>'
+					);
+					
+					$.ajax({
 					url: "/sistech/colaborador/list/" + nomeCliente,
 					type: "GET",
 					data: json,
@@ -526,15 +809,19 @@
 					},
 					erro: function (request, status, error) { },
 					complete: function (data) { }
-				})
-			});
-		});
-
-
-	</script>
-	<script>
+					})
+				}else{
+					
+					$("#botaoSalvar").empty();
+					$('#botaoColaboradores').empty();
+					
+					$('#solicitante').empty();
+					$('#afetado').empty();
+				}
+		}
+		
 		function limite_textarea_prob(valor) {
-			quant = 255;
+			quant = 300;
 			total = valor.length;
 			if (total <= quant) {
 				resto = quant - total;
@@ -544,7 +831,7 @@
 			}
 		}
 		function limite_textarea_obs(valor) {
-			quant = 255;
+			quant = 300;
 			total = valor.length;
 			if (total <= quant) {
 				resto = quant - total;
@@ -554,24 +841,6 @@
 			}
 		}
 		
-		
-		
-		var divStatus = $("#status");
-		var status = $("#status").val();
-		divStatus.on("change", function(){
-			var status = $("#status").val();
-			if(status === 'AGENDADO'){
-				$("#agendamentos").stop().slideToggle(1000);
-			}else {
-				document.getElementById('agendamentos').style.display = 'none';
-			}
-		} );
-		
-		var dateEl = document.getElementById('date');
-		var timeEl = document.getElementById('time');
-		
-		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
-		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
 	</script>
 
 	<!--	<script src="assets/js/jquery-ui.js"></script>-->

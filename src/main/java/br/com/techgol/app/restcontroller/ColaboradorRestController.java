@@ -3,6 +3,7 @@ package br.com.techgol.app.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,32 +26,29 @@ public class ColaboradorRestController {
 	@Autowired
 	ColaboradorService service;
 	
-	@PostMapping
+	@GetMapping("/list/{id}") //RETORNA UMA PROJECAO DE COLABORADORES POR ID DE CLIENTE
+	public ResponseEntity<List<ColaboradorProjecao>> listarPorIdCliente(@PathVariable Long id ) {
+		return ResponseEntity.ok().body(service.listarPorIdCliente(id));
+	}
+	
+	@GetMapping("/edit/{id}") //RETORNA UMA DTO DE UM COLABORADOR PARA EDIÇÃO
+	public ResponseEntity<DtoColaboradorEdit> editar(@PathVariable Long id ) {
+		return ResponseEntity.ok().body(service.editaPorIdColaborador(id));
+	}
+	
+	@GetMapping //REVISAR !!!!!
+	public ResponseEntity<List<DtoColaboradorListar>> listar() {
+		return ResponseEntity.ok().body(service.listar());
+	}
+	
+	@PostMapping //SALVA UM NOVO COLABORADOR POR ID DE UM CLIENTE
 	public void cadastrar(@RequestBody DtoColaboradorCadastrar dados) {
 		service.salvar(dados);
 	}
 	
-	@GetMapping
-	public List <DtoColaboradorListar> listar() {
-		return service.listar();
-		
-	}
-	
-	@GetMapping("/list/{id}")
-	public List <ColaboradorProjecao> listarPorIdCliente(@PathVariable Long id ) {
-		return service.listarPorIdCliente(id);
-		
-	}
-	
-	@GetMapping("/edit/{id}")
-	public DtoColaboradorEdit editar(@PathVariable Long id ) {
-		return service.editaPorIdColaborador(id);
-		
-	}
-	
-	@PutMapping("/edit")
-	public String editar(@RequestBody DtoColaboradorEdit dados) {
-		return service.editar(dados);
+	@PutMapping("/edit") //ATUALIZA UM COLABORADOR
+	public ResponseEntity<String> editar(@RequestBody DtoColaboradorEdit dados) {
+		return ResponseEntity.ok().body(service.editar(dados));
 	}
 	
 	@DeleteMapping("/delete/{id}")

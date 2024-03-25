@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class LogLogin {
 	
 	public LogLogin(LocalDateTime dataLogin, String localAddr, String country, String remoteHost, String nomeFuncionario,
-			String remoteAddr, String localName, String requestURI) {
+			String remoteAddr, String localName, String requestURI, String browser) {
 	
 		this.dataLogin=dataLogin;
 		this.enderecoServer=localAddr;
@@ -32,6 +32,7 @@ public class LogLogin {
 		this.ip=remoteAddr;
 		this.nomeLocal=localName;
 		this.uri=requestURI;
+		this.browser = browser;
 	
 	}
 
@@ -62,5 +63,8 @@ public class LogLogin {
 	
 	@Column(length = 100)
 	private String uri;
+	
+	@Column(length = 250)
+	private String browser;
 	
 }

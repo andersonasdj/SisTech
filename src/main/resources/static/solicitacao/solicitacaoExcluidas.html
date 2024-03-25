@@ -4,8 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<title>Sistech - Solicitações</title>
@@ -33,7 +32,7 @@
 <body>
 	<div class="container">
 		<br />
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
@@ -75,10 +74,6 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
@@ -89,10 +84,6 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
@@ -105,10 +96,6 @@
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -117,7 +104,6 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -131,7 +117,7 @@
 				</div>
 			</div>
 		</nav>
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
@@ -208,78 +194,10 @@
 				<!-- Copyright -->
 		</footer>
 		</footer>
-
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição rápida</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-
-						<div class="row">
-							<div class="col-md-4">
-								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>
-								<input type="text" id="idmodal" class="form-control" readonly>
-							</div>
-
-							<div class="col-md-4">
-									<label class="form-label mt-1" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
-									<div class="controls">
-										<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal"
-											style="width: 250px;">
-											<option></option>
-										</select>
-								</div>
-							</div>
-
-							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="statusmodal"><b>Status</b></label>
-								<select class="form-select" id="statusmodal" aria-label="Default select example">
-
-								</select>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="descricaomodal"><b>Descrição</b></label>
-								<textarea class="form-control" rows="3" id="descricaomodal"
-									class="form-control"></textarea>
-							</div>
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="observacaomodal"><b>Observação</b></label>
-								<textarea class="form-control" rows="3" id="observacaomodal"
-									class="form-control"></textarea>
-							</div>
-						</div>
-
-						<label class="form-label mt-1" for="resolucaomodal"><b>Resolução</b></label>
-						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		
-		
 	</div>
-	<script src="https://code.jquery.com/jquery-3.6.3.js"
-		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-		</script>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 	<script>
 		$.ajax({
 			type: "GET",
@@ -288,7 +206,6 @@
 			success: function (data) {
 				
 				data.content.map(i => {
-					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
@@ -309,136 +226,21 @@
 					$('#tabela-usuarios').append(itens);
 					}
 				);
-				
 			},
-			error: function (e) {
-				alert(e);
-			}
+			error: function (e) { alert(e); }
 		});
-
-		function editar(id) {
-			$.ajax({
-				type: "GET",
-				contentType: "application/json",
-				url: "/sistech/solicitacao/busca/" + id,
-				success: function (data) {
-					$('#idmodal').val("");
-					$('#descricaomodal').val("");
-					$('#resolucaomodal').val("");
-					$('#observacaomodal').val("");
-					$('#statusmodal').empty();
-					$('#nomeFuncionarioModal').empty();
-
-					$('#idmodal').val(data.id);
-					$('#descricaomodal').val(data.descricao);
-					$('#resolucaomodal').val(data.resolucao);
-					$('#observacaomodal').val(data.observacao);
-					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
-					
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
-
-					if (data.status == 'EXCLUIDO') {
-						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
-					} 
-				},
-				error: function (e) {
-					alert(e);
-				}
-			});
-		}
 
 		function restaurar(id) {
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
 				url: "/sistech/solicitacao/restaurar",
-				data: JSON.stringify({
-					"id": id
-				}),
-				success: function (data) {
-					 
-					$('#linha' + data.id).remove();
-					
-				},
-				error: function (e) {
-					alert(e.data);
-				}
+				data: JSON.stringify({ "id": id }),
+				success: function (data) { $('#linha' + data.id).remove(); },
+				error: function (e) { alert(e.data); }
 			});
 		}
 		
-		function limite_textarea_prob(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contProb').innerHTML = resto;
-			} else {
-				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
-			}
-		}
-		function limite_textarea_obs(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contObs').innerHTML = resto;
-			} else {
-				document.getElementById('observacao').value = valor.substr(0, quant);
-			}
-		}
-	</script>
-	<script>
-		$(document).ready(function () {
-			var divCliente = $("#nomeCliente");
-			divCliente.on("change", function () {
-
-				var nomeCliente = $("#nomeCliente").val();
-				var json = {"nomeCliente": nomeCliente};
-
-				$.ajax({
-					url: "/sistech/colaborador/list/" + nomeCliente,
-					type: "GET",
-					data: json,
-					success: function (data) {
-
-						if (data != null) {
-							var boxSolicitante = $('#solicitante');
-							boxSolicitante.find('option').remove();
-
-							var boxAfetado = $('#afetado');
-							boxAfetado.find('option').remove();
-
-							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
-							$('#boxAfetado').append('<option value="" slected="selected"></option>');
-
-							//  document.getElementById("cargoUsuario").innerHTML="";
-							//  document.getElementById("cargoSolicitante").innerHTML="";
-
-							$.each(data, function (i, item) {
-								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
-							});
-							$('#solicitante').append('<option value="Suporte" slected="selected">Suporte</option>');
-							$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
-
-							$.each(data, function (i, item) {
-								$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
-							});
-							$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
-							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
-						}
-					},
-					erro: function (request, status, error) { },
-					complete: function (data) { }
-				})
-			});
-		});
-		
-		//######################################### MODAL SOLICITACAO NOVA #############################################
-	</script>
-	<script>
 		$(document).ready(function() {
 		  $(".search").keyup(function () {
 		    var searchTerm = $(".search").val();
@@ -466,6 +268,5 @@
 				  });
 		});
 	</script>
-	
 </body>
 </html>
