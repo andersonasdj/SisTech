@@ -30,7 +30,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 public class Funcionario extends Usuario implements UserDetails {
 	
 	private static final long serialVersionUID = 3474835326939061879L;

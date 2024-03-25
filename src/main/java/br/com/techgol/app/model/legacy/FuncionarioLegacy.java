@@ -1,13 +1,11 @@
 package br.com.techgol.app.model.legacy;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "Funcionario")
+//@Entity
+//@Table(name = "Funcionario")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
