@@ -1,8 +1,8 @@
 package br.com.techgol.app.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.techgol.app.dto.DtoLogAcesso;
@@ -19,8 +19,8 @@ public class LogLoginService {
 		repository.save(login);
 	}
 	
-	public List<DtoLogAcesso> listarLogs(){
-		return repository.findAll().stream().map(DtoLogAcesso::new).toList();
+	public Page<DtoLogAcesso> listarLogs(Pageable page){
+		return repository.findAll(page).map(DtoLogAcesso::new);
 	}
 	
 }

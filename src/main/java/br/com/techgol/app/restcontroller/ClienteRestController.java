@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.techgol.app.dto.DadosClienteEditDTO;
 import br.com.techgol.app.dto.DtoAtualizarCliente;
 import br.com.techgol.app.dto.DtoCadastroCliente;
-import br.com.techgol.app.dto.DadosClienteEditDTO;
+import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.repository.ClienteRepository;
 
@@ -28,6 +29,29 @@ public class ClienteRestController {
 	
 	@Autowired
 	private ClienteRepository repository;
+	
+	@GetMapping
+	public Page<DtoClienteList> listar(@PageableDefault(size = 10, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
+	
+		return repository.findAll(page).map(DtoClienteList::new);
+	} 
+	
+	@GetMapping("/nomes")
+	public List<String> listaClientesNome(){
+		
+		return repository.listarNomesCliente();
+	}
+	
+	@GetMapping("/edit/{id}")
+	public DadosClienteEditDTO editar(@PathVariable Long id ) {
+		
+		if(repository.existsById(id)) {
+			return new DadosClienteEditDTO(repository.getReferenceById(id));			
+		}else {
+			return null;
+		}
+		
+	}
 	
 	@PostMapping
 	public void cadastrar(@RequestBody DtoCadastroCliente dados) {
@@ -43,36 +67,10 @@ public class ClienteRestController {
 		
 	}
 	
-
-	@GetMapping
-	public Page<Cliente> listar(@PageableDefault(sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
-	
-		return repository.findAll(page);
-	}
-	
-	@GetMapping("/nomes")
-	public List<String> listaClientesNome(){
-		
-		return repository.listarNomesCliente();
-	}
-	
-	
 	@DeleteMapping("/delete/{id}")
 	public void deletar(@PathVariable Long id ) {
 		
 		repository.deleteById(id);
 	}
-	
-	@GetMapping("/edit/{id}")
-	public DadosClienteEditDTO editar(@PathVariable Long id ) {
-		
-		if(repository.existsById(id)) {
-			return new DadosClienteEditDTO(repository.getReferenceById(id));			
-		}else {
-			return null;
-		}
-		
-	}
-	
 	
 }

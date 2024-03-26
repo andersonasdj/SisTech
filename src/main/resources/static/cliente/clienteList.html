@@ -6,6 +6,25 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>SisTech - Clientes</title>
+	<style>
+		body{
+		  padding:20px 20px;
+		}
+		
+		.results tr[visible='false'],
+		.no-result{
+		  display:none;
+		}
+		
+		.results tr[visible='true']{
+		  display:table-row;
+		}
+		
+		.counter{
+		  padding:8px; 
+		  color:#ccc;
+		}
+	</style>
 </head>
 
 <body>
@@ -94,22 +113,47 @@
 		</nav>
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
+		
+		<div class="container">
+		  <div class="row">
+		    <div class="col">
+					<a href="/sistech/cliente/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
+		    </div>
+		    <div class="col">
+		    </div>
+		    <div class="col">
+				<div class="form-group pull-right">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+				</div>
+				<span class="counter pull-right"></span>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="table-responsive">
+			<table class="table table-hover results" id="tabela-clientes">
+				<thead>
+					<tr>
+						<th scope="col">Nome</th>
+						<th scope="col">Status</th>
+						<th scope="col">Ação</th>
+					</tr>
+				</thead>
+				<tbody id="corpoClientes">
+					<tr>
+					</tr>
+				</tbody>
+			</table>
 
-		<table class="table" id="tabela-clientes">
-			<thead>
-				<tr>
-					<th scope="col">Nome</th>
-					<th scope="col">Status</th>
-					<th scope="col">Ação</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-				</tr>
-			</tbody>
-		</table>
+			<nav aria-label="Page navigation example">
+			  <ul id="paginas" class="pagination">
+			    
+			  </ul>
+			</nav>
+		</div>
+			
+	</div>
 
-		<br />
 		<footer class="text-center text-white">
 			<div class="container ">
 				<!-- Grid container -->
@@ -139,7 +183,6 @@
 					<a class="text-white" href="#">TechGold</a>
 				</div>
 				<!-- Copyright -->
-
 		</footer>
 
 		<!-- ########################################## MODAL EDIÇÃO CLIENTE ################################################ -->
@@ -320,24 +363,24 @@
 		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
 
 	</div>
-	<script src="https://code.jquery.com/jquery-3.6.3.js"
-		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-		</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-		</script>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 	<script>
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
 			url: "/sistech/clientes",
 			success: function (data) {
+				
+				if(data.totalPages > 1){
+					for(var i=0; i < data.totalPages ; i++ ){
+							$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+					}
+					$("#numPag0").attr("style","color:red");
+				}
+					
 				data.content.map(i => {
-					
-					
 					var status;
 					if(i.ativo == true){
 						status = "<FONT COLOR='#008000'>Ativado</FONT>";
@@ -350,20 +393,58 @@
 					+ '<td>' + i.nomeCliente + '</td>'
 					+ '<td>' + status + '</t}>'
 					+ '<td>'
-					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
-					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')>Colaboradores</button>'
-					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
+					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
 					+ '</td>'
 					+ '</tr>'
 				$('#tabela-clientes').append(itens);
 				});
 			},
-			error: function (e) {
-				alert(e.totalPages);
-			}
+			error: function (e) { alert(e.totalPages); }
 		});
 	</script>
+	
 	<script>
+		function paginacao(num){
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/clientes?page="+num,
+			success: function (data) {
+				$('#corpoClientes').empty();
+				$('#paginas').empty();
+				
+				for(var i=0; i < data.totalPages ; i++ ){
+					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+				}
+				$("#numPag"+num).attr("style","color:red");
+
+				data.content.map(i => {
+					var status;
+					if(i.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					var itens = 
+					'<tr id=linha' + i.id + '>'
+					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + status + '</t}>'
+					+ '<td>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
+					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
+					+ '</td>'
+					+ '</tr>'
+				$('#tabela-clientes').append(itens);
+				});
+			},
+			error: function (e) { alert(e.totalPages); }
+			});
+		}
+		
 		function excluir(id) {
 			if (confirm("Tem certeza que deseja excluir o cliente de ID: " + id + " ?") == true) {
 				var t = "#linhaModalColaborador" + id;
@@ -379,9 +460,7 @@
 							});
 						}
 					},
-					error: function (e) {
-						alert("Erro: Esse cliente possui notas cadastradas!");
-					}
+					error: function (e) { alert("Erro: Esse cliente possui solicitações cadastradas!"); }
 				});
 			}
 		}
@@ -401,9 +480,7 @@
 							});
 						}
 					},
-					error: function (e) {
-						alert("Erro ao tentar excluir o colaborador!");
-					}
+					error: function (e) { alert("Erro ao tentar excluir o colaborador!"); }
 				});
 			}
 		}
@@ -435,7 +512,6 @@
 						status = "Desativado";
 					}
 					
-
 					if (data.ativo == true) {
 						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
 						$('#ativoModal').append("<option value=false>Desativado</option>");
@@ -445,9 +521,7 @@
 					}
 
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
 		}
 
@@ -474,14 +548,10 @@
 						+ '</tr>'
 					);
 					$('#tabela-colaboradores').append(itens);
-
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
 		}
-		
 		
 		function editarColaborador(id){
 			$.ajax({
@@ -506,12 +576,9 @@
 						$('#statusEdicaoModal').append("<option value=true>true</option>");
 					}
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
 		}		
-		
 		
 		function atualizarColaborador(){
 			var id = $('#idEdicaoModal').val();
@@ -530,15 +597,10 @@
 					"vip": vip
 				}),
 				success: function (data) {
-
-					
 					alert("atualizado com sucesso");
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
-			
 		}
 
 		function novoColaborador() {
@@ -572,11 +634,8 @@
 
 					alert("salvo com sucesso!");
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
-
 		}
 
 		function atualiza() {
@@ -605,36 +664,58 @@
 				}),
 				success: function (data) {
 					
-					
 					var status;
 					if(data.ativo == true){
 						status = "<FONT COLOR='#008000'>Ativado</FONT>";
 					}else{
 						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
 					}
-					
-					
 
 					var itens =
 						'<tr id=linha' + data.id + '>'
 						+ '<td>' + data.nomeCliente + '</td>'
 						+ '<td>' + status + '</td>'
 						+ '<td>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
-						+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + data.id + ')>Colaboradores</button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')>Excluir</button>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
+						+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaborador(' + data.id + ')><i class="bi bi-people"></i></button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')><i class="bi bi-trash"></i></button>'
 						+ '</td>'
 						+ '</tr>';
 					$('#linha' + data.id).remove();
 					$('#tabela-clientes').append(itens);
 					alert("atualizado com sucesso");
 				},
-				error: function (e) {
-					alert(e);
-				}
+				error: function (e) { alert(e); }
 			});
 		}
 	</script>
+	<script>
+		$(document).ready(function() {
+		  $(".search").keyup(function () {
+		    var searchTerm = $(".search").val();
+		    var listItem = $('.results tbody').children('tr');
+		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		    
+		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+		        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		  });
+		    
+		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','false');
+		  });
+		
+		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','true');
+		  });
+		
+		  var jobCount = $('.results tbody tr[visible="true"]').length;
+		    $('.counter').text(jobCount + ' item');
+		
+		  if(jobCount == '0') {$('.no-result').show();}
+		    else {$('.no-result').hide();}
+				  });
+		});
+	</script>
 </body>
-
 </html>

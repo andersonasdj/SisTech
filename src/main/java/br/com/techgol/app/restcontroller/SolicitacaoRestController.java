@@ -59,7 +59,7 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), false);
 	}
 	

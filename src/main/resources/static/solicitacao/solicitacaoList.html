@@ -120,7 +120,7 @@
 		<div class="container">
 		  <div class="row">
 		    <div class="col">
-					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-info" onclick="nova()">Nova </button>
+					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-primary btn-sm" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -151,11 +151,17 @@
 						<th scope="col">Ações</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="corpoSolicitacoes">
 					<tr>
 					</tr>
 				</tbody>
 			</table>
+			
+			<nav aria-label="Page navigation example">
+			  <ul id="paginas" class="pagination">
+			    
+			  </ul>
+			</nav>
 		</div>
 
 		<br /><br />
@@ -520,6 +526,18 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/short",
 			success: function (data) {
+				
+				
+				if(data.totalPages > 1){
+					
+					for(var i=0; i < data.totalPages ; i++ ){
+						$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+					}
+					$("#numPag0").attr("style","color:red");
+					
+				}
+				
+				
 				data.content.map(i => {
 					
 					var status;
@@ -552,6 +570,55 @@
 			},
 			error: function (e) { alert(e); }
 		});
+		
+		function paginacao(num){
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/short?page="+num,
+			success: function (data) {
+				
+				$('#corpoSolicitacoes').empty();
+				$('#paginas').empty();
+				
+				for(var i=0; i < data.totalPages ; i++ ){
+					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+				}
+				$("#numPag"+num).attr("style","color:red");
+				
+				data.content.map(i => {
+					
+					var status;
+					if(i.status == "ABERTO"){ status = "class='table-danger'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
+					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
+					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					
+					var itens = 
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
+					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td>' + i.dataAbertura + '</td>'
+					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.solicitante + '</td>'
+					+ '<td>' + i.afetado + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td>' + i.descricao + '</td>'
+					+ '<td>' + i.prioridade + '</td>'
+					+ '<td>' + i.classificacao + '</td>'
+					+ '<td>' + i.nomeFuncionario + '</td>'
+					+ '<td>' + i.status + '</td>'
+					+ '<td>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ '</td>'
+					+ '</tr>'
+					$('#tabela-usuarios').append(itens);
+					}
+				);
+			},
+			error: function (e) { alert(e); }
+			});
+		}
 
 		function editar(id) {
 			$.ajax({

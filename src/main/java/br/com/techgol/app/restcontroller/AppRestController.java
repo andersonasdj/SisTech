@@ -1,8 +1,10 @@
 package br.com.techgol.app.restcontroller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +20,9 @@ public class AppRestController {
 	private LogLoginService loginService;
 	
 	@GetMapping("/logs")
-	public List<DtoLogAcesso> logar() {
+	public Page<DtoLogAcesso> logar(@PageableDefault(size = 20, sort= {"id"}, direction = Direction.DESC)Pageable page) {
 		
-		return loginService.listarLogs();
+		return loginService.listarLogs(page);
 		
 	}
 

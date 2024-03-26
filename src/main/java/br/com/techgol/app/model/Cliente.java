@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class Cliente extends Usuario {
 	
 	
-	@Column(length = 50)
+	@Column(length = 100)
 	private String nomeCliente;
-	@Column(length = 50)
+	@Column(length = 200)
 	private String endereco;
 	@Column(length = 20)
 	private String telefone;
@@ -37,7 +37,7 @@ public class Cliente extends Usuario {
 		this.setPassword(dados.password());
 		this.setAtivo(true);
 		this.setMfa(false);
-		this.setDataAtualizacao(LocalDateTime.now());
+		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		this.endereco = dados.endereco();
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();
@@ -53,7 +53,7 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.setPassword(dados.password());
 		this.setAtivo(dados.ativo());
 		this.setMfa(false);
-		this.setDataAtualizacao(LocalDateTime.now());
+		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		this.endereco = dados.endereco();
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();

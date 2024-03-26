@@ -136,25 +136,32 @@
 				<tr>
 					<th scope="col">Data de Login</th>
 					<th scope="col">Usuário</th>
-					<th scope="col">Endereço Servidor</th>
-					<th scope="col">Hostname</th>
 					<th scope="col">IP Usuário</th>
+					<th scope="col">Hostname</th>
+					<th scope="col">IP Servidor</th>
 					<th scope="col">Nome Remoto</th>
 					<th scope="col">País</th>
 					<th scope="col">URI de Acesso</th>
 					<th scope="col">Browser</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="corpoLogs">
 				<tr>
 				</tr>
 			</tbody>
 			</table>
+			
+			<nav aria-label="Page navigation example">
+			  <ul id="paginas" class="pagination">
+			    
+			  </ul>
+			</nav>
+			
 		</div>
 
 		<br /><br />
 		<footer class="text-center text-white">
-			<div class="container fixed-bottom ">
+			<div class="container">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->
@@ -195,14 +202,21 @@
 			url: "/sistech/sistema/logs",
 			success: function (data) {
 				
-				data.map(i => {
+				if(data.totalPages > 1){
+					for(var i=0; i < data.totalPages ; i++ ){
+							$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+					}
+					$("#numPag0").attr("style","color:red");
+				}
+				
+				data.content.map(i => {
 					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.dataLogin + '</td>'
 					+ '<td>' + i.usuario + '</td>'
-					+ '<td>' + i.enderecoServer+ '</td>'
-					+ '<td>' + i.hostname + '</td>'
 					+ '<td>' + i.ip + '</td>'
+					+ '<td>' + i.hostname + '</td>'
+					+ '<td>' + i.enderecoServer+ '</td>'
 					+ '<td>' + i.nomeLocal + '</td>'
 					+ '<td>' + i.pais + '</td>'
 					+ '<td>' + i.uri + '</td>'
@@ -213,6 +227,41 @@
 			},
 			error: function (e) { alert(e); }
 		});
+		
+		
+		function paginacao(num){
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/sistema/logs?page="+num,
+			success: function (data) {
+				$('#corpoLogs').empty();
+				$('#paginas').empty();
+				
+				for(var i=0; i < data.totalPages ; i++ ){
+					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+				}
+				$("#numPag"+num).attr("style","color:red");
+
+				data.content.map(i => {
+					var itens =
+					'<tr id=linha' + i.id + '>'
+					+ '<td id=name' + i.id + '>' + i.dataLogin + '</td>'
+					+ '<td>' + i.usuario + '</td>'
+					+ '<td>' + i.ip + '</td>'
+					+ '<td>' + i.hostname + '</td>'
+					+ '<td>' + i.enderecoServer+ '</td>'
+					+ '<td>' + i.nomeLocal + '</td>'
+					+ '<td>' + i.pais + '</td>'
+					+ '<td>' + i.uri + '</td>'
+					+ '<td>' + i.browser + '</td>'
+					+ '</tr>'
+				$('#tabela-usuarios').append(itens);
+				});
+			},
+			error: function (e) { alert(e.totalPages); }
+			});
+		}
 	</script>
 	<script>
 		$(document).ready(function() {

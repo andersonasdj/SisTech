@@ -52,7 +52,7 @@ public class Funcionario extends Usuario implements UserDetails {
 		this.setPassword(senhaEncriptada);
 		this.setAtivo(true);
 		this.setMfa(false);
-		this.setDataAtualizacao(LocalDateTime.now());
+		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		
 	}
 

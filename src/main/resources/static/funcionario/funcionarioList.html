@@ -262,8 +262,8 @@
 					+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + i.id + ')" style="border: none; background: none;">'
 					+ '<img src="../assets/img/key-change.png" style="height: 18px">'
 					+ '</button>'
-					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>Editar</button>'
-					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')>Excluir</button>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
 					+ '</td>'
 					+ '</tr>'
 				$('#tabela-usuarios').append(itens);
@@ -443,8 +443,8 @@
 						+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + data.id + ')" style="border: none; background: none;">'
 						+ '<img src="../assets/img/key-change.png" style="height: 18px">'
 						+ '</button>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>Editar</button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')>Excluir</button>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + data.id + ')><i class="bi bi-trash"></i></button>'
 						+ '</td>'
 						+ '</tr>';
 						

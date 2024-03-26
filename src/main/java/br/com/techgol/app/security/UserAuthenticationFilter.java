@@ -40,18 +40,18 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 					System.out.println("FUNCIONARIO LOGADO: " + funcionario.getNomeFuncionario());
 					System.out.println("LOCAL: " + request.getLocalName());
 					System.out.println("ENDERECO IP: "+ request.getLocalAddr());
-					System.out.println("PAIS: " +response.getLocale().getCountry());
+					System.out.println("PAIS: " + request.getLocale().getCountry());
 					System.out.println("ENDEREÇO REMOTO: " + request.getRemoteAddr());
 					System.out.println("HOST REMOTO: " + request.getRemoteHost());
 					System.out.println("ROLE: " + funcionario.getRole());
 					System.out.println("ATIVO : "+funcionario.getAtivo());
 					System.out.println("URI: " + request.getRequestURI()+"\n");
 					
-					funcionarioService.atualizaIpLogin(funcionario, request.getRemoteHost(),response.getLocale().getCountry());
+					funcionarioService.atualizaIpLogin(funcionario, request.getRemoteHost(),request.getLocale().getCountry());
 					loginService.salvaLog(new LogLogin(
 							LocalDateTime.now().withNano(0),
 							request.getLocalAddr(),
-							response.getLocale().getCountry(),
+							request.getLocale().getCountry(),
 							request.getRemoteHost(),
 							funcionario.getNomeFuncionario(),
 							request.getRemoteAddr(),
