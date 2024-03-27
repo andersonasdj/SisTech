@@ -20,7 +20,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -30,7 +30,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean excluida);
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, s.duracao, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura,  s.dataAtualizacao "
 			+ "FROM solicitacoes s "

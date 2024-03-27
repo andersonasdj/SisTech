@@ -6,6 +6,21 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>Sistech - Usuários</title>
+	<style>
+		.results tr[visible='false'],
+		.no-result{
+		  display:none;
+		}
+		
+		.results tr[visible='true']{
+		  display:table-row;
+		}
+		
+		.counter{
+		  padding:8px; 
+		  color:#ccc;
+		}
+	</style>
 </head>
 
 <body>
@@ -95,23 +110,39 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-
-		<table class="table" id="tabela-usuarios">
-			<thead>
-				<tr>
-					<th scope="col">Nome</th>
-					<th scope="col">Usuário</th>
-					<th scope="col">Ativo</th>
-					<th scope="col">MFA</th>
-					<th scope="col">Ação</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-				</tr>
-			</tbody>
-		</table>
-
+		
+		<div class="container">
+		  <div class="row">
+		    <div class="col">
+					<a href="/sistech/funcionario/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
+		    </div>
+		    <div class="col">
+		    </div>
+		    <div class="col">
+				<div class="form-group pull-right">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
+				</div>
+				<span class="counter pull-right"></span>
+		    </div>
+		  </div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover results" id="tabela-usuarios">
+				<thead>
+					<tr>
+						<th scope="col">Nome</th>
+						<th scope="col">Usuário</th>
+						<th scope="col">Ativo</th>
+						<th scope="col">MFA</th>
+						<th scope="col">Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container">
@@ -157,7 +188,7 @@
 
 						<div class="row">
 							<div class="col-md-9">
-								<label class="form-label mt-2" for="nomemodal">Nome *</label>
+								<label class="form-label mt-2" for="nomemodal"><b>Nome *</b></label>
 								<input type="text" id="nomemodal" class="form-control">
 							</div>
 							<div class="col-md-3 ms-auto">
@@ -168,11 +199,11 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label mt-2" for="usuariomodal">Usuario *</label>
+								<label class="form-label mt-2" for="usuariomodal"><b>Usuario *</b></label>
 								<input type="text" id="usuariomodal" class="form-control">
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="funcaomodal">Função</label>
+								<label class="form-label mt-2" for="funcaomodal"><b>Função</b></label>
 								<select class="form-select" id="funcaomodal" aria-label="Default select example">
 
 								</select>
@@ -181,14 +212,14 @@
 						
 						<div class="row">
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="statusModal">Status</label>
+								<label class="form-label mt-2" for="statusModal"><b>Status</b></label>
 								<select class="form-select" id="statusModal" aria-label="Default select example"
 									style="width: 180px;">
 		
 								</select>
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="mfaModal">MFA</label>
+								<label class="form-label mt-2" for="mfaModal"><b>MFA</b></label>
 								<select class="form-select" id="mfaModal" aria-label="Default select example"
 									style="width: 180px;">
 		
@@ -455,6 +486,34 @@
 				error: function (e) { alert(e.data); }
 			});
 		}
+	</script>
+	<script>
+		$(document).ready(function() {
+		  $(".search").keyup(function () {
+		    var searchTerm = $(".search").val();
+		    var listItem = $('.results tbody').children('tr');
+		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		    
+		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+		        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		  });
+		    
+		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','false');
+		  });
+		
+		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','true');
+		  });
+		
+		  var jobCount = $('.results tbody tr[visible="true"]').length;
+		    $('.counter').text(jobCount + ' item');
+		
+		  if(jobCount == '0') {$('.no-result').show();}
+		    else {$('.no-result').hide();}
+				  });
+		});
 	</script>
 </body>
 </html>

@@ -97,22 +97,22 @@
 
 		<div id="form-cliente">
 			<label for="nomeCliente" class="form-laber mt-2">Nome</label>
-			<input type="text" id="nomeCliente" class="form-control mt-2" style="width: 350px;">
+			<input type="text" id="nomeCliente" class="form-control mt-2" autocomplete="off" style="width: 350px;">
 			
 			<label for="endereco" class="form-laber mt-2">Endereco</label>
-			<input type="text" id="endereco" class="form-control mt-2" style="width: 350px;">
+			<input type="text" id="endereco" class="form-control mt-2" autocomplete="off" style="width: 350px;">
 			
 			<label for="telefone" class="form-laber mt-2">telefone</label>
-			<input type="text" id="telefone" class="form-control mt-2" style="width: 200px;">
+			<input ttype="tel" maxlength="15" onkeyup="handlePhone(event)" id="telefone" class="form-control mt-2" style="width: 200px;">
 			
 			<label for="username" class="form-laber mt-2">Usuario</label>
-			<input type="text" id="username" class="form-control mt-2" style="width: 200px;">
+			<input type="text" id="username" class="form-control mt-2" autocomplete="off" style="width: 200px;">
 		
 			<label for="password" class="form-laber mt-2">Senha</label>
-			<input type="password" id="password" class="form-control mt-2" style="width: 300px;">
+			<input type="password" id="password" class="form-control mt-2" autocomplete="off" style="width: 300px;">
 			
 			<label for="cnpj" class="form-laber mt-2">CNPJ</label>
-			<input type="text" id="cnpj" class="form-control mt-2" style="width: 300px;">
+			<input type="text" id="cnpj" class="form-control mt-2" autocomplete="off" style="width: 300px;">
 		</div>
 		<br />
 		<button class="btn btn-success" onclick="salvar()">Salvar</button>
@@ -179,6 +179,19 @@
 				success: function (data) { alert("salvo com sucesso!"); },
 				error: function (e) { alert(e); }
 			});
+		}
+		
+		const handlePhone = (event) => {
+		  let input = event.target
+		  input.value = phoneMask(input.value)
+		}
+		
+		const phoneMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/\D/g,'')
+		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
+		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+		  return value
 		}
 	</script>
 </body>

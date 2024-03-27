@@ -8,6 +8,33 @@
 	<link rel="stylesheet" href="assets/css/stylePerfil.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>SisTech - TechGold</title>
+	<style>
+		
+		@media (max-width: 860px) {
+				
+				[class*="col-"] {
+				  width: 50%;
+				}
+				
+				@media only screen and (min-width: 300px) {
+				  /* For tablets: */
+				  .col-s-1 {width: 8.33%;}
+				  .col-s-2 {width: 16.66%;}
+				  .col-s-3 {width: 25%;}
+				  .col-s-4 {width: 33.33%;}
+				  .col-s-5 {width: 41.66%;}
+				  .col-s-6 {width: 50%;}
+				  .col-s-7 {width: 58.33%;}
+				  .col-s-8 {width: 66.66%;}
+				  .col-s-9 {width: 75%;}
+				  .col-s-10 {width: 83.33%;}
+				  .col-s-11 {width: 91.66%;}
+				  .col-s-12 {width: 100%;}
+				}
+				
+			}
+		
+	</style>
 </head>
 
 <body>
@@ -99,21 +126,21 @@
 		 
 			<div class="container">
 				<div class="row justify-content-between">
-				    <div class="col-2">
+				    <div class="col-2 col-s-4">
 							<div id="containerPerfil">
 								<aside class="">
-											<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
+										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
 								</aside>
 							<br/><br/>
 						</div>
 				    </div>
-				    <div class="col-6">
+				    <div class="col-6 col-s-6">
 						<br/>
 				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
 							<p><span id="dataUltimoLogin"></span></p>
 	
 				    </div>
-				    <div class="col-4">
+				    <div class="col-4 col-s-6">
 						<div class="calender">
 							<div class="top">
 								<span id="months">Janeiro</span>
@@ -137,18 +164,13 @@
 		
 		<br/><br/>
 		
-		<div class="container">
-			<p><span class="linhaSolicitacoes" id="abertas"></span></p>
-			<p><span class="linhaSolicitacoes" id="andamento"></span></p>
-			<p><span class="linhaSolicitacoes" id="agendadas"></span></p>
-		</div>
 	
 		<div class="container">
 			 <div class="row justify-content-between">
-			    <div class="col-4">
+			    <div class="col-4 col-s-6">
 					<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
 			    </div>
-			    <div class="col-4">
+			    <div class="col-4 col-s-6">
 			    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
 			    </div>
 			 </div>
@@ -202,16 +224,6 @@
 						$('#saudacao').text(data.saudacao);
 						$('#nomeFuncionario').text(data.nomeFuncionario);
 						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
-						
-						if(data.solicitacoes.abertas >= 1){
-							$('#abertas').text("Solicitações abertas: " + data.solicitacoes.abertas);
-						}
-						if(data.solicitacoes.agendados >= 1){
-							$('#agendadas').text("Solicitações agendadas: " + data.solicitacoes.agendados);
-						}
-						if(data.solicitacoes.andamento >= 1){
-							$('#andamento').text("Solicitações em andamento: " + data.solicitacoes.andamento);
-						}
 						
 						const ctx = document.getElementById('minhasSolicitacoes');
 						new Chart(ctx, {

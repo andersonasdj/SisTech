@@ -58,6 +58,6 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();
 		this.redFlag = false;
-		this.vip = false;
+		this.vip = dados.vip();
 	}
 }

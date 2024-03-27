@@ -7,10 +7,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>SisTech - Clientes</title>
 	<style>
-		body{
-		  padding:20px 20px;
-		}
-		
 		.results tr[visible='false'],
 		.no-result{
 		  display:none;
@@ -23,6 +19,15 @@
 		.counter{
 		  padding:8px; 
 		  color:#ccc;
+		}
+		
+		
+		.telefone {
+		  display: block;
+		  height: 22px;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  padding: 4px 10px;
 		}
 	</style>
 </head>
@@ -123,7 +128,7 @@
 		    </div>
 		    <div class="col">
 				<div class="form-group pull-right">
-		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
 				</div>
 				<span class="counter pull-right"></span>
 		    </div>
@@ -197,7 +202,7 @@
 
 						<div class="row">
 							<div class="col-md-8">
-								<label class="form-label" for="nomemodal">Nome</label>
+								<label class="form-label" for="nomemodal"><b>Nome</b></label>
 								<input type="text" id="nomemodal" class="form-control"><br />
 							</div>
 
@@ -209,38 +214,43 @@
 
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="usuariomodal">Usuario</label>
+								<label class="form-label" for="usuariomodal"><b>Usuario</b></label>
 								<input type="text" id="usuariomodal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label" for="senhamodal">Senha</label>
+								<label class="form-label" for="senhamodal"><b>Senha</b></label>
 								<input type="password" id="senhamodal" class="form-control">
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="telefonemodal">Telefone</label>
-								<input type="text" id="telefonemodal" class="form-control">
+								<label class="form-label" for="telefonemodal"><b>Telefone</b></label>
+								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="telefonemodal" class="form-control">
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label" for="cnpjmodal">CNPJ</label>
+								<label class="form-label" for="cnpjmodal"><b>CNPJ</b></label>
 								<input type="text" id="cnpjmodal" class="form-control"><br />
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-12">
-								<label class="form-label" for="enderecomodal">Endereço</label>
+								<label class="form-label" for="enderecomodal"><b>Endereço</b></label>
 								<input type="text" id="enderecomodal" class="form-control"><br />
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12">
-								<label class="form-label mt-2" for="ativoModal">Ativo</label>
-								<select class="form-select" id="ativoModal" aria-label="Default select example"
-									style="width: 180px;">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="ativoModal"><b>Ativo</b></label>
+								<select class="form-select" id="ativoModal">
+		
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="vipModal"><b>VIP</b></label>
+								<select class="form-select" id="vipModal">
 		
 								</select>
 							</div>
@@ -299,12 +309,14 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<label class="form-label" for="idAddModal">Id Cliente</label>
+						<label class="form-label mt-2" for="idAddModal">Id Cliente</label>
 						<input type="text" id="idAddModal" class="form-control" readonly>
-						<label class="form-label" for="nomeAddmodal">Nome</label>
+						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
-						<label class="form-label" for="celularAddmodal">Celular</label>
-						<input type="text" id="celularAddmodal" class="form-control">
+						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
+						<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
+						<label class="form-label mt-2" for="emailAddmodal">Email</label>
+						<input type="text" id="emailAddmodal" class="form-control">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -329,26 +341,32 @@
 					
 						<div class="row">
 							<div class="col-md-8">
-								<label class="form-label" for="nomeEdicaoModal">Nome</label>
+								<label class="form-label mt-2" for="nomeEdicaoModal"><b>Nome</b></label>
 								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<label class="form-label" for="idEdicaoModal">ID</label>
+								<label class="form-label mt-2" for="idEdicaoModal">ID</label>
 								<input type="text" id="idEdicaoModal" class="form-control" readonly>
 								</di>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="celularEdicaoModal">Celular</label>
-								<input type="text" id="celularEdicaoModal" class="form-control"><br />
+								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
+								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="statusEdicaoModal">VIP</label>
+								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
 								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
 		
 								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 ms-auto">
+								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
+								<input type="text" id="emailEdicaoModal" class="form-control"><br />
 							</div>
 						</div>
 					</div>
@@ -403,6 +421,19 @@
 			},
 			error: function (e) { alert(e.totalPages); }
 		});
+		
+		const handlePhone = (event) => {
+		  let input = event.target
+		  input.value = phoneMask(input.value)
+		}
+		
+		const phoneMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/\D/g,'')
+		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
+		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+		  return value
+		}
 	</script>
 	
 	<script>
@@ -496,6 +527,8 @@
 					$('#nomemodal').val("");
 					$('#enderecomodal').val("");
 					$('#ativoModal').empty();
+					$('#vipModal').empty();
+
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -518,6 +551,21 @@
 					} else {
 						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
 						$('#ativoModal').append("<option value=true>Ativado</option>");
+					}
+					
+					var vip;
+					if(data.vip == true){
+						vip = "Ativado";
+					}else{
+						vip = "Desativado";
+					}
+					
+					if (data.vip == true) {
+						$('#vipModal').append("<option value=" + data.vip + ">" + vip + "</option>");
+						$('#vipModal').append("<option value=false>Desativado</option>");
+					} else {
+						$('#vipModal').append("<option value=" + data.vip + ">" + vip + "</option>");
+						$('#vipModal').append("<option value=true>Ativado</option>");
 					}
 
 				},
@@ -647,6 +695,7 @@
 			var cnpj = $('#cnpjmodal').val();
 			var endereco = $('#enderecomodal').val();
 			var ativo = $('#ativoModal').val();
+			var vip = $('#vipModal').val();
 
 			$.ajax({
 				type: "PUT",
@@ -660,7 +709,8 @@
 					"telefone": telefone,
 					"cnpj": cnpj,
 					"endereco": endereco,
-					"ativo": ativo
+					"ativo": ativo,
+					"vip": vip
 				}),
 				success: function (data) {
 					

@@ -126,15 +126,15 @@
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-3">
-					<h5 style="text-align: center;">Localicação das solicitações</h5>
-					<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>
+					<h5 style="text-align: center;" class="mt-3">Localicação das solicitações</h5>
+					<canvas id="localSolicitacoes" style="height:68vh; width:40vw"></canvas>
 				</div>
 				<div class="col-3">
-					<h5 style="text-align: center;">Prioridade das solicitações</h5>
-					<canvas id="prioridadeSolicitacoes" style="height:60vh; width:40vw"></canvas>
+					<h5 style="text-align: center;" class="mt-3">Prioridade das solicitações</h5>
+					<canvas id="prioridadeSolicitacoes" style="height:68vh; width:40vw"></canvas>
 				</div>
 				<div class="col-3 col-s-12">
-					<h5 style="text-align: center;">Classificação das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Classificação das solicitações</h5>
 					<canvas id="classificacaoSolicitacoes" style="height:60vh; width:40vw"></canvas>
 				</div>
 			</div>
@@ -144,14 +144,14 @@
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-3 col-s-12">
-					<h5 style="text-align: center;">Status das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Status das solicitações</h5>
 					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
 				</div>
 				<div class="col-3">
 				</div>
-				<div class="col-3 col-s-12">
-					<h5 style="text-align: center;">Solicitações por funcionarios</h5>
-					<canvas id="funcionariosSolicitacoes" style="height:60vh; width:40vw"></canvas>
+				<div class="col-6 col-s-12">
+					<h5 style="text-align: center;" class="mt-3">Solicitações por funcionarios</h5>
+					<canvas id="funcionariosSolicitacoes" style="height:35vh; width:30vw"></canvas>
 				</div>
 			</div>
 		</div>
@@ -347,7 +347,7 @@
 					}
 
 					new Chart(ctx5, {
-						type: 'bar',
+						type: 'line',
 						data: {
 							labels: labelNomes,
 							datasets: [{

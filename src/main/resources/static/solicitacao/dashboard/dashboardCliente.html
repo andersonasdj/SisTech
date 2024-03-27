@@ -26,7 +26,12 @@
 			  color:#ccc;
 			}
 			
-			@media (max-width: 860px) {
+			@media (max-width: 990px) {
+				.fonteModal{
+					font-size: 15px;
+				}
+				
+				
 			  .btnFinalizado {
   					width: 980px;
   					margin-top: 20px;
@@ -172,8 +177,7 @@
 				
 				<div class="col-4 col-s-12">
 					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"></span></button>
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Palavra chave</button>
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Atualizados Hoje</button>
+					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Andamento</button>
 				</div>
 			</div>
 		</div>
@@ -182,30 +186,30 @@
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-3" id="local">
-					<h5 style="text-align: center;">Localicação das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Localicação</h5>
 					<canvas id="localSolicitacoes" class="col-s-3 graficoLocal" style="height: 900px; width: 425px; display: block; box-sizing: border-box;"></canvas>
 				</div>
 				<div class="col-3" id="prioridade">
-					<h5 style="text-align: center;">Prioridade das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Prioridade</h5>
 					<canvas id="prioridadeSolicitacoes" class="col-s-3 graficoLocal"></canvas>
 				</div>
 				<div class="col-3 col-s-12" id="classificacao">
-					<h5 style="text-align: center;">Classificação das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Classificação</h5>
 					<canvas id="classificacaoSolicitacoes" class="col-s-3 graficoLocal"></canvas>
 				</div>
 			</div>
 		</div>
-		<hr class="bg-danger border-2 border-top border-danger">
+		<hr class="bg-danger border-2 border-top border-danger mt-4">
 
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-3 col-s-12" id="status">
-					<h5 style="text-align: center;">Status das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Status</h5>
 					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
 				</div>
-				<div class="col-3">
+				<div class="col-1">
 				</div>
-				<div class="col-3 col-s-12">
+				<div class="col-5 col-s-12 mt-5">
 					<h4><span id="totalMesCorrente" style="font-size: 18px;"></span></h4>
 					<h4><span id="totalMinutosMes" style="font-size: 18px;"></span></h4>
 				</div>
@@ -271,7 +275,7 @@
 						</div>
 						
 						<div class="table-responsive mt-3">
-						<table class="table table-hover table-bordered results" id="tabela-usuarios">
+						<table class="table table-hover table-bordered table-striped results" id="tabela-usuarios" style="text-align: center;">
 							<thead>
 								<tr>
 									<th scope="col">ID</th>
@@ -416,74 +420,70 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-4">
-								<div class="col-md-8-auto">
 								<div class="control-group">
-									<label class="form-label mt-4"><b>Data Abertura *</b></label>
+									<label class="form-label mt-4 fonteModal"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
-										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 140px;">
+										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 112px;">
 										<span></span>
 										<input type="time" id="horaAberturaModalEdicao" name="horaAberturaModalEdicao" value="">
 									</div>
 								</div>
 							</div>
-
-							</div>
-								<div class="col-md-4">
-									<div class="col-md-8-auto">
-									<div class="control-group">
-										<label class="form-label mt-4"><b>Data Andamento *</b></label>
-										<div class="calendarioAndamentoModal">
-											<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 140px;">
-											<span></span>
-											<input type="time" id="horaAndamentoModalEdicao" name="horaAndamentoModalEdicao" value="">
-										</div>
+							
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="form-label mt-4 fonteModal"><b>Data Andamento *</b></label>
+									<div class="calendarioAndamentoModal">
+										<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 112px;">
+										<span></span>
+										<input type="time" id="horaAndamentoModalEdicao" name="horaAndamentoModalEdicao" value="">
 									</div>
 								</div>
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<div class="col-md-8-auto">
-									<div class="control-group">
-										<label class="form-label mt-4"><b>Data Finalizado *</b></label>
-										<div class="calendarioFinalizadoModal">
-											<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 140px;">
-											<span></span>
-											<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
-										</div>
+								<div class="control-group">
+									<label class="form-label mt-4 fonteModal"><b>Data Finalizado *</b></label>
+									<div class="calendarioFinalizadoModal">
+										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 112px;">
+										<span></span>
+										<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
 									</div>
-								</div>	
+								</div>
 							</div>
 						</div>					
 
 						<div class="row">
 							<div class="col-md-4">
+								<div class="controls fonteModal">
 								<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
-								<select class="form-select" id="localmodal" aria-label="Default select example">
-
-								</select>
+									<select class="form-select" id="localmodal" aria-label="Default select example">
+	
+									</select>
+								</div>
 							</div>
 							<div class="col-md-4">
+								<div class="controls fonteModal"> 
 								<label class="form-label mt-2" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
-								<div class="controls">
-									<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao"
-										style="width: 250px;">
+									<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao">
 										<option></option>
 									</select>
 								</div>
 							</div>
 
 							<div class="col-md-4 ms-auto">
+								<div class="controls fonteModal">
 								<label class="form-label mt-2" for="duracaoModalEdicao"><b>Duração</b></label>
-								<p><span id="duracaoModalEdicao"></span></p>
+									<p><span id="duracaoModalEdicao"></span></p>
+								</div>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
-								<div class="controls">
-									<div class="controls">
-										<select class="form-select" id="categoriamodal" name="categoriamodal" style="width: 250px;">
+							<div class="col-md-4">
+								<div class="controls fonteModal">
+									<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
+										<select class="form-select" id="categoriamodal" name="categoriamodal">
 											<option value="SOFTWARE">Software</option>
 											<option value="HARDWARE">Hardware</option>
 											<option value="EMAIL">Email</option>
@@ -498,14 +498,12 @@
 											<option value="BACKUP">Backup</option>
 										</select>
 									</div>
-								</div>
 							</div>
 
-							<div class="col-md-4 ms-auto">
+							<div class="col-md-4">
+								<div class="controls fonteModal">
 								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
-								<div class="controls">
-									<select class="form-select" id="classificacaomodal" name="classificacaomodal"
-										style="width: 250px;">
+									<select class="form-select" id="classificacaomodal" name="classificacaomodal">
 										<option value="INCIDENTE">Incidente</option>
 										<option value="PROBLEMA">Problema</option>
 										<option value="SOLICITACAO">Solicitação</option>
@@ -516,10 +514,10 @@
 								</div>
 							</div>
 
-							<div class="col-md-4 ms-auto">
+							<div class="col-md-4 fonteModal">
+								<div class="controls fonteModal"> 
 								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
-								<div class="controls">
-									<select class="form-select" id="prioridademodal" name="prioridademodal" style="width: 240px;">
+									<select class="form-select" id="prioridademodal" name="prioridademodal">
 										<option value="BAIXA">Baixa</option>
 										<option value="MEDIA">Media</option>
 										<option value="ALTA">Alta</option>
@@ -531,23 +529,23 @@
 						</div>
 						
 						<div class="row">
-							<div class="col-md-6 ms-auto">
+							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
 								<textarea class="form-control" rows="3" id="descricaomodal"
 									class="form-control"></textarea>
 							</div>
-							<div class="col-md-6 ms-auto">
+							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
 								<textarea class="form-control" rows="3" id="observacaomodal"
 									class="form-control"></textarea>
 							</div>
 						</div>
 
-						<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
+						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
 						
 						<div class="row">
-							<div class="col-md-6 mt-3">
+							<div class="col-md-8 mt-3">
 								Ultima atualização: <span id="dataAtualizacaoModalEdicao"></span>
 							</div>
 						</div>

@@ -7,11 +7,12 @@ public record DtoColaboradorEdit(
 		Long id, 
 		String nomeColaborador, 
 		String celular, 
-		Boolean vip
+		Boolean vip,
+		String email
 		) {
 	
 	public DtoColaboradorEdit(Colaborador c) {
-		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip());
+		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip(), c.getEmail());
 		
 	}
 	

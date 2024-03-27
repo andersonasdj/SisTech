@@ -103,13 +103,13 @@
 <!--				<p class="pull-right">-->
 <!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
 <!--				</p>-->
-
+				<br/><br/>
 				<div class="row">
 					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente" style="width: 250px;">
+								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
 									<option> </option>
 								</select>
 								<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
@@ -119,12 +119,11 @@
 						<br />
 
 					</div>
-					<div class="col-md-8 ms-auto">
+					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="formaAbertura" name="formaAbertura"
-									style="width: 250px;">
+								<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
 									<option></option>
 									<option value="TELEFONE">Telefone</option>
 									<option value="EMAIL">E-mail</option>
@@ -148,8 +147,7 @@
 							</label>
 							<div class="controls">
 								
-								<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"
-								style="width: 250px;">
+								<select class="form-control solicitante mt-3" name="solicitante" id="solicitante">
 								</select>
 								<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
 								</span>
@@ -160,11 +158,11 @@
 						</div>
 					</div>
 
-					<div class="col-md-8 ms-auto">
-						<div class="form-group">
-							<label class="control-label" for="afetado"><b>Usuário Afetado *</b></label>
+					<div class="col-md-4">
+						<div class="control-group">
+							<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
 							<div class="controls">
-								<select class="form-control usuario mt-2" name="afetado" id="afetado" style="width: 250px;">
+								<select class="form-control usuario mt-2" name="afetado" id="afetado">
 								</select>
 								<span id="cargoUsuario"
 									style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
@@ -182,19 +180,17 @@
 							<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
 							<div class="controls">
 								<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
-									placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)"
-									style="width: 300px;" class="input-xlarge" required></textarea>
+									placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
 								<span id="contProb">300</span> Restantes <br>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-8 ms-auto">
+					<div class="col-md-4">
 						<label class="control-label" for="observacao"><b>Observações</b></label>
 						<div class="controls">
 							<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
-								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)"
-								style="width: 300px;" class="input-xlarge" required></textarea>
+								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
 							<span id="contObs">300</span> Restantes <br>
 
 						</div>
@@ -207,7 +203,7 @@
 						<div class="control-group">
 							<label class="control-label" for="categoria"><b>Categoria *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="categoria" name="categoria" style="width: 250px;">
+								<select class="form-select mt-2" id="categoria" name="categoria">
 									<option value="SOFTWARE">Software</option>
 									<option value="HARDWARE">Hardware</option>
 									<option value="EMAIL">Email</option>
@@ -225,12 +221,11 @@
 						</div>
 					</div>
 
-					<div class="col-md-8 ms-auto">
+					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="classificacao"><b>Classificação *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="classificacao" name="classificacao"
-									style="width: 250px;">
+								<select class="form-select mt-2" id="classificacao" name="classificacao">
 									<option value="INCIDENTE">Incidente</option>
 									<option value="PROBLEMA">Problema</option>
 									<option value="SOLICITACAO">Solicitação</option>
@@ -251,7 +246,7 @@
 						<div class="control-group">
 							<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="prioridade" name="prioridade" style="width: 250px;">
+								<select class="form-select mt-2" id="prioridade" name="prioridade">
 									<option value="BAIXA">Baixa</option>
 									<option value="MEDIA">Media</option>
 									<option value="ALTA">Alta</option>
@@ -262,11 +257,11 @@
 						</div>
 					</div>
 
-					<div class="col-md-8 ms-auto">
+					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="local" name="local" style="width: 250px;">
+								<select class="form-select mt-2" id="local" name="local">
 									<option value="OFFSITE">Offsite</option>
 									<option value="ONSITE">Onsite</option>
 								</select>
@@ -282,19 +277,17 @@
 						<div class="control-group">
 							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"
-									style="width: 250px;">
+								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
 								</select>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-8 ms-auto">
+					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="status"><b>Status *</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="status" name="status"
-									style="width: 250px;">
+								<select class="form-select mt-2" id="status" name="status">
 									<option value="ABERTO">ABERTO</option>
 									<option value="ANDAMENTO">ANDAMENTO</option>
 									<option value="AGENDADO">AGENDADO</option>
@@ -326,9 +319,7 @@
 				
 				<div class="control-group">
 					<div class="controls">
-						<span id="botaoSalvar">
-									
-						</span>
+						<span id="botaoSalvar"></span>
 						<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
 					</div>
 				</div>
@@ -420,12 +411,14 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<label class="form-label" for="idAddModal">Id Cliente</label>
+						<label class="form-label mt-2" for="idAddModal">Id Cliente</label>
 						<input type="text" id="idAddModal" class="form-control" readonly>
-						<label class="form-label" for="nomeAddmodal">Nome</label>
+						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
-						<label class="form-label" for="celularAddmodal">Celular</label>
-						<input type="text" id="celularAddmodal" class="form-control">
+						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
+						<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
+						<label class="form-label mt-2" for="emailAddmodal">Email</label>
+						<input type="text" id="emailAddmodal" class="form-control">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -449,7 +442,7 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-8">
-								<label class="form-label" for="nomeEdicaoModal">Nome</label>
+								<label class="form-label" for="nomeEdicaoModal"><b>Nome</b></label>
 								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
 							</div>
 
@@ -461,16 +454,24 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label" for="celularEdicaoModal">Celular</label>
+								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
 								<input type="text" id="celularEdicaoModal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="statusEdicaoModal">VIP</label>
+								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
 								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
 		
 								</select>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
+								<input type="text" id="emailEdicaoModal" class="form-control"><br />
+							</div>
+						</div>
+							
 					</div>
 					
 					<div class="modal-footer">
@@ -553,6 +554,7 @@
 			var nomeColaborador = $('#nomeEdicaoModal').val();
 			var celular = $('#celularEdicaoModal').val();
 			var vip = $('#statusEdicaoModal').val();
+			var email = $('emailEdicaoModal').val();
 
 			$.ajax({
 				type: "PUT",
@@ -562,7 +564,8 @@
 					"id": id,
 					"nomeColaborador": nomeColaborador,
 					"celular": celular,
-					"vip": vip
+					"vip": vip,
+					"email": email
 				}),
 				success: function (data) {
 					editarColaboradores();
@@ -587,6 +590,7 @@
 			var clienteId = $('#idAddModal').val();
 			var nomeAddmodal = $('#nomeAddmodal').val();
 			var celularAddmodal = $('#celularAddmodal').val();
+			var emailAddmodal = $('#emailAddmodal').val();
 
 			$.ajax({
 				type: "POST",
@@ -596,13 +600,15 @@
 					{
 						"clienteId": clienteId,
 						"nomeColaborador": nomeAddmodal,
-						"celular": celularAddmodal
+						"celular": celularAddmodal,
+						"email": emailAddmodal
 					}
 				),
 				success: function (data) {
 					preencheSolicitante();
 					$('#nomeAddmodal').val("");
 					$('#celularAddmodal').val("");
+					$('#emailAddmodal').val("");
 					alert("salvo com sucesso!");
 				},
 				error: function (e) {
@@ -824,6 +830,18 @@
 			}
 		}
 		
+		const handlePhone = (event) => {
+		  let input = event.target
+		  input.value = phoneMask(input.value)
+		}
+		
+		const phoneMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/\D/g,'')
+		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
+		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+		  return value
+		}
 	</script>
 
 	<!--	<script src="assets/js/jquery-ui.js"></script>-->

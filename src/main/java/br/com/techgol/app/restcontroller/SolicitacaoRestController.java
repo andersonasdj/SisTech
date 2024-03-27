@@ -48,10 +48,8 @@ public class SolicitacaoRestController {
 	@Autowired
 	private FuncionarioRepository repositoryFuncionario;
 	
-	
 	@Autowired
 	private SolicitacaoService solicitacaoService;
-	
 	
 	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
 	private List<Solicitacao> listar(){
@@ -91,7 +89,7 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DE TODAS AS SOLICITACOES EXCLUÍDAS-LIXEIRA
-	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesFinalizadas(page,Status.FINALIZADO.toString(), false);
 	}
 	

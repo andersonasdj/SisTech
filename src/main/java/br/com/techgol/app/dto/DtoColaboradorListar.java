@@ -7,12 +7,13 @@ public record DtoColaboradorListar(
 		String nomeColaborador,
 		String celular,
 		boolean vip,
-		Long clienteId
+		Long clienteId,
+		String email
 		
 		) {
 	
 	public DtoColaboradorListar(Colaborador c) {
-		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip(), c.getId());
+		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip(), c.getId(), c.getEmail());
 	}
 
 }

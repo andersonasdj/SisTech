@@ -30,6 +30,8 @@ public class Colaborador {
 	
 	private boolean vip;
 	
+	private String email;
+	
 	@ManyToOne
 	private Cliente cliente;
 	
@@ -39,6 +41,7 @@ public class Colaborador {
 		this.celular = dados.celular();
 		this.vip = dados.vip();
 		this.cliente = cliente;
+		this.email = dados.email();
 	}
 
 }

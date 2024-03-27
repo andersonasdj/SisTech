@@ -9,10 +9,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<title>Sistech - Solicitações</title>
 	<style>
-		body{
-		  padding:20px 20px;
-		}
-		
 		.results tr[visible='false'],
 		.no-result{
 		  display:none;
@@ -134,7 +130,7 @@
 		</div>
 
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered results" id="tabela-usuarios">
+			<table class="table table-hover table-bordered results" id="tabela-usuarios" style="text-align: center;">
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
@@ -148,7 +144,6 @@
 						<th scope="col">Classificação</th>
 						<th scope="col">Responsável</th>
 						<th scope="col">Status</th>
-						<th scope="col">Ações</th>
 					</tr>
 				</thead>
 				<tbody id="corpoSolicitacoes">
@@ -197,7 +192,7 @@
 		</footer>
 		</footer>
 
-		<!-- #################################  Modal EDIÇÃO ######################################################## -->
+		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
@@ -209,16 +204,17 @@
 							
 						<div class="row">
 							<div class="col-md-4">
-								<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
-								<select class="form-select" id="localmodal" aria-label="Default select example">
-
-								</select>
+								<div class="controls">
+									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
+									<select class="form-select" id="localmodal" aria-label="Default select example">
+	
+									</select>
+								</div>
 							</div>
 							<div class="col-md-4">
-								<label class="form-label mt-2" for="nomeFuncionarioModal"><b>Técnico Responsável</b></label>
+								<label class="form-label mt-2" for="nomeFuncionarioModal"><b>Técnico</b></label>
 								<div class="controls">
-									<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal"
-										style="width: 250px;">
+									<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal">
 										<option></option>
 									</select>
 <!--								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>-->
@@ -228,9 +224,11 @@
 
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<label class="form-label mt-2" for="statusmodal"><b>Status</b></label>
-								<select class="form-select" id="statusmodal" aria-label="Default select example">
-
-								</select>
+								<div class="controls">
+									<select class="form-select" id="statusmodal" aria-label="Default select example">
+	
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -256,7 +254,7 @@
 								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
 								<div class="controls">
 									<div class="controls">
-										<select class="form-select" id="categoriamodal" name="categoriamodal" style="width: 250px;">
+										<select class="form-select" id="categoriamodal" name="categoriamodal">
 											<option value="SOFTWARE">Software</option>
 											<option value="HARDWARE">Hardware</option>
 											<option value="EMAIL">Email</option>
@@ -277,8 +275,7 @@
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
 								<div class="controls">
-									<select class="form-select" id="classificacaomodal" name="classificacaomodal"
-										style="width: 250px;">
+									<select class="form-select" id="classificacaomodal" name="classificacaomodal">
 										<option value="INCIDENTE">Incidente</option>
 										<option value="PROBLEMA">Problema</option>
 										<option value="SOLICITACAO">Solicitação</option>
@@ -292,7 +289,7 @@
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
 								<div class="controls">
-									<select class="form-select" id="prioridademodal" name="prioridademodal" style="width: 240px;">
+									<select class="form-select" id="prioridademodal" name="prioridademodal">
 										<option value="BAIXA">Baixa</option>
 										<option value="MEDIA">Media</option>
 										<option value="ALTA">Alta</option>
@@ -306,22 +303,32 @@
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
-								<textarea class="form-control" rows="3" id="descricaomodal"
+								<div class="controls">
+									<textarea class="form-control" rows="3" id="descricaomodal"
 									class="form-control"></textarea>
+								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
-								<textarea class="form-control" rows="3" id="observacaomodal"
+								<div class="controls">
+									<textarea class="form-control" rows="3" id="observacaomodal"
 									class="form-control"></textarea>
+								</div>
 							</div>
 						</div>
 
-						<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
-						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+						<div class="row">
+							<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
+							<div class="controls">
+								<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+							</div>
+						</div>
 						
 						<div class="row">
-							<div class="col-md-6 mt-3">
-								Ultima atualização: <span id="dataAtualizacaoModal"></span>
+							<div class="col-md-12 mt-3">
+								<div class="controls">
+									Ultima atualização: <span id="dataAtualizacaoModal"></span>
+								</div>
 							</div>
 						</div>
 
@@ -334,9 +341,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- #################################  Modal EDIÇÃO ######################################################## -->
+		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
 		
-		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
+		<!-- ################################ MODAL NOVA SOLICITACAO ############################################# -->
 		<div class="modal fade" id="modalNovaSolicitacao" tabindex="-1" aria-labelledby="modalNovaSolicitacao" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
@@ -345,11 +352,12 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
+						
 						<div class="row">
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="nomeCliente"><b>Cliente *</b></label>
 								<div class="controls">
-									<select class="form-select" id="nomeCliente" name="nomeCliente" style="width: 250px;">
+								<label class="form-label mt-1" for="nomeCliente"><b>Cliente *</b></label>
+									<select class="form-select" id="nomeCliente" name="nomeCliente">
 										<option> </option>
 									</select>
 									<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
@@ -358,10 +366,9 @@
 							</div>
 
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="solicitante"><b>Solicitante *</b></label>
 								<div class="controls">
-									<select class="form-control solicitante" name="solicitante" id="solicitante"
-										style="width: 250px;">
+								<label class="form-label mt-1" for="solicitante"><b>Solicitante *</b></label>
+									<select class="form-control solicitante" name="solicitante" id="solicitante">
 										<option> </option>
 									</select>
 									<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
@@ -372,9 +379,9 @@
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
 								<div class="controls">
-									<select class="form-control usuario" name="afetado" id="afetado" style="width: 240px;">
+								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
+									<select class="form-control usuario" name="afetado" id="afetado">
 									</select>
 									<span id="cargoUsuario"
 										style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
@@ -386,20 +393,18 @@
 
 						<div class="row">
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
 								<div class="controls">
+								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
 									<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
-										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)"
-										style="width: 380px;" class="input-xlarge" required></textarea>
+										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
 									<span id="contProb">300</span> Restantes <br>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
 								<div class="controls">
+								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
 									<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
-										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)"
-										style="width: 370px;" class="input-xlarge" required></textarea>
+										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
 									<span id="contObs">300</span> Restantes <br>
 								</div>
 							</div>
@@ -407,32 +412,29 @@
 						
 						<div class="row">
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="categoria"><b>Categoria *</b></label>
 								<div class="controls">
-									<div class="controls">
-										<select class="form-select" id="categoria" name="categoria" style="width: 250px;">
-											<option value="SOFTWARE">Software</option>
-											<option value="HARDWARE">Hardware</option>
-											<option value="EMAIL">Email</option>
-											<option value="SHAREPOINT">SharePoint</option>
-											<option value="INTERNET">Internet</option>
-											<option value="SERVIDORES">Servidores</option>
-											<option value="OUTROS">Outros</option>
-											<option value="REDE">Rede</option>
-											<option value="CABEAMENTO">Cabeamento</option>
-											<option value="SMARTPHONE">Smartphone</option>
-											<option value="PROJETO">Projeto</option>
-											<option value="BACKUP">Backup</option>
-										</select>
-									</div>
+								<label class="form-label mt-1" for="categoria"><b>Categoria *</b></label>
+									<select class="form-select" id="categoria" name="categoria">
+										<option value="SOFTWARE">Software</option>
+										<option value="HARDWARE">Hardware</option>
+										<option value="EMAIL">Email</option>
+										<option value="SHAREPOINT">SharePoint</option>
+										<option value="INTERNET">Internet</option>
+										<option value="SERVIDORES">Servidores</option>
+										<option value="OUTROS">Outros</option>
+										<option value="REDE">Rede</option>
+										<option value="CABEAMENTO">Cabeamento</option>
+										<option value="SMARTPHONE">Smartphone</option>
+										<option value="PROJETO">Projeto</option>
+										<option value="BACKUP">Backup</option>
+									</select>
 								</div>
 							</div>
 
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
 								<div class="controls">
-									<select class="form-select" id="classificacao" name="classificacao"
-										style="width: 250px;">
+								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
+									<select class="form-select" id="classificacao" name="classificacao">
 										<option value="INCIDENTE">Incidente</option>
 										<option value="PROBLEMA">Problema</option>
 										<option value="SOLICITACAO">Solicitação</option>
@@ -444,9 +446,9 @@
 							</div>
 
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="prioridade"><b>Prioridade *</b></label>
 								<div class="controls">
-									<select class="form-select" id="prioridade" name="prioridade" style="width: 240px;">
+								<label class="form-label mt-1" for="prioridade"><b>Prioridade *</b></label>
+									<select class="form-select" id="prioridade" name="prioridade">
 										<option value="BAIXA">Baixa</option>
 										<option value="MEDIA">Media</option>
 										<option value="ALTA">Alta</option>
@@ -459,9 +461,9 @@
 						
 						<div class="row">
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="local"><b>Onsite / Offsite *</b></label>
 								<div class="controls">
-									<select class="form-select" id="local" name="local" style="width: 250px;">
+								<label class="form-label mt-1" for="local"><b>Onsite / Offsite *</b></label>
+									<select class="form-select" id="local" name="local">
 										<option value="OFFSITE">Offsite</option>
 										<option value="ONSITE">Onsite</option>
 									</select>
@@ -469,10 +471,9 @@
 							</div>
 
 							<div class="col-md-4">
-								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 								<div class="controls">
-									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"
-										style="width: 250px;">
+								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico </b></label>
+									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario">
 									</select>
 								</div>
 							</div>
@@ -480,8 +481,7 @@
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-1" for="status"><b>Status *</b></label>
 								<div class="controls">
-									<select class="form-select" id="status" name="status"
-										style="width: 240px;">
+									<select class="form-select" id="status" name="status">
 										<option value="ABERTO">ABERTO</option>
 										<option value="ANDAMENTO">ANDAMENTO</option>
 										<option value="AGENDADO">AGENDADO</option>
@@ -509,7 +509,8 @@
 				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="salvar()">Salvar</button>
+						<span id="botaoSalvar"></span>
+<!--						<button type="button" class="btn btn-primary" onclick="salvar()">Salvar</button>-->
 					</div>
 				</div>
 			</div>
@@ -527,7 +528,6 @@
 			url: "/sistech/solicitacao/short",
 			success: function (data) {
 				
-				
 				if(data.totalPages > 1){
 					
 					for(var i=0; i < data.totalPages ; i++ ){
@@ -537,21 +537,21 @@
 					
 				}
 				
-				
 				data.content.map(i => {
-					
 					var status;
+					var vip;
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
-					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.nomeCliente  + vip + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
 					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
@@ -560,9 +560,6 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '</td>'
-					+ '<td>'
-					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
-					+ '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -594,12 +591,13 @@
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
-					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.nomeCliente  + vip + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
 					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
@@ -608,9 +606,6 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '</td>'
-					+ '<td>'
-					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
-					+ '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -784,17 +779,19 @@
 						
 					}else{
 						var status;
+						var vip;
 						if(data.status == "ABERTO"){ status = "class='table-danger'" }
 						if(data.status == "AGENDADO"){ status = "class='table-warning'" }
 						if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
 						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 						if(data.status == "PAUSADO"){ status = "class='table-light'" }
+						if(data.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
 						
 						var itens =
 						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente + '</td>'
+						+ '<td>' + data.nomeCliente  + vip + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
 						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
@@ -803,9 +800,6 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
-						+ '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);
@@ -897,9 +891,6 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + funcionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
-						+ '</td>'
 						+ '</tr>'
 					$('#linha' + data.id).remove();
 					$('#tabela-usuarios').append(itens);
@@ -945,8 +936,15 @@
 
 				var nomeCliente = $("#nomeCliente").val();
 				var json = {"nomeCliente": nomeCliente};
+				$("#botaoSalvar").empty();
 
-				$.ajax({
+				if(nomeCliente > 0){
+					
+					$('#botaoSalvar').append(
+						'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+					);
+					
+					$.ajax({
 					url: "/sistech/colaborador/list/" + nomeCliente,
 					type: "GET",
 					data: json,
@@ -980,7 +978,13 @@
 					},
 					erro: function (request, status, error) { },
 					complete: function (data) { }
-				})
+					})
+				} else{
+					$("#botaoSalvar").empty();
+					$('#solicitante').empty();
+					$('#afetado').empty();
+				}
+				
 			});
 		});
 		
