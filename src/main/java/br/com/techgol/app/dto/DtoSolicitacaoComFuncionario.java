@@ -21,7 +21,9 @@ public record DtoSolicitacaoComFuncionario(
 		Local local,
 		Categoria categoria,
 		String nomeFuncionario,
-		Status status
+		Status status,
+		boolean vip,
+		boolean redFlag
 		) {
 
 		public DtoSolicitacaoComFuncionario(Solicitacao s) {
@@ -37,7 +39,9 @@ public record DtoSolicitacaoComFuncionario(
 					s.getLocal(),
 					s.getCategoria(),
 					s.getFuncionario().getNomeFuncionario(), 
-					s.getStatus());
+					s.getStatus(),
+					s.getCliente().isVip(),
+					s.getCliente().isRedFlag());
 		}
 
 }

@@ -6,6 +6,7 @@ public record DadosClienteEditDTO(
 		Long id,
 		Boolean ativo,
 		Boolean vip,
+		Boolean redFlag,
 		String nomeCliente,
 		String endereco,
 		String telefone,
@@ -14,7 +15,7 @@ public record DadosClienteEditDTO(
 		String cnpj) {
 	
 	public DadosClienteEditDTO(Cliente c) {
-		this(c.getId(),c.getAtivo(), c.isVip(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj());
+		this(c.getId(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj());
 		
 	}
 	

@@ -21,5 +21,6 @@ public interface SolicitacaoProjecao {
 	String getDuracao();
 	String getDataAtualizacao();
 	boolean getVip();
+	boolean getRedFlag();
 
 }

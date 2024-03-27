@@ -17,11 +17,12 @@ public record DtoAtualizarCliente(
 		String telefone,
 		String cnpj,
 		Boolean ativo,
-		Boolean vip) {
+		Boolean vip,
+		Boolean redFlag) {
 
 	public DtoAtualizarCliente(Cliente c) {
 		
-		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo(), c.isVip());
+		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo(), c.isVip(), c.isRedFlag());
 	}
 
 }

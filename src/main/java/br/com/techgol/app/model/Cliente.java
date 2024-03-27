@@ -57,7 +57,7 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.endereco = dados.endereco();
 		this.telefone = dados.telefone();
 		this.cnpj = dados.cnpj();
-		this.redFlag = false;
+		this.redFlag = dados.redFlag();
 		this.vip = dados.vip();
 	}
 }

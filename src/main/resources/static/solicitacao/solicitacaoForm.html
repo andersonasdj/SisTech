@@ -124,7 +124,6 @@
 							<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
 							<div class="controls">
 								<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
-									<option></option>
 									<option value="TELEFONE">Telefone</option>
 									<option value="EMAIL">E-mail</option>
 									<option value="WHATSAPP">Whatsapp</option>
@@ -704,14 +703,12 @@
 					$('#afetado').val("");
 					$('#observacao').val("");
 					$('#abertoPor').val("");
-					$('#prioridade').val("");
-					$('#formaAbertura').val("");
-					$('#categoria').val("");
-					$('#classificacao').val("");
-					$('#local').val("");
-					$('#status').val("");
 					$('#nomeCliente').val("");
-					$('#nomeFuncionario').val("");
+					$("#botaoSalvar").empty();
+					$('#botaoColaboradores').empty();
+					$('#solicitante').empty();
+					$('#afetado').empty();
+					
 					alert("Solicitação criada com sucesso!");
 				},
 				error: function (e) {

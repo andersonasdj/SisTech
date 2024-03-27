@@ -255,6 +255,15 @@
 								</select>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="redFlagModal"><b>Red Flag</b></label>
+								<select class="form-select" id="redFlagModal">
+		
+								</select>
+							</div>
+						</div>
 						</br>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -528,7 +537,7 @@
 					$('#enderecomodal').val("");
 					$('#ativoModal').empty();
 					$('#vipModal').empty();
-
+					$('#redFlagModal').empty();
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -538,34 +547,29 @@
 					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
 					
-					var status;
-					if(data.ativo == true){
-						status = "Ativado";
-					}else{
-						status = "Desativado";
-					}
 					
 					if (data.ativo == true) {
-						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#ativoModal').append("<option value=" + data.ativo + "> Ativado </option>");
 						$('#ativoModal').append("<option value=false>Desativado</option>");
 					} else {
-						$('#ativoModal').append("<option value=" + data.ativo + ">" + status + "</option>");
+						$('#ativoModal').append("<option value=" + data.ativo + "> Desativado</option>");
 						$('#ativoModal').append("<option value=true>Ativado</option>");
 					}
 					
-					var vip;
-					if(data.vip == true){
-						vip = "Ativado";
-					}else{
-						vip = "Desativado";
-					}
-					
 					if (data.vip == true) {
-						$('#vipModal').append("<option value=" + data.vip + ">" + vip + "</option>");
+						$('#vipModal').append("<option value=" + data.vip + "> Ativado </option>");
 						$('#vipModal').append("<option value=false>Desativado</option>");
 					} else {
-						$('#vipModal').append("<option value=" + data.vip + ">" + vip + "</option>");
+						$('#vipModal').append("<option value=" + data.vip + "> Desativado </option>");
 						$('#vipModal').append("<option value=true>Ativado</option>");
+					}
+					
+					if (data.redFlag == true) {
+						$('#redFlagModal').append("<option value=" + data.redFlag + "> Ativado </option>");
+						$('#redFlagModal').append("<option value=false>Desativado</option>");
+					} else {
+						$('#redFlagModal').append("<option value=" + data.redFlag + "> Desativado </option>");
+						$('#redFlagModal').append("<option value=true>Ativado</option>");
 					}
 
 				},
@@ -696,6 +700,8 @@
 			var endereco = $('#enderecomodal').val();
 			var ativo = $('#ativoModal').val();
 			var vip = $('#vipModal').val();
+			var redFlag = $('#redFlagModal').val();
+			
 
 			$.ajax({
 				type: "PUT",
@@ -710,7 +716,8 @@
 					"cnpj": cnpj,
 					"endereco": endereco,
 					"ativo": ativo,
-					"vip": vip
+					"vip": vip,
+					"redFlag": redFlag
 				}),
 				success: function (data) {
 					

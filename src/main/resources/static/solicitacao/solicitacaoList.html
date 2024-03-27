@@ -540,18 +540,25 @@
 				data.content.map(i => {
 					var status;
 					var vip;
+					var redFlag;
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
-					if(i.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
+					if(i.redFlag == true){ 
+						if(i.vip == true){
+							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+						else{
+							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+					} else{redFlag =""}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
-					+ '<td>' + i.nomeCliente  + vip + '</td>'
+					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
 					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
@@ -586,18 +593,26 @@
 				data.content.map(i => {
 					
 					var status;
+					var vip;
+					var redFlag;
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
-					if(i.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
+					if(i.redFlag == true){ 
+						if(i.vip == true){
+							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+						else{
+							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+					} else{redFlag =""}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
-					+ '<td>' + i.nomeCliente  + vip + '</td>'
+					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
 					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
@@ -780,18 +795,25 @@
 					}else{
 						var status;
 						var vip;
+						var redFlag;
 						if(data.status == "ABERTO"){ status = "class='table-danger'" }
 						if(data.status == "AGENDADO"){ status = "class='table-warning'" }
 						if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
 						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 						if(data.status == "PAUSADO"){ status = "class='table-light'" }
-						if(data.vip == true){ vip = "<span style='color: Crimson; font-size: 19px'><p><b> VIP </b></p></span>" }else{vip =""}
+						if(data.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
+						if(data.redFlag == true){ 
+							if(data.vip == true){
+								redFlag = "- <span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+							else{
+								redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+						} else{redFlag =""}
 						
 						var itens =
 						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente  + vip + '</td>'
+						+ '<td>' + data.nomeCliente  + vip + redFlag + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
 						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'

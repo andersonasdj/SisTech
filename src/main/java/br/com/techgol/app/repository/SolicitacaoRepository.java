@@ -19,7 +19,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -31,7 +31,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, s.duracao, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, c.redFlag, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura,  s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -56,7 +56,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, "
 			+ "s.duracao, s.dataAtualizacao "
