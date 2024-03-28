@@ -45,11 +45,13 @@ public class SolicitacaoRestController {
 	
 	@Autowired
 	private ClienteRepository repositoryCliente;
+	
 	@Autowired
 	private FuncionarioRepository repositoryFuncionario;
 	
 	@Autowired
 	private SolicitacaoService solicitacaoService;
+	
 	
 	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
 	private List<Solicitacao> listar(){
@@ -83,10 +85,12 @@ public class SolicitacaoRestController {
 		return solicitacaoService.buscarFinalizada(id);
 	}
 	
+	
 	@GetMapping("/excluido") //RETORNA DTO COM PROJEÇÃO DAS SOLICITAÇÕES EXCLUIDAS-LIXEIRA
 	public Page<SolicitacaoProjecao> excluidas(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
 	}
+	
 	
 	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DE TODAS AS SOLICITACOES EXCLUÍDAS-LIXEIRA
 	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
@@ -99,12 +103,12 @@ public class SolicitacaoRestController {
 		
 	}
 	
+	
 	@GetMapping("/dashboard") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD GERAL
 	public DtoDashboard dashboard() {
-		
 		return solicitacaoService.geraDashboard();
-		
 	}
+	
 	
 	@GetMapping("/dashboard/cliente/{id}") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD POR CLIENTE
 	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
@@ -124,9 +128,6 @@ public class SolicitacaoRestController {
 	public DtoUltimaAtualizada ultimaSolicitacaoAtualizada() {
 		return solicitacaoService.ultimaAtualizada();
 	}
-	
-	
-	
 	
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
 	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {

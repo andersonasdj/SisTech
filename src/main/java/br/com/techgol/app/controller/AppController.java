@@ -1,6 +1,7 @@
 package br.com.techgol.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -36,6 +37,7 @@ public class AppController {
 		return "templates/home.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/logAcesso")
 	public String logsAcesso() {
 		return "templates/logsAcesso.html";

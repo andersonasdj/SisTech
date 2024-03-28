@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,33 +36,39 @@ public class FuncionarioRestController {
 	@Autowired
 	FuncionarioService service;
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping
 	public void cadastrar(@RequestBody @Valid DtoCadastroFuncionario dados ) {
 		service.salvar(dados);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping //RETORNA UMA DTO COM A LISTA DE TODOS OS FUNCIONARIOS
 	public ResponseEntity<List<DtoListarFuncionarios>> listar(){
 		return ResponseEntity.ok().body(service.listar());
 	}
 	
-	@GetMapping("/nomes")
-	public List<String> listaClientesNome(){
-		return service.listarNomesCliente();
-	}
+//	@PreAuthorize("hasRole('ROLE_USER')")
+//	@GetMapping("/nomes")
+//	public List<String> listaClientesNome(){
+//		return service.listarNomesCliente();
+//	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/{id}") //RESTORNA UMA DTO DE UM FUNCIONARIO POR ID
 	public ResponseEntity<DtoFuncionarioEdit> editar(@PathVariable Long id ) {
 		return ResponseEntity.ok().body(service.editar(id));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/perfil") //RETORNA DADOS DO FUNCIONARIO PARA PROPRIA EDICAO (PERFIL)
 	public ResponseEntity<DtoFuncionarioEditSimplificado> perfil(){
 		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		return ResponseEntity.ok().body(service.buscaDadosFuncionario(funcionario.getId()));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/home") //RETORNA UMA DTO COM OS DADOS PARA A HOME PAGE
 	public ResponseEntity<DtoFuncionarioHome> funcionarioHome() {
 	
@@ -91,16 +98,19 @@ public class FuncionarioRestController {
 				));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping //ATUALIZA UM FUNCIONARIO
 	public ResponseEntity<DtoListarFuncionarios> atualizar(@RequestBody DtoFuncionarioEdit dados) {
 		return ResponseEntity.ok().body(service.atualizarFuncionario(dados));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/senha") //ATUALIZA A SENHA PARA QUALQUER USUARIO
 	public boolean atualizar(@RequestBody DtoSenha dados) {
 		return service.atualizarSenha(dados);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@PutMapping("/senha/pessoal") //ATUALIZA A SENHA SOMENTE DO PROPRIO USUARIO
 	public boolean atualizarSenhaPessoal(@RequestBody DtoSenha dados) {
 		
@@ -112,6 +122,7 @@ public class FuncionarioRestController {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/{id}")
 	public boolean deletar(@PathVariable Long id ) {
 		return service.deletar(id);

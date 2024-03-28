@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class ClienteRestController {
 		return repository.listarNomesCliente();
 	}
 	
+	
 	@GetMapping("/edit/{id}")
 	public DadosClienteEditDTO editar(@PathVariable Long id ) {
 		
@@ -67,6 +69,7 @@ public class ClienteRestController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public void deletar(@PathVariable Long id ) {
 		

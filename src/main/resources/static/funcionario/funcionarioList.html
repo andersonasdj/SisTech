@@ -429,7 +429,7 @@
 							$('#password-status').append("<b style='color: red;'> Senha não atualizada!</b>");
 						}
 					},
-					error: function (e) { alert(e); }
+					error: function (e) { alert("Você não tem permissão !"); }
 				});
 			} else {
 				$('#password-status').text('');
@@ -483,7 +483,7 @@
 					$('#tabela-usuarios').append(itens);
 					alert("atualizado com sucesso");
 				},
-				error: function (e) { alert(e.data); }
+				error: function (e) { alert("Você não tem permissão !"); }
 			});
 		}
 	</script>

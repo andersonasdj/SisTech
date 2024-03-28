@@ -415,9 +415,14 @@
 						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
 					}
 					
+					var vip =" ";
+					var redFlag =" ";
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+					if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
+					
 					var itens = 
 					'<tr id=linha' + i.id + '>'
-					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
 					+ '<td>' + status + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
@@ -468,9 +473,14 @@
 						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
 					}
 					
+					var vip="";
+					var redFlag=""
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+					if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
+					
 					var itens = 
 					'<tr id=linha' + i.id + '>'
-					+ '<td>' + i.nomeCliente + '</td>'
+					+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
 					+ '<td>' + status + '</t}>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
@@ -727,10 +737,15 @@
 					}else{
 						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
 					}
+					
+					var vipData ="";
+					var redFlagData=""
+					if(data.vip == true){ vipData = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+					if(data.redFlag == true){ redFlagData = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
 
 					var itens =
 						'<tr id=linha' + data.id + '>'
-						+ '<td>' + data.nomeCliente + '</td>'
+						+ '<td>' + data.nomeCliente + vipData + redFlagData + '</td>'
 						+ '<td>' + status + '</td>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')><i class="bi bi-pencil-square"></i></button>'
