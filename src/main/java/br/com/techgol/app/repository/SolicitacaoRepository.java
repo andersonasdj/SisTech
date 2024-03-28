@@ -69,6 +69,21 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id);
 	
 	
+	
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, "
+			+ "s.duracao, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.status != 'FINALIZADO' "
+			+ "AND s.cliente_id = :id "
+			+ "AND s.excluido = false",nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoesNaoFinalizadasPorCliente(Pageable page, Long id);
+	
+	
 	public int countByStatusAndExcluido(Status status, Boolean excluido);
 	
 

@@ -103,6 +103,12 @@ public class SolicitacaoRestController {
 		
 	}
 	
+	@GetMapping("/naofinalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
+	public Page<SolicitacaoProjecao> naoFinalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesNaoFinalizadasPorCliente(page, id);
+		
+	}
+	
 	
 	@GetMapping("/dashboard") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD GERAL
 	public DtoDashboard dashboard() {

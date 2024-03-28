@@ -5,8 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacaoFinalizada.css">
+	<link rel="stylesheet" href="../../assets/css/StyleSolicitacao.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 		<style>
 			body{
 			  padding:20px 20px;
@@ -147,6 +148,10 @@
 									<hr class="dropdown-divider">
 								</li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
 							<a href="/sistech/logout">
@@ -176,8 +181,9 @@
 				</div>
 				
 				<div class="col-4 col-s-12">
+					<a href="#" onclick="montaGraficos()" class="btn"><i class="bi bi-arrow-clockwise"></i></a>
 					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"></span></button>
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Andamento</button>
+					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=naoFinalizados()>Não Finalizados <span id="qtdNaoFinalizados"></span></button>
 				</div>
 			</div>
 		</div>
@@ -249,12 +255,12 @@
 		</footer>
 		</footer>
 		
-		<!-- ################################################## MODAL FINALIZADOS CLIENTE ######################################################### -->
+		<!-- ################################################## MODAL LISTA SOLICITACOES CLIENTE ################################################## -->
 		<div class="modal fade" id="finalizadosModal" tabindex="-1" aria-labelledby="finalizadosModal" aria-hidden="true">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="finalizadosModal">Finalizados  <span id="idmodal"> </span></h1>
+						<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -305,14 +311,14 @@
 				</div>
 			</div>
 		</div>
-		<!-- ################################################## MODAL FINALIZADOS CLIENTE ######################################################### -->
+		<!-- ################################################## MODAL LISTA SOLICITACOES CLIENTE ################################################## -->
 		
 		<!-- ################################################# MODAL EXIBE SOLICITACAO FINALIZADA ################################################# -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+		<div class="modal fade" id="modalVerificaFinalizado" tabindex="-1" aria-labelledby="modalVerificaFinalizado" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-2" id="exampleModal"> 
+						<h1 class="modal-title fs-2" id="modalVerificaFinalizado"> 
 							<span id="nomeClienteModal"> </span>
 							<span id="edicaoModalBotao"></span>
 						</h1>
@@ -408,11 +414,11 @@
 		<!-- ################################################# MODAL EXIBE SOLICITACAO FINALIZADA ################################################# -->
 		
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
-		<div class="modal fade" id="edicaoModal" tabindex="-1" aria-labelledby="edicaoModal" aria-hidden="true">
+		<div class="modal fade" id="modalEdicaoFinalizado" tabindex="-1" aria-labelledby="modalEdicaoFinalizado" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
+						<h1 class="modal-title fs-5" id="modalEdicaoFinalizado">Edição rápida ID:  
 							<span id="idModalEdicao"> </span>
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -558,6 +564,156 @@
 			</div>
 		</div>
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
+		<!-- ################################################# MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
+		<div class="modal fade" id="modalEdicaoNaoFinalizados" tabindex="-1" aria-labelledby="modalEdicaoNaoFinalizados" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+							<h1 class="modal-title fs-6" id="modalEdicaoNaoFinalizados">Edição ID: <span id="idModalNaoFinalizada"> </span></h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+							
+						<div class="row">
+							<div class="col-md-4">
+								<div class="controls">
+									<label class="form-label mt-2" for="localModalNaoFinalizada"><b>Local</b></label>
+									<select class="form-select" id="localModalNaoFinalizada" aria-label="Default select example">
+	
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label mt-2" for="funcionarioModalNaoFinalizada"><b>Técnico</b></label>
+								<div class="controls">
+									<select class="form-select" id="funcionarioModalNaoFinalizada" name="funcionarioModalNaoFinalizada">
+										<option></option>
+									</select>
+<!--								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>-->
+<!--								<input type="text" id="idmodal" class="form-control" readonly>-->
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto" id="divstatusmodal">
+								<label class="form-label mt-2" for="statusModalNaoFinalizada"><b>Status</b></label>
+								<div class="controls">
+									<select class="form-select" id="statusModalNaoFinalizada" aria-label="Default select example">
+	
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8-auto" id="agendamentosModalNaoFinalizada" style="display: none">
+								<div class="control-group">
+									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
+									<div class="datetimepickerModal">
+										<input type="date" id="dataAgendadoModalNaoFinalizada" name="dataAgendadoModalNaoFinalizada" value="">
+										<span></span>
+										<input type="time" id="horaAgendadoModalNaoFinalizada" name="horaAgendadoModalNaoFinalizada" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="categoriaModalNaoFinalizada"><b>Categoria *</b></label>
+								<div class="controls">
+									<div class="controls">
+										<select class="form-select" id="categoriaModalNaoFinalizada" name="categoriaModalNaoFinalizada">
+											<option value="SOFTWARE">Software</option>
+											<option value="HARDWARE">Hardware</option>
+											<option value="EMAIL">Email</option>
+											<option value="SHAREPOINT">SharePoint</option>
+											<option value="INTERNET">Internet</option>
+											<option value="SERVIDORES">Servidores</option>
+											<option value="OUTROS">Outros</option>
+											<option value="REDE">Rede</option>
+											<option value="CABEAMENTO">Cabeamento</option>
+											<option value="SMARTPHONE">Smartphone</option>
+											<option value="PROJETO">Projeto</option>
+											<option value="BACKUP">Backup</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="classificacaoModalNaoFinalizada"><b>Classificação *</b></label>
+								<div class="controls">
+									<select class="form-select" id="classificacaoModalNaoFinalizada" name="classificacaoModalNaoFinalizada">
+										<option value="INCIDENTE">Incidente</option>
+										<option value="PROBLEMA">Problema</option>
+										<option value="SOLICITACAO">Solicitação</option>
+										<option value="ACESSO">Acesso</option>
+										<option value="EVENTO">Evento</option>
+										<option value="BACKUP">Backup</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label mt-3" for="prioridadeModalNaoFinalizada"><b>Prioridade *</b></label>
+								<div class="controls">
+									<select class="form-select" id="prioridadeModalNaoFinalizada" name="prioridadeModalNaoFinalizada">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-3" for="descricaoModalNaoFinalizada"><b>Descrição</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="3" id="descricaoModalNaoFinalizada"
+									class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-3" for="observacaoModalNaoFinalizada"><b>Observação</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="3" id="observacaoModalNaoFinalizada"
+									class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<label class="form-label mt-3" for="resolucaoModalNaoFinalizada"><b>Resolução</b></label>
+							<div class="controls">
+								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizada" class="form-control"></textarea>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 mt-3">
+								<div class="controls">
+									Ultima atualização: <span id="dataAtualizacaoModalNaoFinalizada"></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizaNaoFinalizada()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
 	</div>
 
 	<script src="../../assets/js/jquery-3.6.3.js"></script>
@@ -580,179 +736,8 @@
 			
 			var divCliente = $("#idCliente");
 			divCliente.on("change", function () {
-
-				var idCliente = $("#idCliente").val();
-				$.ajax({
-					type: "GET",
-					contentType: "application/json",
-					url: "/sistech/solicitacao/dashboard/cliente/" + idCliente,
-					success: function (data) {
-
-						if (data != null) {
-							$('#totalSolicitacoes').text("");
-							$('#qtdFinalizados').text("");
-							$('#totalMesCorrente').text("");
-							$('#totalMinutosMes').text("");
-							$('#qtdFinalizados').text(data.finalizado);
-							$('#totalSolicitacoes').text("Total: "+ data.totalSolicitacoes);
-							$('#totalMesCorrente').text("Total de solicitações do mês: " + data.totalMesCorrente);
-							
-							if(data.totalMinutosMes <= 60){
-								$('#totalMinutosMes').text("Tempo total do mês: " + data.totalMinutosMes + " minutos");
-							}else{
-								$('#totalMinutosMes').text("Tempo total do mês: " + Math.round(data.totalMinutosMes / 60)  + " horas");
-							}
-							
-							document.getElementById('localSolicitacoes').remove();
-							$('#local').append('<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-							
-							var ctx = document.getElementById('localSolicitacoes');
-							new Chart(ctx, {
-								type: 'bar',
-								data: {
-									labels: ['Onsite', 'Offsite'],
-									datasets: [{
-										label: 'Local das Solicitações: ',
-										data: [data.onsite, data.offsite],
-										backgroundColor: [
-											'rgba(255, 0, 0, 0.5)',
-											'rgba(12, 218, 205, 0.5)',
-											'rgba(255, 205, 86, 0.2)',
-											'rgba(121, 125, 127, 0.2)',
-											'rgba(54, 162, 235, 0.2)',
-											'rgba(153, 102, 255, 0.2)',
-											'rgba(201, 203, 207, 0.2)'
-										],
-										borderColor: [
-											'rgb(255, 0, 0, 0.5)',
-											'rgb(12, 218, 205, 0.5)',
-											'rgb(255, 205, 86)',
-											'rgb(121, 125, 127)',
-											'rgb(54, 162, 235)',
-											'rgb(153, 102, 255)',
-											'rgb(201, 203, 207)'
-										],
-										borderWidth: 1
-									}]
-								},
-								options: {
-									responsive: true,
-									scales: { y: { min: 0, max: data.totalSolicitacoes } }
-								}
-							});
-							
-							document.getElementById('classificacaoSolicitacoes').remove();
-							$('#classificacao').append('<canvas id="classificacaoSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-									
-							const ctx2 = document.getElementById('classificacaoSolicitacoes');
-							new Chart(ctx2, {
-								type: 'doughnut',
-								data: {
-									labels: ['Problema ' + data.problema, 'Incidente '+ data.incidente, 'Solicitação ' + data.solicitacao, 'Acesso ' + data.acesso, 'Backup ' + data.backup, 'Evento ' + data.evento],
-									datasets: [{
-										label: 'CLassificação Solicitações: ',
-										data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
-										backgroundColor: [
-											'rgba(255, 0, 0, 0.5)',
-											'rgba(255, 135, 0, 0.5)',
-											'rgba(255, 240, 0, 0.5)',
-											'rgba(158, 255, 0, 0.5)',
-											'rgba(54, 162, 235, 0.2)',
-											'rgba(153, 102, 255, 0.2)',
-											'rgba(201, 203, 207, 0.2)'
-										],
-										borderColor: [
-											'rgb(255, 0, 0, 0.5)',
-											'rgb(255, 135, 0, 0.5)',
-											'rgb(255, 240, 0, 0.5)',
-											'rgb(158, 255, 0, 0.5)',
-											'rgb(54, 162, 235, 0.2)',
-											'rgb(153, 102, 255, 0.2)',
-											'rgb(201, 203, 207, 0.2)'
-										],
-										borderWidth: 1
-									}]
-								},
-								options: { responsive: true, }
-							});
-							
-							document.getElementById('prioridadeSolicitacoes').remove();
-							$('#prioridade').append('<canvas id="prioridadeSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-							
-							const ctx3 = document.getElementById('prioridadeSolicitacoes');
-							new Chart(ctx3, {
-								type: 'bar',
-								data: {
-									labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
-									datasets: [{
-										label: 'Prioridade das Solicitações: ',
-										data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
-										backgroundColor: [
-											'rgba(12, 218, 205, 0.5)',
-											'rgba(255, 240, 0, 0.5)',
-											'rgba(255, 135, 0, 0.5)',
-											'rgba(255, 0, 0, 0.5)',
-											'rgba(26, 26, 209, 0.5)',
-											'rgba(153, 102, 255, 0.2)',
-											'rgba(201, 203, 207, 0.2)'
-										],
-										borderColor: [
-											'rgb(12, 218, 205, 0.5)',
-											'rgb(255, 240, 0, 0.5)',
-											'rgb(255, 135, 0, 0.5)',
-											'rgb(255, 0, 0, 0.5)',
-											'rgb(26, 26, 209, 0.5)',
-											'rgb(153, 102, 255, 0.2)',
-											'rgb(201, 203, 207, 0.2)'
-										],
-										borderWidth: 1
-									}]
-								},
-								options: {
-									responsive: true,
-									scales: { y: { min: 0, max: data.totalSolicitacoes } }
-								}
-							});
-							
-							document.getElementById('statusSolicitacoes').remove();
-							$('#status').append('<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-							
-							const ctx4 = document.getElementById('statusSolicitacoes');
-							new Chart(ctx4, {
-								type: 'doughnut',
-								data: {
-									labels: ['Aberto ' + data.aberto, 'Agendado ' + data.agendado, 'Andamento ' + data.andamento, 'Aguardando ' + data.aguardando, 'Pausado ' + data.pausado, 'Finalizado '+ data.finalizado],
-									datasets: [{
-										label: 'Status Solicitações: ',
-										data: [data.aberto, data.agendado, data.andamento, data.aguardando, data.pausado, data.finalizado],
-										backgroundColor: [
-											'rgba(255, 0, 0, 0.5)',
-											'rgba(255, 135, 0, 0.5)',
-											'rgba(12, 218, 205, 0.5)',
-											'rgba(26, 26, 209, 0.5)',
-											'rgba(54, 162, 235, 0.2)',
-											'rgba(153, 102, 255, 0.2)',
-											'rgba(201, 203, 207, 0.2)'
-										],
-										borderColor: [
-											'rgb(255, 0, 0, 0.5)',
-											'rgb(255, 135, 0, 0.5)',
-											'rgb(12, 218, 205, 0.5)',
-											'rgb(26, 26, 209, 0.5)',
-											'rgb(54, 162, 235, 0.2)',
-											'rgb(153, 102, 255, 0.2)',
-											'rgb(201, 203, 207, 0.2)'
-										],
-										borderWidth: 1
-									}]
-								},
-								options: { responsive: true, }
-							});
-						}
-					},
-					erro: function (request, status, error) { },
-					complete: function (data) { }
-				})
+				montaGraficos();
+		
 			});
 		});
 		
@@ -879,21 +864,8 @@
 				}),
 				success: function (data) {
 					
-					if(data.status == "FINALIZADO"){
-						$('#linha' + data.id).remove();
 						$('#edicaoModal').modal('hide');
-						alert("atualizado com sucesso");
-						
-					}else{
-						var status;
-						if(data.status == "ABERTO"){ status = "class='table-danger'" }
-						if(data.status == "AGENDADO"){ status = "class='table-warning'" }
-						if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
-						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
-						if(data.status == "PAUSADO"){ status = "class='table-light'" }
-						
-						$('#edicaoModal').modal('hide');
-					}
+						montaGraficos();
 				},
 				error: function (e) { alert(e.data); }
 			});
@@ -912,29 +884,11 @@
 						url: "/sistech/solicitacao/finalizado/cliente/"+idCliente,
 						success: function (data) {
 							
+							$('#idmodal').text("");
+							$('#idmodal').text("FINALIZADOS");
+							
 							data.content.map(i => {
-								var tempoTotal;
-								if(i.duracao <= 60){
-									tempoTotal = i.duracao + " minutos";							
-								}else{
-									tempoTotal = Math.round(i.duracao / 60) + " horas";
-								}
-								
-								var itens = 
-								'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=verificar(' + i.id + ')>'
-								+ '<td id=name' + i.id + '>' + i.id + '</td>'
-								+ '<td>' + i.dataAbertura + '</td>'
-								+ '<td>' + i.nomeCliente + '</td>'
-								+ '<td>' + i.solicitante + '</td>'
-								+ '<td>' + i.afetado + '</td>'
-								+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-								+ '<td>' + i.descricao + '</td>'
-								+ '<td>' + i.prioridade + '</td>'
-								+ '<td>' + i.classificacao + '</td>'
-								+ '<td>' + i.nomeFuncionario + '</td>'
-								+ '<td><p>' + i.status + '</p><p>' + tempoTotal + '</p></td>'
-								+ '</tr>'
-								$('#tabela-usuarios').append(itens);
+									montaTabelaFinalizadosNaoFinalizados(i);
 								}
 							);
 						},
@@ -943,6 +897,64 @@
 				} else{
 						alert("Selecione o cliente");
 				}
+		}
+		
+		function naoFinalizados(){
+			
+			var idCliente = $("#idCliente").val();
+				$('#tabela').empty();
+		
+				if(idCliente != '' && idCliente != null && idCliente != ' ' ){		
+						$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/solicitacao/naofinalizado/cliente/"+idCliente,
+						success: function (data) {
+							
+							$('#idmodal').text("");
+							$('#idmodal').text("NÃO FINALIZADOS");
+							
+							data.content.map(i => {
+									montaTabelaFinalizadosNaoFinalizados(i);
+								}
+							);
+						},
+						error: function (e) { alert("Selecione o cliente"); }
+					});
+				} else{
+						alert("Selecione o cliente");
+				}
+		}
+		
+		function montaTabelaFinalizadosNaoFinalizados(i){
+				var tempoTotal="";
+				var modal="";
+				var funcao="";
+				if(i.status == 'FINALIZADO'){
+					if(i.duracao <= 60){ tempoTotal = i.duracao + " minutos"; }
+					else{ tempoTotal = Math.round(i.duracao / 60) + " horas"; }
+					modal ="modalVerificaFinalizado";
+					funcao = "verificar";
+				}else{ 
+					modal = "modalEdicaoNaoFinalizados";
+					funcao = "editarNaoFinalizada";			
+				}
+				
+				var itens = 
+				'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#'+ modal +'" onclick='+funcao+'(' + i.id + ')>'
+				+ '<td id=name' + i.id + '>' + i.id + '</td>'
+				+ '<td>' + i.dataAbertura + '</td>'
+				+ '<td>' + i.nomeCliente + '</td>'
+				+ '<td>' + i.solicitante + '</td>'
+				+ '<td>' + i.afetado + '</td>'
+				+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+				+ '<td>' + i.descricao + '</td>'
+				+ '<td>' + i.prioridade + '</td>'
+				+ '<td>' + i.classificacao + '</td>'
+				+ '<td>' + i.nomeFuncionario + '</td>'
+				+ '<td><p>' + i.status + '</p><p>' + tempoTotal + '</p></td>'
+				+ '</tr>'
+				$('#tabela-usuarios').append(itens);	
 		}
 		
 		function verificar(id) {
@@ -977,7 +989,7 @@
 					$('#prioridadeModal').text("");
 					$('#abertoPorModal').text("");
 					$('#dataAtualizacaoModal').text("");
-					$('#edicaoModalBotao').append("<button class='btn btn-primary btn-sm ' id='edicao' data-bs-toggle='modal' data-bs-target='#edicaoModal' onclick=editar(" + data.id + ")> Editar</button>");
+					$('#edicaoModalBotao').append("<button class='btn btn-primary btn-sm ' id='edicao' data-bs-toggle='modal' data-bs-target='#modalEdicaoFinalizado' onclick=editar(" + data.id + ")> Editar</button>");
 					
 					$('#nomeClienteModal').text(data.nomeCliente);
 					$('#dataAberturaModal').text(data.dataAbertura);
@@ -997,6 +1009,355 @@
 				error: function (e) { alert(e); }
 			});
 		}
+		
+		function editarNaoFinalizada(id) {
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/busca/" + id,
+				success: function (data) {
+
+					$('#idModalNaoFinalizada').text("");
+					$('#resolucaoModalNaoFinalizada').text("");
+					$('#descricaoModalNaoFinalizada').val("");
+					$('#observacaoModalNaoFinalizada').val("");
+					$('#resolucaoModalNaoFinalizada').val("");
+					$('#statusModalNaoFinalizada').empty();
+					$('#categoriaModalNaoFinalizada').empty();
+					$('#classificacaoModalNaoFinalizada').empty();
+					$('#prioridadeModalNaoFinalizada').empty();
+					$('#localModalNaoFinalizada').empty();
+					$('#funcionarioModalNaoFinalizada').empty();
+					$('#dataAgendadoModalNaoFinalizada').val("");
+					$('#horaAgendadoModalNaoFinalizada').val("");
+
+					$('#dataAtualizacaoModalNaoFinalizada').text(data.dataAtualizacao);
+					$('#idModalNaoFinalizada').text(data.id);
+					$('#descricaoModalNaoFinalizada').val(data.descricao);
+					$('#resolucaoModalNaoFinalizada').val(data.resolucao);
+					$('#observacaoModalNaoFinalizada').val(data.observacao);
+					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					$('#categoriaModalNaoFinalizada').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
+						+'<option value="SOFTWARE">SOFTWARE</option>'
+						+'<option value="HARDWARE">HARDWARE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="SHAREPOINT">SHAREPOINT</option>'
+						+'<option value="INTERNET">INTERNET</option>'
+						+'<option value="SERVIDORES">SERVIDORES</option>'
+						+'<option value="OUTROS">OUTROS</option>'
+						+'<option value="REDE">REDE</option>'
+						+'<option value="CABEAMENTO">CABEAMENTO</option>'
+						+'<option value="SMARTPHONE">SMARTPHONE</option>'
+						+'<option value="PROJETO">PROJETO</option>'
+						+'<option value="BACKUP">BACKUP</option>"');
+					$('#classificacaoModalNaoFinalizada').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
+						+'<option value="INCIDENTE">INCIDENTE</option>'
+						+'<option value="PROBLEMA">PROBLEMA</option>'
+						+'<option value="SOLICITACAO">SOLICITACAO</option>'
+						+'<option value="ACESSO">ACESSO</option>'
+						+'<option value="EVENTO">EVENTO</option>'
+						+'<option value="BACKUP">BACKUP</option>');
+						
+					$('#prioridadeModalNaoFinalizada').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
+						+'<option value="BAIXA">BAIXA</option>'
+						+'<option value="MEDIA">MEDIA</option>'
+						+'<option value="ALTA">ALTA</option>'
+						+'<option value="CRITICA">CRITICA</option>'
+						+'<option value="PLANEJADA">PLANEJADA</option>');
+						
+					$('#localModalNaoFinalizada').append("<option value="+ data.local +">"+ data.local+"</option>"
+						+'<option value="ONSITE">ONSITE</option>'
+						+'<option value="OFFSITE">OFFSITE</option>');
+					
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#funcionarioModalNaoFinalizada').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+
+					if (data.status == 'ABERTO') {
+						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
+					} if (data.status == 'ANDAMENTO') {
+						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalNaoFinalizada').append("<option value=FINALIZADO>FINALIZADO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=PAUSADO>PAUSADO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
+						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
+					} if (data.status == 'AGENDADO') {
+						
+						$('#dataAgendadoModalNaoFinalizada').val(data.dataAgendado);
+						$('#horaAgendadoModalNaoFinalizada').val(data.horaAgendado);
+						
+						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
+						document.getElementById('agendamentosModalNaoFinalizada').style.display = '';
+					} if (data.status == 'AGUARDANDO') {
+						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGENDADO>AGENDADO</option>");
+						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
+					} if (data.status == 'PAUSADO') {
+						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=AGENDADO>AGENDADO</option>");
+						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
+						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
+					}
+				},
+				error: function (e) { alert(e); }
+			});
+		}
+		
+		
+		function atualizaNaoFinalizada(){
+			
+			var id = $('#idModalNaoFinalizada').text();
+			var descricao = $('#descricaoModalNaoFinalizada').val();
+			var resolucao = $('#resolucaoModalNaoFinalizada').val();
+			var observacao = $('#observacaoModalNaoFinalizada').val();
+			var status = $('#statusModalNaoFinalizada').val();
+			var categoria = $('#categoriaModalNaoFinalizada').val();
+			var classificacao = $('#classificacaoModalNaoFinalizada').val();
+			var prioridade = $('#prioridadeModalNaoFinalizada').val();
+			var local = $('#localModalNaoFinalizada').val();
+			var nomeFuncionario = $('#funcionarioModalNaoFinalizada').val();
+			var dataAgendado = $('#dataAgendadoModalNaoFinalizada').val();
+			var horaAgendado = $('#horaAgendadoModalNaoFinalizada').val();
+		
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/edicaoRapida",
+				data: JSON.stringify({
+					"id": id,
+					"descricao": descricao,
+					"resolucao": resolucao,
+					"observacao": observacao,
+					"status": status,
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"prioridade": prioridade,
+					"local": local,
+					"nomeFuncionario": nomeFuncionario,
+					"dataAgendado": dataAgendado,
+					"horaAgendado": horaAgendado
+				}),
+				success: function (data) {
+					alert("Solicitação atualizada com sucesso!");
+					$('#modalEdicaoNaoFinalizados').modal('hide');
+					montaGraficos();
+				},
+				error: function (e) { alert(e.data); }
+			});
+			
+			
+		}
+		
+		
+		function montaGraficos(){
+			
+				var idCliente = $("#idCliente").val();
+				
+				if(idCliente > 0){
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/solicitacao/dashboard/cliente/" + idCliente,
+						success: function (data) {
+	
+							if (data != null) {
+								$('#totalSolicitacoes').text("");
+								$('#qtdFinalizados').text("");
+								$('#qtdNaoFinalizados').text("");
+								$('#totalMesCorrente').text("");
+								$('#totalMinutosMes').text("");
+								$('#qtdFinalizados').text(data.finalizado);
+								$('#qtdNaoFinalizados').text(data.aberto + data.andamento + data.agendado + data.aguardando + data.pausado);
+								$('#totalSolicitacoes').text("Total: "+ data.totalSolicitacoes);
+								$('#totalMesCorrente').text("Total de solicitações do mês: " + data.totalMesCorrente);
+								
+								if(data.totalMinutosMes <= 60){
+									$('#totalMinutosMes').text("Tempo total do mês: " + data.totalMinutosMes + " minutos");
+								}else{
+									$('#totalMinutosMes').text("Tempo total do mês: " + Math.round(data.totalMinutosMes / 60)  + " horas");
+								}
+								
+								document.getElementById('localSolicitacoes').remove();
+								$('#local').append('<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>');
+								
+								var ctx = document.getElementById('localSolicitacoes');
+								new Chart(ctx, {
+									type: 'bar',
+									data: {
+										labels: ['Onsite', 'Offsite'],
+										datasets: [{
+											label: 'Local das Solicitações: ',
+											data: [data.onsite, data.offsite],
+											backgroundColor: [
+												'rgba(255, 0, 0, 0.5)',
+												'rgba(12, 218, 205, 0.5)',
+												'rgba(255, 205, 86, 0.2)',
+												'rgba(121, 125, 127, 0.2)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(201, 203, 207, 0.2)'
+											],
+											borderColor: [
+												'rgb(255, 0, 0, 0.5)',
+												'rgb(12, 218, 205, 0.5)',
+												'rgb(255, 205, 86)',
+												'rgb(121, 125, 127)',
+												'rgb(54, 162, 235)',
+												'rgb(153, 102, 255)',
+												'rgb(201, 203, 207)'
+											],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: true,
+										scales: { y: { min: 0, max: data.totalSolicitacoes } }
+									}
+								});
+								
+								document.getElementById('classificacaoSolicitacoes').remove();
+								$('#classificacao').append('<canvas id="classificacaoSolicitacoes" style="height:60vh; width:40vw"></canvas>');
+										
+								const ctx2 = document.getElementById('classificacaoSolicitacoes');
+								new Chart(ctx2, {
+									type: 'doughnut',
+									data: {
+										labels: ['Problema ' + data.problema, 'Incidente '+ data.incidente, 'Solicitação ' + data.solicitacao, 'Acesso ' + data.acesso, 'Backup ' + data.backup, 'Evento ' + data.evento],
+										datasets: [{
+											label: 'CLassificação Solicitações: ',
+											data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
+											backgroundColor: [
+												'rgba(255, 0, 0, 0.5)',
+												'rgba(255, 135, 0, 0.5)',
+												'rgba(255, 240, 0, 0.5)',
+												'rgba(158, 255, 0, 0.5)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(201, 203, 207, 0.2)'
+											],
+											borderColor: [
+												'rgb(255, 0, 0, 0.5)',
+												'rgb(255, 135, 0, 0.5)',
+												'rgb(255, 240, 0, 0.5)',
+												'rgb(158, 255, 0, 0.5)',
+												'rgb(54, 162, 235, 0.2)',
+												'rgb(153, 102, 255, 0.2)',
+												'rgb(201, 203, 207, 0.2)'
+											],
+											borderWidth: 1
+										}]
+									},
+									options: { responsive: true, }
+								});
+								
+								document.getElementById('prioridadeSolicitacoes').remove();
+								$('#prioridade').append('<canvas id="prioridadeSolicitacoes" style="height:60vh; width:40vw"></canvas>');
+								
+								const ctx3 = document.getElementById('prioridadeSolicitacoes');
+								new Chart(ctx3, {
+									type: 'bar',
+									data: {
+										labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
+										datasets: [{
+											label: 'Prioridade das Solicitações: ',
+											data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
+											backgroundColor: [
+												'rgba(12, 218, 205, 0.5)',
+												'rgba(255, 240, 0, 0.5)',
+												'rgba(255, 135, 0, 0.5)',
+												'rgba(255, 0, 0, 0.5)',
+												'rgba(26, 26, 209, 0.5)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(201, 203, 207, 0.2)'
+											],
+											borderColor: [
+												'rgb(12, 218, 205, 0.5)',
+												'rgb(255, 240, 0, 0.5)',
+												'rgb(255, 135, 0, 0.5)',
+												'rgb(255, 0, 0, 0.5)',
+												'rgb(26, 26, 209, 0.5)',
+												'rgb(153, 102, 255, 0.2)',
+												'rgb(201, 203, 207, 0.2)'
+											],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: true,
+										scales: { y: { min: 0, max: data.totalSolicitacoes } }
+									}
+								});
+								
+								document.getElementById('statusSolicitacoes').remove();
+								$('#status').append('<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>');
+								
+								const ctx4 = document.getElementById('statusSolicitacoes');
+								new Chart(ctx4, {
+									type: 'doughnut',
+									data: {
+										labels: ['Aberto ' + data.aberto, 'Agendado ' + data.agendado, 'Andamento ' + data.andamento, 'Aguardando ' + data.aguardando, 'Pausado ' + data.pausado, 'Finalizado '+ data.finalizado],
+										datasets: [{
+											label: 'Status Solicitações: ',
+											data: [data.aberto, data.agendado, data.andamento, data.aguardando, data.pausado, data.finalizado],
+											backgroundColor: [
+												'rgba(255, 0, 0, 0.5)',
+												'rgba(255, 135, 0, 0.5)',
+												'rgba(12, 218, 205, 0.5)',
+												'rgba(26, 26, 209, 0.5)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(201, 203, 207, 0.2)'
+											],
+											borderColor: [
+												'rgb(255, 0, 0, 0.5)',
+												'rgb(255, 135, 0, 0.5)',
+												'rgb(12, 218, 205, 0.5)',
+												'rgb(26, 26, 209, 0.5)',
+												'rgb(54, 162, 235, 0.2)',
+												'rgb(153, 102, 255, 0.2)',
+												'rgb(201, 203, 207, 0.2)'
+											],
+											borderWidth: 1
+										}]
+									},
+									options: { responsive: true, }
+								});
+							}
+						},
+						erro: function (request, status, error) { },
+						complete: function (data) { }
+					})
+				} else{ 
+					alert("Primeiro selecione um cliente!");}
+		}
+		
+		var divstatusmodal = $("#statusModalNaoFinalizada");
+		divstatusmodal.on("change", function(){
+			var statusModal = $("#statusModalNaoFinalizada").val();
+			if(statusModal === 'AGENDADO'){
+				$("#agendamentosModalNaoFinalizada").stop().slideToggle(1000);
+			}else {
+				document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
+			}
+		});
+		
+		var dateEl = document.getElementById('dataAgendadoModalNaoFinalizada');
+		var timeEl = document.getElementById('horaAgendadoModalNaoFinalizada');
+		
+		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+		document.getElementById('time-output').innerHTML = timeEl.type === 'time';		
 		
 		$(document).ready(function() {
 		  $(".search").keyup(function () {

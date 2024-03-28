@@ -37,6 +37,11 @@ public class AppController {
 		return "templates/home.html";
 	}
 	
+	@GetMapping("/sobre")
+	public String sobre() {
+		return "templates/sobre.html";
+	}
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/logAcesso")
 	public String logsAcesso() {

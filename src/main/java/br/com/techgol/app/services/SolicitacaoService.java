@@ -177,6 +177,10 @@ public class SolicitacaoService {
 	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id) {
 		return repository.listarSolicitacoesFinalizadasPorCliente(page, id);
 	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesNaoFinalizadasPorCliente(Pageable page, Long id) {
+		return repository.listarSolicitacoesNaoFinalizadasPorCliente(page, id);
+	}
 
 	public Solicitacao buscarPorId(Long id) {
 		return repository.getReferenceById(id);
