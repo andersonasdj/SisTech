@@ -10,6 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.LogLogin;
+import br.com.techgol.app.services.ConfiguracaoPaisesService;
 import br.com.techgol.app.services.FuncionarioService;
 import br.com.techgol.app.services.LogLoginService;
 import jakarta.servlet.FilterChain;
@@ -26,16 +27,19 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
 	private LogLoginService loginService;
 	
+	@Autowired
+	private ConfiguracaoPaisesService paisesService;
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		
 		if(request.getRequestURI().trim().equals("/sistech/login") && request.getMethod().trim().equals("POST")) {
 			doFilter(request, response, filterChain);
 			
-			if(SecurityContextHolder.getContext().getAuthentication() != null) {
+			if(SecurityContextHolder.getContext().getAuthentication() != null)  {
 				Funcionario funcionario = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 				
-				if(funcionario.getAtivo()) {
+				if(funcionario.getAtivo()  && paisesService.paisesAtivos().contains(request.getLocale().getCountry())) {
 					System.out.println("\nDENTRO DO FILTRO!");
 					System.out.println("FUNCIONARIO LOGADO: " + funcionario.getNomeFuncionario());
 					System.out.println("LOCAL: " + request.getLocalName());
@@ -57,10 +61,27 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 							request.getRemoteAddr(),
 							request.getLocalName(),
 							request.getRequestURI(),
-							getBrowser(request)
+							getBrowser(request),
+							"SUCESSO",
+							"Ativado"
 							));
 					
 				}else {
+					funcionarioService.atualizaIpLogin(funcionario, request.getRemoteHost(),request.getLocale().getCountry());
+					loginService.salvaLog(new LogLogin(
+							LocalDateTime.now().withNano(0),
+							request.getLocalAddr(),
+							request.getLocale().getCountry(),
+							request.getRemoteHost(),
+							funcionario.getNomeFuncionario(),
+							request.getRemoteAddr(),
+							request.getLocalName(),
+							request.getRequestURI(),
+							getBrowser(request),
+							"FALHA",
+							funcionario.getAtivo()? "Ativado":"Desativado"
+							
+							));
 					System.out.println("USUÁRIO DESATIVADO");
 					SecurityContextHolder.getContext().setAuthentication(null);
 				}

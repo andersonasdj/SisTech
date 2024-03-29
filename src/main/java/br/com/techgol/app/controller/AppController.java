@@ -42,10 +42,21 @@ public class AppController {
 		return "templates/sobre.html";
 	}
 	
+	@GetMapping("/funcionalidades")
+	public String funcionalidades() {
+		return "templates/funcionalidade.html";
+	}
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/logAcesso")
 	public String logsAcesso() {
 		return "templates/logsAcesso.html";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/configuracoes")
+	public String configuracoes() {
+		return "templates/configuracoes.html";
 	}
 
 }

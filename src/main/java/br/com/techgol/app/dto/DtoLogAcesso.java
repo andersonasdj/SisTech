@@ -14,7 +14,9 @@ public record DtoLogAcesso(
 		String pais,
 		String uri,
 		String usuario,
-		String browser
+		String browser,
+		String status,
+		String descricao
 		
 		) {
 	
@@ -30,7 +32,9 @@ public record DtoLogAcesso(
 			l.getPais(),
 			l.getUri(),
 			l.getUsuario(),
-			l.getBrowser()
+			l.getBrowser(),
+			l.getStatus(),
+			l.getDescricao()
 				);
 	}
 

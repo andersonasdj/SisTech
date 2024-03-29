@@ -110,7 +110,7 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li><li>
+								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
 								<li>
 									<hr class="dropdown-divider">
@@ -128,59 +128,42 @@
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		 
-			<div class="container">
-				<div class="row justify-content-between">
-				    <div class="col-2 col-s-4">
-							<div id="containerPerfil">
-								<aside class="">
-										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
-								</aside>
-							<br/><br/>
-						</div>
-				    </div>
-				    <div class="col-6 col-s-6">
-						<br/>
-				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
-							<p><span id="dataUltimoLogin"></span></p>
-	
-				    </div>
-				    <div class="col-4 col-s-6">
-						<div class="calender">
-							<div class="top">
-								<span id="months">Janeiro</span>
-							</div>
-							
-							<span id="days">Sabado</span>
-							<span id="dates">01</span>
-							<span id="years">2024</span>
-						</div>
-						<p class="time-title">Hoje</p>
-						<div class="time">
-						    <div id="hours">00</div>
-						    <div id="minutes">00</div>
-						    <div id="seconds">00</div>
-						    <div id="ampm">00</div>
-						</div>
-			   		</div>
-			    </div>
-			 </div>
-		</div>
+		<br/>
+			<h4>Configurações</h4>
+			
+			<table width="620" border="0" bordercolor="#B9B3B3" cellspacing="0" cellpadding="4">
+	              <tbody>
+	                <tr>
+	                  <td width="170" height="86" align="center" bordercolor="#FFFFFF" bgcolor="lightblue" style="border-style:none" ><b>Países permitodos para login</b></td>
+	                  <td width="256"  style="border-right-style:none">
+		                  <label>
+		                  	<input type="checkbox" name="BR" id="BR" value="BR" disabled> BR
+		                  </label><br>
+		                  <label>
+		                  	<input type="checkbox" name="US" id="US"  value="US"> US
+		                  </label><br>
+		                  <label>
+		                  	<input type="checkbox" name="PT" id="PT"  value="PT"> PT
+		                  </label>
+	                  </td>
+	                      
+	                  <td width="114" style="border-left-style:none">
+	                    <label>
+		                  	<input type="checkbox" name="CA" id="CA"  value="CA"> CA
+		                 </label><br>
+		                 <label>
+		                  	<input type="checkbox" name="FR" id="FR"  value="FR"> FR
+		                 </label><br>
+		                 <label>
+		                  	<input type="checkbox" name="CL" id="CL"  value="CL"> CL
+		                 </label>
+	                  </td>
+	                  </tr>
+	              </tbody>
+	        </table><br/>
+            <button class="btn btn-success btn-sm" onclick="salvarPaisesPermitidos()">Salvar</button>
 		
 		<br/><br/>
-		
-	
-		<div class="container">
-			 <div class="row justify-content-between">
-			    <div class="col-4 col-s-6">
-					<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
-			    </div>
-			    <div class="col-4 col-s-6">
-			    	<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
-			    </div>
-			 </div>
-		</div>
-
 		<br/><br/>
 		<footer class="text-center text-white">
 			<div class="container">
@@ -220,144 +203,59 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/chart.js"></script>
 	<script>
-		$(document).ready(function () {
-
-				$.ajax({
-					url: "/sistech/funcionarios/home",
-					type: "GET",
-					success: function (data) {
-						$('#saudacao').text(data.saudacao);
-						$('#nomeFuncionario').text(data.nomeFuncionario);
-						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
-						
-						const ctx = document.getElementById('minhasSolicitacoes');
-						new Chart(ctx, {
-					    type: 'bar',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
-					        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-						     scales: { y: { min: 0, max: data.solicitacoes.total } } 
-						}
-					  });
-					  
-					  const ctx2 = document.getElementById('geralSolicitacoes');
-					  new Chart(ctx2, {
-					    type: 'line',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Solicitações gerais: ' + data.gerais.total,
-					        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-						      scales: { y: { min: 0, max: data.gerais.total } }
-						}
-					  });
-					},
-					erro: function (request, status, error) { 
-					},
-					complete: function (data) { }
-				})
+		
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/sistema/configuracao/paises",
+			success: function (data) {
+				
+				data.map(i => {
+					if(i.status == true){
+						document.getElementById(i.pais).checked=true;					
+					}else{
+						document.getElementById(i.pais).checked=false;
+					}
+				});
+			},
+			error: function (e) { alert(e); }
 		});
-	</script>
-	<script>
-		setInterval(() => {
-		  const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julio","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-		  const weekday = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sabado"];
 		
-		  // Day
-		  let months = document.getElementById("months");
-		  let days = document.getElementById("days");
-		  let dates = document.getElementById("dates");
-		  let years = document.getElementById("years");
 		
-		  // time
-		  let hours = document.getElementById("hours");
-		  let minutes = document.getElementById("minutes");
-		  let seconds = document.getElementById("seconds");
-		  let ampm = document.getElementById("ampm");
-		
-		  //Date
-		  let ma = month[new Date().getMonth()];
-		  let dy = weekday[new Date().getUTCDay()];
-		  let dt = new Date().getDate();
-		  let yr = new Date().getFullYear();
-		
-		  //time
-		  let h = new Date().getHours();
-		  let m = new Date().getMinutes();
-		  let s = new Date().getSeconds();
-		  let am = h >= 12 ? "PM" : "AM";
-		
-		  //convart time 12 hours
-		  if (h > 12){
-		    h = h - 12;
-		  }
-		
-		  // add zero
-		  h = (h < 10) ? "0" + h : h;
-		  m = (m < 10) ? "0" + m : m;
-		  s = (s < 10) ? "0" + s : s;
-		  dt = (dt < 10) ? "0" + dt : dt;
-		
-		  // date
-		  months.innerHTML = ma;
-		  days.innerHTML = dy;
-		  dates.innerHTML = dt;
-		  years.innerHTML = yr;
-		
-		  // time
-		  hours.innerHTML = h;
-		  minutes.innerHTML = m;
-		  seconds.innerHTML = s;
-		  ampm.innerHTML = am;
-		})
+		function salvarPaisesPermitidos(){
+			const br = document.getElementById("BR");
+			const us = document.getElementById("US");
+			const pt = document.getElementById("PT");
+			const ca = document.getElementById("CA");
+			const fr = document.getElementById("FR");
+			const cl = document.getElementById("CL");
+			
+			var paises = [];
+			
+			if(br.checked == true){ paises[paises.length]="BR";}
+			if(us.checked == true){ paises[paises.length]="US";}
+			if(pt.checked == true){ paises[paises.length]="PT";}
+			if(ca.checked == true){ paises[paises.length]="CA";}
+			if(fr.checked == true){ paises[paises.length]="FR";}
+			if(cl.checked == true){ paises[paises.length]="CL";}
+			
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/sistema/configuracao/paises",
+				data: JSON.stringify(
+					{
+						"paises": paises
+					}
+				),
+				success: function (data) {
+					alert("salvo com sucesso!");
+				},
+				error: function (e) {
+					alert(e);
+				}
+			});
+		}
 	</script>
 </body>
 </html>

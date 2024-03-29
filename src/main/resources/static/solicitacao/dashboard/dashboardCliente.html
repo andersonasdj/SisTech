@@ -148,6 +148,7 @@
 									<hr class="dropdown-divider">
 								</li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -503,7 +504,7 @@
 											<option value="PROJETO">Projeto</option>
 											<option value="BACKUP">Backup</option>
 										</select>
-									</div>
+								</div>
 							</div>
 
 							<div class="col-md-4">
@@ -737,7 +738,6 @@
 			var divCliente = $("#idCliente");
 			divCliente.on("change", function () {
 				montaGraficos();
-		
 			});
 		});
 		
@@ -863,8 +863,8 @@
 					"horaFinalizado": horaFinalizado
 				}),
 				success: function (data) {
-					
-						$('#edicaoModal').modal('hide');
+						alert("Solicitação atualiza com sucesso!");
+						$('#modalEdicaoFinalizado').modal('hide');
 						montaGraficos();
 				},
 				error: function (e) { alert(e.data); }
@@ -1088,10 +1088,8 @@
 						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
 					} if (data.status == 'AGENDADO') {
-						
 						$('#dataAgendadoModalNaoFinalizada').val(data.dataAgendado);
 						$('#horaAgendadoModalNaoFinalizada').val(data.horaAgendado);
-						
 						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusModalNaoFinalizada').append("<option value=ANDAMENTO>ANDAMENTO</option>");
 						$('#statusModalNaoFinalizada').append("<option value=AGUARDANDO>AGUARDANDO</option>");
@@ -1114,7 +1112,6 @@
 				error: function (e) { alert(e); }
 			});
 		}
-		
 		
 		function atualizaNaoFinalizada(){
 			
@@ -1156,10 +1153,7 @@
 				},
 				error: function (e) { alert(e.data); }
 			});
-			
-			
 		}
-		
 		
 		function montaGraficos(){
 			
@@ -1339,18 +1333,14 @@
 						erro: function (request, status, error) { },
 						complete: function (data) { }
 					})
-				} else{ 
-					alert("Primeiro selecione um cliente!");}
+				} else{ alert("Primeiro selecione um cliente!"); }
 		}
 		
 		var divstatusmodal = $("#statusModalNaoFinalizada");
 		divstatusmodal.on("change", function(){
 			var statusModal = $("#statusModalNaoFinalizada").val();
-			if(statusModal === 'AGENDADO'){
-				$("#agendamentosModalNaoFinalizada").stop().slideToggle(1000);
-			}else {
-				document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
-			}
+			if(statusModal === 'AGENDADO'){ $("#agendamentosModalNaoFinalizada").stop().slideToggle(1000); }
+			else { document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none'; }
 		});
 		
 		var dateEl = document.getElementById('dataAgendadoModalNaoFinalizada');
@@ -1386,6 +1376,5 @@
 				  });
 		});
 	</script>
-
 </body>
 </html>

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
+import br.com.techgol.app.model.ConfiguracaoPaises;
+import br.com.techgol.app.services.ConfiguracaoPaisesService;
 import br.com.techgol.app.services.FuncionarioService;
 
 @RestController
@@ -15,9 +17,21 @@ public class AuthenticatorController {
 	
 	@Autowired
 	private FuncionarioService service;
+	
+	@Autowired
+	private ConfiguracaoPaisesService paisesService;
 
 	@PostMapping("/create")
 	public String register(@RequestBody DtoCadastroFuncionario dados ) {
+
+		if(paisesService.existeConfig() == 0) {
+			paisesService.salvar(new ConfiguracaoPaises("BR",true));
+			paisesService.salvar(new ConfiguracaoPaises("US",true));
+			paisesService.salvar(new ConfiguracaoPaises("PT",true));
+			paisesService.salvar(new ConfiguracaoPaises("CA",true));
+			paisesService.salvar(new ConfiguracaoPaises("FR",true));
+			paisesService.salvar(new ConfiguracaoPaises("CL",true));
+		}
 		
 		if(service.existeFuncionarios() == 0) {
 			service.salvar(dados);
@@ -25,7 +39,6 @@ public class AuthenticatorController {
 		} else {
 			return "Erro!";
 		}
-		
 	}
 	
 
