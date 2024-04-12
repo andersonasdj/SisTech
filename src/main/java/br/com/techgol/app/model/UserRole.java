@@ -3,6 +3,7 @@ package br.com.techgol.app.model;
 public enum UserRole {
 	
 	ADMIN("admin"),
+	EDITOR("editor"),
 	USER("user");
 	
 	private String role;

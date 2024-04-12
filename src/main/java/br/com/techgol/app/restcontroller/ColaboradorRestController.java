@@ -34,6 +34,12 @@ public class ColaboradorRestController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/list/cliente/{id}") //RETORNA UMA PROJECAO DE COLABORADORES POR ID DE CLIENTE
+	public ResponseEntity<List<String>> listarNomesPorIdCliente(@PathVariable Long id ) {
+		return ResponseEntity.ok().body(service.listarNomesIdCliente(id));
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/edit/{id}") //RETORNA UMA DTO DE UM COLABORADOR PARA EDIÇÃO
 	public ResponseEntity<DtoColaboradorEdit> editar(@PathVariable Long id ) {
 		return ResponseEntity.ok().body(service.editaPorIdColaborador(id));
@@ -56,7 +62,7 @@ public class ColaboradorRestController {
 		return ResponseEntity.ok().body(service.editar(dados));
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_EDITOR')")
 	@DeleteMapping("/delete/{id}")
 	public String excluirColaborador(@PathVariable Long id) {
 		

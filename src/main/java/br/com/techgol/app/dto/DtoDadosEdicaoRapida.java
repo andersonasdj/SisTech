@@ -2,6 +2,7 @@ package br.com.techgol.app.dto;
 
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.FormaAbertura;
 import br.com.techgol.app.model.enums.Local;
 import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
@@ -18,8 +19,11 @@ public record DtoDadosEdicaoRapida(
 		Prioridade prioridade,
 		Local local,
 		String nomeFuncionario,
+		String solicitante,
+		String afetado,
 		String dataAgendado,
-		String horaAgendado) {
+		String horaAgendado,
+		FormaAbertura formaAbertura) {
 
 //	public DtoDadosEdicaoRapida(Solicitacao dados) {
 //		this(

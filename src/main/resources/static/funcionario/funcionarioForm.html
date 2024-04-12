@@ -2,11 +2,12 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sistech - Clientes</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>Sistech - Clientes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
 
 <body>
@@ -119,15 +120,16 @@
 			<label class="form-label" for="role">Role</label>
 			<select class="form-select" id="role" aria-label="Default select example" style="width: 180px;">
 					<option value="ADMIN">ADMIN</option>
+					<option value="EDITOR">EDITOR</option>
 					<option value="USER">USER</option>
 			</select>
 		</div>
 		<br />
 		<button class="btn btn-success" onclick="salvar()">Salvar</button>
 
-		<br /><br />
+		<br />
 		<footer class="text-center text-white">
-			<div class="container fixed-bottom ">
+			<div class="container">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->
@@ -209,6 +211,7 @@
 					$('#username').val("");
 					$('#password').val("");
 					alert("salvo com sucesso!");
+					window.location.href = "/sistech/funcionario/list";
 				},
 				error: function (e) {alert("Você não tem permissão !"); }
 			});

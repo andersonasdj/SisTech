@@ -23,6 +23,10 @@ public record DtoDashboardCliente(
 		int finalizado,
 		int totalSolicitacoes,
 		int totalMesCorrente,
-		Long totalMinutosMes) {
+		Long totalMinutosMes,
+		int email,
+		int telefone,
+		int local,
+		int whatsapp) {
 
 }

@@ -22,6 +22,8 @@ public record DtoSolicitacaoComFuncionario(
 		Categoria categoria,
 		String nomeFuncionario,
 		Status status,
+		String duracao,
+		Integer versao,
 		boolean vip,
 		boolean redFlag
 		) {
@@ -40,6 +42,8 @@ public record DtoSolicitacaoComFuncionario(
 					s.getCategoria(),
 					s.getFuncionario().getNomeFuncionario(), 
 					s.getStatus(),
+					(s.getDuracao() != null) ?  s.getDuracao().toString() : " ",
+					s.getVersao(),
 					s.getCliente().isVip(),
 					s.getCliente().isRedFlag());
 		}

@@ -2,11 +2,12 @@
 <html lang="br">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SisTech - Perfil</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>SisTech - TechGold</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
 
 <body>
@@ -207,7 +208,9 @@
 						$('#nomeFuncionario').text(data.nomeFuncionario);
 						$('#dataAtualizacao').text(data.dataAtualizacao);
 					},
-					erro: function (request, status, error) { 
+					statusCode: {
+				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    	401: function() { alert('Realize login novamente!'); }
 					},
 					complete: function (data) { }
 				})
@@ -258,8 +261,9 @@
 							$('#password-status').append("<b style='color: red;'> Senha não atualizada!</b>");
 						}
 					},
-					error: function (e) {
-						alert(e);
+					statusCode: {
+				    	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				   		401: function() { alert('Realize login novamente!'); }
 					}
 				});
 			} else {

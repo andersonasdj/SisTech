@@ -13,9 +13,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ConfiguracaoPaisesService {
-	
-	
-	
+
 	@Autowired
 	private ConfiguracaoPaisesRepository paisesRepository;
 	
@@ -46,7 +44,6 @@ public class ConfiguracaoPaisesService {
 	}
 
 	public void salvar(ConfiguracaoPaises configuracaoPaises) {
-
 		paisesRepository.save(configuracaoPaises);
 	}
 	
@@ -54,11 +51,8 @@ public class ConfiguracaoPaisesService {
 		return paisesRepository.existsConfigPaises();
 	}
 	
-	
 	public List<String> paisesAtivos(){
 		return paisesRepository.listarPaisesString();
 	}
-	
-	
 
 }

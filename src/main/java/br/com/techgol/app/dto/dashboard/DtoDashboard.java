@@ -24,7 +24,11 @@ public record DtoDashboard(
 		int pausado,
 		int totalSolicitacoes,
 		int totalFuncionarios,
-		List<DtoDashboardResumoFuncionario> funcionario
+		List<DtoDashboardResumoFuncionario> funcionario,
+		int email,
+		int telefone,
+		int local,
+		int whatsapp
 		
 		) {
 

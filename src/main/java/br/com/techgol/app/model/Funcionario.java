@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
-import br.com.techgol.app.model.enums.Funcao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -36,8 +35,8 @@ public class Funcionario extends Usuario implements UserDetails {
 	private static final long serialVersionUID = 3474835326939061879L;
 	@Column(length = 50)
 	private String nomeFuncionario;
-	@Enumerated(EnumType.STRING)
-	private Funcao funcao;
+//	@Enumerated(EnumType.STRING)
+//	private Funcao funcao;
 	private String caminhoFoto;
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
@@ -58,8 +57,9 @@ public class Funcionario extends Usuario implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER") );
-		else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_EDITOR") );
+		else if(this.role == UserRole.EDITOR) return List.of(new SimpleGrantedAuthority("ROLE_EDITOR"),new SimpleGrantedAuthority("ROLE_USER"));
+		else{return List.of(new SimpleGrantedAuthority("ROLE_USER"));}
 	 
 	}
 

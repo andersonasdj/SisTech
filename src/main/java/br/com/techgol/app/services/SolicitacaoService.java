@@ -1,6 +1,7 @@
 package br.com.techgol.app.services;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,15 +24,20 @@ import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
+import br.com.techgol.app.email.EnviaSolicitacaoCriada;
+import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
+import br.com.techgol.app.model.enums.Agendamentos;
 import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.FormaAbertura;
 import br.com.techgol.app.model.enums.Local;
 import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
+import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import br.com.techgol.app.repository.SolicitacaoRepository;
 import jakarta.transaction.Transactional;
 
@@ -43,6 +49,86 @@ public class SolicitacaoService {
 	
 	@Autowired
 	private FuncionarioService funcionarioService;
+	
+	@Autowired
+	private ConfiguracaoEmailService configuracaoEmailService;
+	
+	@Autowired
+	EnviaSolicitacaoCriada envia;
+	
+	
+	@Transactional
+	public int pausaSolicitacoesEmAndamento() {
+		
+		List<Solicitacao> solicitacaos = repository.buscaSolicitacoesEmAndamento();
+		
+		solicitacaos.forEach(s -> {
+			
+			s.setDataFinalizado(LocalDateTime.now().withNano(0));
+			if(s.getDuracao() == null) {
+				if(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes() < 15) {
+					s.setDuracao(15l);
+				}else {
+					s.setDuracao(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes());
+				}
+			}else {
+				Long tempoAnterior = s.getDuracao();
+				s.setDuracao(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
+			}
+			
+			s.setDataAtualizacao(LocalDateTime.now().withNano(0));
+			s.setStatus(Status.PAUSADO);
+			s.setDataAndamento(null);
+		});
+		return solicitacaos.size();
+	}
+	
+	public List<SolicitacaoProjecaoEntidadeComAtributos> buscaAgendamentosDoDia(LocalDateTime data) {
+		LocalDateTime inicio = LocalDateTime.of(data.getYear(), data.getMonth(), data.getDayOfMonth(), 00, 00, 00);
+		LocalDateTime fim = LocalDateTime.of(data.getYear(), data.getMonth(), data.getDayOfMonth(), 23, 59, 59);
+		return repository.listarSolicitacoesAgendadasDoDia(Status.AGENDADO, false, inicio, fim);
+	}
+	
+	public List<SolicitacaoProjecaoEntidadeComAtributos> buscaAgendamentosAtrasados() {
+		return repository.listarSolicitacoesAgendadasAtrasadas(Status.AGENDADO, false, LocalDateTime.now());
+	}
+	
+	public Long buscaAgendamentosAtrasadosQtd() {
+		return repository.listarSolicitacoesAgendadasAtrasadasQtd(Status.AGENDADO, false, LocalDateTime.now());
+	}
+	
+	public Long buscaAgendamentosHojeQtd() {
+		LocalDate hoje = LocalDate.now();
+		LocalDateTime inicio, fim;
+		inicio = hoje.atTime(00, 00, 00);
+		fim = hoje.atTime(23, 59, 59);
+		return repository.listarSolicitacoesAgendadasHojeQtd(Status.AGENDADO, false, inicio, fim);
+	}
+	
+	public Long buscaAtualizadosHojeQtd() {
+		LocalDate hoje = LocalDate.now();
+		LocalDateTime inicio, fim;
+		inicio = hoje.atTime(00, 00, 00);
+		fim = hoje.atTime(23, 59, 59);
+		return repository.listarSolicitacoesAtualizadasHojeQtd(false, inicio, fim);
+	}
+	
+	public Long buscaAbertosHojeQtd() {
+		LocalDate hoje = LocalDate.now();
+		LocalDateTime inicio, fim;
+		inicio = hoje.atTime(00, 00, 00);
+		fim = hoje.atTime(23, 59, 59);
+		return repository.listarSolicitacoesAbertasHojeQtd(false, inicio, fim);
+	}
+	
+	public Long buscaFinalizadosHojeQtd() {
+		LocalDate hoje = LocalDate.now();
+		LocalDateTime inicio, fim;
+		inicio = hoje.atTime(00, 00, 00);
+		fim = hoje.atTime(23, 59, 59);
+		return repository.listarSolicitacoesFinalizadasHojeQtd(Status.FINALIZADO.toString(), false, inicio, fim);
+	}
+	
 	
 	@Transactional
 	public String exclusaoLogigaSolicitacao(Long id) {
@@ -61,7 +147,7 @@ public class SolicitacaoService {
 	}
 	
 	@Transactional
-	public void edicaoFinalizada(DtoSolicitacaoFinalizada dados) {
+	public DtoSolicitacaoComFuncionario edicaoFinalizada(DtoSolicitacaoFinalizada dados) {
 		Solicitacao solicitacao = repository.getReferenceById(dados.id());
 		
 		solicitacao.setLocal(dados.local());
@@ -93,6 +179,8 @@ public class SolicitacaoService {
 		if(andamento || finalizado) {
 			solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), solicitacao.getDataFinalizado()).toMinutes());
 		}
+		
+		return new DtoSolicitacaoComFuncionario(solicitacao);
 		
 	}
 	
@@ -159,6 +247,9 @@ public class SolicitacaoService {
 		solicitacao.setClassificacao(dados.classificacao());
 		solicitacao.setPrioridade(dados.prioridade());
 		solicitacao.setLocal(dados.local());
+		solicitacao.setSolicitante(dados.solicitante());
+		solicitacao.setAfetado(dados.afetado());
+		solicitacao.setFormaAbertura(dados.formaAbertura());
 		return repository.save(solicitacao);
 	}
 
@@ -188,23 +279,39 @@ public class SolicitacaoService {
 
 	public DtoSolicitacaoComFuncionario salvarNovaSolicitacao(Solicitacao solicitacao) {
 		Funcionario funcionarioBase = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
+		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.ABERTURA.toString());
+		
 		solicitacao.setAbertoPor(funcionarioBase.getNomeFuncionario());
 		if(solicitacao.getStatus() == Status.ANDAMENTO) {
 			solicitacao.setDataAndamento(LocalDateTime.now().withNano(0));
 		}
-		return new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
+		
+		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
+		
+		if(config.isStatus() && !config.getEmail().isEmpty()) {
+			envia.enviar(dados); // ### ENVIA EMAIL NO CADASTRO
+		}else {
+			System.out.println("Sem configuração de email de abertura habilitado");
+		}
+		
+		return dados;
 		
 	}
 	
 	public DtoDashboardCliente geraDashboardCliente(Long id) {
 		
 		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
-		int totalMesCorrente;
+		int totalMesCorrente, email, telefone, local, whatsapp;
 		Long totalMinutosMes=0l;
 		LocalDateTime dataDePesquisa = LocalDateTime.now().plusDays(-LocalDateTime.now().getDayOfMonth());
 		
 		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString() , false);
 		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString() , false);
+		email = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.EMAIL.toString() , false, Status.FINALIZADO.toString());
+		telefone = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.TELEFONE.toString() , false, Status.FINALIZADO.toString());
+		local = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.LOCAL.toString() , false, Status.FINALIZADO.toString());
+		whatsapp = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.WHATSAPP.toString() , false, Status.FINALIZADO.toString());
 		problema = repository.totalPorClassificacaoPorCliente(id, Classificacao.PROBLEMA.toString(), false);
 		incidente = repository.totalPorClassificacaoPorCliente(id, Classificacao.INCIDENTE.toString(), false);
 		solicitacao = repository.totalPorClassificacaoPorCliente(id, Classificacao.SOLICITACAO.toString(), false);
@@ -228,18 +335,28 @@ public class SolicitacaoService {
 		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);;
 		
 		for (PojecaoResumidaFinalizados s : solicitacoes) {
-			totalMinutosMes += s.getDuracao();
+			if(s.getDuracao() != null) {
+				totalMinutosMes += s.getDuracao();
+			}
 		}
-		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, totalMinutosMes);
+		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
+				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
+				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
+				totalMinutosMes, email, telefone, local, whatsapp);
 	}
 	
 
 	public DtoDashboard geraDashboard() {
 		
 		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,totalSolicitacoes;
+		int email, telefone, local, whatsapp;
 		
 		onsite = repository.totalPorLocal(Local.ONSITE.toString() , false, Status.FINALIZADO.toString());
 		offsite = repository.totalPorLocal(Local.OFFSITE.toString() , false, Status.FINALIZADO.toString());
+		email = repository.totalPorFormaAbertura(FormaAbertura.EMAIL.toString() , false, Status.FINALIZADO.toString());
+		telefone = repository.totalPorFormaAbertura(FormaAbertura.TELEFONE.toString() , false, Status.FINALIZADO.toString());
+		local = repository.totalPorFormaAbertura(FormaAbertura.LOCAL.toString() , false, Status.FINALIZADO.toString());
+		whatsapp = repository.totalPorFormaAbertura(FormaAbertura.WHATSAPP.toString() , false, Status.FINALIZADO.toString());
 		problema = repository.totalPorClassificacao(Classificacao.PROBLEMA.toString(), false, Status.FINALIZADO.toString());
 		incidente = repository.totalPorClassificacao(Classificacao.INCIDENTE.toString(), false, Status.FINALIZADO.toString());
 		solicitacao = repository.totalPorClassificacao(Classificacao.SOLICITACAO.toString(), false, Status.FINALIZADO.toString());
@@ -268,12 +385,14 @@ public class SolicitacaoService {
 		});
 		
 		
-		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,totalSolicitacoes,totalFUncionarios,listaDto);
+		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,
+				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,
+				andamento,agendado,aguardando,pausado,totalSolicitacoes,totalFUncionarios,
+				listaDto, email,telefone,local,whatsapp);
 	}
 
 	public DtoSolicitacaoRelatorios geraRelatorios() {
 		
-		//Long abertosHoje, finalizadosHoje;
 		List<Long> idFuncionarios = funcionarioService.listarIdFuncionarosLong();
 		List<DtoSolicitacoesRelatorioFuncionario> relatorioFuncionario = new ArrayList<>();
 
@@ -285,16 +404,12 @@ public class SolicitacaoService {
 			aguardando = repository.countByStatusAndFuncionarioId(Status.AGUARDANDO, f);
 			total = abertos+andamento+agendados+aguardando;
 			relatorioFuncionario.add(new DtoSolicitacoesRelatorioFuncionario(funcionarioService.buscaNomeFuncionarioPorId(f), abertos, andamento, agendados, aguardando, total));
-			
 		});
-		
-		return new DtoSolicitacaoRelatorios(10l,2l, relatorioFuncionario);
+		return new DtoSolicitacaoRelatorios(buscaAbertosHojeQtd(),buscaFinalizadosHojeQtd(),buscaAgendamentosHojeQtd(), buscaAgendamentosAtrasadosQtd(), buscaAtualizadosHojeQtd(), relatorioFuncionario);
 	}
 
 	@Transactional
 	public DtoDadosRestauracao restaurar(Long id) {
-		
-		
 		Solicitacao solicitacao = repository.getReferenceById(id);
 		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		solicitacao.setExcluido(false);
@@ -302,16 +417,139 @@ public class SolicitacaoService {
 		solicitacao.setDataAndamento(null);
 		solicitacao.setDataAgendado(null);
 		return new DtoDadosRestauracao(solicitacao.getId());
-				
 	}
 
 	public DtoSolicitacaoProjecaoCompleta buscarFinalizada(Long id) {
 		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoFinalizada(id, Status.FINALIZADO.toString()));
 	}
+	
+	public DtoSolicitacaoProjecaoCompleta buscarSolicitacaoParaRelatorio(Long id) {
+		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoRelatorio(id));
+	}
 
 	public DtoUltimaAtualizada ultimaAtualizada() {
 		
 		return repository.buscaUltimaAtualizada();
+	}
+	
+public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, LocalDate ini, LocalDate termino) {
+		
+		LocalDateTime inicio, fim;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			return repository.listarSolicitacoesPorPeriodoRelatorio(page, false, inicio, fim);
+		}else if(ini != null) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 59);
+			return repository.listarSolicitacoesPorPeriodoRelatorio(page, false, inicio, fim);
+		} else {
+			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+			return repository.listarSolicitacoesPorPeriodoRelatorio(page, false, inicio, inicio);
+		}
+			
+	}
+
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, LocalDate ini, LocalDate termino) {
+		
+		LocalDateTime inicio, fim;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, fim);
+		}else if(ini != null) {
+			
+			inicio = ini.atTime(00, 00, 00);
+			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 59);
+			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, fim);
+		} else {
+			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, inicio);
+		}
+			
+	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioData(Pageable page, Long id, LocalDate ini, LocalDate termino) {
+		LocalDateTime inicio, fim;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			return repository.listarSolicitacoesPorFuncionarioData(page, id, false, inicio, fim);
+		}else if(ini != null) {
+			
+			inicio = ini.atTime(00, 00, 00);
+			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 59);
+			return repository.listarSolicitacoesPorFuncionarioData(page, id, false, inicio, fim);
+		} else {
+			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+			return repository.listarSolicitacoesPorFuncionarioData(page, id, false, inicio, inicio);
+		}
 	} 
+	
+//	public Page<SolicitacaoProjecao> listarSolicitacoesAtualizadasHoje(Pageable page) {
+//		LocalDateTime hoje = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+//		return repository.listarSolicitacoesAtualizadasHoje(page, hoje);
+//	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesRelatorioHoje(Pageable page, String status) {
+		LocalDateTime hojeInicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+		LocalDateTime hojeFim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 00);
+		
+		if(status.equals("atualizadas")) {
+			return repository.listarSolicitacoesAtualizadasHoje(page, hojeInicio, hojeFim);
+		} else if(status.equals("finalizadas")) {
+			return repository.listarSolicitacoesFinalizadasHoje(page, hojeInicio, hojeFim);
+		}else if(status.equals("abertas")) {
+			return repository.listarSolicitacoesAbertasHoje(page, hojeInicio, hojeFim);
+		}else if(status.equals("agendadas")) {
+			return repository.listarSolicitacoesAgendadasHoje(page, hojeInicio, hojeFim);
+		}else if(status.equals("atrasadas")) {
+			return repository.listarSolicitacoesAgendadasAtrasadas(page, hojeInicio);
+		}else {
+			return null;
+		}
+	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasHoje(Pageable page) {
+		LocalDateTime hojeInicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+		LocalDateTime hojeFim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 00);
+		return repository.listarSolicitacoesFinalizadasHoje(page, hojeInicio, hojeFim);
+	}
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesAbertasHoje(Pageable page) {
+		LocalDateTime hojeInicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+		LocalDateTime hojeFim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 00);
+		return repository.listarSolicitacoesAbertasHoje(page, hojeInicio, hojeFim);
+	}
+	
+	
+//	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, DtoDadosRelatorioCsv dto) {
+//		
+//		LocalDateTime inicio, fim;
+//		
+//		if(dto.inicio() != null  && dto.fim() != null ) {
+//			inicio = LocalDateTime.of(dto.inicio().getYear(), dto.inicio().getMonth(), dto.inicio().getDayOfMonth(), 00, 00, 00);
+//			fim = LocalDateTime.of(dto.fim().getYear(), dto.fim().getMonth(), dto.fim().getDayOfMonth(), 00, 00, 00);
+//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, fim);
+//			
+//		}else if(dto.inicio() != null) {
+//			inicio = LocalDateTime.of(dto.inicio().getYear(), dto.inicio().getMonth(), dto.inicio().getDayOfMonth(), 00, 00, 00);
+//			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, fim);
+//		} else {
+//			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, inicio);
+//		}
+//		
+//			
+//	}
+	
+	
+	public DtoSolicitacaoProjecaoCompleta buscarSolicitacaoRelatorio(Long id) {
+		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoRelatorio(id));
+	}
 
 }

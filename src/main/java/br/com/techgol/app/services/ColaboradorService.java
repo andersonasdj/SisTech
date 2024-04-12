@@ -51,7 +51,10 @@ public class ColaboradorService {
 	
 	public List<ColaboradorProjecao> listarPorIdCliente(Long id) {
 		return repository.buscaColaboradoresPorIdCliente(id);
-		
+	}
+	
+	public List<String> listarNomesIdCliente(Long id) {
+		return repository.listarNomesColaboradoresPorIdCliente(id);
 	}
 	
 	public boolean existeColaborador(Long id) {

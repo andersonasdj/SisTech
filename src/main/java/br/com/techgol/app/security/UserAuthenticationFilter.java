@@ -32,6 +32,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+		//System.out.println(Thread.currentThread().getName());
 		
 		if(request.getRequestURI().trim().equals("/sistech/login") && request.getMethod().trim().equals("POST")) {
 			doFilter(request, response, filterChain);

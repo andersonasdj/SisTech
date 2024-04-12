@@ -26,12 +26,12 @@ public class SecurityConfiguration {
 	
 	@SuppressWarnings("removal")
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		
 		httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 		
 		 httpSecurity
-		 		.sessionManagement(session -> session.maximumSessions(2).expiredUrl("/login?invalid-session=true"))
+		 		//.sessionManagement(session -> session.maximumSessions(2).expiredUrl("/login?invalid-session=true"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.disable())
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

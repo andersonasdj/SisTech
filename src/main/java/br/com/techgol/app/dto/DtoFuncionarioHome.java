@@ -5,6 +5,8 @@ public record DtoFuncionarioHome(
 		String nomeFuncionario,
 		String dataHoje,
 		String dataUltimoLogin,
+		Long agendadosAtrasados,
+		Long agendadosHoje,
 		DtoSolicitacoesFuncionario solicitacoes,
 		DtoSolicitacoesGerais gerais
 		) {

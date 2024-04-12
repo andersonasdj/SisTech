@@ -1,79 +1,16 @@
 <!DOCTYPE html>
 <html lang="br">
-
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SisTech - DashBoard</title>
+	<link rel="shortcut icon" href="../../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/css/styleDashBoardCliente.css">
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-		<style>
-			body{
-			  padding:20px 20px;
-			}
-			
-			.results tr[visible='false'],
-			.no-result{
-			  display:none;
-			}
-			
-			.results tr[visible='true']{
-			  display:table-row;
-			}
-			
-			.counter{
-			  padding:8px; 
-			  color:#ccc;
-			}
-			
-			@media (max-width: 990px) {
-				.fonteModal{
-					font-size: 15px;
-				}
-				
-				
-			  .btnFinalizado {
-  					width: 980px;
-  					margin-top: 20px;
-  					font: 4px Verdana, arial, helvetica, sans-serif;
-				}
-				.spamTotal{
-					width: 900px;
-  					margin-top: 90px;
-					font-size: 1rem;
-				}
-				.graficoLocal{
-					width: 860px;
-  					margin-top: 20px;
-					
-				}
-				
-				[class*="col-"] {
-				  width: 50%;
-				}
-				
-				@media only screen and (min-width: 300px) {
-				  /* For tablets: */
-				  .col-s-1 {width: 8.33%;}
-				  .col-s-2 {width: 16.66%;}
-				  .col-s-3 {width: 25%;}
-				  .col-s-4 {width: 33.33%;}
-				  .col-s-5 {width: 41.66%;}
-				  .col-s-6 {width: 50%;}
-				  .col-s-7 {width: 58.33%;}
-				  .col-s-8 {width: 66.66%;}
-				  .col-s-9 {width: 75%;}
-				  .col-s-10 {width: 83.33%;}
-				  .col-s-11 {width: 91.66%;}
-				  .col-s-12 {width: 100%;}
-				}
-			}
-			
-	</style>
-	<title>SisTech - DashBoard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
-
 <body>
 	<div class="container">
 		<!-- ##################################### BARRA DE NAVEGAÇÃO #####################################  -->
@@ -172,7 +109,6 @@
 					<div class="control-group">
 						<div class="controls">
 							<select class="form-select" id="idCliente" name="idCliente" style="width: 250px;">
-								<option> </option>
 							</select>
 						</div>
 					</div>
@@ -214,16 +150,18 @@
 					<h5 style="text-align: center;" class="mt-3">Status</h5>
 					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
 				</div>
-				<div class="col-1">
+				<div class="col-3 col-s-12" id="formaAbertura">
+					<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
+					<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"></canvas>
 				</div>
-				<div class="col-5 col-s-12 mt-5">
+				<div class="col-3 col-s-12 mt-5">
 					<h4><span id="totalMesCorrente" style="font-size: 18px;"></span></h4>
 					<h4><span id="totalMinutosMes" style="font-size: 18px;"></span></h4>
 				</div>
 			</div>
 		</div>
 
-		<br /><br /><br /><br />
+		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container">
 				<!-- Grid container -->
@@ -261,7 +199,7 @@
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1>
+						<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1><span style="color: #0101DF;">*  (ultimos 50)</span> 
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -282,7 +220,7 @@
 						</div>
 						
 						<div class="table-responsive mt-3">
-						<table class="table table-hover table-bordered table-striped results" id="tabela-usuarios" style="text-align: center;">
+						<table class="table table-hover table-bordered table-striped results sortable" id="tabela-usuarios" style="text-align: center;">
 							<thead>
 								<tr>
 									<th scope="col">ID</th>
@@ -370,37 +308,37 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Descrição: <b><span id="descricaoModal"></span></b></h5>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Observação: <b><span id="observacaoModal"></span></b></h5>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Resolução: <b><span id="resolucaoModal"></span></b></h5>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"></span></b></h5>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Duração: <b><span id="duracaoModal"></span></b></h5>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
+							<div class="col-md-12 mt-3">
 								<h5>Última atualização: <b><span id="dataAtualizacaoModal"></span></b></h5>
 							</div>
 						</div>
@@ -428,33 +366,24 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="control-group">
-									<label class="form-label mt-4 fonteModal"><b>Data Abertura *</b></label>
+									<label class="form-label fonteModal"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
-										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 112px;">
+										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" >
 										<span></span>
 										<input type="time" id="horaAberturaModalEdicao" name="horaAberturaModalEdicao" value="">
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="row">
 							
 							<div class="col-md-4">
 								<div class="control-group">
-									<label class="form-label mt-4 fonteModal"><b>Data Andamento *</b></label>
+									<label class="form-label mt-3 fonteModal"><b>Data Andamento *</b></label>
 									<div class="calendarioAndamentoModal">
-										<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 112px;">
+										<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="">
 										<span></span>
 										<input type="time" id="horaAndamentoModalEdicao" name="horaAndamentoModalEdicao" value="">
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-4 ms-auto">
-								<div class="control-group">
-									<label class="form-label mt-4 fonteModal"><b>Data Finalizado *</b></label>
-									<div class="calendarioFinalizadoModal">
-										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 112px;">
-										<span></span>
-										<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
 									</div>
 								</div>
 							</div>
@@ -462,8 +391,31 @@
 
 						<div class="row">
 							<div class="col-md-4">
+								<div class="control-group">
+									<label class="form-label mt-3 fonteModal"><b>Data Finalizado *</b></label>
+									<div class="calendarioFinalizadoModal">
+										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="">
+										<span></span>
+										<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+							</div>
+							<div class="col-md-6">
+								<div class="control fonteModal">
+									<label class="form-label mt-3"><b>Duração</b></label>
+										<p><span id="duracaoModalEdicao"></span></p>
+								</div>
+							</div>
+							
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
 								<div class="controls fonteModal">
-								<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
+								<label class="form-label mt-3" for="localmodal"><b>Local</b></label>
 									<select class="form-select" id="localmodal" aria-label="Default select example">
 	
 									</select>
@@ -471,18 +423,15 @@
 							</div>
 							<div class="col-md-4">
 								<div class="controls fonteModal"> 
-								<label class="form-label mt-2" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
+								<label class="form-label mt-3" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
 									<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao">
 										<option></option>
 									</select>
 								</div>
 							</div>
 
-							<div class="col-md-4 ms-auto">
-								<div class="controls fonteModal">
-								<label class="form-label mt-2" for="duracaoModalEdicao"><b>Duração</b></label>
-									<p><span id="duracaoModalEdicao"></span></p>
-								</div>
+							<div class="col-md-4">
+								
 							</div>
 						</div>
 						
@@ -623,6 +572,50 @@
 						</div>
 						
 						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-3">
+									<label class="control-label" for="nomeSolicitanteModalNaoFinalizada"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizada" id="nomeSolicitanteModalNaoFinalizada">
+										</select>
+										<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+										</span>
+										<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+										</span>
+									</div>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="nomeAfetadoModalNaoFinalizada"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="nomeAfetadoModalNaoFinalizada" id="nomeAfetadoModalNaoFinalizada">
+										</select>
+										<span id="cargoUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+										<span id="celularUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="formaAberturaModalNaoFinalizada"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="formaAberturaModalNaoFinalizada" id="formaAberturaModalNaoFinalizada">
+										</select>
+										<span id="cargoUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+										<span id="celularUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="categoriaModalNaoFinalizada"><b>Categoria *</b></label>
 								<div class="controls">
@@ -721,6 +714,7 @@
 	<script src="../../assets/js/popper.min.js"></script>
 	<script src="../../assets/js/bootstrap.min.js"></script>
 	<script src="../../assets/js/chart.js"></script>
+	<script src="../../assets/js/sorttable.js"></script>
 	<script>
 		$(document).ready(function () {
 			$.ajax({
@@ -731,8 +725,13 @@
 					for (var i = 0; i < data.clientes.length; i++) {
 						$('#idCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
 					}
+					
+					montaGraficos();
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 			
 			var divCliente = $("#idCliente");
@@ -818,7 +817,10 @@
 						$('#statusModalEdicao').append("<option value=" + data.status + ">" + data.status + "</option>");
 					}  
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -867,7 +869,10 @@
 						$('#modalEdicaoFinalizado').modal('hide');
 						montaGraficos();
 				},
-				error: function (e) { alert(e.data); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -939,9 +944,16 @@
 					modal = "modalEdicaoNaoFinalizados";
 					funcao = "editarNaoFinalizada";			
 				}
+				var dataAgendado = " ";
+				if(i.status == "ABERTO"){ status = "class='table-danger'" }
+				if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
+				if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+				if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
+				if(i.status == "PAUSADO"){ status = "class='table-light'" }
+				if(i.status == "FINALIZADO"){ status = "class='table-success'" }
 				
 				var itens = 
-				'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#'+ modal +'" onclick='+funcao+'(' + i.id + ')>'
+				'<tr '+ status + 'id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#'+ modal +'" onclick='+funcao+'(' + i.id + ')>'
 				+ '<td id=name' + i.id + '>' + i.id + '</td>'
 				+ '<td>' + i.dataAbertura + '</td>'
 				+ '<td>' + i.nomeCliente + '</td>'
@@ -952,7 +964,7 @@
 				+ '<td>' + i.prioridade + '</td>'
 				+ '<td>' + i.classificacao + '</td>'
 				+ '<td>' + i.nomeFuncionario + '</td>'
-				+ '<td><p>' + i.status + '</p><p>' + tempoTotal + '</p></td>'
+				+ '<td><p>' + i.status + '</p><p>' + tempoTotal + '</p><p style="font-size:12px">'+ dataAgendado +'</p></td>'
 				+ '</tr>'
 				$('#tabela-usuarios').append(itens);	
 		}
@@ -1006,7 +1018,10 @@
 					$('#abertoPorModal').text(data.abertoPor);
 					$('#dataAtualizacaoModal').text(data.dataAtualizacao);
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -1027,7 +1042,10 @@
 					$('#classificacaoModalNaoFinalizada').empty();
 					$('#prioridadeModalNaoFinalizada').empty();
 					$('#localModalNaoFinalizada').empty();
+					$('#formaAberturaModalNaoFinalizada').empty();
 					$('#funcionarioModalNaoFinalizada').empty();
+					$('#nomeSolicitanteModalNaoFinalizada').empty();
+					$('#nomeAfetadoModalNaoFinalizada').empty();
 					$('#dataAgendadoModalNaoFinalizada').val("");
 					$('#horaAgendadoModalNaoFinalizada').val("");
 
@@ -1072,6 +1090,20 @@
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#funcionarioModalNaoFinalizada').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
 					}
+					
+					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomeAfetadoModalNaoFinalizada').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeAfetadoModalNaoFinalizada').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeAfetadoModalNaoFinalizada').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeAfetadoModalNaoFinalizada').append('<option value="Geral"> Geral</option>');
 
 					if (data.status == 'ABERTO') {
 						$('#statusModalNaoFinalizada').append("<option value=" + data.status + ">" + data.status + "</option>");
@@ -1108,8 +1140,18 @@
 						$('#statusModalNaoFinalizada').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosModalNaoFinalizada').style.display = 'none';
 					}
+					
+					$('#formaAberturaModalNaoFinalizada').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+					+'<option value="TELEFONE">TELEFONE</option>'
+					+'<option value="EMAIL">EMAIL</option>'
+					+'<option value="WHATSAPP">WHATSAPP</option>'
+					+'<option value="LOCAL">LOCAL</option>'
+					);
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -1127,6 +1169,10 @@
 			var nomeFuncionario = $('#funcionarioModalNaoFinalizada').val();
 			var dataAgendado = $('#dataAgendadoModalNaoFinalizada').val();
 			var horaAgendado = $('#horaAgendadoModalNaoFinalizada').val();
+			var formaAbertura = $('#formaAberturaModalNaoFinalizada').val();
+			
+			var solicitante = 	$('#nomeSolicitanteModalNaoFinalizada').val();
+			var afetado = $('#nomeAfetadoModalNaoFinalizada').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -1144,14 +1190,20 @@
 					"local": local,
 					"nomeFuncionario": nomeFuncionario,
 					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"horaAgendado": horaAgendado,
+					"solicitante": solicitante,
+					"afetado": afetado,
+					"formaAbertura": formaAbertura
 				}),
 				success: function (data) {
 					alert("Solicitação atualizada com sucesso!");
 					$('#modalEdicaoNaoFinalizados').modal('hide');
 					montaGraficos();
 				},
-				error: function (e) { alert(e.data); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -1319,6 +1371,41 @@
 												'rgb(255, 135, 0, 0.5)',
 												'rgb(12, 218, 205, 0.5)',
 												'rgb(26, 26, 209, 0.5)',
+												'rgb(54, 162, 235, 0.2)',
+												'rgb(153, 102, 255, 0.2)',
+												'rgb(201, 203, 207, 0.2)'
+											],
+											borderWidth: 1
+										}]
+									},
+									options: { responsive: true, }
+								});
+								
+								document.getElementById('formaAberturaSolicitacoes').remove();
+								$('#formaAbertura').append('<canvas id="formaAberturaSolicitacoes" style="height:60vh; width:40vw"></canvas>');
+								
+								const ctx5 = document.getElementById('formaAberturaSolicitacoes');
+								new Chart(ctx5, {
+									type: 'bar',
+									data: {
+										labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp '],
+										datasets: [{
+											label: 'Metodo de abertura Solicitações: ',
+											data: [data.email, data.telefone, data.local, data.whatsapp],
+											backgroundColor: [
+												'rgba(255, 135, 0, 0.5)',
+												'rgba(255, 0, 0, 0.5)',
+												'rgba(255, 240, 0, 0.5)',
+												'rgba(158, 255, 0, 0.5)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(201, 203, 207, 0.2)'
+											],
+											borderColor: [
+												'rgb(255, 135, 0, 0.5)',
+												'rgb(255, 0, 0, 0.5)',
+												'rgb(255, 240, 0, 0.5)',
+												'rgb(158, 255, 0, 0.5)',
 												'rgb(54, 162, 235, 0.2)',
 												'rgb(153, 102, 255, 0.2)',
 												'rgb(201, 203, 207, 0.2)'

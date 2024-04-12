@@ -2,39 +2,12 @@
 <html lang="br">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SisTech - Configurações</title>
+	<link rel="shortcut icon" href="assets/img/favicon.ico">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/stylePerfil.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>SisTech - TechGold</title>
-	<style>
-		
-		@media (max-width: 860px) {
-				
-				[class*="col-"] {
-				  width: 50%;
-				}
-				
-				@media only screen and (min-width: 300px) {
-				  /* For tablets: */
-				  .col-s-1 {width: 8.33%;}
-				  .col-s-2 {width: 16.66%;}
-				  .col-s-3 {width: 25%;}
-				  .col-s-4 {width: 33.33%;}
-				  .col-s-5 {width: 41.66%;}
-				  .col-s-6 {width: 50%;}
-				  .col-s-7 {width: 58.33%;}
-				  .col-s-8 {width: 66.66%;}
-				  .col-s-9 {width: 75%;}
-				  .col-s-10 {width: 83.33%;}
-				  .col-s-11 {width: 91.66%;}
-				  .col-s-12 {width: 100%;}
-				}
-				
-			}
-		
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
 
 <body>
@@ -131,11 +104,11 @@
 		<br/>
 			<h4>Configurações</h4>
 			
-			<table width="620" border="0" bordercolor="#B9B3B3" cellspacing="0" cellpadding="4">
+			<table width="610" border="0" bordercolor="#B9B3B3" cellspacing="0" cellpadding="4">
 	              <tbody>
 	                <tr>
-	                  <td width="170" height="86" align="center" bordercolor="#FFFFFF" bgcolor="lightblue" style="border-style:none" ><b>Países permitodos para login</b></td>
-	                  <td width="256"  style="border-right-style:none">
+	                  <td width="30" height="86" align="center" bordercolor="#FFFFFF" bgcolor="lightblue" style="border-style:none" ><b>Países permitodos para login</b></td>
+	                  <td width="26"  style="border-right-style:none">
 		                  <label>
 		                  	<input type="checkbox" name="BR" id="BR" value="BR" disabled> BR
 		                  </label><br>
@@ -161,9 +134,54 @@
 	                  </tr>
 	              </tbody>
 	        </table><br/>
-            <button class="btn btn-success btn-sm" onclick="salvarPaisesPermitidos()">Salvar</button>
+            <button class="btn btn-primary btn-sm" onclick="salvarPaisesPermitidos()">Salvar</button>
+            <br />
+            <hr class="bg-danger border-2 border-top border-danger">
+            <br />
+            <h5>Configurações para envio de alertas e agendamentos</h5><br />
+            <div class="table-responsive">
+	            <table class="table" style="text-align: center;">
+					<tbody>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Descrição</th>
+								<th>Status</th>
+								<th>Função</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><input class="form-control mt-2" type="number" name="idAGENDAMENTO" id="idAGENDAMENTO" style="width: 50px;" readonly></td>
+								<td><b>Email para envios automáticos de agendamentos</b>
+									<p style="font-size: 14px;">* Agendamentos diarios às 9h e 17h (seg-sex)</p>
+									<p style="font-size: 14px;">* Agendamentos do proximo dia às 18h (seg-sex)</p>
+								</td>
+								<td><input type="checkbox" name="statusAGENDAMENTO" id="statusAGENDAMENTO"></td>	
+								<td>
+									<select class="form-select mt-2" id="AGENDAMENTO" aria-label="Default select example">
+										<option value="AGENDAMENTO">AGENDAMENTO</option>
+									</select>
+								</td>
+								<td><input type="text" id="emailAGENDAMENTO" class="form-control mt-2" autocomplete="off"></td>
+							</tr>
+							<tr>
+								<td><input class="form-control mt-2" type="number" name="idABERTURA" id="idABERTURA" style="width: 50px;" readonly></td>
+								<td><b>Email para envio automatico na abertura de solicitação</b></td>
+								<td><input type="checkbox" name="statusABERTURA" id="statusABERTURA"></td>
+								<td>
+									<select class="form-select mt-2" id="ABERTURA" aria-label="Default select example">
+										<option value="ABERTURA">ABERTURA</option>
+									</select>
+								</td>
+								<td><input type="text" id="emailABERTURA" class="form-control mt-2" autocomplete="off"></td>
+							</tr>
+					</tbody>
+				</table>
+            </div>
+            <p style="color: red;">OBS: Para o envio de informativos, é necessário estar ativado e com email preenchido.</p>
+            <button class="btn btn-primary btn-sm" onclick="salvarConfiguracaoEmails()">Salvar</button>
 		
-		<br/><br/>
 		<br/><br/>
 		<footer class="text-center text-white">
 			<div class="container">
@@ -201,8 +219,27 @@
 	<script src="assets/js/jquery-3.6.3.js"></script>
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/chart.js"></script>
 	<script>
+		
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/sistema/configuracao/email",
+			success: function (data) {
+				
+				data.map(i => {
+					if(i.status == true){
+						document.getElementById("status"+i.agendamento).checked=true;					
+					}else{
+						document.getElementById("status"+i.agendamento).checked=false;
+					}
+					
+					document.getElementById("email"+i.agendamento).value = i.email;
+					document.getElementById("id"+i.agendamento).value = i.id;
+				});
+			},
+			error: function (e) { alert(e); }
+		});
 		
 		$.ajax({
 			type: "GET",
@@ -221,7 +258,6 @@
 			error: function (e) { alert(e); }
 		});
 		
-		
 		function salvarPaisesPermitidos(){
 			const br = document.getElementById("BR");
 			const us = document.getElementById("US");
@@ -239,21 +275,53 @@
 			if(fr.checked == true){ paises[paises.length]="FR";}
 			if(cl.checked == true){ paises[paises.length]="CL";}
 			
+			if(br.checked != false){
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "/sistech/sistema/configuracao/paises",
+					data: JSON.stringify(
+						{ "paises": paises }
+					),
+					success: function (data) { alert("Países atualizados com sucesso!");	},
+					error: function (e) { alert(e); }
+				});
+			}else{ alert("Desabilitar BR impossibilitará seu acesso!"); }
+		}
+		
+		function salvarConfiguracaoEmails(){
+			var statusAgendamento = document.getElementById("statusAGENDAMENTO");
+			var statusAbertura = document.getElementById("statusABERTURA");
+			var funcaoAgendamento = document.getElementById("AGENDAMENTO").value;
+			var funcaoAbertura = document.getElementById("ABERTURA").value;
+			var emailAgendamento = document.getElementById("emailAGENDAMENTO").value;
+			var emailAbertura = document.getElementById("emailABERTURA").value;
+			var idAbertura = document.getElementById("idABERTURA").value;
+			var idAgendamento = document.getElementById("idAGENDAMENTO").value;
+			var agendamento;
+			var abertura;
+			if(statusAgendamento.checked){ agendamento=true } else { agendamento=false }
+			if(statusAbertura.checked){ abertura=true; } else { abertura=false }
+
 			$.ajax({
-				type: "POST",
+				type: "PUT",
 				contentType: "application/json",
-				url: "/sistech/sistema/configuracao/paises",
+				url: "/sistech/sistema/configuracao/email",
 				data: JSON.stringify(
-					{
-						"paises": paises
-					}
-				),
-				success: function (data) {
-					alert("salvo com sucesso!");
-				},
-				error: function (e) {
-					alert(e);
-				}
+						[{
+							"id": idAgendamento,
+							"agendamento":funcaoAgendamento,
+							"email":emailAgendamento,
+							"status":agendamento
+						},{
+							"id": idAbertura,
+							"agendamento":funcaoAbertura,
+							"email":emailAbertura,
+							"status":abertura
+						}]
+					),
+				success: function (data) { alert("Emails atualizados com sucesso!"); },
+				error: function (e) { alert(e);	}
 			});
 		}
 	</script>

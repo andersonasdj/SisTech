@@ -1,0 +1,27 @@
+.results tr[visible='false'],
+		.no-result{
+		  display:none;
+		}
+		
+		.results tr[visible='true']{
+		  display:table-row;
+		}
+		
+		.counter{
+		  padding:8px; 
+		  color:#ccc;
+		}
+		
+		@media (max-width: 990px) {
+				.fonteModal{
+					font-size: 15px;
+				}
+		}
+		
+		.telefone {
+		  display: block;
+		  height: 22px;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  padding: 4px 10px;
+		 }

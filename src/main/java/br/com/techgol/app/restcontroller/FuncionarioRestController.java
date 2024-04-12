@@ -27,6 +27,7 @@ import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 import br.com.techgol.app.services.FuncionarioService;
+import br.com.techgol.app.services.SolicitacaoService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -35,6 +36,9 @@ public class FuncionarioRestController {
 	
 	@Autowired
 	FuncionarioService service;
+	
+	@Autowired
+	SolicitacaoService solicitacaoService;
 	
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -93,6 +97,8 @@ public class FuncionarioRestController {
 						funcionario.getNomeFuncionario(), 
 						dateFormat.format(dataHoje).toString(),
 						funcionario.getDataUltimoLogin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+						solicitacaoService.buscaAgendamentosAtrasadosQtd(),
+						solicitacaoService.buscaAgendamentosHojeQtd(),
 						service.buscaSolicitacoes(funcionario),
 						service.buscaSolicitacoesGerais()
 				));

@@ -22,6 +22,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,36 +58,45 @@ public class Solicitacao {
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
 	
-	@Column(length = 60)
+	@Column(name = "solicitante", length = 60)
 	private String solicitante;
-	@Column(length = 60)
+	@Column(name="afetado", length = 60)
 	private String afetado;
-	@Column(length = 300)
+	@Column(name="descricao", length = 300)
 	private String descricao;
-	@Column(length = 300)
+	@Column(name="resolucao", length = 300)
 	private String resolucao;
-	@Column(length = 300)
+	@Column(name="observacao", length = 300)
 	private String observacao;
-	@Column(length = 60)
+	@Column(name="abertoPor", length = 60)
 	private String abertoPor;
+	@Column(name="prioridade")
 	@Enumerated(EnumType.STRING)
 	private Prioridade prioridade;
+	@Column(name="status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Column(name = "categoria")
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
+	@Column(name = "classificacao")
 	@Enumerated(EnumType.STRING)
 	private Classificacao classificacao;
+	@Column(name = "local")
 	@Enumerated(EnumType.STRING)
 	private Local local;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Funcionario funcionario;
+
 	
 	private Boolean excluido;
-	
+	@Column(name = "duracao")
 	private Long duracao;
+	
+	@Version
+	private Integer versao;
 	
 	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
 		

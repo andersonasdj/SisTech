@@ -1,6 +1,8 @@
 package br.com.techgol.app.restcontroller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
+import br.com.techgol.app.dto.DtoDataAgendado;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -35,8 +38,10 @@ import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
-import br.com.techgol.app.repository.ClienteRepository;
+import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import br.com.techgol.app.repository.FuncionarioRepository;
+import br.com.techgol.app.services.ClienteService;
+import br.com.techgol.app.services.ColaboradorService;
 import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
@@ -44,18 +49,78 @@ import br.com.techgol.app.services.SolicitacaoService;
 public class SolicitacaoRestController {
 	
 	@Autowired
-	private ClienteRepository repositoryCliente;
+	FuncionarioRepository repositoryFuncionario;
 	
 	@Autowired
-	private FuncionarioRepository repositoryFuncionario;
+	SolicitacaoService solicitacaoService;
 	
 	@Autowired
-	private SolicitacaoService solicitacaoService;
+	ClienteService clienteService;
+	
+	@Autowired
+	ColaboradorService colaboradorService;
+	
+	@GetMapping("/relatorio/cliente/{id}/inicio/{inicio}/fim/{fim}")
+	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	
+	   return solicitacaoService.listarSolicitacoesPorData(page, id, inicio, fim);
+	}
+	
+	@GetMapping("/relatorio/funcionario/{id}/inicio/{inicio}/fim/{fim}")
+	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	
+	   return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, inicio, fim);
+	}
+	
+	@GetMapping("/relatorio/{status}/hoje")
+	public Page<SolicitacaoProjecao> listarRelatorioAtualizadasHoje(@PathVariable String status, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		   return solicitacaoService.listarSolicitacoesRelatorioHoje(page, status);
+	}
+	
+	@GetMapping("/relatorio/periodo/inicio/{inicio}/fim/{fim}")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodoRelatorio(@PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	
+	   return solicitacaoService.listarSolicitacoesPorPeriodo(page, inicio, fim);
+	}
+
+	
+	//	@GetMapping("/relatorio/atualizadas/hoje")
+//	public Page<SolicitacaoProjecao> listarRelatorioAtualizadasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+//	   return solicitacaoService.listarSolicitacoesAtualizadasHoje(page);
+//	}
+//	@GetMapping("/relatorio/finalizadas/hoje")
+//	public Page<SolicitacaoProjecao> listarRelatorioFinalizadasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+//	   return solicitacaoService.listarSolicitacoesFinalizadasHoje(page);
+//	}
+//	
+//	@GetMapping("/relatorio/abertas/hoje")
+//	public Page<SolicitacaoProjecao> listarRelatorioAbertasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+//	   return solicitacaoService.listarSolicitacoesAbertasHoje(page);
+//	}
 	
 	
-	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
-	private List<Solicitacao> listar(){
-		return solicitacaoService.buscarTodos();
+//	@PostMapping("/relatorio/cliente")
+//	  public Page<SolicitacaoProjecao> getFileRelatorio(@RequestBody DtoDadosRelatorioCsv dto, @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+//	
+//	    return solicitacaoService.listarSolicitacoesPorData(page, dto);
+//	  }
+	
+//	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
+//	private List<Solicitacao> listar(){
+//		return solicitacaoService.buscarTodos();
+//	}
+	
+	
+	@GetMapping("/agendadodia") // GERA AGENDAMENTO RECEBENDO UMA DATA NO FORMATO "yyyy-mm-dd"
+	private List<SolicitacaoProjecaoEntidadeComAtributos> listarAgendadosDoDia(@RequestBody DtoDataAgendado data){
+		System.out.println(data.data());
+		LocalDateTime.of(data.data(), LocalTime.of(0, 0));
+		return solicitacaoService.buscaAgendamentosDoDia(LocalDateTime.of(data.data(), LocalTime.of(0, 0)));
+	}
+	
+	@GetMapping("/agendadas/atrasados") // GERA AGENDAMENTO RECEBENDO UMA DATA NO FORMATO "yyyy-mm-dd"
+	private List<SolicitacaoProjecaoEntidadeComAtributos> listarAgendadosAtrasados(){
+		return solicitacaoService.buscaAgendamentosAtrasados();
 	}
 	
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
@@ -66,8 +131,8 @@ public class SolicitacaoRestController {
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		
-		return new DtoDadosParaSolicitacao(repositoryCliente.listarNomesClienteAtivos(),
-				repositoryCliente.listarIdClienteAtivos(), 
+		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
+				clienteService.listarIdClienteAtivos(), 
 				repositoryFuncionario.listarNomesFuncionarios(),
 				repositoryFuncionario.listarIdFuncionarios()
 				);
@@ -75,14 +140,26 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/busca/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
 	public DtoDadosEdicaoRapidaMaisFuncionarios buscaPorId(@PathVariable Long id) {
+		Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
 		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
-		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios);
+		List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
+		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
 	}
 	
 
 	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
 	public DtoSolicitacaoProjecaoCompleta buscaFinalizadaPorId(@PathVariable Long id) {
 		return solicitacaoService.buscarFinalizada(id);
+	}
+	
+	@GetMapping("/relatorio/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
+	public DtoSolicitacaoProjecaoCompleta buscaSolcitacaoRelatorioPorId(@PathVariable Long id) {
+		return solicitacaoService.buscarSolicitacaoRelatorio(id);
+	}
+	
+	@GetMapping("/relatorio/editar/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
+	public DtoSolicitacaoProjecaoCompleta buscaRelatorioPorId(@PathVariable Long id) {
+		return solicitacaoService.buscarSolicitacaoParaRelatorio(id);
 	}
 	
 	
@@ -98,13 +175,13 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/finalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
-	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesFinalizadasPorCliente(page, id);
 		
 	}
 	
 	@GetMapping("/naofinalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
-	public Page<SolicitacaoProjecao> naoFinalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> naoFinalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesNaoFinalizadasPorCliente(page, id);
 		
 	}
@@ -142,8 +219,8 @@ public class SolicitacaoRestController {
 	}
 	
 	@PutMapping("/finalizada/atualizar") //ATUALIZA SOLICITACAO FINALIZADA
-	private void edicaoFinalizada(@RequestBody DtoSolicitacaoFinalizada dados) {
-		solicitacaoService.edicaoFinalizada(dados);
+	private DtoSolicitacaoComFuncionario edicaoFinalizada(@RequestBody DtoSolicitacaoFinalizada dados) {
+		return solicitacaoService.edicaoFinalizada(dados);
 				
 	}
 	
@@ -161,7 +238,7 @@ public class SolicitacaoRestController {
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
-		Cliente cliente = repositoryCliente.getReferenceById(dados.nomeCliente());
+		Cliente cliente = clienteService.buscaClientePorNome(dados.nomeCliente());
 		Solicitacao solicitacao = new Solicitacao(dados, cliente);
 		
 		if(dados.nomeFuncionario() != null) {
@@ -172,7 +249,9 @@ public class SolicitacaoRestController {
 		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
 			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
 		}
-		return solicitacaoService.salvarNovaSolicitacao(solicitacao);
+		
+		
+		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
 	}
 
 	@DeleteMapping("/excluir/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA

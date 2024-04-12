@@ -57,5 +57,17 @@ public class SolicitacaoController {
 		return "dashboardCliente.html";
 	}
 	
+	@GetMapping("/relatoriosclientes")
+	public String relatorioCliente() {
+		
+		return "solicitacaoRelatorioPorCliente.html";
+	}
+	
+	@GetMapping("/relatoriostecnicos")
+	public String relatorioTecnico() {
+		
+		return "solicitacaoRelatorioPorTecnico.html";
+	}
+	
 
 }

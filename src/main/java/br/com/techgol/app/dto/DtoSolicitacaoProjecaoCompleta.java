@@ -51,10 +51,10 @@ public record DtoSolicitacaoProjecaoCompleta(
 				s.getNomeFuncionario(),
 				s.getDataAbertura().toLocalDate().toString(),
 				s.getDataAbertura().format(DateTimeFormatter.ofPattern("HH:mm")),
-				s.getDataAndamento().toLocalDate().toString(),
-				s.getDataAndamento().format(DateTimeFormatter.ofPattern("HH:mm")),
-				s.getDataFinalizado().toLocalDate().toString(),
-				s.getDataFinalizado().format(DateTimeFormatter.ofPattern("HH:mm")),
+				(s.getDataAndamento()) != null? s.getDataAndamento().toLocalDate().toString() : " ",
+				(s.getDataAndamento()) != null? s.getDataAndamento().format(DateTimeFormatter.ofPattern("HH:mm")) : " ",
+				(s.getDataFinalizado()) != null? s.getDataFinalizado().toLocalDate().toString() : "",
+				(s.getDataFinalizado()) != null? s.getDataFinalizado().format(DateTimeFormatter.ofPattern("HH:mm")): " ",
 				s.getDataAtualizacao().toString()
 				);
 	}

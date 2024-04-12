@@ -20,6 +20,8 @@ public interface SolicitacaoProjecao {
 	String getDataAbertura();
 	String getDuracao();
 	String getDataAtualizacao();
+	String getDataAgendado();
+	String getVersao();
 	boolean getVip();
 	boolean getRedFlag();
 

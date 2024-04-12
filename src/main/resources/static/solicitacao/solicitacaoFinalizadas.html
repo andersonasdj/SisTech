@@ -1,39 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sistech - Solicitações</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>Sistech - Solicitações</title>
-	<style>
-		
-		.results tr[visible='false'],
-		.no-result{
-		  display:none;
-		}
-		
-		.results tr[visible='true']{
-		  display:table-row;
-		}
-		
-		.counter{
-		  padding:8px; 
-		  color:#ccc;
-		}
-		
-		@media (max-width: 990px) {
-				.fonteModal{
-					font-size: 15px;
-				}
-		}
-		
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
-
 <body>
 	<div class="container">
 		<br />
@@ -490,7 +467,10 @@
 					}
 				);
 			},
-			error: function (e) { alert(e); }
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 		});
 		
 		function paginacao(num){
@@ -528,7 +508,10 @@
 					}
 				);
 			},
-			error: function (e) { alert(e); }
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
 			});
 		}
 
@@ -578,7 +561,10 @@
 					$('#abertoPorModal').text(data.abertoPor);
 					$('#edicaoModalBotao').append("<button class='btn btn-primary btn-sm ' id='edicao' data-bs-toggle='modal' data-bs-target='#edicaoModal' onclick=editar(" + data.id + ")> Editar</button>");
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -659,7 +645,10 @@
 						$('#statusModalEdicao').append("<option value=" + data.status + ">" + data.status + "</option>");
 					}  
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -721,7 +710,10 @@
 						$('#edicaoModal').modal('hide');
 					}
 				},
-				error: function (e) { alert(e.data); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -785,7 +777,10 @@
 							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
 						}
 					},
-					erro: function (request, status, error) { },
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					},
 					complete: function (data) { }
 				})
 			});

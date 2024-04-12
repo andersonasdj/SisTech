@@ -1,30 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sistech - Solicitações</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>Sistech - Solicitações</title>
-	<style>
-		.results tr[visible='false'],
-		.no-result{
-		  display:none;
-		}
-		
-		.results tr[visible='true']{
-		  display:table-row;
-		}
-		
-		.counter{
-		  padding:8px; 
-		  color:#ccc;
-		}
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
-
 <body>
 	<div class="container">
 		<br />
@@ -120,14 +105,15 @@
 		
 		<div class="container">
 		  <div class="row">
-		    <div class="col">
+		    <div class="col-7">
 					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-primary btn-sm" onclick="nova()">Nova </button>
 		    </div>
-		    <div class="col">
+		    <div class="col-1">
+				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
 		    </div>
-		    <div class="col">
+		    <div class="col-4">
 				<div class="form-group pull-right">
-		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
 				</div>
 				<span class="counter pull-right"></span>
 		    </div>
@@ -135,7 +121,7 @@
 		</div>
 
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered results" id="tabela-usuarios" style="text-align: center;">
+			<table class="table table-hover table-bordered results sortable" id="tabela-usuarios" style="text-align: center;">
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
@@ -236,6 +222,7 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="row">
 							<div class="col-md-8-auto" id="agendamentosmodal" style="display: none">
 								<div class="control-group">
@@ -249,6 +236,52 @@
 										<strong>Compatibility check:</strong>
 										Date "<span id="date-output"></span>",
 										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-3">
+									<label class="control-label" for="solicitante"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante mt-3" name="nomeSolicitanteModal" id="nomeSolicitanteModal">
+										</select>
+										<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+										</span>
+										<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
+										</span>
+									</div>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="nomeAfetadoModal" id="nomeAfetadoModal">
+										</select>
+										<span id="cargoUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+										<span id="celularUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="formaAberturaModal"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="formaAberturaModal" id="formaAberturaModal">
+										</select>
+										<span id="cargoUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
+										<span id="celularUsuario"
+											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 									</div>
 								</div>
 							</div>
@@ -330,10 +363,13 @@
 						</div>
 						
 						<div class="row">
-							<div class="col-md-12 mt-3">
+							<div class="col-md-10 mt-3">
 								<div class="controls">
 									Ultima atualização: <span id="dataAtualizacaoModal"></span>
 								</div>
+							</div>
+							<div class="col-md-2 mt-3">
+								<div class="controls">Versão <span id="versaoModal"></span></div>
 							</div>
 						</div>
 
@@ -416,7 +452,35 @@
 						</div>
 						
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-6 ms-auto">
+								<div class="controls">
+									<label class="control-label mt-1" for="formaAbertura"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+											<option value="TELEFONE">Telefone</option>
+											<option value="EMAIL">E-mail</option>
+											<option value="WHATSAPP">Whatsapp</option>
+											<option value="LOCAL">No local</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 ms-auto">
+								<div class="controls">
+									<label class="form-label mt-1" for="prioridade"><b>Prioridade *</b></label>
+									<select class="form-select" id="prioridade" name="prioridade">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
 								<div class="controls">
 								<label class="form-label mt-1" for="categoria"><b>Categoria *</b></label>
 									<select class="form-select" id="categoria" name="categoria">
@@ -436,7 +500,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<div class="controls">
 								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
 									<select class="form-select" id="classificacao" name="classificacao">
@@ -450,18 +514,6 @@
 								</div>
 							</div>
 
-							<div class="col-md-4 ms-auto">
-								<div class="controls">
-								<label class="form-label mt-1" for="prioridade"><b>Prioridade *</b></label>
-									<select class="form-select" id="prioridade" name="prioridade">
-										<option value="BAIXA">Baixa</option>
-										<option value="MEDIA">Media</option>
-										<option value="ALTA">Alta</option>
-										<option value="CRITICA">Crítico</option>
-										<option value="PLANEJADA">Planejada</option>
-									</select>
-								</div>
-							</div>
 						</div>
 						
 						<div class="row">
@@ -526,6 +578,7 @@
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/sorttable.js"></script>
 	<script>
 		$.ajax({
 			type: "GET",
@@ -539,15 +592,15 @@
 						$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
 					}
 					$("#numPag0").attr("style","color:red");
-					
 				}
 				
 				data.content.map(i => {
 					var status;
 					var vip;
 					var redFlag;
+					var dataAgendado = "";
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
@@ -571,13 +624,16 @@
 					+ '<td>' + i.prioridade + '</td>'
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '</td>'
+					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
 				);
 			},
-			error: function (e) { alert(e); }
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
 		});
 		
 		function paginacao(num){
@@ -600,8 +656,9 @@
 					var status;
 					var vip;
 					var redFlag;
+					var dataAgendado = "";
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
@@ -625,13 +682,16 @@
 					+ '<td>' + i.prioridade + '</td>'
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '</td>'
+					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
 				);
 			},
-			error: function (e) { alert(e); }
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 
@@ -644,6 +704,7 @@
 
 					$('#idmodal').text("");
 					$('#dataAtualizacaoModal').text("");
+					$('#versaoModal').text("");
 					$('#descricaomodal').val("");
 					$('#resolucaomodal').val("");
 					$('#observacaomodal').val("");
@@ -653,11 +714,15 @@
 					$('#prioridademodal').empty();
 					$('#localmodal').empty();
 					$('#nomeFuncionarioModal').empty();
+					$('#nomeSolicitanteModal').empty();
+					$('#nomeAfetadoModal').empty();
 					$('#dateModal').val("");
 					$('#timeModal').val("");
+					$('#formaAberturaModal').empty();
 
 					$('#idmodal').text(data.id);
 					$('#dataAtualizacaoModal').text(data.dataAtualizacao);
+					$('#versaoModal').text(data.versao);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
@@ -693,10 +758,31 @@
 					$('#localmodal').append("<option value="+ data.local +">"+ data.local+"</option>"
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
+						
+					$('#formaAberturaModal').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+					+'<option value="TELEFONE">TELEFONE</option>'
+					+'<option value="EMAIL">EMAIL</option>'
+					+'<option value="WHATSAPP">WHATSAPP</option>'
+					+'<option value="LOCAL">LOCAL</option>'
+					);
 					
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#nomeFuncionarioModal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
 					}
+					
+					$('#nomeSolicitanteModal').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeSolicitanteModal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeSolicitanteModal').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeSolicitanteModal').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomeAfetadoModal').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeAfetadoModal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeAfetadoModal').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeAfetadoModal').append('<option value="Geral"> Geral</option>');
 
 					if (data.status == 'ABERTO') {
 						$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
@@ -734,7 +820,10 @@
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					}
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -769,8 +858,11 @@
 			var prioridade = $('#prioridademodal').val();
 			var local = $('#localmodal').val();
 			var nomeFuncionario = $('#nomeFuncionarioModal').val();
+			var solicitante = $('#nomeSolicitanteModal').val();
+			var afetado = $('#nomeAfetadoModal').val();
 			var dataAgendado = $('#dateModal').val();
 			var horaAgendado = $('#timeModal').val();
+			var formaAbertura = $('#formaAberturaModal').val(); 
 		
 			$.ajax({
 				type: "PUT",
@@ -787,8 +879,11 @@
 					"prioridade": prioridade,
 					"local": local,
 					"nomeFuncionario": nomeFuncionario,
+					"solicitante": solicitante,
+					"afetado": afetado,
 					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"horaAgendado": horaAgendado,
+					"formaAbertura": formaAbertura
 				}),
 				success: function (data) {
 					
@@ -833,7 +928,10 @@
 						$('#exampleModal').modal('hide');
 					}
 				},
-				error: function (e) { alert(e.data); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		
@@ -851,7 +949,10 @@
 						$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
 					}
 				},
-				error: function (e) { alert(e); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		function salvar() {
@@ -931,7 +1032,10 @@
 					var dataAgendado = $('#date').val("");
 					var horaAgendado = $('#time').val("");
 				},
-				error: function (e) { alert("Verifique se todos os Box foram marcados!!"); }
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
 			});
 		}
 		

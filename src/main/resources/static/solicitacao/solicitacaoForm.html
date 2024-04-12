@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sistech | Solocitação Form</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>Sistech | Solocitação Form</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 </head>
-
 <body>
 	<div class="container">
 		<br />
@@ -117,8 +116,6 @@
 								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
 									<option> </option>
 								</select>
-								<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
-								<span id="vip" style="font-size: 18px ;color:#04B404 ; font-weight:bold"></span>
 							</div>
 						</div>
 						<br />
@@ -133,7 +130,6 @@
 									<option value="EMAIL">E-mail</option>
 									<option value="WHATSAPP">Whatsapp</option>
 									<option value="LOCAL">No local</option>
-									<option>
 								</select>
 							</div>
 						</div>
@@ -147,17 +143,10 @@
 								<span id="botaoColaboradores">
 									
 								</span>
-								
 							</label>
 							<div class="controls">
-								
 								<select class="form-control solicitante mt-3" name="solicitante" id="solicitante">
 								</select>
-								<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-								</span>
-								<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-								</span>
-								
 							</div>
 						</div>
 					</div>
@@ -168,10 +157,6 @@
 							<div class="controls">
 								<select class="form-control usuario mt-2" name="afetado" id="afetado">
 								</select>
-								<span id="cargoUsuario"
-									style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-								<span id="celularUsuario"
-									style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 							</div>
 						</div>
 					</div>
@@ -196,7 +181,6 @@
 							<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
 								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
 							<span id="contObs">300</span> Restantes <br>
-
 						</div>
 					</div>
 				</div>
@@ -242,9 +226,7 @@
 
 					</div>
 				</div>
-
 				<br />
-
 				<div class="row">
 					<div class="col-md-4">
 						<div class="control-group">
@@ -273,9 +255,7 @@
 						</div>
 					</div>
 				</div>
-
 				<br />
-
 				<div class="row">
 					<div class="col-md-4">
 						<div class="control-group">
@@ -286,7 +266,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="col-md-4">
 						<div class="control-group">
 							<label class="control-label" for="status"><b>Status *</b></label>
@@ -300,9 +279,7 @@
 						</div>
 					</div>
 				</div>
-
 				<br />
-				
 				<div class="row">
 					<div class="col-md-4" id="agendamentos" style="display: none">
 						<div class="control-group">
@@ -320,20 +297,16 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="control-group">
 					<div class="controls">
 						<span id="botaoSalvar"></span>
 						<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
 					</div>
 				</div>
-				
 				<br /><br />
-
 				<legend></legend>
 			</fieldset>
 		</div>
-
 		<br />
 		<footer class="text-center text-white">
 			<div class="container">
@@ -475,7 +448,6 @@
 								<input type="text" id="emailEdicaoModal" class="form-control"><br />
 							</div>
 						</div>
-							
 					</div>
 					
 					<div class="modal-footer">
@@ -511,15 +483,16 @@
 						+ '<td>' + i.nomeColaborador + '</td>'
 						+ '<td>' + i.celular + '</t}>'
 						+ '<td>'
-						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')>Editar</button>'
-						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')>Excluir</button>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')><i class="bi bi-trash"></i></button>'
 						+ '</td>'
 						+ '</tr>'
 					);
 					$('#tabela-colaboradores').append(itens);
 				},
-				error: function (e) {
-					alert(e);
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}
@@ -547,8 +520,9 @@
 						$('#statusEdicaoModal').append("<option value=true>true</option>");
 					}
 				},
-				error: function (e) {
-					alert(e);
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}
@@ -576,8 +550,9 @@
 					preencheSolicitante();
 					alert("atualizado com sucesso");
 				},
-				error: function (e) {
-					alert(e);
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}
@@ -615,8 +590,9 @@
 					$('#emailAddmodal').val("");
 					alert("salvo com sucesso!");
 				},
-				error: function (e) {
-					alert(e);
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
 
@@ -637,9 +613,11 @@
 							});
 						}
 					},
-					error: function (e) {
-						alert("Erro ao tentar excluir o colaborador!");
-					}
+					statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Voce não tem permissão para exclusão!'); }
+				}
 				});
 			}
 		}
@@ -659,8 +637,9 @@
 					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
 				}
 			},
-			error: function (e) {
-				alert(e);
+			statusCode: {
+			    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+			    401: function() { alert('Realize login novamente!'); }
 			}
 		});
 
@@ -713,11 +692,15 @@
 					$('#botaoColaboradores').empty();
 					$('#solicitante').empty();
 					$('#afetado').empty();
+					$('#date').val("");
+					$('#time').val("");
 					
 					alert("Solicitação criada com sucesso!");
 				},
-				error: function (e) {
-					alert("Verifique se todos os Box foram marcados!!");
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Verifique se todos os campos foram marcados!'); }
 				}
 			});
 		}
@@ -798,14 +781,15 @@
 							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
 						}
 					},
-					erro: function (request, status, error) { },
+					statusCode: {
+				    	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				   		401: function() { alert('Realize login novamente!'); }
+					},
 					complete: function (data) { }
 					})
 				}else{
-					
 					$("#botaoSalvar").empty();
 					$('#botaoColaboradores').empty();
-					
 					$('#solicitante').empty();
 					$('#afetado').empty();
 				}
@@ -845,16 +829,5 @@
 		  return value
 		}
 	</script>
-
-	<!--	<script src="assets/js/jquery-ui.js"></script>-->
-	<!--	<script src="assets/js/jquery.ui.timepiker.js"></script>-->
-	<!--	<script src="assets/js/calendario.js"></script>-->
-	<!--	<script src="assets/js/controle-vip.js"></script>-->
-	<!--	<script>-->
-	<!--		  $( function() {-->
-	<!--		    $( "#datepicker" ).datepicker();-->
-	<!--		  } );-->
-	<!--	 </script>-->
 </body>
-
 </html>

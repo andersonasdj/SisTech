@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
+import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.ConfiguracaoPaises;
+import br.com.techgol.app.model.enums.Agendamentos;
+import br.com.techgol.app.services.ConfiguracaoEmailService;
 import br.com.techgol.app.services.ConfiguracaoPaisesService;
 import br.com.techgol.app.services.FuncionarioService;
 
@@ -20,6 +23,9 @@ public class AuthenticatorController {
 	
 	@Autowired
 	private ConfiguracaoPaisesService paisesService;
+	
+	@Autowired
+	private ConfiguracaoEmailService emailService;
 
 	@PostMapping("/create")
 	public String register(@RequestBody DtoCadastroFuncionario dados ) {
@@ -31,6 +37,11 @@ public class AuthenticatorController {
 			paisesService.salvar(new ConfiguracaoPaises("CA",true));
 			paisesService.salvar(new ConfiguracaoPaises("FR",true));
 			paisesService.salvar(new ConfiguracaoPaises("CL",true));
+		}
+		
+		if(emailService.existeEmail() == 0) {
+			emailService.cadastra(new ConfiguracaoEmail( " ", false, Agendamentos.AGENDAMENTO));
+			emailService.cadastra(new ConfiguracaoEmail( " ", false, Agendamentos.ABERTURA));
 		}
 		
 		if(service.existeFuncionarios() == 0) {
