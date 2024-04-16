@@ -30,6 +30,7 @@ import br.com.techgol.app.dto.DtoDataAgendado;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
+import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompletaColaboradores;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
@@ -148,8 +149,11 @@ public class SolicitacaoRestController {
 	
 
 	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
-	public DtoSolicitacaoProjecaoCompleta buscaFinalizadaPorId(@PathVariable Long id) {
-		return solicitacaoService.buscarFinalizada(id);
+	public DtoSolicitacaoProjecaoCompletaColaboradores buscaFinalizadaPorId(@PathVariable Long id) {
+		Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
+		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
+		List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
+		return new DtoSolicitacaoProjecaoCompletaColaboradores(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
 	}
 	
 	@GetMapping("/relatorio/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
@@ -158,8 +162,11 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/relatorio/editar/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
-	public DtoSolicitacaoProjecaoCompleta buscaRelatorioPorId(@PathVariable Long id) {
-		return solicitacaoService.buscarSolicitacaoParaRelatorio(id);
+	public DtoSolicitacaoProjecaoCompletaColaboradores buscaRelatorioPorId(@PathVariable Long id) {
+		Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
+		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
+		List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
+		return new DtoSolicitacaoProjecaoCompletaColaboradores(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
 	}
 	
 	

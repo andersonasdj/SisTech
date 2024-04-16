@@ -3,6 +3,7 @@
 <head>
 	<title>Sistech | Solocitação Relatórios</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
@@ -11,7 +12,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -100,7 +101,7 @@
 		</nav>
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
-		<div class="container">
+		<div class="container-fluid">
 				<input type="hidden" id="linkPage" name="linkPage">
 				<div align="center">
 					<div id="">
@@ -174,8 +175,8 @@
 							<th scope="col">Classificação</th>
 							<th scope="col">Responsável</th>
 							<th scope="col">Status</th>
-							<th scope="col">Versão</th>
 							<th scope="col">Duração <span style="font-size: 10px;"> (minutos)</span></th>
+							<th scope="col">Versão</th>
 						</tr>
 					</thead>
 					<tbody id="corpoSolicitacoes">
@@ -191,82 +192,6 @@
 		<legend> </legend>
 		</fieldset>
 
-		<!-- ########################################## MODAL EXIBE FINALIZADA ############################################# -->
-		<div class="modal fade" id="finalizadaModal" tabindex="-1" aria-labelledby="finalizadaModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-2" id="finalizadaModal">
-							<span id="nomeClienteModal"> </span>
-							<span id="edicaoModalBotao"></span>
-						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Aberto por: <b><span id="abertoPorModal"></span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Data de abertura: <b><span id="dataAberturaModal"></span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Solicitante: <b><span id="solicitanteModal"></span></b></h5>
-							</div>
-
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Usuário afetado: <b><span id="afetadoModal"></span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 mt-3">
-								<h5>Categoria: <b><span id="categoriaModal"></span></b></h5>	
-							</div>
-							
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Local: <b><span id="localModal"></span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Descrição: <b><span id="descricaoModal"></span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Observação: <b><span id="observacaoModal"></span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Resolução: <b><span id="resolucaoModal"></span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"></span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Classificação: <b><span id="prioridadeModal"></span></b></h5>	
-							</div>
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Duração: <b><span id="duracaoModal"></span></b></h5>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ###################################################### MODAL EXIBE FINALIZADA ######################################################## -->
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
 		<div class="modal fade" id="edicaoModal" tabindex="-1" aria-labelledby="edicaoModal" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -309,7 +234,40 @@
 									</div>
 								</div>
 							</div>
-						</div>					
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									<label class="control-label"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control mt-2" name="solicitantemodal" id="solicitantemodal">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<label class="form-label" for="afetadomodal"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control" name="afetadomodal" id="afetadomodal">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<label class="control-label" for="formaaberturamodal"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaaberturamodal" name="formaaberturamodal">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+									
 						<div class="row">
 							<div class="col-md-4">
 								<div class="control-group fonteModal">
@@ -320,23 +278,28 @@
 							</div>
 							<div class="col-md-4">
 								<div class="control-group fonteModal">
-									<label class="form-label mt-2" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
+									<label class="form-label mt-2" for="nomefuncionariomodal"><b>Técnico Responsável</b></label>
 									<div class="controls">
-										<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao">
-											<option></option>
+										<select class="form-select" id="nomefuncionariomodal" name="nomefuncionariomodal">
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-4 ms-auto">
-								<div class="control-group fonteModal">
-									<label class="form-label mt-2"></label><b>Duração</b></label>
-									<p><span id="duracaoModalEdicao"></span></p>
+							<div class="col-md-4">
+								<label class="form-label mt-2" for="prioridademodal"><b>Prioridade *</b></label>
+								<div class="controls fonteModal">
+									<select class="form-select" id="prioridademodal" name="prioridademodal">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4 ms-auto">
+							<div class="col-md-4">
 								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
 								<div class="controls fonteModal">
 									<select class="form-select" id="categoriamodal" name="categoriamodal">
@@ -355,7 +318,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-md-4 ms-auto">
+							<div class="col-md-4">
 								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
 								<div class="controls fonteModal">
 									<select class="form-select" id="classificacaomodal" name="classificacaomodal">
@@ -368,18 +331,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
-								<div class="controls fonteModal">
-									<select class="form-select" id="prioridademodal" name="prioridademodal">
-										<option value="BAIXA">Baixa</option>
-										<option value="MEDIA">Media</option>
-										<option value="ALTA">Alta</option>
-										<option value="CRITICA">Crítico</option>
-										<option value="PLANEJADA">Planejada</option>
-									</select>
-								</div>
-							</div>
+							
 						</div>
 						<div class="row">
 							<div class="col-md-6 ms-auto fonteModal">
@@ -394,8 +346,8 @@
 						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
 						<div class="row">
-							<div class="col-md-6 mt-3">
-								Ultima atualização: <span id="dataAtualizacaoModalEdicao"></span>
+							<div class="col-md-12 mt-3">
+								<b><span id="dataAtualizacaoModalEdicao"></span></b>
 							</div>
 						</div>
 					</div>
@@ -479,6 +431,15 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="control-label mt-2" for="formaAberturaModalNaoFinalizado"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAberturaModalNaoFinalizado" name="formaAberturaModalNaoFinalizado">
+										</select>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 ms-auto">
@@ -553,7 +514,7 @@
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<div class="controls">
-									Ultima atualização: <span id="dataAtualizacaoModalNaoFinalizado"></span>
+									<b><span id="dataAtualizacaoModalNaoFinalizado"></span></b>
 								</div>
 							</div>
 						</div>
@@ -570,7 +531,7 @@
 		
 		<br />
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
@@ -917,6 +878,13 @@
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"; dataAgendado = " "  }
 					if(i.status == "PAUSADO"){ status = "class='table-light'"; dataAgendado = " "  }
 					if(i.status == "FINALIZADO"){ status = "class='table-success'"; dataAgendado = " "  }
+					var modal;
+					if(i.status != "FINALIZADO"){
+						modal = "data-bs-toggle='modal' data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
+					}
+					else{
+						modal = "data-bs-toggle='modal' data-bs-target='#edicaoModal' onclick=editar(";
+					}
 					
 					if(i.duracao != null){
 						if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
@@ -924,7 +892,7 @@
 						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
 					}else {tempo = " "; alerta = " "}
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#finalizadaModal" onclick=verificar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id+' ' + modal + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente + '</td>'
@@ -936,8 +904,8 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '<b><p style="font-size: 13px; color: red">' + dataAgendado + '</p></b></td>'
-					+ '<td>' + i.versao + '</td>'
 					+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
+					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#corpoSolicitacoes').append(itens);
 					}
@@ -982,13 +950,16 @@
 					$('#classificacaomodal').empty();
 					$('#prioridademodal').empty();
 					$('#localmodal').empty();
-					$('#nomeFuncionarioModalEdicao').empty();
 					$('#dataAberturaModalEdicao').val("");
 					$('#horaAberturaModalEdicao').val("");
 					$('#dataAndamentoModalEdicao').val("");
 					$('#horaAndamentoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
+					$('#formaaberturamodal').empty();
+					$('#nomefuncionariomodal').empty();
+					$('#solicitantemodal').empty();
+					$('#afetadomodal').empty();
 					
 					$('#dataAberturaModalEdicao').val(data.dataAbertura);
 					$('#horaAberturaModalEdicao').val(data.horaAbertura);
@@ -996,16 +967,41 @@
 					$('#horaAndamentoModalEdicao').val(data.horaAndamento);
 					$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
 					$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
-					$('#dataAtualizacaoModalEdicao').text(data.dataAtualizacao);
+					$('#dataAtualizacaoModalEdicao').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
 					$('#idModalEdicao').text(data.id);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
 					
+					$('#solicitantemodal').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#solicitantemodal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#solicitantemodal').append('<option value="Suporte"> Suporte</option>');
+					$('#solicitantemodal').append('<option value="Geral"> Geral</option>');
+					
+					$('#afetadomodal').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#afetadomodal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#afetadomodal').append('<option value="Suporte"> Suporte</option>');
+					$('#afetadomodal').append('<option value="Geral"> Geral</option>');
+
+					$('#nomefuncionariomodal').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomefuncionariomodal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+					
 					if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
 					else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
 					
-					$('#nomeFuncionarioModalEdicao').append("<option value=" + data.nomeFuncionario + ">" + data.nomeFuncionario + "</option>");
+					$('#formaaberturamodal').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+						+'<option value="TELEFONE">TELEFONE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="WHATSAPP">WHATSAPP</option>'
+						+'<option value="LOCAL">NO LOCAL</option>'
+						+'<option value="PROATIVO">PROATIVO</option>');
+					
 					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -1059,14 +1055,17 @@
 			var classificacao = $('#classificacaomodal').val();
 			var prioridade = $('#prioridademodal').val();
 			var local = $('#localmodal').val();
-			var nomeFuncionario = $('#nomeFuncionarioModal').val();
+			var nomeFuncionario = $('#nomefuncionariomodal').val();
 			var dataAbertura = $('#dataAberturaModalEdicao').val();
 			var horaAbertura = $('#horaAberturaModalEdicao').val();
 			var dataAndamento = $('#dataAndamentoModalEdicao').val();
 			var horaAndamento = $('#horaAndamentoModalEdicao').val();
 			var dataFinalizado = $('#dataFinalizadoModalEdicao').val();
 			var horaFinalizado = $('#horaFinalizadoModalEdicao').val();
-		
+			var formaAbertura = $('#formaaberturamodal').val();
+			var solicitante = $('#solicitantemodal').val();
+			var afetado = $('#afetadomodal').val();
+			
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -1087,7 +1086,10 @@
 					"dataAndamento": dataAndamento,
 					"horaAndamento": horaAndamento,
 					"dataFinalizado": dataFinalizado,
-					"horaFinalizado": horaFinalizado
+					"horaFinalizado": horaFinalizado,
+					"formaAbertura": formaAbertura,
+					"solicitante": solicitante,
+					"afetado": afetado 
 				}),
 				success: function (data) {
 					
@@ -1132,8 +1134,8 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>' + data.versao + '</td>'
 						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+						+ '<td>' + data.versao + '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-solicitacoes').append(itens);
@@ -1228,13 +1230,18 @@
 					$('#nomeAfetadoModalNaoFinalizado').empty();
 					$('#dataModalNaoFinalizado').val("");
 					$('#horaModalNaoFinalizado').val("");
+					$('#formaAberturaModalNaoFinalizado').empty();
 
 					$('#idModalNaoFinalizado').text(data.id);
-					$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
+					$('#dataAtualizacaoModalNaoFinalizado').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
 					$('#descricaoModalNaoFinalizado').val(data.descricao);
 					$('#resolucaoModalNaoFinalizado').val(data.resolucao);
 					$('#observacaoModalNaoFinalizado').val(data.observacao);
+					
 					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
 					
 					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
 					for (var i = 0; i < data.colaboradores.length; i++) {
@@ -1250,6 +1257,12 @@
 					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
 					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
 					
+					$('#formaAberturaModalNaoFinalizado').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+						+'<option value="TELEFONE">TELEFONE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="WHATSAPP">WHATSAPP</option>'
+						+'<option value="LOCAL">NO LOCAL</option>'
+						+'<option value="PROATIVO">PROATIVO</option>');
 					
 					$('#categoriaModalNaoFinalizado').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
@@ -1283,10 +1296,6 @@
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
 					
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
-
 					if (data.status == 'ABERTO') {
 						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
 						$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
@@ -1345,6 +1354,7 @@
 			var nomeFuncionario = $('#nomeFuncionarioModalNaoFinalizado').val();
 			var dataAgendado = $('#dataModalNaoFinalizado').val();
 			var horaAgendado = $('#horaModalNaoFinalizado').val();
+			var formaAbertura = $('#formaAberturaModalNaoFinalizado').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -1363,9 +1373,9 @@
 					"nomeFuncionario": nomeFuncionario,
 					"solicitante": solicitante,
 					"afetado": afetado,
-					"nomeFuncionario": nomeFuncionario,
 					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"horaAgendado": horaAgendado,
+					"formaAbertura": formaAbertura
 				}),
 				success: function (data) {
 					
@@ -1408,8 +1418,8 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>' + data.versao + '</td>'
 						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+						+ '<td>' + data.versao + '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-solicitacoes').append(itens);

@@ -21,7 +21,7 @@ public class EnviadorEmail {
 	    private JavaMailSender emailSender;
 
 		@Async
-	    public void enviarEmailNovaSolicitacao(DtoSolicitacaoComFuncionario dados) {
+	    public void enviarEmailNovaSolicitacao(DtoSolicitacaoComFuncionario dados, String destinatario) {
 	        try {
 	            
 	            MimeMessage message = emailSender.createMimeMessage();
@@ -29,8 +29,8 @@ public class EnviadorEmail {
 	            MimeMessageHelper helper;
 	            helper = new MimeMessageHelper(message, true);
 	            
-	            helper.setFrom("andersonasdj@gmail.com");
-	            helper.setTo("anderson.araujo@techgold.com.br");
+	            helper.setFrom("noreply.providerone@gmail.com");
+	            helper.setTo(destinatario);
 	            helper.setText(""
 	            		+ "<h5> Abertura de solicitação: </h5>"
 	            		+ "<br />"
@@ -59,12 +59,12 @@ public class EnviadorEmail {
 	    }
 		
 		@Async
-	    public void enviarEmail(DtoSolicitacaoComFuncionario dados) {
+	    public void enviarEmail(DtoSolicitacaoComFuncionario dados, String destinatario) {
 	        try {
 	            var email = new SimpleMailMessage();
-	            email.setFrom("andersonasdj@gmail.com");
+	            email.setFrom("noreply.providerone@gmail.com");
 	            email.setSubject("Teste");
-	            email.setTo("anderson.araujo@techgold.com.br");
+	            email.setTo(destinatario);
 	            email.setText("Data Abertura: " + dados.dataAbertura() +"\n"
 	            		+ "Nome do Cliente: " + dados.nomeCliente() +"\n"
 	            		+ "Nome do Solicitanre: " + dados.solicitante() +"\n"
@@ -90,7 +90,7 @@ public class EnviadorEmail {
 
 		public void enviarEmail(DtoDashboard dto, String assunto, String destinatario, String texto) {
 			var email = new SimpleMailMessage();
-            email.setFrom("andersonasdj@gmail.com");
+            email.setFrom("noreply.providerone@gmail.com");
             email.setSubject(assunto);
             email.setTo(destinatario);
             email.setText(texto
@@ -185,7 +185,7 @@ public class EnviadorEmail {
 	            message.setSubject(assunto);
 	            MimeMessageHelper helper;
 	            helper = new MimeMessageHelper(message, true);
-	            helper.setFrom("andersonasdj@gmail.com");
+	            helper.setFrom("noreply.providerone@gmail.com");
 	            helper.setTo(destinatario);
 	            helper.setText(corpoEmail,true);
 	            emailSender.send(message);
@@ -203,7 +203,7 @@ public class EnviadorEmail {
 	            message.setSubject(assunto);
 	            MimeMessageHelper helper;
 	            helper = new MimeMessageHelper(message, true);
-	            helper.setFrom("andersonasdj@gmail.com");
+	            helper.setFrom("noreply.providerone@gmail.com");
 	            helper.setTo(destinatario);
 	            helper.setText(corpoEmail,true);
 	            emailSender.send(message);

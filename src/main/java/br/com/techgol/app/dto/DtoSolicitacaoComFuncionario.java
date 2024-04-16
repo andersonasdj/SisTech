@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
+import br.com.techgol.app.model.enums.FormaAbertura;
 import br.com.techgol.app.model.enums.Local;
 import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
@@ -20,6 +21,7 @@ public record DtoSolicitacaoComFuncionario(
 		Classificacao classificacao,
 		Local local,
 		Categoria categoria,
+		FormaAbertura formaAbertura,
 		String nomeFuncionario,
 		Status status,
 		String duracao,
@@ -40,7 +42,8 @@ public record DtoSolicitacaoComFuncionario(
 					s.getClassificacao(),
 					s.getLocal(),
 					s.getCategoria(),
-					s.getFuncionario().getNomeFuncionario(), 
+					s.getFormaAbertura(),
+					(s.getFuncionario()!= null) ?  s.getFuncionario().getNomeFuncionario(): " ", 
 					s.getStatus(),
 					(s.getDuracao() != null) ?  s.getDuracao().toString() : " ",
 					s.getVersao(),

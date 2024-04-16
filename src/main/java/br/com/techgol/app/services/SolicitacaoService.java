@@ -152,14 +152,19 @@ public class SolicitacaoService {
 		
 		solicitacao.setLocal(dados.local());
 		solicitacao.setCategoria(dados.categoria());
+		solicitacao.setFormaAbertura(dados.formaAbertura());
 		solicitacao.setDescricao(dados.descricao());
 		solicitacao.setObservacao(dados.observacao());
 		solicitacao.setPrioridade(dados.prioridade());
 		solicitacao.setResolucao(dados.resolucao());
+		solicitacao.setSolicitante(dados.solicitante());
+		solicitacao.setAfetado(dados.afetado());
 		solicitacao.setClassificacao(dados.classificacao());
 		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
-
 		solicitacao.setDataAbertura(LocalDateTime.parse(dados.dataAbertura()+"T"+dados.horaAbertura()));
+		
+		Funcionario funcionario = funcionarioService.buscaPorNome(dados.nomeFuncionario());
+		solicitacao.setFuncionario(funcionario);
 
 		boolean andamento = false;
 		boolean finalizado = false;
@@ -302,16 +307,17 @@ public class SolicitacaoService {
 	public DtoDashboardCliente geraDashboardCliente(Long id) {
 		
 		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
-		int totalMesCorrente, email, telefone, local, whatsapp;
+		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
 		Long totalMinutosMes=0l;
 		LocalDateTime dataDePesquisa = LocalDateTime.now().plusDays(-LocalDateTime.now().getDayOfMonth());
 		
-		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString() , false);
-		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString() , false);
-		email = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.EMAIL.toString() , false, Status.FINALIZADO.toString());
-		telefone = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.TELEFONE.toString() , false, Status.FINALIZADO.toString());
-		local = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.LOCAL.toString() , false, Status.FINALIZADO.toString());
-		whatsapp = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.WHATSAPP.toString() , false, Status.FINALIZADO.toString());
+		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString(), false);
+		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString(), false);
+		email = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.EMAIL.toString(), false);
+		telefone = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.TELEFONE.toString(), false);
+		local = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.LOCAL.toString(), false);
+		whatsapp = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.WHATSAPP.toString(), false);
+		proativo = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.PROATIVO.toString(), false);
 		problema = repository.totalPorClassificacaoPorCliente(id, Classificacao.PROBLEMA.toString(), false);
 		incidente = repository.totalPorClassificacaoPorCliente(id, Classificacao.INCIDENTE.toString(), false);
 		solicitacao = repository.totalPorClassificacaoPorCliente(id, Classificacao.SOLICITACAO.toString(), false);
@@ -342,14 +348,14 @@ public class SolicitacaoService {
 		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
 				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
 				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
-				totalMinutosMes, email, telefone, local, whatsapp);
+				totalMinutosMes, email, telefone, local, whatsapp, proativo);
 	}
 	
 
 	public DtoDashboard geraDashboard() {
 		
 		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,totalSolicitacoes;
-		int email, telefone, local, whatsapp;
+		int email, telefone, local, whatsapp, proativo;
 		
 		onsite = repository.totalPorLocal(Local.ONSITE.toString() , false, Status.FINALIZADO.toString());
 		offsite = repository.totalPorLocal(Local.OFFSITE.toString() , false, Status.FINALIZADO.toString());
@@ -357,6 +363,7 @@ public class SolicitacaoService {
 		telefone = repository.totalPorFormaAbertura(FormaAbertura.TELEFONE.toString() , false, Status.FINALIZADO.toString());
 		local = repository.totalPorFormaAbertura(FormaAbertura.LOCAL.toString() , false, Status.FINALIZADO.toString());
 		whatsapp = repository.totalPorFormaAbertura(FormaAbertura.WHATSAPP.toString() , false, Status.FINALIZADO.toString());
+		proativo = repository.totalPorFormaAbertura(FormaAbertura.PROATIVO.toString() , false, Status.FINALIZADO.toString());
 		problema = repository.totalPorClassificacao(Classificacao.PROBLEMA.toString(), false, Status.FINALIZADO.toString());
 		incidente = repository.totalPorClassificacao(Classificacao.INCIDENTE.toString(), false, Status.FINALIZADO.toString());
 		solicitacao = repository.totalPorClassificacao(Classificacao.SOLICITACAO.toString(), false, Status.FINALIZADO.toString());
@@ -388,7 +395,7 @@ public class SolicitacaoService {
 		return new DtoDashboard(onsite,offsite,problema,incidente,solicitacao,
 				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,
 				andamento,agendado,aguardando,pausado,totalSolicitacoes,totalFUncionarios,
-				listaDto, email,telefone,local,whatsapp);
+				listaDto, email,telefone,local,whatsapp,proativo);
 	}
 
 	public DtoSolicitacaoRelatorios geraRelatorios() {

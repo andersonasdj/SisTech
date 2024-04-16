@@ -29,6 +29,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 		String afetado,
 		FormaAbertura formaAbertura,
 		Integer versao,
+		String abertoPor,
 		List<String> funcionarios,
 		List<String> colaboradores) {
 
@@ -51,6 +52,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				dados.getAfetado(),
 				dados.getFormaAbertura(),
 				dados.getVersao(),
+				dados.getAbertoPor(),
 				s,
 				c);
 	}

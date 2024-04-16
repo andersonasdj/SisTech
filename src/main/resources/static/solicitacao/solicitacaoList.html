@@ -3,6 +3,7 @@
 <head>
 	<title>Sistech - Solicitações</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
@@ -11,7 +12,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -152,7 +153,7 @@
 
 		<br /><br />
 		<footer class="text-center text-white">
-			<div class="container ">
+			<div class="container-fluid ">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
@@ -241,7 +242,6 @@
 							</div>
 						</div>
 						
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-3">
@@ -251,10 +251,6 @@
 									<div class="controls">
 										<select class="form-control solicitante mt-3" name="nomeSolicitanteModal" id="nomeSolicitanteModal">
 										</select>
-										<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-										</span>
-										<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-										</span>
 									</div>
 								</div>
 							</div>
@@ -265,10 +261,6 @@
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="nomeAfetadoModal" id="nomeAfetadoModal">
 										</select>
-										<span id="cargoUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-										<span id="celularUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 									</div>
 								</div>
 							</div>
@@ -278,10 +270,6 @@
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="formaAberturaModal" id="formaAberturaModal">
 										</select>
-										<span id="cargoUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-										<span id="celularUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 									</div>
 								</div>
 							</div>
@@ -365,7 +353,7 @@
 						<div class="row">
 							<div class="col-md-10 mt-3">
 								<div class="controls">
-									Ultima atualização: <span id="dataAtualizacaoModal"></span>
+									<b><span id="dataAtualizacaoModal"></span></b>
 								</div>
 							</div>
 							<div class="col-md-2 mt-3">
@@ -401,8 +389,6 @@
 									<select class="form-select" id="nomeCliente" name="nomeCliente">
 										<option> </option>
 									</select>
-									<span id="flag" style="font-size: 20px ;color:red ; font-weight:bold"></span>
-									<span id="vip" style="font-size: 18px ;color:#04B404 ; font-weight:bold"></span>
 								</div>
 							</div>
 
@@ -412,10 +398,6 @@
 									<select class="form-control solicitante" name="solicitante" id="solicitante">
 										<option> </option>
 									</select>
-									<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-									</span>
-									<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-									</span>
 								</div>
 							</div>
 
@@ -424,10 +406,6 @@
 								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
 									<select class="form-control usuario" name="afetado" id="afetado">
 									</select>
-									<span id="cargoUsuario"
-										style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-									<span id="celularUsuario"
-										style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 								</div>
 							</div>
 						</div>
@@ -461,6 +439,7 @@
 											<option value="EMAIL">E-mail</option>
 											<option value="WHATSAPP">Whatsapp</option>
 											<option value="LOCAL">No local</option>
+											<option value="PROATIVO">Proativo</option>
 										</select>
 									</div>
 								</div>
@@ -721,7 +700,7 @@
 					$('#formaAberturaModal').empty();
 
 					$('#idmodal').text(data.id);
-					$('#dataAtualizacaoModal').text(data.dataAtualizacao);
+					$('#dataAtualizacaoModal').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
 					$('#versaoModal').text(data.versao);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
@@ -764,6 +743,7 @@
 					+'<option value="EMAIL">EMAIL</option>'
 					+'<option value="WHATSAPP">WHATSAPP</option>'
 					+'<option value="LOCAL">LOCAL</option>'
+					+'<option value="PROATIVO">PROATIVO</option>'
 					);
 					
 					for (var i = 0; i < data.funcionarios.length; i++) {

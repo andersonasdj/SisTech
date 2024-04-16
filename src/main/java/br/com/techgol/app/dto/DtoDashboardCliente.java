@@ -27,6 +27,7 @@ public record DtoDashboardCliente(
 		int email,
 		int telefone,
 		int local,
-		int whatsapp) {
+		int whatsapp,
+		int proativo) {
 
 }

@@ -4,6 +4,7 @@
 <head>
 	<title>SisTech - Configurações</title>
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
+	<link rel="stylesheet" href="assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +12,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -154,8 +155,11 @@
 							<tr>
 								<td><input class="form-control mt-2" type="number" name="idAGENDAMENTO" id="idAGENDAMENTO" style="width: 50px;" readonly></td>
 								<td><b>Email para envios automáticos de agendamentos</b>
-									<p style="font-size: 14px;">* Agendamentos diarios às 9h e 17h (seg-sex)</p>
-									<p style="font-size: 14px;">* Agendamentos do proximo dia às 18h (seg-sex)</p>
+									<p style="font-size: 14px;">* Agendamentos do dia às 9h e 17h (seg-sex)</p>
+									<p style="font-size: 14px;">* Resumo de solicitações às 17:30h (seg-sex)</p>
+									<p style="font-size: 14px;">* Pause das solicitações em andamento às 18:20h (seg-sex)</p>
+									<p style="font-size: 14px;">* Agendamentos do proximo dia às 18:30h (seg-sex)</p>
+									<p style="font-size: 14px;">* Agendamentos atrasados às 8:40h e 18:40h (seg-sex)</p>
 								</td>
 								<td><input type="checkbox" name="statusAGENDAMENTO" id="statusAGENDAMENTO"></td>	
 								<td>
@@ -184,7 +188,7 @@
 		
 		<br/><br/>
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->

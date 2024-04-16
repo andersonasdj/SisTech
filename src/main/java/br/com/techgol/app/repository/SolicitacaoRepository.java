@@ -279,7 +279,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, s.formaAbertura, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, "
 			+ "s.dataAbertura, s.duracao, s.dataAndamento, s.dataFinalizado, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -346,16 +346,16 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	public List<PojecaoResumidaFinalizados> findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(Long id, Boolean excluido, Status status, LocalDateTime dataFechamento);
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO'AND s.cliente_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorLocalPorCliente(Long id, String local, Boolean excluido);
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.formaAbertura = :formaAbertura and s.excluido = :excluido and s.status != :status", nativeQuery = true)
-	public int totalPorFormaAberturaPorCliente(Long id, String formaAbertura, Boolean excluido, String status);
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.formaAbertura = :formaAbertura and s.excluido = :excluido and s.status != 'FINALIZADO'", nativeQuery = true)
+	public int totalPorFormaAberturaPorCliente(Long id, String formaAbertura, Boolean excluido);
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.classificacao = :classificacao AND s.excluido = :excluido", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.cliente_id = :id AND s.classificacao = :classificacao AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorClassificacaoPorCliente(Long id, String classificacao, Boolean excluido);
 	
-	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.prioridade = :prioridade AND s.excluido = :excluido", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.cliente_id = :id AND s.prioridade = :prioridade AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorPrioridadePorCliente(Long id, String prioridade, Boolean excluido);
 
 	

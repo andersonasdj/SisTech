@@ -27,6 +27,7 @@ public record DtoSolicitacaoFinalizada(
 		Prioridade prioridade,
 		String resolucao,
 		String solicitante,
+		String nomeFuncionario,
 		Status status,
 		Classificacao classificacao
 		) {

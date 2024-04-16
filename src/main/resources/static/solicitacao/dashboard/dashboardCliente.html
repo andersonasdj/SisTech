@@ -3,6 +3,7 @@
 <head>
 	<title>SisTech - DashBoard</title>
 	<link rel="shortcut icon" href="../../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/styleDashBoardCliente.css">
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacaoFinalizada.css">
@@ -12,7 +13,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<!-- ##################################### BARRA DE NAVEGAÇÃO #####################################  -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
@@ -103,7 +104,7 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row justify-content-between">
 				<div class="col-4 col-s-12">
 					<div class="control-group">
@@ -119,41 +120,44 @@
 				
 				<div class="col-4 col-s-12">
 					<a href="#" onclick="montaGraficos()" class="btn"><i class="bi bi-arrow-clockwise"></i></a>
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"></span></button>
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=naoFinalizados()>Não Finalizados <span id="qtdNaoFinalizados"></span></button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"></span></button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=naoFinalizados()>Não Finalizados <span id="qtdNaoFinalizados"></span></button>
 				</div>
 			</div>
 		</div>
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row justify-content-between">
+				<div class="col-3 col-s-12" id="formaAbertura">
+					<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
+					<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"></canvas>
+				</div>
 				<div class="col-3" id="local">
 					<h5 style="text-align: center;" class="mt-3">Localicação</h5>
-					<canvas id="localSolicitacoes" class="col-s-3 graficoLocal" style="height: 900px; width: 425px; display: block; box-sizing: border-box;"></canvas>
+					<canvas id="localSolicitacoes" class="col-s-2" ></canvas>
 				</div>
 				<div class="col-3" id="prioridade">
 					<h5 style="text-align: center;" class="mt-3">Prioridade</h5>
-					<canvas id="prioridadeSolicitacoes" class="col-s-3 graficoLocal"></canvas>
+					<canvas id="prioridadeSolicitacoes" class="col-s-3"></canvas>
 				</div>
-				<div class="col-3 col-s-12" id="classificacao">
-					<h5 style="text-align: center;" class="mt-3">Classificação</h5>
-					<canvas id="classificacaoSolicitacoes" class="col-s-3 graficoLocal"></canvas>
-				</div>
+				
+				
 			</div>
 		</div>
 		<hr class="bg-danger border-2 border-top border-danger mt-4">
 
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row justify-content-between">
 				<div class="col-3 col-s-12" id="status">
 					<h5 style="text-align: center;" class="mt-3">Status</h5>
 					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
 				</div>
-				<div class="col-3 col-s-12" id="formaAbertura">
-					<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
-					<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"></canvas>
+				<div class="col-3 col-s-12" id="classificacao">
+					<h5 style="text-align: center;" class="mt-3">Classificação</h5>
+					<canvas id="classificacaoSolicitacoes" class="col-s-3"></canvas>
 				</div>
+				
 				<div class="col-3 col-s-12 mt-5">
 					<h4><span id="totalMesCorrente" style="font-size: 18px;"></span></h4>
 					<h4><span id="totalMinutosMes" style="font-size: 18px;"></span></h4>
@@ -163,7 +167,7 @@
 
 		<br /><br />
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
@@ -252,106 +256,6 @@
 		</div>
 		<!-- ################################################## MODAL LISTA SOLICITACOES CLIENTE ################################################## -->
 		
-		<!-- ################################################# MODAL EXIBE SOLICITACAO FINALIZADA ################################################# -->
-		<div class="modal fade" id="modalVerificaFinalizado" tabindex="-1" aria-labelledby="modalVerificaFinalizado" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-2" id="modalVerificaFinalizado"> 
-							<span id="nomeClienteModal"> </span>
-							<span id="edicaoModalBotao"></span>
-						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Aberto por: <b><span id="abertoPorModal"></span></b></h5>	
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Data de abertura: <b><span id="dataAberturaModal"></span></b></h5>	
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Solicitante: <b><span id="solicitanteModal"></span></b></h5>
-							</div>
-
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Usuário afetado: <b><span id="afetadoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 mt-3">
-								<h5>Categoria: <b><span id="categoriaModal"></span></b></h5>	
-							</div>
-							
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Local: <b><span id="localModal"></span></b></h5>	
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Classificação: <b><span id="classificacaoModal"></span></b></h5>	
-							</div>
-							
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Prioridade: <b><span id="prioridadeModal"></span></b></h5>	
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Descrição: <b><span id="descricaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Observação: <b><span id="observacaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Resolução: <b><span id="resolucaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Duração: <b><span id="duracaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Última atualização: <b><span id="dataAtualizacaoModal"></span></b></h5>
-							</div>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ################################################# MODAL EXIBE SOLICITACAO FINALIZADA ################################################# -->
-		
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
 		<div class="modal fade" id="modalEdicaoFinalizado" tabindex="-1" aria-labelledby="modalEdicaoFinalizado" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -408,30 +312,57 @@
 										<p><span id="duracaoModalEdicao"></span></p>
 								</div>
 							</div>
-							
 						</div>
 
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="form-label mt-3" for="nomesolicitantemodal"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante" name="nomesolicitantemodal" id="nomesolicitantemodal">
+										</select>
+									</div>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="nomeafetadomodal"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario" name="nomeafetadomodal" id="nomeafetadomodal">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<div class="controls fonteModal"> 
+									<label class="form-label mt-3" for="nomefuncionariomodal"><b>Técnico Responsável</b></label>
+										<select class="form-select" id="nomefuncionariomodal" name="nomefuncionariomodal">
+											<option></option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls fonteModal">
-								<label class="form-label mt-3" for="localmodal"><b>Local</b></label>
+								<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
 									<select class="form-select" id="localmodal" aria-label="Default select example">
-	
-									</select>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="controls fonteModal"> 
-								<label class="form-label mt-3" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
-									<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao">
-										<option></option>
 									</select>
 								</div>
 							</div>
 
 							<div class="col-md-4">
-								
+								<label class="form-label mt-2" for="formaaberturamodal"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-control usuario" name="formaaberturamodal" id="formaaberturamodal">
+										</select>
+									</div>
 							</div>
 						</div>
 						
@@ -580,10 +511,6 @@
 									<div class="controls">
 										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizada" id="nomeSolicitanteModalNaoFinalizada">
 										</select>
-										<span id="cargoSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-										</span>
-										<span id="celularSolicitante" style="font-size: 15px ;color:#0101DF ; font-weight:bold">
-										</span>
 									</div>
 								</div>
 							</div>
@@ -594,10 +521,6 @@
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="nomeAfetadoModalNaoFinalizada" id="nomeAfetadoModalNaoFinalizada">
 										</select>
-										<span id="cargoUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-										<span id="celularUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 									</div>
 								</div>
 							</div>
@@ -607,10 +530,6 @@
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="formaAberturaModalNaoFinalizada" id="formaAberturaModalNaoFinalizada">
 										</select>
-										<span id="cargoUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
-										<span id="celularUsuario"
-											style="font-size: 15px ;color:#0101DF ; font-weight:bold"></span>
 									</div>
 								</div>
 							</div>
@@ -764,6 +683,10 @@
 					$('#horaAndamentoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
+					$('#nomesolicitantemodal').empty();
+					$('#nomeafetadomodal').empty();
+					$('#nomefuncionariomodal').empty();
+					$('#formaaberturamodal').empty();
 					
 					$('#dataAberturaModalEdicao').val(data.dataAbertura);
 					$('#horaAberturaModalEdicao').val(data.horaAbertura);
@@ -777,10 +700,37 @@
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
 					
+					
+					$('#nomesolicitantemodal').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomesolicitantemodal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomesolicitantemodal').append('<option value="Suporte"> Suporte</option>');
+					$('#nomesolicitantemodal').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomeafetadomodal').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeafetadomodal').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeafetadomodal').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeafetadomodal').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomefuncionariomodal').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomefuncionariomodal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+					
+					$('#formaaberturamodal').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+					+'<option value="TELEFONE">TELEFONE</option>'
+					+'<option value="EMAIL">EMAIL</option>'
+					+'<option value="WHATSAPP">WHATSAPP</option>'
+					+'<option value="LOCAL">LOCAL</option>'
+					+'<option value="PROATIVO">PROATIVO</option>'
+					);
+					
 					if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
 					else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
 					
-					$('#nomeFuncionarioModalEdicao').append("<option value=" + data.nomeFuncionario + ">" + data.nomeFuncionario + "</option>");
 					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -834,13 +784,17 @@
 			var classificacao = $('#classificacaomodal').val();
 			var prioridade = $('#prioridademodal').val();
 			var local = $('#localmodal').val();
-			var nomeFuncionario = $('#nomeFuncionarioModal').val();
 			var dataAbertura = $('#dataAberturaModalEdicao').val();
 			var horaAbertura = $('#horaAberturaModalEdicao').val();
 			var dataAndamento = $('#dataAndamentoModalEdicao').val();
 			var horaAndamento = $('#horaAndamentoModalEdicao').val();
 			var dataFinalizado = $('#dataFinalizadoModalEdicao').val();
 			var horaFinalizado = $('#horaFinalizadoModalEdicao').val();
+			
+			var solicitante = $('#nomesolicitantemodal').val();
+			var afetado = $('#nomeafetadomodal').val();
+			var nomeFuncionario = $('#nomefuncionariomodal').val();
+			var formaAbertura = $('#formaaberturamodal').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -862,7 +816,11 @@
 					"dataAndamento": dataAndamento,
 					"horaAndamento": horaAndamento,
 					"dataFinalizado": dataFinalizado,
-					"horaFinalizado": horaFinalizado
+					"horaFinalizado": horaFinalizado,
+					"solicitante": solicitante,
+					"afetado": afetado,
+					"formaAbertura": formaAbertura
+					
 				}),
 				success: function (data) {
 						alert("Solicitação atualiza com sucesso!");
@@ -930,7 +888,6 @@
 						alert("Selecione o cliente");
 				}
 		}
-		
 		function montaTabelaFinalizadosNaoFinalizados(i){
 				var tempoTotal="";
 				var modal="";
@@ -938,8 +895,8 @@
 				if(i.status == 'FINALIZADO'){
 					if(i.duracao <= 60){ tempoTotal = i.duracao + " minutos"; }
 					else{ tempoTotal = Math.round(i.duracao / 60) + " horas"; }
-					modal ="modalVerificaFinalizado";
-					funcao = "verificar";
+					modal ="modalEdicaoFinalizado";
+					funcao = "editar";
 				}else{ 
 					modal = "modalEdicaoNaoFinalizados";
 					funcao = "editarNaoFinalizada";			
@@ -967,62 +924,6 @@
 				+ '<td><p>' + i.status + '</p><p>' + tempoTotal + '</p><p style="font-size:12px">'+ dataAgendado +'</p></td>'
 				+ '</tr>'
 				$('#tabela-usuarios').append(itens);	
-		}
-		
-		function verificar(id) {
-			$.ajax({
-				type: "GET",
-				contentType: "application/json",
-				url: "/sistech/solicitacao/finalizada/" + id,
-				success: function (data) {
-					
-					var minutos = data.duracao;
-					
-					if(minutos > 60){
-						$('#duracaoModal').text("");
-						$('#duracaoModal').text(Math.round(data.duracao / 60) + " horas");
-					} else{
-						$('#duracaoModal').text("");
-						$('#duracaoModal').text(data.duracao + " minutos");
-					}
-					
-					$('#edicaoModalBotao').empty();
-					$('#nomeClienteModal').text("");
-					$('#dataAberturaModal').text("");
-					$('#solicitanteModal').text("");
-					$('#afetadoModal').text("");
-					$('#descricaoModal').text("");
-					$('#observacaoModal').text("");
-					$('#categoriaModal').text("");
-					$('#classificacaoModal').text("");
-					$('#localModal').text("");
-					$('#resolucaoModal').text("");
-					$('#nomeFuncionarioModal').text("");
-					$('#prioridadeModal').text("");
-					$('#abertoPorModal').text("");
-					$('#dataAtualizacaoModal').text("");
-					$('#edicaoModalBotao').append("<button class='btn btn-primary btn-sm ' id='edicao' data-bs-toggle='modal' data-bs-target='#modalEdicaoFinalizado' onclick=editar(" + data.id + ")> Editar</button>");
-					
-					$('#nomeClienteModal').text(data.nomeCliente);
-					$('#dataAberturaModal').text(data.dataAbertura);
-					$('#solicitanteModal').text(data.solicitante);
-					$('#afetadoModal').text(data.afetado);
-					$('#descricaoModal').text(data.descricao);
-					$('#observacaoModal').text(data.observacao);
-					$('#categoriaModal').text(data.categoria);
-					$('#classificacaoModal').text(data.classificacao);
-					$('#localModal').text(data.local);
-					$('#resolucaoModal').text(data.resolucao);
-					$('#nomeFuncionarioModal').text(data.nomeFuncionario);
-					$('#prioridadeModal').text(data.prioridade);
-					$('#abertoPorModal').text(data.abertoPor);
-					$('#dataAtualizacaoModal').text(data.dataAtualizacao);
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
-				}
-			});
 		}
 		
 		function editarNaoFinalizada(id) {
@@ -1146,6 +1047,7 @@
 					+'<option value="EMAIL">EMAIL</option>'
 					+'<option value="WHATSAPP">WHATSAPP</option>'
 					+'<option value="LOCAL">LOCAL</option>'
+					+'<option value="PROATIVO">PROATIVO</option>'
 					);
 				},
 				statusCode: {
@@ -1388,10 +1290,10 @@
 								new Chart(ctx5, {
 									type: 'bar',
 									data: {
-										labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp '],
+										labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp', 'Proativo'],
 										datasets: [{
 											label: 'Metodo de abertura Solicitações: ',
-											data: [data.email, data.telefone, data.local, data.whatsapp],
+											data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
 											backgroundColor: [
 												'rgba(255, 135, 0, 0.5)',
 												'rgba(255, 0, 0, 0.5)',

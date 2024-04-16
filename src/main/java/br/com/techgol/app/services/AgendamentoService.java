@@ -36,11 +36,12 @@ public class AgendamentoService {
 	
 	@Scheduled(cron = "0 30 17 * * *", zone = TIME_ZONE)
 	public void envioDeRelatorioDiarioSolicitacoes() {
+		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());
 		DtoDashboard dto = solicitacaoService.geraDashboard();
-		email.enviarEmail(dto, "Relatório diário", "anderson.araujo@techgold.com.br", "Seu relatório diário foi realizado");
+		email.enviarEmail(dto, "Relatório diário", config.getEmail(), "Seu relatório diário foi realizado");
 	}
 	
-	@Scheduled(cron = "0 27 00 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 9 e 17 HORAS - SEG a SEX
+	@Scheduled(cron = "0 0 9,17 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 9 e 17 HORAS - SEG a SEX
 	public void envioDeAgendamentosDoDia() {
 		
 		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());
@@ -59,7 +60,7 @@ public class AgendamentoService {
 		}
 	}
 	
-	@Scheduled(cron = "0 28 00 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 18 HORAS - SEG a SEX
+	@Scheduled(cron = "0 30 18 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 18:30 HORAS - SEG a SEX
 	public void envioDeAgendamentosDoProximoDia() {
 		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());
 		
@@ -76,7 +77,7 @@ public class AgendamentoService {
 		}
 	}
 	
-	@Scheduled(cron = "0 43 00 * * *", zone = TIME_ZONE)
+	@Scheduled(cron = "0 20 18 * * *", zone = TIME_ZONE)
 	public void pausaSolicitacoesAoFinalDoDia() {
 		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());
 		
@@ -91,7 +92,7 @@ public class AgendamentoService {
 		}
 	}
 	
-	@Scheduled(cron = "0 30 00 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 18 HORAS - SEG a SEX
+	@Scheduled(cron = "0 40 8,17 * * MON-FRI", zone = TIME_ZONE)	//AGENDADO PARA TODOS OS DIAS AS 18 HORAS - SEG a SEX
 	public void envioDeAgendamentosAtrasados() {
 		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());
 		

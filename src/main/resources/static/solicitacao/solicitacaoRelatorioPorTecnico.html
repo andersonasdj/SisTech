@@ -3,6 +3,7 @@
 <head>
 	<title>Sistech - Solicitações</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
@@ -12,7 +13,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -104,7 +105,7 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
-		<div class="container">
+		<div class="container-fluid">
 			
 				<div class="row">
 					<div class="col-md-3">
@@ -176,8 +177,8 @@
 							<th>Classificação</th>
 							<th>Responsável</th>
 							<th>Status</th>
-							<th>Versão</th>
 							<th>Duração <span style="font-size: 10px;"> (minutos)</span></th>
+							<th>Versão</th>
 						</tr>
 					</thead>
 					<tbody id="corpoSolicitacoes">
@@ -278,7 +279,7 @@
 		<!-- ################################# MODAL EXIBE FINALIZADA ########################################### -->
 
 		<footer class="text-center text-white">
-			<div class="container ">
+			<div class="container-fluid ">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
@@ -352,7 +353,40 @@
 									</div>
 								</div>
 							</div>
-						</div>					
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									<label class="control-label"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control mt-2" name="nomeSolicitanteModalEdicao" id="nomeSolicitanteModalEdicao">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<label class="form-label" for="nomeAfetadoModalEdicao"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario" name="nomeAfetadoModalEdicao" id="nomeAfetadoModalEdicao">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<label class="control-label" for="formaAberturaModalEdicao"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAberturaModalEdicao" name="formaAberturaModalEdicao">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+									
 
 						<div class="row">
 							<div class="col-md-4">
@@ -365,9 +399,9 @@
 							</div>
 							<div class="col-md-4">
 								<div class="control-group fonteModal">
-									<label class="form-label mt-2" for="nomeFuncionarioModalEdicao"><b>Técnico Responsável</b></label>
+									<label class="form-label mt-2" for="nomefuncionariomodal"><b>Técnico Responsável</b></label>
 									<div class="controls">
-										<select class="form-select" id="nomeFuncionarioModalEdicao" name="nomeFuncionarioModalEdicao">
+										<select class="form-select" id="nomefuncionariomodal" name="nomefuncionariomodal">
 											<option></option>
 										</select>
 									</div>
@@ -520,6 +554,38 @@
 						</div>
 						
 						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-3">
+									<label class="control-label"><b>Solicitante * </b>
+										<span id="botaoColaboradores"></span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizado" id="nomeSolicitanteModalNaoFinalizado">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="form-label" for="nomeAfetadoModalNaoFinalizado"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="nomeAfetadoModalNaoFinalizado" id="nomeAfetadoModalNaoFinalizado">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-3">
+									<label class="control-label mt-2" for="formaAberturaModalNaoFinalizado"><b>Forma de Abertura *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAberturaModalNaoFinalizado" name="formaAberturaModalNaoFinalizado">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="categoriaModalNaoFinalizado"><b>Categoria *</b></label>
 								<div class="controls">
@@ -639,7 +705,6 @@
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 				
-				
 			if(funcionario_id != "" && inicio != "" && fim != ""){
 				
 				$.ajax({
@@ -688,6 +753,22 @@
 						}
 						
 						data.content.map(i => {
+							
+							if(i.status == "ABERTO"){ status = "class='table-danger'"}
+							if(i.status == "AGENDADO"){ status = "class='table-warning'"}
+							if(i.status == "ANDAMENTO"){ status = "class='table-primary'"}
+							if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"}
+							if(i.status == "PAUSADO"){ status = "class='table-light'"}
+							if(i.status == "FINALIZADO"){ status = "class='table-success'"}
+							
+							var modal = "";
+							if(i.status != "FINALIZADO"){
+								modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
+							}
+							else{
+								modal = "data-bs-target='#edicaoModal' onclick=editar(";
+							}
+							
 							var tempo=0;
 							if(i.duracao != null){
 								if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
@@ -695,7 +776,7 @@
 								if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
 							}else {tempo = " "; alerta = " "}
 							var itens = 
-							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#finalizadaModal" onclick=verificar(' + i.id + ')>'
+							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" '+ modal + i.id + ')>'
 							+ '<td id=name' + i.id + '>' + i.id + '</td>'
 							+ '<td>' + i.dataAbertura + '</td>'
 							+ '<td>' + i.nomeCliente + '</td>'
@@ -707,8 +788,8 @@
 							+ '<td>' + i.classificacao + '</td>'
 							+ '<td>' + i.nomeFuncionario + '</td>'
 							+ '<td>' + i.status + '</td>'
-							+ '<td>' + i.versao + '</td>'
 							+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
+							+ '<td>' + i.versao + '</td>'
 							+ '</tr>'
 							$('#tabela-usuarios').append(itens);
 							}
@@ -726,8 +807,7 @@
 		
 		function paginacao(num){
 			
-			
-			var funcionario_id = $('#nomeCliente').val();
+			var funcionario_id = $('#nomeFuncionario').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			$('#corpoSolicitacoes').empty();
@@ -747,6 +827,20 @@
 				$("#numPag"+num).attr("style","color:red");
 				
 				data.content.map(i => {
+					if(i.status == "ABERTO"){ status = "class='table-danger'";}
+					if(i.status == "AGENDADO"){ status = "class='table-warning'" }
+					if(i.status == "ANDAMENTO"){ status = "class='table-primary'"}
+					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"}
+					if(i.status == "PAUSADO"){ status = "class='table-light'"}
+					if(i.status == "FINALIZADO"){ status = "class='table-success'"}
+					
+					var modal = "";
+					if(i.status != "FINALIZADO"){
+						modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
+					}
+					else{
+						modal = "data-bs-target='#edicaoModal' onclick=editar(";
+					}
 					
 					var tempo=0;
 					if(i.duracao != null){
@@ -756,7 +850,7 @@
 					}else {tempo = " " ; alerta = " "}
 					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#finalizadaModal" onclick=verificar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" '+ modal + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente + '</td>'
@@ -768,8 +862,8 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '</td>'
-					+ '<td>' + i.versao + '</td>'
 					+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
+					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -853,13 +947,16 @@
 					$('#classificacaomodal').empty();
 					$('#prioridademodal').empty();
 					$('#localmodal').empty();
-					$('#nomeFuncionarioModalEdicao').empty();
 					$('#dataAberturaModalEdicao').val("");
 					$('#horaAberturaModalEdicao').val("");
 					$('#dataAndamentoModalEdicao').val("");
 					$('#horaAndamentoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
 					$('#dataFinalizadoModalEdicao').val("");
+					$('#nomefuncionariomodal').empty();
+					$('#nomeSolicitanteModalEdicao').empty();
+					$('#nomeAfetadoModalEdicao').empty();
+					$('#formaAberturaModalEdicao').empty();
 					
 					$('#dataAberturaModalEdicao').val(data.dataAbertura);
 					$('#horaAberturaModalEdicao').val(data.horaAbertura);
@@ -876,7 +973,31 @@
 					if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
 					else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
 					
-					$('#nomeFuncionarioModalEdicao').append("<option value=" + data.nomeFuncionario + ">" + data.nomeFuncionario + "</option>");
+					$('#nomeSolicitanteModalEdicao').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeSolicitanteModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeSolicitanteModalEdicao').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeSolicitanteModalEdicao').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomeAfetadoModalEdicao').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeAfetadoModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeAfetadoModalEdicao').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeAfetadoModalEdicao').append('<option value="Geral"> Geral</option>');
+					$('#nomefuncionariomodal').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomefuncionariomodal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+					
+					$('#formaAberturaModalEdicao').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+						+'<option value="TELEFONE">TELEFONE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="WHATSAPP">WHATSAPP</option>'
+						+'<option value="LOCAL">NO LOCAL</option>'
+						+'<option value="PROATIVO">PROATIVO</option>');
+					
 					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -927,13 +1048,16 @@
 			var classificacao = $('#classificacaomodal').val();
 			var prioridade = $('#prioridademodal').val();
 			var local = $('#localmodal').val();
-			var nomeFuncionario = $('#nomeFuncionarioModal').val();
+			var nomeFuncionario = $('#nomefuncionariomodal').val();
 			var dataAbertura = $('#dataAberturaModalEdicao').val();
 			var horaAbertura = $('#horaAberturaModalEdicao').val();
 			var dataAndamento = $('#dataAndamentoModalEdicao').val();
 			var horaAndamento = $('#horaAndamentoModalEdicao').val();
 			var dataFinalizado = $('#dataFinalizadoModalEdicao').val();
 			var horaFinalizado = $('#horaFinalizadoModalEdicao').val();
+			var formaAbertura = $('#formaAberturaModalEdicao').val();
+			var solicitante = $('#nomeSolicitanteModalEdicao').val();
+			var afetado = $('#nomeAfetadoModalEdicao').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -955,7 +1079,10 @@
 					"dataAndamento": dataAndamento,
 					"horaAndamento": horaAndamento,
 					"dataFinalizado": dataFinalizado,
-					"horaFinalizado": horaFinalizado
+					"horaFinalizado": horaFinalizado,
+					"formaAbertura": formaAbertura,
+					"solicitante": solicitante,
+					"afetado": afetado
 				}),
 				success: function (data) {
 					
@@ -974,6 +1101,13 @@
 					else{
 						modal = "data-bs-target='#edicaoModal' onclick=editar(";
 					}
+					var status;
+					if(data.status == "ABERTO"){ status = "class='table-danger'"}
+					if(data.status == "AGENDADO"){ status = "class='table-warning'"}
+					if(data.status == "ANDAMENTO"){ status = "class='table-primary'"}
+					if(data.status == "AGUARDANDO"){ status = "class='table-secondary'"}
+					if(data.status == "PAUSADO"){ status = "class='table-light'"}
+					if(data.status == "FINALIZADO"){ status = "class='table-success'"}
 					
 						$('#linha' + data.id).remove();
 						$('#exampleModal').modal('hide');
@@ -994,12 +1128,12 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>' + data.versao + '</td>'
 						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+						+ '<td>' + data.versao + '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);
-						$('#exampleModal').modal('hide');
+						$('#edicaoModal').modal('hide');
 				},
 				error: function (e) { alert(e.data); }
 			});
@@ -1023,6 +1157,10 @@
 					$('#prioridadeModalNaoFinalizado').empty();
 					$('#localModalNaoFinalizado').empty();
 					$('#nomeFuncionarioModalNaoFinalizado').empty();
+					$('#nomeFuncionarioModalNaoFinalizado').empty();
+					$('#nomeSolicitanteModalNaoFinalizado').empty();
+					$('#nomeAfetadoModalNaoFinalizado').empty();
+					$('#formaAberturaModalNaoFinalizado').empty();
 					$('#dataModalNaoFinalizado').val("");
 					$('#horaModalNaoFinalizado').val("");
 
@@ -1031,7 +1169,34 @@
 					$('#descricaoModalNaoFinalizado').val(data.descricao);
 					$('#resolucaoModalNaoFinalizado').val(data.resolucao);
 					$('#observacaoModalNaoFinalizado').val(data.observacao);
-					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					
+					$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionario + '">' + data.funcionario + '</option>');
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+					
+					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
+					
+					$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+					for (var i = 0; i < data.colaboradores.length; i++) {
+						$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+					}
+					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
+					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
+					
+					$('#formaAberturaModalNaoFinalizado').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+						+'<option value="TELEFONE">TELEFONE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="WHATSAPP">WHATSAPP</option>'
+						+'<option value="LOCAL">NO LOCAL</option>'
+						+'<option value="PROATIVO">PROATIVO</option>');
+					
+					
 					$('#categoriaModalNaoFinalizado').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -1063,10 +1228,6 @@
 					$('#localModalNaoFinalizado').append("<option value="+ data.local +">"+ data.local+"</option>"
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
-					$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionario + '">' + data.funcionario + '</option>');
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
 
 					if (data.status == 'ABERTO') {
 						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
@@ -1121,6 +1282,9 @@
 			var nomeFuncionario = $('#nomeFuncionarioModalNaoFinalizado').val();
 			var dataAgendado = $('#dataModalNaoFinalizado').val();
 			var horaAgendado = $('#horaModalNaoFinalizado').val();
+			var solicitante = $('#nomeSolicitanteModalNaoFinalizado').val();
+			var afetado = $('#nomeAfetadoModalNaoFinalizado').val();
+			var formaAbertura = $('#formaAberturaModalNaoFinalizado').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -1138,7 +1302,10 @@
 					"local": local,
 					"nomeFuncionario": nomeFuncionario,
 					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"horaAgendado": horaAgendado,
+					"solicitante": solicitante,
+					"afetado": afetado,
+					"formaAbertura": formaAbertura
 				}),
 				success: function (data) {
 					
@@ -1148,7 +1315,6 @@
 					}
 					else{
 						modal = "data-bs-target='#edicaoModal' onclick=editar(";
-
 					}
 					
 						$('#linha' + data.id).remove();
@@ -1164,6 +1330,14 @@
 							if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; duracao = data.duracao;}
 						}else {alerta = " "}
 						
+						var status;
+						if(data.status == "ABERTO"){ status = "class='table-danger'"}
+						if(data.status == "AGENDADO"){ status = "class='table-warning'"}
+						if(data.status == "ANDAMENTO"){ status = "class='table-primary'"}
+						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'"}
+						if(data.status == "PAUSADO"){ status = "class='table-light'"}
+						if(data.status == "FINALIZADO"){ status = "class='table-success'"}
+						
 						var itens =
 						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
@@ -1177,12 +1351,12 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
-						+ '<td>' + data.versao + '</td>'
 						+ '<td '+alerta+'><b>' + duracao + '</b></td>'
+						+ '<td>' + data.versao + '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);
-						$('#exampleModal').modal('hide');
+						$('#edicaoModalNaoFinalizado').modal('hide');
 				},
 				error: function (e) { alert(e.data); }
 			});

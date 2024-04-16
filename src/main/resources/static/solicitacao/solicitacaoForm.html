@@ -3,6 +3,7 @@
 <head>
 	<title>Sistech | Solocitação Form</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -10,7 +11,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -101,215 +102,218 @@
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div id="form-solicitacao">
-			<fieldset>
-				<legend>Solicitação de Atendimento</legend>
-<!--				<p class="pull-right">-->
-<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
-<!--				</p>-->
-				<br/><br/>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
-									<option> </option>
-								</select>
+		<div class="container">
+			<div id="form-solicitacao">
+				<fieldset>
+					<legend>Solicitação de Atendimento</legend>
+	<!--				<p class="pull-right">-->
+	<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
+	<!--				</p>-->
+					<br/><br/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
+										<option> </option>
+									</select>
+								</div>
 							</div>
+							<br />
+	
 						</div>
-						<br />
-
-					</div>
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
-									<option value="TELEFONE">Telefone</option>
-									<option value="EMAIL">E-mail</option>
-									<option value="WHATSAPP">Whatsapp</option>
-									<option value="LOCAL">No local</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="control-label" for="solicitante"><b>Solicitante * </b>
-								<span id="botaoColaboradores">
-									
-								</span>
-							</label>
-							<div class="controls">
-								<select class="form-control solicitante mt-3" name="solicitante" id="solicitante">
-								</select>
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+										<option value="TELEFONE">Telefone</option>
+										<option value="EMAIL">E-mail</option>
+										<option value="WHATSAPP">Whatsapp</option>
+										<option value="LOCAL">No local</option>
+										<option value="PROATIVO">Proativo</option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
-							<div class="controls">
-								<select class="form-control usuario mt-2" name="afetado" id="afetado">
-								</select>
+	
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="solicitante"><b>Solicitante * </b>
+									<span id="botaoColaboradores">
+										
+									</span>
+								</label>
+								<div class="controls">
+									<select class="form-control solicitante mt-3" name="solicitante" id="solicitante">
+									</select>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
+								<div class="controls">
+									<select class="form-control usuario mt-2" name="afetado" id="afetado">
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<br />
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
+					<br />
+	
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
+								<div class="controls">
+									<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
+										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
+									<span id="contProb">300</span> Restantes <br>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-md-4">
+							<label class="control-label" for="observacao"><b>Observações</b></label>
 							<div class="controls">
-								<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
-									placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
-								<span id="contProb">300</span> Restantes <br>
+								<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
+									placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
+								<span id="contObs">300</span> Restantes <br>
 							</div>
 						</div>
 					</div>
-
-					<div class="col-md-4">
-						<label class="control-label" for="observacao"><b>Observações</b></label>
+					<br />
+	
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="categoria"><b>Categoria *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="categoria" name="categoria">
+										<option value="SOFTWARE">Software</option>
+										<option value="HARDWARE">Hardware</option>
+										<option value="EMAIL">Email</option>
+										<option value="SHAREPOINT">SharePoint</option>
+										<option value="INTERNET">Internet</option>
+										<option value="SERVIDORES">Servidores</option>
+										<option value="OUTROS">Outros</option>
+										<option value="REDE">Rede</option>
+										<option value="CABEAMENTO">Cabeamento</option>
+										<option value="SMARTPHONE">Smartphone</option>
+										<option value="PROJETO">Projeto</option>
+										<option value="BACKUP">Backup</option>
+									</select>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="classificacao"><b>Classificação *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="classificacao" name="classificacao">
+										<option value="INCIDENTE">Incidente</option>
+										<option value="PROBLEMA">Problema</option>
+										<option value="SOLICITACAO">Solicitação</option>
+										<option value="ACESSO">Acesso</option>
+										<option value="EVENTO">Evento</option>
+										<option value="BACKUP">Backup</option>
+									</select>
+								</div>
+							</div>
+	
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="prioridade" name="prioridade">
+										<option value="BAIXA">Baixa</option>
+										<option value="MEDIA">Media</option>
+										<option value="ALTA">Alta</option>
+										<option value="CRITICA">Crítico</option>
+										<option value="PLANEJADA">Planejada</option>
+									</select>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="local" name="local">
+										<option value="OFFSITE">Offsite</option>
+										<option value="ONSITE">Onsite</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="status"><b>Status *</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="status" name="status">
+										<option value="ABERTO">ABERTO</option>
+										<option value="ANDAMENTO">ANDAMENTO</option>
+										<option value="AGENDADO">AGENDADO</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4" id="agendamentos" style="display: none">
+							<div class="control-group">
+								<label class="control-label"><b>Data Agendamento *</b></label>
+								<div class="datetimepicker">
+									<input type="date" id="date" name="date" value="">
+									<span></span>
+									<input type="time" id="time" name="time" value="">
+								</div>
+								<div class="info">
+									<strong>Compatibility check:</strong>
+									Date "<span id="date-output"></span>",
+									Time "<span id="time-output"></span>"
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
 						<div class="controls">
-							<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
-								placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
-							<span id="contObs">300</span> Restantes <br>
+							<span id="botaoSalvar"></span>
+							<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
 						</div>
 					</div>
-				</div>
-				<br />
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="categoria"><b>Categoria *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="categoria" name="categoria">
-									<option value="SOFTWARE">Software</option>
-									<option value="HARDWARE">Hardware</option>
-									<option value="EMAIL">Email</option>
-									<option value="SHAREPOINT">SharePoint</option>
-									<option value="INTERNET">Internet</option>
-									<option value="SERVIDORES">Servidores</option>
-									<option value="OUTROS">Outros</option>
-									<option value="REDE">Rede</option>
-									<option value="CABEAMENTO">Cabeamento</option>
-									<option value="SMARTPHONE">Smartphone</option>
-									<option value="PROJETO">Projeto</option>
-									<option value="BACKUP">Backup</option>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="classificacao"><b>Classificação *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="classificacao" name="classificacao">
-									<option value="INCIDENTE">Incidente</option>
-									<option value="PROBLEMA">Problema</option>
-									<option value="SOLICITACAO">Solicitação</option>
-									<option value="ACESSO">Acesso</option>
-									<option value="EVENTO">Evento</option>
-									<option value="BACKUP">Backup</option>
-								</select>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="prioridade" name="prioridade">
-									<option value="BAIXA">Baixa</option>
-									<option value="MEDIA">Media</option>
-									<option value="ALTA">Alta</option>
-									<option value="CRITICA">Crítico</option>
-									<option value="PLANEJADA">Planejada</option>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="local" name="local">
-									<option value="OFFSITE">Offsite</option>
-									<option value="ONSITE">Onsite</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label" for="status"><b>Status *</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="status" name="status">
-									<option value="ABERTO">ABERTO</option>
-									<option value="ANDAMENTO">ANDAMENTO</option>
-									<option value="AGENDADO">AGENDADO</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="col-md-4" id="agendamentos" style="display: none">
-						<div class="control-group">
-							<label class="control-label"><b>Data Agendamento *</b></label>
-							<div class="datetimepicker">
-								<input type="date" id="date" name="date" value="">
-								<span></span>
-								<input type="time" id="time" name="time" value="">
-							</div>
-							<div class="info">
-								<strong>Compatibility check:</strong>
-								Date "<span id="date-output"></span>",
-								Time "<span id="time-output"></span>"
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<span id="botaoSalvar"></span>
-						<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
-					</div>
-				</div>
-				<br /><br />
-				<legend></legend>
-			</fieldset>
+					<br /><br />
+					<legend></legend>
+				</fieldset>
+			</div>
 		</div>
 		<br />
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
@@ -343,7 +347,7 @@
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
 		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
 			aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalLabelColaborador">
@@ -368,11 +372,9 @@
 							</tr>
 						</tbody>
 					</table>
-					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -415,7 +417,6 @@
 						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-8">
@@ -441,7 +442,6 @@
 								</select>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-12">
 								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>

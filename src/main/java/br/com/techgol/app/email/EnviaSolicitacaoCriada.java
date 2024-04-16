@@ -5,17 +5,29 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
+import br.com.techgol.app.model.ConfiguracaoEmail;
+import br.com.techgol.app.model.enums.Agendamentos;
+import br.com.techgol.app.services.ConfiguracaoEmailService;
 
 @Component
 public class EnviaSolicitacaoCriada {
 	
 		@Autowired
 	    private EnviadorEmail enviador;
+		
+		@Autowired
+		ConfiguracaoEmailService configuracaoEmailService;
 	
 		@Async("asyncExecutor")
 	    public void enviar(DtoSolicitacaoComFuncionario dados){
 	    	
-	        enviador.enviarEmailNovaSolicitacao(dados);
+			ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.ABERTURA.toString());
+			
+			if(config.getEmail() != null) {
+				enviador.enviarEmailNovaSolicitacao(dados, config.getEmail());
+			}else {
+				System.out.println("Não foi enviado email na abertura!");
+			}
 	    }
 
 }

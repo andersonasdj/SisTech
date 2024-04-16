@@ -3,6 +3,7 @@
 <head>
 	<title>SisTech - TechGold</title>
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
+	<link rel="stylesheet" href="assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/stylePerfil.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -10,7 +11,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -101,7 +102,7 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		 
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row justify-content-between">
 				    <div class="col-2 col-s-4">
 							<div id="containerPerfil">
@@ -111,13 +112,13 @@
 							<br/><br/>
 						</div>
 				    </div>
-				    <div class="col-6 col-s-6">
+				    <div class="col-7 col-s-6">
 						<br/>
 				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
 							<p><span id="dataUltimoLogin"></span></p>
 	
 				    </div>
-				    <div class="col-4 col-s-6">
+				    <div class="col-3 col-s-6">
 						<div class="calender">
 							<div class="top">
 								<span id="months">Janeiro</span>
@@ -139,26 +140,26 @@
 			 </div>
 		</div>
 		
-		<div class="container">
+		<div class="container-fluid">
 			<span id="agendamentosAtrasados"></span><br />
 			<span id="agendamentosHoje"></span>
 		</div>
 		<br />	
 		
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row justify-content-between">
-					<div class="col-5">
-						<canvas id="minhasSolicitacoes" style="height:60vh; width:40vw"></canvas>
+					<div class="col-4">
+						<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"></canvas>
 					</div>
-					<div class="col-5">
-						<canvas id="geralSolicitacoes" style="height:60vh; width:40vw"></canvas>
+					<div class="col-4">
+						<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"></canvas>
 					</div>
 			</div>
 		</div>
 
 		<br/><br/>
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->
@@ -278,6 +279,7 @@
 					    },
 					    options: {
 							 responsive: true,
+							  tension: 0.2,
 						     scales: { y: { min: 0, max: data.gerais.total } }
 						}
 					  });
