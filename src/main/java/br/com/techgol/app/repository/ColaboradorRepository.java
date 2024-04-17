@@ -21,5 +21,12 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 	
 	@Query(value = "SELECT * FROM colaboradores co WHERE co.id=:id", nativeQuery = true)
 	public Colaborador buscaPorId(Long id);
+	
+	
+	@Query(value = "SELECT COUNT(*) FROM colaboradores co WHERE co.cliente_id=:cliente_id AND co.nomeColaborador=:nomeColaborador AND co.email=:email", nativeQuery = true)
+	public int verificaSeExistePorId(Long cliente_id, String nomeColaborador, String email);
+	
+	@Query(value = "SELECT COUNT(*) FROM colaboradores co WHERE co.nomeColaborador=:nomeColaborador AND co.email=:email", nativeQuery = true)
+	public int verificaSeExistePorNome(String nomeColaborador, String email);
 
 }

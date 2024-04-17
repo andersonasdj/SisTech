@@ -1238,7 +1238,7 @@
 					$('#resolucaoModalNaoFinalizado').val(data.resolucao);
 					$('#observacaoModalNaoFinalizado').val(data.observacao);
 					
-					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					$('#nomeFuncionarioModalNaoFinalizado').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
 					}

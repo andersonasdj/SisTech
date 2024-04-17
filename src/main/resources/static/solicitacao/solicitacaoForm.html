@@ -433,7 +433,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
-								<input type="text" id="celularEdicaoModal" class="form-control"><br />
+								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
@@ -445,7 +445,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
-								<input type="text" id="emailEdicaoModal" class="form-control"><br />
+								<input type="text" id="emailEdicaoModal" name="emailEdicaoModal" class="form-control"><br />
 							</div>
 						</div>
 					</div>
@@ -506,11 +506,13 @@
 					$('#idEdicaoModal').val("");
 					$('#nomeEdicaoModal').val("");
 					$('#celularEdicaoModal').val("");
+					$('#emailEdicaoModal').val("");
 					$('#statusEdicaoModal').empty();
 					
 					$('#idEdicaoModal').val(data.id);
 					$('#nomeEdicaoModal').val(data.nomeColaborador);
 					$('#celularEdicaoModal').val(data.celular);
+					$('#emailEdicaoModal').val(data.email);
 					
 					if (data.vip == true) {
 						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
@@ -532,8 +534,7 @@
 			var nomeColaborador = $('#nomeEdicaoModal').val();
 			var celular = $('#celularEdicaoModal').val();
 			var vip = $('#statusEdicaoModal').val();
-			var email = $('emailEdicaoModal').val();
-
+			var email = $('#emailEdicaoModal').val();
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -548,7 +549,7 @@
 				success: function (data) {
 					editarColaboradores();
 					preencheSolicitante();
-					alert("atualizado com sucesso");
+					alert(data);
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -588,7 +589,7 @@
 					$('#nomeAddmodal').val("");
 					$('#celularAddmodal').val("");
 					$('#emailAddmodal').val("");
-					alert("salvo com sucesso!");
+					alert(data);
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },

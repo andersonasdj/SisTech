@@ -52,8 +52,8 @@ public class ColaboradorRestController {
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping //SALVA UM NOVO COLABORADOR POR ID DE UM CLIENTE
-	public void cadastrar(@RequestBody DtoColaboradorCadastrar dados) {
-		service.salvar(dados);
+	public String cadastrar(@RequestBody DtoColaboradorCadastrar dados) {
+		return service.salvar(dados);
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")

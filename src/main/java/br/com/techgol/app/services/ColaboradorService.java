@@ -24,10 +24,14 @@ public class ColaboradorService {
 	@Autowired
 	private ClienteRepository repositoryCliente;
 
-	public void salvar(DtoColaboradorCadastrar dados) {
-		
-		Cliente cliente = repositoryCliente.getReferenceById(dados.clienteId());
-		repository.save( new Colaborador(dados, cliente));
+	public String salvar(DtoColaboradorCadastrar dados) {
+		if(repository.verificaSeExistePorId(dados.clienteId(), dados.nomeColaborador(), dados.email()) > 0 ) {
+			return "Colaborador já existe!";
+		}else {
+			Cliente cliente = repositoryCliente.getReferenceById(dados.clienteId());
+			repository.save( new Colaborador(dados, cliente));
+			return "Colaborador criado!";
+		}
 	}
 	
 	@Transactional
@@ -35,10 +39,16 @@ public class ColaboradorService {
 		
 		if(repository.existsById(dados.id())) {
 			Colaborador colaborador = repository.getReferenceById(dados.id());
-			colaborador.setCelular(dados.celular());
-			colaborador.setNomeColaborador(dados.nomeColaborador());
-			colaborador.setVip(dados.vip());
-			return "Editado com sucesso!";
+			
+			if(repository.verificaSeExistePorNome(dados.nomeColaborador(), dados.email()) > 0 ) {
+				return "Salvamento duplicado";
+			}else {
+				colaborador.setCelular(dados.celular());
+				colaborador.setNomeColaborador(dados.nomeColaborador());
+				colaborador.setVip(dados.vip());
+				colaborador.setEmail(dados.email());
+				return "Editado com sucesso!!";
+			}
 		}else {
 			return "Colaborador não encontrado!";
 		}

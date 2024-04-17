@@ -535,7 +535,6 @@
 					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
 					
-					
 					if (data.ativo == true) {
 						$('#ativoModal').append("<option value=" + data.ativo + "> Ativado </option>");
 						$('#ativoModal').append("<option value=false>Desativado</option>");
@@ -610,7 +609,6 @@
 					$('#statusEdicaoModal').empty();
 					$('#emailEdicaoModal').val("");
 					
-					
 					$('#idEdicaoModal').val(data.id);
 					$('#nomeEdicaoModal').val(data.nomeColaborador);
 					$('#celularEdicaoModal').val(data.celular);
@@ -650,7 +648,7 @@
 					"email": email
 				}),
 				success: function (data) {
-					alert("atualizado com sucesso");
+					alert(data);
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -689,8 +687,8 @@
 				success: function (data) {
 					$('#nomeAddmodal').val("");
 					$('#celularAddmodal').val("");
-
-					alert("salvo com sucesso!");
+					$('#emailAddmodal').val("");
+					alert(data);
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -711,7 +709,6 @@
 			var vip = $('#vipModal').val();
 			var redFlag = $('#redFlagModal').val();
 			
-
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
