@@ -2,6 +2,8 @@ package br.com.techgol.app.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
@@ -12,6 +14,7 @@ import br.com.techgol.app.model.enums.Status;
 
 public record DtoSolicitacaoComFuncionario(
 		Long id,
+		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 		LocalDateTime dataAbertura,
 		String nomeCliente,
 		String solicitante,

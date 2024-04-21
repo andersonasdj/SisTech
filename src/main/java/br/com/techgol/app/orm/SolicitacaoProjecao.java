@@ -1,5 +1,9 @@
 package br.com.techgol.app.orm;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public interface SolicitacaoProjecao {
 	
 	Long getId();
@@ -17,10 +21,13 @@ public interface SolicitacaoProjecao {
 	String getStatus();
 	String getNomeCliente();
 	String getNomeFuncionario();
-	String getDataAbertura();
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	LocalDateTime getDataAbertura();
 	String getDuracao();
-	String getDataAtualizacao();
-	String getDataAgendado();
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	LocalDateTime getDataAtualizacao();
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	LocalDateTime getDataAgendado();
 	String getVersao();
 	boolean getVip();
 	boolean getRedFlag();

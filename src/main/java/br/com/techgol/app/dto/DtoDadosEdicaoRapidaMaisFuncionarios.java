@@ -1,6 +1,9 @@
 package br.com.techgol.app.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Categoria;
@@ -24,14 +27,16 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 		String funcionario,
 		String dataAgendado,
 		String horaAgendado,
-		String dataAtualizacao,
+		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+		LocalDateTime dataAtualizacao,
 		String solicitante,
 		String afetado,
 		FormaAbertura formaAbertura,
 		Integer versao,
 		String abertoPor,
 		List<String> funcionarios,
-		List<String> colaboradores) {
+		List<String> colaboradores,
+		Long clienteId ) {
 
 	public DtoDadosEdicaoRapidaMaisFuncionarios(Solicitacao dados, List<String> s, List<String> c) {
 		this(
@@ -47,14 +52,16 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				dados.getFuncionario().getNomeFuncionario(),
 				(dados.getDataAgendado()!= null) ? dados.getDataAgendado().toLocalDate().toString() : "",
 				(dados.getDataAgendado()!= null) ? dados.getDataAgendado().toLocalTime().toString() : "",
-				(dados.getDataAtualizacao().toLocalDate() + " - "+ dados.getDataAtualizacao().toLocalTime()).toString(),
+//				(dados.getDataAtualizacao().toLocalDate() + " - "+ dados.getDataAtualizacao().toLocalTime()).toString(),
+				dados.getDataAtualizacao(),
 				dados.getSolicitante(),
 				dados.getAfetado(),
 				dados.getFormaAbertura(),
 				dados.getVersao(),
 				dados.getAbertoPor(),
 				s,
-				c);
+				c,
+				dados.getCliente().getId());
 	}
 
 }

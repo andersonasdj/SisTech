@@ -40,6 +40,12 @@ public class ColaboradorRestController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/list/cliente/{id}/{nomeColaborador}") //RETORNA UMA PROJECAO DE COLABORADORES POR ID DE CLIENTE
+	public ResponseEntity<String> listarNomesCelularPorIdCliente(@PathVariable Long id, @PathVariable String nomeColaborador ) {
+		return ResponseEntity.ok().body(service.listarCelularColaborador(id, nomeColaborador));
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/edit/{id}") //RETORNA UMA DTO DE UM COLABORADOR PARA EDIÇÃO
 	public ResponseEntity<DtoColaboradorEdit> editar(@PathVariable Long id ) {
 		return ResponseEntity.ok().body(service.editaPorIdColaborador(id));

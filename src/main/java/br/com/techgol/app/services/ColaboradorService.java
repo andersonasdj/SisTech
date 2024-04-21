@@ -11,6 +11,7 @@ import br.com.techgol.app.dto.DtoColaboradorListar;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Colaborador;
 import br.com.techgol.app.orm.ColaboradorProjecao;
+import br.com.techgol.app.orm.ColaboradorProjecaoSimples;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.repository.ColaboradorRepository;
 import jakarta.transaction.Transactional;
@@ -25,7 +26,7 @@ public class ColaboradorService {
 	private ClienteRepository repositoryCliente;
 
 	public String salvar(DtoColaboradorCadastrar dados) {
-		if(repository.verificaSeExistePorId(dados.clienteId(), dados.nomeColaborador(), dados.email()) > 0 ) {
+		if(repository.verificaSeExistePorId(dados.clienteId(), dados.nomeColaborador()) > 0 ) {
 			return "Colaborador já existe!";
 		}else {
 			Cliente cliente = repositoryCliente.getReferenceById(dados.clienteId());
@@ -40,15 +41,11 @@ public class ColaboradorService {
 		if(repository.existsById(dados.id())) {
 			Colaborador colaborador = repository.getReferenceById(dados.id());
 			
-			if(repository.verificaSeExistePorNome(dados.nomeColaborador(), dados.email()) > 0 ) {
-				return "Salvamento duplicado";
-			}else {
 				colaborador.setCelular(dados.celular());
 				colaborador.setNomeColaborador(dados.nomeColaborador());
 				colaborador.setVip(dados.vip());
 				colaborador.setEmail(dados.email());
 				return "Editado com sucesso!!";
-			}
 		}else {
 			return "Colaborador não encontrado!";
 		}
@@ -67,6 +64,14 @@ public class ColaboradorService {
 		return repository.listarNomesColaboradoresPorIdCliente(id);
 	}
 	
+	public List<ColaboradorProjecaoSimples> listarNomesCelularIdCliente(Long id) {
+		return repository.listarNomesCelularColaboradoresPorIdCliente(id);
+	}
+	
+	public String listarCelularColaborador(Long id, String nomeColaborador) {
+		return repository.listarCelularColaborador(id, nomeColaborador);
+	}
+	
 	public boolean existeColaborador(Long id) {
 		return repository.existsById(id);
 	}
@@ -78,6 +83,5 @@ public class ColaboradorService {
 	public DtoColaboradorEdit editaPorIdColaborador(Long id) {
 			return new DtoColaboradorEdit(repository.buscaPorId(id));	
 	}
-	
 	
 }

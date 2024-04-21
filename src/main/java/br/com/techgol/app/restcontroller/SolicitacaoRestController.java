@@ -75,7 +75,7 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/relatorio/{status}/hoje")
 	public Page<SolicitacaoProjecao> listarRelatorioAtualizadasHoje(@PathVariable String status, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		   return solicitacaoService.listarSolicitacoesRelatorioHoje(page, status);
+		return solicitacaoService.listarSolicitacoesRelatorioHoje(page, status);
 	}
 	
 	@GetMapping("/relatorio/periodo/inicio/{inicio}/fim/{fim}")
@@ -83,7 +83,6 @@ public class SolicitacaoRestController {
 	
 	   return solicitacaoService.listarSolicitacoesPorPeriodo(page, inicio, fim);
 	}
-
 	
 	//	@GetMapping("/relatorio/atualizadas/hoje")
 //	public Page<SolicitacaoProjecao> listarRelatorioAtualizadasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {

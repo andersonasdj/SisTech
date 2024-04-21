@@ -25,7 +25,7 @@ public class CSVHelper {
 	      for (SolicitacaoProjecao solicitacao : solicitacoes) {
 	        List<String> data = Arrays.asList(
 	              String.valueOf(solicitacao.getId()),
-	              solicitacao.getDataAbertura(),
+	              solicitacao.getDataAbertura().toString(),
 	              solicitacao.getAbertoPor(),
 	              solicitacao.getNomeCliente(),
 	              solicitacao.getSolicitante(),
@@ -39,7 +39,7 @@ public class CSVHelper {
 	              solicitacao.getResolucao(),
 	              solicitacao.getStatus(),
 	              solicitacao.getNomeFuncionario(),
-	              solicitacao.getDataAtualizacao(),
+	              solicitacao.getDataAtualizacao().toString(),
 	              solicitacao.getDuracao(),
 	              solicitacao.getVersao()
 	            );

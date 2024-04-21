@@ -104,7 +104,7 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
-		<div class="container">
+		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col-7">
 					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-primary btn-sm" onclick="nova()">Nova </button>
@@ -193,7 +193,8 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-							
+						<span id="id_cliente" style="display: none;" ></span>
+						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
@@ -274,6 +275,26 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									<span style="color: blue;"  id="celSolicitante"></span>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<span style="color: blue;"  id="celAfetado"></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+
+								</div>
+							</div>
+						</div>
+						
 						
 						<div class="row">
 							<div class="col-md-4 ms-auto">
@@ -698,8 +719,10 @@
 					$('#dateModal').val("");
 					$('#timeModal').val("");
 					$('#formaAberturaModal').empty();
+					$('#id_cliente').text("");
 
 					$('#idmodal').text(data.id);
+					$('#id_cliente').text(data.clienteId);
 					$('#dataAtualizacaoModal').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
 					$('#versaoModal').text(data.versao);
 					$('#descricaomodal').val(data.descricao);
@@ -799,6 +822,41 @@
 						$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					}
+					
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.solicitante,
+						success: function (data) {
+							$('#celSolicitante').text(" ");
+							if(data != null){
+								$('#celSolicitante').text(data);
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { alert('Realize login novamente!'); }
+						}
+					});
+					
+					var nomeAfetado = $("#afetado").val();
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.afetado,
+						success: function (data) {
+							$('#celAfetado').text(" ");
+							if(data != null){
+								$('#celAfetado').text(data);
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { alert('Realize login novamente!'); }
+						}
+					});
+			
+					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -806,6 +864,52 @@
 				}
 			});
 		}
+		
+		$(document).ready(function () {
+			var divSolicitante = $("#nomeSolicitanteModal");
+			divSolicitante.on("change", function () {
+				var nomeColaborador = divSolicitante.val();
+				var id_cliente = $('#id_cliente').text();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celSolicitante').text(" ");
+						if(data != null){
+							$('#celSolicitante').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
+		
+		$(document).ready(function () {
+			var divAfetado = $("#nomeAfetadoModal");
+			divAfetado.on("change", function () {
+				var nomeColaborador = divAfetado.val();
+				var id_cliente = $('#id_cliente').text();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celAfetado').text(" ");
+						if(data != null){
+							$('#celAfetado').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
 		
 		function excluir() {
 			if (confirm("Tem certeza que deseja excluir a solicitação de ID: " + id + " ?") == true) {

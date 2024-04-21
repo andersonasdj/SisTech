@@ -208,7 +208,6 @@ public class SolicitacaoService {
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
 			solicitacao.setDataAndamento(null);
 			
-			
 			if(dados.dataAgendado() != null) {
 				if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
 					solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
@@ -514,7 +513,7 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		}else if(status.equals("agendadas")) {
 			return repository.listarSolicitacoesAgendadasHoje(page, hojeInicio, hojeFim);
 		}else if(status.equals("atrasadas")) {
-			return repository.listarSolicitacoesAgendadasAtrasadas(page, hojeInicio);
+			return repository.listarSolicitacoesAgendadasAtrasadas(page, LocalDateTime.now());
 		}else {
 			return null;
 		}

@@ -256,7 +256,7 @@
 						<h1 class="modal-title fs-5" id="modalLabelColaborador">
 							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
 								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
-							<input hidden id="idColaboradoCliente" name="idColaboradoCliente">
+							<input type="text" hidden id="idColaboradoCliente" name="idColaboradoCliente">
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
@@ -295,7 +295,7 @@
 						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
 						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
-						<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
+						<input type="tel" maxlength="12" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
 						<label class="form-label mt-2" for="emailAddmodal">Email</label>
 						<input type="text" id="emailAddmodal" class="form-control">
 					</div>
@@ -574,7 +574,7 @@
 				success: function (data) {
 					$('#tbColaboradoresCorpo').empty();
 					$('#idColaboradoCliente').empty();
-					$('#idColaboradoCliente').append(id);
+					$('#idColaboradoCliente').val(id);
 
 					var itens = data.map(i =>
 
@@ -635,6 +635,7 @@
 			var celular = $('#celularEdicaoModal').val();
 			var vip = $('#statusEdicaoModal').val();
 			var email = $('#emailEdicaoModal').val();
+			var idCliente = $('#idColaboradoCliente').val();
 
 			$.ajax({
 				type: "PUT",
@@ -645,7 +646,8 @@
 					"nomeColaborador": nomeColaborador,
 					"celular": celular,
 					"vip": vip,
-					"email": email
+					"email": email,
+					"idCliente": idCliente
 				}),
 				success: function (data) {
 					alert(data);
@@ -658,7 +660,7 @@
 		}
 
 		function novoColaborador() {
-			var id = $('#idColaboradoCliente').text();
+			var id = $('#idColaboradoCliente').val();
 			$('#idAddModal').val("");
 			$('#nomeAddmodal').val("");
 			$('#celularAddmodal').val("");

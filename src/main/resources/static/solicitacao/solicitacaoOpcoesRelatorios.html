@@ -4,6 +4,7 @@
 	<title>Sistech | Solocitação Relatórios</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
@@ -144,6 +145,24 @@
 					</div>
 				</div>
 			<legend> </legend>
+			
+		<div class="container-fluid">
+		  <div class="row">
+		    <div class="col-7">
+					
+					<a href="/sistech/solicitacao/form" class="btn btn-primary btn-sm">Nova </a>
+		    </div>
+		    <div class="col-1">
+				<a href="/sistech/solicitacao/relatorios"> <i class="bi bi-arrow-clockwise" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
+		    </div>
+		    <div class="col-4">
+				<div class="form-group pull-right">
+		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+				</div>
+				<span class="counter pull-right"></span>
+		    </div>
+		</div>
+		</div>
 			<div class="table-responsive">
 				<table id="tabela-resultados" class="table table-striped" style="text-align: center;">
 					<thead>
@@ -369,6 +388,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
+						<span id="id_cliente" style="display: none;" ></span>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
@@ -438,6 +458,24 @@
 										<select class="form-select mt-2" id="formaAberturaModalNaoFinalizado" name="formaAberturaModalNaoFinalizado">
 										</select>
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									<span style="color: blue;"  id="celSolicitante"></span>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+									<span style="color: blue;"  id="celAfetado"></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-2">
+
 								</div>
 							</div>
 						</div>
@@ -567,35 +605,40 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
 	<script>
-		$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/solicitacao/relatorio",
-			success: function (data) {
-				
-				$('#btnAbertosHoje').text(data.abertosHoje);
-				$('#btnFinalizadosHoje').text(data.finalizadosHoje);
-				$('#btnAtualizadosHoje').text(data.atualizadosHoje);
-				$('#btnAgendadosHoje').text(data.agendadosHoje);
-				$('#btnAtrasadosHoje').text(data.agendadosAtrasados);
-
-				for (var i = 0; i < data.relatorioFuncionario.length; i++) {
-					var itens = '<tr>'
-					+ '<td>'+data.relatorioFuncionario[i].nome+'</td>'
-					+ '<td>'+data.relatorioFuncionario[i].aberto+'</td>'
-					+ '<td>'+data.relatorioFuncionario[i].andamento+'</td>'
-					+ '<td>'+data.relatorioFuncionario[i].agendado+'</td>/'
-					+ '<td>'+data.relatorioFuncionario[i].aguardando+'</td>'
-					+ '<td>'+data.relatorioFuncionario[i].total+'</td>'
-					+ '</tr>'
-					$('#tabela-resultados').append(itens);
+		preencheBotoesTabela();
+		
+		
+		function preencheBotoesTabela(){
+				$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/relatorio",
+				success: function (data) {
+					
+					$('#btnAbertosHoje').text(data.abertosHoje);
+					$('#btnFinalizadosHoje').text(data.finalizadosHoje);
+					$('#btnAtualizadosHoje').text(data.atualizadosHoje);
+					$('#btnAgendadosHoje').text(data.agendadosHoje);
+					$('#btnAtrasadosHoje').text(data.agendadosAtrasados);
+	
+					for (var i = 0; i < data.relatorioFuncionario.length; i++) {
+						var itens = '<tr>'
+						+ '<td>'+data.relatorioFuncionario[i].nome+'</td>'
+						+ '<td>'+data.relatorioFuncionario[i].aberto+'</td>'
+						+ '<td>'+data.relatorioFuncionario[i].andamento+'</td>'
+						+ '<td>'+data.relatorioFuncionario[i].agendado+'</td>/'
+						+ '<td>'+data.relatorioFuncionario[i].aguardando+'</td>'
+						+ '<td>'+data.relatorioFuncionario[i].total+'</td>'
+						+ '</tr>'
+						$('#tabela-resultados').append(itens);
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
-			},
-			statusCode: {
-			    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-			    401: function() { alert('Realize login novamente!'); }
-			}
-		});
+			});	
+		}	
 		
 		function abertoHoje(){
 			$('#corpoSolicitacoes').empty();
@@ -1140,6 +1183,7 @@
 						$('#linha' + data.id).remove();
 						$('#tabela-solicitacoes').append(itens);
 						$('#edicaoModal').modal('hide');
+						preencheBotoesTabela();
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1231,7 +1275,9 @@
 					$('#dataModalNaoFinalizado').val("");
 					$('#horaModalNaoFinalizado').val("");
 					$('#formaAberturaModalNaoFinalizado').empty();
+					$('#id_cliente').text("");
 
+					$('#id_cliente').text(data.clienteId);
 					$('#idModalNaoFinalizado').text(data.id);
 					$('#dataAtualizacaoModalNaoFinalizado').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
 					$('#descricaoModalNaoFinalizado').val(data.descricao);
@@ -1331,11 +1377,49 @@
 						$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
 						document.getElementById('agendamentosmodal').style.display = 'none';
 					}
+					
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.solicitante,
+						success: function (data) {
+							$('#celSolicitante').text(" ");
+							if(data != null){
+								$('#celSolicitante').text(data);
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { alert('Realize login novamente!'); }
+						}
+					});
+					
+					var nomeAfetado = $("#afetado").val();
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.afetado,
+						success: function (data) {
+							$('#celAfetado').text(" ");
+							if(data != null){
+								$('#celAfetado').text(data);
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { alert('Realize login novamente!'); }
+						}
+					});
+					
+					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
 				    401: function() { alert('Realize login novamente!'); }
 				}
+				
+				
+				
 			});
 		}
 		
@@ -1424,6 +1508,7 @@
 						$('#linha' + data.id).remove();
 						$('#tabela-solicitacoes').append(itens);
 						$('#edicaoModalNaoFinalizado').modal('hide');
+						preencheBotoesTabela();
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1445,6 +1530,7 @@
 							remove.remove();
 						});
 						$('#edicaoModalNaoFInalizado').modal('hide');
+						preencheBotoesTabela();
 					},
 					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
 				});
@@ -1460,6 +1546,81 @@
 			}else {
 				document.getElementById('agendamentosmodal').style.display = 'none';
 			}
+		});
+		
+		
+		$(document).ready(function () {
+			var divSolicitante = $("#nomeSolicitanteModalNaoFinalizado");
+			divSolicitante.on("change", function () {
+				var nomeColaborador = divSolicitante.val();
+				var id_cliente = $('#id_cliente').text();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celSolicitante').text(" ");
+						if(data != null){
+							$('#celSolicitante').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
+		
+		$(document).ready(function () {
+			var divAfetado = $("#nomeAfetadoModalNaoFinalizado");
+			divAfetado.on("change", function () {
+				var nomeColaborador = divAfetado.val();
+				var id_cliente = $('#id_cliente').text();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celAfetado').text(" ");
+						if(data != null){
+							$('#celAfetado').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+		  $(".search").keyup(function () {
+		    var searchTerm = $(".search").val();
+		    var listItem = $('.results tbody').children('tr');
+		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		    
+		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+		        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		  });
+		    
+		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','false');
+		  });
+		
+		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','true');
+		  });
+		
+		  var jobCount = $('.results tbody tr[visible="true"]').length;
+		    $('.counter').text(jobCount + ' item');
+		
+		  if(jobCount == '0') {$('.no-result').show();}
+		    else {$('.no-result').hide();}
+				  });
 		});
 	</script>
 </body>

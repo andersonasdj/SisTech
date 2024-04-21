@@ -164,8 +164,21 @@
 							</div>
 						</div>
 					</div>
-					<br />
+					
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group mt-2">
+								<span style="color: blue;"  id="celSolicitante"></span>
+							</div>
+						</div>
 	
+						<div class="col-md-4">
+							<div class="control-group mt-1">
+								<span style="color: blue;"  id="celAfetado"></span>
+							</div>
+						</div>
+					</div>
+					<br />
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
@@ -535,6 +548,7 @@
 			var celular = $('#celularEdicaoModal').val();
 			var vip = $('#statusEdicaoModal').val();
 			var email = $('#emailEdicaoModal').val();
+			var idCliente = $('#nomeCliente').val();
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -544,7 +558,8 @@
 					"nomeColaborador": nomeColaborador,
 					"celular": celular,
 					"vip": vip,
-					"email": email
+					"email": email,
+					"idCliente": idCliente
 				}),
 				success: function (data) {
 					editarColaboradores();
@@ -695,7 +710,8 @@
 					$('#afetado').empty();
 					$('#date').val("");
 					$('#time').val("");
-					
+					$('#celSolicitante').text("");
+					$('#celAfetado').text("");
 					alert("Solicitação criada com sucesso!");
 				},
 				statusCode: {
@@ -711,6 +727,52 @@
 			var divCliente = $("#nomeCliente");
 			divCliente.on("change", function () {
 				preencheSolicitante();
+			});
+		});
+		
+		$(document).ready(function () {
+			var divSolicitante = $("#solicitante");
+			divSolicitante.on("change", function () {
+				var nomeColaborador = divSolicitante.val();
+				var id_cliente = $('#nomeCliente').val();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celSolicitante').text(" ");
+						if(data != null){
+							$('#celSolicitante').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
+		
+		$(document).ready(function () {
+			var divAfetado = $("#afetado");
+			divAfetado.on("change", function () {
+				var nomeColaborador = divAfetado.val();
+				var id_cliente = $('#nomeCliente').val();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celAfetado').text(" ");
+						if(data != null){
+							$('#celAfetado').text(data);
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
 			});
 		});
 		
@@ -780,6 +842,42 @@
 							});
 							$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
 							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+							
+							var id_cliente = $('#nomeCliente').val();
+							var nomeSolicitante = $("#solicitante").val();
+							
+							$.ajax({
+								type: "GET",
+								contentType: "application/json",
+								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeSolicitante,
+								success: function (data) {
+									$('#celSolicitante').text(" ");
+									if(data != null){
+										$('#celSolicitante').text(data);
+									}
+								},
+								statusCode: {
+								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+								    401: function() { alert('Realize login novamente!'); }
+								}
+							});
+							
+							var nomeAfetado = $("#afetado").val();
+							$.ajax({
+								type: "GET",
+								contentType: "application/json",
+								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeAfetado,
+								success: function (data) {
+									$('#celAfetado').text(" ");
+									if(data != null){
+										$('#celAfetado').text(data);
+									}
+								},
+								statusCode: {
+								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+								    401: function() { alert('Realize login novamente!'); }
+								}
+							});
 						}
 					},
 					statusCode: {
