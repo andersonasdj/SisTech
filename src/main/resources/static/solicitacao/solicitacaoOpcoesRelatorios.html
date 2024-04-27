@@ -40,6 +40,10 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
+									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
@@ -217,7 +221,9 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
-							<span id="idModalEdicao"> </span>
+							<span id="idModalEdicaoModalEdicao"> </span>
+							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
+							<span hidden id="idHistoricoModalEdicao"></span>
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
@@ -385,6 +391,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
+						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoNaoFinalizado()">Histórico</button>
+							<span hidden id="idHistoricoModalEdicaoNaoFinalizado"></span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -566,7 +574,33 @@
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
-		
+		<!-- ################################################### Modal HISTORICO ############################################# -->
+		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-3" for="log"><b>LOG</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="20" id="log"
+									class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ########################################## Modal HISTORICO ############################################# -->
 		<br />
 		<footer class="text-center text-white">
 			<div class="container-fluid">
@@ -607,6 +641,40 @@
 	<script>
 		preencheBotoesTabela();
 		
+		function exibeHistoricoNaoFinalizado(){
+			
+			var id = $('#idHistoricoModalEdicaoNaoFinalizado').text();
+			$('#log').val("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/log/"+id,
+			success: function (data) {
+				$('#log').val(data);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		}
+		function exibeHistoricoFinalizado(){
+			
+			var id = $('#idHistoricoModalEdicao').text();
+			$('#log').val("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/log/"+id,
+			success: function (data) {
+				$('#log').val(data);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		} 
 		
 		function preencheBotoesTabela(){
 				$.ajax({
@@ -983,6 +1051,7 @@
 				url: "/sistech/solicitacao/relatorio/editar/" + id,
 				success: function (data) {
 
+					$('#idHistoricoModalEdicao').text("");
 					$('#idModalEdicao').text("");
 					$('#dataAtualizacaoModalEdicao').text("");
 					$('#descricaomodal').val("");
@@ -1004,6 +1073,7 @@
 					$('#solicitantemodal').empty();
 					$('#afetadomodal').empty();
 					
+					$('#idHistoricoModalEdicao').text(data.log_id);
 					$('#dataAberturaModalEdicao').val(data.dataAbertura);
 					$('#horaAberturaModalEdicao').val(data.horaAbertura);
 					$('#dataAndamentoModalEdicao').val(data.dataAndamento);
@@ -1259,6 +1329,7 @@
 				url: "/sistech/solicitacao/busca/" + id,
 				success: function (data) {
 
+					$('#idHistoricoModalEdicaoNaoFinalizado').text("");
 					$('#idModalNaoFinalizado').text("");
 					$('#dataAtualizacaoModalNaoFinalizado').text("");
 					$('#descricaoModalNaoFinalizado').val("");
@@ -1277,6 +1348,7 @@
 					$('#formaAberturaModalNaoFinalizado').empty();
 					$('#id_cliente').text("");
 
+					$('#idHistoricoModalEdicaoNaoFinalizado').text(data.log_id);
 					$('#id_cliente').text(data.clienteId);
 					$('#idModalNaoFinalizado').text(data.id);
 					$('#dataAtualizacaoModalNaoFinalizado').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);

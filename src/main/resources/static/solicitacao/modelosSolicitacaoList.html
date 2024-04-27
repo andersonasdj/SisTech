@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sistech | Solocitação Form</title>
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
+	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="container-fluid">
+		<br />
+		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
+						</li>
+						
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Solicitações
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Clientes
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Funcionarios
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Dashboard
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+								<li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout">
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+							</a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ################### ################## BARRA DE NAVEGAÇÃO  ##################################################### -->
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		
+		<div class="container">
+		  <div class="row">
+		    <div class="col-3">
+					<button data-bs-toggle="modal" data-bs-target="#addModeloModal" class="btn btn-primary btn-sm">Novo Modelo </button>
+		    </div>
+		    <div class="col-4">
+				
+		    </div>
+		    <div class="col-4">
+				<h5>Cadastro de modelos de solicitações</h5>
+		    </div>
+		  </div>
+		</div>
+		<br />
+		
+		<div class="container" >
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered results sortable" id="tabela-modelos" style="text-align: center;">
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Nome do Modelo</th>
+						</tr>
+					</thead>
+					<tbody id="corpoModelos">
+						<tr>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- ####################################### MODAL ADICIONA MODELO ############################################# -->
+		<div class="modal fade" id="addModeloModal" tabindex="-1" aria-labelledby="addModeloModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Modelo</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<label class="form-label mt-2" for="nomeModeloAddmodal">Nome do Modelo</label>
+						<input type="text" id="nomeModeloAddmodal" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="salvarModelo()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
+		
+		<!-- ########################################### MODAL EDITA MODELO ################################################# -->
+		<div class="modal fade" id="editModeloModal" tabindex="-1" aria-labelledby="editModeloModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Edição de Modelo  </h1>
+							
+						
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<label class="form-label mt-2" for="idModeloEditmodal">ID Modelo</label>
+						<input type="text" id="idModeloEditmodal" class="form-control" readonly>
+					</div>
+					<div class="modal-body">
+						<label class="form-label mt-2" for="nomeModeloAddmodal">Nome do Modelo</label>
+						<input type="text" id="nomeModeloEditmodal" class="form-control">
+					</div><br />
+					
+					
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastraModelos" onclick="novaSolicitacaoModelo()">Adicionar solicitação</button>
+								</div>
+							</div>
+		
+							<div class="col-md-4">
+								<div class="control-group">
+									<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalListaSolicitacoesModelo" onclick="listarSolicitacaoModelo()">Listar meus Modelos</button>
+	
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizaModelo()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ############################################ MODAL EDITA COLABORADOR ############################################### -->
+
+		<!-- #################################### MODAL CADASTRO SOLICITACAO MODELO ######################################### -->
+		<div class="modal fade" id="modalCadastraModelos" tabindex="-1" aria-labelledby="modalCadastraModelos"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">Solicitação de Modelo
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="container">
+						<div id="form-solicitacao">
+								<br/>
+								<input hidden type="text" id="idConjunto" name="idConjunto">
+								<div class="row">
+									<div class="col-md-6">
+									<div class="control-group">
+											<label class="control-label" for="status"><b>Status *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="status" name="status">
+													<option value="ABERTO">ABERTO</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+													<option value="TELEFONE">Telefone</option>
+													<option value="EMAIL">E-mail</option>
+													<option value="WHATSAPP">Whatsapp</option>
+													<option value="LOCAL">No local</option>
+													<option value="PROATIVO">Proativo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+				
+								<br />
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
+											<div class="controls">
+												<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
+													placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
+												<span id="contProb">300</span> Restantes <br>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<label class="control-label" for="observacao"><b>Observações</b></label>
+										<div class="controls">
+											<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
+												placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
+											<span id="contObs">300</span> Restantes <br>
+										</div>
+									</div>
+								</div>
+								<br />
+				
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="categoria"><b>Categoria *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="categoria" name="categoria">
+													<option value="SOFTWARE">Software</option>
+													<option value="HARDWARE">Hardware</option>
+													<option value="EMAIL">Email</option>
+													<option value="SHAREPOINT">SharePoint</option>
+													<option value="INTERNET">Internet</option>
+													<option value="SERVIDORES">Servidores</option>
+													<option value="OUTROS">Outros</option>
+													<option value="REDE">Rede</option>
+													<option value="CABEAMENTO">Cabeamento</option>
+													<option value="SMARTPHONE">Smartphone</option>
+													<option value="PROJETO">Projeto</option>
+													<option value="BACKUP">Backup</option>
+												</select>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="classificacao"><b>Classificação *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="classificacao" name="classificacao">
+													<option value="INCIDENTE">Incidente</option>
+													<option value="PROBLEMA">Problema</option>
+													<option value="SOLICITACAO">Solicitação</option>
+													<option value="ACESSO">Acesso</option>
+													<option value="EVENTO">Evento</option>
+													<option value="BACKUP">Backup</option>
+												</select>
+											</div>
+										</div>
+				
+									</div>
+								</div>
+								<br />
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="prioridade" name="prioridade">
+													<option value="BAIXA">Baixa</option>
+													<option value="MEDIA">Media</option>
+													<option value="ALTA">Alta</option>
+													<option value="CRITICA">Crítico</option>
+													<option value="PLANEJADA">Planejada</option>
+												</select>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="local" name="local">
+													<option value="OFFSITE">Offsite</option>
+													<option value="ONSITE">Onsite</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br />
+								<div class="row">
+									<div class="col-md-4">
+										
+									</div>
+								</div>
+								<br />
+								
+								<div class="modal-footer">
+									<div class="controls">
+										<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModeloModal">Fechar</button>
+										<button type="button" class="btn btn-success" onclick="salvarSolicitacaoModelo()">Salvar</button>
+									</div>
+								</div>
+								
+							<legend></legend>
+						</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #################################### MODAL CADASTRO SOLICITACAO MODELO ######################################### -->
+		<!-- #################################### MODAL EDICAO SOLICITACAO MODELO ######################################### -->
+		<div class="modal fade" id="modalEditaModelos" tabindex="-1" aria-labelledby="modalEditaModelos"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalEditaModelos">Edição de Modelo
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="container">
+						<div id="form-solicitacao">
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-4">
+											<div class="control-group">
+												<label class="form-label mt-2" for="idModalEdit">ID Modelo</label>
+												<input type="text" id="idModalEdit" class="form-control" readonly>
+											</div>
+									</div>
+									<div class="col-md-4">
+											<div class="control-group">
+											</div>
+									</div>
+								</div>
+								
+								
+								<div class="row">
+									<div class="col-md-6">
+									<div class="control-group">
+											<label class="control-label mt-2" for="statusModalEdit"><b>Status *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="statusModalEdit" name="statusModalEdit">
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label mt-2" for="formaAberturaModalEdit"><b>Forma de Abertura *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="formaAberturaModalEdit" name="formaAberturaModalEdit">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+				
+								<br />
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="descricaoModalEdit"><b>Problema Relatado *</b></label>
+											<div class="controls">
+												<textarea class="form-control mt-2" rows="4" id="descricaoModalEdit" name="descricaoModalEdit" type="text"
+													placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
+												<span id="contProb">300</span> Restantes <br>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<label class="control-label" for="observacaoModalEdit"><b>Observações</b></label>
+										<div class="controls">
+											<textarea class="form-control mt-2" rows="4" id="observacaoModalEdit" name="observacaoModalEdit" type="text"
+												placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
+											<span id="contObs">300</span> Restantes <br>
+										</div>
+									</div>
+								</div>
+								<br />
+				
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="categoriaModalEdit"><b>Categoria *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="categoriaModalEdit" name="categoriaModalEdit">
+												</select>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="classificacaoModalEdit"><b>Classificação *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="classificacaoModalEdit" name="classificacaoModalEdit">
+												</select>
+											</div>
+										</div>
+				
+									</div>
+								</div>
+								<br />
+								<div class="row">
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="prioridadeModalEdit"><b>Prioridade *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="prioridadeModalEdit" name="prioridadeModalEdit">
+												</select>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="control-label" for="localModalEdit"><b>Onsite / Offsite *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="localModalEdit" name="localModalEdit">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br />
+								<div class="row">
+									<div class="col-md-4">
+										
+									</div>
+								</div>
+								<br />
+								<div class="modal-footer">
+									<div class="controls">
+										<button class="btn btn-danger btn-sm" onclick=excluirSolicitacaoModelo()><i class="bi bi-trash"></i></button>
+										<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModeloModal">Fechar</button>
+										<button type="button" class="btn btn-success" onclick="atualizaSolicitacaoModelo()">Salvar</button>
+									</div>
+								</div>
+							<legend></legend>
+						</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #################################### MODAL EDICAO SOLICITACAO MODELO ######################################### -->
+		
+		<!-- ################################# MODAL LISTA DE SOLICITACOES MODELO ########################################### -->
+		<div class="modal fade" id="modalListaSolicitacoesModelo" tabindex="-1" aria-labelledby="modalListaSolicitacoesModelo"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalListaSolicitacoesModelo"> Solicitações Modelo
+							<input type="text" hidden id="idColaboradoCliente" name="idColaboradoCliente">
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<table class="table" id="tabela-solicitacoes-modelos">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Descrição</th>
+								<th scope="col">Observação</th>
+							</tr>
+						</thead>
+						<tbody id="tbSolicitacoesModeloCorpo">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModeloModal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################# MODAL LISTA DE SOLICITACOES MODELO ########################################### -->		
+		
+		<br />
+		<footer class="text-center text-white">
+			<div class="container-fluid">
+				<!-- Grid container -->
+				<div class="p-4 pb-0">
+					<!-- Section: Social media -->
+					<section id="removetocel" class="mb-4">
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
+							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
+							role="button"></a>
+					</section>
+					<!-- Section: Social media -->
+				</div>
+				<!-- Grid container -->
+
+				<!-- Copyright -->
+				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+					2024 Copyright:
+					<a class="text-white" href="#">Techgold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
+		</footer>
+		
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+		<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-8">
+								<label class="form-label" for="nomeEdicaoModal"><b>Nome</b></label>
+								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
+							</div>
+
+							<div class="col-md-4 ms-auto">
+								<label class="form-label" for="idEdicaoModal">ID</label>
+								<input type="text" id="idEdicaoModal" class="form-control" readonly>
+								</di>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
+								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
+								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
+		
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
+								<input type="text" id="emailEdicaoModal" name="emailEdicaoModal" class="form-control"><br />
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+	</div>
+
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script>
+		listarModelos();
+		
+		
+		function salvarModelo(){
+			var nomeModelo = $('#nomeModeloAddmodal').val();
+			
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo",
+				data: JSON.stringify({
+					"nomeModelo": nomeModelo
+				}),
+				success: function (data) {
+					alert("Cadastrado com sucesso");
+						
+					var itens =
+					'<tr id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#editModeloModal" onclick=editarModelo(' + data.id + ')>'
+					+ '<td id=name' + data.id + '>' + data.id + '</td>'
+					+ '<td>' + data.nomeModelo + '</td>'
+					+ '</tr>'
+					
+					$('#tabela-modelos').append(itens);
+					$('#addModeloModal').modal('hide');
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		}
+		
+		function listarModelos(){
+			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo",
+				success: function (data) {
+					
+					data.map(i => {
+						var status;
+						
+						var itens = 
+						'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#editModeloModal" onclick=editarModelo(' + i.id + ')>'
+						+ '<td id=name' + i.id + '>' + i.id + '</td>'
+						+ '<td>' + i.nomeModelo + '</td>'
+						+ '</tr>'
+						$('#tabela-modelos').append(itens);
+						}
+					);
+				},
+				statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); },
+					    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		}
+		
+		function editarModelo(id){
+			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo/"+id,
+				success: function (data) {
+
+					if(data != null){
+						$('#idModeloEditmodal').val(data.id);
+						$('#nomeModeloEditmodal').val(data.nomeModelo);
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		}
+		
+		function atualizaModelo(){
+			
+			var id = $('#idModeloEditmodal').val();
+			var nomeModelo = $('#nomeModeloEditmodal').val();
+			
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo",
+				data: JSON.stringify({
+					"id": id,
+					"nomeModelo": nomeModelo
+				}),
+				success: function (data) {
+					
+					alert("atualizado com sucesso");
+						
+					var itens =
+					'<tr id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#editModeloModal" onclick=editarModelo(' + data.id + ')>'
+					+ '<td id=name' + data.id + '>' + data.id + '</td>'
+					+ '<td>' + data.nomeModelo + '</td>'
+					+ '</tr>'
+					
+					$('#linha' + data.id).remove();
+					$('#tabela-modelos').append(itens);
+					$('#editModeloModal').modal('hide');
+					
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+			
+		}
+		 function novaSolicitacaoModelo(){
+			 
+			 var id_Conjunto = $('#idModeloEditmodal').val();
+			 $('#idConjunto').text(id_Conjunto);
+			 
+		 }
+		 
+		 function salvarSolicitacaoModelo(){
+			 
+			 var idConjunto = $('#idConjunto').text();
+			 var formaAbertura = $('#formaAbertura').val();
+			 var descricao = $('#descricao').val();
+			 var observacao = $('#observacao').val();
+			 var categoria = $('#categoria').val();
+			 var classificacao = $('#classificacao').val();
+			 var prioridade = $('#prioridade').val();
+			 var local = $('#local').val();
+			 var status = $('#status').val();
+			 
+			 $.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo/exemplo",
+				data: JSON.stringify({
+					"idConjunto":idConjunto,
+					"formaAbertura": formaAbertura,
+					"descricao": descricao,
+					"observacao": observacao,
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"prioridade": prioridade,
+					"local": local,
+					"status": status
+				}),
+				success: function (data) {
+					$('#modalCadastraModelos').modal('hide');
+					alert("Cadastrado com sucesso");
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		 }
+		 
+		 function listarSolicitacaoModelo(){
+			 
+			var idConjunto =  $('#idModeloEditmodal').val();
+			 
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo/solicitacoes/"+idConjunto,
+				success: function (data) {
+
+					if(data != null){
+						
+						$('#tbSolicitacoesModeloCorpo').empty();
+
+						data.map(i => {
+							var status;
+							
+							var itens = 
+							'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEditaModelos" onclick=carregaSolicitacaoModelo(' + i.id + ')>'
+							+ '<td id=name' + i.id + '>' + i.id + '</td>'
+							+ '<td>' + i.descricao + '</td>'
+							+ '<td>' + i.observacao + '</td>'
+							+ '</tr>'
+							$('#tabela-solicitacoes-modelos').append(itens);
+							}
+						);
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		 }
+		 
+		 function carregaSolicitacaoModelo(id){
+			 
+			 $.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo/solicitacao/"+id,
+				success: function (data) {
+
+					if(data != null){
+						
+						$('#idModalEdit').val("");
+						$('#categoriaModalEdit').empty();
+						$('#classificacaoModalEdit').empty();
+						$('#descricaoModalEdit').val("");
+						$('#formaAberturaModalEdit').empty();
+						$('#localModalEdit').empty();
+						$('#observacaoModalEdit').val("");
+						$('#prioridadeModalEdit').empty();
+						$('#statusModalEdit').empty();
+						
+						$('#idModalEdit').val(data.id);
+						$('#descricaoModalEdit').val(data.descricao);
+						$('#observacaoModalEdit').val(data.observacao);
+						
+						$('#statusModalEdit').append("<option value=" + data.status + ">" + data.status + "</option>");
+						$('#statusModalEdit').append("<option value=ABERTO>ABERTO</option>");
+						
+						$('#localModalEdit').append("<option value="+ data.local +">"+ data.local+"</option>"
+						+'<option value="ONSITE">ONSITE</option>'
+						+'<option value="OFFSITE">OFFSITE</option>');
+						
+						$('#formaAberturaModalEdit').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+						+'<option value="TELEFONE">TELEFONE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="WHATSAPP">WHATSAPP</option>'
+						+'<option value="LOCAL">LOCAL</option>'
+						+'<option value="PROATIVO">PROATIVO</option>'
+						);
+
+						$('#prioridadeModalEdit').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
+						+'<option value="BAIXA">BAIXA</option>'
+						+'<option value="MEDIA">MEDIA</option>'
+						+'<option value="ALTA">ALTA</option>'
+						+'<option value="CRITICA">CRITICA</option>'
+						+'<option value="PLANEJADA">PLANEJADA</option>');
+						
+						$('#categoriaModalEdit').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
+						+'<option value="SOFTWARE">SOFTWARE</option>'
+						+'<option value="HARDWARE">HARDWARE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="SHAREPOINT">SHAREPOINT</option>'
+						+'<option value="INTERNET">INTERNET</option>'
+						+'<option value="SERVIDORES">SERVIDORES</option>'
+						+'<option value="OUTROS">OUTROS</option>'
+						+'<option value="REDE">REDE</option>'
+						+'<option value="CABEAMENTO">CABEAMENTO</option>'
+						+'<option value="SMARTPHONE">SMARTPHONE</option>'
+						+'<option value="PROJETO">PROJETO</option>'
+						+'<option value="BACKUP">BACKUP</option>"');
+
+						$('#classificacaoModalEdit').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
+						+'<option value="INCIDENTE">INCIDENTE</option>'
+						+'<option value="PROBLEMA">PROBLEMA</option>'
+						+'<option value="SOLICITACAO">SOLICITACAO</option>'
+						+'<option value="ACESSO">ACESSO</option>'
+						+'<option value="EVENTO">EVENTO</option>'
+						+'<option value="BACKUP">BACKUP</option>');
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		 }
+		 
+		 function atualizaSolicitacaoModelo(){
+			 
+			var id = $('#idModalEdit').val();
+			var categoria = $('#categoriaModalEdit').val();
+			var classificacao = $('#classificacaoModalEdit').val();
+			var descricao = $('#descricaoModalEdit').val();
+			var formaAbertura = $('#formaAberturaModalEdit').val();
+			var local = $('#localModalEdit').val();
+			var observacao = $('#observacaoModalEdit').val();
+			var prioridade = $('#prioridadeModalEdit').val();
+			var status = $('#statusModalEdit').val();
+			 
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/api/solicitacao/modelo/solicitacao",
+				data: JSON.stringify({
+					"id": id,
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"descricao": descricao,
+					"formaAbertura": formaAbertura,
+					"local": local,
+					"observacao": observacao,
+					"prioridade": prioridade,
+					"status": status
+				}),
+				success: function (data) {
+					alert(data);
+					$('#modalEditaModelos').modal('hide');
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Você não possui permissão para essa operação!'); }
+				}
+			});
+		 }
+		 
+		 function excluirSolicitacaoModelo(){
+			 
+			 
+			 var id = $('#idModalEdit').val();
+			 
+			 if (confirm("Tem certeza que deseja excluir esse modelo de ID: " + id + " ?") == true) {
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/api/solicitacao/modelo/solicitacao/" + id,
+					success: function (data) {
+						alert(data);
+						$('#modalEditaModelos').modal('hide');
+					},
+					error: function (e) { alert("Voce não possui permissão para esta operação!"); }
+				});
+			}
+		 }
+		 
+		 function limite_textarea_prob(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contProb').innerHTML = resto;
+			} else {
+				document.getElementById('descricao').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_obs(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contObs').innerHTML = resto;
+			} else {
+				document.getElementById('observacao').value = valor.substr(0, quant);
+			}
+		}
+	</script>
+</body>
+</html>

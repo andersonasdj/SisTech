@@ -19,6 +19,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -98,6 +99,10 @@ public class Solicitacao {
 	@Version
 	private Integer versao;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	private LogSolicitacao log;
+	
+	
 	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
 		
 		this.afetado = dados.usuario();
@@ -143,6 +148,34 @@ public class Solicitacao {
 		this.excluido = false;
 		this.dataAbertura = LocalDateTime.now().withNano(0);
 		this.dataAtualizacao = LocalDateTime.now().withNano(0);
+		
+	}
+
+
+	public String geraLog(String funcionario ) {
+		
+		Long tempo = 0l;
+		if(this.duracao != null) {
+			tempo = this.duracao;
+		}
+
+		String log = " * Data Atualização: " + this.getDataAtualizacao() + "\n "
+				+ " * Atualizado por: " + funcionario + "\n "
+				+ " * Forma de abertura: " + this.getFormaAbertura() + "\n "
+				+ " * Solicitante: " + this.getSolicitante() + "\n "
+				+ " * Afetado: " + this.getAfetado() + "\n "
+				+ " * Descrição: " + this.getDescricao() + "\n "
+				+ " * Observação: " + this.getObservacao() + "\n "
+				+ " * Categoria: " + this.categoria + "\n "
+				+ " * Classificação: " + this.classificacao + "\n "
+				+ " * Local: " + this.local + "\n "
+				+ " * Resolucão: " + this.resolucao + "\n "
+				+ " * Duração: " + tempo + "\n "
+				+ " * Status: " + this.getStatus() + "\n "
+				+ " * Funcionario atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n"
+				+ "########################################\n\n";
+		
+		return log;
 	}
 
 }

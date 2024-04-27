@@ -40,6 +40,10 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
+									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
@@ -955,7 +959,11 @@
 					$('#descricaoModalNaoFinalizada').val(data.descricao);
 					$('#resolucaoModalNaoFinalizada').val(data.resolucao);
 					$('#observacaoModalNaoFinalizada').val(data.observacao);
-					$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					
+					$('#funcionarioModalNaoFinalizada').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#funcionarioModalNaoFinalizada').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+					}
 					$('#categoriaModalNaoFinalizada').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -988,9 +996,7 @@
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
 					
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#funcionarioModalNaoFinalizada').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
+					
 					
 					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
 					for (var i = 0; i < data.colaboradores.length; i++) {
@@ -1170,8 +1176,6 @@
 										}]
 									},
 									options: {
-										responsive: true,
-										scales: { y: { min: 0, max: data.totalSolicitacoes } }
 									}
 								});
 								
@@ -1243,8 +1247,6 @@
 										}]
 									},
 									options: {
-										responsive: true,
-										scales: { y: { min: 0, max: data.totalSolicitacoes } }
 									}
 								});
 								

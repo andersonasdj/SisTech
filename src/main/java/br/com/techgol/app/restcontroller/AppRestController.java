@@ -39,7 +39,7 @@ public class AppRestController {
 	private ConfiguracaoEmailService emailService;
 	
 	@GetMapping("/logs")
-	public Page<DtoLogAcesso> logar(@PageableDefault(size = 20, sort= {"id"}, direction = Direction.DESC)Pageable page) {
+	public Page<DtoLogAcesso> logar(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC)Pageable page) {
 		return loginService.listarLogs(page);
 	}
 	

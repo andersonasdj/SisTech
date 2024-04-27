@@ -40,6 +40,10 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
+									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
@@ -183,6 +187,36 @@
 				<!-- Copyright -->
 		</footer>
 		</footer>
+		
+		
+		<!-- ################################################### Modal HISTORICO ############################################# -->
+		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-3" for="log"><b>LOG</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="20" id="log"
+									class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ########################################## Modal HISTORICO ############################################# -->
+		
 
 		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -190,6 +224,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 							<h1 class="modal-title fs-6" id="exampleModalLabel">Edição ID: <span id="idmodal"> </span></h1>
+							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							<span hidden id="idHistorico"></span>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -384,7 +420,9 @@
 
 					</div>
 					<div class="modal-footer">
+						
 						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"></i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -580,6 +618,62 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
 	<script>
+		
+		function clonar(){
+			var id = $('#idmodal').text();
+			var local = $('#localmodal').val();
+			var formaAbertura = $('#formaAberturaModal').val();
+			var categoria = $('#categoriamodal').val();
+			var classificacao = $('#classificacaomodal').val();
+			var prioridade = $('#prioridademodal').val();
+			var descricao = $('#descricaomodal').val();
+			var observacao = $('#observacaomodal').val();
+			var resolucao = $('#resolucaomodal').val();
+			var funcionario = $('#nomeFuncionarioModal').val(); 
+			$('#nomeCliente').empty();
+			$('#nomeFuncionario').empty();
+			$('#nomeCliente').append('<option value=""></option>');
+			nova();
+			
+			$('#nomeCliente').val("");
+			$('#solicitante').empty();
+			$('#afetado').empty();
+			$('#descricao').val("");
+			$('#observacao').val("");
+			$('#resolucaomodal').val("");
+			$('#resolucaomodal').val("");
+			$('#resolucaomodal').val("");
+			$('#resolucaomodal').val("");
+			$('#resolucaomodal').val("");
+			
+			$('#descricao').val(descricao);
+			$('#observacao').val(observacao);
+			$('#resolucaomodal').val(resolucao);
+			$('#formaAbertura').val(formaAbertura);
+			$('#prioridade').val(prioridade);
+			$('#categoria').val(categoria);
+			$('#classificacao').val(classificacao);
+			$('#local').val(local);
+		}		
+		
+		function exibeHistorico(){
+			
+			var id = $('#idHistorico').text();
+			$('#log').val("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/log/"+id,
+			success: function (data) {
+				$('#log').val(data);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		} 
+		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -703,6 +797,7 @@
 				success: function (data) {
 
 					$('#idmodal').text("");
+					$('#idHistorico').text("");
 					$('#dataAtualizacaoModal').text("");
 					$('#versaoModal').text("");
 					$('#descricaomodal').val("");
@@ -721,6 +816,7 @@
 					$('#formaAberturaModal').empty();
 					$('#id_cliente').text("");
 
+					$('#idHistorico').text(data.log_id);
 					$('#idmodal').text(data.id);
 					$('#id_cliente').text(data.clienteId);
 					$('#dataAtualizacaoModal').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
@@ -1010,6 +1106,7 @@
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);
 						$('#exampleModal').modal('hide');
+						alert("atualizado com sucesso");
 					}
 				},
 				statusCode: {

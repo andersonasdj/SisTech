@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
+import br.com.techgol.app.dto.DtoCadastroSolicitacaoModelo;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDataAgendado;
+import br.com.techgol.app.dto.DtoModelosParaSolicitacao;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -35,12 +37,15 @@ import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.model.ModeloSolicitacao;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
+import br.com.techgol.app.repository.ConjuntoModelosRepository;
 import br.com.techgol.app.repository.FuncionarioRepository;
+import br.com.techgol.app.repository.ModeloSolicitacaoRepository;
 import br.com.techgol.app.services.ClienteService;
 import br.com.techgol.app.services.ColaboradorService;
 import br.com.techgol.app.services.SolicitacaoService;
@@ -60,6 +65,12 @@ public class SolicitacaoRestController {
 	
 	@Autowired
 	ColaboradorService colaboradorService;
+	
+	@Autowired
+	ConjuntoModelosRepository conjuntoModelosRepository;
+	
+	@Autowired
+	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
 	@GetMapping("/relatorio/cliente/{id}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
@@ -135,6 +146,15 @@ public class SolicitacaoRestController {
 				clienteService.listarIdClienteAtivos(), 
 				repositoryFuncionario.listarNomesFuncionarios(),
 				repositoryFuncionario.listarIdFuncionarios()
+				);
+	}
+	
+	@GetMapping("/getModelos") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
+	private DtoModelosParaSolicitacao coletaModelosParaSolicitacao() {
+		
+		return new DtoModelosParaSolicitacao(
+				conjuntoModelosRepository.listarNomesModelos(),
+				conjuntoModelosRepository.listarIdModelos()
 				);
 	}
 	
@@ -256,8 +276,45 @@ public class SolicitacaoRestController {
 			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
 		}
 		
-		
 		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
+	}
+	
+	@PostMapping("/modelo") //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
+	public String cadastrarNovaModelo(@RequestBody DtoCadastroSolicitacaoModelo dados ) {
+		
+		Cliente cliente = clienteService.buscaClientePorNome(dados.nomeCliente());
+		Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
+		
+		List<ModeloSolicitacao> modelos = modeloSolicitacaoRepository.buscarSolocitacoesModelosPorIdConjunto(dados.modelo());
+		
+		if(modelos.size()>0) {
+			
+			modelos.forEach( m -> {
+				
+				Solicitacao solicitacao = new Solicitacao();
+				solicitacao.setAfetado(dados.afetado());
+				solicitacao.setSolicitante(dados.solicitante());
+				solicitacao.setDataAbertura(LocalDateTime.now().withNano(0));
+				solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
+				solicitacao.setFuncionario(funcionario);
+				solicitacao.setCliente(cliente);
+				solicitacao.setCategoria(m.getCategoria());
+				solicitacao.setClassificacao(m.getClassificacao());
+				solicitacao.setDescricao(m.getDescricao());
+				solicitacao.setFormaAbertura(m.getFormaAbertura());
+				solicitacao.setLocal(m.getLocal());
+				solicitacao.setObservacao(m.getObservacao());
+				solicitacao.setPrioridade(m.getPrioridade());
+				solicitacao.setStatus(m.getStatus());
+				solicitacao.setExcluido(false);
+				solicitacaoService.salvarNovaSolicitacao(solicitacao);
+			});
+			
+		}else {
+			return "Erro ao cadastrar modelos";
+		}
+		
+		return "Cadastrado com sucesso!"; 
 	}
 
 	@DeleteMapping("/excluir/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA

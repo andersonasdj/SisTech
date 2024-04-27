@@ -27,6 +27,7 @@ import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.model.LogSolicitacao;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Agendamentos;
 import br.com.techgol.app.model.enums.Classificacao;
@@ -38,6 +39,7 @@ import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
+import br.com.techgol.app.repository.LogSolicitacaoRepository;
 import br.com.techgol.app.repository.SolicitacaoRepository;
 import jakarta.transaction.Transactional;
 
@@ -55,6 +57,9 @@ public class SolicitacaoService {
 	
 	@Autowired
 	EnviaSolicitacaoCriada envia;
+	
+	@Autowired
+	private LogSolicitacaoRepository logSolicitacaoRepository;
 	
 	
 	@Transactional
@@ -254,6 +259,19 @@ public class SolicitacaoService {
 		solicitacao.setSolicitante(dados.solicitante());
 		solicitacao.setAfetado(dados.afetado());
 		solicitacao.setFormaAbertura(dados.formaAbertura());
+
+		String funcionarioBase = (((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		if(solicitacao.getLog() != null) {
+			LogSolicitacao log = logSolicitacaoRepository.getReferenceById(solicitacao.getLog().getId());
+			String conteudo = log.getLog() + solicitacao.geraLog(funcionarioBase);
+			log.setLog(conteudo);
+			logSolicitacaoRepository.save(log);
+		}else {
+			LogSolicitacao log = new LogSolicitacao(solicitacao);
+			logSolicitacaoRepository.save(log);
+			solicitacao.setLog(log);
+		}
+		
 		return repository.save(solicitacao);
 	}
 
@@ -291,7 +309,12 @@ public class SolicitacaoService {
 			solicitacao.setDataAndamento(LocalDateTime.now().withNano(0));
 		}
 		
+		LogSolicitacao log = logSolicitacaoRepository.save(new LogSolicitacao(solicitacao));
+		
+		solicitacao.setLog(log);
+		
 		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
+		
 		
 		if(config.isStatus() && !config.getEmail().isEmpty()) {
 			envia.enviar(dados); // ### ENVIA EMAIL NO CADASTRO

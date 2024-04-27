@@ -13,6 +13,12 @@ public class SolicitacaoController {
 		
 		return "solicitacaoForm.html";
 	}
+
+	@GetMapping("/model")
+	public String formularioModelo() {
+		
+		return "solicitacaoFormModelo.html";
+	}
 	
 	@GetMapping("/list")
 	public String listar() {
@@ -20,6 +26,11 @@ public class SolicitacaoController {
 		return "solicitacaoList.html";
 	}
 	
+	@GetMapping("/modelos")
+	public String modelos() {
+		
+		return "modelosSolicitacaoList.html";
+	}
 	
 	@GetMapping("/legacy")
 	public String legadas() {

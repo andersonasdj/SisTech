@@ -13,6 +13,7 @@ target/
 .springBeans
 .sts4-cache
 application.properties
+application-test.properties
 
 ### IntelliJ IDEA ###
 .idea

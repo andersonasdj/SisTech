@@ -31,5 +31,6 @@ public interface SolicitacaoProjecao {
 	String getVersao();
 	boolean getVip();
 	boolean getRedFlag();
+	Long getLog_Id();
 
 }

@@ -92,7 +92,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, "
-			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -185,7 +185,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id,  "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "

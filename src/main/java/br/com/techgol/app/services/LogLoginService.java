@@ -20,7 +20,7 @@ public class LogLoginService {
 	}
 	
 	public Page<DtoLogAcesso> listarLogs(Pageable page){
-		return repository.findAll(page).map(DtoLogAcesso::new);
+		return repository.lstarTodos(page).map(DtoLogAcesso::new);
 	}
 	
 }

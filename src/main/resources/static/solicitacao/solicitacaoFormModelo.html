@@ -106,14 +106,28 @@
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div class="container corpoFormulario" style="display: block;">
+		<div class="container">
 			<div id="form-solicitacao">
 				<fieldset>
-					<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
-	<!--				<p class="pull-right">-->
-	<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
-	<!--				</p>-->
+					<legend>Solicitação de Atendimento</legend>
 					<br/><br/>
+					
+					<div class="row">
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label" for="modelo"><b>Modelo</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="modelo" name="modelo">
+										<option> </option>
+									</select>
+								</div>
+							</div>
+							<br />
+						</div>
+						<div class="col-md-4">
+						</div>
+					</div>
+					
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
@@ -125,18 +139,12 @@
 								</div>
 							</div>
 							<br />
-	
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
+								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 								<div class="controls">
-									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
-										<option value="TELEFONE">Telefone</option>
-										<option value="EMAIL">E-mail</option>
-										<option value="WHATSAPP">Whatsapp</option>
-										<option value="LOCAL">No local</option>
-										<option value="PROATIVO">Proativo</option>
+									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
 									</select>
 								</div>
 							</div>
@@ -183,140 +191,6 @@
 						</div>
 					</div>
 					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
-								<div class="controls">
-									<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
-										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
-									<span id="contProb">300</span> Restantes <br>
-								</div>
-							</div>
-						</div>
-	
-						<div class="col-md-4">
-							<label class="control-label" for="observacao"><b>Observações</b></label>
-							<div class="controls">
-								<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
-									placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
-								<span id="contObs">300</span> Restantes <br>
-							</div>
-						</div>
-					</div>
-					<br />
-	
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="categoria"><b>Categoria *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="categoria" name="categoria">
-										<option value="SOFTWARE">Software</option>
-										<option value="HARDWARE">Hardware</option>
-										<option value="EMAIL">Email</option>
-										<option value="SHAREPOINT">SharePoint</option>
-										<option value="INTERNET">Internet</option>
-										<option value="SERVIDORES">Servidores</option>
-										<option value="OUTROS">Outros</option>
-										<option value="REDE">Rede</option>
-										<option value="CABEAMENTO">Cabeamento</option>
-										<option value="SMARTPHONE">Smartphone</option>
-										<option value="PROJETO">Projeto</option>
-										<option value="BACKUP">Backup</option>
-									</select>
-								</div>
-							</div>
-						</div>
-	
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="classificacao"><b>Classificação *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="classificacao" name="classificacao">
-										<option value="INCIDENTE">Incidente</option>
-										<option value="PROBLEMA">Problema</option>
-										<option value="SOLICITACAO">Solicitação</option>
-										<option value="ACESSO">Acesso</option>
-										<option value="EVENTO">Evento</option>
-										<option value="BACKUP">Backup</option>
-									</select>
-								</div>
-							</div>
-	
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="prioridade" name="prioridade">
-										<option value="BAIXA">Baixa</option>
-										<option value="MEDIA">Media</option>
-										<option value="ALTA">Alta</option>
-										<option value="CRITICA">Crítico</option>
-										<option value="PLANEJADA">Planejada</option>
-									</select>
-								</div>
-							</div>
-						</div>
-	
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="local" name="local">
-										<option value="OFFSITE">Offsite</option>
-										<option value="ONSITE">Onsite</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="status"><b>Status *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="status" name="status">
-										<option value="ABERTO">ABERTO</option>
-										<option value="ANDAMENTO">ANDAMENTO</option>
-										<option value="AGENDADO">AGENDADO</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4" id="agendamentos" style="display: none">
-							<div class="control-group">
-								<label class="control-label"><b>Data Agendamento *</b></label>
-								<div class="datetimepicker">
-									<input type="date" id="date" name="date" value="">
-									<span></span>
-									<input type="time" id="time" name="time" value="">
-								</div>
-								<div class="info">
-									<strong>Compatibility check:</strong>
-									Date "<span id="date-output"></span>",
-									Time "<span id="time-output"></span>"
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="control-group">
 						<div class="controls">
 							<span id="botaoSalvar"></span>
@@ -360,6 +234,7 @@
 				<!-- Copyright -->
 		</footer>
 		</footer>
+		
 		
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
 		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
@@ -663,60 +538,43 @@
 			    401: function() { alert('Realize login novamente!'); }
 			}
 		});
+		
+		
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/getModelos",
+			success: function (data) {
+				for (var i = 0; i < data.modelos.length; i++) {
+					$('#modelo').append('<option value="' + data.modelosId[i] + '">' + data.modelos[i] + '</option>');
+				}
+
+			},
+			statusCode: {
+			    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+			    401: function() { alert('Realize login novamente!'); }
+			}
+		});
 
 		function salvar() {
 			var solicitante = $('#solicitante').val();
-			var descricao = $('#descricao').val();
 			var afetado = $('#afetado').val();
-			var observacao = $('#observacao').val();
-			var abertoPor = $('#abertoPor').val();
-			var prioridade = $('#prioridade').val();
-			var formaAbertura = $('#formaAbertura').val();
-			var categoria = $('#categoria').val();
-			var classificacao = $('#classificacao').val();
-			var local = $('#local').val();
-			var status = $('#status').val();
 			var nomeCliente = $('#nomeCliente').val();
 			var nomeFuncionario = $('#nomeFuncionario').val();
-			var dataAgendado = $('#date').val();
-			var horaAgendado = $('#time').val();
+			var modelo = $('#modelo').val();
 
 			$.ajax({
 				type: "POST",
 				contentType: "application/json",
-				url: "/sistech/solicitacao",
+				url: "/sistech/solicitacao/modelo",
 				data: JSON.stringify({
 					"solicitante": solicitante,
-					"descricao": descricao,
 					"afetado": afetado,
-					"observacao": observacao,
-					"abertoPor": abertoPor,
-					"prioridade": prioridade,
-					"formaAbertura": formaAbertura,
-					"categoria": categoria,
-					"classificacao": classificacao,
-					"local": local,
-					"status": status,
 					"nomeCliente": nomeCliente,
 					"nomeFuncionario": nomeFuncionario,
-					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"modelo": modelo
 				}),
 				success: function (data) {
-					$('#solicitante').val("");
-					$('#descricao').val("");
-					$('#afetado').val("");
-					$('#observacao').val("");
-					$('#abertoPor').val("");
-					$('#nomeCliente').val("");
-					$("#botaoSalvar").empty();
-					$('#botaoColaboradores').empty();
-					$('#solicitante').empty();
-					$('#afetado').empty();
-					$('#date').val("");
-					$('#time').val("");
-					$('#celSolicitante').text("");
-					$('#celAfetado').text("");
 					alert("Solicitação criada com sucesso!");
 				},
 				statusCode: {
@@ -781,22 +639,6 @@
 			});
 		});
 		
-		var divStatus = $("#status");
-		var status = $("#status").val();
-		divStatus.on("change", function(){
-			var status = $("#status").val();
-			if(status === 'AGENDADO'){
-				$("#agendamentos").stop().slideToggle(1000);
-			}else {
-				document.getElementById('agendamentos').style.display = 'none';
-			}
-		} );
-		
-		var dateEl = document.getElementById('date');
-		var timeEl = document.getElementById('time');
-		
-		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
-		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
 	</script>
 	<script>
 		function preencheSolicitante(){

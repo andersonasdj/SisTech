@@ -36,7 +36,8 @@ public record DtoSolicitacaoProjecaoCompletaColaboradores(
 		String horaFinalizado,
 		String dataAtualizacao,
 		List<String> funcionarios,
-		List<String> colaboradores
+		List<String> colaboradores,
+		String log_id
 		
 		) {
 
@@ -66,7 +67,8 @@ public record DtoSolicitacaoProjecaoCompletaColaboradores(
 				(s.getDataFinalizado()) != null? s.getDataFinalizado().format(DateTimeFormatter.ofPattern("HH:mm")): " ",
 				s.getDataAtualizacao().toString(),
 				f,
-				c
+				c,
+				(s.getLog() != null) ? s.getLog().getId().toString() : " "
 				);
 	}
 
