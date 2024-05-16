@@ -7,8 +7,9 @@ public record DtoFuncionarioHome(
 		String dataUltimoLogin,
 		Long agendadosAtrasados,
 		Long agendadosHoje,
+		long avisos,
+		Boolean trocaSenha,
 		DtoSolicitacoesFuncionario solicitacoes,
 		DtoSolicitacoesGerais gerais
 		) {
-	
 }

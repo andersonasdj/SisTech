@@ -118,7 +118,7 @@ public class FuncionarioService {
 			funcionario.setRole(dados.role());
 			funcionario.setAtivo(dados.ativo());
 		}
-		
+		funcionario.setTrocaSenha(dados.trocaSenha());
 		funcionario.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		return new DtoListarFuncionarios(funcionario);
 		
@@ -151,13 +151,14 @@ public class FuncionarioService {
 				Funcionario f = repository.getReferenceById(dados.id());
 				f.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()) );
 				f.setDataAtualizacao(LocalDateTime.now().withNano(0));
+				f.setDataAtualizacaoSenha(LocalDateTime.now().withNano(0));
+				f.setTrocaSenha(false);
 				return true;
 			}
 			
 		}else {
 			return false;
 		}
-
 	}
 	
 	@Transactional
@@ -166,6 +167,12 @@ public class FuncionarioService {
 		funcionario.setDataUltimoLogin(LocalDateTime.now().withNano(0));
 		funcionario.setIp(ip);
 		funcionario.setPais(pais);
+		
+	}
+
+	public Boolean exigeTrocaDeSenha(Long id) {
+
+		return repository.exigeTrocaDeSenha(id);
 		
 	}
 	

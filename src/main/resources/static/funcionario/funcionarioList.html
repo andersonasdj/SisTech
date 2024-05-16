@@ -75,6 +75,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -123,7 +124,7 @@
 		  </div>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-hover results" id="tabela-usuarios">
+			<table class="table table-striped align-middle results" id="tabela-usuarios">
 				<thead>
 					<tr>
 						<th scope="col">Nome</th>
@@ -210,17 +211,40 @@
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusModal"><b>Status</b></label>
-								<select class="form-select" id="statusModal" aria-label="Default select example"
-									style="width: 180px;">
+								<select class="form-select" id="statusModal" aria-label="Default select example">
 		
 								</select>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="mfaModal"><b>MFA</b></label>
-								<select class="form-select" id="mfaModal" aria-label="Default select example"
-									style="width: 180px;">
+								<select class="form-select" id="mfaModal" aria-label="Default select example">
 		
 								</select>
+							</div>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="dataUltimoLoginModal"><b>Exigir troca de senha </b></label>
+								<label>
+		                  			<input type="checkbox" name="trocaSenha" id="trocaSenha"  value="true">
+		                		</label>
+							</div>
+							<div class="col-md-6 ms-auto">
+
+							</div>
+						</div>
+						
+						
+						<div class="row">
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="dataUltimoLoginModal"><b>Ultimo Login</b></label>
+								<p><span id="dataUltimoLoginModal"></span></p>
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="dataUltimaTrocaSenhaModal"><b>Ultima troca de senha</b></label>
+								<p><span id="dataUltimaTrocaSenhaModal"></span></p>
 							</div>
 						</div>
 
@@ -238,8 +262,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabelSenha">Atualização de senha - <span
-								id="nomeUsuarioModal"></span></h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabelSenha">Atualização de senha - <span id="nomeUsuarioModal"></span></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -357,11 +380,21 @@
 					$('#funcaomodal').empty();
 					$('#statusModal').empty();
 					$('#mfaModal').empty();
+					$('#dataUltimoLoginModal').text("");
+					$('#dataUltimaTrocaSenhaModal').text("");
 					
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeFuncionario);
 					$('#usuariomodal').val(data.username);
 					$('#senhamodal').val(data.password);
+					$('#dataUltimoLoginModal').text(data.dataUltimoLogin);
+					$('#dataUltimaTrocaSenhaModal').text(data.dataAtualizacaoSenha);
+					
+					if(data.trocaSenha == true){
+						document.getElementById("trocaSenha").checked=true;
+					}else{
+						document.getElementById("trocaSenha").checked=false;
+					}
 					
 					var status;
 					if(data.ativo == true){
@@ -453,6 +486,9 @@
 			var role = $('#funcaomodal').val();
 			var ativo = $('#statusModal').val();
 			var mfa = $('#mfaModal').val();
+			
+			var trocaSenha = document.getElementById("trocaSenha");
+			if(trocaSenha.checked){ trocaSenha=true } else { trocaSenha=false }
 
 			$.ajax({
 				type: "PUT",
@@ -464,7 +500,8 @@
 					"username": username,
 					"role": role,
 					"ativo": ativo,
-					"mfa": mfa
+					"mfa": mfa,
+					"trocaSenha":trocaSenha
 				}),
 				success: function (data) {
 					var status;

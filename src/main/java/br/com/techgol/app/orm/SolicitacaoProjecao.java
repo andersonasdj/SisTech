@@ -23,11 +23,13 @@ public interface SolicitacaoProjecao {
 	String getNomeFuncionario();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getDataAbertura();
-	String getDuracao();
+	Long getDuracao();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getDataAtualizacao();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getDataAgendado();
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	LocalDateTime getDataFinalizado();
 	String getVersao();
 	boolean getVip();
 	boolean getRedFlag();

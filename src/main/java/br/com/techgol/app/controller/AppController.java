@@ -42,6 +42,11 @@ public class AppController {
 		return "templates/sobre.html";
 	}
 	
+	@GetMapping("/avisos")
+	public String avisos() {
+		return "templates/avisos.html";
+	}
+	
 	@GetMapping("/funcionalidades")
 	public String funcionalidades() {
 		return "templates/funcionalidade.html";

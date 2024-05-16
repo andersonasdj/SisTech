@@ -36,7 +36,5 @@ public class Usuario {
 	private LocalDateTime dataAtualizacao;
 	private LocalDateTime dataUltimoLogin;
 	private String pais;
-	
-	
 
 }

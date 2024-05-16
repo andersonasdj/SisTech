@@ -26,6 +26,7 @@ import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
+import br.com.techgol.app.services.AvisosService;
 import br.com.techgol.app.services.FuncionarioService;
 import br.com.techgol.app.services.SolicitacaoService;
 import jakarta.validation.Valid;
@@ -39,6 +40,9 @@ public class FuncionarioRestController {
 	
 	@Autowired
 	SolicitacaoService solicitacaoService;
+	
+	@Autowired
+	AvisosService avisoService;
 	
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -91,6 +95,11 @@ public class FuncionarioRestController {
 		} else {
 			saudacao = "Boa noite, ";
 		}
+		long qtdAvisos = avisoService.quantidadeAvisos();
+		
+		
+		Boolean trocaSenha = service.exigeTrocaDeSenha(funcionario.getId());
+		
 		return ResponseEntity.ok().body(
 				new DtoFuncionarioHome(
 						saudacao, 
@@ -99,6 +108,8 @@ public class FuncionarioRestController {
 						funcionario.getDataUltimoLogin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
 						solicitacaoService.buscaAgendamentosAtrasadosQtd(),
 						solicitacaoService.buscaAgendamentosHojeQtd(),
+						qtdAvisos,
+						(trocaSenha) != null ? trocaSenha : false,
 						service.buscaSolicitacoes(funcionario),
 						service.buscaSolicitacoesGerais()
 				));

@@ -40,7 +40,7 @@ public class CSVHelper {
 	              solicitacao.getStatus(),
 	              solicitacao.getNomeFuncionario(),
 	              solicitacao.getDataAtualizacao().toString(),
-	              solicitacao.getDuracao(),
+	              (solicitacao.getDuracao()) != null ? solicitacao.getDuracao().toString() : "",
 	              solicitacao.getVersao()
 	            );
 

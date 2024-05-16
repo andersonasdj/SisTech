@@ -47,7 +47,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status=:status AND s.excluido=0", nativeQuery = true)
 	public int buscaContagemGeral(String status);
 
-	
+	@Query(value = "SELECT f.trocaSenha FROM funcionarios f WHERE f.id=:id", nativeQuery = true)
+	public Boolean exigeTrocaDeSenha(Long id);
 	
 	@Query(value = "SELECT COUNT(*) FROM funcionarios", nativeQuery = true)
 	public int existsFuncionarios();

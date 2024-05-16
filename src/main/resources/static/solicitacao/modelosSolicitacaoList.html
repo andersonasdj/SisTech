@@ -75,6 +75,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -109,13 +110,10 @@
 		
 		<div class="container">
 		  <div class="row">
-		    <div class="col-3">
+		    <div class="col-2">
 					<button data-bs-toggle="modal" data-bs-target="#addModeloModal" class="btn btn-primary btn-sm">Novo Modelo </button>
 		    </div>
-		    <div class="col-4">
-				
-		    </div>
-		    <div class="col-4">
+		    <div class="col-10">
 				<h5>Cadastro de modelos de solicitações</h5>
 		    </div>
 		  </div>
@@ -123,20 +121,30 @@
 		<br />
 		
 		<div class="container" >
-			<div class="table-responsive">
-				<table class="table table-hover table-bordered results sortable" id="tabela-modelos" style="text-align: center;">
-					<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Nome do Modelo</th>
-						</tr>
-					</thead>
-					<tbody id="corpoModelos">
-						<tr>
-						</tr>
-					</tbody>
-				</table>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="table-responsive">
+						<table class="table table-hover table-bordered results sortable" id="tabela-modelos" style="text-align: center;">
+							<thead>
+								<tr class="table-primary">
+									<th scope="col">ID</th>
+									<th scope="col">Nome do Modelo</th>
+								</tr>
+							</thead>
+							<tbody id="corpoModelos">
+								<tr>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="col-md-3">
+						
+				</div>
 			</div>
+			<p><b>Os modelos são conjuntos de solicitações criadas através de 1 ou vários modelos</b></p>
 		</div>
 		<!-- ####################################### MODAL ADICIONA MODELO ############################################# -->
 		<div class="modal fade" id="addModeloModal" tabindex="-1" aria-labelledby="addModeloModal"
@@ -727,7 +735,6 @@
 					"nomeModelo": nomeModelo
 				}),
 				success: function (data) {
-					
 					alert("atualizado com sucesso");
 						
 					var itens =
@@ -750,10 +757,8 @@
 			
 		}
 		 function novaSolicitacaoModelo(){
-			 
 			 var id_Conjunto = $('#idModeloEditmodal').val();
 			 $('#idConjunto').text(id_Conjunto);
-			 
 		 }
 		 
 		 function salvarSolicitacaoModelo(){
@@ -785,6 +790,9 @@
 				}),
 				success: function (data) {
 					$('#modalCadastraModelos').modal('hide');
+					$('#idConjunto').text("");
+					$('#descricao').val("");
+					$('#observacao').val("");
 					alert("Cadastrado com sucesso");
 				},
 				statusCode: {

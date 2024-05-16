@@ -91,7 +91,6 @@ public class Solicitacao {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Funcionario funcionario;
 
-	
 	private Boolean excluido;
 	@Column(name = "duracao")
 	private Long duracao;
@@ -102,9 +101,7 @@ public class Solicitacao {
 	@OneToOne(fetch = FetchType.LAZY)
 	private LogSolicitacao log;
 	
-	
 	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
-		
 		this.afetado = dados.usuario();
         this.dataAbertura = dados.dataAbertura();
         this.solicitante = dados.solicitante();
@@ -112,9 +109,7 @@ public class Solicitacao {
         this.descricao = dados.descricaoProblema();
         this.observacao = dados.obs();
         this.abertoPor = dados.abriuCHamado();
-		
 	}
-
 
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente, Funcionario funcionario) {
 		this.cliente = cliente;
@@ -151,7 +146,6 @@ public class Solicitacao {
 		
 	}
 
-
 	public String geraLog(String funcionario ) {
 		
 		Long tempo = 0l;
@@ -172,7 +166,7 @@ public class Solicitacao {
 				+ " * Resolucão: " + this.resolucao + "\n "
 				+ " * Duração: " + tempo + "\n "
 				+ " * Status: " + this.getStatus() + "\n "
-				+ " * Funcionario atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n"
+				+ " * Funcionario atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"
 				+ "########################################\n\n";
 		
 		return log;

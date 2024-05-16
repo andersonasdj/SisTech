@@ -76,6 +76,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -107,11 +108,40 @@
 		<!-- ################### BARRA DE NAVEGAÇÃO  -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
+		<div class="container-fluid">
+		  <div class="row">
+			  <div class="col-3">
+				<div class="control-group">
+					<div class="controls">
+					      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
+					        <option value="100">100</option>
+					        <option value="150">150</option>
+					        <option value="200">200</option>
+					        <option value="250">250</option>
+					        <option value="300">300</option>
+					      </select>
+					</div>
+				</div>
+		    </div>
+		    <div class="col-3">
+					<b><span style="font-size: 22px;" id="totalElementos"></span></b>
+		    </div>
+		    <div class="col-6">
+					<button class="btn btn-danger btn-sm" onclick="btnStatus('ABERTO')">ABERTO</button>
+					<button class="btn btn-primary btn-sm" onclick="btnStatus('ANDAMENTO')">ANDAMENTO</button>
+					<button class="btn btn-warning btn-sm" onclick="btnStatus('AGENDADO')">AGENDADO</button>
+					<button class="btn btn-secondary btn-sm" onclick="btnStatus('PAUSADO')">PAUSADO</button>
+					<button class="btn btn-light btn-sm" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
+					<button class="btn btn-dark btn-sm" onclick="exibeTodas()">TODAS</button>
+		    </div>
+		  </div>
+		</div>
+		<hr class="bg-danger border-2 border-top border">
 		
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col-7">
-					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-primary btn-sm" onclick="nova()">Nova </button>
+					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col-1">
 				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
@@ -126,7 +156,7 @@
 		</div>
 
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered results sortable" id="tabela-usuarios" style="text-align: center;">
+			<table class="table table-hover table-bordered align-middle results sortable" id="tabela-usuarios" style="text-align: center;">
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
@@ -140,6 +170,7 @@
 						<th scope="col">Classificação</th>
 						<th scope="col">Responsável</th>
 						<th scope="col">Status</th>
+						<th scope="col">Versão</th>
 					</tr>
 				</thead>
 				<tbody id="corpoSolicitacoes">
@@ -618,6 +649,28 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
 	<script>
+		exibeTodasSolicitacoes();
+		
+		function exibeTodas(){
+			$('#corpoSolicitacoes').empty();
+			$('#paginas').empty();
+			exibeTodasSolicitacoes();
+		}
+		
+		function btnStatus(status){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/short/"+status,
+				success: function (data) {
+					exibeItens(data);
+				},
+				statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		}
 		
 		function clonar(){
 			var id = $('#idmodal').text();
@@ -674,11 +727,15 @@
 			});
 		} 
 		
-		$.ajax({
+		function exibeTodasSolicitacoes(){
+			$.ajax({
 			type: "GET",
 			contentType: "application/json",
 			url: "/sistech/solicitacao/short",
 			success: function (data) {
+				
+				$('#totalElementos').text("");
+				$('#totalElementos').text(data.totalElements);
 				
 				if(data.totalPages > 1){
 					
@@ -719,6 +776,7 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -728,17 +786,22 @@
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
 				    401: function() { alert('Realize login novamente!'); }
 			}
-		});
+			});
+		}
 		
 		function paginacao(num){
+			var QtdItens = $("#qtdItensPage").val();
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "/sistech/solicitacao/short?page="+num,
+			url: "/sistech/solicitacao/short?page="+num+"&size="+QtdItens,
 			success: function (data) {
 				
 				$('#corpoSolicitacoes').empty();
 				$('#paginas').empty();
+				
+				$('#totalElementos').text("");
+				$('#totalElementos').text(data.totalElements);
 				
 				for(var i=0; i < data.totalPages ; i++ ){
 					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
@@ -777,6 +840,7 @@
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -788,6 +852,80 @@
 				}
 			});
 		}
+		
+		
+		
+		$(document).ready(function () {
+			var divQtdItens = $("#qtdItensPage");
+			divQtdItens.on("change", function () {
+				var quantidade = divQtdItens.val();
+				
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/short?size="+quantidade,
+					success: function (data) {
+						exibeItens(data);
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			});
+		});
+
+
+		function exibeItens(data){
+				
+				$('#corpoSolicitacoes').empty();
+				$('#paginas').empty();
+				
+				$('#totalElementos').text("");
+				$('#totalElementos').text(data.totalElements);
+				
+				for(var i=0; i < data.totalPages ; i++ ){
+					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
+				}
+				
+				data.content.map(i => {
+					var status;
+					var vip;
+					var redFlag;
+					var dataAgendado = "";
+					if(i.status == "ABERTO"){ status = "class='table-danger'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
+					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
+					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
+					if(i.redFlag == true){ 
+						if(i.vip == true){
+							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+						else{
+							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+					} else{redFlag =""}
+					
+					var itens = 
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
+					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td>' + i.dataAbertura + '</td>'
+					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
+					+ '<td>' + i.solicitante + '</td>'
+					+ '<td>' + i.afetado + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td>' + i.descricao + '</td>'
+					+ '<td>' + i.prioridade + '</td>'
+					+ '<td>' + i.classificacao + '</td>'
+					+ '<td>' + i.nomeFuncionario + '</td>'
+					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td>' + i.versao + '</td>'
+					+ '</tr>'
+					$('#tabela-usuarios').append(itens);
+					}
+				);
+		}
+
 
 		function editar(id) {
 			$.ajax({
@@ -1102,6 +1240,7 @@
 						+ '<td>' + data.classificacao + '</td>'
 						+ '<td>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + data.status + '</td>'
+						+ '<td>' + data.versao + '</td>'
 						+ '</tr>'
 						$('#linha' + data.id).remove();
 						$('#tabela-usuarios').append(itens);

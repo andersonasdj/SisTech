@@ -58,7 +58,7 @@ public record DtoSolicitacaoProjecaoCompletaColaboradores(
 				s.getStatus(),
 				s.getDuracao(),
 				s.getCliente().getNomeCliente(),
-				s.getFuncionario().getNomeFuncionario(),
+				(s.getFuncionario()) != null ? s.getFuncionario().getNomeFuncionario() : "Não definido",
 				s.getDataAbertura().toLocalDate().toString(),
 				s.getDataAbertura().format(DateTimeFormatter.ofPattern("HH:mm")),
 				(s.getDataAndamento()) != null? s.getDataAndamento().toLocalDate().toString() : " ",

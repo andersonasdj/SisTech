@@ -78,10 +78,10 @@ public class SolicitacaoRestController {
 	   return solicitacaoService.listarSolicitacoesPorData(page, id, inicio, fim);
 	}
 	
-	@GetMapping("/relatorio/funcionario/{id}/inicio/{inicio}/fim/{fim}")
-	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
+	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 	
-	   return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, inicio, fim);
+	   return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, periodo, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/{status}/hoje")
@@ -137,6 +137,11 @@ public class SolicitacaoRestController {
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), false);
+	}
+	
+	@GetMapping("short/{status}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizadosPorStatus(@PathVariable String status,  @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesPorStatus(page,status, false);
 	}
 	
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
@@ -203,13 +208,21 @@ public class SolicitacaoRestController {
 	@GetMapping("/finalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
 	public Page<SolicitacaoProjecao> finalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesFinalizadasPorCliente(page, id);
-		
+	}
+	
+	@GetMapping("/finalizado/funcionario/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
+	public Page<SolicitacaoProjecao> finalizadasPorFuncionario(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesFinalizadasPorFuncionario(page, id);
 	}
 	
 	@GetMapping("/naofinalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
 	public Page<SolicitacaoProjecao> naoFinalizadasPorCliente(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesNaoFinalizadasPorCliente(page, id);
-		
+	}
+	
+	@GetMapping("/naofinalizado/funcionario/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
+	public Page<SolicitacaoProjecao> naoFinalizadasPorFuncionario(@PathVariable Long id, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesNaoFinalizadasPorFuncionario(page, id);
 	}
 	
 	
@@ -221,9 +234,12 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/dashboard/cliente/{id}") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD POR CLIENTE
 	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
-		
 		return solicitacaoService.geraDashboardCliente(id);
-		
+	}
+	
+	@GetMapping("/dashboard/funcionario/{id}") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD POR CLIENTE
+	public DtoDashboardCliente dashboardFuncionario(@PathVariable Long id) {
+		return solicitacaoService.geraDashboardFuncionario(id);
 	}
 	
 	@GetMapping("/relatorio") //RETORNA UMA DTO COM TODOS OS DADOS PARA A VIEWER DE RELATORIOS

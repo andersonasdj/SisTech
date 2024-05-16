@@ -75,6 +75,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -124,8 +125,13 @@
 					</div>
 					
 					<div id="opcoesData" style="display: none;">
-						<div class="row">				
+						<hr class="bg-danger border-2 border-top border">
+						<div class="row">
+							
 							<div class="col-md-3">
+							</div>
+										
+							<div class="col-md-2">
 								<div class="control-group">Início: 
 									<div class="calendarioAberturaModal">
 										<input type="date" id="relatorioDataInicio" name="relatorioDataInicio" >
@@ -134,7 +140,7 @@
 								</div>
 		
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<div class="control-group">Fim:
 									<div class="calendarioAndamentoModal">
 										<input type="date" id="relatorioDataFim" name="relatorioDataFim" value="">
@@ -142,19 +148,30 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-md-1">
+								<button class="btn btn-info" onclick="buscaPorPeriodo()">Listar</button>
+							</div>
+							<div class="col-md-1">
+								
+								<a href="#" onclick="baixaCsv()"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
+								
+							</div>
 							<div class="col-md-3">
-								<button class="btn btn-success btn-sm mt-2" onclick="buscaPorPeriodo()">listar</button>
 							</div>
 						</div>
+						<hr class="bg-danger border-2 border-top borde">
 					</div>
 				</div>
 			<legend> </legend>
 			
 		<div class="container-fluid">
 		  <div class="row">
-		    <div class="col-7">
-					
+		    <div class="col-3">
 					<a href="/sistech/solicitacao/form" class="btn btn-primary btn-sm">Nova </a>
+		    </div>
+		    
+		    <div class="col-4">
+					<b><span style="font-size: 24px;" id="totalElementos"></span></b>
 		    </div>
 		    <div class="col-1">
 				<a href="/sistech/solicitacao/relatorios"> <i class="bi bi-arrow-clockwise" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
@@ -184,7 +201,7 @@
 			</div>
 			
 			<div class="table-responsive">
-				<table  class="table table-hover table-striped table-bordered results sortable" id="tabela-solicitacoes" style="text-align: center; display: none;">
+				<table  class="table table-hover table-striped table-bordered align-middle results sortable" id="tabela-solicitacoes" style="text-align: center; display: none;">
 					<thead>
 						<tr class="table-light">
 							<th scope="col">ID</th>
@@ -209,6 +226,7 @@
 				<nav aria-label="Page navigation example">
 				  <ul id="paginas" class="pagination"> </ul>
 				</nav>
+				
 			</div>
 		</div>
 		<br /><br />
@@ -954,6 +972,8 @@
 					contentType: "application/json",
 					url: "/sistech/solicitacao/relatorio/periodo/inicio/"+dataInicio+"/fim/"+dataFim,
 					success: function (data) {
+						$('#totalElementos').text("");
+						$('#totalElementos').text(data.totalElements);
 						var linkPage = document.getElementById('linkPage').value;
 						linkPage = "/sistech/solicitacao/relatorio/periodo/inicio/"+dataInicio+"/fim/"+dataFim;
 						document.getElementById('linkPage').value = linkPage;
@@ -1023,6 +1043,28 @@
 				);
 		}
 		
+		function baixaCsv(){
+			
+			let dataInicio = document.getElementById('relatorioDataInicio').value;
+			let dataFim = document.getElementById('relatorioDataFim').value;
+			
+			if(dataInicio != '' && dataFim != ''){
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/csv/relatorio/periodo/inicio/"+dataInicio+"/fim/"+dataFim,
+					success: function (data) {
+						var csvContent = "data:text/csv;charset=utf-8," + data;
+	    				window.open(csvContent);
+					},
+					error: function (e) { alert(e); }
+				});
+			}else{
+				alert("Selecione data de inicio e data de término");
+			}
+				
+		}
+		
 		function paginacao(num){
 			
 			var linkPage = document.getElementById('linkPage').value;
@@ -1052,7 +1094,7 @@
 				success: function (data) {
 
 					$('#idHistoricoModalEdicao').text("");
-					$('#idModalEdicao').text("");
+					$('#idModalEdicaoModalEdicao').text("");
 					$('#dataAtualizacaoModalEdicao').text("");
 					$('#descricaomodal').val("");
 					$('#resolucaomodal').val("");
@@ -1081,7 +1123,7 @@
 					$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
 					$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
 					$('#dataAtualizacaoModalEdicao').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
-					$('#idModalEdicao').text(data.id);
+					$('#idModalEdicaoModalEdicao').text(data.id);
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
@@ -1159,7 +1201,8 @@
 		}
 		
 		function atualiza() {
-			var id = $('#idModalEdicao').text();
+			idHistoricoModalEdicao
+			var id = $('#idModalEdicaoModalEdicao').text();
 			var descricao = $('#descricaomodal').val();
 			var resolucao = $('#resolucaomodal').val();
 			var observacao = $('#observacaomodal').val();

@@ -41,6 +41,10 @@ public class Funcionario extends Usuario implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
+	private LocalDateTime dataAtualizacaoSenha;
+	
+	private Boolean trocaSenha;
+	
 	public Funcionario(DtoCadastroFuncionario dados) {
 		
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.password());

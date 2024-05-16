@@ -68,12 +68,19 @@ public class SolicitacaoController {
 		return "dashboardCliente.html";
 	}
 	
+	@GetMapping("/dashboard/funcionario")
+	public String dashboardFuncionario() {
+		
+		return "dashboardFuncionario.html";
+	}
+	
 	@GetMapping("/relatoriosclientes")
 	public String relatorioCliente() {
 		
 		return "solicitacaoRelatorioPorCliente.html";
 	}
 	
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/relatoriostecnicos")
 	public String relatorioTecnico() {
 		

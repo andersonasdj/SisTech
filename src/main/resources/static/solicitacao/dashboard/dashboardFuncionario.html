@@ -114,7 +114,7 @@
 				<div class="col-4 col-s-12">
 					<div class="control-group">
 						<div class="controls">
-							<select class="form-select" id="idCliente" name="idCliente" style="width: 250px;">
+							<select class="form-select" id="idFuncionario" name="idFuncionario" style="width: 250px;">
 							</select>
 						</div>
 					</div>
@@ -674,8 +674,8 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/getData",
 				success: function (data) {
-					for (var i = 0; i < data.clientes.length; i++) {
-						$('#idCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#idFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
 					}
 					
 					montaGraficos();
@@ -686,7 +686,7 @@
 				}
 			});
 			
-			var divCliente = $("#idCliente");
+			var divCliente = $("#idFuncionario");
 			divCliente.on("change", function () {
 				montaGraficos();
 			});
@@ -890,14 +890,14 @@
 	</script>
 	<script>
 		function finalizados(){
-				var idCliente = $("#idCliente").val();
+				var idFuncionario = $("#idFuncionario").val();
 				$('#tabela').empty();
 		
-				if(idCliente != '' && idCliente != null && idCliente != ' ' ){		
+				if(idFuncionario != '' && idFuncionario != null && idFuncionario != ' ' ){		
 						$.ajax({
 						type: "GET",
 						contentType: "application/json",
-						url: "/sistech/solicitacao/finalizado/cliente/"+idCliente,
+						url: "/sistech/solicitacao/finalizado/funcionario/"+idFuncionario,
 						success: function (data) {
 							
 							$('#idmodal').text("");
@@ -908,7 +908,7 @@
 								}
 							);
 						},
-						error: function (e) { alert("Selecione o cliente"); }
+						error: function (e) { alert("Selecione o funcionario"); }
 					});
 				} else{
 						alert("Selecione o cliente");
@@ -917,14 +917,14 @@
 		
 		function naoFinalizados(){
 			
-			var idCliente = $("#idCliente").val();
+			var idFuncionario = $("#idFuncionario").val();
 				$('#tabela').empty();
 		
-				if(idCliente != '' && idCliente != null && idCliente != ' ' ){		
+				if(idFuncionario != '' && idFuncionario != null && idFuncionario != ' ' ){		
 						$.ajax({
 						type: "GET",
 						contentType: "application/json",
-						url: "/sistech/solicitacao/naofinalizado/cliente/"+idCliente,
+						url: "/sistech/solicitacao/naofinalizado/funcionario/"+idFuncionario,
 						success: function (data) {
 							
 							$('#idmodal').text("");
@@ -1166,13 +1166,13 @@
 		
 		function montaGraficos(){
 			
-				var idCliente = $("#idCliente").val();
+				var idFuncionario = $("#idFuncionario").val();
 				
-				if(idCliente > 0){
+				if(idFuncionario > 0){
 					$.ajax({
 						type: "GET",
 						contentType: "application/json",
-						url: "/sistech/solicitacao/dashboard/cliente/" + idCliente,
+						url: "/sistech/solicitacao/dashboard/funcionario/" + idFuncionario,
 						success: function (data) {
 	
 							if (data != null) {
@@ -1373,7 +1373,7 @@
 						erro: function (request, status, error) { },
 						complete: function (data) { }
 					})
-				} else{ alert("Primeiro selecione um cliente!"); }
+				} else{ alert("Primeiro selecione um funcionario!"); }
 		}
 		
 		var divstatusmodal = $("#statusModalNaoFinalizada");

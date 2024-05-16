@@ -75,15 +75,22 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 							</ul>
 						</li>
+						
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
+								
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -120,6 +127,7 @@
 						<br/>
 				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
 							<p><span id="dataUltimoLogin"></span></p>
+							<span id="btnAvisos"></span>
 	
 				    </div>
 				    <div class="col-3 col-s-6">
@@ -194,17 +202,92 @@
 			</footer>
 		</footer>
 	</div>
+	<!-- ################################################# MODAL AVISOS ################################################# -->
+		<div class="modal fade" id="modalLabelColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">Avisos</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+						<div class="container">
+							<div id="conteudoAvisos">
+								
+								
+							</div>
+						</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- ################################################# MODAL AVISOS ################################################# -->
+	
+	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
+		<div class="modal fade" id="modalTrocaDeSenha" tabindex="-1" aria-labelledby="modalTrocaDeSenha"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">Aviso</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+						<div class="container">
+							<br />
+							<p><span style="font-size: 25px; color: red;">Realize a alteração de sua senha!</span> 
+								<a href="/sistech/funcionario/perfil" class="btn btn-warning">Alterar</a>
+							</p>
+						</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
 
 	<script src="assets/js/jquery-3.6.3.js"></script>
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/chart.js"></script>
 	<script>
+		function aviso(){
+			$('#conteudoAvisos').empty();
+			
+			$.ajax({
+				url: "/sistech/api/v1/avisos",
+				type: "GET",
+				success: function (data) {
+					$('#conteudoAvisos').append('<br />')
+					data.map(i => {
+						$('#conteudoAvisos').append('<p><b> * ' + i.aviso + '</b></p> ')
+					});
+					
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				},
+				complete: function (data) { }
+			})
+		}
+		
 		$(document).ready(function () {
 				$.ajax({
 					url: "/sistech/funcionarios/home",
 					type: "GET",
 					success: function (data) {
+						
+						if(data.avisos > 0){
+							$('#btnAvisos').append('<p class="nav-item dropdown">'
+								+'<a class="blink" href="#" data-bs-toggle="modal" data-bs-target="#modalLabelColaborador" onclick="aviso()" role="button"'
+								+'aria-expanded="false">'
+								+'<b><span style="color: red; font-size: 27px;"><i class="bi bi-bell"></i><span style="color : red; font-size: 15px">'+ data.avisos +'</span></span> </b></a></p>');
+						}
 						
 						if(data.agendadosAtrasados > 0){
 							$('#agendamentosAtrasados').append('<b> Agendamentos Atrasados: </b><span><a href="/sistech/solicitacao/relatorios" style="color: red; font-size: 25px">' + data.agendadosAtrasados +'</a></span>');
@@ -216,6 +299,13 @@
 						$('#saudacao').text(data.saudacao);
 						$('#nomeFuncionario').text(data.nomeFuncionario);
 						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
+						
+						if(data.trocaSenha == true){
+							
+							$("#modalTrocaDeSenha").modal('toggle'); 
+							
+						}
+						
 						
 						const ctx = document.getElementById('minhasSolicitacoes');
 						new Chart(ctx, {

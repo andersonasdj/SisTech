@@ -7,3 +7,18 @@ body {
 		padding: 0px 0px;
 	}
 }
+.blink {
+  animation: blink 1.5s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  80%{
+    opacity: 1;
+  }
+}

@@ -77,6 +77,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -147,8 +148,26 @@
 		</div>
 		
 		<div id="conteudo" style="display: none;">
+			<hr class="bg-danger border-2 border-top border">
 			<div class="row">
-			    <div class="col-7">
+			    <div class="col-5">
+					<div class="control-group">
+						<div class="controls">
+						    <div style="padding-left: 10px;">
+						      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
+								<option value="50">50</option>
+						        <option value="100">100</option>
+						        <option value="150">150</option>
+						        <option value="200">200</option>
+						        <option value="250">250</option>
+						        <option value="300">300</option>
+						      </select>
+						    </div>
+						</div>
+					</div>
+			    </div>
+			    <div class="col-2">
+					<b><span style="font-size: 24px;" id="totalElementos"></span></b>
 			    </div>
 			    <div class="col">
 					  <div class="col-1">
@@ -164,7 +183,7 @@
 			  </div>
 	
 			<div class="table-responsive">
-				<table  class="table table-hover table-striped table-bordered results" id="tabela-usuarios" style="text-align: center;">
+				<table  class="table table-hover table-striped table-bordered align-middle results sortable" id="tabela-usuarios" style="text-align: center;">
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">ID</th>
@@ -317,9 +336,9 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
-							<span id="idModalEdicao"> </span>
-						</h1>
+						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
+						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							<span hidden id="idHistorico"></span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -502,6 +521,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 							<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
+							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							<span hidden id="idHistorico"></span>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -672,12 +693,46 @@
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
-		
+		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-3" for="log"><b>LOG</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="20" id="log"
+									class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ########################################## Modal HISTORICO ############################################# -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/sorttable.js"></script>
 	<script>
+		
+		$(document).ready(function () {
+			var divQtdItens = $("#qtdItensPage");
+			divQtdItens.on("change", function () {
+				listarSolicitacoes();
+			});
+		});
+		
 		
 		$.ajax({
 			type: "GET",
@@ -717,21 +772,42 @@
 			}
 		}
 		
+		function exibeHistorico(){
+			
+			var id = $('#idHistorico').text();
+			$('#log').val("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/log/"+id,
+			success: function (data) {
+				$('#log').val(data);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		} 
+		
 		function listarSolicitacoes(){
 			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			$('#corpoSolicitacoes').empty();
 			$('#paginas').empty();
+			var QtdItens = $("#qtdItensPage").val();
 			document.getElementById('conteudo').style.display = 'none';
 			
 			if(cliente_id != "" && inicio != "" && fim != ""){	
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
 					
 					success: function (data) {
+						$('#totalElementos').text("");
+						$('#totalElementos').text(data.totalElements);
 						
 						$("#conteudo").stop().slideToggle(600);
 						
@@ -947,7 +1023,9 @@
 					$('#nomeSolicitanteModalEdicao').empty();
 					$('#nomeAfetadoModalEdicao').empty();
 					$('#formaAberturaModalEdicao').empty();
-					
+					$('#idHistorico').text("");
+
+					$('#idHistorico').text(data.log_id);
 					$('#dataAberturaModalEdicao').val("");
 					$('#horaAberturaModalEdicao').val("");
 					$('#dataAndamentoModalEdicao').val("");
@@ -1164,7 +1242,9 @@
 					$('#dataModalNaoFinalizado').val("");
 					$('#horaModalNaoFinalizado').val("");
 					$('#formaAberturaModalNaoFinalizado').empty();
+					$('#idHistorico').text("");
 
+					$('#idHistorico').text(data.log_id);
 					$('#idModalNaoFinalizado').text(data.id);
 					$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
 					$('#descricaoModalNaoFinalizado').val(data.descricao);

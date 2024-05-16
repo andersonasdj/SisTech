@@ -91,7 +91,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
 			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -100,6 +100,17 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.excluido = :excluida",nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoes(Pageable page, String status, Boolean excluida);
 	
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.status != 'FINALIZADO' "
+			+ "AND s.status = :status " 
+			+ "AND s.excluido = :excluida",nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorStatus(Pageable page, String status, Boolean excluida);
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
@@ -135,15 +146,57 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.excluido = :excluida "
+			+ "AND s.dataAbertura >= :inicio "
+			+ "AND s.dataAbertura <= :fim")
+	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoDataCsv(Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
 			+ "WHERE s.funcionario_id=:funcionario_id "
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataAbertura >= :inicio "
 			+ "AND s.dataAbertura <= :fim")
-	public List<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataCsv(Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	public List<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAberturaCsv(Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataFinalizado >= :inicio "
+			+ "AND s.dataFinalizado <= :fim")
+	public List<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataFechamentoCsv(Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataAtualizacao >= :inicio "
+			+ "AND s.dataAtualizacao <= :fim")
+	public List<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAtualizadoCsv(Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -180,8 +233,35 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataAbertura >= :inicio "
 			+ "AND s.dataAbertura <= :fim")
-	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioData(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAbertura(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataFinalizado >= :inicio "
+			+ "AND s.dataFinalizado <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataFechamento(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataAtualizacao >= :inicio "
+			+ "AND s.dataAtualizacao <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAtualizado(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -302,7 +382,18 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.excluido = false",nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id);
 	
-	
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, "
+			+ "s.duracao, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.status = 'FINALIZADO' "
+			+ "AND s.funcionario_id = :id "
+			+ "AND s.excluido = false",nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorFuncionario(Pageable page, Long id);
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
@@ -316,6 +407,19 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.cliente_id = :id "
 			+ "AND s.excluido = false",nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoesNaoFinalizadasPorCliente(Pageable page, Long id);
+	
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, "
+			+ "s.duracao, s.dataAtualizacao, s.dataAgendado "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.status != 'FINALIZADO' "
+			+ "AND s.funcionario_id = :id "
+			+ "AND s.excluido = false",nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoesNaoFinalizadasPorFuncionario(Pageable page, Long id);
 	
 	
 	public int countByStatusAndExcluido(Status status, Boolean excluido);
@@ -342,22 +446,39 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	public int countByClienteIdAndStatusAndExcluido(Long id, Status status, Boolean excluido);
 	
-	public int countByClienteIdAndExcluidoAndDataAberturaAfter(Long id, Boolean excluido, LocalDateTime dataAbertura);
+	public int countByFuncionarioIdAndStatusAndExcluido(Long id, Status status, Boolean excluido);
+	
+	public int countByClienteIdAndExcluidoAndDataFinalizadoAfter(Long id, Boolean excluido, LocalDateTime dataFinalizado);
+	
+	public int countByFuncionarioIdAndExcluidoAndDataFinalizadoAfter(Long id, Boolean excluido, LocalDateTime dataFinalizado);
 	
 	public List<PojecaoResumidaFinalizados> findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(Long id, Boolean excluido, Status status, LocalDateTime dataFechamento);
+	
+	public List<PojecaoResumidaFinalizados> findByFuncionarioIdAndExcluidoAndStatusAndDataFinalizadoAfter(Long id, Boolean excluido, Status status, LocalDateTime dataFechamento);
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO'AND s.cliente_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorLocalPorCliente(Long id, String local, Boolean excluido);
 	
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO'AND s.funcionario_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
+	public int totalPorLocalPorFuncionario(Long id, String local, Boolean excluido);
+	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.formaAbertura = :formaAbertura and s.excluido = :excluido and s.status != 'FINALIZADO'", nativeQuery = true)
 	public int totalPorFormaAberturaPorCliente(Long id, String formaAbertura, Boolean excluido);
+	
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.funcionario_id = :id AND s.formaAbertura = :formaAbertura and s.excluido = :excluido and s.status != 'FINALIZADO'", nativeQuery = true)
+	public int totalPorFormaAberturaPorFuncionario(Long id, String formaAbertura, Boolean excluido);
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.cliente_id = :id AND s.classificacao = :classificacao AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorClassificacaoPorCliente(Long id, String classificacao, Boolean excluido);
 	
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.funcionario_id = :id AND s.classificacao = :classificacao AND s.excluido = :excluido", nativeQuery = true)
+	public int totalPorClassificacaoPorFuncionario(Long id, String classificacao, Boolean excluido);
+	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.cliente_id = :id AND s.prioridade = :prioridade AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorPrioridadePorCliente(Long id, String prioridade, Boolean excluido);
-
+	
+	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO' AND s.funcionario_id = :id AND s.prioridade = :prioridade AND s.excluido = :excluido", nativeQuery = true)
+	public int totalPorPrioridadePorFuncionario(Long id, String prioridade, Boolean excluido);
 	
 	@Query(value = "SELECT s.id, s.dataAtualizacao FROM solicitacoes s WHERE s.excluido = 'false' AND s.status != 'FINALIZADO' ORDER BY s.dataAtualizacao DESC LIMIT 1", nativeQuery = true)
 	public DtoUltimaAtualizada buscaUltimaAtualizada();

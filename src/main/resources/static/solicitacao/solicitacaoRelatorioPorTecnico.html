@@ -77,6 +77,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
 								<li>
 							</ul>
@@ -122,6 +123,27 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">				
+					<div class="col-md-3">
+						<div class="control-group">
+							<input type="radio" id="abertura" name="periodo" value="abertura" CHECKED>
+							<label class="form-label mt-4" for="abertura">Data Abertura</label><br>
+							<input type="radio" id="fechamento" name="periodo" value="fechamento">
+							<label class="form-label" for="fechamento">Data Fechamento</label><br>
+							<input type="radio" id="atualizado" name="periodo" value="atualizado">
+							<label class="form-label" for="atualizado">Data Atualizado</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+								
+							<br />
+							<b><span style="font-size: 22px;" id="horasTotais" ></span></b>
+								
+						</div>
+					</div>
+				</div>
 						
 				<div class="row">				
 					<div class="col-md-3">
@@ -134,24 +156,42 @@
 						</div>
 
 					</div>
-						<div class="col-md-3">
-							<div class="control-group">
-								<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
-								<div class="calendarioAndamentoModal">
-									<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
-									<span></span>
-								</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
+							<div class="calendarioAndamentoModal">
+								<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
+								<span></span>
 							</div>
 						</div>
+					</div>
 				</div>
+				
 				<button class="btn btn-primary btn-sm mt-2" onclick="listarSolicitacoes()">listar</button>
 		</div>
 		
-		
 		<div id="conteudo" style="display: none;">
-		
+			<hr class="bg-danger border-2 border-top border">
 			<div class="row">
-			    <div class="col-7">
+			    <div class="col-4">
+					<div class="control-group">
+						<div class="controls">
+						    <div style="padding-left: 10px;">
+						      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
+								<option value="50">50</option>
+						        <option value="100">100</option>
+						        <option value="150">150</option>
+						        <option value="200">200</option>
+						        <option value="250">250</option>
+						        <option value="300">300</option>
+						      </select>
+						    </div>
+						</div>
+					</div>
+			    </div>
+			    
+			    <div class="col-2">
+					<b><span style="font-size: 24px;" id="totalElementos"></span></b>
 			    </div>
 			    <div class="col">
 					  <div class="col-1">
@@ -167,7 +207,7 @@
 			  </div>
 	
 			<div class="table-responsive">
-				<table  class="table table-hover table-striped table-bordered results" id="tabela-usuarios" style="text-align: center;">
+				<table  class="table table-hover table-striped table-bordered align-middle results sortable" id="tabela-usuarios" style="text-align: center;">
 					<thead>
 						<tr class="table-primary">
 							<th>ID</th>
@@ -318,9 +358,9 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
-							<span id="idModalEdicao"> </span>
-						</h1>
+						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
+						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							<span hidden id="idHistorico"></span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -506,6 +546,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 							<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
+							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							<span hidden id="idHistorico"></span>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -682,12 +724,47 @@
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
-		
+		<!-- ################################################### Modal HISTORICO ############################################# -->
+		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-3" for="log"><b>LOG</b></label>
+								<div class="controls">
+									<textarea class="form-control" rows="20" id="log"
+									class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ########################################## Modal HISTORICO ############################################# -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/sorttable.js"></script>
 	<script>
+		
+		$(document).ready(function () {
+			var divQtdItens = $("#qtdItensPage");
+			divQtdItens.on("change", function () {
+				listarSolicitacoes();
+			});
+		});
+		
 		
 		$.ajax({
 			type: "GET",
@@ -708,13 +785,14 @@
 			var funcionario_id = $('#nomeFuncionario').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
+			var periodo = document.querySelector('input[name=periodo]:checked').value
 				
 			if(funcionario_id != "" && inicio != "" && fim != ""){
 				
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/api/csv/relatorio/funcionario/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/api/csv/relatorio/funcionario/"+funcionario_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim,
 					success: function (data) {
 						var csvContent = "data:text/csv;charset=utf-8," + data;
 	    				window.open(csvContent);
@@ -727,12 +805,34 @@
 				
 		}
 		
+		function exibeHistorico(){
+			
+			var id = $('#idHistorico').text();
+			$('#log').val("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/log/"+id,
+			success: function (data) {
+				$('#log').val(data);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		} 
+		
 		function listarSolicitacoes(){
 			var funcionario_id = $('#nomeFuncionario').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			$('#corpoSolicitacoes').empty();
 			$('#paginas').empty();
+			var QtdItens = $("#qtdItensPage").val();
+			
+			var periodo = document.querySelector('input[name=periodo]:checked').value
+			
 			
 			document.getElementById('conteudo').style.display = 'none';
 			
@@ -741,9 +841,12 @@
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/funcionario/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/solicitacao/relatorio/funcionario/"+funcionario_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
 					
 					success: function (data) {
+						
+						$('#totalElementos').text("");
+						$('#totalElementos').text(data.totalElements);
 						
 						$("#conteudo").stop().slideToggle(600);
 						
@@ -755,7 +858,7 @@
 							$("#numPag0").attr("style","color:red");
 							
 						}
-						
+						var tempoTotal=0;
 						data.content.map(i => {
 							
 							if(i.status == "ABERTO"){ status = "class='table-danger'"}
@@ -775,10 +878,12 @@
 							
 							var tempo=0;
 							if(i.duracao != null){
-								if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
-								if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao;}
-								if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
+								if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
+								if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
+								if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
 							}else {tempo = " "; alerta = " "}
+							
+							
 							var itens = 
 							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" '+ modal + i.id + ')>'
 							+ '<td id=name' + i.id + '>' + i.id + '</td>'
@@ -798,6 +903,13 @@
 							$('#tabela-usuarios').append(itens);
 							}
 						);
+						
+						if(tempoTotal<= 60){
+							$('#horasTotais').text(tempoTotal + " minutos")
+						}else{
+							$('#horasTotais').text((tempoTotal / 60).toFixed(2) + " horas")
+						}
+
 					},
 					error: function (e) {
 						alert(e);
@@ -815,11 +927,12 @@
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			$('#corpoSolicitacoes').empty();
+			var periodo = document.querySelector('input[name=periodo]:checked').value
 			
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "/sistech/solicitacao/relatorio/funcionario/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim+"?page="+num,
+			url: "/sistech/solicitacao/relatorio/funcionario/"+funcionario_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"?page="+num,
 			success: function (data) {
 				
 				$('#corpoSolicitacoes').empty();
@@ -961,7 +1074,9 @@
 					$('#nomeSolicitanteModalEdicao').empty();
 					$('#nomeAfetadoModalEdicao').empty();
 					$('#formaAberturaModalEdicao').empty();
-					
+					$('#idHistorico').text("");
+
+					$('#idHistorico').text(data.log_id);
 					$('#dataAberturaModalEdicao').val(data.dataAbertura);
 					$('#horaAberturaModalEdicao').val(data.horaAbertura);
 					$('#dataAndamentoModalEdicao').val(data.dataAndamento);
@@ -1167,7 +1282,9 @@
 					$('#formaAberturaModalNaoFinalizado').empty();
 					$('#dataModalNaoFinalizado').val("");
 					$('#horaModalNaoFinalizado').val("");
+					$('#idHistorico').text("");
 
+					$('#idHistorico').text(data.log_id);
 					$('#idModalNaoFinalizado').text(data.id);
 					$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
 					$('#descricaoModalNaoFinalizado').val(data.descricao);
