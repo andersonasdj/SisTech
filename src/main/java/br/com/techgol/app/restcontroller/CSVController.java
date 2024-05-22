@@ -35,10 +35,10 @@ public class CSVController {
   }
   
   
-  @GetMapping("/relatorio/cliente/{id}/inicio/{inicio}/fim/{fim}")
-  public ResponseEntity<Resource> getFileRelatorio(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+  @GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
+  public ResponseEntity<Resource> getFileRelatorio(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
     String filename = "relatorio-"+LocalDateTime.now().withNano(0)+".csv";
-    InputStreamResource file = new InputStreamResource(fileService.loadRelatorioPorCliente(id, inicio, fim));
+    InputStreamResource file = new InputStreamResource(fileService.loadRelatorioPorCliente(id, periodo, inicio, fim));
 
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)

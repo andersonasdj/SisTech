@@ -28,5 +28,14 @@ public class ClienteService {
 	public List<String> listarIdClienteAtivos() {
 		return repository.listarIdClienteAtivos();
 	}
+	
+	
+	public boolean verificaSeVip(Long id) {
+		return repository.verificaSeVip(id);
+	}
+	
+	public boolean verificaSeRedFlag(Long id) {
+		return repository.verificaSeRedFlag(id);
+	}
 
 }

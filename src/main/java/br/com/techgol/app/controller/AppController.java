@@ -13,6 +13,16 @@ public class AppController {
 	@Autowired
 	FuncionarioService service;
 	
+	@GetMapping("/upload")
+	public String teste() {
+		return "templates/upload.html";
+	}
+	
+	@GetMapping("/impressao")
+	public String teste2() {
+		return "templates/impressao.html";
+	}
+	
 	@GetMapping("/login")
 	public String login() {
 		return "templates/login.html";

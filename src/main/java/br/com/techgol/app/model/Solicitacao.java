@@ -3,7 +3,6 @@ package br.com.techgol.app.model;
 import java.time.LocalDateTime;
 
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
-import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.model.enums.Categoria;
 import br.com.techgol.app.model.enums.Classificacao;
 import br.com.techgol.app.model.enums.FormaAbertura;
@@ -101,16 +100,8 @@ public class Solicitacao {
 	@OneToOne(fetch = FetchType.LAZY)
 	private LogSolicitacao log;
 	
-	public Solicitacao(DtoCadastroSolicitacaoLegada dados) {
-		this.afetado = dados.usuario();
-        this.dataAbertura = dados.dataAbertura();
-        this.solicitante = dados.solicitante();
-        this.resolucao = dados.resolucao();
-        this.descricao = dados.descricaoProblema();
-        this.observacao = dados.obs();
-        this.abertoPor = dados.abriuCHamado();
-	}
-
+	private Long peso;
+	
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente, Funcionario funcionario) {
 		this.cliente = cliente;
 		this.formaAbertura = dados.formaAbertura();
@@ -143,7 +134,6 @@ public class Solicitacao {
 		this.excluido = false;
 		this.dataAbertura = LocalDateTime.now().withNano(0);
 		this.dataAtualizacao = LocalDateTime.now().withNano(0);
-		
 	}
 
 	public String geraLog(String funcionario ) {

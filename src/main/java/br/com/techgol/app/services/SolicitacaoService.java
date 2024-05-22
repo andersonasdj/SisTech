@@ -38,9 +38,11 @@ import br.com.techgol.app.model.enums.Prioridade;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
+import br.com.techgol.app.orm.ProjecaoDadosImpressao;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import br.com.techgol.app.repository.LogSolicitacaoRepository;
+import br.com.techgol.app.repository.PesoSolicitacoes;
 import br.com.techgol.app.repository.SolicitacaoRepository;
 import jakarta.transaction.Transactional;
 
@@ -61,6 +63,106 @@ public class SolicitacaoService {
 	
 	@Autowired
 	private LogSolicitacaoRepository logSolicitacaoRepository;
+	
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private PesoSolicitacoes pesoSolicitacoes;
+	
+	@Transactional
+	public void recalcularPesoSolicitacoes() {
+		
+		List<Solicitacao> solicitacoesAbertas = repository.buscaSolicitacoesAbertas();
+		List<Solicitacao> solicitacoesAgendadas = repository.buscaSolicitacoesAgendadas();
+		List<Solicitacao> solicitacoesPausadasAguardando = repository.buscaSolicitacoesPausadoAguardando();
+		
+		if(solicitacoesAbertas != null) {
+			solicitacoesAbertas.forEach(s -> {
+				s.setPeso(recalcularPeso(s));
+			});
+		}
+		if(solicitacoesAgendadas != null) {
+			solicitacoesAgendadas.forEach(s -> {
+				s.setPeso(recalcularPeso(s));
+			});
+		}
+		
+		if(solicitacoesPausadasAguardando != null) {
+			solicitacoesPausadasAguardando.forEach(s -> {
+				s.setPeso(calcularPeso(s));
+			});
+		}
+	}
+	
+	public Long recalcularPeso(Solicitacao s) {
+		Long peso = calcularPeso(s);
+		
+		LocalDateTime dataHoje = LocalDateTime.now();
+		Duration diferenca;
+		
+		if(s.getStatus().equals(Status.ABERTO)) {
+			diferenca = Duration.between(s.getDataAbertura(), dataHoje);
+			peso += (diferenca.toHours())/2;
+		}
+		
+		if(s.getStatus().equals(Status.AGENDADO)) {
+			diferenca = Duration.between(s.getDataAgendado(), dataHoje);
+			if(diferenca.toMinutes() > 0) {
+				peso += (diferenca.toMinutes())/2;
+			}
+		}
+		
+		return peso;
+	}
+	
+	public Long calcularPeso(Solicitacao s) {
+		Long peso=0l;
+		
+		if(clienteService.verificaSeVip(s.getCliente().getId()) == true) {
+			peso += pesoSolicitacoes.findPesoByItem("VIP").getPeso();
+		}
+		
+		if(clienteService.verificaSeRedFlag(s.getCliente().getId()) == true) {
+			peso += pesoSolicitacoes.findPesoByItem("REDFLAG").getPeso();
+		}
+		
+		if(s.getClassificacao().toString().equals("INCIDENTE")) {
+			peso += pesoSolicitacoes.findPesoByItem("INCIDENTE").getPeso();
+		}
+		if(s.getClassificacao().toString().equals("PROBLEMA")) {
+			peso += pesoSolicitacoes.findPesoByItem("PROBLEMA").getPeso();
+		}
+		if(s.getClassificacao().toString().equals("SOLICITACAO")) {
+			peso += pesoSolicitacoes.findPesoByItem("SOLICITACAO").getPeso();
+		}
+		if(s.getClassificacao().toString().equals("ACESSO")) {
+			peso += pesoSolicitacoes.findPesoByItem("ACESSO").getPeso();
+		}
+		if(s.getClassificacao().toString().equals("EVENTO")) {
+			peso += pesoSolicitacoes.findPesoByItem("EVENTO").getPeso();
+		}
+		if(s.getClassificacao().toString().equals("BACKUP")) {
+			peso += pesoSolicitacoes.findPesoByItem("BACKUP").getPeso();
+		}
+		
+		if(s.getPrioridade().toString().equals("CRITICA")) {
+			peso += pesoSolicitacoes.findPesoByItem("CRITICA").getPeso();
+		}
+		if(s.getPrioridade().toString().equals("ALTA")) {
+			peso += pesoSolicitacoes.findPesoByItem("ALTA").getPeso();
+		}
+		if(s.getPrioridade().toString().equals("MEDIA")) {
+			peso += pesoSolicitacoes.findPesoByItem("MEDIA").getPeso();
+		}
+		if(s.getPrioridade().toString().equals("BAIXA")) {
+			peso += pesoSolicitacoes.findPesoByItem("BAIXA").getPeso();
+		}
+		if(s.getPrioridade().toString().equals("PLANEJADA")) {
+			peso += pesoSolicitacoes.findPesoByItem("PLANEJADA").getPeso();
+		}
+		return peso;
+	}
 	
 	
 	@Transactional
@@ -159,6 +261,25 @@ public class SolicitacaoService {
 			return "Excluido com sucesso!";
 		}else {
 			return "Não foi possível excluir";
+		}
+	}
+	
+	@Transactional
+	public String cancelarSolicitacao(Long id) {
+		
+		if(repository.existsById(id)) {
+			Solicitacao solicitacao = repository.getReferenceById(id);
+			solicitacao.setStatus(Status.FINALIZADO);
+			solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
+			solicitacao.setDataAgendado(null);
+			solicitacao.setDataAndamento(null);
+			solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
+			solicitacao.setDuracao(0l);
+			String descricao = solicitacao.getDescricao();
+			solicitacao.setDescricao("SOLICITAÇÃO CANCELADA!\n\n" + descricao);
+			return "Cancelado com sucesso!";
+		}else {
+			return "Não foi possível cancelar";
 		}
 	}
 	
@@ -297,7 +418,14 @@ public class SolicitacaoService {
 			solicitacao.setLog(log);
 		}
 		
+		solicitacao.setPeso(calcularPeso(solicitacao));
 		return repository.save(solicitacao);
+	}
+	
+	public ProjecaoDadosImpressao impressao(Long id) {
+		
+		return repository.impressaoPorId(id);
+		
 	}
 
 	public List<Solicitacao> buscarTodos() {
@@ -312,8 +440,8 @@ public class SolicitacaoService {
 		return repository.listarSolicitacoesPorStatus(page, status, exluida);
 	}
 	
-	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadas(Pageable page, String status, Boolean exluida) {
-		return repository.listarSolicitacoesFinalizadas(page, status, exluida);
+	public List<SolicitacaoProjecao> listarSolicitacoesFinalizadas(String status, Boolean exluida) {
+		return repository.listarSolicitacoesFinalizadas(status, exluida);
 	}
 	
 	public Page<SolicitacaoProjecao> listarSolicitacoesFinalizadasPorCliente(Pageable page, Long id) {
@@ -349,6 +477,8 @@ public class SolicitacaoService {
 		LogSolicitacao log = logSolicitacaoRepository.save(new LogSolicitacao(solicitacao));
 		
 		solicitacao.setLog(log);
+		
+		solicitacao.setPeso(calcularPeso(solicitacao));
 		
 		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
 		
@@ -568,22 +698,46 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 			
 	}
 
-	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, LocalDate ini, LocalDate termino) {
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino) {
 		
 		LocalDateTime inicio, fim;
 		
 		if(ini != null  && termino != null ) {
 			inicio = ini.atTime(00, 00, 00);
 			fim = termino.atTime(23, 59, 59);
-			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, fim);
+			
+			
+			if(periodo.equals("abertura")) {
+				return repository.listarSolicitacoesPorDataRelatorioAbertura(page, id, false, inicio, fim);
+			}else if(periodo.equals("fechamento")) {
+				return repository.listarSolicitacoesPorDataRelatorioFechamento(page, id, false, inicio, fim);
+			}else {
+				return repository.listarSolicitacoesPorDataRelatorioAtualizado(page, id, false, inicio, fim);
+			}
+			
 		}else if(ini != null) {
 			
 			inicio = ini.atTime(00, 00, 00);
 			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 59);
-			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, fim);
+			
+			if(periodo.equals("abertura")) {
+				return repository.listarSolicitacoesPorDataRelatorioAbertura(page, id, false, inicio, fim);
+			}else if(periodo.equals("fechamento")) {
+				return repository.listarSolicitacoesPorDataRelatorioFechamento(page, id, false, inicio, fim);
+			}else {
+				return repository.listarSolicitacoesPorDataRelatorioAtualizado(page, id, false, inicio, fim);
+			}
+			
 		} else {
 			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
-			return repository.listarSolicitacoesPorDataRelatorio(page, id, false, inicio, inicio);
+			
+			if(periodo.equals("abertura")) {
+				return repository.listarSolicitacoesPorDataRelatorioAbertura(page, id, false, inicio, inicio);
+			}else if(periodo.equals("fechamento")) {
+				return repository.listarSolicitacoesPorDataRelatorioFechamento(page, id, false, inicio, inicio);
+			}else {
+				return repository.listarSolicitacoesPorDataRelatorioAtualizado(page, id, false, inicio, inicio);
+			}
 		}
 			
 	}
@@ -688,5 +842,9 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 	public DtoSolicitacaoProjecaoCompleta buscarSolicitacaoRelatorio(Long id) {
 		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoRelatorio(id));
 	}
+
+
+
+	
 
 }

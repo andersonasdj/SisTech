@@ -30,7 +30,8 @@ public record DtoSolicitacaoComFuncionario(
 		String duracao,
 		Integer versao,
 		boolean vip,
-		boolean redFlag
+		boolean redFlag,
+		Long peso
 		) {
 
 		public DtoSolicitacaoComFuncionario(Solicitacao s) {
@@ -51,7 +52,8 @@ public record DtoSolicitacaoComFuncionario(
 					(s.getDuracao() != null) ?  s.getDuracao().toString() : " ",
 					s.getVersao(),
 					s.getCliente().isVip(),
-					s.getCliente().isRedFlag());
+					s.getCliente().isRedFlag(),
+					s.getPeso());
 		}
 
 }

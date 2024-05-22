@@ -190,7 +190,37 @@
             </div>
             <p style="color: red;">OBS: Para o envio de informativos, é necessário estar ativado e com email preenchido.</p>
             <button class="btn btn-primary btn-sm" onclick="salvarConfiguracaoEmails()">Salvar</button>
-		
+            
+            <br />
+            <hr class="bg-danger border-2 border-top border-danger"><br />
+            <div class="container">
+	            <h5>Matriz de configurações dos pesos nas solicitações</h5><br />
+	            
+	            <div class="table-responsive">
+					<table class="table table-hover table-bordered align-middle results sortable" id="tabela-peso" style="text-align: center;">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Tipo</th>
+								<th scope="col">Item</th>
+								<th scope="col">Peso</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody id="corpoPesoSolicitacoes">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
+				<span style="color: red;"><b>OBS: Configurações autonomas de peso: </b></span>
+					<li class="mt-2"> Período de reclassificação de todas as solicitações não finalizadas: A cada 2 minutos.</li>
+					<ul>
+						<li class="mt-2"> Solictações Aberta: A cada hora em aberto é adicionado uma fração da hora/2.</li>
+						<li class="mt-2"> Solictações Agendadas: A cada minuto atrasado em agendado é adicionado uma fração do minuto/2.</li>
+					</ul>
+            </div>
 		<br/><br/>
 		<footer class="text-center text-white">
 			<div class="container-fluid">
@@ -229,6 +259,55 @@
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script>
+		
+		listarPesosSolicitacoes();
+		
+		function salvarPeso(id){
+			var idPeso = id;
+			var peso = $('#peso'+id).val();
+			
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/api/v1/pesosolicitacoes",
+				data: JSON.stringify(
+						{
+							"id": idPeso,
+							"peso":peso
+						}
+					),
+				success: function (data) { alert("Peso atualizados com sucesso!"); },
+				error: function (e) { alert(e);	}
+			});
+			
+		}
+		
+		function listarPesosSolicitacoes(){
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/api/v1/pesosolicitacoes",
+			success: function (data) {
+				
+				data.map(i => {
+					var itens = 
+					'<tr id=linha' + i.id + '>'
+					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td>' + i.tipo + '</td>'
+					+ '<td>' + i.item + '</td>'
+					+ '<td style="width: 90px;"><input class="form-control" type="number" min="0" max="5" name="peso'+ i.id+'" id="peso'+i.id+'" style="width: 70px; text-align: center;" value="' + i.peso +'"></td>'
+					+ '<td><button class="btn btn-success btn-sm" onclick="salvarPeso('+ i.id +')">Salvar</button></td>'
+					+ '</tr>'
+					$('#tabela-peso').append(itens);
+					}
+				);
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
+			});
+		}
 		
 		$.ajax({
 			type: "GET",

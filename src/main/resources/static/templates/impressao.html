@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Sistech - Impressão</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ </head>
+  <body style="margin: 0; padding: 0; background-color:#eaeced " bgcolor="#eaeced">
+
+    <!-- Header -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tr>
+        <td height="20"></td>
+      </tr>
+      <tr>
+        <td>
+          <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+            <tr class="hiddenMobile">
+              <td height="40"></td>
+            </tr>
+
+            <tr>
+              <td>
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                          <tbody>
+                            <tr>
+                              <td align="left"><br> <span id="nomeCliente" style="font-size: 22px; color: #5b5b5b; font-family: 'Open Sans', sans-serif;" > </span>  </td>
+                            </tr>
+                            <tr class="hiddenMobile">
+                              <td height="50"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                                Solicitação de atendimento
+                                <br>Data de abertura: <span id="dataAbertura"></span>
+                                <br>Forma de Abertura: <span id="formaAbertura"></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                          <tbody>
+                            <tr class="visibleMobile">
+                              <td height="20"></td>
+                            </tr>
+                            <tr>
+                              <td height="5"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 21px; color: rgb(28, 113, 216); letter-spacing: -1px; font-family: 'Open Sans', sans-serif; line-height: 1; vertical-align: top; text-align: right;">
+                                Registro de serviço
+                              </td>
+                            </tr>
+                            <tr>
+                            <tr class="hiddenMobile">
+                              <td height="30"></td>
+                            </tr>
+                            <tr class="visibleMobile">
+                              <td height="20"></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                                <small>ID</small> #<span id="idSolicitacao"></span><br />
+                                <small id="dataHoje"> </small>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!-- /Header -->
+    <!-- Order Details -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tbody>
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+              <tbody>
+                <tr>
+                <tr class="visibleMobile">
+                  <td height="50"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                      <tbody>
+                        <tr>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;" width="52%" align="left">
+                            Descrição
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="left">
+                            <small> </small>
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="center">
+                            Solicitante
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                            Afetado
+                          </th>
+                        </tr>
+                        <tr>
+                          <td height="1" style="background: #bebebe;" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td height="10" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: rgb(28, 113, 216);  line-height: 18px;  vertical-align: top; padding:10px 0;" class="article">
+                            <span id="descricao"></span>
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"><small></small></td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center"><span id="solicitante"> </span> </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="right"> <span id="afetado"> </span> </td>
+                        </tr>
+                        <tr>
+                          <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="20"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+     <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tbody>
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+              <tbody>
+                <tr>
+                  <td>
+                    <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                      <tbody>
+                        <tr>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;" width="52%" align="left">
+                            Observação
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="left">
+                            <small> </small>
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="center">
+                            Classificação
+                          </th>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                            Categoria
+                          </th>
+                        </tr>
+                        <tr>
+                          <td height="1" style="background: #bebebe;" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td height="10" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: rgb(28, 113, 216);  line-height: 18px;  vertical-align: top; padding:10px 0;" class="article">
+                            <span id="observacao"></span>
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"><small></small></td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center"><span id="classificacao"> </span> </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="right"> <span id="categoria"> </span> </td>
+                        </tr>
+                        <tr>
+                          <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="20"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tbody>
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+              <tbody>
+                <tr>
+                  <td>
+                    <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                      <tbody>
+                        <tr>
+                          <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;" width="52%" align="left">
+                            Resolução
+                          </th>
+                        </tr>
+                        <tr>
+                          <td height="1" style="background: #bebebe;" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td height="10" colspan="4"></td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: rgb(28, 113, 216);  line-height: 18px;  vertical-align: top; padding:10px 0;" class="article">
+                            <span id="resolucao"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="1" colspan="4" style="border-bottom:1px solid #e4e4e4"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="20"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tbody>
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+              <tbody>
+                <tr>
+                  <td>
+                    <!-- Table Total -->
+                    <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                      <tbody>
+						   <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                            Data de conclusão
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="150">
+                            <span id="dataFinalizado"></span>
+                          </td>
+                        </tr>
+						 <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                            Status
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="150">
+                            <span id="status"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
+                            Analista responsável
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;" width="150">
+                            <span id="nomeFuncionario"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                            <strong>Tempo de atendimento</strong>
+                          </td>
+                          <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align:right; ">
+                            <strong><span id="duracao"></span></strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- /Table Total -->
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- /Total -->
+    <!-- Information -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tbody>
+        <tr>
+          <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+              <tbody>
+                <tr>
+                  <td>
+                    <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                              <tbody>
+                                <tr class="hiddenMobile">
+                                  <td height="85"></td>
+                                </tr>
+                                <tr class="visibleMobile">
+                                  <td height="20"></td>
+                                </tr>
+                                 <tr>
+                                  <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size: 11px; padding-left: 20px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                    <strong>________________________</strong>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size: 11px; padding-top: 5px; padding-left: 68px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                    <strong>Solicitante</strong>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="10"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                              <tbody>
+                                <tr class="hiddenMobile">
+                                  <td height="85"></td>
+                                </tr>
+                                <tr class="visibleMobile">
+                                  <td height="20"></td>
+                                </tr>
+                                 <tr>
+                                  <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size: 11px; padding-left: 20px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                    <strong>____________________________</strong>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size: 11px; padding-top: 5px; padding-left: 50px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                                    <strong>Tesponsável Técnico</strong>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="100%" height="10"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr class="visibleMobile">
+                  <td height="30"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- /Information -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tr>
+        <td>
+          <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
+            <tr>
+              <td>
+                <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+					 <tr>
+                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+						   <td height="35"></td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+						   <td height="35"></td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 9px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                        Tecnologia da Informação
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr class="spacer">
+              <td height="50"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="20"></td>
+      </tr>
+    </table>
+    
+</body>
+<script src="./assets/js/jquery-3.6.3.js"></script>
+<script src="./assets/js/moment.js"></script>
+<script>
+	var url_atual = window.location.href;
+	var id  = Number(url_atual.substr(url_atual.indexOf('=')+1));
+	
+	$.ajax({
+		type: "GET",
+		contentType: "application/json",
+		url: "/sistech/solicitacao/impressao/" + id,
+		success: function (data) {
+			
+			$('#nomeCliente').text(data.nomeCliente);
+			$('#idSolicitacao').text(data.id);
+			$('#dataHoje').text(moment(Date()).format('LL'));
+			$('#descricao').text(data.descricao);
+			$('#solicitante').text(data.solicitante);
+			$('#afetado').text(data.afetado);
+			$('#observacao').text(data.observacao);
+			$('#resolucao').text(data.resolucao);
+			$('#dataAbertura').text( moment(data.dataAbertura).format('DD MMMM YYYY, h:mm'));
+			$('#nomeFuncionario').text(data.nomeFuncionario);
+			$('#status').text(data.status);
+			$('#categoria').text(data.categoria);
+			$('#classificacao').text(data.classificacao);
+			$('#formaAbertura').text(data.formaAbertura);
+			
+			if(data.dataFinalizado != null){
+				$('#dataFinalizado').text(moment(data.dataFinalizado).format('DD MMMM YYYY, h:mm'));
+			}
+			
+			if(data.duracao > 0){
+				if(data.duracao<= 60){
+					$('#duracao').append(data.duracao + " minutos");
+				}else{
+					$('#duracao').append( ((data.duracao) / 60 ).toFixed(2) + " horas");
+				}
+			}
+			
+		},
+		statusCode: {
+		    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+		    401: function() { alert('Realize login novamente!'); }
+		}
+	});
+	
+</script>
+  
+</html>

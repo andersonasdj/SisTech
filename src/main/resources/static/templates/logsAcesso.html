@@ -214,14 +214,7 @@
 			url: "/sistech/sistema/logs",
 			success: function (data) {
 				
-				if(data.totalPages > 1){
-					for(var i=0; i < data.totalPages ; i++ ){
-							$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
-					}
-					$("#numPag0").attr("style","color:red");
-				}
-				
-				data.content.map(i => {
+				data.map(i => {
 					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.dataLogin + '</td>'
@@ -241,43 +234,6 @@
 			},
 			error: function (e) { alert(e); }
 		});
-		
-		
-		function paginacao(num){
-			$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/sistema/logs?page="+num,
-			success: function (data) {
-				$('#corpoLogs').empty();
-				$('#paginas').empty();
-				
-				for(var i=0; i < data.totalPages ; i++ ){
-					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
-				}
-				$("#numPag"+num).attr("style","color:red");
-
-				data.content.map(i => {
-					var itens =
-					'<tr id=linha' + i.id + '>'
-					+ '<td id=name' + i.id + '>' + i.dataLogin + '</td>'
-					+ '<td>' + i.usuario + '</td>'
-					+ '<td>' + i.ip + '</td>'
-					+ '<td>' + i.hostname + '</td>'
-					+ '<td>' + i.enderecoServer+ '</td>'
-					+ '<td>' + i.nomeLocal + '</td>'
-					+ '<td>' + i.pais + '</td>'
-					+ '<td>' + i.uri + '</td>'
-					+ '<td>' + i.browser + '</td>'
-					+ '<td>' + i.status + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '</tr>'
-				$('#tabela-usuarios').append(itens);
-				});
-			},
-			error: function (e) { alert(e.totalPages); }
-			});
-		}
 	</script>
 	<script>
 		$(document).ready(function() {

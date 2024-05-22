@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.ConfiguracaoPaises;
+import br.com.techgol.app.model.PesoSolicitacao;
 import br.com.techgol.app.model.enums.Agendamentos;
+import br.com.techgol.app.repository.PesoSolicitacoes;
 import br.com.techgol.app.services.ConfiguracaoEmailService;
 import br.com.techgol.app.services.ConfiguracaoPaisesService;
 import br.com.techgol.app.services.FuncionarioService;
@@ -26,10 +28,29 @@ public class AuthenticatorController {
 	
 	@Autowired
 	private ConfiguracaoEmailService emailService;
+	
+	@Autowired
+	private PesoSolicitacoes pesoSolicitacoes;
 
 	@PostMapping("/create")
 	public String register(@RequestBody DtoCadastroFuncionario dados ) {
 
+		if(pesoSolicitacoes.existsConfigPesos() == 0) {
+			pesoSolicitacoes.save(new PesoSolicitacao("VIP", 0l, "Cliente"));
+			pesoSolicitacoes.save(new PesoSolicitacao("REDFLAG", 0l, "Cliente"));
+			pesoSolicitacoes.save(new PesoSolicitacao("INCIDENTE", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("PROBLEMA", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("SOLICITACAO", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("ACESSO", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("EVENTO", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("BACKUP", 0l, "Classificação"));
+			pesoSolicitacoes.save(new PesoSolicitacao("BAIXA", 0l, "Prioridade"));
+			pesoSolicitacoes.save(new PesoSolicitacao("MEDIA", 0l, "Prioridade"));
+			pesoSolicitacoes.save(new PesoSolicitacao("ALTA", 0l, "Prioridade"));
+			pesoSolicitacoes.save(new PesoSolicitacao("CRITICA", 0l, "Prioridade"));
+			pesoSolicitacoes.save(new PesoSolicitacao("PLANEJADA", 0l, "Prioridade"));
+		}
+		
 		if(paisesService.existeConfig() == 0) {
 			paisesService.salvar(new ConfiguracaoPaises("BR",true));
 			paisesService.salvar(new ConfiguracaoPaises("US",true));

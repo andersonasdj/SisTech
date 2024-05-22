@@ -3,10 +3,6 @@ package br.com.techgol.app.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +35,8 @@ public class AppRestController {
 	private ConfiguracaoEmailService emailService;
 	
 	@GetMapping("/logs")
-	public Page<DtoLogAcesso> logar(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC)Pageable page) {
-		return loginService.listarLogs(page);
+	public List<DtoLogAcesso> logar() {
+		return loginService.listarLogs();
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

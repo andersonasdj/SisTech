@@ -110,7 +110,7 @@
 		<div class="container corpoFormulario" style="display: block;">
 			<div id="form-solicitacao">
 				<fieldset>
-					<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
+					<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" data-toggle="tooltip" data-placement="top" title="Modelos prontos de solicitação" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
 	<!--				<p class="pull-right">-->
 	<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
 	<!--				</p>-->
@@ -813,7 +813,7 @@
 					
 					$('#botaoColaboradores').empty();
 					$('#botaoColaboradores').append(
-						'<button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick="editarColaboradores()"><i class="bi bi-people"></i></button>'
+						'<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Adicione um novo colaborador" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick="editarColaboradores()"><i class="bi bi-people"></i></button>'
 					);
 					
 					$.ajax({

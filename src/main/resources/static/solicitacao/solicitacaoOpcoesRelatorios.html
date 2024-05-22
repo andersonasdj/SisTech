@@ -395,6 +395,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -584,9 +586,11 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualizaNaoFinalizado()">Salvar</button>
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
+						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -658,6 +662,46 @@
 	<script src="../assets/js/sorttable.js"></script>
 	<script>
 		preencheBotoesTabela();
+		
+		function print() {
+			var idFinalizado= $('#idModalEdicaoModalEdicao').text();
+			var idNaoFinalizado= $('#idModalNaoFinalizado').text();
+			
+			if(idFinalizado != " "){
+				 window.open('../impressao?id='+idFinalizado, '_blank');
+			}else{
+				 window.open('../impressao?id='+idNaoFinalizado, '_blank');
+			}
+       		
+      	}
+		
+		function cancelar(){
+			if (confirm("Tem certeza que deseja cancelar a solicitação ?") == true) {
+				var id;
+				var modal;
+				if($('#idModalEdicaoModalEdicao').text() != " "){
+					id = $('#idModalEdicaoModalEdicao').text();
+					modal = "#edicaoModal";
+				}else{
+					id = $('#idModalNaoFinalizado').text();
+					modal = "#edicaoModalNaoFinalizado";
+				}
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "PUT",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/cancelar/" + id,
+					success: function () {
+						remove.fadeOut(800, function () {
+							remove.remove();
+						});
+						$(modal).modal('hide');
+					},
+					error: function (e) { alert("Erro: Não foi possivel cancelar a solicitação!"); }
+				});
+			}
+		}
 		
 		function exibeHistoricoNaoFinalizado(){
 			

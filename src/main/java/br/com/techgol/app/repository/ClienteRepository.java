@@ -27,5 +27,11 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	
 	public Cliente findBynomeCliente(String nomeCliente);
+
+	@Query(value = "SELECT c.vip FROM clientes c WHERE c.id= :id", nativeQuery = true)
+	public boolean verificaSeVip(Long id);
+	
+	@Query(value = "SELECT c.redFlag FROM clientes c WHERE c.id= :id", nativeQuery = true)
+	public boolean verificaSeRedFlag(Long id);
 	
 }

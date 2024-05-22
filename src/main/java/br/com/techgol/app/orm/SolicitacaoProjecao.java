@@ -34,5 +34,6 @@ public interface SolicitacaoProjecao {
 	boolean getVip();
 	boolean getRedFlag();
 	Long getLog_Id();
+	Long getPeso();
 
 }

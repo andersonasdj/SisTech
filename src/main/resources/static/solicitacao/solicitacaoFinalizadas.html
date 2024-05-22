@@ -113,7 +113,7 @@
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col">
-				<h5>Solicitações finalizadas</h5>
+				<h5>Solicitações finalizadas</h5><span style="font-size: 15px;">(Últimas 200)</span>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -149,11 +149,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<nav aria-label="Page navigation example">
-			  <ul id="paginas" class="pagination">
-			    
-			  </ul>
-			</nav>
 		</div>
 		<br /><br />
 
@@ -341,7 +336,7 @@
 
 							<div class="col-md-4 ms-auto">
 								<div class="control-group fonteModal">
-									<label class="form-label mt-2" for="duracaoModalEdicao"><b>Duração</b></label>
+									<label class="form-label mt-2"><b>Duração</b></label>
 									<p><span id="duracaoModalEdicao"></span></p>
 								</div>
 							</div>
@@ -439,17 +434,7 @@
 			url: "/sistech/solicitacao/finalizado",
 			success: function (data) {
 				
-				if(data.totalPages > 1){
-					
-					for(var i=0; i < data.totalPages ; i++ ){
-						$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
-					}
-					$("#numPag0").attr("style","color:red");
-					
-				}
-				
-				data.content.map(i => {
-					
+				data.map(i => {
 					if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" }
 					if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" }
 					if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'"}
@@ -479,48 +464,6 @@
 				}
 		});
 		
-		function paginacao(num){
-			$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/solicitacao/finalizado?page="+num,
-			success: function (data) {
-				
-				$('#corpoSolicitacoes').empty();
-				$('#paginas').empty();
-				
-				for(var i=0; i < data.totalPages ; i++ ){
-					$('#paginas').append('<li class="page-item"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
-				}
-				$("#numPag"+num).attr("style","color:red");
-				
-				data.content.map(i => {
-					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#finalizadaModal" onclick=verificar(' + i.id + ')>'
-					+ '<td id=name' + i.id + '>' + i.id + '</td>'
-					+ '<td>' + i.dataAbertura + '</td>'
-					+ '<td>' + i.nomeCliente + '</td>'
-					+ '<td>' + i.solicitante + '</td>'
-					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '<td>' + i.prioridade + '</td>'
-					+ '<td>' + i.classificacao + '</td>'
-					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '</td>'
-					+ '<td>' + i.duracao + '</td>'
-					+ '</tr>'
-					$('#tabela-usuarios').append(itens);
-					}
-				);
-			},
-			statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
-			}
-			});
-		}
-
 		function verificar(id) {
 			$.ajax({
 				type: "GET",

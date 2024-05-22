@@ -34,6 +34,12 @@ public class AgendamentoService {
 	 * 
 	 */
 	
+	@Scheduled(cron = "0 */2 * * * *", zone = TIME_ZONE) //RECALCULADO A CADA 2 MINUTOS
+	public void recalculoPesoSolicitacoes() {
+		System.out.println("Reclassificação de peso executado!");
+		solicitacaoService.recalcularPesoSolicitacoes();
+	}
+	
 	@Scheduled(cron = "0 30 17 * * *", zone = TIME_ZONE)
 	public void envioDeRelatorioDiarioSolicitacoes() {
 		ConfiguracaoEmail  config = configuracaoEmailService.buscaConfiguracao(Agendamentos.AGENDAMENTO.toString());

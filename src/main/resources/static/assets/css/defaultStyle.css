@@ -3,22 +3,35 @@ body {
 }
 
 @media (max-width: 900px) {
-	 body {
+	body {
 		padding: 0px 0px;
 	}
 }
+
 .blink {
-  animation: blink 1.5s steps(1, end) infinite;
+	animation: blink 1.5s steps(1, end) infinite;
 }
 
 @keyframes blink {
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  80%{
-    opacity: 1;
-  }
+	40% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	80% {
+		opacity: 1;
+	}
+}
+
+.borda-pontilhada {
+	color: rgb(61, 56, 70);
+	color: rgb(61, 56, 70);
+	background: #fff;
+	border: 2px dashed #C8CBCE;
+	-webkit-transition: box-shadow 0.3s, border-color 0.3s;
+	-moz-transition: box-shadow 0.3s, border-color 0.3s;
+	transition: box-shadow 0.3s, border-color 0.3s;
 }

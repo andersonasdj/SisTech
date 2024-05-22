@@ -137,7 +137,7 @@
 		  </div>
 		</div>
 		<hr class="bg-danger border-2 border-top border">
-		
+		<span id="update" hidden> </span>
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col-7">
@@ -448,14 +448,14 @@
 								<div class="controls">Versão <span id="versaoModal"></span></div>
 							</div>
 						</div>
-
 					</div>
 					<div class="modal-footer">
-						
-						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
-						<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"></i></button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
+						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"></i></button>
+						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualiza()">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -649,7 +649,33 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
 	<script>
+		
 		exibeTodasSolicitacoes();
+		
+		function print() {
+			var id= $('#idmodal').text();
+       		 window.open('../impressao?id='+id, '_blank');
+      	}
+		
+		function cancelar(){
+			if (confirm("Tem certeza que deseja cancelar a solicitação ?") == true) {
+				var id = $('#idmodal').text();
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "PUT",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/cancelar/" + id,
+					success: function () {
+						remove.fadeOut(800, function () {
+							remove.remove();
+						});
+						$('#exampleModal').modal('hide');
+					},
+					error: function (e) { alert("Erro: Não foi possivel cancelar a solicitação!"); }
+				});
+			}
+		}
 		
 		function exibeTodas(){
 			$('#corpoSolicitacoes').empty();
@@ -733,7 +759,6 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/short",
 			success: function (data) {
-				
 				$('#totalElementos').text("");
 				$('#totalElementos').text(data.totalElements);
 				
@@ -748,7 +773,16 @@
 				data.content.map(i => {
 					var status;
 					var vip;
-					var redFlag;
+					var redFlag;''
+					var alertaPeso;
+					if(i.peso > 7){
+						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.peso > 3 && i.peso <= 7 ){
+						alertaPeso = "style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPeso = "style='color: blue; font-weight: bold;'";
+					}
+					
 					var dataAgendado = "";
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
@@ -758,9 +792,9 @@
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
-							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+							redFlag = "-<span class='blink' style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
 						else{
-							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
 					var itens = 
@@ -768,15 +802,15 @@
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
-					+ '<td>' + i.solicitante + '</td>'
-					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '<td>' + i.prioridade + '</td>'
-					+ '<td>' + i.classificacao + '</td>'
-					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
-					+ '<td>' + i.versao + '</td>'
+					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
+					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p></td>'
+					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
+					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
+					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
+					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -814,6 +848,16 @@
 					var vip;
 					var redFlag;
 					var dataAgendado = "";
+					
+					var alertaPeso;
+					if(i.peso > 7){
+						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.peso > 3 && i.peso <= 7 ){
+						alertaPeso = "style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPeso = "style='color: blue; font-weight: bold;'";
+					}
+					
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
@@ -822,9 +866,9 @@
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
-							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+							redFlag = "-<span class='blink' style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
 						else{
-							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
 					var itens = 
@@ -832,15 +876,15 @@
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
-					+ '<td>' + i.solicitante + '</td>'
-					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '<td>' + i.prioridade + '</td>'
-					+ '<td>' + i.classificacao + '</td>'
-					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
-					+ '<td>' + i.versao + '</td>'
+					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
+					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
+					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
+					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
+					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -893,6 +937,14 @@
 					var vip;
 					var redFlag;
 					var dataAgendado = "";
+					var alertaPeso;
+					if(i.peso > 7){
+						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.peso > 3 && i.peso <= 7 ){
+						alertaPeso = "style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPeso = "style='color: blue; font-weight: bold;'";
+					}
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
@@ -901,9 +953,9 @@
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
-							redFlag = "-<span style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+							redFlag = "-<span class='blink' style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
 						else{
-							redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
 					var itens = 
@@ -911,15 +963,15 @@
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
-					+ '<td>' + i.solicitante + '</td>'
-					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '<td>' + i.prioridade + '</td>'
-					+ '<td>' + i.classificacao + '</td>'
-					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
-					+ '<td>' + i.versao + '</td>'
+					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
+					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
+					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
+					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
+					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -1146,7 +1198,7 @@
 		});
 		
 		function excluir() {
-			if (confirm("Tem certeza que deseja excluir a solicitação de ID: " + id + " ?") == true) {
+			if (confirm("Tem certeza que deseja excluir a solicitação ?") == true) {
 				var id = $('#idmodal').text();
 				var t = "#linha" + id;
 				var remove = $(t).closest('tr');
@@ -1155,6 +1207,7 @@
 					contentType: "application/json",
 					url: "/sistech/solicitacao/excluir/" + id,
 					success: function () {
+						
 						remove.fadeOut(800, function () {
 							remove.remove();
 						});
@@ -1208,17 +1261,19 @@
 					if(data.status == "FINALIZADO"){
 						$('#linha' + data.id).remove();
 						$('#exampleModal').modal('hide');
+						$('#update').text("");
+						$('#update').text(data.id);
 						alert("atualizado com sucesso");
 						
 					}else{
 						var status;
 						var vip;
 						var redFlag;
-						if(data.status == "ABERTO"){ status = "class='table-danger'" }
-						if(data.status == "AGENDADO"){ status = "class='table-warning'" }
-						if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
-						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
-						if(data.status == "PAUSADO"){ status = "class='table-light'" }
+						if(data.status == "ABERTO"){ status = "table-danger" }
+						if(data.status == "AGENDADO"){ status = "table-warning" }
+						if(data.status == "ANDAMENTO"){ status = "table-info" }
+						if(data.status == "AGUARDANDO"){ status = "table-secondary" }
+						if(data.status == "PAUSADO"){ status = "table-light" }
 						if(data.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 						if(data.redFlag == true){ 
 							if(data.vip == true){
@@ -1226,24 +1281,26 @@
 							else{
 								redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 						} else{redFlag =""}
-						
-						var itens =
-						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
-						+ '<td id=name' + data.id + '>' + data.id + '</td>'
-						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente  + vip + redFlag + '</td>'
-						+ '<td>' + data.solicitante + '</td>'
-						+ '<td>' + data.afetado + '</td>'
-						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
-						+ '<td>' + data.descricao + '</td>'
-						+ '<td>' + data.prioridade + '</td>'
-						+ '<td>' + data.classificacao + '</td>'
-						+ '<td>' + data.nomeFuncionario + '</td>'
-						+ '<td>' + data.status + '</td>'
-						+ '<td>' + data.versao + '</td>'
-						+ '</tr>'
-						$('#linha' + data.id).remove();
-						$('#tabela-usuarios').append(itens);
+						$('#linha'+data.id).removeClass();
+						$('#linha'+data.id).addClass(status);
+						$('#solicitante'+data.id).empty();
+						$('#solicitante'+data.id).append(data.solicitante);
+						$('#afetado'+data.id).empty();
+						$('#afetado'+data.id).append(data.afetado);
+						$('#descricao'+data.id).empty();
+						$('#descricao'+data.id).append(data.descricao);
+						$('#prioridade'+data.id).empty();
+						$('#prioridade'+data.id).append(data.prioridade);
+						$('#classificacao'+data.id).empty();
+						$('#classificacao'+data.id).append(data.classificacao+"<p>Peso: <span class='blink' style='font-weight: bold'>"+ data.peso+"</span></p>");
+						$('#nomeFuncionario'+data.id).empty();
+						$('#nomeFuncionario'+data.id).append(data.nomeFuncionario);
+						$('#status'+data.id).empty();
+						$('#status'+data.id).append(data.status);
+						$('#versao'+data.id).empty();
+						$('#versao'+data.id).append(data.versao);
+						$('#local'+data.id).empty();
+						$('#local'+data.id).append("Local: "+data.local+"<br /><p>Categoria: "+ data.categoria +" </p>");
 						$('#exampleModal').modal('hide');
 						alert("atualizado com sucesso");
 					}

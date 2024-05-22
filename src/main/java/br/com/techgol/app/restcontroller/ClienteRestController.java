@@ -31,6 +31,7 @@ public class ClienteRestController {
 	@Autowired
 	private ClienteRepository repository;
 	
+	
 	@GetMapping
 	public Page<DtoClienteList> listar(@PageableDefault(size = 10, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
 	
@@ -42,7 +43,6 @@ public class ClienteRestController {
 		
 		return repository.listarNomesCliente();
 	}
-	
 	
 	@GetMapping("/edit/{id}")
 	public DadosClienteEditDTO editar(@PathVariable Long id ) {

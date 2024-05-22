@@ -110,12 +110,11 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
-		<div class="container-fluid">
-			
+		<div class="container-fluid borda-pontilhada">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="control-group">
-							<label class="control-label" for="nomeFuncionario"><b>Técnico</b></label>
+							<label class="control-label mt-2" for="nomeFuncionario"><b>Técnico</b></label>
 							<div class="controls">
 								<select class="form-select mt-1" id="nomeFuncionario" name="nomeFuncionario">
 								</select>
@@ -137,10 +136,10 @@
 					</div>
 					<div class="col-md-3">
 						<div class="control-group">
-								
 							<br />
-							<b><span style="font-size: 22px;" id="horasTotais" ></span></b>
-								
+							<span style="font-size: 18px;" id="horasTotais" ></span>
+							<span style="font-size: 18px;" id="diasUteis" ></span>
+							<span style="font-size: 18px;" id="horaDia" ></span>
 						</div>
 					</div>
 				</div>
@@ -167,11 +166,11 @@
 					</div>
 				</div>
 				
-				<button class="btn btn-primary btn-sm mt-2" onclick="listarSolicitacoes()">listar</button>
+				<p><button class="btn btn-primary btn-sm mt-2" onclick="listarSolicitacoes()">listar</button></p>
 		</div>
 		
 		<div id="conteudo" style="display: none;">
-			<hr class="bg-danger border-2 border-top border">
+			<br />
 			<div class="row">
 			    <div class="col-4">
 					<div class="control-group">
@@ -832,10 +831,22 @@
 			var QtdItens = $("#qtdItensPage").val();
 			
 			var periodo = document.querySelector('input[name=periodo]:checked').value
-			
-			
 			document.getElementById('conteudo').style.display = 'none';
 			
+			var data_inicial  = new Date(inicio);
+			var data_final = new Date(fim);
+			
+			var resultados = [];
+			var data_inicio = data_inicial;
+			var final_semana = [5,6];
+			while (data_inicio <= data_final) {
+			 	var data = new Date(data_inicio);
+			 	if (!final_semana.includes(data.getDay())){
+			 		var data_formatada = data.toISOString().slice(0,10);
+			 		resultados.push(data_formatada);
+				}
+			    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
+			}
 			
 			if(funcionario_id != "" && inicio != "" && fim != ""){	
 				$.ajax({
@@ -903,11 +914,15 @@
 							$('#tabela-usuarios').append(itens);
 							}
 						);
-						
+						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
 						if(tempoTotal<= 60){
-							$('#horasTotais').text(tempoTotal + " minutos")
+							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
+							$('#horasTotais').append('<li> Minutos totais: <b><u>'+tempoTotal+'</u></b></li>');
+							$('#horaDia').append('<li> Minutos / dia: <b><u>'+(tempoTotal / resultados.length).toFixed(2)+'</u></b></li>');
 						}else{
-							$('#horasTotais').text((tempoTotal / 60).toFixed(2) + " horas")
+							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
+							$('#horasTotais').append('<li> Horas totais: <b><u>'+(tempoTotal / 60).toFixed(2)+'</u></b></li>');
+							$('#horaDia').append('<li> Horas / dia: <b><u>'+((tempoTotal / 60).toFixed(2) / resultados.length).toFixed(2)+'</u></b></li>');
 						}
 
 					},
@@ -916,7 +931,7 @@
 					}
 				});
 			}else{
-				alert("Selecione (Cliente, data de inicio e data de término)");
+				alert("Selecione (Funcionario, data de inicio e data de término)");
 			}
 				
 		}

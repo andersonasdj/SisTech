@@ -110,15 +110,36 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		
-		<div class="container-fluid">
+		<div class="container-fluid borda-pontilhada">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="control-group">
-							<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
+							<label class="control-label mt-2" for="nomeCliente"><b>Cliente</b></label>
 							<div class="controls">
 								<select class="form-select mt-1" id="nomeCliente" name="nomeCliente">
 								</select>
 							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">				
+					<div class="col-md-3">
+						<div class="control-group">
+							<input type="radio" id="abertura" name="periodo" value="abertura" CHECKED>
+							<label class="form-label mt-4" for="abertura">Data Abertura</label><br>
+							<input type="radio" id="fechamento" name="periodo" value="fechamento">
+							<label class="form-label" for="fechamento">Data Fechamento</label><br>
+							<input type="radio" id="atualizado" name="periodo" value="atualizado">
+							<label class="form-label" for="atualizado">Data Atualizado</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<br />
+							<span style="font-size: 18px;" id="horasTotais" ></span>
+							<span style="font-size: 18px;" id="diasUteis" ></span>
+							<span style="font-size: 18px;" id="horaDia" ></span>
 						</div>
 					</div>
 				</div>
@@ -144,11 +165,11 @@
 							</div>
 						</div>
 				</div>
-				<button class="btn btn-primary btn-sm mt-2" onclick="listarSolicitacoes()">listar</button>
+				<p><button class="btn btn-primary btn-sm mt-2" onclick="listarSolicitacoes()">listar</button></p>
 		</div>
 		
 		<div id="conteudo" style="display: none;">
-			<hr class="bg-danger border-2 border-top border">
+			<br />
 			<div class="row">
 			    <div class="col-5">
 					<div class="control-group">
@@ -754,13 +775,14 @@
 			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
+			var periodo = document.querySelector('input[name=periodo]:checked').value
 				
 			if(cliente_id != "" && inicio != "" && fim != ""){
 				
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/api/csv/relatorio/cliente/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/api/csv/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim,
 					success: function (data) {
 						var csvContent = "data:text/csv;charset=utf-8," + data;
 	    				window.open(csvContent);
@@ -797,13 +819,29 @@
 			$('#corpoSolicitacoes').empty();
 			$('#paginas').empty();
 			var QtdItens = $("#qtdItensPage").val();
+			var periodo = document.querySelector('input[name=periodo]:checked').value
 			document.getElementById('conteudo').style.display = 'none';
+			
+			var data_inicial  = new Date(inicio);
+			var data_final = new Date(fim);
+			
+			var resultados = [];
+			var data_inicio = data_inicial;
+			var final_semana = [5,6];
+			while (data_inicio <= data_final) {
+			 	var data = new Date(data_inicio);
+			 	if (!final_semana.includes(data.getDay())){
+			 		var data_formatada = data.toISOString().slice(0,10);
+			 		resultados.push(data_formatada);
+				}
+			    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
+			}
 			
 			if(cliente_id != "" && inicio != "" && fim != ""){	
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
+					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
 					
 					success: function (data) {
 						$('#totalElementos').text("");
@@ -818,7 +856,7 @@
 							}
 							$("#numPag0").attr("style","color:red");
 						}
-						
+						var tempoTotal=0;
 						data.content.map(i => {
 							if(i.status == "ABERTO"){ status = "class='table-danger'"}
 							if(i.status == "AGENDADO"){ status = "class='table-warning'"}
@@ -828,9 +866,9 @@
 							if(i.status == "FINALIZADO"){ status = "class='table-success'"}
 							var tempo=0;
 							if(i.duracao != null){
-								if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
-								if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao;}
-								if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
+								if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
+								if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
+								if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao; tempoTotal += i.duracao}
 							}else {tempo = " "; alerta = " "}
 							
 							var modal = "";
@@ -860,6 +898,16 @@
 							$('#tabela-usuarios').append(itens);
 							}
 						);
+						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
+						if(tempoTotal<= 60){
+							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
+							$('#horasTotais').append('<li> Minutos totais: <b><u>'+tempoTotal+'</u></b></li>');
+							$('#horaDia').append('<li> Minutos / dia: <b><u>'+(tempoTotal / resultados.length).toFixed(2)+'</u></b></li>');
+						}else{
+							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
+							$('#horasTotais').append('<li> Horas totais: <b><u>'+(tempoTotal / 60).toFixed(2)+'</u></b></li>');
+							$('#horaDia').append('<li> Horas / dia: <b><u>'+((tempoTotal / 60).toFixed(2) / resultados.length).toFixed(2)+'</u></b></li>');
+						}
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },

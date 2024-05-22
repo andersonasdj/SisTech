@@ -576,6 +576,13 @@
 					"modelo": modelo
 				}),
 				success: function (data) {
+					$('#solicitante').val("");
+					$('#afetado').val("");
+					$('#nomeCliente').val("");
+					$('#nomeFuncionario').val("");
+					$('#modelo').val("");
+					$('#celAfetado').text("");
+					$('#celSolicitante').text("");
 					alert("Solicitação criada com sucesso!");
 				},
 				statusCode: {

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroSolicitacao;
-import br.com.techgol.app.dto.DtoCadastroSolicitacaoLegada;
 import br.com.techgol.app.dto.DtoCadastroSolicitacaoModelo;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
@@ -41,6 +40,7 @@ import br.com.techgol.app.model.ModeloSolicitacao;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
+import br.com.techgol.app.orm.ProjecaoDadosImpressao;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import br.com.techgol.app.repository.ConjuntoModelosRepository;
@@ -72,10 +72,25 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
-	@GetMapping("/relatorio/cliente/{id}/inicio/{inicio}/fim/{fim}")
-	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+//	@GetMapping("peso/{id}")
+//	public Long testaPeso(@PathVariable Long id) {
+//		
+//		Solicitacao s = solicitacaoService.buscarPorId(id);
+//		return solicitacaoService.calcularPeso(s);
+//	}
+//	
+//	@GetMapping("peso/recalcular/{id}")
+//	public Long testaRecalcularPeso(@PathVariable Long id) {
+//		
+//		Solicitacao s = solicitacaoService.buscarPorId(id);
+//		return solicitacaoService.recalcularPeso(s);
+//	}
 	
-	   return solicitacaoService.listarSolicitacoesPorData(page, id, inicio, fim);
+	
+	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
+	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	
+	   return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
@@ -135,12 +150,12 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("short") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizados(@PageableDefault(size = 100, sort= {"peso"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), false);
 	}
 	
 	@GetMapping("short/{status}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
-	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizadosPorStatus(@PathVariable String status,  @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> listaResumidaNaoFinalizadosPorStatus(@PathVariable String status,  @PageableDefault(size = 100, sort= {"peso"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoesPorStatus(page,status, false);
 	}
 	
@@ -169,6 +184,11 @@ public class SolicitacaoRestController {
 		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
 		List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
 		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
+	}
+	
+	@GetMapping("/impressao/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
+	public ProjecaoDadosImpressao impressaoPorId(@PathVariable Long id) {
+		return solicitacaoService.impressao(id);
 	}
 	
 
@@ -201,8 +221,8 @@ public class SolicitacaoRestController {
 	
 	
 	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DE TODAS AS SOLICITACOES EXCLUÍDAS-LIXEIRA
-	public Page<SolicitacaoProjecao> finalizados(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-		return solicitacaoService.listarSolicitacoesFinalizadas(page,Status.FINALIZADO.toString(), false);
+	public List<SolicitacaoProjecao> finalizados() {
+		return solicitacaoService.listarSolicitacoesFinalizadas(Status.FINALIZADO.toString(), false);
 	}
 	
 	@GetMapping("/finalizado/cliente/{id}") //RETORNA UMA DTO COM PROJEÇÃO DE TODAS AS SOLICITAÇÕES FINALIZADAS POR ID DE CLIENTE
@@ -272,11 +292,6 @@ public class SolicitacaoRestController {
 				
 	}
 	
-	@PostMapping("/salvaLista") //RECEBE UMA LISTA DE SOLICITAÇÕES E SALVA NO BANCO
-	public void cadastrar(@RequestBody List<DtoCadastroSolicitacaoLegada> dados) {
-		dados.forEach(s -> solicitacaoService.salvarNovaSolicitacao(new Solicitacao(s)));
-	}
-	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
@@ -336,6 +351,11 @@ public class SolicitacaoRestController {
 	@DeleteMapping("/excluir/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
 	public String excluir(@PathVariable Long id) {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
+	}
+	
+	@PutMapping("/cancelar/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
+	public String cancelar(@PathVariable Long id) {
+		return solicitacaoService.cancelarSolicitacao(id);
 	}
 	
 }
