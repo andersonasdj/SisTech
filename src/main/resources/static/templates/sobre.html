@@ -28,7 +28,6 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
 						</li>
-						
 							<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -98,7 +97,7 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
 							</a>
 					</ul>
 				</div>
@@ -107,21 +106,18 @@
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		 
-		 	<br/>
+		 	<br />
 			<h4>Sobre o SisTech</h4>
 
 			<p>Sistema para controle e relatórios de solicitações de TI.</p>
 			<p>Versão (1.0) <a href="#">Novidades</a> </p>
 			<p>Desenvolvido por <u><b>Anderson de Araujo</b></u> - <span style="font-size: 20px;">T</span>ech<span style="color: orange; border-color: black; "><span style="font-size: 20px;">G</span>old</span> tecnologia.</p>
-			
-			<p></p>
+			<p> </p>
 			
 			<p><a href="/sistech/swagger-ui/index.html"> Documentação API </a></p>
 		
-		<br/><br/>
-		
-		<br/><br/>
+		<br /><br />
+		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container-fluid">
 				<!-- Grid container -->
@@ -158,146 +154,5 @@
 	<script src="assets/js/jquery-3.6.3.js"></script>
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/chart.js"></script>
-	<script>
-		$(document).ready(function () {
-
-				$.ajax({
-					url: "/sistech/funcionarios/home",
-					type: "GET",
-					success: function (data) {
-						$('#saudacao').text(data.saudacao);
-						$('#nomeFuncionario').text(data.nomeFuncionario);
-						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
-						
-						const ctx = document.getElementById('minhasSolicitacoes');
-						new Chart(ctx, {
-					    type: 'bar',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
-					        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-						     scales: { y: { min: 0, max: data.solicitacoes.total } } 
-						}
-					  });
-					  
-					  const ctx2 = document.getElementById('geralSolicitacoes');
-					  new Chart(ctx2, {
-					    type: 'line',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Solicitações gerais: ' + data.gerais.total,
-					        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-						      scales: { y: { min: 0, max: data.gerais.total } }
-						}
-					  });
-					},
-					erro: function (request, status, error) { 
-					},
-					complete: function (data) { }
-				})
-		});
-	</script>
-	<script>
-		setInterval(() => {
-		  const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julio","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-		  const weekday = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sabado"];
-		
-		  // Day
-		  let months = document.getElementById("months");
-		  let days = document.getElementById("days");
-		  let dates = document.getElementById("dates");
-		  let years = document.getElementById("years");
-		
-		  // time
-		  let hours = document.getElementById("hours");
-		  let minutes = document.getElementById("minutes");
-		  let seconds = document.getElementById("seconds");
-		  let ampm = document.getElementById("ampm");
-		
-		  //Date
-		  let ma = month[new Date().getMonth()];
-		  let dy = weekday[new Date().getUTCDay()];
-		  let dt = new Date().getDate();
-		  let yr = new Date().getFullYear();
-		
-		  //time
-		  let h = new Date().getHours();
-		  let m = new Date().getMinutes();
-		  let s = new Date().getSeconds();
-		  let am = h >= 12 ? "PM" : "AM";
-		
-		  //convart time 12 hours
-		  if (h > 12){
-		    h = h - 12;
-		  }
-		
-		  // add zero
-		  h = (h < 10) ? "0" + h : h;
-		  m = (m < 10) ? "0" + m : m;
-		  s = (s < 10) ? "0" + s : s;
-		  dt = (dt < 10) ? "0" + dt : dt;
-		
-		  // date
-		  months.innerHTML = ma;
-		  days.innerHTML = dy;
-		  dates.innerHTML = dt;
-		  years.innerHTML = yr;
-		
-		  // time
-		  hours.innerHTML = h;
-		  minutes.innerHTML = m;
-		  seconds.innerHTML = s;
-		  ampm.innerHTML = am;
-		})
-	</script>
 </body>
 </html>

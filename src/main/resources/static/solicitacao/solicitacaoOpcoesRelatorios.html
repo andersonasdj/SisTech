@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sistech | Solocitação Relatórios</title>
+	<title>Sistech | Relatórios</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
@@ -83,7 +83,7 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
 								<li><a class="dropdown-item" href="/sistech/backup">Backup</a></li>
@@ -99,7 +99,7 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
 							</a>
 					</ul>
 				</div>
@@ -111,11 +111,11 @@
 				<input type="hidden" id="linkPage" name="linkPage">
 				<div align="center">
 					<div id="">
-						<p><a id="abertoHoje" class="btn btn-primary" href="#" onclick="abertoHoje()" role="button">Aberto Hoje <b><span id="btnAbertosHoje"></span></b></a>
-						<a id="finalizadoHoje" class="btn btn-primary" href="#" onclick="finalizadoHoje()" role="button">Finalizados Hoje <b><span id="btnFinalizadosHoje"></span></b></a>
-						<a id="atualizadoHoje" class="btn btn-primary" href="#" onclick="atualizadoHoje()" role="button">Atualizados Hoje <b><span id="btnAtualizadosHoje"></span></b></a>
-						<a id="agendadoHoje" class="btn btn-primary" href="#" onclick="agendadoHoje()" role="button">Agendamentos Hoje <b><span id="btnAgendadosHoje"></span></b></a>
-						<a id="atrasadas" class="btn btn-primary" href="#" onclick="atrasadas()" role="button">Agendamentos Atrasados <b><span id="btnAtrasadosHoje"></span></b></a></p>
+						<p><a id="abertoHoje" class="btn btn-primary" href="#" onclick="abertoHoje()" role="button">Aberto Hoje <b><span id="btnAbertosHoje"> </span></b></a>
+						<a id="finalizadoHoje" class="btn btn-primary" href="#" onclick="finalizadoHoje()" role="button">Finalizados Hoje <b><span id="btnFinalizadosHoje"> </span></b></a>
+						<a id="atualizadoHoje" class="btn btn-primary" href="#" onclick="atualizadoHoje()" role="button">Atualizados Hoje <b><span id="btnAtualizadosHoje"> </span></b></a>
+						<a id="agendadoHoje" class="btn btn-primary" href="#" onclick="agendadoHoje()" role="button">Agendamentos Hoje <b><span id="btnAgendadosHoje"> </span></b></a>
+						<a id="atrasadas" class="btn btn-primary" href="#" onclick="atrasadas()" role="button">Agendamentos Atrasados <b><span id="btnAtrasadosHoje"> </span></b></a></p>
 
 						<p><a id="periodoAbertura" class="btn btn-primary" href="#" onclick="porPeriodo()" role="button">Por Período</a>
 						<a id="porCliente" class="btn btn-primary" href="/sistech/solicitacao/relatoriosclientes" role="button">Por Cliente </a>
@@ -127,24 +127,21 @@
 					<div id="opcoesData" style="display: none;">
 						<hr class="bg-danger border-2 border-top border">
 						<div class="row">
-							
-							<div class="col-md-3">
-							</div>
+							<div class="col-md-3"> </div>
 										
 							<div class="col-md-2">
 								<div class="control-group">Início: 
 									<div class="calendarioAberturaModal">
 										<input type="date" id="relatorioDataInicio" name="relatorioDataInicio" >
-										<span></span>
+										<span> </span>
 									</div>
 								</div>
-		
 							</div>
 							<div class="col-md-2">
 								<div class="control-group">Fim:
 									<div class="calendarioAndamentoModal">
 										<input type="date" id="relatorioDataFim" name="relatorioDataFim" value="">
-										<span></span>
+										<span> </span>
 									</div>
 								</div>
 							</div>
@@ -152,12 +149,9 @@
 								<button class="btn btn-info" onclick="buscaPorPeriodo()">Listar</button>
 							</div>
 							<div class="col-md-1">
-								
-								<a href="#" onclick="baixaCsv()"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
-								
+								<a href="#" onclick="baixaCsv()"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
 							</div>
-							<div class="col-md-3">
-							</div>
+							<div class="col-md-3"> </div>
 						</div>
 						<hr class="bg-danger border-2 border-top borde">
 					</div>
@@ -167,20 +161,20 @@
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col-3">
-					<a href="/sistech/solicitacao/form" class="btn btn-primary btn-sm">Nova </a>
+				<a href="/sistech/solicitacao/form" class="btn btn-primary btn-sm">Nova </a>
 		    </div>
 		    
 		    <div class="col-4">
-					<b><span style="font-size: 24px;" id="totalElementos"></span></b>
+				<b><span style="font-size: 24px;" id="totalElementos"> </span></b>
 		    </div>
 		    <div class="col-1">
-				<a href="/sistech/solicitacao/relatorios"> <i class="bi bi-arrow-clockwise" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
+				<a href="/sistech/solicitacao/relatorios"> <i class="bi bi-arrow-clockwise" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
 		    </div>
 		    <div class="col-4">
 				<div class="form-group pull-right">
-		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
 				</div>
-				<span class="counter pull-right"></span>
+				<span class="counter pull-right"> </span>
 		    </div>
 		</div>
 		</div>
@@ -193,6 +187,7 @@
 						<th data-field="qtdAndamento" data-sortable="true">Andamentos</th>
 						<th data-field="qtdAgendado" data-sortable="true">Agendados</th>
 						<th data-field="qtdAguardando" data-sortable="true">Aguardando</th>
+						<th data-field="qtdPausado" data-sortable="true">Pausado</th>
 						<th data-field="qtdTotal" data-sortable="true">Total</th>
 					</tr>
 					</thead>
@@ -226,7 +221,6 @@
 				<nav aria-label="Page navigation example">
 				  <ul id="paginas" class="pagination"> </ul>
 				</nav>
-				
 			</div>
 		</div>
 		<br /><br />
@@ -241,9 +235,9 @@
 						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
 							<span id="idModalEdicaoModalEdicao"> </span>
 							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
-							<span hidden id="idHistoricoModalEdicao"></span>
+							<span hidden id="idHistoricoModalEdicao"> </span>
 						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<div class="row">
@@ -252,7 +246,7 @@
 									<label class="form-label mt-4 fonteModal"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
 										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 112px;">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaAberturaModalEdicao" name="horaAberturaModalEdicao" value="">
 									</div>
 								</div>
@@ -262,7 +256,7 @@
 										<label class="form-label mt-4 fonteModal"><b>Data Andamento *</b></label>
 										<div class="calendarioAndamentoModal">
 											<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 112px;">
-											<span></span>
+											<span> </span>
 											<input type="time" id="horaAndamentoModalEdicao" name="horaAndamentoModalEdicao" value="">
 										</div>
 									</div>
@@ -272,7 +266,7 @@
 									<label class="form-label mt-4 fonteModal"><b>Data Finalizado *</b></label>
 									<div class="calendarioFinalizadoModal">
 										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 112px;">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
 									</div>
 								</div>
@@ -283,7 +277,7 @@
 							<div class="col-md-4">
 								<div class="form-group mt-2">
 									<label class="control-label"><b>Solicitante * </b>
-										<span id="botaoColaboradores"></span>
+										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
 										<select class="form-control mt-2" name="solicitantemodal" id="solicitantemodal">
@@ -379,15 +373,15 @@
 						<div class="row">
 							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
-								<textarea class="form-control" rows="3" id="descricaomodal" class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="descricaomodal" class="form-control"> </textarea>
 							</div>
 							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
-								<textarea class="form-control" rows="3" id="observacaomodal" class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="observacaomodal" class="form-control"> </textarea>
 							</div>
 						</div>
 						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
-						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"> </textarea>
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<b><span id="dataAtualizacaoModalEdicao"></span></b>
@@ -395,8 +389,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
-						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -412,11 +406,11 @@
 					<div class="modal-header">
 						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
 						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoNaoFinalizado()">Histórico</button>
-							<span hidden id="idHistoricoModalEdicaoNaoFinalizado"></span>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<span hidden id="idHistoricoModalEdicaoNaoFinalizado"> </span>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-						<span id="id_cliente" style="display: none;" ></span>
+						<span id="id_cliente" style="display: none;" > </span>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
@@ -429,7 +423,7 @@
 								<label class="form-label mt-2" for="nomeFuncionarioModalNaoFinalizado"><b>Técnico</b></label>
 								<div class="controls">
 									<select class="form-select" id="nomeFuncionarioModalNaoFinalizado" name="nomeFuncionarioModalNaoFinalizado">
-										<option></option>
+										<option> </option>
 									</select>
 								</div>
 							</div>
@@ -447,13 +441,13 @@
 									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
 									<div class="datetimepickerModal">
 										<input type="date" id="dataModalNaoFinalizado" name="dataModalNaoFinalizado" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaModalNaoFinalizado" name="horaModalNaoFinalizado" value="">
 									</div>
 									<div class="info">
 										<strong>Compatibility check:</strong>
-										Date "<span id="date-output"></span>",
-										Time "<span id="time-output"></span>"
+										Date "<span id="date-output"> </span>",
+										Time "<span id="time-output"> </span>"
 									</div>
 								</div>
 							</div>
@@ -462,7 +456,7 @@
 							<div class="col-md-4">
 								<div class="form-group mt-3">
 									<label class="control-label"><b>Solicitante * </b>
-										<span id="botaoColaboradores"></span>
+										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
 										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizado" id="nomeSolicitanteModalNaoFinalizado">
@@ -492,19 +486,17 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
-									<span style="color: blue;"  id="celSolicitante"></span>
+									<span style="color: blue;"  id="celSolicitante"> </span>
 								</div>
 							</div>
 		
 							<div class="col-md-4">
 								<div class="control-group mt-2">
-									<span style="color: blue;"  id="celAfetado"></span>
+									<span style="color: blue;"  id="celAfetado"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
-								<div class="control-group mt-2">
-
-								</div>
+								<div class="control-group mt-2"> </div>
 							</div>
 						</div>
 						<div class="row">
@@ -574,21 +566,21 @@
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaoModalNaoFinalizado"><b>Resolução</b></label>
 							<div class="controls">
-								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizado" class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizado" class="form-control"> </textarea>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<div class="controls">
-									<b><span id="dataAtualizacaoModalNaoFinalizado"></span></b>
+									<b><span id="dataAtualizacaoModalNaoFinalizado"> </span></b>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"></i></button>
-						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
-						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
 						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
@@ -602,7 +594,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						
@@ -615,7 +607,7 @@
 								</div>
 							</div>
 						</div>
-				</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 					</div>
@@ -758,6 +750,7 @@
 						+ '<td>'+data.relatorioFuncionario[i].andamento+'</td>'
 						+ '<td>'+data.relatorioFuncionario[i].agendado+'</td>/'
 						+ '<td>'+data.relatorioFuncionario[i].aguardando+'</td>'
+						+ '<td>'+data.relatorioFuncionario[i].pausado+'</td>'
 						+ '<td>'+data.relatorioFuncionario[i].total+'</td>'
 						+ '</tr>'
 						$('#tabela-resultados').append(itens);
@@ -1045,8 +1038,8 @@
 				}
 			
 				data.content.map(i => {
-					var tempo=0;
-					var dataAgendado =" ";
+					var tempo=0,
+						dataAgendado =" ";
 					if(i.status == "ABERTO"){ status = "class='table-danger'"; dataAgendado = " " }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-primary'"; dataAgendado = " "  }
@@ -1073,12 +1066,12 @@
 					+ '<td>' + i.nomeCliente + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
 					+ '<td>' + i.descricao + '</td>'
 					+ '<td>' + i.prioridade + '</td>'
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '<b><p style="font-size: 13px; color: red">' + dataAgendado + '</p></b></td>'
+					+ '<td><p>' + i.status + '<b></p><span style="font-size: 13px; color: red">' + dataAgendado + '</span></b></td>'
 					+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
 					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'
@@ -1328,7 +1321,7 @@
 						+ '<td>' + data.nomeCliente + '</td>'
 						+ '<td>' + data.solicitante + '</td>'
 						+ '<td>' + data.afetado + '</td>'
-						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
+						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p> Categoria: ' + data.categoria +'<</td>'
 						+ '<td>' + data.descricao + '</td>'
 						+ '<td>' + data.prioridade + '</td>'
 						+ '<td>' + data.classificacao + '</td>'
@@ -1570,15 +1563,11 @@
 						}
 					});
 					
-					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
 				    401: function() { alert('Realize login novamente!'); }
 				}
-				
-				
-				
 			});
 		}
 		
@@ -1622,15 +1611,17 @@
 				}),
 				success: function (data) {
 					
-					var modal = "";
+					var modal = "",
+						tempo,
+						alerta,
+						status ="";
 					if(data.status != "FINALIZADO"){
 						modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
 					}
 					else{
 						modal = "data-bs-target='#edicaoModal' onclick=editar(";
 					}
-					var tempo;
-					var alerta;
+					
 					if(data.duracao != null){
 						if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = data.duracao;}
 						if(data.duracao > 240 && data.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = data.duracao;}
@@ -1640,7 +1631,7 @@
 						$('#linha' + data.id).remove();
 						$('#exampleModal').modal('hide');
 						alert("atualizado com sucesso");
-						var status ="";
+						
 						
 						if(data.status == "ABERTO"){ status = "class='table-danger'" }
 						if(data.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = data.dataAgendado; }

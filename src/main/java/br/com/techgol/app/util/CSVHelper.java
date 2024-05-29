@@ -18,7 +18,7 @@ public class CSVHelper {
 	public static ByteArrayInputStream solicitacoesNaoFinalizadasToCSV(List<SolicitacaoProjecao> solicitacoes) {
 	    final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL).withHeader("ID", "DataAbertura", "AbertoPor", "Cliente", 
 	    		"Solicitante", "Afetado", "Descricao", "Categoria", "FormaAbertura", "Local", "Observacao", "Prioridade", "Resolucao", "Status",
-	    		"Funcionario", "DataAtualizacao", "Duracao(minutos)", "Versao");
+	    		"Funcionario", "DataAtualizacao", "DataFinalizado", "Duracao(minutos)", "Versao");
 
 	    try (ByteArrayOutputStream out = new ByteArrayOutputStream();
 	        CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), format);) {
@@ -40,6 +40,7 @@ public class CSVHelper {
 	              solicitacao.getStatus(),
 	              solicitacao.getNomeFuncionario(),
 	              solicitacao.getDataAtualizacao().toString(),
+	              (solicitacao.getDataFinalizado()) != null ? solicitacao.getDataFinalizado().toString() : " ",
 	              (solicitacao.getDuracao()) != null ? solicitacao.getDuracao().toString() : "",
 	              solicitacao.getVersao()
 	            );

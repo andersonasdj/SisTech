@@ -121,13 +121,13 @@
 				<div class="form-group pull-right">
 		    		<input type="text" class="search form-control" placeholder="Busca">
 				</div>
-				<span class="counter pull-right"></span>
+				<span class="counter pull-right"> </span>
 		    </div>
 		  </div>
 		</div>
 
 		<div class="table-responsive">
-			<table class="table table-hover table-striped table-bordered results" id="tabela-usuarios" style="text-align: center;">
+			<table class="table table-hover table-striped align-middle table-bordered results" id="tabela-usuarios" style="text-align: center;">
 				<thead>
 					<tr class="table-primary">
 						<th scope="col">ID</th>
@@ -151,91 +151,6 @@
 			</table>
 		</div>
 		<br /><br />
-
-		<!-- ################################# MODAL EXIBE FINALIZADA ########################################### -->
-		<div class="modal fade" id="finalizadaModal" tabindex="-1" aria-labelledby="finalizadaModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-2" id="finalizadaModal">
-							<span id="nomeClienteModal"> </span>
-							<span id="edicaoModalBotao"></span>
-						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Aberto por: <b><span id="abertoPorModal"></span></b></h5>	
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Data de abertura: <b><span id="dataAberturaModal"></span></b></h5>	
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Solicitante: <b><span id="solicitanteModal"></span></b></h5>
-							</div>
-
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Usuário afetado: <b><span id="afetadoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 mt-3">
-								<h5>Categoria: <b><span id="categoriaModal"></span></b></h5>	
-							</div>
-							
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Local: <b><span id="localModal"></span></b></h5>	
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Descrição: <b><span id="descricaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Observação: <b><span id="observacaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Resolução: <b><span id="resolucaoModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"></span></b></h5>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Classificação: <b><span id="prioridadeModal"></span></b></h5>	
-							</div>
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Duração: <b><span id="duracaoModal"></span></b></h5>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ################################# MODAL EXIBE FINALIZADA ########################################### -->
 
 		<footer class="text-center text-white">
 			<div class="container-fluid ">
@@ -433,26 +348,26 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/finalizado",
 			success: function (data) {
-				
+				var alerta;
 				data.map(i => {
 					if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" }
-					if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" }
+					if(i.duracao > 240 && i.duracao <= 420){ alerta = "style='color: Chocolate; font-size: 19px'" }
 					if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'"}
 					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#finalizadaModal" onclick=verificar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#edicaoModal" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente + '</td>'
 					+ '<td>' + i.solicitante + '</td>'
 					+ '<td>' + i.afetado + '</td>'
-					+ '<td style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '<td>' + i.prioridade + '</td>'
-					+ '<td>' + i.classificacao + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p> Categoria: ' + i.categoria +'</td>'
+					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
+					+ '<td id=prioridade' + i.id+'>' + i.prioridade + '</td>'
+					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + i.status + '</td>'
-					+ '<td '+ alerta +'><b>' + i.duracao + '</b></td>'
+					+ '<td '+ alerta +'><b id=duracao'+i.id+'>' + i.duracao + '</b></td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -463,59 +378,6 @@
 				    401: function() { alert('Realize login novamente!'); }
 				}
 		});
-		
-		function verificar(id) {
-			$.ajax({
-				type: "GET",
-				contentType: "application/json",
-				url: "/sistech/solicitacao/finalizada/" + id,
-				success: function (data) {
-					
-					var minutos = data.duracao;
-					if(minutos > 60){
-						$('#duracaoModal').text("");
-						$('#duracaoModal').text(Math.round(data.duracao / 60) + " horas");
-					} else{
-						$('#duracaoModal').text("");
-						$('#duracaoModal').text(data.duracao + " minutos");
-					}
-					
-					$('#edicaoModalBotao').empty();
-					$('#nomeClienteModal').text("");
-					$('#dataAberturaModal').text("");
-					$('#solicitanteModal').text("");
-					$('#afetadoModal').text("");
-					$('#descricaoModal').text("");
-					$('#observacaoModal').text("");
-					$('#categoriaModal').text("");
-					$('#classificacaoModal').text("");
-					$('#localModal').text("");
-					$('#resolucaoModal').text("");
-					$('#nomeFuncionarioModal').text("");
-					$('#prioridadeModal').text("");
-					$('#abertoPorModal').text("");
-					
-					$('#nomeClienteModal').text(data.nomeCliente);
-					$('#dataAberturaModal').text(data.dataAbertura);
-					$('#solicitanteModal').text(data.solicitante);
-					$('#afetadoModal').text(data.afetado);
-					$('#descricaoModal').text(data.descricao);
-					$('#observacaoModal').text(data.observacao);
-					$('#categoriaModal').text(data.categoria);
-					$('#classificacaoModal').text(data.classificacao);
-					$('#localModal').text(data.local);
-					$('#resolucaoModal').text(data.resolucao);
-					$('#nomeFuncionarioModal').text(data.nomeFuncionario);
-					$('#prioridadeModal').text(data.prioridade);
-					$('#abertoPorModal').text(data.abertoPor);
-					$('#edicaoModalBotao').append("<button class='btn btn-primary btn-sm ' id='edicao' data-bs-toggle='modal' data-bs-target='#edicaoModal' onclick=editar(" + data.id + ")> Editar</button>");
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
-				}
-			});
-		}
 		
 		function editar(id) {
 			$.ajax({
@@ -557,7 +419,7 @@
 					if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
 					else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
 					
-					$('#nomeFuncionarioModalEdicao').append("<option value=" + data.nomeFuncionario + ">" + data.nomeFuncionario + "</option>");
+					$('#nomeFuncionarioModalEdicao').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
 					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 						+'<option value="SOFTWARE">SOFTWARE</option>'
 						+'<option value="HARDWARE">HARDWARE</option>'
@@ -611,7 +473,7 @@
 			var classificacao = $('#classificacaomodal').val();
 			var prioridade = $('#prioridademodal').val();
 			var local = $('#localmodal').val();
-			var nomeFuncionario = $('#nomeFuncionarioModal').val();
+			var nomeFuncionario = $('#nomeFuncionarioModalEdicao').val();
 			var dataAbertura = $('#dataAberturaModalEdicao').val();
 			var horaAbertura = $('#horaAberturaModalEdicao').val();
 			var dataAndamento = $('#dataAndamentoModalEdicao').val();
@@ -644,7 +506,26 @@
 				success: function (data) {
 					
 					if(data.status == "FINALIZADO"){
-						$('#linha' + data.id).remove();
+						
+						if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" }
+						if(data.duracao > 240 && data.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" }
+						if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'"}
+						
+						$('#name'+data.id).empty();
+						$('#name'+data.id).append("<span class='novaSolicitacao' >"+ data.id +"</span>")
+						
+						$('#descricao'+data.id).empty();
+						$('#descricao'+data.id).append(data.descricao);
+						$('#prioridade'+data.id).empty();
+						$('#prioridade'+data.id).append("<span>"+data.prioridade+"</span>");
+						$('#classificacao'+data.id).empty();
+						$('#classificacao'+data.id).append(data.classificacao);
+						$('#local'+data.id).empty();
+						$('#local'+data.id).append("<p>Local: "+data.local+"</p><p>Categoria: "+ data.categoria +" </p>");
+						
+						$('#duracao'+data.id).empty();
+						$('#duracao'+data.id).append('<span '+ alerta +'">'+ data.duracao+"</span>");
+						
 						$('#edicaoModal').modal('hide');
 						alert("atualizado com sucesso");
 						

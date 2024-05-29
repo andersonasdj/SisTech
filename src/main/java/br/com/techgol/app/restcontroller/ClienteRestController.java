@@ -33,7 +33,7 @@ public class ClienteRestController {
 	
 	
 	@GetMapping
-	public Page<DtoClienteList> listar(@PageableDefault(size = 10, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
+	public Page<DtoClienteList> listar(@PageableDefault(size = 15, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
 	
 		return repository.findAll(page).map(DtoClienteList::new);
 	} 

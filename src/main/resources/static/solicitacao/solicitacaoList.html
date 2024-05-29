@@ -14,7 +14,7 @@
 <body>
 	<div class="container-fluid">
 		<br />
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
@@ -99,13 +99,13 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
 							</a>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
 		<div class="container-fluid">
@@ -124,15 +124,15 @@
 				</div>
 		    </div>
 		    <div class="col-3">
-					<b><span style="font-size: 22px;" id="totalElementos"></span></b>
+				<b><span style="font-size: 22px;" id="totalElementos"> </span></b>
 		    </div>
 		    <div class="col-6">
-					<button class="btn btn-danger btn-sm" onclick="btnStatus('ABERTO')">ABERTO</button>
-					<button class="btn btn-primary btn-sm" onclick="btnStatus('ANDAMENTO')">ANDAMENTO</button>
-					<button class="btn btn-warning btn-sm" onclick="btnStatus('AGENDADO')">AGENDADO</button>
-					<button class="btn btn-secondary btn-sm" onclick="btnStatus('PAUSADO')">PAUSADO</button>
-					<button class="btn btn-light btn-sm" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
-					<button class="btn btn-dark btn-sm" onclick="exibeTodas()">TODAS</button>
+				<button class="btn btn-danger btn-sm rederizaBtn" onclick="btnStatus('ABERTO')">ABERTO</button>
+				<button class="btn btn-primary btn-sm rederizaBtn" onclick="btnStatus('ANDAMENTO')">ANDAMENTO</button>
+				<button class="btn btn-warning btn-sm rederizaBtn" onclick="btnStatus('AGENDADO')">AGENDADO</button>
+				<button class="btn btn-secondary btn-sm rederizaBtn" onclick="btnStatus('PAUSADO')">PAUSADO</button>
+				<button class="btn btn-light btn-sm rederizaBtn" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
+				<button class="btn btn-dark btn-sm rederizaBtn" onclick="exibeTodas()">TODAS</button>
 		    </div>
 		  </div>
 		</div>
@@ -144,13 +144,13 @@
 					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col-1">
-				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"></i>	</a>
+				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
 		    </div>
 		    <div class="col-4">
 				<div class="form-group pull-right">
 		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
 				</div>
-				<span class="counter pull-right"></span>
+				<span class="counter pull-right"> </span>
 		    </div>
 		  </div>
 		</div>
@@ -174,15 +174,12 @@
 					</tr>
 				</thead>
 				<tbody id="corpoSolicitacoes">
-					<tr>
-					</tr>
+					<tr> </tr>
 				</tbody>
 			</table>
 			
 			<nav aria-label="Page navigation example">
-			  <ul id="paginas" class="pagination">
-			    
-			  </ul>
+			  <ul id="paginas" class="pagination"> </ul>
 			</nav>
 		</div>
 
@@ -217,8 +214,6 @@
 				</div>
 				<!-- Copyright -->
 		</footer>
-		</footer>
-		
 		
 		<!-- ################################################### Modal HISTORICO ############################################# -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
@@ -226,10 +221,9 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-						
 						<div class="row">
 							<div class="col-md-12">
 								<label class="form-label mt-3" for="log"><b>LOG</b></label>
@@ -239,7 +233,7 @@
 								</div>
 							</div>
 						</div>
-				</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 					</div>
@@ -248,26 +242,24 @@
 		</div>
 		<!-- ########################################## Modal HISTORICO ############################################# -->
 		
-
 		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicao" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-							<h1 class="modal-title fs-6" id="exampleModalLabel">Edição ID: <span id="idmodal"> </span></h1>
+							<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1>
 							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
-							<span hidden id="idHistorico"></span>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<span hidden id="idHistorico"> </span>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-						<span id="id_cliente" style="display: none;" ></span>
+						<span id="id_cliente" style="display: none;" > </span>
 						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
 									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
 									<select class="form-select" id="localmodal" aria-label="Default select example">
-	
 									</select>
 								</div>
 							</div>
@@ -275,10 +267,8 @@
 								<label class="form-label mt-2" for="nomeFuncionarioModal"><b>Técnico</b></label>
 								<div class="controls">
 									<select class="form-select" id="nomeFuncionarioModal" name="nomeFuncionarioModal">
-										<option></option>
+										<option> </option>
 									</select>
-<!--								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>-->
-<!--								<input type="text" id="idmodal" class="form-control" readonly>-->
 								</div>
 							</div>
 
@@ -286,7 +276,6 @@
 								<label class="form-label mt-2" for="statusmodal"><b>Status</b></label>
 								<div class="controls">
 									<select class="form-select" id="statusmodal" aria-label="Default select example">
-	
 									</select>
 								</div>
 							</div>
@@ -298,7 +287,7 @@
 									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
 									<div class="datetimepickerModal">
 										<input type="date" id="dateModal" name="dateModal" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="timeModal" name="timeModal" value="">
 									</div>
 									<div class="info">
@@ -346,22 +335,19 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
-									<span style="color: blue;"  id="celSolicitante"></span>
+									<span style="color: blue;"  id="celSolicitante"> </span>
 								</div>
 							</div>
 		
 							<div class="col-md-4">
 								<div class="control-group mt-2">
-									<span style="color: blue;"  id="celAfetado"></span>
+									<span style="color: blue;"  id="celAfetado"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
-								<div class="control-group mt-2">
-
-								</div>
+								<div class="control-group mt-2"> </div>
 							</div>
 						</div>
-						
 						
 						<div class="row">
 							<div class="col-md-4 ms-auto">
@@ -425,8 +411,8 @@
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="observacaomodal"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="3" id="observacaomodal" onkeyup="limite_textarea_obs_edit(this.value)" class="form-control"> </textarea>
+									<span id="contObsEdit">300</span><span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 						</div>
@@ -434,26 +420,27 @@
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
 							<div class="controls">
-								<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="resolucaomodal" onkeyup="limite_textarea_resol_edit(this.value)" class="form-control"> </textarea>
+								<span id="contResolEdit">300</span><span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 							</div>
 						</div>
 						
 						<div class="row">
 							<div class="col-md-10 mt-3">
 								<div class="controls">
-									<b><span id="dataAtualizacaoModal"></span></b>
+									<b><span id="dataAtualizacaoModal"> </span></b>
 								</div>
 							</div>
 							<div class="col-md-2 mt-3">
-								<div class="controls">Versão <span id="versaoModal"></span></div>
+								<div class="controls" style="color: darkblue; font-weight: bold;">Versão <span id="versaoModal"> </span></div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"></i></button>
-						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"></i></button>
-						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"></i></button>
-						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"></i></button>
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
+						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
+						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualiza()">Salvar</button>
 					</div>
@@ -467,8 +454,8 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Solicitação</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<h1 class="modal-title fs-5" id="modalNovaSolicitacao">Cadastro de Solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						
@@ -506,7 +493,7 @@
 								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
 									<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
 										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" required></textarea>
-									<span id="contProb">300</span> Restantes <br>
+									<span id="contProb">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
@@ -514,7 +501,7 @@
 								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
 									<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
 										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" required></textarea>
-									<span id="contObs">300</span> Restantes <br>
+									<span id="contObs">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 						</div>
@@ -582,7 +569,6 @@
 									</select>
 								</div>
 							</div>
-
 						</div>
 						
 						<div class="row">
@@ -621,13 +607,13 @@
 									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
 									<div class="datetimepicker">
 										<input type="date" id="date" name="date" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="time" name="time" value="">
 									</div>
 									<div class="info">
 										<strong>Compatibility check:</strong>
-										Date "<span id="date-output"></span>",
-										Time "<span id="time-output"></span>"
+										Date "<span id="date-output"> </span>",
+										Time "<span id="time-output"> </span>"
 									</div>
 								</div>
 							</div>
@@ -635,8 +621,7 @@
 				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<span id="botaoSalvar"></span>
-<!--						<button type="button" class="btn btn-primary" onclick="salvar()">Salvar</button>-->
+						<span id="botaoSalvar"> </span>
 					</div>
 				</div>
 			</div>
@@ -667,10 +652,10 @@
 					contentType: "application/json",
 					url: "/sistech/solicitacao/cancelar/" + id,
 					success: function () {
-						remove.fadeOut(800, function () {
+						remove.fadeOut(900, function () {
 							remove.remove();
 						});
-						$('#exampleModal').modal('hide');
+						$('#modalEdicao').modal('hide');
 					},
 					error: function (e) { alert("Erro: Não foi possivel cancelar a solicitação!"); }
 				});
@@ -684,10 +669,11 @@
 		}
 		
 		function btnStatus(status){
+			var QtdItens = $("#qtdItensPage").val();
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
-				url: "/sistech/solicitacao/short/"+status,
+				url: "/sistech/solicitacao/short/"+status+"?size="+QtdItens,
 				success: function (data) {
 					exibeItens(data);
 				},
@@ -754,10 +740,11 @@
 		} 
 		
 		function exibeTodasSolicitacoes(){
+			var QtdItens = $("#qtdItensPage").val();
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "/sistech/solicitacao/short",
+			url: "/sistech/solicitacao/short?size="+QtdItens,
 			success: function (data) {
 				$('#totalElementos').text("");
 				$('#totalElementos').text(data.totalElements);
@@ -773,8 +760,9 @@
 				data.content.map(i => {
 					var status;
 					var vip;
-					var redFlag;''
+					var redFlag;
 					var alertaPeso;
+					var alertaPrioridade;
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
 					}else if(i.peso > 3 && i.peso <= 7 ){
@@ -797,24 +785,34 @@
 							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
+					if(i.prioridade == "CRITICA"){
+						alertaPrioridade ="class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.prioridade == "ALTA"){
+						alertaPrioridade ="style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPrioridade ="class='' style=''";
+					}
+					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p></td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
-					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
-					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
+					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
 					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
 				);
+				var box = $('#boxBusca').val();
+				$('#boxBusca').val("");
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -871,24 +869,34 @@
 							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
+					if(i.prioridade == "CRITICA"){
+						alertaPrioridade ="class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.prioridade == "ALTA"){
+						alertaPrioridade ="style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPrioridade ="class='' style=''";
+					}
+					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
-					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
-					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
+					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
 					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
 				);
+				var box = $('#boxBusca').val();
+				$('#boxBusca').val("");
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -896,8 +904,6 @@
 				}
 			});
 		}
-		
-		
 		
 		$(document).ready(function () {
 			var divQtdItens = $("#qtdItensPage");
@@ -918,7 +924,6 @@
 				});
 			});
 		});
-
 
 		function exibeItens(data){
 				
@@ -958,26 +963,35 @@
 							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 					} else{redFlag =""}
 					
+					if(i.prioridade == "CRITICA"){
+						alertaPrioridade ="class='blink' style='color: red; font-weight: bold;'";
+					}else if(i.prioridade == "ALTA"){
+						alertaPrioridade ="style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPrioridade ="class='' style=''";
+					}
+					
 					var itens = 
-					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')>'
+					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p><p> Categoria: ' + i.categoria +'</p>' + '</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p> Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
-					+ '<td id=prioridade' + i.id + '>' + i.prioridade + '</td>'
-					+ '<td id=classificacao' + i.id + '>' + i.classificacao + '<p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></p></td>'
+					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
+					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '>' + i.status + '<p style="font-size:12px">'+ dataAgendado +'</p></td>'
+					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
 					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
 				);
+				var box = $('#boxBusca').val();
+				$('#boxBusca').val("");
 		}
-
 
 		function editar(id) {
 			$.ajax({
@@ -1141,7 +1155,6 @@
 						    401: function() { alert('Realize login novamente!'); }
 						}
 					});
-			
 					
 				},
 				statusCode: {
@@ -1211,7 +1224,7 @@
 						remove.fadeOut(800, function () {
 							remove.remove();
 						});
-						$('#exampleModal').modal('hide');
+						$('#modalEdicao').modal('hide');
 					},
 					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
 				});
@@ -1259,11 +1272,16 @@
 				success: function (data) {
 					
 					if(data.status == "FINALIZADO"){
-						$('#linha' + data.id).remove();
-						$('#exampleModal').modal('hide');
+						var id = data.id;
+						var t = "#linha" + id;
+						var remove = $(t).closest('tr');
+						$('#modalEdicao').modal('hide');
 						$('#update').text("");
 						$('#update').text(data.id);
 						alert("atualizado com sucesso");
+						remove.fadeOut(1000, function () {
+							remove.remove();
+						});
 						
 					}else{
 						var status;
@@ -1281,6 +1299,16 @@
 							else{
 								redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 						} else{redFlag =""}
+						
+						var alertaPeso;
+						if(data.peso > 7){
+							alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
+						}else if(data.peso > 3 && data.peso <= 7 ){
+							alertaPeso = "style='color: orange; font-weight: bold;'";
+						}else{
+							alertaPeso = "style='color: blue; font-weight: bold;'";
+						}
+						
 						$('#linha'+data.id).removeClass();
 						$('#linha'+data.id).addClass(status);
 						$('#solicitante'+data.id).empty();
@@ -1290,9 +1318,17 @@
 						$('#descricao'+data.id).empty();
 						$('#descricao'+data.id).append(data.descricao);
 						$('#prioridade'+data.id).empty();
-						$('#prioridade'+data.id).append(data.prioridade);
+						
+						if(data.prioridade == "CRITICA"){
+							$('#prioridade'+data.id).append("<span class='blink' style='color: red; font-weight: bold;'>"+data.prioridade+"</span>");
+						}else if(data.prioridade == "ALTA"){
+							$('#prioridade'+data.id).append("<span class='' style='color: orange; font-weight: bold;'>"+data.prioridade+"</span>");
+						}else{
+							$('#prioridade'+data.id).append("<span>"+data.prioridade+"</span>");
+						}
+						
 						$('#classificacao'+data.id).empty();
-						$('#classificacao'+data.id).append(data.classificacao+"<p>Peso: <span class='blink' style='font-weight: bold'>"+ data.peso+"</span></p>");
+						$('#classificacao'+data.id).append("<p>"+data.classificacao+"</p>Peso: <span " + alertaPeso + ">"+ data.peso+"</span>");
 						$('#nomeFuncionario'+data.id).empty();
 						$('#nomeFuncionario'+data.id).append(data.nomeFuncionario);
 						$('#status'+data.id).empty();
@@ -1300,8 +1336,10 @@
 						$('#versao'+data.id).empty();
 						$('#versao'+data.id).append(data.versao);
 						$('#local'+data.id).empty();
-						$('#local'+data.id).append("Local: "+data.local+"<br /><p>Categoria: "+ data.categoria +" </p>");
-						$('#exampleModal').modal('hide');
+						$('#local'+data.id).append("<p>Local: "+data.local+"</p>Categoria: "+ data.categoria);
+						$('#name'+data.id).empty();
+						$('#name'+data.id).append("<span class='novaSolicitacao' >"+ data.id +"</span>");
+						$('#modalEdicao').modal('hide');
 						alert("atualizado com sucesso");
 					}
 				},
@@ -1374,29 +1412,47 @@
 					
 					var funcionario;
 					var status;
-					
-					if(data.nomeFuncionario == null){ funcionario = "Não Atribuído"; }
-					else{ funcionario = data.nomeFuncionario; }
-				
+					var vip;
+					var redFlag;
+					var dataAgendado = "";
+					var alertaPeso;
+					if(data.peso > 7){
+						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
+					}else if(data.peso > 3 && data.peso <= 7 ){
+						alertaPeso = "style='color: orange; font-weight: bold;'";
+					}else{
+						alertaPeso = "style='color: blue; font-weight: bold;'";
+					}
 					if(data.status == "ABERTO"){ status = "class='table-danger'" }
-					if(data.status == "AGENDADO"){ status = "class='table-warning'" }
+					if(data.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = data.dataAgendado; }
 					if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
+					if(data.status == "PAUSADO"){ status = "class='table-light'" }
+					
+					if(data.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
+					if(data.redFlag == true){ 
+						if(data.vip == true){
+							redFlag = "-<span class='blink' style='color: red; font-size: 15px'><b> REDFLAG</b></p></span>" }
+						else{
+							redFlag = "<span class='blink' style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
+					} else{redFlag =""}
 					
 					var itens =
-						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + data.id + ')>'
+						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
 						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente + '</td>'
-						+ '<td>' + data.solicitante + '</td>'
-						+ '<td>' + data.afetado + '</td>'
-						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
-						+ '<td>' + data.descricao + '</td>'
-						+ '<td>' + data.prioridade + '</td>'
-						+ '<td>' + data.classificacao + '</td>'
-						+ '<td>' + funcionario + '</td>'
-						+ '<td>' + data.status + '</td>'
+						+ '<td>' + data.nomeCliente  + vip + redFlag + '</td>'
+						+ '<td id=solicitante' + data.id + '>' + data.solicitante + '</td>'
+						+ '<td id=afetado' + data.id + '>' + data.afetado + '</td>'
+						+ '<td id=local'+ data.id+' style="font-size: 12px;"><p> Local: ' + data.local + '</p> Categoria: ' + data.categoria +'</td>'
+						+ '<td id=descricao' + data.id + '>' + data.descricao + '</td>'
+						+ '<td id=prioridade' + data.id + '>' + data.prioridade + '</td>'
+						+ '<td id=classificacao' + data.id + '><p>' + data.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + data.peso +'</span></td>'
+						+ '<td id=nomeFuncionario' + data.id + '>' + data.nomeFuncionario + '</td>'
+						+ '<td id=status' + data.id + '><p>' + data.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
+						+ '<td id=versao' + data.id + '>' + data.versao + '</td>'
 						+ '</tr>'
+						
 					$('#linha' + data.id).remove();
 					$('#tabela-usuarios').append(itens);
 					alert("Solicitação adicionada com sucesso!");
@@ -1436,18 +1492,36 @@
 				document.getElementById('observacao').value = valor.substr(0, quant);
 			}
 		}
+		function limite_textarea_resol_edit(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contResolEdit').innerHTML = resto;
+			} else {
+				document.getElementById('resolucaomodal').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_obs_edit(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contObsEdit').innerHTML = resto;
+			} else {
+				document.getElementById('observacaomodal').value = valor.substr(0, quant);
+			}
+		}
 	</script>
 	<script>
 		$(document).ready(function () {
 			var divCliente = $("#nomeCliente");
 			divCliente.on("change", function () {
-
 				var nomeCliente = $("#nomeCliente").val();
 				var json = {"nomeCliente": nomeCliente};
 				$("#botaoSalvar").empty();
 
 				if(nomeCliente > 0){
-					
 					$('#botaoSalvar').append(
 						'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
 					);
@@ -1467,9 +1541,6 @@
 
 							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
 							$('#boxAfetado').append('<option value="" slected="selected"></option>');
-
-							//  document.getElementById("cargoUsuario").innerHTML="";
-							//  document.getElementById("cargoSolicitante").innerHTML="";
 
 							$.each(data, function (i, item) {
 								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');

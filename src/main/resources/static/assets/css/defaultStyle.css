@@ -8,6 +8,15 @@ body {
 	}
 }
 
+@media (max-width: 1248px) {
+	.rederizaBtn {
+		margin-left: 5px;
+		margin-bottom: 5px;
+		padding-top: 2px;
+    	padding-bottom: 2px;
+	}
+}
+
 .blink {
 	animation: blink 1.5s steps(1, end) infinite;
 }

@@ -1,5 +1,6 @@
 package br.com.techgol.app.model;
 
+import br.com.techgol.app.model.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,8 +37,12 @@ public class LogSolicitacao {
 				+ " * Afetado: " + solicitacao.getAfetado() + "\n "
 				+ " * Descrição: " + solicitacao.getDescricao() + "\n "
 				+ " * Observação: " + solicitacao.getObservacao() + "\n "
-				+ " * Status: " + solicitacao.getStatus() + "\n "
-				+ " * Funcionario atribuído: " + solicitacao.getFuncionario().getNomeFuncionario() + "\n"
+				+ " * Prioridade: " + solicitacao.getPrioridade() + "\n "
+				+ " * Categoria: " + solicitacao.getCategoria() + "\n "
+				+ " * Classificação: " + solicitacao.getClassificacao() + "\n "
+				+ " * Local: " + solicitacao.getLocal() + "\n "
+				+ " * Status: " + solicitacao.getStatus() + (solicitacao.getStatus().equals(Status.AGENDADO) ? " - " + solicitacao.getDataAgendado() : "") + "\n "
+				+ " * Funcionario atribuído: " + solicitacao.getFuncionario().getNomeFuncionario() + "\n\n"
 				+ "########################################\n\n";
 		
 		this.log = log;

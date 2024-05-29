@@ -22,7 +22,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -94,7 +93,7 @@ public class Solicitacao {
 	@Column(name = "duracao")
 	private Long duracao;
 	
-	@Version
+//	@Version
 	private Integer versao;
 	
 	@OneToOne(fetch = FetchType.LAZY)
@@ -124,8 +123,8 @@ public class Solicitacao {
 		this.formaAbertura = dados.formaAbertura();
 		this.solicitante = dados.solicitante();
 		this.afetado = dados.afetado();
-		this.descricao = dados.descricao();
-		this.observacao = dados.observacao();
+		this.descricao = dados.descricao().trim();
+		this.observacao = dados.observacao().trim();
 		this.categoria = dados.categoria();
 		this.classificacao = dados.classificacao();
 		this.prioridade = dados.prioridade();
@@ -148,14 +147,15 @@ public class Solicitacao {
 				+ " * Forma de abertura: " + this.getFormaAbertura() + "\n "
 				+ " * Solicitante: " + this.getSolicitante() + "\n "
 				+ " * Afetado: " + this.getAfetado() + "\n "
-				+ " * Descrição: " + this.getDescricao() + "\n "
-				+ " * Observação: " + this.getObservacao() + "\n "
+				+ " * Descrição: " + this.getDescricao().trim() + "\n "
+				+ " * Observação: " + this.getObservacao().trim() + "\n "
+				+ " * Prioridade: " + this.prioridade + "\n "
 				+ " * Categoria: " + this.categoria + "\n "
 				+ " * Classificação: " + this.classificacao + "\n "
 				+ " * Local: " + this.local + "\n "
-				+ " * Resolucão: " + this.resolucao + "\n "
+				+ " * Resolucão: " + this.resolucao.trim() + "\n "
 				+ " * Duração: " + tempo + "\n "
-				+ " * Status: " + this.getStatus() + "\n "
+				+ " * Status: " + this.getStatus() + (this.getStatus().equals(Status.AGENDADO) ?  " - " + this.getDataAgendado() :"") + (this.getStatus().equals(Status.ANDAMENTO)? " - " + this.getDataAndamento() : "") +"\n "
 				+ " * Funcionario atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"
 				+ "########################################\n\n";
 		

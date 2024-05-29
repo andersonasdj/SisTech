@@ -3,6 +3,13 @@
 	box-sizing: border-box;
 }
 
+.novaSolicitacao{
+	color: rgb(38, 162, 105);
+	text-shadow:#000 -0.3px -0.6px;
+	font-weight: bold;
+	text-align: center;
+}
+
 .datetimepicker {
 	display: inline-flex;
 	align-items: center;

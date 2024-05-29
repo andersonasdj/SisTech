@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="br">
 <head>
-	<title>SisTech - DashBoard</title>
+	<title>SisTech - DashBoard Clientes</title>
 	<link rel="shortcut icon" href="../../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
@@ -21,14 +21,13 @@
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
+					<span class="navbar-toggler-icon"> </span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
 						</li>
-						
 							<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -84,7 +83,7 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
 								<li>
@@ -99,7 +98,7 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
 							</a>
 					</ul>
 				</div>
@@ -120,13 +119,13 @@
 					</div>
 				</div>
 				<div class="col-2 col-s-12 mt-2">
-					<h4><span class="spamTotal" id="totalSolicitacoes"></span></h4>
+					<h4><span class="spamTotal" id="totalSolicitacoes"> </span></h4>
 				</div>
 				
 				<div class="col-4 col-s-12">
-					<a href="#" onclick="montaGraficos()" class="btn"><i class="bi bi-arrow-clockwise"></i></a>
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"></span></button>
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=naoFinalizados()>Não Finalizados <span id="qtdNaoFinalizados"></span></button>
+					<a href="#" onclick="montaGraficos()" class="btn"><i class="bi bi-arrow-clockwise"> </i></a>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"> </span></button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=naoFinalizados()>Não Finalizados <span id="qtdNaoFinalizados"> </span></button>
 				</div>
 			</div>
 		</div>
@@ -136,18 +135,16 @@
 			<div class="row justify-content-between">
 				<div class="col-3 col-s-12" id="formaAbertura">
 					<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
-					<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"></canvas>
+					<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"> </canvas>
 				</div>
 				<div class="col-3" id="local">
 					<h5 style="text-align: center;" class="mt-3">Localicação</h5>
-					<canvas id="localSolicitacoes" class="col-s-2" ></canvas>
+					<canvas id="localSolicitacoes" class="col-s-2" > </canvas>
 				</div>
 				<div class="col-3" id="prioridade">
 					<h5 style="text-align: center;" class="mt-3">Prioridade</h5>
-					<canvas id="prioridadeSolicitacoes" class="col-s-3"></canvas>
+					<canvas id="prioridadeSolicitacoes" class="col-s-3"> </canvas>
 				</div>
-				
-				
 			</div>
 		</div>
 		<hr class="bg-danger border-2 border-top border-danger mt-4">
@@ -156,16 +153,16 @@
 			<div class="row justify-content-between">
 				<div class="col-3 col-s-12" id="status">
 					<h5 style="text-align: center;" class="mt-3">Status</h5>
-					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>
+					<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"> </canvas>
 				</div>
 				<div class="col-3 col-s-12" id="classificacao">
 					<h5 style="text-align: center;" class="mt-3">Classificação</h5>
-					<canvas id="classificacaoSolicitacoes" class="col-s-3"></canvas>
+					<canvas id="classificacaoSolicitacoes" class="col-s-3"> </canvas>
 				</div>
 				
 				<div class="col-3 col-s-12 mt-5">
-					<h4><span id="totalMesCorrente" style="font-size: 18px;"></span></h4>
-					<h4><span id="totalMinutosMes" style="font-size: 18px;"></span></h4>
+					<h4><span id="totalMesCorrente" style="font-size: 18px;"> </span></h4>
+					<h4><span id="totalMinutosMes" style="font-size: 18px;"> </span></h4>
 				</div>
 			</div>
 		</div>
@@ -201,17 +198,15 @@
 				</div>
 				<!-- Copyright -->
 		</footer>
-		</footer>
 		<!-- ################################################### Modal HISTORICO ############################################# -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-						
 						<div class="row">
 							<div class="col-md-12">
 								<label class="form-label mt-3" for="log"><b>LOG</b></label>
@@ -221,7 +216,7 @@
 								</div>
 							</div>
 						</div>
-				</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalEdicaoFinalizado">Voltar</button>
 					</div>
@@ -236,22 +231,18 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1><span style="color: #0101DF;">*  (ultimos 50)</span> 
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-
 						<div class="row">
-							<div class="col-md-4">
-
-							</div>
-							<div class="col-md-4">
-							</div>
+							<div class="col-md-4"> </div>
+							<div class="col-md-4"> </div>
 
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<div class="form-group pull-right">
 						    		<input type="text" class="search form-control" placeholder="Busca">
 								</div>
-								<span class="counter pull-right"></span>
+								<span class="counter pull-right"> </span>
 							</div>
 						</div>
 						
@@ -273,8 +264,7 @@
 								</tr>
 							</thead>
 							<tbody id="tabela">
-								<tr>
-								</tr>
+								<tr> </tr>
 							</tbody>
 						</table>
 					</div>
@@ -295,10 +285,10 @@
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalEdicaoFinalizado">Edição rápida ID:  
 							<span id="idModalEdicao"> </span>
-							<span hidden id="idHistoricoModalEdicao"></span>
+							<span hidden id="idHistoricoModalEdicao"> </span>
 							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
 						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<div class="row">
@@ -307,7 +297,7 @@
 									<label class="form-label fonteModal" for="dataAberturaModalEdicao"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
 										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" >
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaAberturaModalEdicao" name="horaAberturaModalEdicao" value="">
 									</div>
 								</div>
@@ -319,7 +309,7 @@
 									<label class="form-label mt-3 fonteModal" for="dataAndamentoModalEdicao"><b>Data Andamento *</b></label>
 									<div class="calendarioAndamentoModal">
 										<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaAndamentoModalEdicao" name="horaAndamentoModalEdicao" value="">
 									</div>
 								</div>
@@ -332,7 +322,7 @@
 									<label class="form-label mt-3 fonteModal" for="dataFinalizadoModalEdicao"><b>Data Finalizado *</b></label>
 									<div class="calendarioFinalizadoModal">
 										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaFinalizadoModalEdicao" name="horaFinalizadoModalEdicao" value="">
 									</div>
 								</div>
@@ -342,7 +332,7 @@
 							<div class="col-md-6">
 								<div class="control fonteModal">
 									<label class="form-label mt-3"><b>Duração</b></label>
-										<p><span id="duracaoModalEdicao"></span></p>
+										<p><span id="duracaoModalEdicao"> </span></p>
 								</div>
 							</div>
 						</div>
@@ -351,7 +341,7 @@
 							<div class="col-md-4">
 								<div class="control-group">
 									<label class="form-label mt-3" for="nomesolicitantemodal"><b>Solicitante * </b>
-										<span id="botaoColaboradores"></span>
+										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
 										<select class="form-control solicitante" name="nomesolicitantemodal" id="nomesolicitantemodal">
@@ -374,7 +364,7 @@
 									<div class="controls fonteModal"> 
 									<label class="form-label mt-3" for="nomefuncionariomodal"><b>Técnico Responsável</b></label>
 										<select class="form-select" id="nomefuncionariomodal" name="nomefuncionariomodal">
-											<option></option>
+											<option> </option>
 										</select>
 									</div>
 								</div>
@@ -462,11 +452,11 @@
 						</div>
 
 						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
-						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"></textarea>
+						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"> </textarea>
 						
 						<div class="row">
 							<div class="col-md-8 mt-3">
-								Ultima atualização: <span id="dataAtualizacaoModalEdicao"></span>
+								Ultima atualização: <span id="dataAtualizacaoModalEdicao"> </span>
 							</div>
 						</div>
 					</div>
@@ -484,7 +474,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 							<h1 class="modal-title fs-6" id="modalEdicaoNaoFinalizados">Edição ID: <span id="idModalNaoFinalizada"> </span></h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 							
@@ -501,10 +491,8 @@
 								<label class="form-label mt-2" for="funcionarioModalNaoFinalizada"><b>Técnico</b></label>
 								<div class="controls">
 									<select class="form-select" id="funcionarioModalNaoFinalizada" name="funcionarioModalNaoFinalizada">
-										<option></option>
+										<option> </option>
 									</select>
-<!--								<label class="form-label mt-1" for="idmodal"><b>ID</b></label>-->
-<!--								<input type="text" id="idmodal" class="form-control" readonly>-->
 								</div>
 							</div>
 
@@ -523,7 +511,7 @@
 									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
 									<div class="datetimepickerModal">
 										<input type="date" id="dataAgendadoModalNaoFinalizada" name="dataAgendadoModalNaoFinalizada" value="">
-										<span></span>
+										<span> </span>
 										<input type="time" id="horaAgendadoModalNaoFinalizada" name="horaAgendadoModalNaoFinalizada" value="">
 									</div>
 									<div class="info">
@@ -539,7 +527,7 @@
 							<div class="col-md-4">
 								<div class="form-group mt-3">
 									<label class="control-label" for="nomeSolicitanteModalNaoFinalizada"><b>Solicitante * </b>
-										<span id="botaoColaboradores"></span>
+										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
 										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizada" id="nomeSolicitanteModalNaoFinalizada">
@@ -638,21 +626,21 @@
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaoModalNaoFinalizada"><b>Resolução</b></label>
 							<div class="controls">
-								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizada" class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizada" class="form-control"> </textarea>
 							</div>
 						</div>
 						
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<div class="controls">
-									Ultima atualização: <span id="dataAtualizacaoModalNaoFinalizada"></span>
+									Ultima atualização: <span id="dataAtualizacaoModalNaoFinalizada"> </span>
 								</div>
 							</div>
 						</div>
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizaNaoFinalizada()">Salvar</button>
 					</div>
@@ -677,7 +665,6 @@
 					for (var i = 0; i < data.clientes.length; i++) {
 						$('#idCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
 					}
-					
 					montaGraficos();
 				},
 				statusCode: {
@@ -752,7 +739,6 @@
 					$('#descricaomodal').val(data.descricao);
 					$('#resolucaomodal').val(data.resolucao);
 					$('#observacaomodal').val(data.observacao);
-					
 					
 					$('#nomesolicitantemodal').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
 					for (var i = 0; i < data.colaboradores.length; i++) {
@@ -873,7 +859,6 @@
 					"solicitante": solicitante,
 					"afetado": afetado,
 					"formaAbertura": formaAbertura
-					
 				}),
 				success: function (data) {
 						alert("Solicitação atualiza com sucesso!");
@@ -886,7 +871,6 @@
 				}
 			});
 		}
-		
 	</script>
 	<script>
 		function finalizados(){
@@ -899,7 +883,6 @@
 						contentType: "application/json",
 						url: "/sistech/solicitacao/finalizado/cliente/"+idCliente,
 						success: function (data) {
-							
 							$('#idmodal').text("");
 							$('#idmodal').text("FINALIZADOS");
 							
@@ -910,36 +893,34 @@
 						},
 						error: function (e) { alert("Selecione o cliente"); }
 					});
-				} else{
-						alert("Selecione o cliente");
 				}
+				else{ alert("Selecione o cliente"); }
 		}
 		
 		function naoFinalizados(){
 			
 			var idCliente = $("#idCliente").val();
-				$('#tabela').empty();
+			$('#tabela').empty();
 		
-				if(idCliente != '' && idCliente != null && idCliente != ' ' ){		
-						$.ajax({
-						type: "GET",
-						contentType: "application/json",
-						url: "/sistech/solicitacao/naofinalizado/cliente/"+idCliente,
-						success: function (data) {
-							
-							$('#idmodal').text("");
-							$('#idmodal').text("NÃO FINALIZADOS");
-							
-							data.content.map(i => {
-									montaTabelaFinalizadosNaoFinalizados(i);
-								}
-							);
-						},
-						error: function (e) { alert("Selecione o cliente"); }
-					});
-				} else{
-						alert("Selecione o cliente");
-				}
+			if(idCliente != '' && idCliente != null && idCliente != ' ' ){		
+					$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/naofinalizado/cliente/"+idCliente,
+					success: function (data) {
+						
+						$('#idmodal').text("");
+						$('#idmodal').text("NÃO FINALIZADOS");
+						
+						data.content.map(i => {
+								montaTabelaFinalizadosNaoFinalizados(i);
+							}
+						);
+					},
+					error: function (e) { alert("Selecione o cliente"); }
+				});
+			}
+			else{ alert("Selecione o cliente"); }
 		}
 		function montaTabelaFinalizadosNaoFinalizados(i){
 				var tempoTotal="";
@@ -1045,8 +1026,6 @@
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
 					
-					
-					
 					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
 					for (var i = 0; i < data.colaboradores.length; i++) {
 						$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
@@ -1113,7 +1092,6 @@
 		}
 		
 		function atualizaNaoFinalizada(){
-			
 			var id = $('#idModalNaoFinalizada').text();
 			var descricao = $('#descricaoModalNaoFinalizada').val();
 			var resolucao = $('#resolucaoModalNaoFinalizada').val();
@@ -1165,7 +1143,6 @@
 		}
 		
 		function montaGraficos(){
-			
 				var idCliente = $("#idCliente").val();
 				
 				if(idCliente > 0){
@@ -1224,8 +1201,7 @@
 											borderWidth: 1
 										}]
 									},
-									options: {
-									}
+									options: { }
 								});
 								
 								document.getElementById('classificacaoSolicitacoes').remove();
@@ -1295,8 +1271,7 @@
 											borderWidth: 1
 										}]
 									},
-									options: {
-									}
+									options: { }
 								});
 								
 								document.getElementById('statusSolicitacoes').remove();

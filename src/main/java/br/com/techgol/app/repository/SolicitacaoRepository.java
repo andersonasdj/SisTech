@@ -126,7 +126,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.dataFinalizado, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -140,7 +140,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.dataFinalizado, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -154,7 +154,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.dataFinalizado, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -168,7 +168,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.dataFinalizado, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
@@ -183,7 +183,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, s.dataFinalizado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -197,7 +197,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, s.dataFinalizado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -210,7 +210,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.dataFinalizado, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.duracao, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "

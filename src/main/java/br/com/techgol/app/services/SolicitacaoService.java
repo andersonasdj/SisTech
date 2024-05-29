@@ -289,13 +289,24 @@ public class SolicitacaoService {
 		
 		solicitacao.setLocal(dados.local());
 		solicitacao.setCategoria(dados.categoria());
-		solicitacao.setFormaAbertura(dados.formaAbertura());
+		
+		if(dados.formaAbertura() != null) {
+			solicitacao.setFormaAbertura(dados.formaAbertura());
+		}
+		
 		solicitacao.setDescricao(dados.descricao());
 		solicitacao.setObservacao(dados.observacao());
 		solicitacao.setPrioridade(dados.prioridade());
 		solicitacao.setResolucao(dados.resolucao());
-		solicitacao.setSolicitante(dados.solicitante());
-		solicitacao.setAfetado(dados.afetado());
+		
+		
+		if(dados.solicitante() != null) {
+			solicitacao.setSolicitante(dados.solicitante());
+		}
+		if(dados.afetado() != null) {
+			solicitacao.setAfetado(dados.afetado());
+		}
+		
 		solicitacao.setClassificacao(dados.classificacao());
 		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		solicitacao.setDataAbertura(LocalDateTime.parse(dados.dataAbertura()+"T"+dados.horaAbertura()));
@@ -351,17 +362,24 @@ public class SolicitacaoService {
 		if(dados.status().equals(Status.ANDAMENTO) && !solicitacao.getStatus().equals(Status.ANDAMENTO)) {
 			
 			solicitacao.setDataAndamento(LocalDateTime.now().withNano(0));
-			
 			solicitacao.setDataAgendado(null);
 		}
 		if(dados.status().equals(Status.ABERTO) || dados.status().equals(Status.AGENDADO)) {
-			solicitacao.setDataAndamento(null);
 			
-			if(dados.status().equals(Status.ABERTO)) { solicitacao.setDuracao(0l); solicitacao.setDataFinalizado(null);}
+			if(dados.status().equals(Status.ABERTO)) {
+				solicitacao.setDataAndamento(null);
+				solicitacao.setDuracao(0l); 
+				solicitacao.setDataFinalizado(null);
+			}
 			
 			if(dados.dataAgendado() != null) {
 				if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
 					solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
+					
+					if(solicitacao.getDataAndamento() != null) {
+						solicitacao.setDuracao(solicitacao.getDuracao() + Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+					}
+					solicitacao.setDataAndamento(null);
 				}
 			}
 			
@@ -369,8 +387,9 @@ public class SolicitacaoService {
 		if(dados.status().equals(Status.AGUARDANDO) || dados.status().equals(Status.PAUSADO)) {
 			
 			if(solicitacao.getDataAndamento() != null) {
-				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+				solicitacao.setDuracao(solicitacao.getDuracao() + Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
 			}
+			
 			solicitacao.setDataAndamento(null);
 			solicitacao.setDataAgendado(null);
 			
@@ -395,9 +414,9 @@ public class SolicitacaoService {
 		}
 		solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		solicitacao.setStatus(dados.status());
-		solicitacao.setDescricao(dados.descricao());
-		solicitacao.setResolucao(dados.resolucao());
-		solicitacao.setObservacao(dados.observacao());
+		solicitacao.setDescricao(dados.descricao().trim());
+		solicitacao.setResolucao(dados.resolucao().trim());
+		solicitacao.setObservacao(dados.observacao().trim());
 		solicitacao.setCategoria(dados.categoria());
 		solicitacao.setClassificacao(dados.classificacao());
 		solicitacao.setPrioridade(dados.prioridade());
@@ -417,7 +436,7 @@ public class SolicitacaoService {
 			logSolicitacaoRepository.save(log);
 			solicitacao.setLog(log);
 		}
-		
+		solicitacao.setVersao(solicitacao.getVersao()+1);
 		solicitacao.setPeso(calcularPeso(solicitacao));
 		return repository.save(solicitacao);
 	}
@@ -479,6 +498,7 @@ public class SolicitacaoService {
 		solicitacao.setLog(log);
 		
 		solicitacao.setPeso(calcularPeso(solicitacao));
+		solicitacao.setVersao(0);
 		
 		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
 		
@@ -490,7 +510,6 @@ public class SolicitacaoService {
 		}
 		
 		return dados;
-		
 	}
 	
 	public DtoDashboardCliente geraDashboardCliente(Long id) {
@@ -644,13 +663,14 @@ public class SolicitacaoService {
 		List<DtoSolicitacoesRelatorioFuncionario> relatorioFuncionario = new ArrayList<>();
 
 		idFuncionarios.forEach(f -> {
-			Long abertos, andamento, agendados, aguardando, total;
+			Long abertos, andamento, agendados, aguardando, pausado, total;
 			abertos = repository.countByStatusAndFuncionarioId(Status.ABERTO, f);
 			andamento = repository.countByStatusAndFuncionarioId(Status.ANDAMENTO, f);
 			agendados = repository.countByStatusAndFuncionarioId(Status.AGENDADO, f);
 			aguardando = repository.countByStatusAndFuncionarioId(Status.AGUARDANDO, f);
-			total = abertos+andamento+agendados+aguardando;
-			relatorioFuncionario.add(new DtoSolicitacoesRelatorioFuncionario(funcionarioService.buscaNomeFuncionarioPorId(f), abertos, andamento, agendados, aguardando, total));
+			pausado = repository.countByStatusAndFuncionarioId(Status.PAUSADO, f);
+			total = abertos+andamento+agendados+aguardando+pausado;
+			relatorioFuncionario.add(new DtoSolicitacoesRelatorioFuncionario(funcionarioService.buscaNomeFuncionarioPorId(f), abertos, andamento, agendados, aguardando, pausado, total));
 		});
 		return new DtoSolicitacaoRelatorios(buscaAbertosHojeQtd(),buscaFinalizadosHojeQtd(),buscaAgendamentosHojeQtd(), buscaAgendamentosAtrasadosQtd(), buscaAtualizadosHojeQtd(), relatorioFuncionario);
 	}

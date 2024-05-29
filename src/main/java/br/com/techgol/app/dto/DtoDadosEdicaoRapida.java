@@ -25,18 +25,4 @@ public record DtoDadosEdicaoRapida(
 		String horaAgendado,
 		FormaAbertura formaAbertura) {
 
-//	public DtoDadosEdicaoRapida(Solicitacao dados) {
-//		this(
-//				dados.getId(),
-//				dados.getDescricao(),
-//				dados.getResolucao(),
-//				dados.getObservacao(),
-//				dados.getStatus(),
-//				dados.getCategoria(),
-//				dados.getClassificacao(),
-//				dados.getPrioridade(),
-//				dados.getLocal(),
-//				dados.getFuncionario().getNomeFuncionario());
-//	}
-
 }

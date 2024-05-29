@@ -112,7 +112,6 @@
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		 
 			<div class="container-fluid">
 				<div class="row justify-content-between">
 				    <div class="col-2 col-s-4">
@@ -120,14 +119,14 @@
 								<aside class="">
 										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
 								</aside>
-							<br/><br/>
+							<br /><br />
 						</div>
 				    </div>
 				    <div class="col-7 col-s-6">
-						<br/>
+						<br />
 				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
-							<p><span id="dataUltimoLogin"></span></p>
-							<span id="btnAvisos"></span>
+							<p><span id="dataUltimoLogin"> </span></p>
+							<span id="btnAvisos"> </span>
 	
 				    </div>
 				    <div class="col-3 col-s-6">
@@ -153,23 +152,22 @@
 		</div>
 		
 		<div class="container-fluid">
-			<span id="agendamentosAtrasados"></span><br />
-			<span id="agendamentosHoje"></span>
+			<span id="agendamentosAtrasados"> </span><br />
+			<span id="agendamentosHoje"> </span>
 		</div>
 		<br />	
 		
 		<div class="container-fluid">
 			<div class="row justify-content-between">
-					<div class="col-4">
-						<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"></canvas>
-					</div>
-					<div class="col-4">
-						<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"></canvas>
-					</div>
+				<div class="col-4">
+					<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+				</div>
+				<div class="col-4">
+					<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+				</div>
 			</div>
 		</div>
-
-		<br/><br/>
+		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container-fluid">
 				<!-- Grid container -->
@@ -209,15 +207,13 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalLabelColaborador">Avisos</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 						<div class="container">
 							<div id="conteudoAvisos">
 								
-								
 							</div>
 						</div>
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
 					</div>
@@ -241,7 +237,6 @@
 								<a href="/sistech/funcionario/perfil" class="btn btn-warning">Alterar</a>
 							</p>
 						</div>
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Fechar</button>
 					</div>
@@ -266,7 +261,6 @@
 					data.map(i => {
 						$('#conteudoAvisos').append('<p><b> * ' + i.aviso + '</b></p> ')
 					});
-					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -301,11 +295,8 @@
 						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
 						
 						if(data.trocaSenha == true){
-							
 							$("#modalTrocaDeSenha").modal('toggle'); 
-							
 						}
-						
 						
 						const ctx = document.getElementById('minhasSolicitacoes');
 						new Chart(ctx, {

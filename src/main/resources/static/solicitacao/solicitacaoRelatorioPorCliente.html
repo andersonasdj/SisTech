@@ -528,6 +528,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printFinalizado()><i class="bi bi-printer"></i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edicaoModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -707,6 +708,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printNaoFinalizado()><i class="bi bi-printer"></i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
@@ -754,6 +756,15 @@
 			});
 		});
 		
+		function printFinalizado() {
+			var idFinalizado= $('#idModalEdicao').text();
+			window.open('../impressao?id='+idFinalizado, '_blank');
+      	}
+      	
+      	function printNaoFinalizado() {
+			var idNaoFinalizado= $('#idModalNaoFinalizado').text();
+			window.open('../impressao?id='+idNaoFinalizado, '_blank');
+      	}
 		
 		$.ajax({
 			type: "GET",

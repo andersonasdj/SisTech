@@ -13,7 +13,7 @@
 <body>
 	<div class="container-fluid">
 		<br />
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
@@ -104,17 +104,14 @@
 				</div>
 			</div>
 		</nav>
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
 		<div class="container corpoFormulario" style="display: block;">
 			<div id="form-solicitacao">
 				<fieldset>
 					<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" data-toggle="tooltip" data-placement="top" title="Modelos prontos de solicitação" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
-	<!--				<p class="pull-right">-->
-	<!--					<a href="/sistech/home"><i class="fas fa-reply-all fa-2x" aria-hidden="true"></i></a>-->
-	<!--				</p>-->
-					<br/><br/>
+					<br /> <br />
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
@@ -126,7 +123,6 @@
 								</div>
 							</div>
 							<br />
-	
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
@@ -148,13 +144,10 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label class="control-label" for="solicitante"><b>Solicitante * </b>
-									<span id="botaoColaboradores">
-										
-									</span>
+									<span id="botaoColaboradores"> </span>
 								</label>
 								<div class="controls">
-									<select class="form-control solicitante mt-3" name="solicitante" id="solicitante">
-									</select>
+									<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"> </select>
 								</div>
 							</div>
 						</div>
@@ -163,8 +156,7 @@
 							<div class="control-group">
 								<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
 								<div class="controls">
-									<select class="form-control usuario mt-2" name="afetado" id="afetado">
-									</select>
+									<select class="form-control usuario mt-2" name="afetado" id="afetado"> </select>
 								</div>
 							</div>
 						</div>
@@ -173,13 +165,13 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group mt-2">
-								<span style="color: blue;"  id="celSolicitante"></span>
+								<span style="color: blue;"  id="celSolicitante"> </span>
 							</div>
 						</div>
 	
 						<div class="col-md-4">
 							<div class="control-group mt-1">
-								<span style="color: blue;"  id="celAfetado"></span>
+								<span style="color: blue;"  id="celAfetado"> </span>
 							</div>
 						</div>
 					</div>
@@ -244,7 +236,6 @@
 									</select>
 								</div>
 							</div>
-	
 						</div>
 					</div>
 					<br />
@@ -320,12 +311,12 @@
 					</div>
 					<div class="control-group">
 						<div class="controls">
-							<span id="botaoSalvar"></span>
-							<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"></i></a>
+							<span id="botaoSalvar"> </span>
+							<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"> </i></a>
 						</div>
 					</div>
 					<br /><br />
-					<legend></legend>
+					<legend> </legend>
 				</fieldset>
 			</div>
 		</div>
@@ -360,20 +351,19 @@
 				</div>
 				<!-- Copyright -->
 		</footer>
-		</footer>
 		
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
-		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
+		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalColaborador"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="modalLabelColaborador">
+						<h1 class="modal-title fs-5" id="modalColaborador">
 							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
 								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
 							<input hidden id="idColaboradoCliente" name="idColaboradoCliente">
 						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 
 					<table class="table" id="tabela-colaboradores">
@@ -386,8 +376,7 @@
 							</tr>
 						</thead>
 						<tbody id="tbColaboradoresCorpo">
-							<tr>
-							</tr>
+							<tr> </tr>
 						</tbody>
 					</table>
 					<div class="modal-footer">
@@ -405,7 +394,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Colaborador</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<label class="form-label mt-2" for="idAddModal">Id Cliente</label>
@@ -454,9 +443,7 @@
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
-								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
-		
-								</select>
+									<select class="form-select" id="statusEdicaoModal" aria-label="Default select example"> </select>
 							</div>
 						</div>
 						<div class="row">
@@ -483,7 +470,6 @@
 	<script>
 		
 		function editarColaboradores() {
-			
 			var idCliente = $('#nomeCliente').val();
 			
 			$.ajax({
@@ -613,7 +599,8 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+				    401: function() { alert('Realize login novamente!'); },
+				    405: function() { alert('Voce não tem permissão!'); }
 				}
 			});
 

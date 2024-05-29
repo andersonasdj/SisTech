@@ -107,36 +107,34 @@
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		 	
 			<div class="container" >
-			
-			<div class="row">
-				<div class="col-md-6">
-					<div class="table-responsive">
-						<table class="table table-hover table-bordered results sortable" id="tabela-modelos" style="text-align: center;">
-							<thead>
-								<tr class="table-primary">
-									<th scope="col">ID</th>
-									<th scope="col">Aviso</th>
-								</tr>
-							</thead>
-							<tbody id="corpoAvisos">
-								<tr>
-								</tr>
-							</tbody>
-						</table>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered results sortable" id="tabela-modelos" style="text-align: center;">
+								<thead>
+									<tr class="table-primary">
+										<th scope="col">ID</th>
+										<th scope="col">Aviso</th>
+									</tr>
+								</thead>
+								<tbody id="corpoAvisos">
+									<tr>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<div class="col-md-3">
+						<button class="btn btn-sm btn-success" onclick="limparModalNovo()" data-bs-toggle="modal" data-bs-target="#addAvisoModal"> Incluir</button>
 					</div>
 				</div>
-				
-				<div class="col-md-3">
-					<button class="btn btn-sm btn-success" onclick="limparModalNovo()" data-bs-toggle="modal" data-bs-target="#addAvisoModal"> Incluir</button>
-				</div>
-			</div>
-			<p><b>Os Avisos serão alertados na barra de menus na home page para todos os usuários.</b></p>
+				<p><b>Os Avisos serão alertados na barra de menus na home page para todos os usuários.</b></p>
 			</div>
 		
-		<br/><br/>
-		<br/><br/>
+		<br /><br />
+		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container-fluid">
 				<!-- Grid container -->
@@ -199,7 +197,7 @@
 					</div>
 					
 					<div class="modal-footer">
-						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"></i></button>
+						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editarAvisoModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizarAviso()">Salvar</button>
 					</div>
@@ -214,7 +212,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="addAvisoModal">Adicione um novo aviso</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<label class="form-label mt-2" for="avisoAddmodal">Conteúdo</label>
@@ -275,7 +273,6 @@
 				url: "/sistech/api/v1/avisos",
 				type: "GET",
 				success: function (data) {
-					
 					data.map(i => {
 						var itens = 
 						'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#editarAvisoModal" onclick=editar(' + i.id + ')>'
@@ -293,7 +290,6 @@
 		}
 		
 		function editar(id){
-			
 			$.ajax({
 				url: "/sistech/api/v1/avisos/"+id,
 				type: "GET",
@@ -311,7 +307,6 @@
 		function atualizarAviso(){
 			var id = $('#idAvisoEdicaoModal').val();
 			var aviso = $('#avisoEdicaoModal').val();
-			
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -322,7 +317,6 @@
 				}),
 				success: function (data) {
 					$('#linha' + data.id).remove();
-					
 					var itens = 
 						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#editarAvisoModal" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'

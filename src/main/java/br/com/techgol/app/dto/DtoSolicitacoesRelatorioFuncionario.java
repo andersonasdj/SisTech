@@ -6,6 +6,7 @@ public record DtoSolicitacoesRelatorioFuncionario(
 		Long andamento,
 		Long agendado,
 		Long aguardando,
+		Long pausado,
 		Long total
 		) {
 
