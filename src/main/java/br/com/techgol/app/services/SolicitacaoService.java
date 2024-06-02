@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
+import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
+import br.com.techgol.app.dto.DtoRelatorioFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -387,24 +389,28 @@ public class SolicitacaoService {
 		if(dados.status().equals(Status.AGUARDANDO) || dados.status().equals(Status.PAUSADO)) {
 			
 			if(solicitacao.getDataAndamento() != null) {
+				if(solicitacao.getDuracao() == null) {
+					solicitacao.setDuracao(0l);
+				}
 				solicitacao.setDuracao(solicitacao.getDuracao() + Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
 			}
 			
 			solicitacao.setDataAndamento(null);
 			solicitacao.setDataAgendado(null);
+			solicitacao.setDataFinalizado(null);
 			
 		}
 		if(dados.status().equals(Status.FINALIZADO)) {
 			solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
-			if(solicitacao.getDuracao() == null) {
-				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() < 15) {
+			if(solicitacao.getDuracao() != null) {
+				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + solicitacao.getDuracao() < 15) {
 					solicitacao.setDuracao(15l);
 				}else {
-					solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+					Long tempoAnterior = solicitacao.getDuracao();
+					solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
 				}
 			}else {
-				Long tempoAnterior = solicitacao.getDuracao();
-				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
+				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
 			}
 			
 		}
@@ -610,6 +616,121 @@ public class SolicitacaoService {
 				totalMinutosMes, email, telefone, local, whatsapp, proativo);
 	}
 	
+	public DtoDashboardFuncionarios geraDashboardFuncionarioPorPeriodo(Long id, String periodo, LocalDate ini, LocalDate termino) {
+		LocalDateTime inicio, fim;
+		
+		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
+		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
+		Long totalMinutosMes=0l;
+		List<PojecaoResumidaFinalizados> solicitacoes;
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			
+			if(periodo.equals("abertura")) {
+				onsite = repository.totalPorLocalPorFuncionarioPeridoDataAbertura(id, Local.ONSITE.toString(), false, inicio, fim);
+				offsite = repository.totalPorLocalPorFuncionarioPeridoDataAbertura(id, Local.OFFSITE.toString(), false, inicio, fim);
+				email = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(id, FormaAbertura.EMAIL.toString(), false, inicio, fim);
+				telefone = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(id, FormaAbertura.TELEFONE.toString(), false, inicio, fim);
+				local = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(id, FormaAbertura.LOCAL.toString(), false, inicio, fim);
+				whatsapp = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(id, FormaAbertura.WHATSAPP.toString(), false, inicio, fim);
+				proativo = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(id, FormaAbertura.PROATIVO.toString(), false, inicio, fim);
+				problema = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.PROBLEMA.toString(), false, inicio, fim);
+				incidente = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.INCIDENTE.toString(), false, inicio, fim);
+				solicitacao = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.SOLICITACAO.toString(), false, inicio, fim);
+				backup = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.BACKUP.toString(), false, inicio, fim);
+				acesso = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.ACESSO.toString(), false, inicio, fim);
+				evento = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(id, Classificacao.EVENTO.toString(), false, inicio, fim);
+				baixa = repository.totalPorPrioridadePorFuncionarioPeriodoDataAbertura(id, Prioridade.BAIXA.toString(), false, inicio, fim);
+				media = repository.totalPorPrioridadePorFuncionarioPeriodoDataAbertura(id, Prioridade.MEDIA.toString(), false, inicio, fim);
+				alta = repository.totalPorPrioridadePorFuncionarioPeriodoDataAbertura(id, Prioridade.ALTA.toString(), false, inicio, fim);
+				critica = repository.totalPorPrioridadePorFuncionarioPeriodoDataAbertura(id, Prioridade.CRITICA.toString(), false, inicio, fim);
+				planejada = repository.totalPorPrioridadePorFuncionarioPeriodoDataAbertura(id, Prioridade.PLANEJADA.toString(), false, inicio, fim);
+				aberto = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.ABERTO.toString(), false, inicio, fim);
+				andamento = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.ANDAMENTO.toString(), false, inicio, fim);
+				agendado = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.AGENDADO.toString(), false, inicio, fim);
+				aguardando = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.AGUARDANDO.toString(), false, inicio, fim);
+				pausado = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.PAUSADO.toString(), false, inicio, fim);
+				finalizado = repository.totalPorStatusPorFuncionarioPeriodoDataAbertura(id, Status.FINALIZADO.toString(), false, inicio, fim);
+				totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+				totalMesCorrente = repository.totalPorFuncionarioPeriodoDataAbertura(id, false, inicio, fim);
+				solicitacoes = repository.listaSolicitacoesPorFuncionarioPorPeriodoAbertura(id, false, inicio, fim );
+
+			}else if(periodo.equals("fechamento")) {
+				onsite = repository.totalPorLocalPorFuncionarioPeridoDataFinalizado(id, Local.ONSITE.toString(), false, inicio, fim);
+				offsite = repository.totalPorLocalPorFuncionarioPeridoDataFinalizado(id, Local.OFFSITE.toString(), false, inicio, fim);
+				email = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(id, FormaAbertura.EMAIL.toString(), false, inicio, fim);
+				telefone = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(id, FormaAbertura.TELEFONE.toString(), false, inicio, fim);
+				local = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(id, FormaAbertura.LOCAL.toString(), false, inicio, fim);
+				whatsapp = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(id, FormaAbertura.WHATSAPP.toString(), false, inicio, fim);
+				proativo = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(id, FormaAbertura.PROATIVO.toString(), false, inicio, fim);
+				problema = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.PROBLEMA.toString(), false, inicio, fim);
+				incidente = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.INCIDENTE.toString(), false, inicio, fim);
+				solicitacao = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.SOLICITACAO.toString(), false, inicio, fim);
+				backup = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.BACKUP.toString(), false, inicio, fim);
+				acesso = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.ACESSO.toString(), false, inicio, fim);
+				evento = repository.totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(id, Classificacao.EVENTO.toString(), false, inicio, fim);
+				baixa = repository.totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(id, Prioridade.BAIXA.toString(), false, inicio, fim);
+				media = repository.totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(id, Prioridade.MEDIA.toString(), false, inicio, fim);
+				alta = repository.totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(id, Prioridade.ALTA.toString(), false, inicio, fim);
+				critica = repository.totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(id, Prioridade.CRITICA.toString(), false, inicio, fim);
+				planejada = repository.totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(id, Prioridade.PLANEJADA.toString(), false, inicio, fim);
+				aberto = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.ABERTO.toString(), false, inicio, fim);
+				andamento = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.ANDAMENTO.toString(), false, inicio, fim);
+				agendado = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.AGENDADO.toString(), false, inicio, fim);
+				aguardando = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.AGUARDANDO.toString(), false, inicio, fim);
+				pausado = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.PAUSADO.toString(), false, inicio, fim);
+				finalizado = repository.totalPorStatusPorFuncionarioPeriodoDataFinalizado(id, Status.FINALIZADO.toString(), false, inicio, fim);
+				totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+				totalMesCorrente = repository.totalPorFuncionarioPeriodoDataFinalizado(id, false, inicio, fim);
+				solicitacoes = repository.listaSolicitacoesPorFuncionarioPorPeriodoFinalizado(id, false, inicio, fim );
+
+			}else {
+				onsite = repository.totalPorLocalPorFuncionarioPeridoDataAtualizado(id, Local.ONSITE.toString(), false, inicio, fim);
+				offsite = repository.totalPorLocalPorFuncionarioPeridoDataAtualizado(id, Local.OFFSITE.toString(), false, inicio, fim);
+				email = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(id, FormaAbertura.EMAIL.toString(), false, inicio, fim);
+				telefone = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(id, FormaAbertura.TELEFONE.toString(), false, inicio, fim);
+				local = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(id, FormaAbertura.LOCAL.toString(), false, inicio, fim);
+				whatsapp = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(id, FormaAbertura.WHATSAPP.toString(), false, inicio, fim);
+				proativo = repository.totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(id, FormaAbertura.PROATIVO.toString(), false, inicio, fim);
+				problema = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.PROBLEMA.toString(), false, inicio, fim);
+				incidente = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.INCIDENTE.toString(), false, inicio, fim);
+				solicitacao = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.SOLICITACAO.toString(), false, inicio, fim);
+				backup = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.BACKUP.toString(), false, inicio, fim);
+				acesso = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.ACESSO.toString(), false, inicio, fim);
+				evento = repository.totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(id, Classificacao.EVENTO.toString(), false, inicio, fim);
+				baixa = repository.totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(id, Prioridade.BAIXA.toString(), false, inicio, fim);
+				media = repository.totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(id, Prioridade.MEDIA.toString(), false, inicio, fim);
+				alta = repository.totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(id, Prioridade.ALTA.toString(), false, inicio, fim);
+				critica = repository.totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(id, Prioridade.CRITICA.toString(), false, inicio, fim);
+				planejada = repository.totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(id, Prioridade.PLANEJADA.toString(), false, inicio, fim);
+				aberto = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.ABERTO.toString(), false, inicio, fim);
+				andamento = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.ANDAMENTO.toString(), false, inicio, fim);
+				agendado = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.AGENDADO.toString(), false, inicio, fim);
+				aguardando = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.AGUARDANDO.toString(), false, inicio, fim);
+				pausado = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.PAUSADO.toString(), false, inicio, fim);
+				finalizado = repository.totalPorStatusPorFuncionarioPeriodoDataAtualizado(id, Status.FINALIZADO.toString(), false, inicio, fim);
+				totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+				totalMesCorrente = repository.totalPorFuncionarioPeriodoDataAtualizado(id, false, inicio, fim);
+				solicitacoes = repository.listaSolicitacoesPorFuncionarioPorPeriodoAtualizado(id, false, inicio, fim );
+			}
+			
+			for (PojecaoResumidaFinalizados s : solicitacoes) {
+				if(s != null) {
+					totalMinutosMes += s.getDuracao();
+				}else {
+					totalMinutosMes += 0;
+				}
+			}
+			return new DtoDashboardFuncionarios(onsite,offsite,problema,incidente,solicitacao,
+					backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
+					agendado,aguardando,pausado,finalizado,totalSolicitacoes,totalMinutosMes,
+					totalMesCorrente, email, telefone, local, whatsapp, proativo);
+			
+		}else {
+			return null;
+		}
+	}
 
 	public DtoDashboard geraDashboard() {
 		
@@ -797,6 +918,34 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 			}else {
 				return repository.listarSolicitacoesPorFuncionarioDataAtualizado(page, id, false, inicio, inicio);
 			}
+		}
+	}
+	
+	public DtoRelatorioFuncionario listarRelatoriosPorFuncionarioData(Long id, LocalDate ini, LocalDate termino) {
+		LocalDateTime inicio, fim;
+		
+		int qtdAbertos,qtdFechados,qtdAtualizados;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			qtdAbertos = repository.totalabertasPeriodoPorFuncionario(id, false, inicio, fim);
+			qtdFechados = repository.totalFechadasPeriodoPorFuncionario(id, false, inicio, fim);
+			qtdAtualizados = repository.totalAtualizadosPeriodoPorFuncionario(id, false, inicio, fim);
+			return new DtoRelatorioFuncionario(qtdAbertos, qtdFechados, qtdAtualizados);
+		}else if(ini != null) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 23, 59, 59);
+			qtdAbertos = repository.totalabertasPeriodoPorFuncionario(id, false, inicio, fim);
+			qtdFechados = repository.totalFechadasPeriodoPorFuncionario(id, false, inicio, fim);
+			qtdAtualizados = repository.totalAtualizadosPeriodoPorFuncionario(id, false, inicio, fim);
+			return new DtoRelatorioFuncionario(qtdAbertos, qtdFechados, qtdAtualizados);
+		} else {
+			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
+			qtdAbertos = repository.totalabertasPeriodoPorFuncionario(id, false, inicio, inicio);
+			qtdFechados = repository.totalFechadasPeriodoPorFuncionario(id, false, inicio, inicio);
+			qtdAtualizados = repository.totalAtualizadosPeriodoPorFuncionario(id, false, inicio, inicio);
+			return new DtoRelatorioFuncionario(qtdAbertos, qtdFechados, qtdAtualizados);
 		}
 	} 
 	

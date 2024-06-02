@@ -2,6 +2,53 @@ body {
 	padding: 0px 30px;
 }
 
+.responsivo{
+	 height:auto !important;
+     max-width:480px !important;
+     width:100% !important;
+	
+}
+
+.fonte-texto-op-relatorios{
+	font-family: arial;
+	font-size: 17px;
+	font-weight: bold;
+	color: rgb(29, 4, 81);
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    --bs-btn-border-radius: 0.90rem !important;
+}
+
+.btn-light {
+    --bs-btn-color: rgb(250, 250, 250) !important;
+    --bs-btn-bg: rgb(154, 153, 150) !important;
+    --bs-btn-border-color: #f8f9fa;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #d3d4d5;
+    --bs-btn-hover-border-color: #c6c7c8;
+    --bs-btn-focus-shadow-rgb: 211, 212, 213;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #c6c7c8;
+    --bs-btn-active-border-color: #babbbc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #f8f9fa;
+    --bs-btn-disabled-border-color: #f8f9fa;
+}
+.totalSolicitacoes{
+	padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+	font-size: 22px;
+	color: white;
+	border: 3px;
+    border-radius: 50%;
+    background-color: rgb(26, 95, 180);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
 @media (max-width: 900px) {
 	body {
 		padding: 0px 0px;
@@ -14,8 +61,62 @@ body {
 		margin-bottom: 5px;
 		padding-top: 2px;
     	padding-bottom: 2px;
+    	--bs-btn-font-size: 0.60rem !important;
 	}
 }
+
+
+table {
+  font-family: arial;
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table { 
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  font-weight: normal;
+  font-size: 14px;
+  padding: 8px 15px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  border-top: 1px solid #dddddd;
+}
+.table thead th {
+	font-weight: bold;
+	font-size: 14px;
+	color: rgb(250, 250, 250);
+  	background: rgb(119, 118, 123);
+}   
+.table .t-small {
+  width: 5%;
+}
+.table .t-medium {
+  width: 15%;
+}
+.table .t-status {
+  font-weight: bold;
+}
+.table .t-active {
+  color: #46a546;
+}
+.table .t-inactive {
+  color: #e00300;
+}
+.table .t-draft {
+  color: #f89406;
+}
+.table .t-scheduled {
+  color: #049cdb;
+}
+
 
 .blink {
 	animation: blink 1.5s steps(1, end) infinite;

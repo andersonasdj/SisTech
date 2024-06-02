@@ -3,6 +3,7 @@ package br.com.techgol.app.restcontroller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +28,10 @@ import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
+import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoDataAgendado;
 import br.com.techgol.app.dto.DtoModelosParaSolicitacao;
+import br.com.techgol.app.dto.DtoRelatorioFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -94,9 +98,45 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
-	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+			
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
+		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, periodo, inicio, fim);
+		}else {
+			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, funcionarioBase.getId(), periodo, inicio, fim);
+		}
+		
+	}
 	
-	   return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, periodo, inicio, fim);
+	@GetMapping("/relatorio/grafico/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
+	public DtoDashboardFuncionarios listarRelatorioGraficoPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
+		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+			return solicitacaoService.geraDashboardFuncionarioPorPeriodo(id, periodo, inicio, fim);
+		}else {
+			
+			return solicitacaoService.geraDashboardFuncionarioPorPeriodo(funcionarioBase.getId(), periodo, inicio, fim);
+		}
+		
+	}
+	
+	
+	@GetMapping("/relatorio/funcionario/numeros/{id}/inicio/{inicio}/fim/{fim}")
+	public DtoRelatorioFuncionario listarNumerosRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
+		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+			return solicitacaoService.listarRelatoriosPorFuncionarioData(id, inicio, fim);
+			
+		}else {
+			return solicitacaoService.listarRelatoriosPorFuncionarioData(funcionarioBase.getId(), inicio, fim);
+		}
+		
 	}
 	
 	@GetMapping("/relatorio/{status}/hoje")
@@ -167,6 +207,33 @@ public class SolicitacaoRestController {
 				repositoryFuncionario.listarNomesFuncionarios(),
 				repositoryFuncionario.listarIdFuncionarios()
 				);
+	}
+	
+	@GetMapping("/getDataUser") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
+	private DtoDadosParaSolicitacao listagemUsuariosAtivosCondicional() {
+		
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
+		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+			return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
+					clienteService.listarIdClienteAtivos(), 
+					repositoryFuncionario.listarNomesFuncionarios(),
+					repositoryFuncionario.listarIdFuncionarios()
+					);
+		
+		}else {
+			List<String> nomesFuncionarios = new ArrayList<>();
+			List<String> idFuncionarios = new ArrayList<>();
+			nomesFuncionarios.add(funcionarioBase.getNomeFuncionario());
+			idFuncionarios.add(funcionarioBase.getId().toString());
+		
+		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
+				clienteService.listarIdClienteAtivos(), 
+				nomesFuncionarios,
+				idFuncionarios
+				);
+		}
+			
 	}
 	
 	@GetMapping("/getModelos") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX

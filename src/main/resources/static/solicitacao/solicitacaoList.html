@@ -116,7 +116,7 @@
 					      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
 					        <option value="100">100</option>
 					        <option value="150">150</option>
-					        <option value="200">200</option>
+					        <option value="200" selected>200</option>
 					        <option value="250">250</option>
 					        <option value="300">300</option>
 					      </select>
@@ -124,14 +124,14 @@
 				</div>
 		    </div>
 		    <div class="col-3">
-				<b><span style="font-size: 22px;" id="totalElementos"> </span></b>
+				<b><span class="totalSolicitacoes" id="totalElementos"> </span></b>
 		    </div>
 		    <div class="col-6">
 				<button class="btn btn-danger btn-sm rederizaBtn" onclick="btnStatus('ABERTO')">ABERTO</button>
 				<button class="btn btn-primary btn-sm rederizaBtn" onclick="btnStatus('ANDAMENTO')">ANDAMENTO</button>
 				<button class="btn btn-warning btn-sm rederizaBtn" onclick="btnStatus('AGENDADO')">AGENDADO</button>
-				<button class="btn btn-secondary btn-sm rederizaBtn" onclick="btnStatus('PAUSADO')">PAUSADO</button>
-				<button class="btn btn-light btn-sm rederizaBtn" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
+				<button class="btn btn-light btn-sm rederizaBtn" onclick="btnStatus('PAUSADO')">PAUSADO</button>
+				<button class="btn btn-secondary btn-sm rederizaBtn" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
 				<button class="btn btn-dark btn-sm rederizaBtn" onclick="exibeTodas()">TODAS</button>
 		    </div>
 		  </div>
@@ -156,32 +156,33 @@
 		</div>
 
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered align-middle results sortable" id="tabela-usuarios" style="text-align: center;">
+			<table class="table table-bordered results sortable table-action" id="tabela-usuarios">
 				<thead>
 					<tr>
-						<th scope="col">ID</th>
-						<th scope="col">Data Abertura</th>
-						<th scope="col">Cliente</th>
-						<th scope="col">Solicitante</th>
-						<th scope="col">Afetado</th>
-						<th scope="col">Classificações</th>
-						<th scope="col">Descrição</th>
-						<th scope="col">Prioridade</th>
-						<th scope="col">Classificação</th>
-						<th scope="col">Responsável</th>
-						<th scope="col">Status</th>
-						<th scope="col">Versão</th>
+						<th data-field="id">ID</th>
+						<th data-field="abertura">Data Abertura</th>
+						<th data-field="cliente">Cliente</th>
+						<th data-field="solicitante">Solicitante</th>
+						<th data-field="afetado">Afetado</th>
+						<th data-field="classificacoes" class="escondeClassificacoes">Classificações</th>
+						<th data-field="descricao">Descrição</th>
+						<th data-field="prioridade">Prioridade</th>
+						<th data-field="classificacao">Classificação</th>
+						<th data-field="responsavel">Responsável</th>
+						<th data-field="status">Status</th>
+						<th data-field="duracao">Duração <span style="font-size: 10px;"> (minutos)</span></th>
+						<th data-field="versao" class="escondeVersao">Versão</th>
 					</tr>
 				</thead>
 				<tbody id="corpoSolicitacoes">
 					<tr> </tr>
 				</tbody>
 			</table>
-			
+		</div>	
 			<nav aria-label="Page navigation example">
 			  <ul id="paginas" class="pagination"> </ul>
 			</nav>
-		</div>
+		
 
 		<br /><br />
 		<footer class="text-center text-white">
@@ -758,11 +759,13 @@
 				}
 				
 				data.content.map(i => {
-					var status;
-					var vip;
-					var redFlag;
-					var alertaPeso;
-					var alertaPrioridade;
+					var status,
+						vip,
+						redFlag,
+						alertaPeso,
+						alertaPrioridade,
+						tempo,
+						alerta;
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
 					}else if(i.peso > 3 && i.peso <= 7 ){
@@ -792,6 +795,11 @@
 					}else{
 						alertaPrioridade ="class='' style=''";
 					}
+					if(i.duracao != null){
+						if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
+					}else {tempo = " "; alerta = " "}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
@@ -800,13 +808,14 @@
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;" class=escondeClassificacoes><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
 					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
-					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
+					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
+					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -842,10 +851,12 @@
 				
 				data.content.map(i => {
 					
-					var status;
-					var vip;
-					var redFlag;
-					var dataAgendado = "";
+					var status,
+						vip,
+						redFlag,
+						tempo,
+						alerta,
+						dataAgendado = "";
 					
 					var alertaPeso;
 					if(i.peso > 7){
@@ -876,6 +887,11 @@
 					}else{
 						alertaPrioridade ="class='' style=''";
 					}
+					if(i.duracao != null){
+						if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
+					}else {tempo = " "; alerta = " "}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
@@ -884,13 +900,14 @@
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;" class=escondeClassificacoes><p> Local: ' + i.local + '</p>Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
 					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
-					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
+					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
+					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -938,11 +955,14 @@
 				}
 				
 				data.content.map(i => {
-					var status;
-					var vip;
-					var redFlag;
-					var dataAgendado = "";
-					var alertaPeso;
+					var status,
+						vip,
+						redFlag,
+						tempo,
+						alerta,
+						alertaPeso,
+						dataAgendado = "";
+						
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
 					}else if(i.peso > 3 && i.peso <= 7 ){
@@ -970,6 +990,11 @@
 					}else{
 						alertaPrioridade ="class='' style=''";
 					}
+					if(i.duracao != null){
+						if(i.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 240 && i.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = i.duracao;}
+						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
+					}else {tempo = " "; alerta = " "}
 					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
@@ -978,13 +1003,14 @@
 					+ '<td>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
 					+ '<td id=afetado' + i.id + '>' + i.afetado + '</td>'
-					+ '<td id=local'+ i.id+' style="font-size: 12px;"><p> Local: ' + i.local + '</p> Categoria: ' + i.categoria +'</td>'
+					+ '<td id=local'+ i.id+' style="font-size: 12px;" class=escondeClassificacoes><p> Local: ' + i.local + '</p> Categoria: ' + i.categoria +'</td>'
 					+ '<td id=descricao' + i.id + '>' + i.descricao + '</td>'
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
 					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
-					+ '<td id=versao' + i.id + '>' + i.versao + '</td>'
+					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
+					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
 					}
@@ -1284,9 +1310,12 @@
 						});
 						
 					}else{
-						var status;
-						var vip;
-						var redFlag;
+						var status,
+							vip,
+							redFlag,
+							alerta,
+							duracao,
+							tempo;
 						if(data.status == "ABERTO"){ status = "table-danger" }
 						if(data.status == "AGENDADO"){ status = "table-warning" }
 						if(data.status == "ANDAMENTO"){ status = "table-info" }
@@ -1308,6 +1337,12 @@
 						}else{
 							alertaPeso = "style='color: blue; font-weight: bold;'";
 						}
+						
+						if(data.duracao != null){
+							if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = data.duracao;}
+							if(data.duracao > 240 && data.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = data.duracao;}
+							if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = data.duracao;}
+						}else {tempo = " "; alerta = " "}
 						
 						$('#linha'+data.id).removeClass();
 						$('#linha'+data.id).addClass(status);
@@ -1339,6 +1374,10 @@
 						$('#local'+data.id).append("<p>Local: "+data.local+"</p>Categoria: "+ data.categoria);
 						$('#name'+data.id).empty();
 						$('#name'+data.id).append("<span class='novaSolicitacao' >"+ data.id +"</span>");
+						
+						$('#duracao'+data.id).empty();
+						$('#duracao'+data.id).append('<span '+ alerta + '><b>' + tempo + '</b></span>');
+						
 						$('#modalEdicao').modal('hide');
 						alert("atualizado com sucesso");
 					}
@@ -1450,6 +1489,7 @@
 						+ '<td id=classificacao' + data.id + '><p>' + data.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + data.peso +'</span></td>'
 						+ '<td id=nomeFuncionario' + data.id + '>' + data.nomeFuncionario + '</td>'
 						+ '<td id=status' + data.id + '><p>' + data.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
+						+ '<td id=duracao' + data.id + '>' + data.duracao + '</td>'
 						+ '<td id=versao' + data.id + '>' + data.versao + '</td>'
 						+ '</tr>'
 						

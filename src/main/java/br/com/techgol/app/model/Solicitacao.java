@@ -133,6 +133,7 @@ public class Solicitacao {
 		this.excluido = false;
 		this.dataAbertura = LocalDateTime.now().withNano(0);
 		this.dataAtualizacao = LocalDateTime.now().withNano(0);
+		this.setDuracao(0l);
 	}
 
 	public String geraLog(String funcionario ) {
@@ -153,10 +154,10 @@ public class Solicitacao {
 				+ " * Categoria: " + this.categoria + "\n "
 				+ " * Classificação: " + this.classificacao + "\n "
 				+ " * Local: " + this.local + "\n "
-				+ " * Resolucão: " + this.resolucao.trim() + "\n "
+				+ " * Resolução: " + this.resolucao.trim() + "\n "
 				+ " * Duração: " + tempo + "\n "
 				+ " * Status: " + this.getStatus() + (this.getStatus().equals(Status.AGENDADO) ?  " - " + this.getDataAgendado() :"") + (this.getStatus().equals(Status.ANDAMENTO)? " - " + this.getDataAndamento() : "") +"\n "
-				+ " * Funcionario atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"
+				+ " * Funcionário atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"
 				+ "########################################\n\n";
 		
 		return log;

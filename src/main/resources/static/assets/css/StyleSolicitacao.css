@@ -95,3 +95,66 @@
 	font-size: .8rem;
 	color: rgba(255, 255, 255, .5);
 }
+
+
+
+
+@media screen and (max-width: 1600px) {
+	.escondeVersao{
+				 display: none;
+			}
+}
+
+@media screen and (max-width: 1000px) {
+	.escondeClassificacoes{
+				 display: none;
+			}
+}
+
+
+table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                left: 6px;
+                content: attr(data-label);
+                font-weight: bold;
+            }
+        }

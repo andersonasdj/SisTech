@@ -90,7 +90,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.dataFinalizado <= :fim")
 	public Long listarSolicitacoesFinalizadasHojeQtd(String status, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
-	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, "
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
 			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
@@ -291,6 +291,32 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.dataAbertura >= :inicio "
 			+ "AND s.dataAbertura <= :fim")
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAbertura(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	
+	
+
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+			+ "WHERE s.funcionario_id = :id "
+			+ "AND s.excluido = :excluido "
+			+ "AND s.dataAbertura >= :inicio "
+			+ "AND s.dataAbertura <= :fim")
+	public int totalabertasPeriodoPorFuncionario(Long id, Boolean excluido, LocalDateTime inicio, LocalDateTime fim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+			+ "WHERE s.funcionario_id = :id "
+			+ "AND s.excluido = :excluido "
+			+ "AND s.dataFinalizado >= :inicio "
+			+ "AND s.dataFinalizado <= :fim")
+	public int totalFechadasPeriodoPorFuncionario(Long id, Boolean excluido, LocalDateTime inicio, LocalDateTime fim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+			+ "WHERE s.funcionario_id = :id "
+			+ "AND s.excluido = :excluido "
+			+ "AND s.dataAtualizacao >= :inicio "
+			+ "AND s.dataAtualizacao <= :fim")
+	public int totalAtualizadosPeriodoPorFuncionario(Long id, Boolean excluido, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -500,6 +526,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.funcionario_id = :id and s.excluido = :excluido and s.status != :status", nativeQuery = true)
 	public int totalPorFuncionario(long id, Boolean excluido, String status);
 	
+	
 	//#######################################################################################################
 	
 	public int countByClienteIdAndStatusAndExcluido(Long id, Status status, Boolean excluido);
@@ -519,6 +546,205 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.status != 'FINALIZADO'AND s.funcionario_id = :id AND s.local = :local AND s.excluido = :excluido", nativeQuery = true)
 	public int totalPorLocalPorFuncionario(Long id, String local, Boolean excluido);
+	//##################################################################################################################
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.local = :local "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public int totalPorLocalPorFuncionarioPeridoDataAbertura(Long id, String local, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.formaAbertura = :formaAbertura "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido ")
+	public int totalPorFormaAberturaPorFuncionarioPeriodoDataAbertura(Long id, String formaAbertura, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.classificacao = :classificacao "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public int totalPorClassificacaoPorFuncionarioPeriodoDataAbertura(Long id, String classificacao, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.prioridade = :prioridade "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public int totalPorPrioridadePorFuncionarioPeriodoDataAbertura(Long id, String prioridade, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.status = :status "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public int totalPorStatusPorFuncionarioPeriodoDataAbertura(Long id, String status, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.duracao FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public List<PojecaoResumidaFinalizados> listaSolicitacoesPorFuncionarioPorPeriodoAbertura(Long id, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT COUNT(*) FROM solicitacoes s "
+					+ "WHERE s.funcionario_id = :id "
+					+ "AND s.dataAbertura >= :dataInicio "
+					+ "AND s.dataAbertura <= :dataFim "
+					+ "AND s.excluido = :excluido")
+	public int totalPorFuncionarioPeriodoDataAbertura(Long id, Boolean excluido,  LocalDateTime dataInicio, LocalDateTime dataFim);
+	
+	//##################################################################################################################
+	//##################################################################################################################
+	
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.local = :local "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public int totalPorLocalPorFuncionarioPeridoDataFinalizado(Long id, String local, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.formaAbertura = :formaAbertura "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido ")
+		public int totalPorFormaAberturaPorFuncionarioPeriodoDataFinalizado(Long id, String formaAbertura, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.classificacao = :classificacao "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public int totalPorClassificacaoPorFuncionarioPeriodoDataFinalizado(Long id, String classificacao, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.prioridade = :prioridade "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public int totalPorPrioridadePorFuncionarioPeriodoDataFinalizado(Long id, String prioridade, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.status = :status "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public int totalPorStatusPorFuncionarioPeriodoDataFinalizado(Long id, String status, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		@Query(nativeQuery = true,
+				value = "SELECT s.duracao FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public List<PojecaoResumidaFinalizados> listaSolicitacoesPorFuncionarioPorPeriodoFinalizado(Long id, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		@Query(nativeQuery = true,
+				value = "SELECT COUNT(*) FROM solicitacoes s "
+						+ "WHERE s.funcionario_id = :id "
+						+ "AND s.dataFinalizado >= :dataInicio "
+						+ "AND s.dataFinalizado <= :dataFim "
+						+ "AND s.excluido = :excluido")
+		public int totalPorFuncionarioPeriodoDataFinalizado(Long id, Boolean excluido,  LocalDateTime dataInicio, LocalDateTime dataFim);
+		
+		//##################################################################################################################
+		
+		//##################################################################################################################
+		
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.local = :local "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public int totalPorLocalPorFuncionarioPeridoDataAtualizado(Long id, String local, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.formaAbertura = :formaAbertura "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido ")
+			public int totalPorFormaAberturaPorFuncionarioPeriodoDataAtualizado(Long id, String formaAbertura, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.classificacao = :classificacao "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public int totalPorClassificacaoPorFuncionarioPeriodoDataAtualizado(Long id, String classificacao, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.prioridade = :prioridade "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public int totalPorPrioridadePorFuncionarioPeriodoDataAtualizado(Long id, String prioridade, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.status = :status "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public int totalPorStatusPorFuncionarioPeriodoDataAtualizado(Long id, String status, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			@Query(nativeQuery = true,
+					value = "SELECT s.duracao FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public List<PojecaoResumidaFinalizados> listaSolicitacoesPorFuncionarioPorPeriodoAtualizado(Long id, Boolean excluido, LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			@Query(nativeQuery = true,
+					value = "SELECT COUNT(*) FROM solicitacoes s "
+							+ "WHERE s.funcionario_id = :id "
+							+ "AND s.dataAtualizacao >= :dataInicio "
+							+ "AND s.dataAtualizacao <= :dataFim "
+							+ "AND s.excluido = :excluido")
+			public int totalPorFuncionarioPeriodoDataAtualizado(Long id, Boolean excluido,  LocalDateTime dataInicio, LocalDateTime dataFim);
+			
+			//##################################################################################################################
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.cliente_id = :id AND s.formaAbertura = :formaAbertura and s.excluido = :excluido and s.status != 'FINALIZADO'", nativeQuery = true)
 	public int totalPorFormaAberturaPorCliente(Long id, String formaAbertura, Boolean excluido);

@@ -662,7 +662,7 @@
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",
-			url: "/sistech/solicitacao/getData",
+			url: "/sistech/solicitacao/getDataUser",
 				success: function (data) {
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#idFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
