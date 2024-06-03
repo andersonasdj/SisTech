@@ -2,6 +2,21 @@ body {
 	padding: 0px 30px;
 }
 
+.navbar-brand {
+    padding-top: var(--bs-navbar-brand-padding-y);
+    padding-bottom: var(--bs-navbar-brand-padding-y);
+    margin-right: var(--bs-navbar-brand-margin-end);
+    font-size: var(--bs-navbar-brand-font-size);
+    color: #05419b !important;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navbar {
+    --bs-navbar-brand-font-size: 1.45rem !important;
+    --bs-navbar-hover-color: rgb(0, 0, 0) !important;
+}
+
 .responsivo{
 	 height:auto !important;
      max-width:480px !important;
@@ -36,6 +51,11 @@ body {
     --bs-btn-disabled-bg: #f8f9fa;
     --bs-btn-disabled-border-color: #f8f9fa;
 }
+
+.btn-group-sm>.btn, .btn-tamanho-padrao {
+    --bs-btn-border-radius: 0.90rem !important;
+}
+
 .totalSolicitacoes{
 	padding-right: 10px;
     padding-left: 10px;
@@ -62,6 +82,14 @@ body {
 		padding-top: 2px;
     	padding-bottom: 2px;
     	--bs-btn-font-size: 0.60rem !important;
+	}
+	
+	.rederiza-medio {
+		margin-left: 5px;
+		margin-bottom: 5px;
+		padding-top: 2px;
+    	padding-bottom: 2px;
+    	--bs-btn-font-size: 0.95rem !important;
 	}
 }
 

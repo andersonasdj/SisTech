@@ -3,8 +3,8 @@
 <head>
 	<title>Sistech - Usuários</title>
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
-	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
+	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,7 +111,7 @@
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col">
-					<a href="/sistech/funcionario/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
+				<a href="/sistech/funcionario/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -119,7 +119,7 @@
 				<div class="form-group pull-right">
 		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
 				</div>
-				<span class="counter pull-right"></span>
+				<span class="counter pull-right"> </span>
 		    </div>
 		  </div>
 		</div>
@@ -128,16 +128,13 @@
 				<thead>
 					<tr>
 						<th scope="col">Nome</th>
-						<th scope="col">Usuário</th>
 						<th scope="col">Ativo</th>
-						<th scope="col">MFA</th>
 						<th scope="col">Função</th>
 						<th scope="col">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-					</tr>
+					<tr> </tr>
 				</tbody>
 			</table>
 		</div>
@@ -172,7 +169,6 @@
 				</div>
 				<!-- Copyright -->
 		</footer>
-		</footer>
 
 		<!-- MODAL -  EDIÇÃO DE FUNCIONARIO -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -180,10 +176,9 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição Funcionario</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-
 						<div class="row">
 							<div class="col-md-9">
 								<label class="form-label mt-2" for="nomemodal"><b>Nome *</b></label>
@@ -194,7 +189,6 @@
 								<input type="text" id="idmodal" class="form-control" style="width: 95px;" readonly>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="usuariomodal"><b>Usuario *</b></label>
@@ -202,28 +196,19 @@
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="funcaomodal"><b>Função</b></label>
-								<select class="form-select" id="funcaomodal" aria-label="Default select example">
-
-								</select>
+								<select class="form-select" id="funcaomodal" aria-label="Default select example"> </select>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusModal"><b>Status</b></label>
-								<select class="form-select" id="statusModal" aria-label="Default select example">
-		
-								</select>
+								<select class="form-select" id="statusModal" aria-label="Default select example"> </select>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="mfaModal"><b>MFA</b></label>
-								<select class="form-select" id="mfaModal" aria-label="Default select example">
-		
-								</select>
+								<select class="form-select" id="mfaModal" aria-label="Default select example"> </select>
 							</div>
 						</div>
-						
-						
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="trocaSenha"><b>Exigir troca de senha </b></label>
@@ -231,23 +216,18 @@
 		                  			<input type="checkbox" name="trocaSenha" id="trocaSenha"  value="true">
 		                		</label>
 							</div>
-							<div class="col-md-6 ms-auto">
-
-							</div>
+							<div class="col-md-6 ms-auto"> </div>
 						</div>
-						
-						
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2"><b>Ultimo Login</b></label>
-								<p><span id="dataUltimoLoginModal"></span></p>
+								<p><span id="dataUltimoLoginModal"> </span></p>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2"><b>Ultima troca de senha</b></label>
-								<p><span id="dataUltimaTrocaSenhaModal"></span></p>
+								<p><span id="dataUltimaTrocaSenhaModal"> </span></p>
 							</div>
 						</div>
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -262,8 +242,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabelSenha">Atualização de senha - <span id="nomeUsuarioModal"></span></h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<h1 class="modal-title fs-5" id="exampleModalLabelSenha">Atualização de senha - <span id="nomeUsuarioModal"> </span></h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<label class="form-label mt-2" for="idmodalsenha">ID</label>
@@ -274,12 +254,11 @@
 						</button>
 						<input type="password" id="idpasswordmodal" class="form-control mt-2" minlength="8" maxlength="50"
 							onKeyUp="verificaForcaSenha();" style="width: 300px;">
-						<span id="password-status"></span><br />
+						<span id="password-status"> </span><br />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button id="btnSave" type="button" class="btn btn-primary"
-							onclick="changePassword()">Salvar</button>
+						<button id="btnSave" type="button" class="btn btn-primary" onclick="changePassword()">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -306,9 +285,7 @@
 					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.username + '</td>'
 					+ '<td>' + status + '</td>'
-					+ '<td>' + i.mfa + '</td>'
 					+ '<td>' + i.role + '</td>'
 					+ '<td>'
 					+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + i.id + ')" style="border: none; background: none;">'

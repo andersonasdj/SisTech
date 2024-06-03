@@ -124,7 +124,6 @@ public class SolicitacaoRestController {
 		
 	}
 	
-	
 	@GetMapping("/relatorio/funcionario/numeros/{id}/inicio/{inicio}/fim/{fim}")
 	public DtoRelatorioFuncionario listarNumerosRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
 
@@ -136,6 +135,20 @@ public class SolicitacaoRestController {
 		}else {
 			return solicitacaoService.listarRelatoriosPorFuncionarioData(funcionarioBase.getId(), inicio, fim);
 		}
+		
+	}
+	
+	@GetMapping("/relatorio/grafico/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
+	public DtoDashboardFuncionarios listarRelatorioGraficoPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+
+			return solicitacaoService.geraDashboardClientePorPeriodo(id, periodo, inicio, fim);
+		
+	}
+	
+	@GetMapping("/relatorio/cliente/numeros/{id}/inicio/{inicio}/fim/{fim}")
+	public DtoRelatorioFuncionario listarNumerosRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+		
+			return solicitacaoService.listarRelatoriosPorClienteData(id, inicio, fim);
 		
 	}
 	

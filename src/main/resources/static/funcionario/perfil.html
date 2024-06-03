@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
@@ -21,7 +21,7 @@
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
+					<span class="navbar-toggler-icon"> </span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -107,22 +107,22 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		    <div class="container">
+		    <div class="container-fluid">
 			 <div class="row justify-content-between">
 			    <div class="col-2">
 					<div id="containerPerfil">
 						<aside class="">
 							<img id="" src="../assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
 						</aside>
-						<br/><br/>
+						<br /><br />
 					</div>
 			    </div>
 			    <div class="col-10">
-		    		<p>ID: <span id="idFuncionario"></span></p>
-					<p>Nome: <span id="nomeFuncionario"></span></p>
-					<p>Username: <span id="username"></span></p>
-					<p>Data de Atualização: <span id="dataAtualizacao"></span></p>
-					<p><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#senhaModal">Atualiza Senha <span id="qtdFinalizados"></span></button></p>
+		    		<p>ID: <span id="idFuncionario"> </span></p>
+					<p>Nome: <span id="nomeFuncionario"> </span></p>
+					<p>Username: <span id="username"> </span></p>
+					<p>Data de Atualização: <span id="dataAtualizacao"> </span></p>
+					<p><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#senhaModal">Atualiza Senha <span id="qtdFinalizados"> </span></button></p>
 			    </div>
 			 </div>
 			</div>
@@ -135,7 +135,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="senhaModal">Atualização de senha</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<label class="form-label mt-2" for="idmodalsenha">ID</label>
@@ -146,7 +146,7 @@
 						</button>
 						<input type="password" id="idpasswordmodal" class="form-control mt-2" minlength="8" maxlength="50"
 							onKeyUp="verificaForcaSenha();" style="width: 300px;">
-						<span id="password-status"></span><br />
+						<span id="password-status"> </span><br />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -157,10 +157,10 @@
 			</div>
 		</div>
 		<!-- ################################### MODAL SENHA ###################################################### -->
-		<br/><br/>
-		<br/><br/>
+		<br /><br />
+		<br /><br />
 		<footer class="text-center text-white">
-			<div class="container">
+			<div class="container-fluid">
 				<!-- Grid container -->
 			<div class="p-4 pb-0">
 				<!-- Section: Social media -->

@@ -3,8 +3,8 @@
 <head>
 	<title>SisTech - Clientes</title>
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
-	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
@@ -97,7 +97,7 @@
 							</ul>
 						</li>
 							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
+								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
 							</a>
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col">
-					<a href="/sistech/cliente/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
+				<a href="/sistech/cliente/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
 		    </div>
 		    <div class="col">
 		    </div>
@@ -117,7 +117,7 @@
 				<div class="form-group pull-right">
 		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
 				</div>
-				<span class="counter pull-right"></span>
+				<span class="counter pull-right"> </span>
 		    </div>
 		  </div>
 		</div>
@@ -132,18 +132,15 @@
 					</tr>
 				</thead>
 				<tbody id="corpoClientes">
-					<tr>
-					</tr>
+					<tr> </tr>
 				</tbody>
 			</table>
 
 			<nav aria-label="Page navigation example">
-			  <ul id="paginas" class="pagination">
-			  </ul>
+			  <ul id="paginas" class="pagination"> </ul>
 			</nav>
 		</div>
 	</div>
-
 		<footer class="text-center text-white">
 			<div class="container-fluid ">
 				<!-- Grid container -->
@@ -181,7 +178,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="exampleModalLabel">Edição Cliente</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<div class="row">
@@ -223,22 +220,17 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="ativoModal"><b>Ativo</b></label>
-								<select class="form-select" id="ativoModal">
-								</select>
+								<select class="form-select" id="ativoModal"> </select>
 							</div>
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="vipModal"><b>VIP</b></label>
-								<select class="form-select" id="vipModal">
-		
-								</select>
+								<select class="form-select" id="vipModal"> </select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="redFlagModal"><b>Red Flag</b></label>
-								<select class="form-select" id="redFlagModal">
-		
-								</select>
+								<select class="form-select" id="redFlagModal"> </select>
 							</div>
 						</div>
 						</br>
@@ -263,7 +255,7 @@
 								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
 							<input type="text" hidden id="idColaboradoCliente" name="idColaboradoCliente">
 						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 
 					<table class="table table-striped align-middle" id="tabela-colaboradores">
@@ -276,8 +268,7 @@
 							</tr>
 						</thead>
 						<tbody id="tbColaboradoresCorpo">
-							<tr>
-							</tr>
+							<tr> </tr>
 						</tbody>
 					</table>
 						<div class="modal-footer">
@@ -295,7 +286,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Colaborador</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<label class="form-label mt-2" for="idAddModal">Id Cliente</label>
@@ -323,17 +314,14 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-					
 					<div class="modal-body">
-					
 						<div class="row">
 							<div class="col-md-8">
 								<label class="form-label mt-2" for="nomeEdicaoModal"><b>Nome</b></label>
 								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-2" for="idEdicaoModal">ID</label>
 								<input type="text" id="idEdicaoModal" class="form-control" readonly>
@@ -347,9 +335,7 @@
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
-								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example">
-		
-								</select>
+								<select class="form-select" id="statusEdicaoModal" aria-label="Default select example"> </select>
 							</div>
 						</div>
 						<div class="row">
@@ -359,7 +345,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>

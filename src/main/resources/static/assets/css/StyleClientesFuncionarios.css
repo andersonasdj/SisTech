@@ -1,0 +1,79 @@
+body {
+	padding: 0px 30px;
+}
+
+.navbar-brand {
+    color: #05419b !important;
+}
+
+.navbar {
+    --bs-navbar-brand-font-size: 1.45rem !important;
+    --bs-navbar-hover-color: #dc3545 !important;
+}
+
+.responsivo{
+	 height:auto !important;
+     max-width:480px !important;
+     width:100% !important;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    --bs-btn-border-radius: 0.90rem !important;
+}
+
+@media (max-width: 900px) {
+	body {
+		padding: 0px 0px;
+	}
+}
+
+table {
+  font-family: arial;
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table { 
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  font-weight: normal;
+  font-size: 14px;
+  padding: 8px 15px;
+  line-height: 40px;
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid #dddddd;
+}
+.table thead th {
+	font-weight: bold;
+	font-size: 15px;
+	color: rgb(250, 250, 250);
+  	background: rgb(119, 118, 123);
+}   
+.table .t-small {
+  width: 5%;
+}
+.table .t-medium {
+  width: 15%;
+}
+.table .t-status {
+  font-weight: bold;
+}
+.table .t-active {
+  color: #46a546;
+}
+.table .t-inactive {
+  color: #e00300;
+}
+.table .t-draft {
+  color: #f89406;
+}
+.table .t-scheduled {
+  color: #049cdb;
+}
