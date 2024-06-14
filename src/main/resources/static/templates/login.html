@@ -4,12 +4,10 @@
 <head>
 	<title>Sistech Login</title>
 	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-    
 </head>
 <body>
 <div class="container">
@@ -20,28 +18,28 @@
 				<div class="d-flex justify-content-end social_icon">
 				</div>
 			</div>
-			<div class="card-body">
+			<div class="card-body mt-4">
 				<form method="POST" action="/sistech/login" >
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><img id="" src="assets/img/login-user.ico" style="width: 20px" alt="..."></span>
+							<span class="mt-4 form-control"><img id="" src="assets/img/login-user.ico" style="width: 30px" alt="..."></span>
 						</div>
-						<input type="text" class="form-control" id="username" name="username" placeholder="usuario" autocomplete="off">
+						<input type="text" class="form-control mt-4" id="username" name="username" placeholder="usuario" autocomplete="off">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><img id="" src="assets/img/login-key.ico" style="width: 20px" alt="..."></span>
+							<span class="mt-4 form-control"><img id="" src="assets/img/login-key.ico" style="width: 30px" alt="..."></span>
 						</div>
-						<input type="password" class="form-control" id="password" name="password" placeholder="senha" autocomplete="off">
+						<input type="password" class="form-control mt-4" id="password" name="password" placeholder="senha" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn float-right login_btn">Logar</button>
+						<button type="submit" class="btn float-end btn-light mt-5">Logar</button>
 					</div>
 				</form>
 			</div>
-			<div class="card-footer">
+			<div class="card-footer mt-4">
 				<div class="d-flex justify-content-center">
-					<a href="#">Esqueceu sua senha?</a>
+					<a href="mailto:">Esqueceu sua senha?</a>
 				</div>
 			</div>
 		</div>

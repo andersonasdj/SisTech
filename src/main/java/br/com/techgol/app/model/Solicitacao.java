@@ -154,7 +154,7 @@ public class Solicitacao {
 				+ " * Categoria: " + this.categoria + "\n "
 				+ " * Classificação: " + this.classificacao + "\n "
 				+ " * Local: " + this.local + "\n "
-				+ " * Resolução: " + this.resolucao.trim() + "\n "
+				+ " * Resolução: " + ((this.resolucao != null)? this.resolucao.trim() : "" )+"\n "
 				+ " * Duração: " + tempo + "\n "
 				+ " * Status: " + this.getStatus() + (this.getStatus().equals(Status.AGENDADO) ?  " - " + this.getDataAgendado() :"") + (this.getStatus().equals(Status.ANDAMENTO)? " - " + this.getDataAndamento() : "") +"\n "
 				+ " * Funcionário atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"

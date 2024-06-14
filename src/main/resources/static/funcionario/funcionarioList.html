@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 </head>
@@ -491,9 +491,7 @@
 					var itens = 
 						'<tr id=linha' + data.id + '>'
 						+ '<td id=name' + data.id + '>' + data.nomeFuncionario + '</td>'
-						+ '<td>' + data.username + '</td>'
 						+ '<td>' + status + '</td>'
-						+ '<td>' + data.mfa + '</td>'
 						+ '<td>' + data.role + '</td>'
 						+ '<td>'
 						+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + data.id + ')" style="border: none; background: none;">'

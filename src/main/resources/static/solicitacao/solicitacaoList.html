@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 </head>
@@ -84,7 +84,7 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
 								<li>
@@ -140,22 +140,25 @@
 		<span id="update" hidden> </span>
 		<div class="container-fluid">
 		  <div class="row">
-		    <div class="col-7">
+		    <div class="col-5">
 					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col-1">
-				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
+				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.8rem; color: cornflowerblue;"> </i></a>
 		    </div>
-		    <div class="col-4">
+		    <div class="col-1">
+				<a href="#" onclick="generatePDF()"> <i class="bi bi-filetype-pdf" style="font-size: 1.8rem; color: cornflowerblue;"> </i></a>
+		    </div>
+		    <div class="col-5">
 				<div class="form-group pull-right">
 		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
 				</div>
-				<span class="counter pull-right"> </span>
+				<span class="cou3ter pull-right"> </span>
 		    </div>
 		  </div>
 		</div>
-
-		<div class="table-responsive">
+		
+		<div class="table-responsive mt-2">
 			<table class="table table-bordered results sortable table-action" id="tabela-usuarios">
 				<thead>
 					<tr>
@@ -634,8 +637,28 @@
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
-	<script>
+  	<script src="../assets/js/jspdf.min.js"></script>
+ 	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
+  	<script>
+		//export table to pdf
+		function generatePDF() {
+		  var doc = new jsPDF('l', 'pt');
 		
+		  var elem = document.getElementById('tabela-usuarios');
+		  var data = doc.autoTableHtmlToJson(elem);
+		  doc.autoTable(data.columns, data.rows, {
+		    margin: {left: 35},
+		    theme: 'grid',
+		    tableWidth: 'auto',
+		    fontSize: 7,
+		    overflow: 'linebreak',
+		    }
+		  );
+		  doc.save('Solicotacoes.pdf');
+		}
+  	</script>
+  
+	<script>
 		exibeTodasSolicitacoes();
 		
 		function print() {
