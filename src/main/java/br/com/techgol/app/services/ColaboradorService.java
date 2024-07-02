@@ -69,7 +69,12 @@ public class ColaboradorService {
 	}
 	
 	public String listarCelularColaborador(Long id, String nomeColaborador) {
-		return repository.listarCelularColaborador(id, nomeColaborador);
+		
+		String dados = repository.listarCelularColaborador(id, nomeColaborador);
+		if(dados != null) {
+			String[] resultado = dados.split(",");
+			return resultado[0] + (resultado[1].equals("true") ? " - VIP": "");
+		}else { return ""; }
 	}
 	
 	public boolean existeColaborador(Long id) {

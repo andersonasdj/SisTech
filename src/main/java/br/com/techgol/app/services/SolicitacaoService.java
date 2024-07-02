@@ -72,6 +72,9 @@ public class SolicitacaoService {
 	@Autowired
 	private PesoSolicitacoes pesoSolicitacoes;
 	
+	@Autowired
+	private TimeSheetService timeSheetService;
+	
 	@Transactional
 	public void recalcularPesoSolicitacoes() {
 		
@@ -380,6 +383,13 @@ public class SolicitacaoService {
 					
 					if(solicitacao.getDataAndamento() != null) {
 						solicitacao.setDuracao(solicitacao.getDuracao() + Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+						timeSheetService.cadastraTimesheet(
+								solicitacao, solicitacao.getFuncionario(),
+								solicitacao.getDataAndamento(),
+								LocalDateTime.now().withNano(0),
+								solicitacao.getDuracao(),
+								dados.status()
+						);
 					}
 					solicitacao.setDataAndamento(null);
 				}
@@ -393,6 +403,14 @@ public class SolicitacaoService {
 					solicitacao.setDuracao(0l);
 				}
 				solicitacao.setDuracao(solicitacao.getDuracao() + Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+				
+				timeSheetService.cadastraTimesheet(
+						solicitacao, solicitacao.getFuncionario(),
+						solicitacao.getDataAndamento(),
+						LocalDateTime.now().withNano(0),
+						solicitacao.getDuracao(),
+						dados.status()
+				);
 			}
 			
 			solicitacao.setDataAndamento(null);
@@ -405,12 +423,36 @@ public class SolicitacaoService {
 			if(solicitacao.getDuracao() != null) {
 				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + solicitacao.getDuracao() < 15) {
 					solicitacao.setDuracao(15l);
+					
+					timeSheetService.cadastraTimesheet(
+							solicitacao, solicitacao.getFuncionario(),
+							solicitacao.getDataAndamento(),
+							LocalDateTime.now().withNano(0),
+							solicitacao.getDuracao(),
+							dados.status()
+					);
+					
 				}else {
 					Long tempoAnterior = solicitacao.getDuracao();
 					solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
+					
+					timeSheetService.cadastraTimesheet(
+							solicitacao, solicitacao.getFuncionario(),
+							solicitacao.getDataAndamento(),
+							LocalDateTime.now().withNano(0),
+							solicitacao.getDuracao(),
+							dados.status()
+					);
 				}
 			}else {
 				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
+				timeSheetService.cadastraTimesheet(
+						solicitacao, solicitacao.getFuncionario(),
+						solicitacao.getDataAndamento(),
+						LocalDateTime.now().withNano(0),
+						solicitacao.getDuracao(),
+						dados.status()
+				);
 			}
 			
 		}

@@ -24,7 +24,7 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 			+ "WHERE co.cliente_id=:id ORDER BY co.nomeColaborador", nativeQuery = true)
 	List<ColaboradorProjecaoSimples> listarNomesCelularColaboradoresPorIdCliente(Long id);
 	
-	@Query(value = "SELECT co.celular FROM colaboradores co "
+	@Query(value = "SELECT co.celular, co.vip FROM colaboradores co "
 			+ "WHERE co.cliente_id=:id AND co.nomeColaborador=:nomeColaborador", nativeQuery = true)
 	String listarCelularColaborador(Long id, String nomeColaborador);
 	
