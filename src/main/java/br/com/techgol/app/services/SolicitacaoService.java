@@ -336,6 +336,7 @@ public class SolicitacaoService {
 		}
 		if(andamento || finalizado) {
 			solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), solicitacao.getDataFinalizado()).toMinutes());
+			timeSheetService.atualizaTimesheet(solicitacao);
 		}
 		
 		String funcionarioBase = (((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
@@ -387,7 +388,7 @@ public class SolicitacaoService {
 								solicitacao, solicitacao.getFuncionario(),
 								solicitacao.getDataAndamento(),
 								LocalDateTime.now().withNano(0),
-								solicitacao.getDuracao(),
+								Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes(),
 								dados.status()
 						);
 					}
@@ -408,7 +409,7 @@ public class SolicitacaoService {
 						solicitacao, solicitacao.getFuncionario(),
 						solicitacao.getDataAndamento(),
 						LocalDateTime.now().withNano(0),
-						solicitacao.getDuracao(),
+						Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes(),
 						dados.status()
 				);
 			}
@@ -440,7 +441,7 @@ public class SolicitacaoService {
 							solicitacao, solicitacao.getFuncionario(),
 							solicitacao.getDataAndamento(),
 							LocalDateTime.now().withNano(0),
-							solicitacao.getDuracao(),
+							Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes(),
 							dados.status()
 					);
 				}

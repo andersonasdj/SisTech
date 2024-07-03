@@ -43,7 +43,7 @@ public class TimeSheet {
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime fim;
 	
-	private Long duração;
+	private Long duracao;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -53,7 +53,7 @@ public class TimeSheet {
 		this.funcionario = funcionario;
 		this.inicio = inicio;
 		this.fim = fim;
-		this.duração = duração;
+		this.duracao = duração;
 		this.status = status;
 	}
 }
