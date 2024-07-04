@@ -165,6 +165,15 @@
 							<span style="font-size: 18px;" id="qtdFechados"> </span>
 						</div>
 					</div>
+					
+					<div class="col-md-3">
+						<div class="control-group">
+							<br />
+							<span style="font-size: 18px;" id="qtdMinutosTotais"> </span>
+						</div>
+					</div>
+					
+					
 				</div>
 				<div class="row">				
 					<div class="col-md-3">
@@ -824,6 +833,25 @@
 						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
 						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
 						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
+					},
+					error: function (e) {
+						alert(e);
+					}
+				});
+				
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
+					success: function (data) {
+						
+						if(data<= 60){
+							$('#qtdMinutosTotais').empty();
+							$('#qtdMinutosTotais').append('<li> Minutos trabalhados: <b>'+data+'</b></li>');
+						}else{
+							$('#qtdMinutosTotais').empty();
+							$('#qtdMinutosTotais').append('<li> Horas trabalhadas: <b>'+(data/60).toFixed(2)+'</b></li>');
+						}
 					},
 					error: function (e) {
 						alert(e);

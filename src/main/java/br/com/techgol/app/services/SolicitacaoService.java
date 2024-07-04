@@ -106,7 +106,7 @@ public class SolicitacaoService {
 		LocalDateTime dataHoje = LocalDateTime.now();
 		Duration diferenca;
 		
-		if(s.getStatus().equals(Status.ABERTO)) {
+		if(s.getStatus().equals(Status.ABERTO) && s.getFormaAbertura().equals(FormaAbertura.PROATIVO)) {
 			diferenca = Duration.between(s.getDataAbertura(), dataHoje);
 			peso += (diferenca.toHours())/2;
 		}
@@ -181,12 +181,34 @@ public class SolicitacaoService {
 			if(s.getDuracao() == null) {
 				if(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes() < 15) {
 					s.setDuracao(15l);
+					
+					timeSheetService.cadastraTimesheet(
+							s, s.getFuncionario(),
+							s.getDataAndamento(),
+							LocalDateTime.now().withNano(0),
+							s.getDuracao(),
+							Status.PAUSADO
+					);
 				}else {
 					s.setDuracao(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes());
+					timeSheetService.cadastraTimesheet(
+							s, s.getFuncionario(),
+							s.getDataAndamento(),
+							LocalDateTime.now().withNano(0),
+							Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes(),
+							Status.PAUSADO
+					);
 				}
 			}else {
 				Long tempoAnterior = s.getDuracao();
 				s.setDuracao(Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
+				timeSheetService.cadastraTimesheet(
+						s, s.getFuncionario(),
+						s.getDataAndamento(),
+						LocalDateTime.now().withNano(0),
+						Duration.between(s.getDataAndamento(), LocalDateTime.now()).toMinutes(),
+						Status.PAUSADO
+				);
 			}
 			
 			s.setDataAtualizacao(LocalDateTime.now().withNano(0));
