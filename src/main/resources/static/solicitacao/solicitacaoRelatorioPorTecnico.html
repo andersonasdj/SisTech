@@ -114,7 +114,7 @@
 					<div class="col-md-3">
 						<div class="control-group">
 							<div class="controls">
-								<label class="control-label mt-2" for="nomeCliente"><b>Funcionario</b></label>
+								<label class="control-label mt-2"><b>Funcionario</b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
@@ -149,30 +149,29 @@
 							<label class="form-label fonte-texto-op-relatorios" for="atualizado">Data Atualizado</label>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 mt-2">
 						<div class="control-group">
-							<br />
+							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="tituloSolicitacoes"> </span>
 							<span style="font-size: 18px;" id="horasTotais"> </span>
 							<span style="font-size: 18px;" id="diasUteis"> </span>
 							<span style="font-size: 18px;" id="horaDia"> </span>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 mt-2">
 						<div class="control-group">
-							<br />
+							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="atribuicoesSolicitacoes"> </span>
 							<span style="font-size: 18px;" id="qtdAbertos"> </span>
 							<span style="font-size: 18px;" id="qtdAtualizados"> </span>
 							<span style="font-size: 18px;" id="qtdFechados"> </span>
 						</div>
 					</div>
 					
-					<div class="col-md-3">
+					<div class="col-md-3 mt-2">
 						<div class="control-group">
-							<br />
+							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="timesheet"> </span>
 							<span style="font-size: 18px;" id="qtdMinutosTotais"> </span>
 						</div>
 					</div>
-					
 					
 				</div>
 				<div class="row">				
@@ -806,16 +805,12 @@
 							$('#tabela-usuarios').append(itens);
 							}
 						);
-						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						if(tempoTotal<= 60){
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-							$('#horasTotais').append('<li> Minutos totais: <b>'+tempoTotal+'</b></li>');
-							$('#horaDia').append('<li> Minutos / dia: <b>'+(tempoTotal / resultados.length).toFixed(2)+'</b></li>');
-						}else{
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-							$('#horasTotais').append('<li> Horas totais: <b>'+(tempoTotal / 60).toFixed(2)+'</b></li>');
-							$('#horaDia').append('<li> Horas / dia: <b>'+((tempoTotal / 60).toFixed(2) / resultados.length).toFixed(2)+'</b></li>');
-						}
+						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
+						$('#tituloSolicitacoes').append('<b> Solicitações</b>');
+						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
+						$('#horaDia').append('<li> Minutos / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
+						
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -829,14 +824,13 @@
 					url: "/sistech/solicitacao/relatorio/funcionario/numeros/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim,
 					success: function (data) {
 						
-						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();
+						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();$('#atribuicoesSolicitacoes').empty();
+						$('#atribuicoesSolicitacoes').append('<b> Atribuições</b>');
 						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
 						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
 						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
 					},
-					error: function (e) {
-						alert(e);
-					}
+					error: function (e) { alert(e); }
 				});
 				
 				$.ajax({
@@ -844,14 +838,9 @@
 					contentType: "application/json",
 					url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
 					success: function (data) {
-						
-						if(data<= 60){
-							$('#qtdMinutosTotais').empty();
-							$('#qtdMinutosTotais').append('<li> Minutos trabalhados: <b>'+data+'</b></li>');
-						}else{
-							$('#qtdMinutosTotais').empty();
-							$('#qtdMinutosTotais').append('<li> Horas trabalhadas: <b>'+(data/60).toFixed(2)+'</b></li>');
-						}
+							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+							$('#timesheet').append('<b> Timesheet</b>');
+							$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
 					},
 					error: function (e) {
 						alert(e);
@@ -870,16 +859,11 @@
 					success: function (data) {
 						montaGraficos(data);
 						
-						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						if(data.totalMinutosMes<= 60){
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-							$('#horasTotais').append('<li> Minutos totais: <b>'+data.totalMinutosMes+'</b></li>');
-							$('#horaDia').append('<li> Minutos / dia: <b>'+(data.totalMinutosMes / resultados.length).toFixed(2)+'</b></li>');
-						}else{
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</u></b></li>');
-							$('#horasTotais').append('<li> Horas totais: <b>'+(data.totalMinutosMes / 60).toFixed(2)+'</b></li>');
-							$('#horaDia').append('<li> Horas / dia: <b>'+((data.totalMinutosMes / 60).toFixed(2) / resultados.length).toFixed(2)+'</b></li>');
-						}
+						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
+						$('#tituloSolicitacoes').append('<b> Solicitações</b>');
+						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(data.totalMinutosMes)+'</b></li>');
+						$('#horaDia').append('<li> Minutos / dia: <b>'+minutosParaHorasTexto((data.totalMinutosMes/resultados.length).toFixed(2))+'</b></li>');
 						
 					},
 					error: function (e) { alert(e); }
@@ -891,7 +875,8 @@
 					url: "/sistech/solicitacao/relatorio/funcionario/numeros/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim,
 					
 					success: function (data) {
-						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();
+						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();$('#atribuicoesSolicitacoes').empty();
+						$('#atribuicoesSolicitacoes').append('<b> Atribuições</b>');
 						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
 						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
 						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
@@ -901,6 +886,24 @@
 				
 			}else{
 				alert("Selecione (Funcionario, data de inicio e data de término)");
+			}
+		}
+		
+		function minutosParaHorasTexto(minutos){
+			if(minutos<=60){
+				return`${minutos} minutos`;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return`${horas} h ${min} m`;
+			}
+		}
+		
+		function minutosParaHorasNumero(minutos){
+			if(minutos<=60){
+				return minutos;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return horas+"."+min;
 			}
 		}
 		

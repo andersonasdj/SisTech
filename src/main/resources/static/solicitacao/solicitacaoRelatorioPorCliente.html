@@ -919,15 +919,11 @@
 							}
 						);
 						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						if(tempoTotal<= 60){
+						
 							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
-							$('#horasTotais').append('<li> Minutos totais: <b><u>'+tempoTotal+'</u></b></li>');
-							$('#horaDia').append('<li> Minutos / dia: <b><u>'+(tempoTotal / resultados.length).toFixed(2)+'</u></b></li>');
-						}else{
-							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
-							$('#horasTotais').append('<li> Horas totais: <b><u>'+(tempoTotal / 60).toFixed(2)+'</u></b></li>');
-							$('#horaDia').append('<li> Horas / dia: <b><u>'+((tempoTotal / 60).toFixed(2) / resultados.length).toFixed(2)+'</u></b></li>');
-						}
+							$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
+							$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
+						
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -938,7 +934,7 @@
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/numeros/"+clente_id+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/solicitacao/relatorio/cliente/numeros/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim,
 					
 					success: function (data) {
 						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();
@@ -965,15 +961,10 @@
 						montaGraficos(data);
 						
 						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						if(data.totalMinutosMes<= 60){
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-							$('#horasTotais').append('<li> Minutos totais: <b>'+data.totalMinutosMes+'</b></li>');
-							$('#horaDia').append('<li> Minutos / dia: <b>'+(data.totalMinutosMes / resultados.length).toFixed(2)+'</b></li>');
-						}else{
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</u></b></li>');
-							$('#horasTotais').append('<li> Horas totais: <b>'+(data.totalMinutosMes / 60).toFixed(2)+'</b></li>');
-							$('#horaDia').append('<li> Horas / dia: <b>'+((data.totalMinutosMes / 60).toFixed(2) / resultados.length).toFixed(2)+'</b></li>');
-						}
+						
+						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</u></b></li>');
+						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(data.totalMinutosMes)+'</b></li>');
+						$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((data.totalMinutosMes/resultados.length).toFixed(2))+'</b></li>');
 						
 					},
 					statusCode: {
@@ -1001,6 +992,24 @@
 				
 			}else{
 				alert("Selecione (Cliente, data de inicio e data de término)");
+			}
+		}
+		
+		function minutosParaHorasTexto(minutos){
+			if(minutos<=60){
+				return`${minutos} minutos`;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return`${horas} h ${min} m`;
+			}
+		}
+		
+		function minutosParaHorasNumero(minutos){
+			if(minutos<=60){
+				return minutos;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return horas+"."+min;
 			}
 		}
 		
