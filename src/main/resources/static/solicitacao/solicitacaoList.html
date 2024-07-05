@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,60 +26,44 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
-						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
-								<li>
-									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
-									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
-									<a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
-								<li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -87,20 +72,16 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
-							</a>
+						<a href="/sistech/logout">
+							<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
+						</a>
 					</ul>
 				</div>
 			</div>
@@ -113,13 +94,15 @@
 			  <div class="col-3">
 				<div class="control-group">
 					<div class="controls">
-					      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
-					        <option value="100">100</option>
-					        <option value="150">150</option>
-					        <option value="200" selected>200</option>
-					        <option value="250">250</option>
-					        <option value="300">300</option>
-					      </select>
+				      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
+				        <option value="100">100</option>
+				        <option value="150">150</option>
+				        <option value="200" selected>200</option>
+				        <option value="250">250</option>
+				        <option value="300">300</option>
+				        <option value="300">350</option>
+				        <option value="300">400</option>
+				      </select>
 					</div>
 				</div>
 		    </div>
@@ -141,7 +124,7 @@
 		<div class="container-fluid">
 		  <div class="row">
 		    <div class="col-5">
-					<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
+				<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
 		    </div>
 		    <div class="col-1">
 				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.8rem; color: cornflowerblue;"> </i></a>
@@ -182,10 +165,9 @@
 				</tbody>
 			</table>
 		</div>	
-			<nav aria-label="Page navigation example">
-			  <ul id="paginas" class="pagination"> </ul>
-			</nav>
-		
+		<nav aria-label="Page navigation example">
+		  <ul id="paginas" class="pagination"> </ul>
+		</nav>
 
 		<br /><br />
 		<footer class="text-center text-white">
@@ -245,16 +227,15 @@
 			</div>
 		</div>
 		<!-- ########################################## Modal HISTORICO ############################################# -->
-		
-		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
+		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
 		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicao" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-							<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1>
-							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
-							<span hidden id="idHistorico"> </span>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+						<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1>
+						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						<span hidden id="idHistorico"> </span>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
 						<span id="id_cliente" style="display: none;" > </span>
@@ -275,7 +256,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<label class="form-label mt-2" for="statusmodal"><b>Status</b></label>
 								<div class="controls">
@@ -284,7 +264,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-8-auto" id="agendamentosmodal" style="display: none">
 								<div class="control-group">
@@ -302,7 +281,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-3">
@@ -315,7 +293,6 @@
 									</div>
 								</div>
 							</div>
-		
 							<div class="col-md-4">
 								<div class="control-group mt-3">
 									<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
@@ -335,14 +312,12 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
 									<span style="color: blue;"  id="celSolicitante"> </span>
 								</div>
 							</div>
-		
 							<div class="col-md-4">
 								<div class="control-group mt-2">
 									<span style="color: blue;"  id="celAfetado"> </span>
@@ -352,7 +327,6 @@
 								<div class="control-group mt-2"> </div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
@@ -375,7 +349,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
 								<div class="controls">
@@ -389,7 +362,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
 								<div class="controls">
@@ -403,7 +375,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
@@ -420,7 +391,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
 							<div class="controls">
@@ -428,7 +398,6 @@
 								<span id="contResolEdit">300</span><span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-10 mt-3">
 								<div class="controls">
@@ -452,7 +421,6 @@
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
-		
 		<!-- ################################ MODAL NOVA SOLICITACAO ############################################# -->
 		<div class="modal fade" id="modalNovaSolicitacao" tabindex="-1" aria-labelledby="modalNovaSolicitacao" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -462,7 +430,6 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
@@ -472,7 +439,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4">
 								<div class="controls">
 								<label class="form-label mt-1" for="solicitante"><b>Solicitante *</b></label>
@@ -481,7 +447,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<div class="controls">
 								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
@@ -490,7 +455,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
@@ -509,7 +473,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
@@ -538,7 +501,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="controls">
@@ -559,7 +521,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="controls">
 								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
@@ -574,7 +535,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
@@ -585,7 +545,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4">
 								<div class="controls">
 								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico </b></label>
@@ -593,7 +552,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-1" for="status"><b>Status *</b></label>
 								<div class="controls">
@@ -631,13 +589,54 @@
 			</div>
 		</div>
 		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
-		
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="container-password">
+						<div class="result">
+							<div class="result__info right">click para copiar</div>
+							<div class="result__info left">copiado</div>
+							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
+						</div>
+						<div class="length range__slider" data-min="4" data-max="32">
+							<div class="length__title field-title" data-length='0'>Tamanho:</div>
+							<input id="slider" type="range" min="4" max="32" value="16" />
+						</div>
+						<div class="settings">
+							<span class="settings__title field-title">configurações</span>
+							<div class="setting">
+								<input type="checkbox" id="uppercase" checked />
+								<label for="uppercase">Incluir Maiúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="lowercase" checked />
+								<label for="lowercase">Incluir Minúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="number" checked />
+								<label for="number">Incluir Número</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="symbol" />
+								<label for="symbol">Incluir Símbolo</label>
+							</div>
+						</div>
+						<button class="btn generate" id="generate">Gerar Senha</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
   	<script src="../assets/js/jspdf.min.js"></script>
+  	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
   	<script>
 		//export table to pdf
