@@ -14,6 +14,7 @@ public record DtoFuncionarioEdit(
 		UserRole role,
 		Boolean ativo,
 		Boolean mfa,
+		Boolean ausente,
 		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 		LocalDateTime dataAtualizacao,
 		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -31,6 +32,7 @@ public record DtoFuncionarioEdit(
 				f.getRole(),
 				f.getAtivo(),
 				f.getMfa(),
+				(f.getAusente()) != null ? f.getAusente(): false,
 				f.getDataAtualizacao(),
 				f.getDataAtualizacaoSenha(),
 				f.getDataUltimoLogin(),

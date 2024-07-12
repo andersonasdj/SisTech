@@ -223,7 +223,10 @@
 		                  			<input type="checkbox" name="trocaSenha" id="trocaSenha"  value="true">
 		                		</label>
 							</div>
-							<div class="col-md-6 ms-auto"> </div>
+							<div class="col-md-6 ms-auto"> 
+								<label class="form-label mt-2" for="ausenteModal"><b>Presença</b></label>
+								<select class="form-select" id="ausenteModal" aria-label="Default select example"> </select>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 ms-auto">
@@ -409,6 +412,7 @@
 					$('#mfaModal').empty();
 					$('#dataUltimoLoginModal').text("");
 					$('#dataUltimaTrocaSenhaModal').text("");
+					$('#ausenteModal').empty();
 					
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeFuncionario);
@@ -417,17 +421,32 @@
 					$('#dataUltimoLoginModal').text(data.dataUltimoLogin);
 					$('#dataUltimaTrocaSenhaModal').text(data.dataAtualizacaoSenha);
 					
+					var ausente, status;
+					
+					if(data.ausente == true ){
+						ausente = "Ausente";
+					}else{
+						ausente = "Presente";
+					}
+					
+					if(data.ativo == true ){
+						status = "Ativado";
+					}else{
+						status = "Desativado";
+					}
+					
 					if(data.trocaSenha == true){
 						document.getElementById("trocaSenha").checked=true;
 					}else{
 						document.getElementById("trocaSenha").checked=false;
 					}
 					
-					var status;
-					if(data.ativo == true){
-						status = "Ativado";
-					}else{
-						status = "Desativado";
+					if (data.ausente == true) {
+						$('#ausenteModal').append("<option value=" + data.ausente + ">" + ausente + "</option>");
+						$('#ausenteModal').append("<option value=false>Presente</option>");
+					} else {
+						$('#ausenteModal').append("<option value=" + data.ausente + ">" + ausente + "</option>");
+						$('#ausenteModal').append("<option value=true>Ausente</option>");
 					}
 					
 					if (data.role == 'ADMIN') {
@@ -513,6 +532,7 @@
 			var role = $('#funcaomodal').val();
 			var ativo = $('#statusModal').val();
 			var mfa = $('#mfaModal').val();
+			var ausente = $('#ausenteModal').val();
 			
 			var trocaSenha = document.getElementById("trocaSenha");
 			if(trocaSenha.checked){ trocaSenha=true } else { trocaSenha=false }
@@ -528,6 +548,7 @@
 					"role": role,
 					"ativo": ativo,
 					"mfa": mfa,
+					"ausente": ausente,
 					"trocaSenha":trocaSenha
 				}),
 				success: function (data) {

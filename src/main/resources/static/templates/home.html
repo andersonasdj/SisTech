@@ -134,6 +134,9 @@
 				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
 							<p><span id="dataUltimoLogin"> </span></p>
 							<span id="btnAvisos"> </span>
+							<span>
+								<a id="btnRefeicao" class="" href="#" onclick="refeicao()" role="button" aria-expanded="false"></a>
+							</span>
 	
 				    </div>
 				    <div class="col-3 col-s-6">
@@ -251,7 +254,6 @@
 			</div>
 		</div>
 	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
-	
 	<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
 			aria-hidden="true">
@@ -300,6 +302,45 @@
 	<script src="assets/js/chart.js"></script>
 	<script src="assets/js/password-generator.js"></script>
 	<script>
+		function refeicao(){
+			var refeicao = $('#refeicaoValor').val();
+			
+			if(refeicao == 'false'){
+				$('#btnRefeicao').empty();
+				$('#refeicaoValor').val(true);
+				$.ajax({
+					type: "PUT",
+					contentType: "application/json",
+					url: "/sistech/funcionarios/refeicao",
+					data: JSON.stringify(
+						{ "refeicao": true }
+					),
+					success: function (data) { alert("Status alterado para ( Em Refeição )");	},
+					error: function (e) { alert(e); }
+				});
+				
+				$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i>');
+				
+			}else{
+				$('#btnRefeicao').empty();
+				$('#refeicaoValor').val(false);
+				$.ajax({
+					type: "PUT",
+					contentType: "application/json",
+					url: "/sistech/funcionarios/refeicao",
+					data: JSON.stringify(
+						{ "refeicao": false }
+					),
+					success: function (data) { alert("Status alterado para ( Online! )");	},
+					error: function (e) { alert(e); }
+				});
+				
+				$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
+			}
+			
+			
+		}
+		
 		function aviso(){
 			$('#conteudoAvisos').empty();
 			
@@ -325,6 +366,17 @@
 					url: "/sistech/funcionarios/home",
 					type: "GET",
 					success: function (data) {
+						
+					if(data.refeicao != null){
+						if(data.refeicao == true){
+							$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i>');
+						}else{
+							$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i>');
+						}
+					}else{
+						$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
+					}
+						
 						
 						if(data.avisos > 0){
 							$('#btnAvisos').append('<p class="nav-item dropdown">'

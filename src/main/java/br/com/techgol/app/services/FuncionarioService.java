@@ -24,7 +24,19 @@ public class FuncionarioService {
 
 	@Autowired
 	FuncionarioRepository repository;
-
+	
+	public Boolean statusRefeicao(Long id) {
+		Boolean refeicao = repository.statusRefeicao(id);
+		if(refeicao != null) {
+			return refeicao;
+		}else return false;
+	}
+	
+	@Transactional
+	public void alteraStatusRefeicao(Long id, boolean dados) {
+		Funcionario funcionario = repository.getReferenceById(id);
+		funcionario.setRefeicao( dados );
+	}
 	
 	public int existeFuncionarios() {
 		
@@ -113,6 +125,7 @@ public class FuncionarioService {
 		funcionario.setUsername(dados.username().toLowerCase());
 		funcionario.setNomeFuncionario(dados.nomeFuncionario());
 		funcionario.setMfa(dados.mfa());
+		funcionario.setAusente(dados.ausente());
 		
 		if(repository.count() > 1) {
 			funcionario.setRole(dados.role());

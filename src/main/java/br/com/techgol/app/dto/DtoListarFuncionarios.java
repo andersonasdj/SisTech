@@ -9,13 +9,14 @@ public record DtoListarFuncionarios(
 		String username,
 		Boolean ativo,
 		Boolean mfa,
+		Boolean ausente,
 		String role,
 		String dataAtualizacao
 		) {
 	
 	
 	public DtoListarFuncionarios(Funcionario f) {
-		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getAtivo(), f.getMfa(), f.getRole().toString(), f.getDataAtualizacao().toString());
+		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getAtivo(), f.getMfa(), f.getAusente(), f.getRole().toString(), f.getDataAtualizacao().toString());
 	}
 	
 

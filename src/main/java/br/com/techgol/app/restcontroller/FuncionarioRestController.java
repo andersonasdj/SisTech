@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoFuncionarioHome;
+import br.com.techgol.app.dto.DtoFuncionarioRefeicao;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.model.Funcionario;
@@ -99,6 +100,7 @@ public class FuncionarioRestController {
 		
 		
 		Boolean trocaSenha = service.exigeTrocaDeSenha(funcionario.getId());
+		boolean refeicao = service.statusRefeicao(funcionario.getId());
 		
 		return ResponseEntity.ok().body(
 				new DtoFuncionarioHome(
@@ -111,7 +113,8 @@ public class FuncionarioRestController {
 						qtdAvisos,
 						(trocaSenha) != null ? trocaSenha : false,
 						service.buscaSolicitacoes(funcionario),
-						service.buscaSolicitacoesGerais()
+						service.buscaSolicitacoesGerais(),
+						refeicao
 				));
 	}
 	
@@ -120,6 +123,13 @@ public class FuncionarioRestController {
 	public ResponseEntity<DtoListarFuncionarios> atualizar(@RequestBody DtoFuncionarioEdit dados) {
 		return ResponseEntity.ok().body(service.atualizarFuncionario(dados));
 	}
+	
+	@PutMapping("refeicao") //ATUALIZA UM REFEICAO
+	public void atualizarRefeicao(@RequestBody DtoFuncionarioRefeicao dados) {
+		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		service.alteraStatusRefeicao(funcionario.getId(), dados.refeicao());
+	}
+	
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/senha") //ATUALIZA A SENHA PARA QUALQUER USUARIO

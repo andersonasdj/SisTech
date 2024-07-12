@@ -45,6 +45,10 @@ public class Funcionario extends Usuario implements UserDetails {
 	
 	private Boolean trocaSenha;
 	
+	private Boolean ausente;
+	
+	private Boolean refeicao;
+	
 	public Funcionario(DtoCadastroFuncionario dados) {
 		
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.password());
@@ -55,6 +59,8 @@ public class Funcionario extends Usuario implements UserDetails {
 		this.setPassword(senhaEncriptada);
 		this.setAtivo(true);
 		this.setMfa(false);
+		this.setAusente(false);
+		this.setAusente(false);
 		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		
 	}
