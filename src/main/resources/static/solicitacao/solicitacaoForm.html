@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+<html lang="br">
 <html>
 <head>
-	<title>Sistech | Solocitação Form</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>Sistech | Solocitação Form</title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -19,60 +20,39 @@
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
-						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -80,11 +60,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Ferramentas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -93,20 +72,14 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
-							</a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i></a>
 					</ul>
 				</div>
 			</div>
@@ -146,7 +119,6 @@
 							</div>
 						</div>
 					</div>
-	
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -158,7 +130,6 @@
 								</div>
 							</div>
 						</div>
-	
 						<div class="col-md-4">
 							<div class="control-group">
 								<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
@@ -168,14 +139,12 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group mt-2">
 								<span style="color: blue;"  id="celSolicitante"> </span>
 							</div>
 						</div>
-	
 						<div class="col-md-4">
 							<div class="control-group mt-1">
 								<span style="color: blue;"  id="celAfetado"> </span>
@@ -194,7 +163,6 @@
 								</div>
 							</div>
 						</div>
-	
 						<div class="col-md-4">
 							<label class="control-label" for="observacao"><b>Observações</b></label>
 							<div class="controls">
@@ -205,7 +173,6 @@
 						</div>
 					</div>
 					<br />
-	
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
@@ -228,7 +195,6 @@
 								</div>
 							</div>
 						</div>
-	
 						<div class="col-md-4">
 							<div class="control-group">
 								<label class="control-label" for="classificacao"><b>Classificação *</b></label>
@@ -261,7 +227,6 @@
 								</div>
 							</div>
 						</div>
-	
 						<div class="col-md-4">
 							<div class="control-group">
 								<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
@@ -280,8 +245,7 @@
 							<div class="control-group">
 								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 								<div class="controls">
-									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario">
-									</select>
+									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
 							</div>
 						</div>
@@ -334,18 +298,12 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section id="removetocel" class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -372,7 +330,6 @@
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-
 					<table class="table" id="tabela-colaboradores">
 						<thead>
 							<tr>
@@ -409,7 +366,7 @@
 						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
 						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
-						<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
+						<input type="tel" maxlength="17" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
 						<label class="form-label mt-2" for="emailAddmodal">Email</label>
 						<input type="text" id="emailAddmodal" class="form-control">
 					</div>
@@ -437,7 +394,6 @@
 								<label class="form-label" for="nomeEdicaoModal"><b>Nome</b></label>
 								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label" for="idEdicaoModal">ID</label>
 								<input type="text" id="idEdicaoModal" class="form-control" readonly>
@@ -460,7 +416,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
@@ -582,12 +537,12 @@
 		}
 		
 		function atualizarColaborador(){
-			var id = $('#idEdicaoModal').val();
-			var nomeColaborador = $('#nomeEdicaoModal').val();
-			var celular = $('#celularEdicaoModal').val();
-			var vip = $('#statusEdicaoModal').val();
-			var email = $('#emailEdicaoModal').val();
-			var idCliente = $('#nomeCliente').val();
+			var id = $('#idEdicaoModal').val(),
+				nomeColaborador = $('#nomeEdicaoModal').val(),
+				celular = $('#celularEdicaoModal').val(),
+				vip = $('#statusEdicaoModal').val(),
+				email = $('#emailEdicaoModal').val(),
+				idCliente = $('#nomeCliente').val();
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
@@ -621,10 +576,10 @@
 
 		function salvarColaborador() {
 
-			var clienteId = $('#idAddModal').val();
-			var nomeAddmodal = $('#nomeAddmodal').val();
-			var celularAddmodal = $('#celularAddmodal').val();
-			var emailAddmodal = $('#emailAddmodal').val();
+			var clienteId = $('#idAddModal').val(),
+				nomeAddmodal = $('#nomeAddmodal').val(),
+				celularAddmodal = $('#celularAddmodal').val(),
+				emailAddmodal = $('#emailAddmodal').val();
 
 			$.ajax({
 				type: "POST",
@@ -700,21 +655,21 @@
 		});
 
 		function salvar() {
-			var solicitante = $('#solicitante').val();
-			var descricao = $('#descricao').val();
-			var afetado = $('#afetado').val();
-			var observacao = $('#observacao').val();
-			var abertoPor = $('#abertoPor').val();
-			var prioridade = $('#prioridade').val();
-			var formaAbertura = $('#formaAbertura').val();
-			var categoria = $('#categoria').val();
-			var classificacao = $('#classificacao').val();
-			var local = $('#local').val();
-			var status = $('#status').val();
-			var nomeCliente = $('#nomeCliente').val();
-			var nomeFuncionario = $('#nomeFuncionario').val();
-			var dataAgendado = $('#date').val();
-			var horaAgendado = $('#time').val();
+			var solicitante = $('#solicitante').val(),
+				descricao = $('#descricao').val(),
+				afetado = $('#afetado').val(),
+				observacao = $('#observacao').val(),
+				abertoPor = $('#abertoPor').val(),
+				prioridade = $('#prioridade').val(),
+				formaAbertura = $('#formaAbertura').val(),
+				categoria = $('#categoria').val(),
+				classificacao = $('#classificacao').val(),
+				local = $('#local').val(),
+				status = $('#status').val(),
+				nomeCliente = $('#nomeCliente').val(),
+				nomeFuncionario = $('#nomeFuncionario').val(),
+				dataAgendado = $('#date').val(),
+				horaAgendado = $('#time').val();
 
 			$.ajax({
 				type: "POST",
@@ -835,7 +790,6 @@
 	</script>
 	<script>
 		function preencheSolicitante(){
-			
 				var nomeCliente = $("#nomeCliente").val();
 				var json = {"nomeCliente": nomeCliente};
 			
@@ -867,9 +821,6 @@
 
 							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
 							$('#boxAfetado').append('<option value="" slected="selected"></option>');
-
-							//  document.getElementById("cargoUsuario").innerHTML="";
-							//  document.getElementById("cargoSolicitante").innerHTML="";
 
 							$.each(data, function (i, item) {
 								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');

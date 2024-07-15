@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<html lang="br">
 <html>
 <head>
-	<title>Sistech - Solicitações</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
@@ -9,8 +11,7 @@
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>Sistech - Solicitações</title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -20,8 +21,7 @@
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -64,6 +64,7 @@
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -134,7 +135,7 @@
 		    </div>
 		    <div class="col-5">
 				<div class="form-group pull-right">
-		    	<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
 				</div>
 				<span class="cou3ter pull-right"> </span>
 		    </div>
@@ -176,18 +177,12 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -214,8 +209,7 @@
 							<div class="col-md-12">
 								<label class="form-label mt-3" for="log"><b>LOG</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="20" id="log"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="20" id="log" class="form-control"></textarea>
 								</div>
 							</div>
 						</div>
@@ -239,13 +233,11 @@
 					</div>
 					<div class="modal-body">
 						<span id="id_cliente" style="display: none;" > </span>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
 									<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
-									<select class="form-select" id="localmodal" aria-label="Default select example">
-									</select>
+									<select class="form-select" id="localmodal" aria-label="Default select example"> </select>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -259,8 +251,7 @@
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<label class="form-label mt-2" for="statusmodal"><b>Status</b></label>
 								<div class="controls">
-									<select class="form-select" id="statusmodal" aria-label="Default select example">
-									</select>
+									<select class="form-select" id="statusmodal" aria-label="Default select example"> </select>
 								</div>
 							</div>
 						</div>
@@ -288,8 +279,7 @@
 										<span id="botaoColaboradores"></span>
 									</label>
 									<div class="controls">
-										<select class="form-control solicitante mt-3" name="nomeSolicitanteModal" id="nomeSolicitanteModal">
-										</select>
+										<select class="form-control solicitante mt-3" name="nomeSolicitanteModal" id="nomeSolicitanteModal"> </select>
 									</div>
 								</div>
 							</div>
@@ -297,8 +287,7 @@
 								<div class="control-group mt-3">
 									<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
 									<div class="controls">
-										<select class="form-control usuario mt-2" name="nomeAfetadoModal" id="nomeAfetadoModal">
-										</select>
+										<select class="form-control usuario mt-2" name="nomeAfetadoModal" id="nomeAfetadoModal"> </select>
 									</div>
 								</div>
 							</div>
@@ -306,8 +295,7 @@
 								<div class="control-group mt-3">
 									<label class="form-label" for="formaAberturaModal"><b>Forma de Abertura *</b></label>
 									<div class="controls">
-										<select class="form-control usuario mt-2" name="formaAberturaModal" id="formaAberturaModal">
-										</select>
+										<select class="form-control usuario mt-2" name="formaAberturaModal" id="formaAberturaModal"> </select>
 									</div>
 								</div>
 							</div>
@@ -315,12 +303,12 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
-									<span style="color: blue;"  id="celSolicitante"> </span>
+									<span style="color: blue;" id="celSolicitante"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="control-group mt-2">
-									<span style="color: blue;"  id="celAfetado"> </span>
+									<span style="color: blue;" id="celAfetado"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -379,8 +367,7 @@
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="descricaomodal"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="3" id="descricaomodal" class="form-control"></textarea>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
@@ -450,8 +437,7 @@
 							<div class="col-md-4 ms-auto">
 								<div class="controls">
 								<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
-									<select class="form-control usuario" name="afetado" id="afetado">
-									</select>
+									<select class="form-control usuario" name="afetado" id="afetado"> </select>
 								</div>
 							</div>
 						</div>
@@ -548,8 +534,7 @@
 							<div class="col-md-4">
 								<div class="controls">
 								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico </b></label>
-									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario">
-									</select>
+									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
@@ -588,7 +573,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- ################################ Modal NOVA SOLICITACAO ############################################# -->
+		<!-- ########################################### Modal NOVA SOLICITACAO ############################################# -->
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
 			aria-hidden="true">
@@ -662,7 +647,7 @@
 		
 		function print() {
 			var id= $('#idmodal').text();
-       		 window.open('../impressao?id='+id, '_blank');
+       		window.open('../impressao?id='+id, '_blank');
       	}
 		
 		function cancelar(){
@@ -701,23 +686,23 @@
 					exibeItens(data);
 				},
 				statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}
 		
 		function clonar(){
-			var id = $('#idmodal').text();
-			var local = $('#localmodal').val();
-			var formaAbertura = $('#formaAberturaModal').val();
-			var categoria = $('#categoriamodal').val();
-			var classificacao = $('#classificacaomodal').val();
-			var prioridade = $('#prioridademodal').val();
-			var descricao = $('#descricaomodal').val();
-			var observacao = $('#observacaomodal').val();
-			var resolucao = $('#resolucaomodal').val();
-			var funcionario = $('#nomeFuncionarioModal').val(); 
+			var id = $('#idmodal').text(),
+				local = $('#localmodal').val(),
+				formaAbertura = $('#formaAberturaModal').val(),
+				categoria = $('#categoriamodal').val(),
+				classificacao = $('#classificacaomodal').val(),
+				prioridade = $('#prioridademodal').val(),
+				descricao = $('#descricaomodal').val(),
+				observacao = $('#observacaomodal').val(),
+				resolucao = $('#resolucaomodal').val(),
+				funcionario = $('#nomeFuncionarioModal').val(); 
 			$('#nomeCliente').empty();
 			$('#nomeFuncionario').empty();
 			$('#nomeCliente').append('<option value=""></option>');
@@ -773,7 +758,6 @@
 				$('#totalElementos').text(data.totalElements);
 				
 				if(data.totalPages > 1){
-					
 					for(var i=0; i < data.totalPages ; i++ ){
 						$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
 					}
@@ -787,16 +771,12 @@
 						alertaPeso,
 						alertaPrioridade,
 						tempo,
-						alerta;
-					if(i.peso > 7){
-						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
-					}else if(i.peso > 3 && i.peso <= 7 ){
-						alertaPeso = "style='color: orange; font-weight: bold;'";
-					}else{
-						alertaPeso = "style='color: blue; font-weight: bold;'";
-					}
+						alerta,
+						dataAgendado;
+					if(i.peso > 7){alertaPeso = "class='blink' style='color: red; font-weight: bold;'";}
+					else if(i.peso > 3 && i.peso <= 7 ){alertaPeso = "style='color: orange; font-weight: bold;'";}
+					else{alertaPeso = "style='color: blue; font-weight: bold;'";}
 					
-					var dataAgendado = "";
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
@@ -859,7 +839,6 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/short?page="+num+"&size="+QtdItens,
 			success: function (data) {
-				
 				$('#corpoSolicitacoes').empty();
 				$('#paginas').empty();
 				
@@ -872,22 +851,17 @@
 				$("#numPag"+num).attr("style","color:red");
 				
 				data.content.map(i => {
-					
 					var status,
 						vip,
 						redFlag,
 						tempo,
 						alerta,
-						dataAgendado = "";
+						dataAgendado = "",
+						alertaPeso;
 					
-					var alertaPeso;
-					if(i.peso > 7){
-						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
-					}else if(i.peso > 3 && i.peso <= 7 ){
-						alertaPeso = "style='color: orange; font-weight: bold;'";
-					}else{
-						alertaPeso = "style='color: blue; font-weight: bold;'";
-					}
+					if(i.peso > 7){ alertaPeso = "class='blink' style='color: red; font-weight: bold;'"; }
+					else if(i.peso > 3 && i.peso <= 7 ){ alertaPeso = "style='color: orange; font-weight: bold;'"; }
+					else{ alertaPeso = "style='color: blue; font-weight: bold;'"; }
 					
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
 					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
@@ -965,7 +939,6 @@
 		});
 
 		function exibeItens(data){
-				
 				$('#corpoSolicitacoes').empty();
 				$('#paginas').empty();
 				
@@ -1203,7 +1176,6 @@
 						    401: function() { alert('Realize login novamente!'); }
 						}
 					});
-					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1268,7 +1240,6 @@
 					contentType: "application/json",
 					url: "/sistech/solicitacao/excluir/" + id,
 					success: function () {
-						
 						remove.fadeOut(800, function () {
 							remove.remove();
 						});
@@ -1337,7 +1308,8 @@
 							redFlag,
 							alerta,
 							duracao,
-							tempo;
+							tempo,
+							alertaPeso;
 						if(data.status == "ABERTO"){ status = "table-danger" }
 						if(data.status == "AGENDADO"){ status = "table-warning" }
 						if(data.status == "ANDAMENTO"){ status = "table-info" }
@@ -1351,14 +1323,9 @@
 								redFlag = "<span style='color: red; font-size: 15px'><p><b>REDFLAG</b></p></span>" }
 						} else{redFlag =""}
 						
-						var alertaPeso;
-						if(data.peso > 7){
-							alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
-						}else if(data.peso > 3 && data.peso <= 7 ){
-							alertaPeso = "style='color: orange; font-weight: bold;'";
-						}else{
-							alertaPeso = "style='color: blue; font-weight: bold;'";
-						}
+						if(data.peso > 7){ alertaPeso = "class='blink' style='color: red; font-weight: bold;'"; }
+						else if(data.peso > 3 && data.peso <= 7 ){ alertaPeso = "style='color: orange; font-weight: bold;'"; }
+						else{ alertaPeso = "style='color: blue; font-weight: bold;'"; }
 						
 						if(data.duracao != null){
 							if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = data.duracao;}
@@ -1396,7 +1363,6 @@
 						$('#local'+data.id).append("<p>Local: "+data.local+"</p>Categoria: "+ data.categoria);
 						$('#name'+data.id).empty();
 						$('#name'+data.id).append("<span class='novaSolicitacao' >"+ data.id +"</span>");
-						
 						$('#duracao'+data.id).empty();
 						$('#duracao'+data.id).append('<span '+ alerta + '><b>' + tempo + '</b></span>');
 						
@@ -1432,21 +1398,21 @@
 			});
 		}
 		function salvar() {
-			var solicitante = $('#solicitante').val();
-			var descricao = $('#descricao').val();
-			var afetado = $('#afetado').val();
-			var observacao = $('#observacao').val();
-			var abertoPor = $('#abertoPor').val();
-			var prioridade = $('#prioridade').val();
-			var formaAbertura = $('#formaAbertura').val();
-			var categoria = $('#categoria').val();
-			var classificacao = $('#classificacao').val();
-			var local = $('#local').val();
-			var status = $('#status').val();
-			var nomeCliente = $('#nomeCliente').val();
-			var nomeFuncionario = $('#nomeFuncionario').val();
-			var dataAgendado = $('#date').val();
-			var horaAgendado = $('#time').val();
+			var solicitante = $('#solicitante').val(),
+				descricao = $('#descricao').val(),
+				afetado = $('#afetado').val(),
+				observacao = $('#observacao').val(),
+				abertoPor = $('#abertoPor').val(),
+				prioridade = $('#prioridade').val(),
+				formaAbertura = $('#formaAbertura').val(),
+				categoria = $('#categoria').val(),
+				classificacao = $('#classificacao').val(),
+				local = $('#local').val(),
+				status = $('#status').val(),
+				nomeCliente = $('#nomeCliente').val(),
+				nomeFuncionario = $('#nomeFuncionario').val(),
+				dataAgendado = $('#date').val(),
+				horaAgendado = $('#time').val();
 
 			$.ajax({
 				type: "POST",
@@ -1470,13 +1436,13 @@
 					"horaAgendado": horaAgendado
 				}),
 				success: function (data) {
-					
-					var funcionario;
-					var status;
-					var vip;
-					var redFlag;
-					var dataAgendado = "";
-					var alertaPeso;
+					var funcionario,
+						status,
+						vip,
+						redFlag,
+						dataAgendado = "",
+						alertaPeso;
+						
 					if(data.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
 					}else if(data.peso > 3 && data.peso <= 7 ){
@@ -1519,13 +1485,13 @@
 					$('#tabela-usuarios').append(itens);
 					alert("Solicitação adicionada com sucesso!");
 					
-					var solicitante = $('#solicitante').empty();
-					var descricao = $('#descricao').val("");
-					var afetado = $('#afetado').empty();
-					var observacao = $('#observacao').val("");
-					var nomeCliente = $('#nomeCliente').val("");
-					var dataAgendado = $('#date').val("");
-					var horaAgendado = $('#time').val("");
+					var solicitante = $('#solicitante').empty(),
+						descricao = $('#descricao').val(""),
+						afetado = $('#afetado').empty(),
+						observacao = $('#observacao').val(""),
+						nomeCliente = $('#nomeCliente').val(""),
+						dataAgendado = $('#date').val(""),
+						horaAgendado = $('#time').val("");
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },

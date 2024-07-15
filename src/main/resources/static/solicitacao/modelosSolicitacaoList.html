@@ -1,78 +1,58 @@
 <!DOCTYPE html>
+<html lang="br">
 <html>
 <head>
-	<title>Sistech | Solocitação Modelos</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>Sistech | Solocitação Modelos</title>
 </head>
 <body>
 	<div class="container-fluid">
 		<br />
-		<!-- ################### BARRA DE NAVEGAÇÃO  -->
+		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
-						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -80,11 +60,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Ferramentas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -93,20 +72,14 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
-							</a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i></a>
 					</ul>
 				</div>
 			</div>
@@ -117,7 +90,7 @@
 		<div class="container">
 		  <div class="row">
 		    <div class="col-2">
-					<button data-bs-toggle="modal" data-bs-target="#addModeloModal" class="btn btn-primary btn-sm">Novo Modelo </button>
+				<button data-bs-toggle="modal" data-bs-target="#addModeloModal" class="btn btn-primary btn-sm">Novo Modelo </button>
 		    </div>
 		    <div class="col-10">
 				<h5>Cadastro de modelos de solicitações</h5>
@@ -137,8 +110,7 @@
 								</tr>
 							</thead>
 							<tbody id="corpoModelos">
-								<tr>
-								</tr>
+								<tr> </tr>
 							</tbody>
 						</table>
 					</div>
@@ -187,7 +159,6 @@
 						<label class="form-label mt-2" for="nomeModeloAddmodal">Nome do Modelo</label>
 						<input type="text" id="nomeModeloEditmodal" class="form-control">
 					</div><br />
-					
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-4">
@@ -195,7 +166,6 @@
 									<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastraModelos" onclick="novaSolicitacaoModelo()">Adicionar solicitação</button>
 								</div>
 							</div>
-		
 							<div class="col-md-4">
 								<div class="control-group">
 									<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalListaSolicitacoesModelo" onclick="listarSolicitacaoModelo()">Listar meus Modelos</button>
@@ -203,7 +173,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizaModelo()">Salvar</button>
@@ -222,7 +191,6 @@
 						<h1 class="modal-title fs-5" id="modalLabelColaborador">Solicitação de Modelo </h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-
 					<div class="container">
 						<div id="form-solicitacao">
 								<br />
@@ -238,7 +206,6 @@
 											</div>
 										</div>
 									</div>
-									
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
@@ -254,7 +221,6 @@
 										</div>
 									</div>
 								</div>
-				
 								<br />
 								<div class="row">
 									<div class="col-md-6">
@@ -267,7 +233,6 @@
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<label class="control-label" for="observacao"><b>Observações</b></label>
 										<div class="controls">
@@ -278,7 +243,6 @@
 									</div>
 								</div>
 								<br />
-				
 								<div class="row">
 									<div class="col-md-6">
 										<div class="control-group">
@@ -301,7 +265,6 @@
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="classificacao"><b>Classificação *</b></label>
@@ -334,7 +297,6 @@
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
@@ -358,7 +320,6 @@
 										<button type="button" class="btn btn-success" onclick="salvarSolicitacaoModelo()">Salvar</button>
 									</div>
 								</div>
-								
 							<legend> </legend>
 						</fieldset>
 						</div>
@@ -376,7 +337,6 @@
 						<h1 class="modal-title fs-5" id="modalEditaModelos">Edição de Modelo</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-
 					<div class="container">
 						<div id="form-solicitacao">
 								<br />
@@ -391,29 +351,24 @@
 										<div class="control-group"> </div>
 									</div>
 								</div>
-								
 								<div class="row">
 									<div class="col-md-6">
 									<div class="control-group">
 											<label class="control-label mt-2" for="statusModalEdit"><b>Status *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="statusModalEdit" name="statusModalEdit">
-												</select>
+												<select class="form-select mt-2" id="statusModalEdit" name="statusModalEdit"> </select>
 											</div>
 										</div>
 									</div>
-									
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label mt-2" for="formaAberturaModalEdit"><b>Forma de Abertura *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="formaAberturaModalEdit" name="formaAberturaModalEdit">
-												</select>
+												<select class="form-select mt-2" id="formaAberturaModalEdit" name="formaAberturaModalEdit"> </select>
 											</div>
 										</div>
 									</div>
 								</div>
-				
 								<br />
 								<div class="row">
 									<div class="col-md-6">
@@ -426,7 +381,6 @@
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<label class="control-label" for="observacaoModalEdit"><b>Observações</b></label>
 										<div class="controls">
@@ -437,27 +391,22 @@
 									</div>
 								</div>
 								<br />
-				
 								<div class="row">
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="categoriaModalEdit"><b>Categoria *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="categoriaModalEdit" name="categoriaModalEdit">
-												</select>
+												<select class="form-select mt-2" id="categoriaModalEdit" name="categoriaModalEdit"> </select>
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="classificacaoModalEdit"><b>Classificação *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="classificacaoModalEdit" name="classificacaoModalEdit">
-												</select>
+												<select class="form-select mt-2" id="classificacaoModalEdit" name="classificacaoModalEdit"> </select>
 											</div>
 										</div>
-				
 									</div>
 								</div>
 								<br />
@@ -466,18 +415,15 @@
 										<div class="control-group">
 											<label class="control-label" for="prioridadeModalEdit"><b>Prioridade *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="prioridadeModalEdit" name="prioridadeModalEdit">
-												</select>
+												<select class="form-select mt-2" id="prioridadeModalEdit" name="prioridadeModalEdit"> </select>
 											</div>
 										</div>
 									</div>
-				
 									<div class="col-md-6">
 										<div class="control-group">
 											<label class="control-label" for="localModalEdit"><b>Onsite / Offsite *</b></label>
 											<div class="controls">
-												<select class="form-select mt-2" id="localModalEdit" name="localModalEdit">
-												</select>
+												<select class="form-select mt-2" id="localModalEdit" name="localModalEdit"> </select>
 											</div>
 										</div>
 									</div>
@@ -514,7 +460,6 @@
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-
 					<table class="table" id="tabela-solicitacoes-modelos">
 						<thead>
 							<tr>
@@ -583,18 +528,12 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section id="removetocel" class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -647,16 +586,13 @@
 		}
 		
 		function listarModelos(){
-			
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
 				url: "/sistech/api/solicitacao/modelo",
 				success: function (data) {
-					
 					data.map(i => {
 						var status;
-						
 						var itens = 
 						'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#editModeloModal" onclick=editarModelo(' + i.id + ')>'
 						+ '<td id=name' + i.id + '>' + i.id + '</td>'
@@ -681,7 +617,6 @@
 				contentType: "application/json",
 				url: "/sistech/api/solicitacao/modelo/"+id,
 				success: function (data) {
-
 					if(data != null){
 						$('#idModeloEditmodal').val(data.id);
 						$('#nomeModeloEditmodal').val(data.nomeModelo);
@@ -696,7 +631,6 @@
 		}
 		
 		function atualizaModelo(){
-			
 			var id = $('#idModeloEditmodal').val();
 			var nomeModelo = $('#nomeModeloEditmodal').val();
 			
@@ -720,7 +654,6 @@
 					$('#linha' + data.id).remove();
 					$('#tabela-modelos').append(itens);
 					$('#editModeloModal').modal('hide');
-					
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -736,16 +669,15 @@
 		 }
 		 
 		 function salvarSolicitacaoModelo(){
-			 
-			 var idConjunto = $('#idConjunto').text();
-			 var formaAbertura = $('#formaAbertura').val();
-			 var descricao = $('#descricao').val();
-			 var observacao = $('#observacao').val();
-			 var categoria = $('#categoria').val();
-			 var classificacao = $('#classificacao').val();
-			 var prioridade = $('#prioridade').val();
-			 var local = $('#local').val();
-			 var status = $('#status').val();
+			 var idConjunto = $('#idConjunto').text(),
+			 	formaAbertura = $('#formaAbertura').val(),
+			 	descricao = $('#descricao').val(),
+			 	observacao = $('#observacao').val(),
+			 	categoria = $('#categoria').val(),
+				classificacao = $('#classificacao').val(),
+			 	prioridade = $('#prioridade').val(),
+			 	local = $('#local').val(),
+			 	status = $('#status').val();
 			 
 			 $.ajax({
 				type: "POST",
@@ -779,19 +711,15 @@
 		 
 		 function listarSolicitacaoModelo(){
 			var idConjunto =  $('#idModeloEditmodal').val();
-			 
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
 				url: "/sistech/api/solicitacao/modelo/solicitacoes/"+idConjunto,
 				success: function (data) {
-
 					if(data != null){
 						$('#tbSolicitacoesModeloCorpo').empty();
-
 						data.map(i => {
 							var status;
-							
 							var itens = 
 							'<tr id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEditaModelos" onclick=carregaSolicitacaoModelo(' + i.id + ')>'
 							+ '<td id=name' + i.id + '>' + i.id + '</td>'
@@ -811,7 +739,6 @@
 		 }
 		 
 		 function carregaSolicitacaoModelo(id){
-			 
 			 $.ajax({
 				type: "GET",
 				contentType: "application/json",
@@ -819,7 +746,6 @@
 				success: function (data) {
 
 					if(data != null){
-						
 						$('#idModalEdit').val("");
 						$('#categoriaModalEdit').empty();
 						$('#classificacaoModalEdit').empty();
@@ -888,16 +814,15 @@
 		 }
 		 
 		 function atualizaSolicitacaoModelo(){
-			 
-			var id = $('#idModalEdit').val();
-			var categoria = $('#categoriaModalEdit').val();
-			var classificacao = $('#classificacaoModalEdit').val();
-			var descricao = $('#descricaoModalEdit').val();
-			var formaAbertura = $('#formaAberturaModalEdit').val();
-			var local = $('#localModalEdit').val();
-			var observacao = $('#observacaoModalEdit').val();
-			var prioridade = $('#prioridadeModalEdit').val();
-			var status = $('#statusModalEdit').val();
+			var id = $('#idModalEdit').val(),
+				categoria = $('#categoriaModalEdit').val(),
+				classificacao = $('#classificacaoModalEdit').val(),
+				descricao = $('#descricaoModalEdit').val(),
+				formaAbertura = $('#formaAberturaModalEdit').val(),
+				local = $('#localModalEdit').val(),
+				observacao = $('#observacaoModalEdit').val(),
+				prioridade = $('#prioridadeModalEdit').val(),
+				status = $('#statusModalEdit').val();
 			 
 			$.ajax({
 				type: "PUT",
@@ -928,7 +853,6 @@
 		 
 		 function excluirSolicitacaoModelo(){
 			 var id = $('#idModalEdit').val();
-			 
 			 if (confirm("Tem certeza que deseja excluir esse modelo de ID: " + id + " ?") == true) {
 				$.ajax({
 					type: "DELETE",

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
+<html lang="br">
 <html>
 <head>
-	<title>SisTech - Clientes</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>SisTech - Clientes</title>
+	<style>
+		td{
+			padding-bottom: 1px !important;
+    		padding-top: 1px !important;
+		}
+	</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -24,54 +31,35 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
 						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -79,11 +67,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Ferramentas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -92,20 +79,14 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
-							</a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i></a>
 					</ul>
 				</div>
 			</div>
@@ -154,18 +135,12 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -338,7 +313,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
-								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
+								<input type="tel" maxlength="17" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
@@ -482,15 +457,10 @@
 				$("#numPag"+num).attr("style","color:red");
 
 				data.content.map(i => {
-					var status;
-					if(i.ativo == true){
-						status = "<FONT COLOR='#008000'>Ativado</FONT>";
-					}else{
-						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
-					}
+					var status,vip="",redFlag="";
+					if(i.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
+					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
 					
-					var vip="";
-					var redFlag=""
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
 					if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
 					
@@ -671,12 +641,12 @@
 		}		
 		
 		function atualizarColaborador(){
-			var id = $('#idEdicaoModal').val();
-			var nomeColaborador = $('#nomeEdicaoModal').val();
-			var celular = $('#celularEdicaoModal').val();
-			var vip = $('#statusEdicaoModal').val();
-			var email = $('#emailEdicaoModal').val();
-			var idCliente = $('#idColaboradoCliente').val();
+			var id = $('#idEdicaoModal').val(),
+				nomeColaborador = $('#nomeEdicaoModal').val(),
+				celular = $('#celularEdicaoModal').val(),
+				vip = $('#statusEdicaoModal').val(),
+				email = $('#emailEdicaoModal').val(),
+				idCliente = $('#idColaboradoCliente').val();
 
 			$.ajax({
 				type: "PUT",
@@ -694,8 +664,8 @@
 					alert(data);
 				},
 				statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+					500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}
@@ -710,10 +680,10 @@
 
 		function salvarColaborador() {
 
-			var clienteId = $('#idAddModal').val();
-			var nomeAddmodal = $('#nomeAddmodal').val();
-			var celularAddmodal = $('#celularAddmodal').val();
-			var email = $('#emailAddmodal').val();
+			var clienteId = $('#idAddModal').val(),
+		 		nomeAddmodal = $('#nomeAddmodal').val(),
+				celularAddmodal = $('#celularAddmodal').val(),
+				email = $('#emailAddmodal').val();
 
 			$.ajax({
 				type: "POST",
@@ -741,16 +711,16 @@
 		}
 
 		function atualiza() {
-			var id = $('#idmodal').val();
-			var nomeCliente = $('#nomemodal').val();
-			var username = $('#usuariomodal').val();
-			var password = $('#senhamodal').val();
-			var telefone = $('#telefonemodal').val();
-			var cnpj = $('#cnpjmodal').val();
-			var endereco = $('#enderecomodal').val();
-			var ativo = $('#ativoModal').val();
-			var vip = $('#vipModal').val();
-			var redFlag = $('#redFlagModal').val();
+			var id = $('#idmodal').val(),
+				nomeCliente = $('#nomemodal').val(),
+				username = $('#usuariomodal').val(),
+				password = $('#senhamodal').val(),
+				telefone = $('#telefonemodal').val(),
+				cnpj = $('#cnpjmodal').val(),
+				endereco = $('#enderecomodal').val(),
+				ativo = $('#ativoModal').val(),
+				vip = $('#vipModal').val(),
+				redFlag = $('#redFlagModal').val();
 			
 			$.ajax({
 				type: "PUT",
@@ -770,15 +740,10 @@
 				}),
 				success: function (data) {
 					
-					var status;
-					if(data.ativo == true){
-						status = "<FONT COLOR='#008000'>Ativado</FONT>";
-					}else{
-						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
-					}
+					var status,vipData ="",redFlagData="";
+					if(data.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
+					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
 					
-					var vipData ="";
-					var redFlagData=""
 					if(data.vip == true){ vipData = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
 					if(data.redFlag == true){ redFlagData = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
 
@@ -797,8 +762,8 @@
 					alert("atualizado com sucesso");
 				},
 				statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+					500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { alert('Realize login novamente!'); }
 				}
 			});
 		}

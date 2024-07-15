@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="br">
 <head>
-	<title>SisTech - Funcionarios</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
@@ -10,8 +11,7 @@
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="../../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>SisTech - Funcionarios</title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -19,61 +19,40 @@
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../../assets/img/key.png" style="height: 18px;"> SisTech</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
-						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -81,11 +60,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Ferramentas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -94,20 +72,14 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i>
-							</a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i></a>
 					</ul>
 				</div>
 			</div>
@@ -121,15 +93,13 @@
 				<div class="col-4 col-s-12">
 					<div class="control-group">
 						<div class="controls">
-							<select class="form-select" id="idFuncionario" name="idFuncionario" style="width: 250px;">
-							</select>
+							<select class="form-select" id="idFuncionario" name="idFuncionario" style="width: 250px;"> </select>
 						</div>
 					</div>
 				</div>
 				<div class="col-2 col-s-12 mt-2">
 					<h4><span class="spamTotal" id="totalSolicitacoes"> </span></h4>
 				</div>
-				
 				<div class="col-4 col-s-12">
 					<a href="#" onclick="montaGraficos()" class="btn"><i class="bi bi-arrow-clockwise"></i> </a>
 					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizadosModal" onclick=finalizados()>Finalizados <span id="qtdFinalizados"> </span></button>
@@ -167,7 +137,6 @@
 					<h5 style="text-align: center;" class="mt-3">Classificação</h5>
 					<canvas id="classificacaoSolicitacoes" class="col-s-3"> </canvas>
 				</div>
-				
 				<div class="col-3 col-s-12 mt-5">
 					<h4><span id="totalMesCorrente" style="font-size: 18px;"> </span></h4>
 					<h4><span id="totalMinutosMes" style="font-size: 18px;"> </span></h4>
@@ -182,18 +151,12 @@
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -220,8 +183,7 @@
 							<div class="col-md-12">
 								<label class="form-label mt-3" for="log"><b>LOG</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="20" id="log"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="20" id="log" class="form-control"></textarea>
 								</div>
 							</div>
 						</div>
@@ -243,11 +205,9 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
-
 						<div class="row">
 							<div class="col-md-4"> </div>
 							<div class="col-md-4"> </div>
-
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<div class="form-group pull-right">
 						    		<input type="text" class="search form-control" placeholder="Busca">
@@ -278,7 +238,6 @@
 							</tbody>
 						</table>
 					</div>
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -337,8 +296,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-2">
-							</div>
+							<div class="col-md-2"> </div>
 							<div class="col-md-6">
 								<div class="control fonteModal">
 									<label class="form-label mt-3"><b>Duração</b></label>
@@ -354,18 +312,15 @@
 										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
-										<select class="form-control solicitante" name="nomesolicitantemodal" id="nomesolicitantemodal">
-										</select>
+										<select class="form-control solicitante" name="nomesolicitantemodal" id="nomesolicitantemodal"> </select>
 									</div>
 								</div>
 							</div>
-		
 							<div class="col-md-4">
 								<div class="control-group mt-3">
 									<label class="form-label" for="nomeafetadomodal"><b>Usuário Afetado *</b></label>
 									<div class="controls">
-										<select class="form-control usuario" name="nomeafetadomodal" id="nomeafetadomodal">
-										</select>
+										<select class="form-control usuario" name="nomeafetadomodal" id="nomeafetadomodal"> </select>
 									</div>
 								</div>
 							</div>
@@ -380,25 +335,20 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls fonteModal">
 								<label class="form-label mt-2" for="localmodal"><b>Local</b></label>
-									<select class="form-select" id="localmodal" aria-label="Default select example">
-									</select>
+									<select class="form-select" id="localmodal" aria-label="Default select example"> </select>
 								</div>
 							</div>
-
 							<div class="col-md-4">
 								<label class="form-label mt-2" for="formaaberturamodal"><b>Forma de Abertura *</b></label>
 									<div class="controls">
-										<select class="form-control usuario" name="formaaberturamodal" id="formaaberturamodal">
-										</select>
+										<select class="form-control usuario" name="formaaberturamodal" id="formaaberturamodal">	</select>
 									</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls fonteModal">
@@ -433,7 +383,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 fonteModal">
 								<div class="controls fonteModal"> 
 								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
@@ -447,20 +396,16 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
-								<textarea class="form-control" rows="3" id="descricaomodal"
-									class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="descricaomodal" class="form-control"></textarea>
 							</div>
 							<div class="col-md-6 ms-auto fonteModal">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
-								<textarea class="form-control" rows="3" id="observacaomodal"
-									class="form-control"></textarea>
+								<textarea class="form-control" rows="3" id="observacaomodal" class="form-control"></textarea>
 							</div>
 						</div>
-
 						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control"> </textarea>
 						
@@ -491,9 +436,7 @@
 							<div class="col-md-4">
 								<div class="controls">
 									<label class="form-label mt-2" for="localModalNaoFinalizada"><b>Local</b></label>
-									<select class="form-select" id="localModalNaoFinalizada" aria-label="Default select example">
-	
-									</select>
+									<select class="form-select" id="localModalNaoFinalizada" aria-label="Default select example"> </select>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -508,9 +451,7 @@
 							<div class="col-md-4 ms-auto" id="divstatusmodal">
 								<label class="form-label mt-2" for="statusModalNaoFinalizada"><b>Status</b></label>
 								<div class="controls">
-									<select class="form-select" id="statusModalNaoFinalizada" aria-label="Default select example">
-	
-									</select>
+									<select class="form-select" id="statusModalNaoFinalizada" aria-label="Default select example"> </select>
 								</div>
 							</div>
 						</div>
@@ -531,7 +472,6 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-3">
@@ -539,18 +479,15 @@
 										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
-										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizada" id="nomeSolicitanteModalNaoFinalizada">
-										</select>
+										<select class="form-control solicitante mt-3" name="nomeSolicitanteModalNaoFinalizada" id="nomeSolicitanteModalNaoFinalizada"> </select>
 									</div>
 								</div>
 							</div>
-		
 							<div class="col-md-4">
 								<div class="control-group mt-3">
 									<label class="form-label" for="nomeAfetadoModalNaoFinalizada"><b>Usuário Afetado *</b></label>
 									<div class="controls">
-										<select class="form-control usuario mt-2" name="nomeAfetadoModalNaoFinalizada" id="nomeAfetadoModalNaoFinalizada">
-										</select>
+										<select class="form-control usuario mt-2" name="nomeAfetadoModalNaoFinalizada" id="nomeAfetadoModalNaoFinalizada"> </select>
 									</div>
 								</div>
 							</div>
@@ -558,8 +495,7 @@
 								<div class="control-group mt-3">
 									<label class="form-label" for="formaAberturaModalNaoFinalizada"><b>Forma de Abertura *</b></label>
 									<div class="controls">
-										<select class="form-control usuario mt-2" name="formaAberturaModalNaoFinalizada" id="formaAberturaModalNaoFinalizada">
-										</select>
+										<select class="form-control usuario mt-2" name="formaAberturaModalNaoFinalizada" id="formaAberturaModalNaoFinalizada"> </select>
 									</div>
 								</div>
 							</div>
@@ -586,7 +522,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="classificacaoModalNaoFinalizada"><b>Classificação *</b></label>
 								<div class="controls">
@@ -600,7 +535,6 @@
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-3" for="prioridadeModalNaoFinalizada"><b>Prioridade *</b></label>
 								<div class="controls">
@@ -614,31 +548,26 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="descricaoModalNaoFinalizada"><b>Descrição</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="descricaoModalNaoFinalizada"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="3" id="descricaoModalNaoFinalizada" class="form-control"></textarea>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="observacaoModalNaoFinalizada"><b>Observação</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="observacaoModalNaoFinalizada"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="3" id="observacaoModalNaoFinalizada" class="form-control"></textarea>
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaoModalNaoFinalizada"><b>Resolução</b></label>
 							<div class="controls">
 								<textarea class="form-control" rows="3" id="resolucaoModalNaoFinalizada" class="form-control"> </textarea>
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<div class="controls">
@@ -646,7 +575,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"> </i></button>
@@ -705,7 +633,7 @@
 	<script src="../../assets/js/bootstrap.min.js"></script>
 	<script src="../../assets/js/chart.js"></script>
 	<script src="../../assets/js/sorttable.js"></script>
-	<script src="../assets/js/password-generator.js"></script>
+	<script src="../../assets/js/password-generator.js"></script>
 	<script>
 		$(document).ready(function () {
 			$.ajax({
@@ -716,7 +644,6 @@
 					for (var i = 0; i < data.funcionarios.length; i++) {
 						$('#idFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
 					}
-					
 					montaGraficos();
 				},
 				statusCode: {
@@ -887,26 +814,25 @@
 		}
 		
 		function atualiza() {
-			var id = $('#idModalEdicao').text();
-			var descricao = $('#descricaomodal').val();
-			var resolucao = $('#resolucaomodal').val();
-			var observacao = $('#observacaomodal').val();
-			var status = $('#statusmodal').val();
-			var categoria = $('#categoriamodal').val();
-			var classificacao = $('#classificacaomodal').val();
-			var prioridade = $('#prioridademodal').val();
-			var local = $('#localmodal').val();
-			var dataAbertura = $('#dataAberturaModalEdicao').val();
-			var horaAbertura = $('#horaAberturaModalEdicao').val();
-			var dataAndamento = $('#dataAndamentoModalEdicao').val();
-			var horaAndamento = $('#horaAndamentoModalEdicao').val();
-			var dataFinalizado = $('#dataFinalizadoModalEdicao').val();
-			var horaFinalizado = $('#horaFinalizadoModalEdicao').val();
-			
-			var solicitante = $('#nomesolicitantemodal').val();
-			var afetado = $('#nomeafetadomodal').val();
-			var nomeFuncionario = $('#nomefuncionariomodal').val();
-			var formaAbertura = $('#formaaberturamodal').val();
+			var id = $('#idModalEdicao').text(),
+				descricao = $('#descricaomodal').val(),
+				resolucao = $('#resolucaomodal').val(),
+				observacao = $('#observacaomodal').val(),
+				status = $('#statusmodal').val(),
+				categoria = $('#categoriamodal').val(),
+				classificacao = $('#classificacaomodal').val(),
+				prioridade = $('#prioridademodal').val(),
+				local = $('#localmodal').val(),
+				dataAbertura = $('#dataAberturaModalEdicao').val(),
+				horaAbertura = $('#horaAberturaModalEdicao').val(),
+				dataAndamento = $('#dataAndamentoModalEdicao').val(),
+				horaAndamento = $('#horaAndamentoModalEdicao').val(),
+				dataFinalizado = $('#dataFinalizadoModalEdicao').val(),
+				horaFinalizado = $('#horaFinalizadoModalEdicao').val(),
+				solicitante = $('#nomesolicitantemodal').val(),
+				afetado = $('#nomeafetadomodal').val(),
+				nomeFuncionario = $('#nomefuncionariomodal').val(),
+				formaAbertura = $('#formaaberturamodal').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -956,10 +882,8 @@
 						contentType: "application/json",
 						url: "/sistech/solicitacao/finalizado/funcionario/"+idFuncionario,
 						success: function (data) {
-							
 							$('#idmodal').text("");
 							$('#idmodal').text("FINALIZADOS");
-							
 							data.content.map(i => {
 									montaTabelaFinalizadosNaoFinalizados(i);
 								}
@@ -980,10 +904,8 @@
 						contentType: "application/json",
 						url: "/sistech/solicitacao/naofinalizado/funcionario/"+idFuncionario,
 						success: function (data) {
-							
 							$('#idmodal').text("");
 							$('#idmodal').text("NÃO FINALIZADOS");
-							
 							data.content.map(i => {
 									montaTabelaFinalizadosNaoFinalizados(i);
 								}
@@ -1098,8 +1020,6 @@
 						+'<option value="ONSITE">ONSITE</option>'
 						+'<option value="OFFSITE">OFFSITE</option>');
 					
-					
-					
 					$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
 					for (var i = 0; i < data.colaboradores.length; i++) {
 						$('#nomeSolicitanteModalNaoFinalizada').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
@@ -1166,21 +1086,21 @@
 		}
 		
 		function atualizaNaoFinalizada(){
-			var id = $('#idModalNaoFinalizada').text();
-			var descricao = $('#descricaoModalNaoFinalizada').val();
-			var resolucao = $('#resolucaoModalNaoFinalizada').val();
-			var observacao = $('#observacaoModalNaoFinalizada').val();
-			var status = $('#statusModalNaoFinalizada').val();
-			var categoria = $('#categoriaModalNaoFinalizada').val();
-			var classificacao = $('#classificacaoModalNaoFinalizada').val();
-			var prioridade = $('#prioridadeModalNaoFinalizada').val();
-			var local = $('#localModalNaoFinalizada').val();
-			var nomeFuncionario = $('#funcionarioModalNaoFinalizada').val();
-			var dataAgendado = $('#dataAgendadoModalNaoFinalizada').val();
-			var horaAgendado = $('#horaAgendadoModalNaoFinalizada').val();
-			var formaAbertura = $('#formaAberturaModalNaoFinalizada').val();
-			var solicitante = 	$('#nomeSolicitanteModalNaoFinalizada').val();
-			var afetado = $('#nomeAfetadoModalNaoFinalizada').val();
+			var id = $('#idModalNaoFinalizada').text(),
+				descricao = $('#descricaoModalNaoFinalizada').val(),
+				resolucao = $('#resolucaoModalNaoFinalizada').val(),
+				observacao = $('#observacaoModalNaoFinalizada').val(),
+				status = $('#statusModalNaoFinalizada').val(),
+				categoria = $('#categoriaModalNaoFinalizada').val(),
+				classificacao = $('#classificacaoModalNaoFinalizada').val(),
+				prioridade = $('#prioridadeModalNaoFinalizada').val(),
+				local = $('#localModalNaoFinalizada').val(),
+				nomeFuncionario = $('#funcionarioModalNaoFinalizada').val(),
+				dataAgendado = $('#dataAgendadoModalNaoFinalizada').val(),
+				horaAgendado = $('#horaAgendadoModalNaoFinalizada').val(),
+				formaAbertura = $('#formaAberturaModalNaoFinalizada').val(),
+				solicitante = 	$('#nomeSolicitanteModalNaoFinalizada').val(),
+				afetado = $('#nomeAfetadoModalNaoFinalizada').val();
 		
 			$.ajax({
 				type: "PUT",

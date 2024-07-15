@@ -130,6 +130,11 @@ public class FuncionarioRestController {
 		service.alteraStatusRefeicao(funcionario.getId(), dados.refeicao());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PutMapping("admin/refeicao") //ATUALIZA UM REFEICAO
+	public void adminAtualizarRefeicao(@RequestBody DtoFuncionarioRefeicao dados) {
+		service.alteraStatusRefeicao(dados.id(), dados.refeicao());
+	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/senha") //ATUALIZA A SENHA PARA QUALQUER USUARIO

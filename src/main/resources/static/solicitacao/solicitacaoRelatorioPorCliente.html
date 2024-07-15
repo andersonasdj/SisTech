@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<html lang="br">
 <html>
 <head>
-	<title>Sistech - Solicitações</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../assets/img/favicon.ico">
 	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
 	<link rel="stylesheet" href="../assets/css/styleBusca.css">
@@ -11,8 +13,7 @@
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
+	<title>Sistech - Solicitações</title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -21,60 +22,39 @@
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"> </span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
-						</li>
-						
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Solicitações
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-									<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
-						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Clientes
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Funcionarios
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Dashboard
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -82,11 +62,10 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Ferramentas
-							</a>
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -95,20 +74,14 @@
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/logAcesso">Logs Acesso</a></li>
 								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
+								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout">
-								<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
-							</a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i></a>
 					</ul>
 				</div>
 			</div>
@@ -295,99 +268,18 @@
 			</div>
 		</div>
 
-		<!-- ################################# MODAL EXIBE FINALIZADA ########################################### -->
-		<div class="modal fade" id="finalizadaModal" tabindex="-1" aria-labelledby="finalizadaModal" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-2" id="finalizadaModal">
-							<span id="nomeClienteModal"> </span>
-							<span id="edicaoModalBotao"> </span>
-						</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Aberto por: <b><span id="abertoPorModal"> </span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<h5>Data de abertura: <b><span id="dataAberturaModal"> </span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Solicitante: <b><span id="solicitanteModal"> </span></b></h5>
-							</div>
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Usuário afetado: <b><span id="afetadoModal"> </span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 mt-3">
-								<h5>Categoria: <b><span id="categoriaModal"> </span></b></h5>	
-							</div>
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Local: <b><span id="localModal"> </span></b></h5>	
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Descrição: <b><span id="descricaoModal"> </span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Observação: <b><span id="observacaoModal"> </span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Resolução: <b><span id="resolucaoModal"> </span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 ms-auto mt-3">
-								<h5>Funcionario Responsável: <b><span id="nomeFuncionarioModal"> </span></b></h5>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Classificação: <b><span id="prioridadeModal"> </span></b></h5>	
-							</div>
-							<div class="col-md-6 ms-auto mt-3">
-								<h5>Duração: <b><span id="duracaoModal"> </span></b></h5>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ################################# MODAL EXIBE FINALIZADA ########################################### -->
-
 		<footer class="text-center text-white">
 			<div class="container-fluid ">
 				<!-- Grid container -->
 				<div class="p-4 pb-0">
 					<!-- Section: Social media -->
 					<section class="mb-4">
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"
-							role="button"></a>
-						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"
-							role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
 					</section>
 					<!-- Section: Social media -->
 				</div>
@@ -742,8 +634,7 @@
 							<div class="col-md-12">
 								<label class="form-label mt-3" for="log"><b>LOG</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="20" id="log"
-									class="form-control"></textarea>
+									<textarea class="form-control" rows="20" id="log" class="form-control"></textarea>
 								</div>
 							</div>
 						</div>
@@ -838,14 +729,12 @@
 		});
 		
 		function baixaCsv(){
-			
 			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			var periodo = document.querySelector('input[name=periodo]:checked').value
 				
 			if(cliente_id != "" && inicio != "" && fim != ""){
-				
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
@@ -1010,11 +899,9 @@
 						montaGraficos(data);
 						
 						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						
 						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</u></b></li>');
 						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(data.totalMinutosMes)+'</b></li>');
 						$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((data.totalMinutosMes/resultados.length).toFixed(2))+'</b></li>');
-						
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1063,7 +950,6 @@
 		}
 		
 		function paginacao(num){
-			
 			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
@@ -1308,25 +1194,25 @@
 		}
 		
 		function atualiza() {
-			var id = $('#idModalEdicao').text();
-			var descricao = $('#descricaomodal').val();
-			var resolucao = $('#resolucaomodal').val();
-			var observacao = $('#observacaomodal').val();
-			var status = $('#statusmodal').val();
-			var categoria = $('#categoriamodal').val();
-			var classificacao = $('#classificacaomodal').val();
-			var prioridade = $('#prioridademodal').val();
-			var local = $('#localmodal').val();
-			var nomeFuncionario = $('#nomeFuncionarioModalEdicao').val();
-			var dataAbertura = $('#dataAberturaModalEdicao').val();
-			var horaAbertura = $('#horaAberturaModalEdicao').val();
-			var dataAndamento = $('#dataAndamentoModalEdicao').val();
-			var horaAndamento = $('#horaAndamentoModalEdicao').val();
-			var dataFinalizado = $('#dataFinalizadoModalEdicao').val();
-			var horaFinalizado = $('#horaFinalizadoModalEdicao').val();
-			var formaAbertura = $('#formaAberturaModalEdicao').val();
-			var solicitante = $('#nomeSolicitanteModalEdicao').val();
-			var afetado = $('#nomeAfetadoModalEdicao').val();
+			var id = $('#idModalEdicao').text(),
+				descricao = $('#descricaomodal').val(),
+				resolucao = $('#resolucaomodal').val(),
+				observacao = $('#observacaomodal').val(),
+				status = $('#statusmodal').val(),
+				categoria = $('#categoriamodal').val(),
+				classificacao = $('#classificacaomodal').val(),
+				prioridade = $('#prioridademodal').val(),
+				local = $('#localmodal').val(),
+				nomeFuncionario = $('#nomeFuncionarioModalEdicao').val(),
+				dataAbertura = $('#dataAberturaModalEdicao').val(),
+				horaAbertura = $('#horaAberturaModalEdicao').val(),
+				dataAndamento = $('#dataAndamentoModalEdicao').val(),
+				horaAndamento = $('#horaAndamentoModalEdicao').val(),
+				dataFinalizado = $('#dataFinalizadoModalEdicao').val(),
+				horaFinalizado = $('#horaFinalizadoModalEdicao').val(),
+				formaAbertura = $('#formaAberturaModalEdicao').val(),
+				solicitante = $('#nomeSolicitanteModalEdicao').val(),
+				afetado = $('#nomeAfetadoModalEdicao').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -1354,9 +1240,11 @@
 					"afetado": afetado
 				}),
 				success: function (data) {
-					
-					var alerta = "";
-					var tempo=0;
+					var alerta = "",
+						modal = "",
+						status,
+						tempo=0;
+						
 					if(data.status == "ABERTO"){ status = "class='table-danger'"}
 					if(data.status == "AGENDADO"){ status = "class='table-warning'"}
 					if(data.status == "ANDAMENTO"){ status = "class='table-primary'"}
@@ -1369,39 +1257,36 @@
 						if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = data.duracao;}
 					}else {tempo = " " ; alerta = " "}
 					
-					var modal = "";
 					if(data.status != "FINALIZADO"){
 						modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
 					}
 					else{
 						modal = "data-bs-target='#edicaoModal' onclick=editar(";
 					}
-						$('#linha' + data.id).remove();
-						$('#exampleModal').modal('hide');
-						alert("atualizado com sucesso");
-						
-						var status;
-						
-						var itens =
-						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
-						+ '<td id=name' + data.id + '>' + data.id + '</td>'
-						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente + '</td>'
-						+ '<td>' + data.solicitante + '</td>'
-						+ '<td>' + data.afetado + '</td>'
-						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
-						+ '<td>' + data.descricao + '</td>'
-						+ '<td>' + data.prioridade + '</td>'
-						+ '<td>' + data.classificacao + '</td>'
-						+ '<td>' + data.nomeFuncionario + '</td>'
-						+ '<td>' + data.status + '</td>'
-						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
-						+ '<td>' + data.versao + '</td>'
-						+ '</tr>'
-						$('#linha' + data.id).remove();
-						$('#tabela-usuarios').append(itens);
-						$('#edicaoModalNaoFinalizado').modal('hide');
-						$('#edicaoModal').modal('hide');
+					$('#linha' + data.id).remove();
+					$('#exampleModal').modal('hide');
+					alert("atualizado com sucesso");
+					
+					var itens =
+					'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
+					+ '<td id=name' + data.id + '>' + data.id + '</td>'
+					+ '<td>' + data.dataAbertura + '</td>'
+					+ '<td>' + data.nomeCliente + '</td>'
+					+ '<td>' + data.solicitante + '</td>'
+					+ '<td>' + data.afetado + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
+					+ '<td>' + data.descricao + '</td>'
+					+ '<td>' + data.prioridade + '</td>'
+					+ '<td>' + data.classificacao + '</td>'
+					+ '<td>' + data.nomeFuncionario + '</td>'
+					+ '<td>' + data.status + '</td>'
+					+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+					+ '<td>' + data.versao + '</td>'
+					+ '</tr>'
+					$('#linha' + data.id).remove();
+					$('#tabela-usuarios').append(itens);
+					$('#edicaoModalNaoFinalizado').modal('hide');
+					$('#edicaoModal').modal('hide');
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1544,21 +1429,21 @@
 		}
 		
 		function atualizaNaoFinalizado() {
-			var id = $('#idModalNaoFinalizado').text();
-			var descricao = $('#descricaoModalNaoFinalizado').val();
-			var resolucao = $('#resolucaoModalNaoFinalizado').val();
-			var observacao = $('#observacaoModalNaoFinalizado').val();
-			var status = $('#statusModalNaoFinalizado').val();
-			var categoria = $('#categoriaModalNaoFinalizado').val();
-			var classificacao = $('#classificacaoModalNaoFinalizado').val();
-			var prioridade = $('#prioridaModalNaoFinalizado').val();
-			var local = $('#localModalNaoFinalizado').val();
-			var dataAgendado = $('#dataModalNaoFinalizado').val();
-			var horaAgendado = $('#horaModalNaoFinalizado').val();
-			var solicitante = $('#nomeSolicitanteModalNaoFinalizado').val();
-			var afetado = $('#nomeAfetadoModalNaoFinalizado').val();
-			var nomeFuncionario = $('#nomeFuncionarioModalNaoFinalizado').val();
-			var formaAbertura = $('#formaAberturaModalNaoFinalizado').val();
+			var id = $('#idModalNaoFinalizado').text(),
+				descricao = $('#descricaoModalNaoFinalizado').val(),
+				resolucao = $('#resolucaoModalNaoFinalizado').val(),
+				observacao = $('#observacaoModalNaoFinalizado').val(),
+				status = $('#statusModalNaoFinalizado').val(),
+				categoria = $('#categoriaModalNaoFinalizado').val(),
+				classificacao = $('#classificacaoModalNaoFinalizado').val(),
+				prioridade = $('#prioridaModalNaoFinalizado').val(),
+				local = $('#localModalNaoFinalizado').val(),
+				dataAgendado = $('#dataModalNaoFinalizado').val(),
+				horaAgendado = $('#horaModalNaoFinalizado').val(),
+				solicitante = $('#nomeSolicitanteModalNaoFinalizado').val(),
+				afetado = $('#nomeAfetadoModalNaoFinalizado').val(),
+				nomeFuncionario = $('#nomeFuncionarioModalNaoFinalizado').val(),
+				formaAbertura = $('#formaAberturaModalNaoFinalizado').val();
 		
 			$.ajax({
 				type: "PUT",
@@ -1582,8 +1467,9 @@
 					"formaAbertura": formaAbertura
 				}),
 				success: function (data) {
-					
-					var modal = "";
+					var modal = "",
+						tempo, 
+						alerta;
 					if(data.status != "FINALIZADO"){
 						modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
 					}
@@ -1591,46 +1477,44 @@
 						modal = "data-bs-target='#edicaoModal' onclick=editar(";
 					}
 					
-					var tempo; var alerta;
 					if(data.duracao != null){
 						if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = data.duracao;}
 						if(data.duracao > 240 && data.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = data.duracao;}
 						if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = data.duracao;}
 					}else {tempo = " " ; alerta = " "}
 					
+					$('#linha' + data.id).remove();
+					$('#exampleModal').modal('hide');
+					alert("atualizado com sucesso");
 					
-						$('#linha' + data.id).remove();
-						$('#exampleModal').modal('hide');
-						alert("atualizado com sucesso");
-						
-						var status;
-						if(data.status == "ABERTO"){ status = "class='table-danger'"}
-						if(data.status == "AGENDADO"){ status = "class='table-warning'"}
-						if(data.status == "ANDAMENTO"){ status = "class='table-primary'"}
-						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'"}
-						if(data.status == "PAUSADO"){ status = "class='table-light'"}
-						if(data.status == "FINALIZADO"){ status = "class='table-success'"}
-						
-						var itens =
-						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
-						+ '<td id=name' + data.id + '>' + data.id + '</td>'
-						+ '<td>' + data.dataAbertura + '</td>'
-						+ '<td>' + data.nomeCliente + '</td>'
-						+ '<td>' + data.solicitante + '</td>'
-						+ '<td>' + data.afetado + '</td>'
-						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
-						+ '<td>' + data.descricao + '</td>'
-						+ '<td>' + data.prioridade + '</td>'
-						+ '<td>' + data.classificacao + '</td>'
-						+ '<td>' + data.nomeFuncionario + '</td>'
-						+ '<td>' + data.status + '</td>'
-						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
-						+ '<td>' + data.versao + '</td>'
-						+ '</tr>'
-						$('#linha' + data.id).remove();
-						$('#tabela-usuarios').append(itens);
-						$('#edicaoModalNaoFinalizado').modal('hide');
-						$('#edicaoModal').modal('hide');
+					var status;
+					if(data.status == "ABERTO"){ status = "class='table-danger'"}
+					if(data.status == "AGENDADO"){ status = "class='table-warning'"}
+					if(data.status == "ANDAMENTO"){ status = "class='table-primary'"}
+					if(data.status == "AGUARDANDO"){ status = "class='table-secondary'"}
+					if(data.status == "PAUSADO"){ status = "class='table-light'"}
+					if(data.status == "FINALIZADO"){ status = "class='table-success'"}
+					
+					var itens =
+					'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
+					+ '<td id=name' + data.id + '>' + data.id + '</td>'
+					+ '<td>' + data.dataAbertura + '</td>'
+					+ '<td>' + data.nomeCliente + '</td>'
+					+ '<td>' + data.solicitante + '</td>'
+					+ '<td>' + data.afetado + '</td>'
+					+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
+					+ '<td>' + data.descricao + '</td>'
+					+ '<td>' + data.prioridade + '</td>'
+					+ '<td>' + data.classificacao + '</td>'
+					+ '<td>' + data.nomeFuncionario + '</td>'
+					+ '<td>' + data.status + '</td>'
+					+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+					+ '<td>' + data.versao + '</td>'
+					+ '</tr>'
+					$('#linha' + data.id).remove();
+					$('#tabela-usuarios').append(itens);
+					$('#edicaoModalNaoFinalizado').modal('hide');
+					$('#edicaoModal').modal('hide');
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -1878,9 +1762,6 @@
 
 							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
 							$('#boxAfetado').append('<option value="" slected="selected"></option>');
-
-							//  document.getElementById("cargoUsuario").innerHTML="";
-							//  document.getElementById("cargoSolicitante").innerHTML="";
 
 							$.each(data, function (i, item) {
 								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
