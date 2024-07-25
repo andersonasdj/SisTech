@@ -152,6 +152,16 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">				
+					<div class="col-md-4">
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheHoje()">Hoje</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(7)">7 dias</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(15)">15 dias</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(30)">30 dias</button>
+					</div>
+				</div>
+				
 				<div class="row">				
 					<div class="col-md-3">
 						<div class="control-group">
@@ -1034,105 +1044,111 @@
 				contentType: "application/json",
 				url: "/sistech/solicitacao/relatorio/editar/" + id,
 				success: function (data) {
+					
+					if(data.funcionarios != null && data.colaboradores != null){
 
-					$('#idModalEdicao').text("");
-					$('#dataAtualizacaoModalEdicao').text("");
-					$('#descricaomodal').val("");
-					$('#resolucaomodal').val("");
-					$('#observacaomodal').val("");
-					$('#duracaoModalEdicao').text("");
-					$('#categoriamodal').empty();
-					$('#classificacaomodal').empty();
-					$('#prioridademodal').empty();
-					$('#localmodal').empty();
-					$('#dataAberturaModalEdicao').val("");
-					$('#horaAberturaModalEdicao').val("");
-					$('#dataAndamentoModalEdicao').val("");
-					$('#horaAndamentoModalEdicao').val("");
-					$('#dataFinalizadoModalEdicao').val("");
-					$('#dataFinalizadoModalEdicao').val("");
-					$('#nomefuncionariomodal').empty();
-					$('#nomeSolicitanteModalEdicao').empty();
-					$('#nomeAfetadoModalEdicao').empty();
-					$('#formaAberturaModalEdicao').empty();
-					$('#idHistorico').text("");
-
-					$('#idHistorico').text(data.log_id);
-					$('#dataAberturaModalEdicao').val(data.dataAbertura);
-					$('#horaAberturaModalEdicao').val(data.horaAbertura);
-					$('#dataAndamentoModalEdicao').val(data.dataAndamento);
-					$('#horaAndamentoModalEdicao').val(data.horaAndamento);
-					$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
-					$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
-					$('#dataAtualizacaoModalEdicao').text(data.dataAtualizacao);
-					$('#idModalEdicao').text(data.id);
-					$('#descricaomodal').val(data.descricao);
-					$('#resolucaomodal').val(data.resolucao);
-					$('#observacaomodal').val(data.observacao);
-					
-					if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
-					else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
-					
-					$('#nomeSolicitanteModalEdicao').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
-					for (var i = 0; i < data.colaboradores.length; i++) {
-						$('#nomeSolicitanteModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
-					}
-					$('#nomeSolicitanteModalEdicao').append('<option value="Suporte"> Suporte</option>');
-					$('#nomeSolicitanteModalEdicao').append('<option value="Geral"> Geral</option>');
-					
-					$('#nomeAfetadoModalEdicao').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
-					for (var i = 0; i < data.colaboradores.length; i++) {
-						$('#nomeAfetadoModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
-					}
-					$('#nomeAfetadoModalEdicao').append('<option value="Suporte"> Suporte</option>');
-					$('#nomeAfetadoModalEdicao').append('<option value="Geral"> Geral</option>');
-					$('#nomefuncionariomodal').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomefuncionariomodal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
-					
-					$('#formaAberturaModalEdicao').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
-						+'<option value="TELEFONE">TELEFONE</option>'
-						+'<option value="EMAIL">EMAIL</option>'
-						+'<option value="WHATSAPP">WHATSAPP</option>'
-						+'<option value="LOCAL">NO LOCAL</option>'
-						+'<option value="PROATIVO">PROATIVO</option>');
-					
-					$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
-						+'<option value="SOFTWARE">SOFTWARE</option>'
-						+'<option value="HARDWARE">HARDWARE</option>'
-						+'<option value="EMAIL">EMAIL</option>'
-						+'<option value="SHAREPOINT">SHAREPOINT</option>'
-						+'<option value="INTERNET">INTERNET</option>'
-						+'<option value="SERVIDORES">SERVIDORES</option>'
-						+'<option value="OUTROS">OUTROS</option>'
-						+'<option value="REDE">REDE</option>'
-						+'<option value="CABEAMENTO">CABEAMENTO</option>'
-						+'<option value="SMARTPHONE">SMARTPHONE</option>'
-						+'<option value="PROJETO">PROJETO</option>'
-						+'<option value="BACKUP">BACKUP</option>"');
-					$('#classificacaomodal').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
-						+'<option value="INCIDENTE">INCIDENTE</option>'
-						+'<option value="PROBLEMA">PROBLEMA</option>'
-						+'<option value="SOLICITACAO">SOLICITACAO</option>'
-						+'<option value="ACESSO">ACESSO</option>'
-						+'<option value="EVENTO">EVENTO</option>'
-						+'<option value="BACKUP">BACKUP</option>');
+						$('#idModalEdicao').text("");
+						$('#dataAtualizacaoModalEdicao').text("");
+						$('#descricaomodal').val("");
+						$('#resolucaomodal').val("");
+						$('#observacaomodal').val("");
+						$('#duracaoModalEdicao').text("");
+						$('#categoriamodal').empty();
+						$('#classificacaomodal').empty();
+						$('#prioridademodal').empty();
+						$('#localmodal').empty();
+						$('#dataAberturaModalEdicao').val("");
+						$('#horaAberturaModalEdicao').val("");
+						$('#dataAndamentoModalEdicao').val("");
+						$('#horaAndamentoModalEdicao').val("");
+						$('#dataFinalizadoModalEdicao').val("");
+						$('#dataFinalizadoModalEdicao').val("");
+						$('#nomefuncionariomodal').empty();
+						$('#nomeSolicitanteModalEdicao').empty();
+						$('#nomeAfetadoModalEdicao').empty();
+						$('#formaAberturaModalEdicao').empty();
+						$('#idHistorico').text("");
+	
+						$('#idHistorico').text(data.log_id);
+						$('#dataAberturaModalEdicao').val(data.dataAbertura);
+						$('#horaAberturaModalEdicao').val(data.horaAbertura);
+						$('#dataAndamentoModalEdicao').val(data.dataAndamento);
+						$('#horaAndamentoModalEdicao').val(data.horaAndamento);
+						$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
+						$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
+						$('#dataAtualizacaoModalEdicao').text(data.dataAtualizacao);
+						$('#idModalEdicao').text(data.id);
+						$('#descricaomodal').val(data.descricao);
+						$('#resolucaomodal').val(data.resolucao);
+						$('#observacaomodal').val(data.observacao);
 						
-					$('#prioridademodal').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
-						+'<option value="BAIXA">BAIXA</option>'
-						+'<option value="MEDIA">MEDIA</option>'
-						+'<option value="ALTA">ALTA</option>'
-						+'<option value="CRITICA">CRITICA</option>'
-						+'<option value="PLANEJADA">PLANEJADA</option>');
+						if(data.duracao <= 60){ $('#duracaoModalEdicao').text(data.duracao + " minutos"); }
+						else{ $('#duracaoModalEdicao').text(  Math.round(data.duracao / 60)   + " horas"); }
 						
-					$('#localmodal').append("<option value="+ data.local +">"+ data.local+"</option>"
-						+'<option value="ONSITE">ONSITE</option>'
-						+'<option value="OFFSITE">OFFSITE</option>');
-
-					if (data.status == 'FINALIZADO') {
-						$('#statusModalEdicao').append("<option value=" + data.status + ">" + data.status + "</option>");
-					}  
+						$('#nomeSolicitanteModalEdicao').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+						for (var i = 0; i < data.colaboradores.length; i++) {
+							$('#nomeSolicitanteModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+						}
+						$('#nomeSolicitanteModalEdicao').append('<option value="Suporte"> Suporte</option>');
+						$('#nomeSolicitanteModalEdicao').append('<option value="Geral"> Geral</option>');
+						
+						$('#nomeAfetadoModalEdicao').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+						for (var i = 0; i < data.colaboradores.length; i++) {
+							$('#nomeAfetadoModalEdicao').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+						}
+						$('#nomeAfetadoModalEdicao').append('<option value="Suporte"> Suporte</option>');
+						$('#nomeAfetadoModalEdicao').append('<option value="Geral"> Geral</option>');
+						$('#nomefuncionariomodal').append('<option value="' + data.nomeFuncionario + '">' + data.nomeFuncionario + '</option>');
+						for (var i = 0; i < data.funcionarios.length; i++) {
+							$('#nomefuncionariomodal').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+						}
+						
+						$('#formaAberturaModalEdicao').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+							+'<option value="TELEFONE">TELEFONE</option>'
+							+'<option value="EMAIL">EMAIL</option>'
+							+'<option value="WHATSAPP">WHATSAPP</option>'
+							+'<option value="LOCAL">NO LOCAL</option>'
+							+'<option value="PROATIVO">PROATIVO</option>');
+						
+						$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
+							+'<option value="SOFTWARE">SOFTWARE</option>'
+							+'<option value="HARDWARE">HARDWARE</option>'
+							+'<option value="EMAIL">EMAIL</option>'
+							+'<option value="SHAREPOINT">SHAREPOINT</option>'
+							+'<option value="INTERNET">INTERNET</option>'
+							+'<option value="SERVIDORES">SERVIDORES</option>'
+							+'<option value="OUTROS">OUTROS</option>'
+							+'<option value="REDE">REDE</option>'
+							+'<option value="CABEAMENTO">CABEAMENTO</option>'
+							+'<option value="SMARTPHONE">SMARTPHONE</option>'
+							+'<option value="PROJETO">PROJETO</option>'
+							+'<option value="BACKUP">BACKUP</option>"');
+						$('#classificacaomodal').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
+							+'<option value="INCIDENTE">INCIDENTE</option>'
+							+'<option value="PROBLEMA">PROBLEMA</option>'
+							+'<option value="SOLICITACAO">SOLICITACAO</option>'
+							+'<option value="ACESSO">ACESSO</option>'
+							+'<option value="EVENTO">EVENTO</option>'
+							+'<option value="BACKUP">BACKUP</option>');
+							
+						$('#prioridademodal').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
+							+'<option value="BAIXA">BAIXA</option>'
+							+'<option value="MEDIA">MEDIA</option>'
+							+'<option value="ALTA">ALTA</option>'
+							+'<option value="CRITICA">CRITICA</option>'
+							+'<option value="PLANEJADA">PLANEJADA</option>');
+							
+						$('#localmodal').append("<option value="+ data.local +">"+ data.local+"</option>"
+							+'<option value="ONSITE">ONSITE</option>'
+							+'<option value="OFFSITE">OFFSITE</option>');
+	
+						if (data.status == 'FINALIZADO') {
+							$('#statusModalEdicao').append("<option value=" + data.status + ">" + data.status + "</option>");
+						} 
+					}else{
+						alert("Seu status está Offline, modifique para Online para atendimento!");
+					}
+					
 				},
 				error: function (e) { alert(e); }
 			});
@@ -1243,126 +1259,132 @@
 				contentType: "application/json",
 				url: "/sistech/solicitacao/busca/" + id,
 				success: function (data) {
+					
+					if(data.funcionarios != null && data.colaboradores != null){
 
-					$('#idModalNaoFinalizado').text("");
-					$('#dataAtualizacaoModalNaoFinalizado').text("");
-					$('#descricaoModalNaoFinalizado').val("");
-					$('#resolucaoModalNaoFinalizado').val("");
-					$('#observacaoModalNaoFinalizado').val("");
-					$('#statusModalNaoFinalizado').empty();
-					$('#categoriaModalNaoFinalizado').empty();
-					$('#classificacaoModalNaoFinalizado').empty();
-					$('#prioridadeModalNaoFinalizado').empty();
-					$('#localModalNaoFinalizado').empty();
-					$('#nomeFuncionarioModalNaoFinalizado').empty();
-					$('#nomeFuncionarioModalNaoFinalizado').empty();
-					$('#nomeSolicitanteModalNaoFinalizado').empty();
-					$('#nomeAfetadoModalNaoFinalizado').empty();
-					$('#formaAberturaModalNaoFinalizado').empty();
-					$('#dataModalNaoFinalizado').val("");
-					$('#horaModalNaoFinalizado').val("");
-					$('#idHistorico').text("");
-
-					$('#idHistorico').text(data.log_id);
-					$('#idModalNaoFinalizado').text(data.id);
-					$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
-					$('#descricaoModalNaoFinalizado').val(data.descricao);
-					$('#resolucaoModalNaoFinalizado').val(data.resolucao);
-					$('#observacaoModalNaoFinalizado').val(data.observacao);
-					
-					$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionario + '">' + data.funcionario + '</option>');
-					for (var i = 0; i < data.funcionarios.length; i++) {
-						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
-					}
-					
-					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
-					for (var i = 0; i < data.colaboradores.length; i++) {
-						$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
-					}
-					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
-					$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
-					
-					$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
-					for (var i = 0; i < data.colaboradores.length; i++) {
-						$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
-					}
-					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
-					$('#nomeAfetadoModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
-					
-					$('#formaAberturaModalNaoFinalizado').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
-						+'<option value="TELEFONE">TELEFONE</option>'
-						+'<option value="EMAIL">EMAIL</option>'
-						+'<option value="WHATSAPP">WHATSAPP</option>'
-						+'<option value="LOCAL">NO LOCAL</option>'
-						+'<option value="PROATIVO">PROATIVO</option>');
-					
-					$('#categoriaModalNaoFinalizado').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
-						+'<option value="SOFTWARE">SOFTWARE</option>'
-						+'<option value="HARDWARE">HARDWARE</option>'
-						+'<option value="EMAIL">EMAIL</option>'
-						+'<option value="SHAREPOINT">SHAREPOINT</option>'
-						+'<option value="INTERNET">INTERNET</option>'
-						+'<option value="SERVIDORES">SERVIDORES</option>'
-						+'<option value="OUTROS">OUTROS</option>'
-						+'<option value="REDE">REDE</option>'
-						+'<option value="CABEAMENTO">CABEAMENTO</option>'
-						+'<option value="SMARTPHONE">SMARTPHONE</option>'
-						+'<option value="PROJETO">PROJETO</option>'
-						+'<option value="BACKUP">BACKUP</option>"');
-					$('#classificacaoModalNaoFinalizado').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
-						+'<option value="INCIDENTE">INCIDENTE</option>'
-						+'<option value="PROBLEMA">PROBLEMA</option>'
-						+'<option value="SOLICITACAO">SOLICITACAO</option>'
-						+'<option value="ACESSO">ACESSO</option>'
-						+'<option value="EVENTO">EVENTO</option>'
-						+'<option value="BACKUP">BACKUP</option>');
+						$('#idModalNaoFinalizado').text("");
+						$('#dataAtualizacaoModalNaoFinalizado').text("");
+						$('#descricaoModalNaoFinalizado').val("");
+						$('#resolucaoModalNaoFinalizado').val("");
+						$('#observacaoModalNaoFinalizado').val("");
+						$('#statusModalNaoFinalizado').empty();
+						$('#categoriaModalNaoFinalizado').empty();
+						$('#classificacaoModalNaoFinalizado').empty();
+						$('#prioridadeModalNaoFinalizado').empty();
+						$('#localModalNaoFinalizado').empty();
+						$('#nomeFuncionarioModalNaoFinalizado').empty();
+						$('#nomeFuncionarioModalNaoFinalizado').empty();
+						$('#nomeSolicitanteModalNaoFinalizado').empty();
+						$('#nomeAfetadoModalNaoFinalizado').empty();
+						$('#formaAberturaModalNaoFinalizado').empty();
+						$('#dataModalNaoFinalizado').val("");
+						$('#horaModalNaoFinalizado').val("");
+						$('#idHistorico').text("");
+	
+						$('#idHistorico').text(data.log_id);
+						$('#idModalNaoFinalizado').text(data.id);
+						$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
+						$('#descricaoModalNaoFinalizado').val(data.descricao);
+						$('#resolucaoModalNaoFinalizado').val(data.resolucao);
+						$('#observacaoModalNaoFinalizado').val(data.observacao);
 						
-					$('#prioridadeModalNaoFinalizado').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
-						+'<option value="BAIXA">BAIXA</option>'
-						+'<option value="MEDIA">MEDIA</option>'
-						+'<option value="ALTA">ALTA</option>'
-						+'<option value="CRITICA">CRITICA</option>'
-						+'<option value="PLANEJADA">PLANEJADA</option>');
+						$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionario + '">' + data.funcionario + '</option>');
+						for (var i = 0; i < data.funcionarios.length; i++) {
+							$('#nomeFuncionarioModalNaoFinalizado').append('<option value="' + data.funcionarios[i] + '">' + data.funcionarios[i] + '</option>');
+						}
 						
-					$('#localModalNaoFinalizado').append("<option value="+ data.local +">"+ data.local+"</option>"
-						+'<option value="ONSITE">ONSITE</option>'
-						+'<option value="OFFSITE">OFFSITE</option>');
-
-					if (data.status == 'ABERTO') {
-						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						document.getElementById('agendamentosmodal').style.display = 'none';
-					} if (data.status == 'ANDAMENTO') {
-						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusModalNaoFinalizado').append("<option value=FINALIZADO>FINALIZADO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=PAUSADO>PAUSADO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
-						document.getElementById('agendamentosmodal').style.display = 'none';
-					} if (data.status == 'AGENDADO') {
-						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
-						document.getElementById('agendamentosmodal').style.display = '';
-						$('#dataModalNaoFinalizado').val(data.dataAgendado);
-						$('#horaModalNaoFinalizado').val(data.horaAgendado);
-					} if (data.status == 'AGUARDANDO') {
-						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
-						document.getElementById('agendamentosmodal').style.display = 'none';
-					} if (data.status == 'PAUSADO') {
-						$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
-						$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
-						document.getElementById('agendamentosmodal').style.display = 'none';
+						$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.solicitante + '">' + data.solicitante + '</option>');
+						for (var i = 0; i < data.colaboradores.length; i++) {
+							$('#nomeSolicitanteModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+						}
+						$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
+						$('#nomeSolicitanteModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
+						
+						$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.afetado + '">' + data.afetado	 + '</option>');
+						for (var i = 0; i < data.colaboradores.length; i++) {
+							$('#nomeAfetadoModalNaoFinalizado').append('<option value="' + data.colaboradores[i] + '">' + data.colaboradores[i] + '</option>');
+						}
+						$('#nomeAfetadoModalNaoFinalizado').append('<option value="Suporte"> Suporte</option>');
+						$('#nomeAfetadoModalNaoFinalizado').append('<option value="Geral"> Geral</option>');
+						
+						$('#formaAberturaModalNaoFinalizado').append("<option value="+ data.formaAbertura +">"+ data.formaAbertura+"</option>"
+							+'<option value="TELEFONE">TELEFONE</option>'
+							+'<option value="EMAIL">EMAIL</option>'
+							+'<option value="WHATSAPP">WHATSAPP</option>'
+							+'<option value="LOCAL">NO LOCAL</option>'
+							+'<option value="PROATIVO">PROATIVO</option>');
+						
+						$('#categoriaModalNaoFinalizado').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
+							+'<option value="SOFTWARE">SOFTWARE</option>'
+							+'<option value="HARDWARE">HARDWARE</option>'
+							+'<option value="EMAIL">EMAIL</option>'
+							+'<option value="SHAREPOINT">SHAREPOINT</option>'
+							+'<option value="INTERNET">INTERNET</option>'
+							+'<option value="SERVIDORES">SERVIDORES</option>'
+							+'<option value="OUTROS">OUTROS</option>'
+							+'<option value="REDE">REDE</option>'
+							+'<option value="CABEAMENTO">CABEAMENTO</option>'
+							+'<option value="SMARTPHONE">SMARTPHONE</option>'
+							+'<option value="PROJETO">PROJETO</option>'
+							+'<option value="BACKUP">BACKUP</option>"');
+						$('#classificacaoModalNaoFinalizado').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
+							+'<option value="INCIDENTE">INCIDENTE</option>'
+							+'<option value="PROBLEMA">PROBLEMA</option>'
+							+'<option value="SOLICITACAO">SOLICITACAO</option>'
+							+'<option value="ACESSO">ACESSO</option>'
+							+'<option value="EVENTO">EVENTO</option>'
+							+'<option value="BACKUP">BACKUP</option>');
+							
+						$('#prioridadeModalNaoFinalizado').append("<option value="+ data.prioridade +">"+ data.prioridade+"</option>"
+							+'<option value="BAIXA">BAIXA</option>'
+							+'<option value="MEDIA">MEDIA</option>'
+							+'<option value="ALTA">ALTA</option>'
+							+'<option value="CRITICA">CRITICA</option>'
+							+'<option value="PLANEJADA">PLANEJADA</option>');
+							
+						$('#localModalNaoFinalizado').append("<option value="+ data.local +">"+ data.local+"</option>"
+							+'<option value="ONSITE">ONSITE</option>'
+							+'<option value="OFFSITE">OFFSITE</option>');
+	
+						if (data.status == 'ABERTO') {
+							$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+							document.getElementById('agendamentosmodal').style.display = 'none';
+						} if (data.status == 'ANDAMENTO') {
+							$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
+							$('#statusModalNaoFinalizado').append("<option value=FINALIZADO>FINALIZADO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=PAUSADO>PAUSADO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
+							document.getElementById('agendamentosmodal').style.display = 'none';
+						} if (data.status == 'AGENDADO') {
+							$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
+							document.getElementById('agendamentosmodal').style.display = '';
+							$('#dataModalNaoFinalizado').val(data.dataAgendado);
+							$('#horaModalNaoFinalizado').val(data.horaAgendado);
+						} if (data.status == 'AGUARDANDO') {
+							$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
+							document.getElementById('agendamentosmodal').style.display = 'none';
+						} if (data.status == 'PAUSADO') {
+							$('#statusModalNaoFinalizado').append("<option value=" + data.status + ">" + data.status + "</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=AGENDADO>AGENDADO</option>");
+							$('#statusModalNaoFinalizado').append("<option value=ABERTO>ABERTO</option>");
+							document.getElementById('agendamentosmodal').style.display = 'none';
+						}
+					}else{
+						alert("Seu status está Offline, modifique para Online para atendimento!");
 					}
+						
 				},
 				error: function (e) { alert(e); }
 			});
@@ -1469,12 +1491,7 @@
 					$('#qtdNaoFinalizados').text(data.aberto + data.andamento + data.agendado + data.aguardando + data.pausado);
 					$('#totalSolicitacoes').text("Total: "+ data.totalSolicitacoes);
 					$('#totalMesCorrente').text("Total de solicitações: " + data.totalMesCorrente);
-					
-					if(data.totalMinutosMes <= 60){
-						$('#totalMinutosMes').text("Tempo total: " + data.totalMinutosMes + " minutos");
-					}else{
-						$('#totalMinutosMes').text("Tempo total: " + Math.round(data.totalMinutosMes / 60)  + " horas");
-					}
+					$('#totalMinutosMes').text("Tempo total: " + minutosParaHorasTexto(data.totalMinutosMes));
 					
 					document.getElementById('localSolicitacoes').remove();
 					$('#local').append('<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>');
@@ -1715,6 +1732,38 @@
 			});
 		});
 		
+		function preencheHoje(){
+			var data = new Date();
+			var hoje, mes;
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			var hoje = data.getFullYear()+'-'+mes+'-'+data.getDate();
+			
+			$('#dataInicio').val(hoje);
+			$('#dataFim').val(hoje);
+		}
+		
+		function preencheDias(dias){
+			var data = new Date();
+			var inicio, fim, mes;
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			var fim = data.getFullYear()+'-'+mes+'-'+data.getDate();
+
+			data.setDate(data.getDate() - dias);
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			var inicio = data.getFullYear()+'-'+mes+'-'+data.getDate();
+			
+			$('#dataInicio').val(inicio);
+			$('#dataFim').val(fim);
+		}
 		//######################################### MODAL SOLICITACAO NOVA #############################################
 	</script>
 	<script>

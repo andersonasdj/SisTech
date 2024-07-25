@@ -19,8 +19,13 @@ public class AppController {
 	}
 	
 	@GetMapping("/impressao")
-	public String teste2() {
+	public String impressaoSolicitacao() {
 		return "templates/impressao.html";
+	}
+	
+	@GetMapping("/impressao-relatorio")
+	public String impressaoRelatorioCliente() {
+		return "templates/impressao-relatorio-cliente.html";
 	}
 	
 	@GetMapping("/login")

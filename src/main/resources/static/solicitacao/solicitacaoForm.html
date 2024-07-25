@@ -640,12 +640,17 @@
 			contentType: "application/json",
 			url: "/sistech/solicitacao/getData",
 			success: function (data) {
-				for (var i = 0; i < data.clientes.length; i++) {
-					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
-				}
-
-				for (var i = 0; i < data.funcionarios.length; i++) {
-					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+				
+				if(data.refeicao != true){
+					for (var i = 0; i < data.clientes.length; i++) {
+						$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+					}
+	
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+				}else {
+					alert("Seu status está Offline, modifique para Online para atendimento!");
 				}
 			},
 			statusCode: {

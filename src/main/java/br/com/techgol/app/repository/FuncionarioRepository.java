@@ -10,7 +10,6 @@ import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
-
 	
 	@Query(value = "SELECT f.nomeFuncionario FROM funcionarios f  WHERE f.ativo=true ORDER BY f.nomeFuncionario", nativeQuery = true)
 	public List<String> listarNomesFuncionarios();
@@ -26,20 +25,17 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 	
 	public Funcionario findBynomeFuncionario(String nomeFuncionario);
 	
-	
 	@Query(value = "SELECT * FROM funcionarios f  WHERE f.username=:username", nativeQuery = true)
 	public Funcionario buscarPorUsername(String username);
 	
 	@Query(value = "SELECT * FROM funcionarios f  WHERE f.nomeFuncionario=:nome", nativeQuery = true)
 	public Funcionario buscarPorNome(String nome);
 	
-	
 	public UserDetails findByUsername(String username);
 
 	public Boolean existsByUsername(String username);
 	
 	public Boolean existsByNomeFuncionario(String nomeFuncionario);
-	
 	
 	@Query(value = "SELECT COUNT(*) FROM solicitacoes s WHERE s.funcionario_id=:funcionarioId AND s.status=:status AND s.excluido=0", nativeQuery = true)
 	public int buscaPorFuncionario(Long funcionarioId, String status);
@@ -58,4 +54,10 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
 	@Query(value = "SELECT f.id, f.nomeFuncionario, f.userName, f.dataAtualizacao FROM funcionarios f WHERE f.id = :id", nativeQuery = true)
 	public DtoFuncionarioEditSimplificado buscaFuncionarioSimplificadoPorId(Long id);
+
+	@Query(value = "SELECT * FROM funcionarios f WHERE f.ativo=true", nativeQuery = true)
+	public List<Funcionario> listarFuncionarios();
+	
+	@Query(value = "SELECT * FROM funcionarios f", nativeQuery = true)
+	public List<Funcionario> listarTodosFuncionarios();
 }

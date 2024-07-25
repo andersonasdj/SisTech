@@ -95,18 +95,18 @@ public class FuncionarioService {
 		return repository.findByUsername(nome);
 	}
 	
-	
 	public void salvar(DtoCadastroFuncionario dados) {
 		
 		repository.save(new Funcionario(dados));
 	}
 	
-	
 	public List<DtoListarFuncionarios> listar() {
-		
-		 return repository.findAll().stream().map(DtoListarFuncionarios::new).toList();
+		return repository.listarTodosFuncionarios().stream().map(DtoListarFuncionarios::new).toList();
 	}
 	
+	public List<DtoListarFuncionarios> listarAtivos() {
+		return repository.listarFuncionarios().stream().map(DtoListarFuncionarios::new).toList();
+	}
 	
 	public DtoFuncionarioEdit editar(Long id) {
 		if(repository.existsById(id)) {

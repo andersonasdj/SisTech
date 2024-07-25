@@ -23,6 +23,7 @@ import br.com.techgol.app.dto.DtoCadastroCliente;
 import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.repository.ClienteRepository;
+import br.com.techgol.app.services.ClienteService;
 
 @RestController
 @RequestMapping("clientes")
@@ -31,11 +32,33 @@ public class ClienteRestController {
 	@Autowired
 	private ClienteRepository repository;
 	
+	@Autowired
+	private ClienteService service;
 	
 	@GetMapping
 	public Page<DtoClienteList> listar(@PageableDefault(size = 15, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
 	
 		return repository.findAll(page).map(DtoClienteList::new);
+	}
+	
+	@GetMapping("/filtro/{bairro}")
+	public List<DtoClienteList> listarFiltro(@PathVariable String bairro){
+	
+		return repository.listarClientesPorBairro(bairro).stream().map(DtoClienteList::new).toList();
+	}
+	
+	@GetMapping("/filtro/vip/{vip}")
+	public List<DtoClienteList> listarFiltroVip(@PathVariable String vip){
+		System.out.println(vip);
+	
+		if(vip.equals("vip")) {
+			return repository.listarClientesVip().stream().map(DtoClienteList::new).toList();
+		}else if(vip.equals("redflag")) {
+			return repository.listarClientesRedFlag().stream().map(DtoClienteList::new).toList();
+		}else {
+			return repository.listarClientesRedFlagEVip().stream().map(DtoClienteList::new).toList();
+		}
+		
 	} 
 	
 	@GetMapping("/nomes")
@@ -74,6 +97,13 @@ public class ClienteRestController {
 	public void deletar(@PathVariable Long id ) {
 		
 		repository.deleteById(id);
+	}
+	
+	
+	@GetMapping("/bairros")
+	public List<String> listaBairrosClientes(){
+		
+		return service.listarBairrosClientes();
 	}
 	
 }

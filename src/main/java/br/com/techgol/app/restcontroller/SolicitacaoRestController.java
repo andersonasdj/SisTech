@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -215,10 +216,13 @@ public class SolicitacaoRestController {
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		
 		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 				clienteService.listarIdClienteAtivos(), 
 				repositoryFuncionario.listarNomesFuncionarios(),
-				repositoryFuncionario.listarIdFuncionarios()
+				repositoryFuncionario.listarIdFuncionarios(),
+				repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 				);
 	}
 	
@@ -231,7 +235,8 @@ public class SolicitacaoRestController {
 			return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 					clienteService.listarIdClienteAtivos(), 
 					repositoryFuncionario.listarNomesFuncionarios(),
-					repositoryFuncionario.listarIdFuncionarios()
+					repositoryFuncionario.listarIdFuncionarios(),
+					repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 					);
 		
 		}else {
@@ -243,7 +248,8 @@ public class SolicitacaoRestController {
 		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 				clienteService.listarIdClienteAtivos(), 
 				nomesFuncionarios,
-				idFuncionarios
+				idFuncionarios,
+				repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 				);
 		}
 			
@@ -259,11 +265,18 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/busca/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
-	public DtoDadosEdicaoRapidaMaisFuncionarios buscaPorId(@PathVariable Long id) {
+	public ResponseEntity<DtoDadosEdicaoRapidaMaisFuncionarios> buscaPorId(@PathVariable Long id) {
+		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
-		List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
-		List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
-		return new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
+		
+		if(repositoryFuncionario.statusRefeicao(funcionarioBase.getId())) {
+			return ResponseEntity.ok().body(new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), null, null));
+		}else {
+			List<String> funcionarios = repositoryFuncionario.listarNomesFuncionarios();
+			List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
+			return ResponseEntity.ok().body( new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios, colaboradores));
+		}
+		
 	}
 	
 	@GetMapping("/impressao/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA

@@ -12,19 +12,14 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	@Query(value = "SELECT c.nomeCliente FROM clientes c ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<String> listarNomesCliente();
 	
-	
 	@Query(value = "SELECT c.id FROM clientes c ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<String> listarIdCliente();
-	
 	
 	@Query(value = "SELECT c.nomeCliente FROM clientes c WHERE c.ativo=1 ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<String> listarNomesClienteAtivos();
 	
-	
 	@Query(value = "SELECT c.id FROM clientes c WHERE c.ativo=1 ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<String> listarIdClienteAtivos();
-	
-	
 	
 	public Cliente findBynomeCliente(String nomeCliente);
 
@@ -33,5 +28,20 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	@Query(value = "SELECT c.redFlag FROM clientes c WHERE c.id= :id", nativeQuery = true)
 	public boolean verificaSeRedFlag(Long id);
+	
+	@Query(value = "SELECT c.bairro FROM clientes c WHERE c.ativo=1 AND c.bairro != 'null' ORDER BY c.bairro", nativeQuery = true)
+	public List<String> listarBairrosClientes();
+	
+	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.bairro = :bairro ORDER BY c.nomeCliente", nativeQuery = true)
+	public List<Cliente> listarClientesPorBairro(String bairro);
+	
+	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.vip = 1 ORDER BY c.nomeCliente", nativeQuery = true)
+	public List<Cliente> listarClientesVip();
+	
+	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.redFlag = 1 ORDER BY c.nomeCliente", nativeQuery = true)
+	public List<Cliente> listarClientesRedFlag();
+	
+	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.redFlag = 1 AND c.vip = 1 ORDER BY c.nomeCliente", nativeQuery = true)
+	public List<Cliente> listarClientesRedFlagEVip();
 	
 }

@@ -943,7 +943,7 @@ public class SolicitacaoService {
 		pausado = repository.countByStatusAndExcluido(Status.PAUSADO, false);
 		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado;
 		
-		List<DtoListarFuncionarios> funcionarios = funcionarioService.listar();
+		List<DtoListarFuncionarios> funcionarios = funcionarioService.listarAtivos();
 		List<DtoDashboardResumoFuncionario> listaDto = new ArrayList<>();
 		
 		int totalFUncionarios = funcionarios.size();

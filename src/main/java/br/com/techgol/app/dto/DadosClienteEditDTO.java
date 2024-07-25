@@ -12,10 +12,11 @@ public record DadosClienteEditDTO(
 		String telefone,
 		String username,
 		String password,
-		String cnpj) {
+		String cnpj,
+		String bairro) {
 	
 	public DadosClienteEditDTO(Cliente c) {
-		this(c.getId(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj());
+		this(c.getId(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj(), c.getBairro());
 		
 	}
 	

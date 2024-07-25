@@ -29,6 +29,8 @@ public class Cliente extends Usuario {
 	private String cnpj;
 	private boolean redFlag;
 	private boolean vip;
+	@Column(length = 20)
+	private String bairro;
 	
 	public Cliente(DtoCadastroCliente dados) {
 		
@@ -43,6 +45,7 @@ public class Cliente extends Usuario {
 		this.cnpj = dados.cnpj();
 		this.redFlag = false;
 		this.vip = false;
+		this.bairro = dados.bairro();
 	}
 	
 public Cliente(DtoAtualizarCliente dados) {
@@ -59,5 +62,6 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.cnpj = dados.cnpj();
 		this.redFlag = dados.redFlag();
 		this.vip = dados.vip();
+		this.bairro = dados.bairro();
 	}
 }

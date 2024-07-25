@@ -94,6 +94,9 @@
 			<label for="endereco" class="form-laber mt-2">Endereco</label>
 			<input type="text" id="endereco" class="form-control mt-2" autocomplete="off" style="width: 350px;">
 			
+			<label for="bairro" class="form-laber mt-2">Bairro</label>
+			<input type="text" id="bairro" class="form-control mt-2" autocomplete="off" style="width: 350px;">
+			
 			<label for="telefone" class="form-laber mt-2">telefone</label>
 			<input ttype="tel" maxlength="15" onkeyup="handlePhone(event)" id="telefone" class="form-control mt-2" style="width: 200px;">
 			
@@ -188,6 +191,7 @@
 			var telefone = $('#telefone').val();
 			var username = $('#username').val();
 			var password = $('#password').val();
+			var bairro = $('#bairro').val();
 			var cnpj = $('#cnpj').val();
 			
 			$.ajax({
@@ -201,7 +205,8 @@
 					    "telefone": telefone,
 					    "username": username,
 					    "password": password,
-					    "cnpj": cnpj
+					    "cnpj": cnpj,
+					    "bairro": bairro
 					}
 				),
 				success: function (data) { 

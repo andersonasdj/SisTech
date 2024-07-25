@@ -11,6 +11,7 @@ public record DtoCadastroCliente(
 		String password,
 		String endereco,
 		String telefone,
-		String cnpj
+		String cnpj,
+		String bairro
 		) {}
 

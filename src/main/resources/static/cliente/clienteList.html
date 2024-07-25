@@ -100,6 +100,7 @@
 				<a href="/sistech/cliente/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
 		    </div>
 		    <div class="col">
+				<button class="btn btn-sm btn-dark" onclick="filtros()">Filtros</button>
 		    </div>
 		    <div class="col">
 				<div class="form-group pull-right">
@@ -108,6 +109,38 @@
 				<span class="counter pull-right"> </span>
 		    </div>
 		  </div>
+		</div>
+		
+		<div id="opcoesFiltro" style="display: none;">
+			<hr class="bg-danger border-2 border-top border">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="row">
+						<div class="col-md-2 mt-3">
+							<label class="form-label"><b>Bairro</b></label>
+						</div>
+						
+						<div class="col-md-3">
+							<div class="controls">
+								<select class="form-select mt-2" id="bairro" name="bairro">
+									<option> </option> 
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"> 
+					<b><span id="qtdFiltrados"></span></b>
+				</div>
+				
+				<div class="col-md-6">
+					<a class="btn btn-sm btn-dark" onclick="listarVip('vip')">Vip</a>
+					<a class="btn btn-sm btn-dark" onclick="listarVip('redflag')">Red Flag</a>
+					<a class="btn btn-sm btn-dark" onclick="listarVip('redfladvip')">Red Flag + Vip</a>
+				</div>
+				
+			</div>
+			<hr class="bg-danger border-2 border-top borde">
 		</div>
 		
 		<div class="table-responsive">
@@ -199,20 +232,28 @@
 								<input type="text" id="enderecomodal" class="form-control"><br />
 							</div>
 						</div>
+						
 						<div class="row">
+							
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="bairroModal"><b>Bairro</b></label>
+								<input type="text" id="bairroModal" class="form-control"><br />
+							</div>
+							
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="ativoModal"><b>Ativo</b></label>
 								<select class="form-select" id="ativoModal"> </select>
 							</div>
-							<div class="col-md-6">
-								<label class="form-label mt-2" for="vipModal"><b>VIP</b></label>
-								<select class="form-select" id="vipModal"> </select>
-							</div>
 						</div>
+						
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="redFlagModal"><b>Red Flag</b></label>
 								<select class="form-select" id="redFlagModal"> </select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="vipModal"><b>VIP</b></label>
+								<select class="form-select" id="vipModal"> </select>
 							</div>
 						</div>
 						</br>
@@ -382,7 +423,76 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script>
-		$.ajax({
+		
+		function listarVip(filtro){
+			$('#corpoClientes').empty();
+			$('#paginas').empty();
+			$('#qtdFiltrados').text("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/clientes/filtro/vip/"+filtro,
+			success: function (data) {
+				
+				$('#qtdFiltrados').text(data.length);
+					
+				data.map(i => {
+					var status;
+					if(i.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					var vip =" ";
+					var redFlag =" ";
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+					if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
+					
+					var itens = 
+					'<tr id=linha' + i.id + '>'
+					+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
+					+ '<td>' + status + '</t}>'
+					+ '<td>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
+					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
+					+ '</td>'
+					+ '</tr>'
+				$('#tabela-clientes').append(itens);
+				});
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
+			});
+			
+			
+		}
+		
+		
+		listarTodos();
+		
+		$(document).ready(function () {
+			var divQtdItens = $("#bairro");
+			divQtdItens.on("change", function () {
+				$('#corpoClientes').empty();
+				$('#paginas').empty();
+				if($('#bairro').val() == ""){
+					listarTodos();
+				}else{
+					listarPorBairro($('#bairro').val());
+				}
+			});
+		});
+		
+		function filtros(){
+			$("#opcoesFiltro").stop().slideToggle(800);
+		}
+		
+		function listarTodos(){
+			$.ajax({
 			type: "GET",
 			contentType: "application/json",
 			url: "/sistech/clientes",
@@ -425,6 +535,22 @@
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
 				    401: function() { alert('Realize login novamente!'); }
 			}
+			});
+		}
+		
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/clientes/bairros",
+			success: function (data) {
+				for (var i = 0; i < data.length; i++) {
+					$('#bairro').append('<option value="' + data[i] + '">' + data[i] + '</option>');
+				}
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
 		});
 		
 		const handlePhone = (event) => {
@@ -442,6 +568,49 @@
 	</script>
 	
 	<script>
+		function listarPorBairro(bairro){
+			$('#qtdFiltrados').text("");
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/clientes/filtro/"+bairro,
+			success: function (data) {
+				
+				$('#qtdFiltrados').text(data.length);
+				data.map(i => {
+					var status;
+					if(i.ativo == true){
+						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+					}else{
+						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+					}
+					
+					var vip =" ";
+					var redFlag =" ";
+					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+					if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
+					
+					var itens = 
+					'<tr id=linha' + i.id + '>'
+					+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
+					+ '<td>' + status + '</t}>'
+					+ '<td>'
+					+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+					+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
+					+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
+					+ '</td>'
+					+ '</tr>'
+				$('#tabela-clientes').append(itens);
+				});
+			},
+			statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+			}
+		});
+			
+		}
+		
 		function paginacao(num){
 			$.ajax({
 			type: "GET",
@@ -537,6 +706,7 @@
 					$('#ativoModal').empty();
 					$('#vipModal').empty();
 					$('#redFlagModal').empty();
+					$('#bairroModal').val("");
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -545,6 +715,8 @@
 					$('#usuariomodal').val(data.username);
 					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
+					$('#bairroModal').val(data.bairro);
+					
 					
 					if (data.ativo == true) {
 						$('#ativoModal').append("<option value=" + data.ativo + "> Ativado </option>");
@@ -721,6 +893,7 @@
 				ativo = $('#ativoModal').val(),
 				vip = $('#vipModal').val(),
 				redFlag = $('#redFlagModal').val();
+				bairro = $('#bairroModal').val(),
 			
 			$.ajax({
 				type: "PUT",
@@ -736,7 +909,8 @@
 					"endereco": endereco,
 					"ativo": ativo,
 					"vip": vip,
-					"redFlag": redFlag
+					"redFlag": redFlag,
+					"bairro": bairro
 				}),
 				success: function (data) {
 					
