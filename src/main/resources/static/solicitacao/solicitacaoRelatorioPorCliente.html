@@ -1792,12 +1792,15 @@
 		
 		function preencheHoje(){
 			var data = new Date();
-			var hoje, mes;
+			var hoje, mes, dia;
 			
 			if(data.getMonth()+1 > 12){ mes=1; }
 			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
 			else{ mes = data.getMonth()+1; }
-			var hoje = data.getFullYear()+'-'+mes+'-'+data.getDate();
+			
+			if(data.getDate() < 10){ dia = "0"+data.getDate(); }
+			else{ dia = data.getDate(); }
+			var hoje = data.getFullYear()+'-'+mes+'-'+dia;
 			
 			$('#dataInicio').val(hoje);
 			$('#dataFim').val(hoje);
@@ -1805,19 +1808,25 @@
 		
 		function preencheDias(dias){
 			var data = new Date();
-			var inicio, fim, mes;
+			var inicio, fim, mes, diaInicio, diaFim;
+			
+			if(data.getDate() < 10){ diaFim = "0"+data.getDate(); }
+			else{ diaFim = data.getDate(); }
 			
 			if(data.getMonth()+1 > 12){ mes=1; }
 			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
 			else{ mes = data.getMonth()+1; }
-			var fim = data.getFullYear()+'-'+mes+'-'+data.getDate();
+			var fim = data.getFullYear()+'-'+mes+'-'+diaFim;
 
 			data.setDate(data.getDate() - dias);
 			
+			if(data.getDate() < 10){ diaInicio = "0"+data.getDate(); }
+			else{ diaInicio = data.getDate(); }
+			
 			if(data.getMonth()+1 > 12){ mes=1; }
 			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
 			else{ mes = data.getMonth()+1; }
-			var inicio = data.getFullYear()+'-'+mes+'-'+data.getDate();
+			var inicio = data.getFullYear()+'-'+mes+'-'+diaInicio;
 			
 			$('#dataInicio').val(inicio);
 			$('#dataFim').val(fim);
