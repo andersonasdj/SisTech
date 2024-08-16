@@ -1,6 +1,7 @@
 package br.com.techgol.app.restcontroller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.services.TimeSheetService;
 
 @RestController
@@ -22,4 +24,9 @@ public class TimesheetRestController {
 		return service.minutosPorFuncionarioPeriodo(id, inicio, fim);
 	}
 
+	@GetMapping("timeline/id/{id}/{inicio}/{fim}")
+	public List<TimelineProjecao> timelinePorFuncionarioPeriodo(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+		return service.timelinePorFuncionarioPeriodo(id, inicio, fim);
+	}
+	
 }

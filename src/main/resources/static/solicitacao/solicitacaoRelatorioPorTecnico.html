@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../assets/css/styleDashBoardCliente.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/style-timeline.css">
 	<title>Sistech - Solicitações</title>
 </head>
 <body>
@@ -114,6 +115,14 @@
 							<div class="controls">
 								<input type="radio" id="grafico" name="representacao" value="grafico">
 								<label class="form-label mt-5 fonte-texto-op-relatorios" for="grafico">Dashboard</label><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<div class="controls">
+								<input type="radio" id="timeline" name="representacao" value="timeline">
+								<label class="form-label mt-5 fonte-texto-op-relatorios" for="timeline">Timeline</label><br>
 							</div>
 						</div>
 					</div>
@@ -284,6 +293,35 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<!-- ############################################### TIMELINE ################################################# -->
+		
+		<div id="section-timeline" style="display: none;">
+			<div class="container-fluid">
+						
+					<section class="timeline">
+					  <ol id="lista-timeline" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+					    
+					  </ol>
+					
+					  <div class="arrows">
+					    <button class="arrow arrow__prev disabled" disabled>
+					      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow_prev.svg" alt="prev timeline arrow">
+					    </button>
+					    <button class="arrow arrow__next">
+					      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow_next.svg" alt="next timeline arrow">
+					    </button>
+					  </div>
+					</section>
+
+			</div>
+			<hr class="bg-danger border-2 border-top border-danger mt-4">
+	
+			
+		</div>
+		
+		<!-- ############################################### TIMELINE ################################################# -->
 
 		<footer class="text-center text-white">
 			<div class="container-fluid ">
@@ -642,6 +680,74 @@
 			</div>
 		</div>
 		<!-- ###############################################  MODAL EDIÇÃO NÃO FINALIZADO ############################################### -->
+		
+		<!-- ################################################  MODAL EDIÇÃO TIMELINE CARD ############################################### -->
+		<div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineModal" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header"> Histórico </div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-4">
+									Data Abertura: <b><span id="dataAberturaModalCard"></span></b>
+							</div>
+								<div class="col-md-4">
+									Data Andamento:	<b><span id="dataAndamentoModalCard"> </span></b>
+								</div>
+							<div class="col-md-4">
+								Data Finalizado: <b><span id="dataFinalizadoModalCard"> </span></b>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mt-2">
+								Solicitante: <b><span id="nomeSolicitanteModalCard"></span></b>							
+							</div>
+							<div class="col-md-6 mt-2">
+								Afetado: <b><span id="nomeAfetadoModalCard"></span></b>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mt-2 ms-auto">
+								Categoria: <b><span id="categoriaModalCard"></span></b>	
+							</div>
+							<div class="col-md-4 mt-2 ms-auto">
+								Classificação: <b><span id="classificacaoModalCard"></span></b>	
+							</div>
+							<div class="col-md-4 mt-2">
+								Prioridade: <b><span id="prioridadeModalCard"></span></b>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mt-2">
+								Forma Abertura: <b><span id="formaAberturaModalCard"></span></b>	
+							</div>
+							<div class="col-md-4 mt-2 ms-auto">
+								Duração: <b><span id="duracaoModalCard"></span></b>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 ms-auto mt-2">
+								Descrição: <b><span id="descricaoModalCard"></span></b>	
+							</div>
+							<div class="col-md-6 ms-auto mt-2">
+								Observação: <b><span id="observacaoModalCard"></span></b>	
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 mt-2">
+									Tecnico responsavel: <b><span id="nomeFuncionarioModalCard"></span></b>	
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ################################################  MODAL EDIÇÃO TIMELINE CARD ############################################### -->
+		
 		<!-- ###################################################### MODAL HISTORICO ##################################################### -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -714,6 +820,9 @@
 	<script src="../assets/js/sorttable.js"></script>
 	<script src="../assets/js/chart.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/timeline.js"></script>
+	<script src="../assets/js/hammer.min.js"></script>
+	
 	<script>
 		
 		$.ajax({
@@ -764,6 +873,7 @@
 			if(funcionario_id != "" && inicio != "" && fim != "" && representacao == "tabela"){
 				document.getElementById('graficos').style.display = 'none';
 				document.getElementById('conteudo').style.display = 'none';
+				document.getElementById('section-timeline').style.display = 'none';
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
@@ -868,6 +978,7 @@
 			}else if(funcionario_id != "" && inicio != "" && fim != "" && representacao == "grafico"){
 				document.getElementById('conteudo').style.display = 'none';
 				document.getElementById('graficos').style.display = 'none';
+				document.getElementById('section-timeline').style.display = 'none';
 				$("#graficos").stop().slideToggle(600);
 				$.ajax({
 					type: "GET",
@@ -899,9 +1010,150 @@
 					},
 					error: function (e) { alert(e); }
 				});
+			}else if(funcionario_id != "" && inicio != "" && fim != "" && representacao == "timeline"){
+				document.getElementById('conteudo').style.display = 'none';
+				document.getElementById('graficos').style.display = 'none';
+				document.getElementById('section-timeline').style.display = 'none';
+				
+				$('#lista-timeline').empty();
+				$("#section-timeline").stop().slideToggle(600);
+				
+				if(inicio != fim){
+					alert("É necessário selecionar um periodo de 1 dia!")
+				}else{
+					$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/sistema/timeline/log/id/"+funcionario_id+"/"+inicio+"/"+fim,
+					
+					success: function (data) {
+						
+						if(data > 1){
+							$('#lista-timeline')
+							.append('<li style="color: black; background: red;">'
+								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+								     +  '<time>Primeiro Login</time>'
+								     + '<p style="margin-bottom: 0px;">Data: ' + data.dataLogin+ '</p>'
+								     + '</div>'
+								    + '</li>');
+						}else{
+							$('#lista-timeline')
+							.append('<li style="color: black; background: red;">'
+								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+								     +  '<time>Primeiro Login</time>'
+								     + '<p style="margin-bottom: 0px;">Data: Nenhum login realizado</p>'
+								     + '</div>'
+								    + '</li>');
+						}
+						
+						},
+						error: function (e) { alert(e); }
+						});
+					
+					setTimeout(function() {
+					  
+						$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/api/v1/timesheet/timeline/id/"+funcionario_id+"/"+inicio+"/"+inicio,
+						
+						success: function (data) {
+							
+							data.map(i => {$('#lista-timeline')
+								.append('<li style="color: black; background: red;">'
+									     + '<div id="'+ i.solicitacao_id +'" style="height: 220px; background-color: rgb(222, 221, 218);" data-bs-toggle="modal" data-bs-target="#timelineModal" onclick="carregaCard('+i.solicitacao_id+')">'
+									     +  '<time>'+i.nomeCliente +'</time>'
+									      	 + '<p style="margin-bottom: 0px;">ID: ' + i.solicitacao_id + '</p>'
+									     	 + '<p style="margin-bottom: 0px;">Inicio: '+i.inicio +'</p>'
+											 + '<p style="margin-bottom: 0px;">Terminio: ' + i.fim + '</p>'
+											 + '<p style="margin-bottom: 0px;">Status: ' + i.status + '</p>'
+											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + '</p>'
+									     + '</div>'
+									    + '</li>');
+							})
+							$('#lista-timeline').append('<li style="color: black; background: red;"></li>');
+						},
+						error: function (e) { alert(e); }
+						});
+					  
+					}, 200);
+					
+					$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/relatorio/funcionario/numeros/"+funcionario_id+"/inicio/"+inicio+"/fim/"+fim,
+					success: function (data) {
+						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();$('#atribuicoesSolicitacoes').empty();
+						$('#atribuicoesSolicitacoes').append('<b> Atribuições</b>');
+						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
+						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
+						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
+					},
+					error: function (e) { alert(e); }
+					});
+				
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
+						success: function (data) {
+								$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
+								$('#tituloSolicitacoes').append('<b> Solicitações</b>');
+								$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+							
+								$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+								$('#timesheet').append('<b> Timesheet</b>');
+								$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						},
+						error: function (e) {
+							alert(e);
+						}
+					});
+				}
 			}else{
 				alert("Selecione (Funcionario, data de inicio e data de término)");
 			}
+		}
+		
+		function carregaCard(id){
+			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/busca/card/" + id,
+				success: function (data) {
+
+						$('#dataAberturaModalCard').text("");
+						$('#dataAndamentoModalCard').text("");
+						$('#dataFinalizadoModalCard').text("");
+						$('#nomeSolicitanteModalCard').text("");
+						$('#nomeAfetadoModalCard').text("");
+						$('#formaAberturaModalCard').text("");
+						$('#nomeFuncionarioModalCard').text("");
+						$('#duracaoModalCard').text("");
+						$('#categoriaModalCard').text("");
+						$('#classificacaoModalCard').text("");
+						$('#prioridadeModalCard').text("");
+						$('#descricaoModalCard').text("");
+						$('#observacaoModalCard').text("");
+	
+						$('#dataAberturaModalCard').text();
+						$('#dataAndamentoModalCard').text("");
+						$('#dataFinalizadoModalCard').text("");
+						$('#nomeSolicitanteModalCard').text(data.solicitante);
+						$('#nomeAfetadoModalCard').text(data.afetado);
+						$('#formaAberturaModalCard').text(data.formaAbertura);
+						$('#nomeFuncionarioModalCard').text(data.funcionario);
+						$('#duracaoModalCard').text("");
+						$('#categoriaModalCard').text(data.categora);
+						$('#classificacaoModalCard').text(data.classificacao);
+						$('#prioridadeModalCard').text(data.prioridade);
+						$('#descricaoModalCard').text(data.descricao);
+						$('#observacaoModalCard').text(data.observacao);
+				},
+				error: function (e) { alert(e); }
+			});
+			
 		}
 		
 		function minutosParaHorasTexto(minutos){

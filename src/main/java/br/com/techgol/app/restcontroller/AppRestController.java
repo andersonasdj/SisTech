@@ -1,11 +1,13 @@
 package br.com.techgol.app.restcontroller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoEmails;
 import br.com.techgol.app.dto.DtoLogAcesso;
+import br.com.techgol.app.dto.DtoLogin;
 import br.com.techgol.app.dto.DtoPaises;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.ConfiguracaoPaises;
@@ -38,6 +41,12 @@ public class AppRestController {
 	public List<DtoLogAcesso> logar() {
 		return loginService.listarLogs();
 	}
+	
+	@GetMapping("/timeline/log/id/{id}/{inicio}/{fim}")
+	public DtoLogin timelinePorFuncionarioPeriodo(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+		return loginService.buscarPrimeiroLogin(id, inicio, fim);
+	}
+	
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/configuracao/paises")

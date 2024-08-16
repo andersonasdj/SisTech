@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -24,47 +26,39 @@ public class SecurityConfiguration {
 	@Autowired
 	private UserAuthenticationFilter filter;
 	
-	@SuppressWarnings("removal")
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		
 		httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-		
-		 httpSecurity
-		 		//.sessionManagement(session -> session.maximumSessions(2).expiredUrl("/login?invalid-session=true"))
+
+        httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.disable())
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                		.requestMatchers("/templates/**").permitAll()
-                		.requestMatchers("/assets/**").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/login").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/create").permitAll()
-                		.requestMatchers(HttpMethod.GET, "/create").permitAll()
-                        .anyRequest().authenticated()
-                ).httpBasic().and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                                .requestMatchers("/templates/**").permitAll()
+                                .requestMatchers("/assets/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/create").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/create").permitAll()
+                                .anyRequest().authenticated()
+                ).httpBasic(withDefaults()).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(formLogin ->
-                formLogin
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/home")
-                    .permitAll()
-                		)
-        		.logout(logout -> logout.logoutSuccessUrl("/login")
+                        formLogin
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/home")
+                                .permitAll()
+                )
+                .sessionManagement((sessionManagement) -> sessionManagement.invalidSessionUrl("/login")
+                        .maximumSessions(1)
+                        .sessionRegistry(sessionRegistry()))
+                .logout(logout -> logout.logoutSuccessUrl("/login")
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"))
         		;
 		 
-//		 httpSecurity.sessionManagement()
-//			.maximumSessions(1)
-//			.maxSessionsPreventsLogin(true)
-//			.expiredUrl("/login")
-//			.sessionRegistry(sessionRegistry());
-		 
-//		 	httpSecurity.sessionManagement(t -> t.maximumSessions(1).maxSessionsPreventsLogin(true));
-		 
 		 return httpSecurity.build();
-	
 	}
 
     @Bean
@@ -81,6 +75,5 @@ public class SecurityConfiguration {
 	SessionRegistry sessionRegistry() {
 		return new SessionRegistryImpl();
 	}
-	
 	
 }

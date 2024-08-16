@@ -16,7 +16,6 @@ public class AuthorizationService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		var user = service.buscaPorUserDetails(username.toLowerCase());
 		if(user == null) {
-			
 			throw new Error("User does not exists!");
 		}else {
 			return user;

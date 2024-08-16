@@ -2,6 +2,7 @@ package br.com.techgol.app.services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.TimeSheet;
 import br.com.techgol.app.model.enums.Status;
+import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.repository.TimesheetRepository;
 import jakarta.transaction.Transactional;
 
@@ -48,5 +50,20 @@ public class TimeSheetService {
 			return repository.buscarMinutosPorFuncionarioPeriodo(id, inicio, fim);
 		}
 		
+	}
+
+	public List<TimelineProjecao> timelinePorFuncionarioPeriodo(Long id, LocalDate ini, LocalDate termino) {
+		
+		LocalDateTime inicio, fim;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			return repository.listarTimeline(id, inicio, fim);
+		}else {
+			inicio = LocalDateTime.now().withNano(0);
+			fim = LocalDateTime.now().withNano(0);
+			return repository.listarTimeline(id, inicio, fim);
+		}
 	}
 }

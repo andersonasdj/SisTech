@@ -279,6 +279,11 @@ public class SolicitacaoRestController {
 		
 	}
 	
+	@GetMapping("/busca/card/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
+	public ResponseEntity<DtoDadosEdicaoRapidaMaisFuncionarios> buscaCardPorId(@PathVariable Long id) {
+			return ResponseEntity.ok().body( new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), null, null));
+	}
+	
 	@GetMapping("/impressao/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
 	public ProjecaoDadosImpressao impressaoPorId(@PathVariable Long id) {
 		return solicitacaoService.impressao(id);

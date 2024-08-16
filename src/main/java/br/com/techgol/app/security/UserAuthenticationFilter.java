@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.techgol.app.bruteforce.DefaultBruteForceProtectionService;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.LogLogin;
 import br.com.techgol.app.services.ConfiguracaoPaisesService;
@@ -30,16 +31,17 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
 	private ConfiguracaoPaisesService paisesService;
 	
+	@Autowired
+	private DefaultBruteForceProtectionService bf;
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		//System.out.println(Thread.currentThread().getName());
 		
 		if(request.getRequestURI().trim().equals("/sistech/login") && request.getMethod().trim().equals("POST")) {
 			doFilter(request, response, filterChain);
-			
 			if(SecurityContextHolder.getContext().getAuthentication() != null)  {
 				Funcionario funcionario = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-				
 				if(funcionario.getAtivo()  && paisesService.paisesAtivos().contains(request.getLocale().getCountry())) {
 					System.out.println("\nDENTRO DO FILTRO!");
 					System.out.println("FUNCIONARIO LOGADO: " + funcionario.getNomeFuncionario());
@@ -66,6 +68,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 							"SUCESSO",
 							"Ativado"
 							));
+					bf.resetErroSenhaContador(request.getParameter("username"));
 					
 				}else {
 					funcionarioService.atualizaIpLogin(funcionario, request.getRemoteHost(),request.getLocale().getCountry());
@@ -88,7 +91,25 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 				}
 					
 			}else {
-				System.out.println("USUARIO SEM SESSÃO PASSOU NO FILTRO!");
+				
+				String user = request.getParameter("username");
+				int qtd = bf.registerLoginFailure(user);
+				
+				loginService.salvaLog(new LogLogin(
+						LocalDateTime.now().withNano(0),
+						request.getLocalAddr(),
+						request.getLocale().getCountry(),
+						request.getRemoteHost(),
+						user,
+						request.getRemoteAddr(),
+						request.getLocalName(),
+						request.getRequestURI(),
+						getBrowser(request),
+						"ERRO SENHA",
+						(qtd > 2) ? "BLOQUEADO" : "ATIVO"
+						));
+				
+				System.out.println(user + " - USUARIO SEM SESSÃO PASSOU NO FILTRO!");
 				SecurityContextHolder.clearContext();
 			}
 		}

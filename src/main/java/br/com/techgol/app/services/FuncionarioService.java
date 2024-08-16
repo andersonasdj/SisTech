@@ -118,8 +118,6 @@ public class FuncionarioService {
 	
 	@Transactional
 	public DtoListarFuncionarios atualizarFuncionario(DtoFuncionarioEdit dados) {
-	
-		
 		
 		Funcionario funcionario = repository.getReferenceById(dados.id());
 		funcionario.setUsername(dados.username().toLowerCase());
@@ -133,8 +131,8 @@ public class FuncionarioService {
 		}
 		funcionario.setTrocaSenha(dados.trocaSenha());
 		funcionario.setDataAtualizacao(LocalDateTime.now().withNano(0));
+		funcionario.setTentativasLogin(0);
 		return new DtoListarFuncionarios(funcionario);
-		
 	}
 	
 	
