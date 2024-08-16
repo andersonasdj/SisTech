@@ -296,23 +296,16 @@
 		
 		
 		<!-- ############################################### TIMELINE ################################################# -->
-		
 		<div id="section-timeline" style="display: none;">
 			<div class="container-fluid">
-						
-					<section class="timeline">
-					  <ol id="lista-timeline" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-					    
-					  </ol>
-					
-					</section>
-
+				<section class="timeline">
+				  <ol id="lista-timeline" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+				    
+				  </ol>
+				</section>
 			</div>
 			<hr class="bg-danger border-2 border-top border-danger mt-4">
-	
-			
 		</div>
-		
 		<!-- ############################################### TIMELINE ################################################# -->
 
 		<footer class="text-center text-white">
@@ -677,58 +670,65 @@
 		<div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineModal" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
-					<div class="modal-header"> Histórico </div>
+					<div class="modal-header"><h4><b>Resumo da Solicitação</b></h4></div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-4">
-									Data Abertura: <b><span id="dataAberturaModalCard"></span></b>
+							<div class="col-md-6">
+								Data Abertura: <b><span id="dataAberturaModalCard"></span></b>
 							</div>
-								<div class="col-md-4">
-									Data Andamento:	<b><span id="dataAndamentoModalCard"> </span></b>
-								</div>
-							<div class="col-md-4">
-								Data Finalizado: <b><span id="dataFinalizadoModalCard"> </span></b>
+							<div class="col-md-6">
+								Aberto Por: <b><span id="abertoPorModalCard"></span></b>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 mt-2">
+							<div class="col-md-6 mt-3">
 								Solicitante: <b><span id="nomeSolicitanteModalCard"></span></b>							
 							</div>
-							<div class="col-md-6 mt-2">
+							<div class="col-md-6 mt-3">
 								Afetado: <b><span id="nomeAfetadoModalCard"></span></b>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4 mt-2 ms-auto">
-								Categoria: <b><span id="categoriaModalCard"></span></b>	
+							<div class="col-md-6 mt-3">
+								Forma Abertura: <b><span id="formaAberturaModalCard"></span></b>	
 							</div>
-							<div class="col-md-4 mt-2 ms-auto">
-								Classificação: <b><span id="classificacaoModalCard"></span></b>	
-							</div>
-							<div class="col-md-4 mt-2">
+							<div class="col-md-6 mt-3">
 								Prioridade: <b><span id="prioridadeModalCard"></span></b>	
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4 mt-2">
-								Forma Abertura: <b><span id="formaAberturaModalCard"></span></b>	
+							<div class="col-md-6 mt-3 ms-auto">
+								Classificação: <b><span id="classificacaoModalCard"></span></b>	
 							</div>
-							<div class="col-md-4 mt-2 ms-auto">
-								Duração: <b><span id="duracaoModalCard"></span></b>	
+							<div class="col-md-6 mt-3 ms-auto">
+								Categoria: <b><span id="categoriaModalCard"></span></b>	
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 ms-auto mt-2">
+							<div class="col-md-6 ms-auto mt-3">
 								Descrição: <b><span id="descricaoModalCard"></span></b>	
 							</div>
-							<div class="col-md-6 ms-auto mt-2">
+							<div class="col-md-6 ms-auto mt-3">
 								Observação: <b><span id="observacaoModalCard"></span></b>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 mt-3">
+								Resolução: <b><span id="resolucaoModalCard"></span></b>	
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-6 mt-2">
-									Tecnico responsavel: <b><span id="nomeFuncionarioModalCard"></span></b>	
+							<div class="col-md-6 mt-3">
+								Status: <b><span id="statusModalCard"></span></b>	
+							</div>
+							<div class="col-md-6 mt-3">
+								Tecnico responsável: <b><span id="nomeFuncionarioModalCard"></span></b>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mt-3">
+								Versão: <b><span id="versaoModalCard"></span></b>	
 							</div>
 						</div>
 					</div>
@@ -815,7 +815,6 @@
 	<script src="../assets/js/timeline.js"></script>
 	
 	<script>
-		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -880,7 +879,6 @@
 								$('#paginas').append('<li class="page-item" id=numPag'+ i+'"><a id=numPag'+ i+' class="page-link" onclick="paginacao('+ i +')">'+ (i + 1) +'</a></li>');
 							}
 							$("#numPag0").attr("style","color:red");
-							
 						}
 						var tempoTotal=0;
 						data.content.map(i => {
@@ -926,11 +924,14 @@
 							$('#tabela-usuarios').append(itens);
 							}
 						);
-						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
-						$('#tituloSolicitacoes').append('<b> Solicitações</b>');
-						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
-						$('#horaDia').append('<li> Minutos / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
+						
+						if(data.content[0].role == 'ADMIN'){
+							$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
+							$('#tituloSolicitacoes').append('<b> Solicitações</b>');
+							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+							$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
+							$('#horaDia').append('<li> Minutos / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
+						}
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -957,9 +958,11 @@
 					contentType: "application/json",
 					url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
 					success: function (data) {
+						if(data != 0){
 							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
 							$('#timesheet').append('<b> Timesheet</b>');
 							$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						}
 					},
 					error: function (e) {
 						alert(e);
@@ -978,6 +981,7 @@
 					
 					success: function (data) {
 						montaGraficos(data);
+						
 						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
 						$('#tituloSolicitacoes').append('<b> Solicitações</b>');
 						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
@@ -1037,11 +1041,9 @@
 								     + '</div>'
 								    + '</li>');
 						}
-							
-						
-						},
-						error: function (e) { alert(e); }
-						});
+					},
+					error: function (e) { alert(e); }
+					});
 					
 					setTimeout(function() {
 					  
@@ -1051,25 +1053,56 @@
 						url: "/sistech/api/v1/timesheet/timeline/id/"+funcionario_id+"/"+inicio+"/"+inicio,
 						
 						success: function (data) {
+							var statusColor;
 							
-							data.map(i => {$('#lista-timeline')
-								.append('<li style="color: black; background: red;">'
+							data.map(i => {
+								if(i.status == "ABERTO"){ statusColor = "style='color: red; margin-bottom: 0px;'"}
+								if(i.status == "AGENDADO"){ statusColor = "style='color: #9a6700; margin-bottom: 0px;'"}
+								if(i.status == "ANDAMENTO"){ statusColor = "style='color: blue; margin-bottom: 0px;'"}
+								if(i.status == "AGUARDANDO"){ statusColor = "style='color: #5c4e19; margin-bottom: 0px;'"}
+								if(i.status == "PAUSADO"){ statusColor = "style='color: gray; margin-bottom: 0px;'"}
+								if(i.status == "FINALIZADO"){ statusColor = "style='color: #026e02; margin-bottom: 0px;'"}
+								
+								$('#lista-timeline').append('<li style="color: black; background: red;">'
 									     + '<div id="'+ i.solicitacao_id +'" style="height: 220px; background-color: rgb(222, 221, 218);" data-bs-toggle="modal" data-bs-target="#timelineModal" onclick="carregaCard('+i.solicitacao_id+')">'
 									     +  '<time>'+i.nomeCliente +'</time>'
 									      	 + '<p style="margin-bottom: 0px;">ID: ' + i.solicitacao_id + '</p>'
 									     	 + '<p style="margin-bottom: 0px;">Inicio: '+i.inicio +'</p>'
 											 + '<p style="margin-bottom: 0px;">Terminio: ' + i.fim + '</p>'
-											 + '<p style="margin-bottom: 0px;">Status: ' + i.status + '</p>'
+											 + '<p '+ statusColor+'>Status: ' + i.status + '</p>'
 											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + ' minutos </p>'
 									     + '</div>'
 									    + '</li>');
 							})
-							$('#lista-timeline').append('<li style="color: black; background: red;"></li>');
 						},
 						error: function (e) { alert(e); }
 						});
-					  
 					}, 200);
+					
+					setTimeout(function() {
+					  
+						$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/solicitacao/quantidade/andamento/"+funcionario_id,
+						
+						success: function (data) {
+							
+							if(data > 0){
+								$('#lista-timeline')
+								.append('<li style="color: black; background: red;">'
+									     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+									     +  '<time> Em atendimento</time>'
+									      	 + '<p style="margin-bottom: 0px;"> Em atendimento no momento</p>'
+									     + '</div>'
+									    + '</li>');
+							}else{
+								$('#lista-timeline').append('<li style="color: black; background: red;"></li>');
+							}
+						},
+						error: function (e) { alert(e); }
+						});
+					}, 400);
 					
 					$.ajax({
 					type: "GET",
@@ -1090,13 +1123,15 @@
 						contentType: "application/json",
 						url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
 						success: function (data) {
-								$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
-								$('#tituloSolicitacoes').append('<b> Solicitações</b>');
-								$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-							
-								$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
-								$('#timesheet').append('<b> Timesheet</b>');
-								$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+								if(data != 0){
+									$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+									$('#timesheet').append('<b> Timesheet</b>');
+									$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+									
+									$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
+									$('#tituloSolicitacoes').append('<b> Solicitações</b>');
+									$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+								}
 						},
 						error: function (e) {
 							alert(e);
@@ -1115,34 +1150,37 @@
 				contentType: "application/json",
 				url: "/sistech/solicitacao/busca/card/" + id,
 				success: function (data) {
-
+						$('#idModalCard').text("");
 						$('#dataAberturaModalCard').text("");
-						$('#dataAndamentoModalCard').text("");
-						$('#dataFinalizadoModalCard').text("");
 						$('#nomeSolicitanteModalCard').text("");
 						$('#nomeAfetadoModalCard').text("");
 						$('#formaAberturaModalCard').text("");
 						$('#nomeFuncionarioModalCard').text("");
-						$('#duracaoModalCard').text("");
 						$('#categoriaModalCard').text("");
 						$('#classificacaoModalCard').text("");
 						$('#prioridadeModalCard').text("");
 						$('#descricaoModalCard').text("");
+						$('#resolucaoModalCard').text("");
 						$('#observacaoModalCard').text("");
-	
-						$('#dataAberturaModalCard').text();
-						$('#dataAndamentoModalCard').text("");
-						$('#dataFinalizadoModalCard').text("");
+						$('#statusModalCard').text("");
+						$('#versaoModalCard').text("");
+						$('#abertoPorModalCard').text("");
+						$('#idModalCard').text(data.id);
+						$('#dataAberturaModalCard').text(data.dataAbertura);
 						$('#nomeSolicitanteModalCard').text(data.solicitante);
 						$('#nomeAfetadoModalCard').text(data.afetado);
 						$('#formaAberturaModalCard').text(data.formaAbertura);
 						$('#nomeFuncionarioModalCard').text(data.funcionario);
 						$('#duracaoModalCard').text("");
-						$('#categoriaModalCard').text(data.categora);
+						$('#categoriaModalCard').text(data.categoria);
 						$('#classificacaoModalCard').text(data.classificacao);
 						$('#prioridadeModalCard').text(data.prioridade);
 						$('#descricaoModalCard').text(data.descricao);
+						$('#resolucaoModalCard').text(data.resolucao);
 						$('#observacaoModalCard').text(data.observacao);
+						$('#statusModalCard').text(data.status);
+						$('#versaoModalCard').text(data.versao);
+						$('#abertoPorModalCard').text(data.abertoPor);
 				},
 				error: function (e) { alert(e); }
 			});

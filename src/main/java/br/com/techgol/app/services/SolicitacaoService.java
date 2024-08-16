@@ -1221,6 +1221,9 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoRelatorio(id));
 	}
 
+	public int quantidadeEmAndamentoPorFuncionario(Long id) {
+		return repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
+	}
 
 
 	

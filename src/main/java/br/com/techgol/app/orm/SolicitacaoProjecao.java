@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.techgol.app.model.UserRole;
+
 public interface SolicitacaoProjecao {
 	
 	Long getId();
@@ -35,5 +37,6 @@ public interface SolicitacaoProjecao {
 	boolean getRedFlag();
 	Long getLog_Id();
 	Long getPeso();
+	String getRole();
 
 }

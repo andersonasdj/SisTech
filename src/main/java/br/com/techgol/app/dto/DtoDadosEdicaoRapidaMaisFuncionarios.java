@@ -29,6 +29,8 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 		String horaAgendado,
 		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 		LocalDateTime dataAtualizacao,
+		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+		LocalDateTime dataAbertura,
 		String solicitante,
 		String afetado,
 		FormaAbertura formaAbertura,
@@ -55,6 +57,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				(dados.getDataAgendado()!= null) ? dados.getDataAgendado().toLocalTime().toString() : "",
 //				(dados.getDataAtualizacao().toLocalDate() + " - "+ dados.getDataAtualizacao().toLocalTime()).toString(),
 				dados.getDataAtualizacao(),
+				dados.getDataAbertura(),
 				dados.getSolicitante(),
 				dados.getAfetado(),
 				dados.getFormaAbertura(),

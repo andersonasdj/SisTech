@@ -456,4 +456,11 @@ public class SolicitacaoRestController {
 		return solicitacaoService.cancelarSolicitacao(id);
 	}
 	
+	@GetMapping("quantidade/andamento/{id}")
+	public int quantidadeAndamentoFuncionario(@PathVariable Long id) {
+		return solicitacaoService.quantidadeEmAndamentoPorFuncionario(id);
+	}
+	
+	
+	
 }
