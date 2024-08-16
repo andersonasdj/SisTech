@@ -305,14 +305,6 @@
 					    
 					  </ol>
 					
-					  <div class="arrows">
-					    <button class="arrow arrow__prev disabled" disabled>
-					      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow_prev.svg" alt="prev timeline arrow">
-					    </button>
-					    <button class="arrow arrow__next">
-					      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow_next.svg" alt="next timeline arrow">
-					    </button>
-					  </div>
 					</section>
 
 			</div>
@@ -741,7 +733,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#timelineModal">Fechar</button>
 					</div>
 				</div>
 			</div>
@@ -821,7 +813,6 @@
 	<script src="../assets/js/chart.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/timeline.js"></script>
-	<script src="../assets/js/hammer.min.js"></script>
 	
 	<script>
 		
@@ -1028,7 +1019,16 @@
 					
 					success: function (data) {
 						
-						if(data > 1){
+						if(data.dataLogin === undefined){
+							$('#lista-timeline')
+							.append('<li style="color: black; background: red;">'
+								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+								     +  '<time>Primeiro Login</time>'
+								     + '<p style="margin-bottom: 0px;">Data: Não realizou login</p>'
+								     + '</div>'
+								    + '</li>');
+							
+						}else{
 							$('#lista-timeline')
 							.append('<li style="color: black; background: red;">'
 								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
@@ -1036,15 +1036,8 @@
 								     + '<p style="margin-bottom: 0px;">Data: ' + data.dataLogin+ '</p>'
 								     + '</div>'
 								    + '</li>');
-						}else{
-							$('#lista-timeline')
-							.append('<li style="color: black; background: red;">'
-								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
-								     +  '<time>Primeiro Login</time>'
-								     + '<p style="margin-bottom: 0px;">Data: Nenhum login realizado</p>'
-								     + '</div>'
-								    + '</li>');
 						}
+							
 						
 						},
 						error: function (e) { alert(e); }
@@ -1067,7 +1060,7 @@
 									     	 + '<p style="margin-bottom: 0px;">Inicio: '+i.inicio +'</p>'
 											 + '<p style="margin-bottom: 0px;">Terminio: ' + i.fim + '</p>'
 											 + '<p style="margin-bottom: 0px;">Status: ' + i.status + '</p>'
-											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + '</p>'
+											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + ' minutos </p>'
 									     + '</div>'
 									    + '</li>');
 							})
