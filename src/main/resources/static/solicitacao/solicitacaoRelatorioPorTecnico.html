@@ -161,7 +161,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="row">				
 					<div class="col-md-4">
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheHoje()">Hoje</button>
@@ -170,7 +169,6 @@
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(30)">30 dias</button>
 					</div>
 				</div>
-				
 				<div class="row">				
 					<div class="col-md-3">
 						<div class="control-group">
@@ -294,14 +292,11 @@
 			</div>
 		</div>
 		
-		
 		<!-- ############################################### TIMELINE ################################################# -->
 		<div id="section-timeline" style="display: none;">
 			<div class="container-fluid">
 				<section class="timeline">
-				  <ol id="lista-timeline" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-				    
-				  </ol>
+				  <ol id="lista-timeline" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> </ol>
 				</section>
 			</div>
 			<hr class="bg-danger border-2 border-top border-danger mt-4">
@@ -717,7 +712,6 @@
 								Resolução: <b><span id="resolucaoModalCard"></span></b>	
 							</div>
 						</div>
-						
 						<div class="row">
 							<div class="col-md-6 mt-3">
 								Status: <b><span id="statusModalCard"></span></b>	
@@ -1133,9 +1127,7 @@
 									$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
 								}
 						},
-						error: function (e) {
-							alert(e);
-						}
+						error: function (e) { alert(e); }
 					});
 				}
 			}else{
@@ -1184,7 +1176,6 @@
 				},
 				error: function (e) { alert(e); }
 			});
-			
 		}
 		
 		function minutosParaHorasTexto(minutos){
@@ -1431,7 +1422,6 @@
 					}else{
 						alert("Seu status está Offline, modifique para Online para atendimento!");
 					}
-					
 				},
 				error: function (e) { alert(e); }
 			});
@@ -1667,7 +1657,6 @@
 					}else{
 						alert("Seu status está Offline, modifique para Online para atendimento!");
 					}
-						
 				},
 				error: function (e) { alert(e); }
 			});

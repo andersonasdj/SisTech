@@ -46,10 +46,10 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 					System.out.println("\nDENTRO DO FILTRO!");
 					System.out.println("FUNCIONARIO LOGADO: " + funcionario.getNomeFuncionario());
 					System.out.println("LOCAL: " + request.getLocalName());
-					System.out.println("ENDERECO IP: "+ request.getHeader("X-Real-IP"));
+					System.out.println((request.getHeader("X-Real-IP")) != null ? "ENDERECO IP: "+request.getHeader("X-Real-IP") : "ENDERECO IP: "+request.getLocalAddr());
 					System.out.println("PAIS: " + request.getLocale().getCountry());
 					System.out.println("ENDEREÇO REMOTO: " + request.getRemoteAddr());
-					System.out.println("HOST REMOTO: " + request.getHeader("Host"));
+					System.out.println((request.getHeader("Host")) != null ? "HOST REMOTO: " +request.getHeader("Host") : "HOST REMOTO: " + request.getLocalAddr());
 					System.out.println("ROLE: " + funcionario.getRole());
 					System.out.println("ATIVO : "+funcionario.getAtivo());
 					System.out.println("URI: " + request.getRequestURI()+"\n");
@@ -59,14 +59,14 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 							LocalDateTime.now().withNano(0),
 							request.getLocalAddr(),
 							request.getLocale().getCountry(),
-							request.getHeader("Host"),
+							((request.getHeader("Host")) != null ? request.getHeader("Host") : request.getLocalAddr()),
 							funcionario.getNomeFuncionario(),
-							request.getHeader("X-Real-IP"),
+							((request.getHeader("X-Real-IP")) != null ? request.getHeader("X-Real-IP") : request.getLocalAddr()),
 							request.getLocalName(),
 							request.getRequestURI(),
 							getBrowser(request),
 							"SUCESSO",
-							"Ativado"
+							"ATIVO"
 							));
 					bf.resetErroSenhaContador(request.getParameter("username"));
 					
@@ -76,15 +76,14 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 							LocalDateTime.now().withNano(0),
 							request.getLocalAddr(),
 							request.getLocale().getCountry(),
-							request.getHeader("Host"),
+							((request.getHeader("Host")) != null ? request.getHeader("Host") : request.getLocalAddr()),
 							funcionario.getNomeFuncionario(),
-							request.getHeader("X-Real-IP"),
+							((request.getHeader("X-Real-IP")) != null ? request.getHeader("X-Real-IP") : request.getLocalAddr()),
 							request.getLocalName(),
 							request.getRequestURI(),
 							getBrowser(request),
 							"FALHA",
-							funcionario.getAtivo()? "Ativado":"Desativado"
-							
+							funcionario.getAtivo()? "ATIVADO":"DESATIVADO"
 							));
 					System.out.println("USUÁRIO DESATIVADO");
 					SecurityContextHolder.getContext().setAuthentication(null);
@@ -99,9 +98,9 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 						LocalDateTime.now().withNano(0),
 						request.getLocalAddr(),
 						request.getLocale().getCountry(),
-						request.getHeader("Host"),
+						((request.getHeader("Host")) != null ? request.getHeader("Host") : request.getLocalAddr()),
 						user,
-						request.getHeader("X-Real-IP"),
+						((request.getHeader("X-Real-IP")) != null ? request.getHeader("X-Real-IP") : request.getLocalAddr()),
 						request.getLocalName(),
 						request.getRequestURI(),
 						getBrowser(request),
@@ -122,7 +121,6 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 		String  browserDetails  =   request.getHeader("User-Agent");
         String  userAgent       =   browserDetails;
         String  user            =   userAgent.toLowerCase();
-    
         String os = "";
         String browser = "";
 
