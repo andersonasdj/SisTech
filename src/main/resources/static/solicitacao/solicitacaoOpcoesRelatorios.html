@@ -82,7 +82,7 @@
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i></a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"> </i></a>
 					</ul>
 				</div>
 			</div>
@@ -363,6 +363,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
+						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
@@ -544,6 +545,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
+						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
 						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
@@ -1686,6 +1688,33 @@
 					},
 					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
 				});
+			}
+		}
+		
+		function notificarCliente() {
+			if (confirm("Tem certeza que deseja enviar o email de notificação ?") == true) {
+				
+				var id;
+				
+				var idFinalizado= $('#idModalEdicaoModalEdicao').text();
+				var idNaoFinalizado= $('#idModalNaoFinalizado').text();
+				
+				if(idFinalizado != " "){
+					id = idFinalizado;
+				}else{
+					id = idNaoFinalizado;
+				}
+					$.ajax({
+						type: "POST",
+						contentType: "application/json",
+						url: "/sistech/solicitacao/notificar/" + id,
+						success: function (data) {
+							alert(data);
+	
+							$(modal).modal('hide');
+						},
+						error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
+					});
 			}
 		}
 		

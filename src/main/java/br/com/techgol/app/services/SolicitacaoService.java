@@ -42,6 +42,7 @@ import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.ProjecaoDadosImpressao;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
+import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import br.com.techgol.app.repository.LogSolicitacaoRepository;
 import br.com.techgol.app.repository.PesoSolicitacoes;
@@ -74,6 +75,9 @@ public class SolicitacaoService {
 	
 	@Autowired
 	private TimeSheetService timeSheetService;
+	
+	@Autowired
+	private ColaboradorService colaboradorService;
 	
 	@Transactional
 	public void recalcularPesoSolicitacoes() {
@@ -1194,29 +1198,6 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		return repository.listarSolicitacoesAbertasHoje(page, hojeInicio, hojeFim);
 	}
 	
-	
-//	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, DtoDadosRelatorioCsv dto) {
-//		
-//		LocalDateTime inicio, fim;
-//		
-//		if(dto.inicio() != null  && dto.fim() != null ) {
-//			inicio = LocalDateTime.of(dto.inicio().getYear(), dto.inicio().getMonth(), dto.inicio().getDayOfMonth(), 00, 00, 00);
-//			fim = LocalDateTime.of(dto.fim().getYear(), dto.fim().getMonth(), dto.fim().getDayOfMonth(), 00, 00, 00);
-//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, fim);
-//			
-//		}else if(dto.inicio() != null) {
-//			inicio = LocalDateTime.of(dto.inicio().getYear(), dto.inicio().getMonth(), dto.inicio().getDayOfMonth(), 00, 00, 00);
-//			fim = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
-//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, fim);
-//		} else {
-//			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
-//			return repository.listarSolicitacoesPorDataRelatorio(page, dto.cliente_id(), false, inicio, inicio);
-//		}
-//		
-//			
-//	}
-	
-	
 	public DtoSolicitacaoProjecaoCompleta buscarSolicitacaoRelatorio(Long id) {
 		return new DtoSolicitacaoProjecaoCompleta(repository.buscarSolicitacaoRelatorio(id));
 	}
@@ -1225,7 +1206,16 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		return repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
 	}
 
-
-	
+	public String notificarCliente(Long id) {
+		SolicitacaoProjecaoCompleta solicitacao = repository.buscarSolicitacaoRelatorio(id);
+		
+		String destinatario = colaboradorService.retornaEmailColaboradorPorIdeEmail(solicitacao.getCliente_id(), solicitacao.getSolicitante());
+		if(destinatario != null && !destinatario.equals("")) {
+			envia.enviarNotificacao(solicitacao, destinatario);
+			return "Notificação enviada com sucesso";
+		}else {
+			return "Não foi possível enviar a notificação";
+		}
+	}
 
 }

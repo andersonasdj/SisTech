@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="assets/css/stylePerfil.css">
 	<link rel="stylesheet" href="assets/css/password-generator.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+<!--	<link rel="stylesheet" href="assets/css/dark.css">-->
 	<title>SisTech - TechGold</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/sistech/home"><img src="./assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<a class="navbar-brand color-text" href="/sistech/home"><img src="./assets/img/key.png" style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -25,9 +26,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+						<li class="nav-item"><a class="nav-link active color-text" aria-current="page" href="/sistech/home">Início</a></li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Solicitações</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
@@ -39,21 +40,21 @@
 						</li>
 						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Clientes</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Funcionarios</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Dashboard</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
@@ -61,7 +62,7 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
 								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
@@ -70,7 +71,7 @@
 					</ul>
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle color-text" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
 								<li><hr class="dropdown-divider"></li>
@@ -80,7 +81,7 @@
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"></i></a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
 					</ul>
 				</div>
 			</div>
@@ -368,7 +369,7 @@
 						if(data.trocaSenha == true){
 							$("#modalTrocaDeSenha").modal('toggle'); 
 						}
-						
+<!--						Chart.defaults.color = "#FFFFFF";-->
 						const ctx = document.getElementById('minhasSolicitacoes');
 						new Chart(ctx, {
 					    type: 'bar',

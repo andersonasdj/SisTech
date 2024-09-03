@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+<!--	<link rel="stylesheet" href="../assets/css/dark.css">-->
 	<title>Sistech - Solicitações</title>
 </head>
 <body>
@@ -81,7 +82,7 @@
 							</ul>
 						</li>
 						<a href="/sistech/logout">
-							<i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i>
+							<i class="bi bi-power"style="font-size: 2rem; color: red;"> </i>
 						</a>
 					</ul>
 				</div>
@@ -398,6 +399,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
+						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
 						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
@@ -1252,6 +1254,24 @@
 						$('#modalEdicao').modal('hide');
 					},
 					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
+				});
+			}
+		}
+		
+		function notificarCliente() {
+			if (confirm("Tem certeza que deseja enviar o e-mail de notificação ao solicitante?") == true) {
+				var id = $('#idmodal').text();
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/notificar/" + id,
+					success: function (data) {
+						alert(data);
+						$('#modalEdicao').modal('hide');
+					},
+					error: function (e) { alert("Erro: Não foi possivel enviar o e-mail!"); }
 				});
 			}
 		}

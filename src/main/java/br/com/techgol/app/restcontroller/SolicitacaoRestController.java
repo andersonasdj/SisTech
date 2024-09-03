@@ -77,30 +77,13 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
-//	@GetMapping("peso/{id}")
-//	public Long testaPeso(@PathVariable Long id) {
-//		
-//		Solicitacao s = solicitacaoService.buscarPorId(id);
-//		return solicitacaoService.calcularPeso(s);
-//	}
-//	
-//	@GetMapping("peso/recalcular/{id}")
-//	public Long testaRecalcularPeso(@PathVariable Long id) {
-//		
-//		Solicitacao s = solicitacaoService.buscarPorId(id);
-//		return solicitacaoService.recalcularPeso(s);
-//	}
-	
-	
 	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-	
 	   return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-			
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
@@ -108,21 +91,17 @@ public class SolicitacaoRestController {
 		}else {
 			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, funcionarioBase.getId(), periodo, inicio, fim);
 		}
-		
 	}
 	
 	@GetMapping("/relatorio/grafico/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public DtoDashboardFuncionarios listarRelatorioGraficoPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return solicitacaoService.geraDashboardFuncionarioPorPeriodo(id, periodo, inicio, fim);
 		}else {
-			
 			return solicitacaoService.geraDashboardFuncionarioPorPeriodo(funcionarioBase.getId(), periodo, inicio, fim);
 		}
-		
 	}
 	
 	@GetMapping("/relatorio/funcionario/numeros/{id}/inicio/{inicio}/fim/{fim}")
@@ -132,25 +111,19 @@ public class SolicitacaoRestController {
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return solicitacaoService.listarRelatoriosPorFuncionarioData(id, inicio, fim);
-			
 		}else {
 			return solicitacaoService.listarRelatoriosPorFuncionarioData(funcionarioBase.getId(), inicio, fim);
 		}
-		
 	}
 	
 	@GetMapping("/relatorio/grafico/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public DtoDashboardFuncionarios listarRelatorioGraficoPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-
-			return solicitacaoService.geraDashboardClientePorPeriodo(id, periodo, inicio, fim);
-		
+		return solicitacaoService.geraDashboardClientePorPeriodo(id, periodo, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/cliente/numeros/{id}/inicio/{inicio}/fim/{fim}")
 	public DtoRelatorioFuncionario listarNumerosRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
-		
-			return solicitacaoService.listarRelatoriosPorClienteData(id, inicio, fim);
-		
+		return solicitacaoService.listarRelatoriosPorClienteData(id, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/{status}/hoje")
@@ -163,33 +136,6 @@ public class SolicitacaoRestController {
 	
 	   return solicitacaoService.listarSolicitacoesPorPeriodo(page, inicio, fim);
 	}
-	
-	//	@GetMapping("/relatorio/atualizadas/hoje")
-//	public Page<SolicitacaoProjecao> listarRelatorioAtualizadasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-//	   return solicitacaoService.listarSolicitacoesAtualizadasHoje(page);
-//	}
-//	@GetMapping("/relatorio/finalizadas/hoje")
-//	public Page<SolicitacaoProjecao> listarRelatorioFinalizadasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-//	   return solicitacaoService.listarSolicitacoesFinalizadasHoje(page);
-//	}
-//	
-//	@GetMapping("/relatorio/abertas/hoje")
-//	public Page<SolicitacaoProjecao> listarRelatorioAbertasHoje(@PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-//	   return solicitacaoService.listarSolicitacoesAbertasHoje(page);
-//	}
-	
-	
-//	@PostMapping("/relatorio/cliente")
-//	  public Page<SolicitacaoProjecao> getFileRelatorio(@RequestBody DtoDadosRelatorioCsv dto, @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-//	
-//	    return solicitacaoService.listarSolicitacoesPorData(page, dto);
-//	  }
-	
-//	@GetMapping //RETORNA TODAS A ENTIDADES DE SOLICITAÇÂO -> LOGO SERÀ DESCONTINUADO
-//	private List<Solicitacao> listar(){
-//		return solicitacaoService.buscarTodos();
-//	}
-	
 	
 	@GetMapping("/agendadodia") // GERA AGENDAMENTO RECEBENDO UMA DATA NO FORMATO "yyyy-mm-dd"
 	private List<SolicitacaoProjecaoEntidadeComAtributos> listarAgendadosDoDia(@RequestBody DtoDataAgendado data){
@@ -215,7 +161,6 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
-		
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
@@ -228,7 +173,6 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/getDataUser") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
 	private DtoDadosParaSolicitacao listagemUsuariosAtivosCondicional() {
-		
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
@@ -252,7 +196,6 @@ public class SolicitacaoRestController {
 				repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 				);
 		}
-			
 	}
 	
 	@GetMapping("/getModelos") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
@@ -276,7 +219,6 @@ public class SolicitacaoRestController {
 			List<String> colaboradores = colaboradorService.listarNomesIdCliente(solicitacao.getCliente().getId());
 			return ResponseEntity.ok().body( new DtoDadosEdicaoRapidaMaisFuncionarios(solicitacaoService.buscarPorId(id), funcionarios, colaboradores));
 		}
-		
 	}
 	
 	@GetMapping("/busca/card/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO PARA EDIÇÃO RÁPIDA
@@ -289,7 +231,6 @@ public class SolicitacaoRestController {
 		return solicitacaoService.impressao(id);
 	}
 	
-
 	@GetMapping("/finalizada/{id}") //RETORNA UMA DTO DE UMA SOLICITAÇÃO FINALIZADA PARA EDIÇÃO
 	public DtoSolicitacaoProjecaoCompletaColaboradores buscaFinalizadaPorId(@PathVariable Long id) {
 		Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
@@ -311,12 +252,10 @@ public class SolicitacaoRestController {
 		return new DtoSolicitacaoProjecaoCompletaColaboradores(solicitacaoService.buscarPorId(id), funcionarios, colaboradores);
 	}
 	
-	
 	@GetMapping("/excluido") //RETORNA DTO COM PROJEÇÃO DAS SOLICITAÇÕES EXCLUIDAS-LIXEIRA
 	public Page<SolicitacaoProjecao> excluidas(@PageableDefault(size = 200, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		return solicitacaoService.listarSolicitacoes(page,Status.FINALIZADO.toString(), true);
 	}
-	
 	
 	@GetMapping("/finalizado") //RETORNA DTO COM PROJEÇÃO DE TODAS AS SOLICITACOES EXCLUÍDAS-LIXEIRA
 	public List<SolicitacaoProjecao> finalizados() {
@@ -343,12 +282,10 @@ public class SolicitacaoRestController {
 		return solicitacaoService.listarSolicitacoesNaoFinalizadasPorFuncionario(page, id);
 	}
 	
-	
 	@GetMapping("/dashboard") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD GERAL
 	public DtoDashboard dashboard() {
 		return solicitacaoService.geraDashboard();
 	}
-	
 	
 	@GetMapping("/dashboard/cliente/{id}") //RETORNA UMA DTO COM TODOS OS DADOS PARA O DASHBOARD POR CLIENTE
 	public DtoDashboardCliente dashboardCliente(@PathVariable Long id) {
@@ -362,9 +299,7 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/relatorio") //RETORNA UMA DTO COM TODOS OS DADOS PARA A VIEWER DE RELATORIOS
 	public DtoSolicitacaoRelatorios relatorios() {
-		
 		return solicitacaoService.geraRelatorios();
-		
 	}
 	
 	@GetMapping("/ultima/atualizada") //RETORNA ID E DATA DA ULTIMA SOLICITACAO ATUALIZADA
@@ -375,19 +310,16 @@ public class SolicitacaoRestController {
 	@PutMapping("/edicaoRapida") //ATUALIZA MODAL DE EDIÇÃO RÁPIDA
 	private DtoSolicitacaoComFuncionario edicaoRapida(@RequestBody DtoDadosEdicaoRapida dados) {
 		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
-				
 	}
 	
 	@PutMapping("/finalizada/atualizar") //ATUALIZA SOLICITACAO FINALIZADA
 	private DtoSolicitacaoComFuncionario edicaoFinalizada(@RequestBody DtoSolicitacaoFinalizada dados) {
 		return solicitacaoService.edicaoFinalizada(dados);
-				
 	}
 	
 	@PutMapping("/restaurar") //RESTAURA UM ITEM ENVIADO PARA LIXEIRA
 	private DtoDadosRestauracao restaurar(@RequestBody DtoDadosRestauracao dado) {
 		return	solicitacaoService.restaurar(dado.id());
-				
 	}
 	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
@@ -404,7 +336,6 @@ public class SolicitacaoRestController {
 		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
 			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
 		}
-		
 		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
 	}
 	
@@ -419,7 +350,6 @@ public class SolicitacaoRestController {
 		if(modelos.size()>0) {
 			
 			modelos.forEach( m -> {
-				
 				Solicitacao solicitacao = new Solicitacao();
 				solicitacao.setAfetado(dados.afetado());
 				solicitacao.setSolicitante(dados.solicitante());
@@ -442,13 +372,17 @@ public class SolicitacaoRestController {
 		}else {
 			return "Erro ao cadastrar modelos";
 		}
-		
 		return "Cadastrado com sucesso!"; 
 	}
 
 	@DeleteMapping("/excluir/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
 	public String excluir(@PathVariable Long id) {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
+	}
+	
+	@PostMapping("/notificar/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
+	public String notificarCliente(@PathVariable Long id) {
+		return solicitacaoService.notificarCliente(id);
 	}
 	
 	@PutMapping("/cancelar/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
@@ -460,7 +394,4 @@ public class SolicitacaoRestController {
 	public int quantidadeAndamentoFuncionario(@PathVariable Long id) {
 		return solicitacaoService.quantidadeEmAndamentoPorFuncionario(id);
 	}
-	
-	
-	
 }

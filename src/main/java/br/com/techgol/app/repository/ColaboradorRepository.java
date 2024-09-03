@@ -10,6 +10,13 @@ import br.com.techgol.app.orm.ColaboradorProjecao;
 import br.com.techgol.app.orm.ColaboradorProjecaoSimples;
 
 public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
+	
+	@Query(value = "SELECT co.email FROM colaboradores co "
+			+ "WHERE co.cliente_id=:id "
+			+ "AND co.nomeColaborador = :nome "
+			+ "LIMIT 1", nativeQuery = true)
+	String retornarEmailColaboradorPorIdClienteNome(Long id, String nome);
+	
 
 	@Query(value = "SELECT co.id, co.nomeColaborador, co.celular, co.vip, co.cliente_id FROM colaboradores co "
 			+ "WHERE co.cliente_id=:id ORDER BY co.nomeColaborador", nativeQuery = true)

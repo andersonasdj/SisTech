@@ -37,6 +37,5 @@ public interface SolicitacaoProjecao {
 	boolean getRedFlag();
 	Long getLog_Id();
 	Long getPeso();
-	String getRole();
 
 }

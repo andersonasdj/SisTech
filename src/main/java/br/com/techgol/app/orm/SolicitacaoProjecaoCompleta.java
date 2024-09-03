@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public interface SolicitacaoProjecaoCompleta {
 	
 	Long getId();
+	Long getCliente_id();
 	String getAbertoPor();
 	String getAfetado();
 	String getCategoria();

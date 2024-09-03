@@ -82,7 +82,7 @@
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: cornflowerblue;"> </i></a>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"> </i></a>
 					</ul>
 				</div>
 			</div>
@@ -919,13 +919,11 @@
 							}
 						);
 						
-						if(data.content[0].role == 'ADMIN'){
 							$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
 							$('#tituloSolicitacoes').append('<b> Solicitações</b>');
 							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
 							$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
 							$('#horaDia').append('<li> Minutos / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
-						}
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },

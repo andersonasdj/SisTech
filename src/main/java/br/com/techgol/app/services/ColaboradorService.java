@@ -89,4 +89,8 @@ public class ColaboradorService {
 			return new DtoColaboradorEdit(repository.buscaPorId(id));	
 	}
 	
+	public String retornaEmailColaboradorPorIdeEmail(Long id, String nome) {
+		return repository.retornarEmailColaboradorPorIdClienteNome(id,nome);
+	}
+	
 }
