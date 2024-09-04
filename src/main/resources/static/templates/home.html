@@ -285,11 +285,17 @@
 					data: JSON.stringify(
 						{ "refeicao": true }
 					),
-					success: function (data) { alert("Status alterado para ( Em Refeição )");	},
+					success: function (data) { 
+						if(data){
+							alert("Status alterado para ( Em Refeição )");	
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
+						}else{
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
+							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
+						}
+					},
 					error: function (e) { alert(e); }
 				});
-				
-				$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
 				
 			}else{
 				$('#btnRefeicao').empty();
@@ -301,13 +307,18 @@
 					data: JSON.stringify(
 						{ "refeicao": false }
 					),
-					success: function (data) { alert("Status alterado para ( Online! )");	},
+					success: function (data) { 
+						if(data){
+							alert("Status alterado para ( Online! )");	
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
+						}else{
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
+							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
+						}
+					},
 					error: function (e) { alert(e); }
 				});
-				
-				$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
 			}
-			
 			
 		}
 		

@@ -24,7 +24,7 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 
 	
 	@Query(nativeQuery = true,
-			value = "SELECT t.id, t.inicio, t.fim, t.status, t.duracao, c.nomeCliente, t.solicitacao_id "
+			value = "SELECT t.id, t.inicio, t.fim, t.status, t.duracao, c.nomeCliente, t.solicitacao_id, s.local "
 			+ "FROM timesheet t "
 			+ "INNER JOIN solicitacoes s ON t.solicitacao_id=s.id "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id " 

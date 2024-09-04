@@ -4,24 +4,13 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public interface TimelineProjecao {
+public interface RefeicaoProjecao {
 	
 	Long getId();
-	
-	String getNomeCliente();
-	
 	Long getDuracao();
-	
-	String getStatus();
-	
-	Long getSolicitacao_id();
-	
-	String getLocal();
-	
+	String getNomeFuncionario();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getInicio();
-	
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getFim();
-
 }

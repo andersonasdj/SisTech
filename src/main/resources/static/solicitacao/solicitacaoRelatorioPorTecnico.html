@@ -1018,7 +1018,7 @@
 						if(data.dataLogin === undefined){
 							$('#lista-timeline')
 							.append('<li style="color: black; background: red;">'
-								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+								     + '<div style="height: 220px; background-color: rgb(171 205 236 / 62%);">'
 								     +  '<time>Primeiro Login</time>'
 								     + '<p style="margin-bottom: 0px;">Data: Não realizou login</p>'
 								     + '</div>'
@@ -1027,7 +1027,7 @@
 						}else{
 							$('#lista-timeline')
 							.append('<li style="color: black; background: red;">'
-								     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+								     + '<div style="height: 220px; background-color: rgb(171 205 236 / 62%);">'
 								     +  '<time>Primeiro Login</time>'
 								     + '<p style="margin-bottom: 0px;">Data: ' + data.dataLogin+ '</p>'
 								     + '</div>'
@@ -1056,12 +1056,13 @@
 								if(i.status == "FINALIZADO"){ statusColor = "style='color: #026e02; margin-bottom: 0px;'"}
 								
 								$('#lista-timeline').append('<li style="color: black; background: red;">'
-									     + '<div id="'+ i.solicitacao_id +'" style="height: 220px; background-color: rgb(222, 221, 218);" data-bs-toggle="modal" data-bs-target="#timelineModal" onclick="carregaCard('+i.solicitacao_id+')">'
+									     + '<div id="'+ i.solicitacao_id +'" style="height: 220px; background-color: rgb(171 205 236 / 62%);;" data-bs-toggle="modal" data-bs-target="#timelineModal" onclick="carregaCard('+i.solicitacao_id+')">'
 									     +  '<time>'+i.nomeCliente +'</time>'
 									      	 + '<p style="margin-bottom: 0px;">ID: ' + i.solicitacao_id + '</p>'
 									     	 + '<p style="margin-bottom: 0px;">Inicio: '+i.inicio +'</p>'
 											 + '<p style="margin-bottom: 0px;">Terminio: ' + i.fim + '</p>'
 											 + '<p '+ statusColor+'>Status: ' + i.status + '</p>'
+											 + '<p style="margin-bottom: 0px;">Local: ' + i.local + '</p>'
 											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + ' minutos </p>'
 									     + '</div>'
 									    + '</li>');
@@ -1083,7 +1084,7 @@
 							if(data > 0){
 								$('#lista-timeline')
 								.append('<li style="color: black; background: red;">'
-									     + '<div style="height: 220px; background-color: rgb(222, 221, 218);">'
+									     + '<div style="height: 220px; background-color: rgb(171 205 236 / 62%);">'
 									     +  '<time> Em atendimento</time>'
 									      	 + '<p style="margin-bottom: 0px;"> Em atendimento no momento</p>'
 									     + '</div>'

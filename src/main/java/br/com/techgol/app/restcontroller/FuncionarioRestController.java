@@ -2,6 +2,8 @@ package br.com.techgol.app.restcontroller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,7 @@ import br.com.techgol.app.orm.DtoFuncionarioEditSimplificado;
 import br.com.techgol.app.services.AvisosService;
 import br.com.techgol.app.services.FuncionarioService;
 import br.com.techgol.app.services.SolicitacaoService;
+import br.com.techgol.app.services.TimeRefeicaoServices;
 import jakarta.validation.Valid;
 
 @RestController
@@ -44,6 +47,9 @@ public class FuncionarioRestController {
 	
 	@Autowired
 	AvisosService avisoService;
+	
+	@Autowired
+	TimeRefeicaoServices timeRefeicaoServices;
 	
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -125,9 +131,19 @@ public class FuncionarioRestController {
 	}
 	
 	@PutMapping("refeicao") //ATUALIZA UM REFEICAO
-	public void atualizarRefeicao(@RequestBody DtoFuncionarioRefeicao dados) {
+	public boolean atualizarRefeicao(@RequestBody DtoFuncionarioRefeicao dados) {
 		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-		service.alteraStatusRefeicao(funcionario.getId(), dados.refeicao());
+		
+		LocalDateTime inicio, fim;
+		inicio = LocalDate.now().atTime(00, 00, 00);
+		fim = LocalDate.now().atTime(23, 59, 59);
+		
+		if(timeRefeicaoServices.alteraStatus(funcionario.getId(),inicio,fim)) {
+			service.alteraStatusRefeicao(funcionario.getId(), dados.refeicao());
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

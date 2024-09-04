@@ -32,12 +32,9 @@ public class TimesheetRestController {
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return service.minutosPorFuncionarioPeriodo(id, inicio, fim);
-			
 		}else {
 			return 0l;
 		}
-		
-		
 	}
 
 	@GetMapping("timeline/id/{id}/{inicio}/{fim}")
