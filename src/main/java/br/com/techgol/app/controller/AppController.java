@@ -74,6 +74,19 @@ public class AppController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/logRefeicao")
+	public String logsRefeicao() {
+		return "templates/logsRefeicao.html";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/gerencia")
+	public String gerencia() {
+		return "templates/gerencia.html";
+	}
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/configuracoes")
 	public String configuracoes() {
 		return "templates/configuracoes.html";
