@@ -53,6 +53,8 @@ import br.com.techgol.app.repository.FuncionarioRepository;
 import br.com.techgol.app.repository.ModeloSolicitacaoRepository;
 import br.com.techgol.app.services.ClienteService;
 import br.com.techgol.app.services.ColaboradorService;
+import br.com.techgol.app.services.FuncionarioService;
+import br.com.techgol.app.services.ConjuntoModeloSolicitacaoService;
 import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
@@ -69,7 +71,13 @@ public class SolicitacaoRestController {
 	ClienteService clienteService;
 	
 	@Autowired
+	FuncionarioService funcionarioService;
+	
+	@Autowired
 	ColaboradorService colaboradorService;
+	
+	@Autowired
+	ConjuntoModeloSolicitacaoService conjuntoModeloSolicitacaoService;
 	
 	@Autowired
 	ConjuntoModelosRepository conjuntoModelosRepository;
@@ -159,27 +167,27 @@ public class SolicitacaoRestController {
 		return solicitacaoService.listarSolicitacoesPorStatus(page,status, false);
 	}
 	
-	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
+	@GetMapping("/getData") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX ### CACHE ###
 	private DtoDadosParaSolicitacao coletaDadosParaSolicitacao() {
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 				clienteService.listarIdClienteAtivos(), 
-				repositoryFuncionario.listarNomesFuncionarios(),
-				repositoryFuncionario.listarIdFuncionarios(),
+				funcionarioService.listarNomesFuncionariosAtivos(),
+				funcionarioService.listarIdFuncionariosAtivos(),
 				repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 				);
 	}
 	
-	@GetMapping("/getDataUser") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
+	@GetMapping("/getDataUser") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX ### CACHE ###
 	private DtoDadosParaSolicitacao listagemUsuariosAtivosCondicional() {
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 					clienteService.listarIdClienteAtivos(), 
-					repositoryFuncionario.listarNomesFuncionarios(),
-					repositoryFuncionario.listarIdFuncionarios(),
+					funcionarioService.listarNomesFuncionariosAtivos(),
+					funcionarioService.listarIdFuncionariosAtivos(),
 					repositoryFuncionario.statusRefeicao(funcionarioBase.getId())
 					);
 		
@@ -198,12 +206,11 @@ public class SolicitacaoRestController {
 		}
 	}
 	
-	@GetMapping("/getModelos") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX
+	@GetMapping("/getModelos") //RETORNA LISTAGEM DE CLIENTES E FUNCIONARIOS ATIVOS PARA LISTAGEM DO SELECTBOX ### CACHE ###
 	private DtoModelosParaSolicitacao coletaModelosParaSolicitacao() {
-		
 		return new DtoModelosParaSolicitacao(
-				conjuntoModelosRepository.listarNomesModelos(),
-				conjuntoModelosRepository.listarIdModelos()
+				conjuntoModeloSolicitacaoService.listarNomesModelos(),
+				conjuntoModeloSolicitacaoService.listarIdModelos()
 				);
 	}
 	

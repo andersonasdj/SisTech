@@ -1,6 +1,6 @@
 package br.com.techgol.app.orm;
 
-public interface ColaboradorProjecao {
+public interface ColaboradorProjecao{
 	Long getId();
 	String getNomeColaborador();
 	String getCelular();

@@ -51,7 +51,6 @@ public class FuncionarioRestController {
 	@Autowired
 	TimeRefeicaoServices timeRefeicaoServices;
 	
-	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping
 	public void cadastrar(@RequestBody @Valid DtoCadastroFuncionario dados ) {

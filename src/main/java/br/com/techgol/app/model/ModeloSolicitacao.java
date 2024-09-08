@@ -29,14 +29,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ModeloSolicitacao {
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	@Enumerated(EnumType.STRING)
 	private FormaAbertura formaAbertura;
-	
 	@Column(name="descricao", length = 300)
 	private String descricao;	
 	@Column(name="observacao", length = 300)
@@ -56,7 +53,8 @@ public class ModeloSolicitacao {
 	@Column(name = "local")
 	@Enumerated(EnumType.STRING)
 	private Local local;
-	
+	@ManyToOne
+	private ConjuntoModelos conjuntoModelos;
 	
 	public ModeloSolicitacao(DtoModeloSolicitacao dados, ConjuntoModelos conjuntoModelos) {
 		this.categoria = dados.categoria();
@@ -68,10 +66,5 @@ public class ModeloSolicitacao {
 		this.prioridade = dados.prioridade();
 		this.status = dados.status();
 		this.conjuntoModelos = conjuntoModelos;
-	
 	}
-	
-	
-	@ManyToOne
-	private ConjuntoModelos conjuntoModelos;
 }

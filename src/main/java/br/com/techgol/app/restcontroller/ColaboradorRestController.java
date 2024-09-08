@@ -25,7 +25,7 @@ import br.com.techgol.app.services.ColaboradorService;
 public class ColaboradorRestController {
 
 	@Autowired
-	ColaboradorService service;
+	private ColaboradorService service;
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/list/{id}") //RETORNA UMA PROJECAO DE COLABORADORES POR ID DE CLIENTE

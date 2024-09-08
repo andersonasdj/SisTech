@@ -21,6 +21,7 @@ import br.com.techgol.app.model.ConjuntoModelos;
 import br.com.techgol.app.model.ModeloSolicitacao;
 import br.com.techgol.app.repository.ConjuntoModelosRepository;
 import br.com.techgol.app.repository.ModeloSolicitacaoRepository;
+import br.com.techgol.app.services.ConjuntoModeloSolicitacaoService;
 import jakarta.transaction.Transactional;
 
 @RestController
@@ -33,36 +34,32 @@ public class ModeloSolicitacaoRest {
 	@Autowired
 	private ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
+	@Autowired
+	private ConjuntoModeloSolicitacaoService conjuntoModeloSolicitacaoService;
+	
 	@PostMapping
 	public ConjuntoModelos cadastraModelo(@RequestBody DtoConjuntoModelo dado) {
-		return conjuntoModelosRepository.save(new ConjuntoModelos(dado));
+		return conjuntoModeloSolicitacaoService.cadastrar(dado);
 	}
 	
 	@GetMapping
 	public List<ConjuntoModelos> listarModelo() {
-		return conjuntoModelosRepository.findAll();
+		return conjuntoModeloSolicitacaoService.listarTodos();
 	}
 	
 	@GetMapping("{id}")
 	public ConjuntoModelos listarModeloPorId(@PathVariable Long id) {
-		return conjuntoModelosRepository.buscaPorId(id);
+		return conjuntoModeloSolicitacaoService.buscarPorId(id);
 	}
 	
-	@Transactional
 	@PutMapping
 	@PreAuthorize("hasRole('ROLE_EDITOR')")
 	public DtoConjuntoModeloEdit editarModelo(@RequestBody DtoConjuntoModeloEdit dados) {
-		
-		ConjuntoModelos conjuntoModelo = conjuntoModelosRepository.getReferenceById(dados.id());
-		conjuntoModelo.setNomeModelo(dados.nomeModelo());
-		return new DtoConjuntoModeloEdit(conjuntoModelo.getId(), conjuntoModelo.getNomeModelo());
-		
+		return conjuntoModeloSolicitacaoService.atualizarModelo(dados);
 	}
-	
 	
 	@PostMapping("/exemplo")
 	public void cadastraModeloSolicitacao(@RequestBody DtoModeloSolicitacao dados) {
-		
 		ConjuntoModelos conjuntoModelos = conjuntoModelosRepository.getReferenceById(dados.idConjunto());
 		modeloSolicitacaoRepository.save(new ModeloSolicitacao(dados, conjuntoModelos));
 	}
@@ -91,9 +88,7 @@ public class ModeloSolicitacaoRest {
 		modeloSolicitacao.setObservacao(dados.observacao());
 		modeloSolicitacao.setPrioridade(dados.prioridade());
 		modeloSolicitacao.setStatus(dados.status());
-		
 		return "Atualizado com sucesso!";
-	
 	}
 	
 	@PreAuthorize("hasRole('ROLE_EDITOR')")

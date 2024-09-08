@@ -1,5 +1,7 @@
 package br.com.techgol.app.dto;
 
+import java.io.Serializable;
+
 import br.com.techgol.app.model.Funcionario;
 
 public record DtoListarFuncionarios(
@@ -13,7 +15,7 @@ public record DtoListarFuncionarios(
 		Boolean refeicao,
 		String role,
 		String dataAtualizacao
-		) {
+		) implements Serializable {
 	
 	
 	public DtoListarFuncionarios(Funcionario f) {

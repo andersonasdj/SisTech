@@ -1,5 +1,6 @@
 package br.com.techgol.app.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 public record DtoDadosParaSolicitacao(
@@ -8,7 +9,7 @@ public record DtoDadosParaSolicitacao(
 		List<String> clientesId,
 		List<String> funcionarios,
 		List<String> funcionariosId,
-		Boolean refeicao){
+		Boolean refeicao) implements Serializable{
 	
 	
 		public DtoDadosParaSolicitacao(List<String> clientes, List<String> clientesId, List<String> funcionarios, List<String> funcionariosId, Boolean refeicao) {

@@ -294,7 +294,13 @@
 							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
 						}
 					},
-					error: function (e) { alert(e); }
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { 
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login"; 
+						}
+					}
 				});
 				
 			}else{
@@ -316,7 +322,13 @@
 							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
 						}
 					},
-					error: function (e) { alert(e); }
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { 
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login"; 
+						}
+					}
 				});
 			}
 			
@@ -336,7 +348,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+				    401: function() { 
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login"; 
+					}
 				},
 				complete: function (data) { }
 			})
@@ -357,7 +372,6 @@
 					}else{
 						$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
 					}
-						
 						
 						if(data.avisos > 0){
 							$('#btnAvisos').append('<p class="nav-item dropdown">'
@@ -380,7 +394,7 @@
 						if(data.trocaSenha == true){
 							$("#modalTrocaDeSenha").modal('toggle'); 
 						}
-<!--						Chart.defaults.color = "#FFFFFF";-->
+						<!--Chart.defaults.color = "#FFFFFF";-->
 						const ctx = document.getElementById('minhasSolicitacoes');
 						new Chart(ctx, {
 					    type: 'bar',
@@ -454,7 +468,10 @@
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+					    401: function() { 
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login"; 
+						}
 					},
 					complete: function (data) { }
 				})

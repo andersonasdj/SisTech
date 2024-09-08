@@ -467,10 +467,7 @@
 				    401: function() { alert('Realize login novamente!'); }
 			}
 			});
-			
-			
 		}
-		
 		
 		listarTodos();
 		
@@ -744,7 +741,8 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+					    401: function() { alert('Realize login novamente!'); },
+					    405: function() { alert('Você não possui permissão de edição!'); }
 				}
 			});
 		}

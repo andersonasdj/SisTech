@@ -1,5 +1,7 @@
 package br.com.techgol.app.model;
 
+import java.io.Serializable;
+
 import br.com.techgol.app.dto.DtoConjuntoModelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConjuntoModelos {
+public class ConjuntoModelos implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
