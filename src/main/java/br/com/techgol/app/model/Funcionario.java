@@ -59,7 +59,7 @@ public class Funcionario extends Usuario implements UserDetails {
 		this.setAtivo(true);
 		this.setMfa(false);
 		this.setAusente(false);
-		this.setAusente(false);
+		this.setRefeicao(false);
 		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
 		
 	}
