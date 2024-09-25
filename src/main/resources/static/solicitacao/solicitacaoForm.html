@@ -795,10 +795,10 @@
 	</script>
 	<script>
 		function preencheSolicitante(){
-				var nomeCliente = $("#nomeCliente").val();
-				var json = {"nomeCliente": nomeCliente};
+				var idCliente = $("#nomeCliente").val();
+				var json = {"nomeCliente": idCliente};
 			
-				if(nomeCliente > 0){
+				if(idCliente > 0){
 					$("#botaoSalvar").empty();
 					
 					$('#botaoSalvar').append(
@@ -811,7 +811,7 @@
 					);
 					
 					$.ajax({
-					url: "/sistech/colaborador/list/" + nomeCliente,
+					url: "/sistech/colaborador/list/" + idCliente,
 					type: "GET",
 					data: json,
 					success: function (data) {

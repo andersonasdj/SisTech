@@ -1058,11 +1058,10 @@
 								$('#lista-timeline').append('<li style="color: black; background: red;">'
 									     + '<div id="'+ i.solicitacao_id +'" style="height: 220px; background-color: rgb(171 205 236 / 62%);;" data-bs-toggle="modal" data-bs-target="#timelineModal" onclick="carregaCard('+i.solicitacao_id+')">'
 									     +  '<time>'+i.nomeCliente +'</time>'
-									      	 + '<p style="margin-bottom: 0px;">ID: ' + i.solicitacao_id + '</p>'
+									      	 + '<p style="margin-bottom: 0px;">ID: ' + i.solicitacao_id + ' - Local: '+ i.local +'</p>'
 									     	 + '<p style="margin-bottom: 0px;">Inicio: '+i.inicio +'</p>'
 											 + '<p style="margin-bottom: 0px;">Terminio: ' + i.fim + '</p>'
 											 + '<p '+ statusColor+'>Status: ' + i.status + '</p>'
-											 + '<p style="margin-bottom: 0px;">Local: ' + i.local + '</p>'
 											 + '<p style="margin-bottom: 0px;">Duração: ' + i.duracao + ' minutos </p>'
 									     + '</div>'
 									    + '</li>');
