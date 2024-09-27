@@ -1,0 +1,243 @@
+/* Estilos para el contenido principal de la página */
+.main-content {
+    margin-left: 220px;
+    padding: 20px; 
+    transition: margin-left 0.3s;
+}
+
+/* Estilos para el cuerpo de la página */
+body {
+    background-color: #121212; 
+    color: white; 
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Aplicar el modelo de caja border-box a todos los elementos */
+* {
+    box-sizing: border-box;
+}
+
+
+/* Estilos para la barra de navegación lateral */
+.navbar {
+    display: flex; 
+    flex-direction: column;
+    padding: 10px; 
+    background-color: #1f1f1f; 
+    width: 200px; 
+    height: 100vh;
+    position: fixed;
+    transition: width 0.25s, background-color 0.3s;
+    overflow: hidden; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el icono de la barra de navegación */
+.nav-icon {
+    display: flex; 
+    justify-content: center;
+    cursor: pointer; 
+    padding: 10px; 
+    margin-bottom: 10px;
+}
+
+/* Estilos para los elementos del menú en la barra de navegación */
+.nav-item {
+    margin: 15px 0; 
+    cursor: pointer;
+    color: white; 
+    text-decoration: none;
+    padding: 10px; 
+    border-radius: 5px;
+    font-size: 16px; 
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo para el estado de hover en los elementos del menú */
+.nav-item:hover {
+    background-color: #333;
+    transform: translateX(10px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: 18px;
+    transform: scale(1.1);
+    color: #fff; 
+}
+
+/* Contenedor para los contenidos de la barra de navegación */
+.nav-content {
+    display: flex; 
+    flex-direction: column; 
+    transition: opacity 0.3s;
+}
+
+/* Estilos para la barra de navegación en estado oculto */
+.nav-hidden {
+    width: 70px; 
+}
+
+/* Estilos para la barra de navegación en estado visible */
+.nav-visible {
+    width: 200px;
+}
+
+/* Animación para la opacidad de los elementos del menú cuando la barra está visible */
+.navbar.nav-visible .nav-item {
+    opacity: 1; 
+    transition: opacity 0.5s ease-in;
+}
+
+/* Oculta el contenido de la barra de navegación cuando no está en hover */
+.navbar:not(:hover) .nav-content {
+    opacity: 0; 
+}
+
+/* Estilos para la barra de navegación al pasar el mouse sobre ella */
+.navbar:hover {
+    width: 200px;
+}
+
+/* Estilos para la barra de navegación cuando no está en hover */
+.navbar:not(:hover) {
+    width: 70px;
+}
+
+
+/* Contenedor para las cards de información */
+.info-cards-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0; 
+}
+
+/* Estilos para cada card de información */
+.info-card {
+    background-color: #1f1f1f; 
+    padding: 20px; 
+    border-radius: 10px;
+    width: 250px; 
+    height: 150px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el texto de las cards con valor positivo */
+.positive {
+    color: green; 
+}
+
+/* Estilos para el texto de las cards con valor negativo */
+.negative {
+    color: red; 
+}
+
+
+/* Estilos para la Gráfica de Ventas del Ultimo Mes */
+canvas {
+    max-height: 420px;
+    width: 100%; 
+}
+
+
+/* Estilos para los widgets inferiores de la página */
+.widgets {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0; 
+}
+
+/* Estilos para cada gráfico de los widgets inferiores */
+.pie, .expenses, .user-experience, .income, .feedback, .sales1, .complaints, .sales-speculation, .growth, .sales2 {
+    background-color: #1f1f1f; 
+    padding: 10px; 
+    border-radius: 10px; 
+    width: 250px; 
+    height: 320px; 
+    text-align: center; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+}
+
+
+/* Estilos para el pie de página */
+footer {
+    width: 100%; 
+    background-color: #000000;
+    color: white; 
+    padding: 0 0vw;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: relative; 
+    align-items: center;
+}
+
+/* Estilos para el fondo del pie de página con gradiente */
+footer::before {
+    content: ''; 
+    position: absolute;
+    inset: 0; 
+    background: linear-gradient(rgba(0, 0, 0, 0) 5%,
+            rgba(0, 0, 0, 0.3) 20%,
+            rgba(0, 0, 0, 0.6) 30%,
+            rgba(0, 0, 0, 0.8) 40%,
+            rgba(0, 0, 0, 1) 50%,
+            rgb(0, 0, 0));
+    z-index: -1; 
+}
+
+/* Estilos para las columnas en el pie de página */
+.col {
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start; 
+    padding: 1rem 1rem; 
+    width: 20%; 
+}
+
+/* Estilos específicos para la segunda, tercera, y cuarta, columna en el pie de página */
+.col2, .col3, .col4 {
+    background-color: #000000; 
+    border-radius: 2rem;
+    text-align: left; 
+}
+
+/* Estilos para los íconos sociales en el pie de página */
+.social {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1.25rem; 
+}
+
+.img-logo{
+    max-width:60px;
+    max-height:40px;
+    width: auto;
+    height: auto;
+}
+
+/* Estilos para los enlaces en el pie de página */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilos para el pie de página en pantallas con un ancho máximo de 1000px */
+@media screen and (max-width: 1000px) {
+    .col {
+        padding: 0.9rem 2.4rem;
+    }
+}
+
+/* Estilos para el pie de página en pantallas con un ancho máximo de 700px */
+@media screen and (max-width: 700px) {
+    footer {
+        flex-direction: column;
+        padding: 5rem 20vw; 
+    }
+
+    .col {
+        width: 100%; 
+    }
+}

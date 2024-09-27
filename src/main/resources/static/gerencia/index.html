@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <title>Sistech - Gerência</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="../assets/css/style-gerencia.css">
+            <script src="../assets/js/chart.js"></script>
+        </head>
+        <body>
+
+            <!-- Barra Lateral -->
+            <div class="navbar" id="navbar">
+
+                <div class="nav-icon">
+                    <img class="img-logo" src="../assets/img/img-gerencia.png">
+                </div>
+
+                <div class="nav-content">
+                    <p><a href=" "> </a> </p>
+                    <p><a href="/sistech/home">Início</a></p>
+                    <p><a href="#widgets">Resumo</a></p>
+                    <p><a href="#">Update</a></p>
+                    <p><a href="/sistech/logout">Logout</a></p>
+                </div>
+            </div>
+
+            <div class="main-content" id="main-content">
+
+                <div class="info-cards-container" id="info-cards-container">
+
+                    <div class="info-card">
+                        <h2>Solicitações Resolvidas</h2>
+                        <p class="positive">349</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Solicitações Criadas</h2>
+                        <p class="negative">287</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Solicitações Não Finalizadas</h2>
+                        <p><span class="icon"></span>365</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Income</h2>
+                        <p class="positive">$6,000.00</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2>Sales Online</h2>
+                        <p>$5,000.00</p>
+                    </div>
+                </div>
+
+                <div class="sales-chart-container" id="sales-chart-container">
+
+                    <div class="sales-line-chart">
+                        <h2>Abertos ultimo mês</h2>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <div class="widgets" id="widgets">
+
+                    <div class="pie">
+                        <h2>Top Countries</h2>
+                        <canvas id="pieChart"></canvas>
+                    </div>
+
+                    <div class="expenses">
+                        <h2>Expenses</h2>
+                        <canvas id="expensesChart"></canvas>
+                    </div>
+
+                    <div class="user-experience">
+                        <h2>User Experience</h2>
+                        <canvas id="PolarAreaChart"></canvas>
+                    </div>
+
+                    <div class="income">
+                        <h2>Income</h2>
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+
+                    <div class="feedback">
+                        <h2>User Feedback</h2>
+                        <canvas id="feedbackChart"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="widgets" id="widgets">
+
+                    <div class="sales1">
+                        <h2>Sales</h2>
+                        <h2>Last Month's</h2>
+                        <canvas id="sales1Chart"></canvas>
+                    </div>
+
+                    <div class="complaints">
+                        <h2>Complaints</h2>
+                        <canvas id="complaintsChart"></canvas>
+                    </div>
+
+                    <div class="sales-speculation">
+                        <h2>Sales Speculation</h2>
+                        <canvas id="LinesBarChart"></canvas>
+                    </div>
+
+                    <div class="growth">
+                        <h2>Growth</h2>
+                        <canvas id="GrowthChart"></canvas>
+                    </div>
+
+                    <div class="sales2">
+                        <h2>Sales</h2>
+                        <h2>Last Month's</h2>
+                        <canvas id="sales2Chart"></canvas>
+                    </div>
+
+                </div>
+            </div>
+
+            <footer id="footer">
+                <div class="col col1" style="text-align: center;">
+                    <h3>Anderson Araujo</h3>
+                    <h3 style="margin-bottom: 0.2rem;">Techgold</h3>
+                    <p style="color: #818181; font-size: smaller; margin-bottom: 0.2rem;">2024 ©</p>
+                </div>
+            </footer>
+        </body>
+    <script src="../assets/js/js-gerencia.js"></script>
+</html>
