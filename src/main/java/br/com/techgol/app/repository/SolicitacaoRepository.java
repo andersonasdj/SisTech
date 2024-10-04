@@ -20,6 +20,19 @@ import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	
+	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.descricao LIKE %:palavra% "
+			+ "OR s.observacao LIKE %:palavra% "
+			+ "OR s.resolucao LIKE %:palavra%" ,nativeQuery = true)
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorPalavra(Pageable page, String palavra);
+	
+	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, s.classificacao, s.descricao, "
 			+ "s.formaAbertura, c.redFlag, s.local, s.observacao, s.prioridade, s.resolucao, c.vip, "

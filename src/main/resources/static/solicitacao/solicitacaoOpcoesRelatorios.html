@@ -102,6 +102,7 @@
 						<p><a id="periodoAbertura" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="#" onclick="porPeriodo()" role="button">Por Período</a>
 						<a id="porCliente" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/relatoriosclientes" role="button">Por Cliente </a>
 						<a id="porTecnico" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/relatoriostecnicos" role="button">Por Tecnico </a>
+						<a id="porPalavra" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="#" onclick="porPalavra()" role="button">Por Palavra</a>
 						<a id="porFinalizadas" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/finalizadas" role="button">Finalizadas</a>
 						<a id="porExcluidas" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/excluidas" role="button">Solicitações Excluídas</a></p>
 					</div>
@@ -132,6 +133,30 @@
 							<div class="col-md-1">
 								<a href="#" onclick="baixaCsv()"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
 							</div>
+							<div class="col-md-3"> </div>
+						</div>
+						<hr class="bg-danger border-2 border-top borde">
+					</div>
+					
+					<div id="opcoesPalavra" style="display: none;">
+						<hr class="bg-danger border-2 border-top border">
+						<div class="row">
+							<div class="col-md-3"> </div>
+							<div class="col-md-3">
+								<div class="control-group">
+									<div class="">
+										<input class="form-control" type="text" id="palavraChave" name="palavraChave" >
+										<span> </span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-1">
+								
+							</div>
+							<div class="col-md-1">
+								<button class="btn btn-info" onclick="buscaPorPalavra()">Listar</button>
+							</div>
+							<div class="col-md-1"> </div>
 							<div class="col-md-3"> </div>
 						</div>
 						<hr class="bg-danger border-2 border-top borde">
@@ -769,6 +794,7 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 
 			atualizadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
@@ -776,6 +802,7 @@
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-danger');
 			atualizadoHoje.classList.add('btn-sucess');
@@ -783,7 +810,9 @@
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
 			periodoAbertura.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
 			document.getElementById('opcoesData').style.display = 'none';
+			document.getElementById('opcoesPalavra').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -811,6 +840,7 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 
 			abertoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
@@ -818,6 +848,7 @@
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-danger');
@@ -825,7 +856,9 @@
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
 			periodoAbertura.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
 			document.getElementById('opcoesData').style.display = 'none';
+			document.getElementById('opcoesPalavra').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -853,6 +886,7 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
@@ -860,14 +894,17 @@
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-danger');
 			atrasadas.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
 			periodoAbertura.classList.add('btn-sucess');
 			document.getElementById('opcoesData').style.display = 'none';
+			document.getElementById('opcoesPalavra').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -895,6 +932,7 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 			
 			agendadoHoje.classList.remove('btn-danger');
 			abertoHoje.classList.remove('btn-danger');
@@ -902,6 +940,7 @@
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
@@ -909,7 +948,9 @@
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
 			periodoAbertura.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
 			document.getElementById('opcoesData').style.display = 'none';
+			document.getElementById('opcoesPalavra').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -937,20 +978,24 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			agendadoHoje.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-danger');
 			periodoAbertura.classList.add('btn-sucess');
 			document.getElementById('opcoesData').style.display = 'none';
+			document.getElementById('opcoesPalavra').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -977,6 +1022,7 @@
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
 			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
 
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
@@ -984,14 +1030,47 @@
 			agendadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
 			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');			
+			
+			abertoHoje.classList.add('btn-sucess');
+			atualizadoHoje.classList.add('btn-sucess');
+			agendadoHoje.classList.add('btn-sucess');
+			finalizadoHoje.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-sucess');
+			atrasadas.classList.add('btn-sucess');
+			
+			periodoAbertura.classList.add('btn-danger');
+			document.getElementById('opcoesPalavra').style.display = 'none';
+			$("#opcoesData").stop().slideToggle(800);
+		}
+		
+		function porPalavra(){
+			
+			let abertoHoje = document.getElementById('abertoHoje');
+			let finalizadoHoje = document.getElementById('finalizadoHoje');
+			let atualizadoHoje = document.getElementById('atualizadoHoje');
+			let agendadoHoje = document.getElementById('agendadoHoje');
+			let atrasadas = document.getElementById('atrasadas');
+			let periodoAbertura = document.getElementById('periodoAbertura');
+			let porPalavra = document.getElementById('porPalavra');
+
+			abertoHoje.classList.remove('btn-danger');
+			atualizadoHoje.classList.remove('btn-danger');
+			finalizadoHoje.classList.remove('btn-danger');
+			agendadoHoje.classList.remove('btn-danger');
+			atrasadas.classList.remove('btn-danger');
+			periodoAbertura.classList.remove('btn-danger');
+			porPalavra.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
-			periodoAbertura.classList.add('btn-danger');
-			$("#opcoesData").stop().slideToggle(800);
+			periodoAbertura.classList.add('btn-sucess');
+			porPalavra.classList.add('btn-danger');
+			document.getElementById('opcoesData').style.display = 'none';
+			$("#opcoesPalavra").stop().slideToggle(800);
 		}
 		
 		function buscaPorPeriodo(){
@@ -1020,6 +1099,35 @@
 				});
 			}else{alert("Preencha data início e data fim!");}
 		}
+		
+		function buscaPorPalavra(){
+					
+			$('#corpoSolicitacoes').empty();
+			let palavra = document.getElementById('palavraChave').value;
+			
+			if(palavra != ''){
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/palavra/"+palavra,
+					success: function (data) {
+						$('#totalElementos').text("");
+						$('#totalElementos').text(data.totalElements);
+						var linkPage = document.getElementById('linkPage').value;
+						linkPage = "/sistech/solicitacao/palavra/"+palavra;
+						document.getElementById('linkPage').value = linkPage;
+						constroiResultados(data);
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			}else{alert("Preencha com uma palavra");}
+		}
+		
+		
+		
 		
 		function constroiResultados(data){
 				document.getElementById('tabela-resultados').style.display = 'none';

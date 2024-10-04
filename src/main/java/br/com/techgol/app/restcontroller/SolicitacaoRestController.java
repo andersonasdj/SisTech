@@ -85,6 +85,11 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
+	@GetMapping("palavra/{conteudo}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<SolicitacaoProjecao> buscarSolicitacoesPorPalavras(@PathVariable String conteudo,  @PageableDefault(size = 100, sort= {"peso"}, direction = Direction.DESC) Pageable page) {
+		return solicitacaoService.listarSolicitacoesPorPalavra(page,conteudo);
+	}
+	
 	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 	   return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);

@@ -79,6 +79,11 @@ public class SolicitacaoService {
 	@Autowired
 	private ColaboradorService colaboradorService;
 	
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorPalavra(Pageable page, String conteudo) {
+		return repository.listarSolicitacoesPorPalavra(page, conteudo);
+	}
+	
 	@Transactional
 	public void recalcularPesoSolicitacoes() {
 		
@@ -1217,5 +1222,6 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 			return "Não foi possível enviar a notificação";
 		}
 	}
+
 
 }
