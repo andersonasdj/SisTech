@@ -83,6 +83,7 @@
 						</li>
 							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
 					</ul>
+					
 				</div>
 			</div>
 		</nav>
@@ -107,14 +108,12 @@
 							<span>
 								<a id="btnRefeicao" class="" href="#" onclick="refeicao()" role="button" aria-expanded="false"></a>
 							</span>
-	
 				    </div>
 				    <div class="col-3 col-s-6">
 						<div class="calender">
 							<div class="top">
 								<span id="months">Janeiro</span>
 							</div>
-							
 							<span id="days">Sabado</span>
 							<span id="dates">01</span>
 							<span id="years">2024</span>
@@ -131,22 +130,25 @@
 			 </div>
 		</div>
 		
-		<div class="container-fluid">
-			<span id="agendamentosAtrasados"> </span><br />
-			<span id="agendamentosHoje"> </span>
-		</div>
-		<br />	
-		
-		<div class="container-fluid">
-			<div class="row justify-content-between">
-				<div class="col-4">
-					<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"> </canvas>
-				</div>
-				<div class="col-4">
-					<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+		<div id="resultados-graficos">
+			<div class="container-fluid">
+				<span id="agendamentosAtrasados"> </span><br />
+				<span id="agendamentosHoje"> </span>
+			</div>
+			<br />	
+			
+			<div class="container-fluid">
+				<div class="row justify-content-between">
+					<div class="col-4">
+						<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+					</div>
+					<div class="col-4">
+						<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+					</div>
 				</div>
 			</div>
 		</div>
+			
 		<br /><br />
 		<footer class="text-center text-white">
 			<div class="container-fluid">
