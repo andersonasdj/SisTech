@@ -29,7 +29,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
 			+ "WHERE s.descricao LIKE %:palavra% "
 			+ "OR s.observacao LIKE %:palavra% "
-			+ "OR s.resolucao LIKE %:palavra%" ,nativeQuery = true)
+			+ "OR s.resolucao LIKE %:palavra% "
+			+ "ORDER BY s.id DESC" ,nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPalavra(Pageable page, String palavra);
 	
 	
