@@ -1,5 +1,6 @@
 package br.com.techgol.app.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,11 +14,19 @@ import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.ProjecaoDadosImpressao;
+import br.com.techgol.app.orm.ProjecaoDashboardGerencia;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
+	
+	
+	@Query(value = "SELECT s.id, s.dataAbertura "
+			+ "FROM solicitacoes s "
+			+ "WHERE s.excluido = false " 
+			+ "AND s.dataAbertura >= :data",nativeQuery = true)
+	public List<ProjecaoDashboardGerencia> buscaDadosDashboardGerencia(LocalDate data);
 	
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
@@ -30,9 +39,9 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "WHERE s.descricao LIKE %:palavra% "
 			+ "OR s.observacao LIKE %:palavra% "
 			+ "OR s.resolucao LIKE %:palavra% "
+			+ "OR s.id LIKE %:palavra% "
 			+ "ORDER BY s.id DESC" ,nativeQuery = true)
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPalavra(Pageable page, String palavra);
-	
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, s.classificacao, s.descricao, "
@@ -47,7 +56,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.dataAgendado >= :inicio "
 			+ "AND s.dataAgendado <= :fim")
 	public List<SolicitacaoProjecaoEntidadeComAtributos> listarSolicitacoesAgendadasDoDia(Status status, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
-	
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, s.classificacao, s.descricao, "

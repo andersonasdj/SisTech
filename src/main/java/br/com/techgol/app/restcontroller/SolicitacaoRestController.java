@@ -39,6 +39,7 @@ import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompletaColaboradores;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
+import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.ModeloSolicitacao;
@@ -53,8 +54,8 @@ import br.com.techgol.app.repository.FuncionarioRepository;
 import br.com.techgol.app.repository.ModeloSolicitacaoRepository;
 import br.com.techgol.app.services.ClienteService;
 import br.com.techgol.app.services.ColaboradorService;
-import br.com.techgol.app.services.FuncionarioService;
 import br.com.techgol.app.services.ConjuntoModeloSolicitacaoService;
+import br.com.techgol.app.services.FuncionarioService;
 import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
@@ -84,6 +85,13 @@ public class SolicitacaoRestController {
 	
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
+	
+	
+	@GetMapping("gerencia") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<DtoDashboardGerencia> gerarDashboardGerencia() {
+		return solicitacaoService.gerarDashboardGerencia();
+	}
+	
 	
 	@GetMapping("palavra/{conteudo}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<SolicitacaoProjecao> buscarSolicitacoesPorPalavras(@PathVariable String conteudo,  @PageableDefault(size = 100, sort= {"peso"}, direction = Direction.DESC) Pageable page) {

@@ -26,7 +26,9 @@ import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
+import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
+import br.com.techgol.app.dto.dashboard.DtoTotalSolicitacoesPorDia;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
@@ -41,6 +43,7 @@ import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
 import br.com.techgol.app.orm.PojecaoResumidaFinalizados;
 import br.com.techgol.app.orm.ProjecaoDadosImpressao;
+import br.com.techgol.app.orm.ProjecaoDashboardGerencia;
 import br.com.techgol.app.orm.SolicitacaoProjecao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
@@ -1221,6 +1224,29 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		}else {
 			return "Não foi possível enviar a notificação";
 		}
+	}
+
+	public Page<DtoDashboardGerencia> gerarDashboardGerencia() {
+		LocalDate dataPesquisa = LocalDate.now().plusDays(-LocalDate.now().getDayOfMonth()).plusDays(1);
+		System.out.println(dataPesquisa);
+		System.out.println(dataPesquisa.getDayOfMonth());
+		
+		List<ProjecaoDashboardGerencia> dados = repository.buscaDadosDashboardGerencia(dataPesquisa);
+		List<DtoTotalSolicitacoesPorDia> dadosPorDia = new ArrayList<>();
+		
+		for(int i=0; dados.size() != i; i++) {
+			
+			if (dataPesquisa.getDayOfMonth() == dados.get(i).getDataAbertura().getDayOfMonth()) {
+				System.out.println("IGUAL");
+			}else {
+				
+				System.out.println("DIFERENTE");
+				dataPesquisa.plusDays(1);
+			}
+			System.out.println(dataPesquisa);
+			
+		}
+		return null;
 	}
 
 
