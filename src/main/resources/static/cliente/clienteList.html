@@ -103,10 +103,11 @@
 				<button class="btn btn-sm btn-dark" onclick="filtros()">Filtros</button>
 		    </div>
 		    <div class="col">
-				<div class="form-group pull-right">
-		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
-				</div>
-				<span class="counter pull-right"> </span>
+				<div class="d-flex">
+					<span id="contador" class="counter pull-right"> </span>
+			        <input class="form-control me-2" type="search" placeholder="Busca avançada" aria-label="Search" id="palavraChave">
+			        <button class="btn btn-sm btn-outline-success" onclick="buscaPorPalavra()" >Buscar</button>
+				</div><br />
 		    </div>
 		  </div>
 		</div>
@@ -424,18 +425,82 @@
 	<script src="../assets/js/password-generator.js"></script>
 	<script>
 		
+		var input = document.getElementById("palavraChave");
+		input.addEventListener("keypress", function(event) {
+		  if (event.key === "Enter") {
+		    buscaPorPalavra();
+		  }
+		});
+		
+		function buscaPorPalavra(){
+			
+			$('#corpoClientes').empty();
+			$('#paginas').empty();
+			$('#contador').text("");
+			$('#qtdFiltrados').text("");			
+			let palavra = document.getElementById('palavraChave').value;
+			
+			if(palavra != ''){
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/clientes/nome/"+palavra,
+					success: function (data) {
+						$('#contador').text(data.totalElements);
+						$('#qtdFiltrados').text(data.totalElements);
+						
+						data.content.map(i => {
+							var status;
+							if(i.ativo == true){
+								status = "<FONT COLOR='#008000'>Ativado</FONT>";
+							}else{
+								status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+							}
+							
+							var vip =" ";
+							var redFlag =" ";
+							if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
+							if(i.redFlag == true){ redFlag = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
+							
+							var itens = 
+							'<tr id=linha' + i.id + '>'
+							+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
+							+ '<td>' + status + '</t}>'
+							+ '<td>'
+							+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+							+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
+							+ ' <button class="btn btn-danger btn-sm" onclick=excluir(' + i.id + ')><i class="bi bi-trash"></i></button>'
+							+ '</td>'
+							+ '</tr>'
+						$('#tabela-clientes').append(itens);
+						});
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			}else{
+				alert("Preencha com uma palavra");
+				
+				listarTodos();
+			}
+		}
+		
+		
 		function listarVip(filtro){
 			$('#corpoClientes').empty();
 			$('#paginas').empty();
 			$('#qtdFiltrados').text("");
+			$('#contador').empty();
+			$('#palavraChave').val("");
+			palavraChave
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",
 			url: "/sistech/clientes/filtro/vip/"+filtro,
 			success: function (data) {
-				
 				$('#qtdFiltrados').text(data.length);
-					
 				data.map(i => {
 					var status;
 					if(i.ativo == true){
@@ -494,6 +559,7 @@
 			contentType: "application/json",
 			url: "/sistech/clientes",
 			success: function (data) {
+				$('#qtdFiltrados').text(data.totalElements);
 				
 				if(data.totalPages > 1){
 					for(var i=0; i < data.totalPages ; i++ ){
@@ -567,6 +633,8 @@
 	<script>
 		function listarPorBairro(bairro){
 			$('#qtdFiltrados').text("");
+			$('#contador').empty();
+			$('#palavraChave').val("");
 			$.ajax({
 			type: "GET",
 			contentType: "application/json",

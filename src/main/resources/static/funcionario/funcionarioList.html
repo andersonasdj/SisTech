@@ -116,6 +116,7 @@
 				<thead>
 					<tr>
 						<th scope="col">Nome</th>
+						<th scope="col">Presença</th>
 						<th scope="col">Ativo</th>
 						<th scope="col">Função</th>
 						<th scope="col">Ação</th>
@@ -167,7 +168,7 @@
 								<input type="text" id="nomemodal" class="form-control">
 							</div>
 							<div class="col-md-3 ms-auto">
-								<label class="form-label mt-2" for="idmodal">ID</label>
+								<label class="form-label mt-2" for="idmodal"><b>ID</b></label>
 								<input type="text" id="idmodal" class="form-control" style="width: 95px;" readonly>
 							</div>
 						</div>
@@ -199,7 +200,7 @@
 		                		</label>
 							</div>
 							<div class="col-md-6 ms-auto"> 
-								<label class="form-label mt-2" for="ausenteModal"><b>Presença</b></label>
+								<label class="form-label mt-2" for="ausenteModal"><b>Presença <i class="bi bi-chat-text" data-toggle="tooltip" data-placement="top" title="Oculta do dashboard"></i></b></label>
 								<select class="form-select" id="ausenteModal" aria-label="Default select example"> </select>
 							</div>
 						</div>
@@ -302,13 +303,17 @@
 			success: function (data) {
 				
 				data.map(i => {
-					var status;
+					var status, ausente;
 					if(i.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
 					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
+					
+					if(i.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
+					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
 					
 					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.nomeFuncionario + '</td>'
+					+ '<td>' + ausente + '</td>'
 					+ '<td>' + status + '</td>'
 					+ '<td>' + i.role + '</td>'
 					+ '<td>'
@@ -569,13 +574,17 @@
 					"trocaSenha":trocaSenha
 				}),
 				success: function (data) {
-					var status;
+					var status, ausente;
 					if(data.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
 					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
+					
+					if(data.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
+					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
 					
 					var itens = 
 						'<tr id=linha' + data.id + '>'
 						+ '<td id=name' + data.id + '>' + data.nomeFuncionario + '</td>'
+						+ '<td>' + ausente + '</td>'
 						+ '<td>' + status + '</td>'
 						+ '<td>' + data.role + '</td>'
 						+ '<td>'

@@ -35,6 +35,11 @@ public class ClienteRestController {
 	@Autowired
 	private ClienteService service;
 	
+	@GetMapping("nome/{conteudo}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
+	public Page<DtoClienteList> buscarClientePorPalavras(@PathVariable String conteudo,  @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+		return service.listarClientePorPalavra(page,conteudo);
+	}
+	
 	@GetMapping
 	public ResponseEntity<Page<DtoClienteList>> listar(@PageableDefault(size = 15, sort= {"nomeCliente"}, direction = Direction.ASC) Pageable page){
 		var todosOsClientes = service.listarTodos(page);

@@ -21,6 +21,10 @@ public class ClienteService {
 	
 	@Autowired
 	ClienteRepository repository;
+	
+	public Page<DtoClienteList> listarClientePorPalavra(Pageable page, String conteudo) {
+		return repository.listarClientesPorPalavra(page, conteudo).map(DtoClienteList::new);
+	}
 
 	@Cacheable(value="nomesClientesAtivos")
 	public List<String> listarNomesClienteAtivos() {

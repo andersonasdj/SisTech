@@ -86,12 +86,10 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
-	
 	@GetMapping("gerencia") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<DtoDashboardGerencia> gerarDashboardGerencia() {
 		return solicitacaoService.gerarDashboardGerencia();
 	}
-	
 	
 	@GetMapping("palavra/{conteudo}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<SolicitacaoProjecao> buscarSolicitacoesPorPalavras(@PathVariable String conteudo,  @PageableDefault(size = 100, sort= {"peso"}, direction = Direction.DESC) Pageable page) {

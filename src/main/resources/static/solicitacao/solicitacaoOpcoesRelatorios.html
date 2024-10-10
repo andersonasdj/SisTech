@@ -660,6 +660,14 @@
 	<script>
 		preencheBotoesTabela();
 		
+		var input = document.getElementById("palavraChave");
+		input.addEventListener("keypress", function(event) {
+		  if (event.key === "Enter") {
+		    buscaPorPalavra();
+		  }
+		});
+		
+		
 		function print() {
 			var idFinalizado= $('#idModalEdicaoModalEdicao').text();
 			var idNaoFinalizado= $('#idModalNaoFinalizado').text();
