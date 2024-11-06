@@ -1,5 +1,6 @@
-body {
-	padding: 0px 30px;
+td{
+	padding-bottom: 1px !important;
+	padding-top: 1px !important;
 }
 
 .navbar-brand {
