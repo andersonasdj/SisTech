@@ -21,6 +21,72 @@ import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+					+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
+					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+					+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+					+ "FROM solicitacoes s "
+					+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+					+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+					+ "WHERE s.formaAbertura LIKE %:abertura% "
+					+ "AND s.categoria LIKE %:categoria% "
+					+ "AND s.classificacao LIKE %:classificacao% "
+					+ "AND s.local LIKE %:local% "
+					+ "AND s.prioridade LIKE %:prioridade% "
+					+ "AND s.funcionario_id LIKE %:funcionario_id% "
+					+ "AND s.cliente_id=:cliente_id "
+					+ "AND s.excluido = :excluida "
+					+ "AND s.dataAtualizacao >= :inicio "
+					+ "AND s.dataAtualizacao <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorDataRelatorioAtualizadoFiltro(Pageable page, Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+					+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
+					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+					+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+					+ "FROM solicitacoes s "
+					+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+					+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+					+ "WHERE s.formaAbertura LIKE %:abertura% "
+					+ "AND s.categoria LIKE %:categoria% "
+					+ "AND s.classificacao LIKE %:classificacao% "
+					+ "AND s.local LIKE %:local% "
+					+ "AND s.prioridade LIKE %:prioridade% "
+					+ "AND s.funcionario_id LIKE %:funcionario_id% "
+					+ "AND s.cliente_id=:cliente_id "
+					+ "AND s.excluido = :excluida "
+					+ "AND s.dataAbertura >= :inicio "
+					+ "AND s.dataAbertura <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorDataRelatorioAberturaFiltro(Pageable page, Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
+	
+	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.formaAbertura LIKE %:abertura% "
+			+ "AND s.categoria LIKE %:categoria% "
+			+ "AND s.classificacao LIKE %:classificacao% "
+			+ "AND s.local LIKE %:local% "
+			+ "AND s.prioridade LIKE %:prioridade% "
+			+ "AND s.funcionario_id LIKE %:funcionario_id% "
+			+ "AND s.cliente_id=:cliente_id "
+			+ "AND s.status = 'FINALIZADO' "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataFinalizado >= :inicio "
+			+ "AND s.dataFinalizado <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorDataRelatorioFechamentoFiltro(Pageable page, Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
+	
+	
 	
 	@Query(value = "SELECT s.id, s.dataAbertura "
 			+ "FROM solicitacoes s "
@@ -154,11 +220,18 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.cliente_id=:cliente_id "
+			+ "WHERE s.formaAbertura LIKE %:abertura% "
+			+ "AND s.categoria LIKE %:categoria% "
+			+ "AND s.classificacao LIKE %:classificacao% "
+			+ "AND s.local LIKE %:local% "
+			+ "AND s.prioridade LIKE %:prioridade% "
+			+ "AND s.funcionario_id LIKE %:funcionario_id% "
+			+ "AND s.cliente_id=:cliente_id "
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataAbertura >= :inicio "
 			+ "AND s.dataAbertura <= :fim")
-	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoAberturaDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoAberturaDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -168,11 +241,19 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.cliente_id=:cliente_id "
+			+ "WHERE s.formaAbertura LIKE %:abertura% "
+			+ "AND s.categoria LIKE %:categoria% "
+			+ "AND s.classificacao LIKE %:classificacao% "
+			+ "AND s.local LIKE %:local% "
+			+ "AND s.prioridade LIKE %:prioridade% "
+			+ "AND s.funcionario_id LIKE %:funcionario_id% "
+			+ "AND s.cliente_id=:cliente_id "
+			+ "AND s.status = 'FINALIZADO' "
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataFinalizado >= :inicio "
 			+ "AND s.dataFinalizado <= :fim")
-	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoFechamentoDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoFechamentoDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -182,11 +263,18 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.cliente_id=:cliente_id "
+			+ "WHERE s.formaAbertura LIKE %:abertura% "
+			+ "AND s.categoria LIKE %:categoria% "
+			+ "AND s.classificacao LIKE %:classificacao% "
+			+ "AND s.local LIKE %:local% "
+			+ "AND s.prioridade LIKE %:prioridade% "
+			+ "AND s.funcionario_id LIKE %:funcionario_id% "
+			+ "AND s.cliente_id=:cliente_id "
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataAtualizacao >= :inicio "
 			+ "AND s.dataAtualizacao <= :fim")
-	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoAtualizadoDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
+	public List<SolicitacaoProjecao> listarSolicitacoesPorPeriodoAtualizadoDataCsv(Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "

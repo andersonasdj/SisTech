@@ -35,6 +35,19 @@ public class CSVController {
   }
   
   
+  @GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}/{abertura}/{categoria}/{classificacao}/{local}/{prioridade}/{nomeFuncionario}")
+  public ResponseEntity<Resource> getFileRelatorioFiltro(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim,
+		@PathVariable String abertura, @PathVariable String categoria, @PathVariable String classificacao, @PathVariable String local, @PathVariable String prioridade, 
+		@PathVariable String nomeFuncionario) {
+    String filename = "relatorio-"+LocalDateTime.now().withNano(0)+".csv";
+    InputStreamResource file = new InputStreamResource(fileService.loadRelatorioPorClienteFiltro(id, periodo, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario));
+
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+        .contentType(MediaType.parseMediaType("application/csv"))
+        .body(file);
+  }
+  
   @GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
   public ResponseEntity<Resource> getFileRelatorio(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
     String filename = "relatorio-"+LocalDateTime.now().withNano(0)+".csv";

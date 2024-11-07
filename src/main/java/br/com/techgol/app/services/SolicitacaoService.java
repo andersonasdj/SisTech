@@ -1013,7 +1013,7 @@ public class SolicitacaoService {
 		return repository.buscaUltimaAtualizada();
 	}
 	
-public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, LocalDate ini, LocalDate termino) {
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, LocalDate ini, LocalDate termino) {
 		
 		LocalDateTime inicio, fim;
 		
@@ -1031,6 +1031,44 @@ public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, Loc
 		}
 			
 	}
+	
+	
+	
+	
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFiltro(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String nomeFuncionario) {
+		
+		if(abertura.equals("*")) {abertura = "";}
+		if(categoria.equals("*")) {categoria = "";}
+		if(classificacao.equals("*")) {classificacao = "";}
+		if(local.equals("*")) {local = "";}
+		if(prioridade.equals("*")) {prioridade = "";}
+		if(nomeFuncionario.equals("*")) {nomeFuncionario = "";}
+		
+		LocalDateTime inicio, fim;
+		
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			
+			if(periodo.equals("abertura")) {
+				return repository.listarSolicitacoesPorDataRelatorioAberturaFiltro(page, id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			}else if(periodo.equals("fechamento")) {
+				return repository.listarSolicitacoesPorDataRelatorioFechamentoFiltro(page, id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			}else {
+				return repository.listarSolicitacoesPorDataRelatorioAtualizadoFiltro(page, id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			}
+			
+		} else {
+			return null;
+		}
+			
+	}
+	
+	
+	
+	
+	
 
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino) {
 		

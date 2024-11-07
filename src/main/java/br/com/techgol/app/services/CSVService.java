@@ -25,19 +25,38 @@ public class CSVService {
 	    return in;
 	}
 
+	public ByteArrayInputStream loadRelatorioPorClienteFiltro(Long id, String periodo, LocalDate ini, LocalDate termino,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String nomeFuncionario) {
+		
+		if(abertura.equals("*")) {abertura = "";}
+		if(categoria.equals("*")) {categoria = "";}
+		if(classificacao.equals("*")) {classificacao = "";}
+		if(local.equals("*")) {local = "";}
+		if(prioridade.equals("*")) {prioridade = "";}
+		if(nomeFuncionario.equals("*")) {nomeFuncionario = "";}
+		return buscaSolicitacoesFiltradasParaCsv(id, periodo, ini, termino, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+	}
+	
 	public ByteArrayInputStream loadRelatorioPorCliente(Long id, String periodo, LocalDate ini, LocalDate termino) {
 		
+		String abertura = "" , categoria = "", classificacao = "", local = "", prioridade = "", nomeFuncionario = "";
+		return buscaSolicitacoesFiltradasParaCsv(id, periodo, ini, termino, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+	}
+
+	private ByteArrayInputStream buscaSolicitacoesFiltradasParaCsv(Long id, String periodo, LocalDate ini,
+			LocalDate termino, String abertura, String categoria, String classificacao, String local, String prioridade,
+			String nomeFuncionario) {
 		LocalDateTime inicio, fim;
 		inicio = ini.atTime(00, 00, 00);
 		fim = termino.atTime(23, 59, 59);
 		
 		List<SolicitacaoProjecao> solicitacao;
 		if(periodo.equals("abertura")) {
-			solicitacao = repository.listarSolicitacoesPorPeriodoAberturaDataCsv(id, false, inicio, fim);
+			solicitacao = repository.listarSolicitacoesPorPeriodoAberturaDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
 		}else if(periodo.equals("fechamento")) {
-			solicitacao = repository.listarSolicitacoesPorPeriodoFechamentoDataCsv(id, false, inicio, fim);
+			solicitacao = repository.listarSolicitacoesPorPeriodoFechamentoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
 		}else {
-			solicitacao = repository.listarSolicitacoesPorPeriodoAtualizadoDataCsv(id, false, inicio, fim);
+			solicitacao = repository.listarSolicitacoesPorPeriodoAtualizadoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
 		}
 		
 	    ByteArrayInputStream in = CSVHelper.solicitacoesNaoFinalizadasToCSV(solicitacao);

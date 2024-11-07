@@ -111,7 +111,7 @@
 					<div class="col-md-3">
 						<div class="control-group">
 							<div class="controls">
-								<input type="radio" id="grafico" name="representacao" value="grafico">
+								<input type="radio" id="grafico" name="representacao" value="grafico" disabled>
 								<label class="form-label mt-5 fonte-texto-op-relatorios" for="grafico">Dashboard</label><br>
 							</div>
 						</div>
@@ -179,12 +179,111 @@
 					</div>
 				</div>
 				
+				<hr class="bg-danger border-2 border-top border">
+				
+				<div class="row">				
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="formaAbertura"><b>Forma de Abertura</b></label>
+								<div class="controls">
+									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura" style="color: rgb(14, 53, 1); font-weight: bold;">
+										<option></option>
+										<option value="TELEFONE">Telefone</option>
+										<option value="EMAIL">E-mail</option>
+										<option value="WHATSAPP">Whatsapp</option>
+										<option value="LOCAL">No local</option>
+										<option value="PROATIVO">Proativo</option>
+									</select>
+								</div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="categoria"><b>Categoria</b></label>
+							<div class="controls">
+								<select class="form-select mt-2" id="categoria" name="categoria" style="color: rgb(14, 53, 1); font-weight: bold;">
+									<option></option>
+									<option value="SOFTWARE">Software</option>
+									<option value="HARDWARE">Hardware</option>
+									<option value="EMAIL">Email</option>
+									<option value="SHAREPOINT">SharePoint</option>
+									<option value="INTERNET">Internet</option>
+									<option value="SERVIDORES">Servidores</option>
+									<option value="OUTROS">Outros</option>
+									<option value="REDE">Rede</option>
+									<option value="CABEAMENTO">Cabeamento</option>
+									<option value="SMARTPHONE">Smartphone</option>
+									<option value="PROJETO">Projeto</option>
+									<option value="BACKUP">Backup</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="classificacao"><b>Classificação</b></label>
+							<div class="controls">
+								<select class="form-select mt-2" id="classificacao" name="classificacao" style="color: rgb(14, 53, 1); font-weight: bold;">
+									<option></option>
+									<option value="INCIDENTE">Incidente</option>
+									<option value="PROBLEMA">Problema</option>
+									<option value="SOLICITACAO">Solicitação</option>
+									<option value="ACESSO">Acesso</option>
+									<option value="EVENTO">Evento</option>
+									<option value="BACKUP">Backup</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="prioridade"><b>Prioridade</b></label>
+							<div class="controls">
+								<select class="form-select mt-2" id="prioridade" name="prioridade" style="color: rgb(14, 53, 1); font-weight: bold;">
+									<option></option>
+									<option value="BAIXA">Baixa</option>
+									<option value="MEDIA">Media</option>
+									<option value="ALTA">Alta</option>
+									<option value="CRITICA">Crítico</option>
+									<option value="PLANEJADA">Planejada</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="local"><b>Onsite / Offsite</b></label>
+							<div class="controls">
+								<select class="form-select mt-2" id="local" name="local" style="color: rgb(14, 53, 1); font-weight: bold;">
+									<option></option>
+									<option value="OFFSITE">Offsite</option>
+									<option value="ONSITE">Onsite</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<div class="control-group">
+							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+							<div class="controls">
+								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario" style="color: rgb(14, 53, 1); font-weight: bold;">
+									<option></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
 				<div class="row">				
 					<div class="col-md-1">
 						<button class="btn btn-primary btn-sm mt-3" onclick="listarSolicitacoes()">listar</button>
 					</div>
 					<div class="col-md-1">
-						<a href="/sistech/solicitacao/relatoriosfiltros" class="btn btn-dark btn-sm mt-3">Filtrar</a>
+						<a href="/sistech/solicitacao/relatoriosclientes" class="btn btn-dark btn-sm mt-3">Voltar</a>
 					</div>
 				</div>
 				<br />
@@ -199,9 +298,9 @@
 						    <div style="padding-left: 10px;">
 						      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
 								<option value="50">50</option>
-						        <option value="100" selected>100</option>
+						        <option value="100">100</option>
 						        <option value="150">150</option>
-						        <option value="200">200</option>
+						        <option value="200" selected>200</option>
 						        <option value="250">250</option>
 						        <option value="300">300</option>
 								<option value="350">350</option>
@@ -257,42 +356,7 @@
 			</div>
 		</div>
 		<br /><br />
-		<div id="graficos" style="display: none;">
-			<div class="container-fluid">
-				<div class="row justify-content-between">
-					<div class="col-3 col-s-12" id="formaAbertura">
-						<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
-						<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"> </canvas>
-					</div>
-					<div class="col-3" id="local">
-						<h5 style="text-align: center;" class="mt-3">Localicação</h5>
-						<canvas id="localSolicitacoes" class="col-s-2" > </canvas>
-					</div>
-					<div class="col-3" id="prioridade">
-						<h5 style="text-align: center;" class="mt-3">Prioridade</h5>
-						<canvas id="prioridadeSolicitacoes" class="col-s-3"> </canvas>
-					</div>
-				</div>
-			</div>
-			<hr class="bg-danger border-2 border-top border-danger mt-4">
-	
-			<div class="container-fluid">
-				<div class="row justify-content-between">
-					<div class="col-3 col-s-12" id="status">
-						<h5 style="text-align: center;" class="mt-3">Status</h5>
-						<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"> </canvas>
-					</div>
-					<div class="col-3 col-s-12" id="classificacao">
-						<h5 style="text-align: center;" class="mt-3">Classificação</h5>
-						<canvas id="classificacaoSolicitacoes" class="col-s-3"> </canvas>
-					</div>
-					<div class="col-3 col-s-12 mt-5"><br />
-						<h4><span id="totalMesCorrente" style="font-size: 24px;"> </span></h4>
-						<h4><span id="totalMinutosMes" style="font-size: 24px;"> </span></h4>
-					</div>
-				</div>
-			</div>
-		</div>
+>
 
 		<br />
 		<footer class="container-fluid fixed-bottom text-center text-white">
@@ -732,6 +796,9 @@
 				for (var i = 0; i < data.clientes.length; i++) {
 					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
 				}
+				for (var i = 0; i < data.funcionarios.length; i++) {
+					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+				}
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -744,12 +811,26 @@
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			var periodo = document.querySelector('input[name=periodo]:checked').value
+			
+			var abertura = $('#formaAbertura').val();
+			var categoria = $('#categoria').val();
+			var classificacao = $('#classificacao').val();
+			var local = $('#local').val();
+			var prioridade = $('#prioridade').val();
+			var nomeFuncionario = $('#nomeFuncionario').val();
+			
+			if(abertura == ""){ abertura = "*"; }
+			if(categoria == ""){ categoria = "*"; }
+			if(classificacao == ""){ classificacao = "*"; }
+			if(local == ""){ local = "*"; }
+			if(prioridade == ""){ prioridade = "*"; }
+			if(nomeFuncionario == ""){ nomeFuncionario = "*"; }
 				
 			if(cliente_id != "" && inicio != "" && fim != ""){
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/api/csv/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/api/csv/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+nomeFuncionario,
 					success: function (data) {
 						var csvContent = "data:text/csv;charset=utf-8," + data;
 	    				window.open(csvContent);
@@ -786,7 +867,19 @@
 			var fim = $('#dataFim').val();
 			var periodo = document.querySelector('input[name=periodo]:checked').value
 			var representacao = document.querySelector('input[name=representacao]:checked').value
-
+			var abertura = $('#formaAbertura').val();
+			var categoria = $('#categoria').val();
+			var classificacao = $('#classificacao').val();
+			var local = $('#local').val();
+			var prioridade = $('#prioridade').val();
+			var nomeFuncionario = $('#nomeFuncionario').val();
+			
+			if(abertura == ""){ abertura = "*"; }
+			if(categoria == ""){ categoria = "*"; }
+			if(classificacao == ""){ classificacao = "*"; }
+			if(local == ""){ local = "*"; }
+			if(prioridade == ""){ prioridade = "*"; }
+			if(nomeFuncionario == ""){ nomeFuncionario = "*"; }
 			$('#paginas').empty();
 			$('#corpoSolicitacoes').empty();
 			
@@ -806,12 +899,11 @@
 			}
 			
 			if(cliente_id != "" && inicio != "" && fim != "" && representacao == "tabela"){	
-				document.getElementById('graficos').style.display = 'none';
 				document.getElementById('conteudo').style.display = 'none';
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
+					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+nomeFuncionario+"?size="+QtdItens,
 					
 					success: function (data) {
 						$('#totalElementos').text("");
@@ -868,11 +960,9 @@
 							}
 						);
 						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						
-							$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
-							$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
-							$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
-						
+						$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
+						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
+						$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -880,46 +970,6 @@
 					}
 				});
 				
-				$.ajax({
-					type: "GET",
-					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/numeros/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim,
-					
-					success: function (data) {
-						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();
-						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
-						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
-						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
-					},
-					statusCode: {
-				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    	401: function() { alert('Realize login novamente!'); }
-					}
-				});
-				
-			}else if(cliente_id != "" && inicio != "" && fim != "" && representacao == "grafico"){
-				document.getElementById('conteudo').style.display = 'none';
-				document.getElementById('graficos').style.display = 'none';
-				$("#graficos").stop().slideToggle(600);
-				$.ajax({
-					type: "GET",
-					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/grafico/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim,
-					
-					success: function (data) {
-						montaGraficos(data);
-						
-						$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();
-						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</u></b></li>');
-						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(data.totalMinutosMes)+'</b></li>');
-						$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((data.totalMinutosMes/resultados.length).toFixed(2))+'</b></li>');
-					},
-					statusCode: {
-				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    	401: function() { alert('Realize login novamente!'); }
-					}
-				});
-
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
@@ -1532,197 +1582,6 @@
 				    401: function() { alert('Realize login novamente!'); }
 				}
 			});
-		}
-		
-		function montaGraficos(data){
-	
-				if (data != null) {
-					$('#totalSolicitacoes').text("");
-					$('#qtdFinalizados').text("");
-					$('#qtdNaoFinalizados').text("");
-					$('#totalMesCorrente').text("");
-					$('#totalMinutosMes').text("");
-					$('#qtdFinalizados').text(data.finalizado);
-					$('#qtdNaoFinalizados').text(data.aberto + data.andamento + data.agendado + data.aguardando + data.pausado);
-					$('#totalSolicitacoes').text("Total: "+ data.totalSolicitacoes);
-					$('#totalMesCorrente').text("Total de solicitações: " + data.totalMesCorrente);
-					$('#totalMinutosMes').text("Tempo total: " + minutosParaHorasTexto(data.totalMinutosMes));
-					
-					document.getElementById('localSolicitacoes').remove();
-					$('#local').append('<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-					
-					var ctx = document.getElementById('localSolicitacoes');
-					new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: ['Onsite', 'Offsite'],
-							datasets: [{
-								label: 'Local das Solicitações: ',
-								data: [data.onsite, data.offsite],
-								backgroundColor: [
-									'rgba(255, 0, 0, 0.5)',
-									'rgba(12, 218, 205, 0.5)',
-									'rgba(255, 205, 86, 0.2)',
-									'rgba(121, 125, 127, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(201, 203, 207, 0.2)'
-								],
-								borderColor: [
-									'rgb(255, 0, 0, 0.5)',
-									'rgb(12, 218, 205, 0.5)',
-									'rgb(255, 205, 86)',
-									'rgb(121, 125, 127)',
-									'rgb(54, 162, 235)',
-									'rgb(153, 102, 255)',
-									'rgb(201, 203, 207)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: { }
-					});
-					
-					document.getElementById('classificacaoSolicitacoes').remove();
-					$('#classificacao').append('<canvas id="classificacaoSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-							
-					const ctx2 = document.getElementById('classificacaoSolicitacoes');
-					new Chart(ctx2, {
-						type: 'doughnut',
-						data: {
-							labels: ['Problema ' + data.problema, 'Incidente '+ data.incidente, 'Solicitação ' + data.solicitacao, 'Acesso ' + data.acesso, 'Backup ' + data.backup, 'Evento ' + data.evento],
-							datasets: [{
-								label: 'CLassificação Solicitações: ',
-								data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
-								backgroundColor: [
-									'rgba(255, 0, 0, 0.5)',
-									'rgba(255, 135, 0, 0.5)',
-									'rgba(255, 240, 0, 0.5)',
-									'rgba(158, 255, 0, 0.5)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(201, 203, 207, 0.2)'
-								],
-								borderColor: [
-									'rgb(255, 0, 0, 0.5)',
-									'rgb(255, 135, 0, 0.5)',
-									'rgb(255, 240, 0, 0.5)',
-									'rgb(158, 255, 0, 0.5)',
-									'rgb(54, 162, 235, 0.2)',
-									'rgb(153, 102, 255, 0.2)',
-									'rgb(201, 203, 207, 0.2)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: { responsive: true, }
-					});
-					
-					document.getElementById('prioridadeSolicitacoes').remove();
-					$('#prioridade').append('<canvas id="prioridadeSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-					
-					const ctx3 = document.getElementById('prioridadeSolicitacoes');
-					new Chart(ctx3, {
-						type: 'bar',
-						data: {
-							labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
-							datasets: [{
-								label: 'Prioridade das Solicitações: ',
-								data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
-								backgroundColor: [
-									'rgba(12, 218, 205, 0.5)',
-									'rgba(255, 240, 0, 0.5)',
-									'rgba(255, 135, 0, 0.5)',
-									'rgba(255, 0, 0, 0.5)',
-									'rgba(26, 26, 209, 0.5)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(201, 203, 207, 0.2)'
-								],
-								borderColor: [
-									'rgb(12, 218, 205, 0.5)',
-									'rgb(255, 240, 0, 0.5)',
-									'rgb(255, 135, 0, 0.5)',
-									'rgb(255, 0, 0, 0.5)',
-									'rgb(26, 26, 209, 0.5)',
-									'rgb(153, 102, 255, 0.2)',
-									'rgb(201, 203, 207, 0.2)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: { }
-					});
-					
-					document.getElementById('statusSolicitacoes').remove();
-					$('#status').append('<canvas id="statusSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-					
-					const ctx4 = document.getElementById('statusSolicitacoes');
-					new Chart(ctx4, {
-						type: 'doughnut',
-						data: {
-							labels: ['Aberto ' + data.aberto, 'Agendado ' + data.agendado, 'Andamento ' + data.andamento, 'Aguardando ' + data.aguardando, 'Pausado ' + data.pausado, 'Finalizado '+ data.finalizado],
-							datasets: [{
-								label: 'Status Solicitações: ',
-								data: [data.aberto, data.agendado, data.andamento, data.aguardando, data.pausado, data.finalizado],
-								backgroundColor: [
-									'rgba(255, 0, 0, 0.5)',
-									'rgba(255, 135, 0, 0.5)',
-									'rgba(12, 218, 205, 0.5)',
-									'rgba(26, 26, 209, 0.5)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(201, 203, 207, 0.2)'
-								],
-								borderColor: [
-									'rgb(255, 0, 0, 0.5)',
-									'rgb(255, 135, 0, 0.5)',
-									'rgb(12, 218, 205, 0.5)',
-									'rgb(26, 26, 209, 0.5)',
-									'rgb(54, 162, 235, 0.2)',
-									'rgb(153, 102, 255, 0.2)',
-									'rgb(201, 203, 207, 0.2)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: { responsive: true, }
-					});
-					
-					document.getElementById('formaAberturaSolicitacoes').remove();
-					$('#formaAbertura').append('<canvas id="formaAberturaSolicitacoes" style="height:60vh; width:40vw"></canvas>');
-					
-					const ctx5 = document.getElementById('formaAberturaSolicitacoes');
-					new Chart(ctx5, {
-						type: 'bar',
-						data: {
-							labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp', 'Proativo'],
-							datasets: [{
-								label: 'Metodo de abertura Solicitações: ',
-								data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
-								backgroundColor: [
-									'rgba(255, 135, 0, 0.5)',
-									'rgba(255, 0, 0, 0.5)',
-									'rgba(255, 240, 0, 0.5)',
-									'rgba(158, 255, 0, 0.5)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(201, 203, 207, 0.2)'
-								],
-								borderColor: [
-									'rgb(255, 135, 0, 0.5)',
-									'rgb(255, 0, 0, 0.5)',
-									'rgb(255, 240, 0, 0.5)',
-									'rgb(158, 255, 0, 0.5)',
-									'rgb(54, 162, 235, 0.2)',
-									'rgb(153, 102, 255, 0.2)',
-									'rgb(201, 203, 207, 0.2)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: { responsive: true, }
-					});
-				}
 		}
 		
 		function limite_textarea_prob(valor) {

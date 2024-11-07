@@ -87,5 +87,10 @@ public class SolicitacaoController {
 		return "solicitacaoRelatorioPorTecnico.html";
 	}
 	
+	@GetMapping("/relatoriosfiltros")
+	public String relatorioFiltros() {
+		
+		return "solicitacaoRelatorioPorFiltro.html";
+	}
 
 }
