@@ -184,7 +184,7 @@
 						<button class="btn btn-primary btn-sm mt-3" onclick="listarSolicitacoes()">listar</button>
 					</div>
 					<div class="col-md-1">
-						<a href="/sistech/solicitacao/relatoriosfiltros" class="btn btn-dark btn-sm mt-3">Filtrar</a>
+						<a href="/sistech/solicitacao/relatoriosfiltros" class="btn btn-light btn-sm mt-3">Filtrar</a>
 					</div>
 				</div>
 				<br />
@@ -413,6 +413,8 @@
 										<option value="SMARTPHONE">SMARTPHONE</option>
 										<option value="PROJETO">PROJETO</option>
 										<option value="BACKUP">BACKUP</option>
+										<option value="COTACAO">COTAÇÃO</option>
+										<option value="MIGRACAO">MIGRAÇÃO</option>
 									</select>
 								</div>
 							</div>
@@ -565,6 +567,8 @@
 											<option value="SMARTPHONE">SMARTPHONE</option>
 											<option value="PROJETO">PROJETO</option>
 											<option value="BACKUP">BACKUP</option>
+											<option value="COTACAO">COTAÇÃO</option>
+											<option value="MIGRACAO">MIGRAÇÃO</option>
 										</select>
 									</div>
 								</div>
@@ -1173,7 +1177,9 @@
 						+'<option value="CABEAMENTO">CABEAMENTO</option>'
 						+'<option value="SMARTPHONE">SMARTPHONE</option>'
 						+'<option value="PROJETO">PROJETO</option>'
-						+'<option value="BACKUP">BACKUP</option>"');
+						+'<option value="BACKUP">BACKUP</option>'
+						+'<option value="COTACAO">COTAÇÃO</option>'
+						+'<option value="MIGRACAO">MIGRAÇÃO</option>"');
 					$('#classificacaomodal').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
 						+'<option value="INCIDENTE">INCIDENTE</option>'
 						+'<option value="PROBLEMA">PROBLEMA</option>'
@@ -1376,7 +1382,9 @@
 						+'<option value="CABEAMENTO">CABEAMENTO</option>'
 						+'<option value="SMARTPHONE">SMARTPHONE</option>'
 						+'<option value="PROJETO">PROJETO</option>'
-						+'<option value="BACKUP">BACKUP</option>"');
+						+'<option value="BACKUP">BACKUP</option>'
+						+'<option value="COTACAO">COTAÇÃO</option>'
+						+'<option value="MIGRACAO">MIGRAÇÃO</option>"');
 					$('#classificacaoModalNaoFinalizado').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
 						+'<option value="INCIDENTE">INCIDENTE</option>'
 						+'<option value="PROBLEMA">PROBLEMA</option>'
