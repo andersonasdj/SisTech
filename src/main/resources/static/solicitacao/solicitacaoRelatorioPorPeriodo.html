@@ -92,37 +92,30 @@
 		<hr class="bg-danger border-2 border-top border-danger">
 		
 		<div class="container-fluid borda-pontilhada">
-				<div class="row">
+				
+				<div class="row">				
 					<div class="col-md-3">
 						<div class="control-group">
-							<label class="control-label mt-2" for="nomeCliente"><b>Cliente</b></label>
-							<div class="controls">
-								<select class="form-select mt-2" id="nomeCliente" name="nomeCliente"> </select>
+							<label class="form-label mt-4 fonteModal"><b>Data Inicio *</b></label>
+							<div class="calendarioAberturaModal">
+								<input type="date" id="dataInicio" name="dataAberturaModalEdicao" >
+								<span> </span>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="control-group">
-							<div class="controls">
-								<input type="radio" id="tabela" name="representacao" value="tabela" CHECKED>
-								<label class="form-label mt-5 fonte-texto-op-relatorios" for="tabela">Tabela</label><br>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="control-group">
-							<div class="controls">
-								<input type="radio" id="grafico" name="representacao" value="grafico" disabled>
-								<label class="form-label mt-5 fonte-texto-op-relatorios" for="grafico">Dashboard</label><br>
+							<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
+							<div class="calendarioAndamentoModal">
+								<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
+								<span> </span>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-				<hr class="bg-danger border-2 border-top border">
-				
 				<div class="row">				
-					<div class="col-md-3">
+					<div class="col-md-3 mt-2">
 						<div class="control-group">
 							<input type="radio" id="abertura" name="periodo" value="abertura" CHECKED>
 							<label class="form-label mt-1 fonte-texto-op-relatorios" for="abertura">Data Abertura</label><br>
@@ -159,26 +152,6 @@
 					</div>
 				</div>
 				
-				<div class="row">				
-					<div class="col-md-3">
-						<div class="control-group">
-							<label class="form-label mt-4 fonteModal"><b>Data Inicio *</b></label>
-							<div class="calendarioAberturaModal">
-								<input type="date" id="dataInicio" name="dataAberturaModalEdicao" >
-								<span> </span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="control-group">
-							<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
-							<div class="calendarioAndamentoModal">
-								<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
-								<span> </span>
-							</div>
-						</div>
-					</div>
-				</div>
 				
 				<hr class="bg-danger border-2 border-top border">
 				
@@ -270,10 +243,16 @@
 					
 					<div class="col-md-2">
 						<div class="control-group">
-							<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+							<label class="control-label" for="status"><b>Status</b></label>
 							<div class="controls">
-								<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario" style="color: rgb(14, 53, 1); font-weight: bold;">
+								<select class="form-select mt-2" id="status" name="status" style="color: rgb(14, 53, 1); font-weight: bold;">
 									<option></option>
+									<option value="ABERTO">Aberto</option>
+									<option value="ANDAMENTO">Andamento</option>
+									<option value="AGENDADO">Agendado</option>
+									<option value="AGUARDANDO">Aguardando</option>
+									<option value="PAUSADO">Pausado</option>
+									<option value="FINALIZADO">Finalizado</option>
 								</select>
 							</div>
 						</div>
@@ -284,9 +263,6 @@
 				<div class="row">				
 					<div class="col-md-1">
 						<button class="btn btn-primary btn-sm mt-3" onclick="listarSolicitacoes()">listar</button>
-					</div>
-					<div class="col-md-1">
-						<a href="/sistech/solicitacao/relatoriosclientes" class="btn btn-light btn-sm mt-3">Voltar</a>
 					</div>
 				</div>
 				<br />
@@ -303,13 +279,18 @@
 								<option value="50">50</option>
 						        <option value="100">100</option>
 						        <option value="150">150</option>
-						        <option value="200" selected>200</option>
+						        <option value="200">200</option>
 						        <option value="250">250</option>
-						        <option value="300">300</option>
+						        <option value="300" selected>300</option>
 								<option value="350">350</option>
 								<option value="400">400</option>
 								<option value="450">450</option>
 								<option value="500">500</option>
+								<option value="600">600</option>
+								<option value="700">700</option>
+								<option value="800">800</option>
+								<option value="900">900</option>
+								<option value="1000">1000</option>								
 						      </select>
 						    </div>
 						</div>
@@ -794,24 +775,7 @@
 			window.open('../impressao?id='+idNaoFinalizado, '_blank');
       	}
 		
-		$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/solicitacao/getData",
-			success: function (data) {
-				for (var i = 0; i < data.clientes.length; i++) {
-					$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
-				}
-				for (var i = 0; i < data.funcionarios.length; i++) {
-					$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
-				}
-			},
-			statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
-			}
-		});
-		
+				
 		function baixaCsv(){
 			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
@@ -868,24 +832,22 @@
 		
 		function listarSolicitacoes(){
 			var QtdItens = $("#qtdItensPage").val();
-			var cliente_id = $('#nomeCliente').val();
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			var periodo = document.querySelector('input[name=periodo]:checked').value
-			var representacao = document.querySelector('input[name=representacao]:checked').value
 			var abertura = $('#formaAbertura').val();
 			var categoria = $('#categoria').val();
 			var classificacao = $('#classificacao').val();
 			var local = $('#local').val();
 			var prioridade = $('#prioridade').val();
-			var nomeFuncionario = $('#nomeFuncionario').val();
+			var status = $('#status').val();
 			
 			if(abertura == ""){ abertura = "*"; }
 			if(categoria == ""){ categoria = "*"; }
 			if(classificacao == ""){ classificacao = "*"; }
 			if(local == ""){ local = "*"; }
 			if(prioridade == ""){ prioridade = "*"; }
-			if(nomeFuncionario == ""){ nomeFuncionario = "*"; }
+			if(status == ""){ status = "*"; }
 			$('#paginas').empty();
 			$('#corpoSolicitacoes').empty();
 			
@@ -904,13 +866,13 @@
 			    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
 			}
 			
-			if(cliente_id != "" && inicio != "" && fim != "" && representacao == "tabela"){	
+			if(inicio != "" && fim != ""){	
 				document.getElementById('conteudo').style.display = 'none';
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+nomeFuncionario+"?size="+QtdItens,
-					
+					url: "/sistech/solicitacao/relatorio/periodo/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+status+"?size="+QtdItens,
+										
 					success: function (data) {
 						$('#totalElementos').text("");
 						$('#totalElementos').text(data.totalElements);
@@ -969,23 +931,6 @@
 						$('#diasUteis').append('<li> Dias úteis: <b><u>'+resultados.length+'</u></b></li>');
 						$('#horasTotais').append('<li> Tempo Solicitações: <b>'+ minutosParaHorasTexto(tempoTotal)+'</b></li>');
 						$('#horaDia').append('<li> Tempo / dia: <b>'+minutosParaHorasTexto((tempoTotal/resultados.length).toFixed(2))+'</b></li>');
-					},
-					statusCode: {
-				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    	401: function() { alert('Realize login novamente!'); }
-					}
-				});
-				
-				$.ajax({
-					type: "GET",
-					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/cliente/numeros/"+cliente_id+"/inicio/"+inicio+"/fim/"+fim,
-					
-					success: function (data) {
-						$('#qtdAbertos').empty();$('#qtdFechados').empty();$('#qtdAtualizados').empty();
-						$('#qtdAbertos').append('<li> Atribuídos no período: <b>'+data.qtdAbertos+'</b></li>');
-						$('#qtdFechados').append('<li> Finalizados no perído: <b>'+data.qtdFinalizados+'</b></li>');
-						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
 					},
 					statusCode: {
 				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },

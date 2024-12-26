@@ -28,7 +28,6 @@ import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
-import br.com.techgol.app.dto.dashboard.DtoTotalSolicitacoesPorDia;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
@@ -1066,7 +1065,35 @@ public class SolicitacaoService {
 	}
 	
 	
-	
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, String periodo, LocalDate ini, LocalDate termino,
+			String abertura, String categoria, String classificacao, String local, String prioridade, String status) {
+		
+		if(abertura.equals("*")) {abertura = "";}
+		if(categoria.equals("*")) {categoria = "";}
+		if(classificacao.equals("*")) {classificacao = "";}
+		if(local.equals("*")) {local = "";}
+		if(prioridade.equals("*")) {prioridade = "";}
+		if(status.equals("*")) {status = "";}
+		
+		LocalDateTime inicio, fim;
+		   
+		if(ini != null  && termino != null ) {
+			inicio = ini.atTime(00, 00, 00);
+			fim = termino.atTime(23, 59, 59);
+			
+			if(periodo.equals("abertura")) {
+				return repository.listarSolicitacoesPorPeriodoRelatorioAbertura(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
+			}else if(periodo.equals("fechamento")) {
+				return repository.listarSolicitacoesPorPeriodoRelatorioFechamento(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
+			}else {
+				return repository.listarSolicitacoesPorPeriodoRelatorioAtualizado(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
+			}
+			
+		} else {
+			return null;
+		}
+			
+	}
 	
 	
 
@@ -1270,7 +1297,7 @@ public class SolicitacaoService {
 		System.out.println(dataPesquisa.getDayOfMonth());
 		
 		List<ProjecaoDashboardGerencia> dados = repository.buscaDadosDashboardGerencia(dataPesquisa);
-		List<DtoTotalSolicitacoesPorDia> dadosPorDia = new ArrayList<>();
+		//List<DtoTotalSolicitacoesPorDia> dadosPorDia = new ArrayList<>();
 		
 		for(int i=0; dados.size() != i; i++) {
 			

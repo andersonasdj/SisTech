@@ -86,6 +86,14 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
+	
+	@GetMapping("/relatorio/periodo/{periodo}/inicio/{inicio}/fim/{fim}/{abertura}/{categoria}/{classificacao}/{local}/{prioridade}/{status}")
+	public Page<SolicitacaoProjecao> listarRelatorioPorPeriodo(@PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, 
+			@PathVariable String abertura, @PathVariable String categoria, @PathVariable String classificacao, @PathVariable String local, @PathVariable String prioridade, 
+			@PathVariable String status, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	   return solicitacaoService.listarSolicitacoesPorPeriodo(page, periodo, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
+	}
+	
 	@GetMapping("gerencia") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<DtoDashboardGerencia> gerarDashboardGerencia() {
 		return solicitacaoService.gerarDashboardGerencia();

@@ -55,6 +55,7 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
@@ -102,42 +103,11 @@
 						<a id="agendadoHoje" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="#" onclick="agendadoHoje()" role="button">Agendamentos Hoje <b><span id="btnAgendadosHoje"> </span></b></a>
 						<a id="atrasadas" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="#" onclick="atrasadas()" role="button">Agendamentos Atrasados <b><span id="btnAtrasadosHoje"> </span></b></a></p>
 
-						<p><a id="periodoAbertura" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="#" onclick="porPeriodo()" role="button">Por Período</a>
+						<p><a id="periodoAbertura" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/relatoriosperiodo" role="button">Por Período</a>
 						<a id="porCliente" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/relatoriosclientes" role="button">Por Cliente </a>
 						<a id="porTecnico" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/relatoriostecnicos" role="button">Por Tecnico </a>
 						<a id="porFinalizadas" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/finalizadas" role="button">Finalizadas</a>
 						<a id="porExcluidas" class="btn btn-primary btn-tamanho-padrao rederiza-medio" href="/sistech/solicitacao/excluidas" role="button">Solicitações Excluídas</a></p>
-					</div>
-					
-					<div id="opcoesData" style="display: none;">
-						<hr class="bg-danger border-2 border-top border">
-						<div class="row">
-							<div class="col-md-3"> </div>
-							<div class="col-md-2">
-								<div class="control-group">Início: 
-									<div class="calendarioAberturaModal">
-										<input type="date" id="relatorioDataInicio" name="relatorioDataInicio" >
-										<span> </span>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="control-group">Fim:
-									<div class="calendarioAndamentoModal">
-										<input type="date" id="relatorioDataFim" name="relatorioDataFim" value="">
-										<span> </span>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-1">
-								<button class="btn btn-info" onclick="buscaPorPeriodo()">Listar</button>
-							</div>
-							<div class="col-md-1">
-								<a href="#" onclick="baixaCsv()"> <i class="bi bi-filetype-csv" style="font-size: 1.7rem; color: cornflowerblue;"> </i></a>
-							</div>
-							<div class="col-md-3"> </div>
-						</div>
-						<hr class="bg-danger border-2 border-top borde">
 					</div>
 					
 				</div>
@@ -766,22 +736,18 @@
 			let atualizadoHoje = document.getElementById('atualizadoHoje');
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
 
 			atualizadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			agendadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-danger');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
-			periodoAbertura.classList.add('btn-sucess');
-			document.getElementById('opcoesData').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -808,22 +774,18 @@
 			let atualizadoHoje = document.getElementById('atualizadoHoje');
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
 
 			abertoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			agendadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-danger');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
-			periodoAbertura.classList.add('btn-sucess');
-			document.getElementById('opcoesData').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -850,22 +812,18 @@
 			let atualizadoHoje = document.getElementById('atualizadoHoje');
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
 
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
 			agendadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-danger');
 			atrasadas.classList.add('btn-sucess');
-			periodoAbertura.classList.add('btn-sucess');
-			document.getElementById('opcoesData').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -892,22 +850,18 @@
 			let atualizadoHoje = document.getElementById('atualizadoHoje');
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
 			
 			agendadoHoje.classList.remove('btn-danger');
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			atrasadas.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-danger');
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-sucess');
-			periodoAbertura.classList.add('btn-sucess');
-			document.getElementById('opcoesData').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -934,21 +888,17 @@
 			let atualizadoHoje = document.getElementById('atualizadoHoje');
 			let agendadoHoje = document.getElementById('agendadoHoje');
 			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
 
 			abertoHoje.classList.remove('btn-danger');
 			atualizadoHoje.classList.remove('btn-danger');
 			finalizadoHoje.classList.remove('btn-danger');
 			agendadoHoje.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
 			
 			abertoHoje.classList.add('btn-sucess');
 			atualizadoHoje.classList.add('btn-sucess');
 			agendadoHoje.classList.add('btn-sucess');
 			finalizadoHoje.classList.add('btn-sucess');
 			atrasadas.classList.add('btn-danger');
-			periodoAbertura.classList.add('btn-sucess');
-			document.getElementById('opcoesData').style.display = 'none';
 			
 			$.ajax({
 				type: "GET",
@@ -967,57 +917,6 @@
 			});
 		}
 		
-		function porPeriodo(){
-			
-			let abertoHoje = document.getElementById('abertoHoje');
-			let finalizadoHoje = document.getElementById('finalizadoHoje');
-			let atualizadoHoje = document.getElementById('atualizadoHoje');
-			let agendadoHoje = document.getElementById('agendadoHoje');
-			let atrasadas = document.getElementById('atrasadas');
-			let periodoAbertura = document.getElementById('periodoAbertura');
-
-			abertoHoje.classList.remove('btn-danger');
-			atualizadoHoje.classList.remove('btn-danger');
-			finalizadoHoje.classList.remove('btn-danger');
-			agendadoHoje.classList.remove('btn-danger');
-			atrasadas.classList.remove('btn-danger');
-			periodoAbertura.classList.remove('btn-danger');
-			
-			abertoHoje.classList.add('btn-sucess');
-			atualizadoHoje.classList.add('btn-sucess');
-			agendadoHoje.classList.add('btn-sucess');
-			finalizadoHoje.classList.add('btn-sucess');
-			
-			periodoAbertura.classList.add('btn-danger');
-			$("#opcoesData").stop().slideToggle(800);
-		}
-		
-		function buscaPorPeriodo(){
-			
-			$('#corpoSolicitacoes').empty();
-			let dataInicio = document.getElementById('relatorioDataInicio').value;
-			let dataFim = document.getElementById('relatorioDataFim').value;
-			
-			if(dataInicio != '' && dataFim != ''){
-				$.ajax({
-					type: "GET",
-					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/periodo/inicio/"+dataInicio+"/fim/"+dataFim,
-					success: function (data) {
-						$('#totalElementos').text("");
-						$('#totalElementos').text(data.totalElements);
-						var linkPage = document.getElementById('linkPage').value;
-						linkPage = "/sistech/solicitacao/relatorio/periodo/inicio/"+dataInicio+"/fim/"+dataFim;
-						document.getElementById('linkPage').value = linkPage;
-						constroiResultados(data);
-					},
-					statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
-					}
-				});
-			}else{alert("Preencha data início e data fim!");}
-		}
 		
 		function buscaPorPalavra(){
 					

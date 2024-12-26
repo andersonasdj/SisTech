@@ -92,5 +92,11 @@ public class SolicitacaoController {
 		
 		return "solicitacaoRelatorioPorFiltro.html";
 	}
+	
+	@GetMapping("/relatoriosperiodo")
+	public String relatorioPeriodo() {
+		
+		return "solicitacaoRelatorioPorPeriodo.html";
+	}
 
 }
