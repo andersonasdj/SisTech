@@ -1028,10 +1028,7 @@ public class SolicitacaoService {
 			inicio = LocalDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth(), 00, 00, 00);
 			return repository.listarSolicitacoesPorPeriodoRelatorio(page, false, inicio, inicio);
 		}
-			
 	}
-	
-	
 	
 	
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorFiltro(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino,
@@ -1061,9 +1058,7 @@ public class SolicitacaoService {
 		} else {
 			return null;
 		}
-			
 	}
-	
 	
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodo(Pageable page, String periodo, LocalDate ini, LocalDate termino,
 			String abertura, String categoria, String classificacao, String local, String prioridade, String status) {
@@ -1084,7 +1079,7 @@ public class SolicitacaoService {
 			if(periodo.equals("abertura")) {
 				return repository.listarSolicitacoesPorPeriodoRelatorioAbertura(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
 			}else if(periodo.equals("fechamento")) {
-				return repository.listarSolicitacoesPorPeriodoRelatorioFechamento(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
+				return repository.listarSolicitacoesPorPeriodoRelatorioFechamento(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade);
 			}else {
 				return repository.listarSolicitacoesPorPeriodoRelatorioAtualizado(page, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, status);
 			}
@@ -1092,9 +1087,7 @@ public class SolicitacaoService {
 		} else {
 			return null;
 		}
-			
 	}
-	
 	
 
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino) {

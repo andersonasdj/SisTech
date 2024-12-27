@@ -59,13 +59,12 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.classificacao LIKE %:classificacao% "
 			+ "AND s.local LIKE %:local% "
 			+ "AND s.prioridade LIKE %:prioridade% "
-			+ "AND s.status LIKE %:status% "
 			+ "AND s.status = 'FINALIZADO' "
 			+ "AND s.excluido = :excluida "
 			+ "AND s.dataFinalizado >= :inicio "
 			+ "AND s.dataFinalizado <= :fim")
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodoRelatorioFechamento(Pageable page, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
-			String abertura, String categoria, String classificacao, String local, String prioridade, String status);
+			String abertura, String categoria, String classificacao, String local, String prioridade);
 	
 	
 	
@@ -82,8 +81,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 					+ "AND s.categoria LIKE %:categoria% "
 					+ "AND s.classificacao LIKE %:classificacao% "
 					+ "AND s.local LIKE %:local% "
+					+ "AND s.status LIKE %:status% "
 					+ "AND s.prioridade LIKE %:prioridade% "
-					+ "AND s.status LIKE :status "
 					+ "AND s.excluido = :excluida "
 					+ "AND s.dataAtualizacao >= :inicio "
 					+ "AND s.dataAtualizacao <= :fim")
