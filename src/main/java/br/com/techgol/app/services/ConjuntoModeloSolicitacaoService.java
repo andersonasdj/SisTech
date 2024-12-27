@@ -42,6 +42,7 @@ public class ConjuntoModeloSolicitacaoService {
 		return new DtoConjuntoModeloEdit(conjuntoModelo.getId(), conjuntoModelo.getNomeModelo());
 	}
 	
+	@CacheEvict(value = {"nomesConjuntoModelos","idConjuntoModelos","listarTodosConjuntoModelos"}, allEntries = true)
 	public ConjuntoModelos cadastrar(DtoConjuntoModelo dado) {
 		return repository.save(new ConjuntoModelos(dado));
 	}
