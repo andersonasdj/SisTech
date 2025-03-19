@@ -320,7 +320,7 @@
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
 		<div class="modal fade" id="edicaoModal" tabindex="-1" aria-labelledby="edicaoModal" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
+				<div class="modal-content modal-content-finalizado">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
 						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
@@ -480,6 +480,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printFinalizado()><i class="bi bi-printer"> </i></button>
+						<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -793,6 +794,175 @@
 			</div>
 		</div>
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		
+		<!-- ################################ MODAL NOVA SOLICITACAO ############################################# -->
+				<div class="modal fade" id="modalNovaSolicitacao" tabindex="-1" aria-labelledby="modalNovaSolicitacao" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="modalNovaSolicitacao">Cadastro de Solicitação</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="controls">
+										<label class="form-label mt-1" for="nomeCliente"><b>Cliente *</b></label>
+											<select class="form-select" id="nomeCliente" name="nomeCliente">
+												<option> </option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="controls">
+										<label class="form-label mt-1" for="solicitante"><b>Solicitante *</b></label>
+											<select class="form-control solicitante" name="solicitante" id="solicitante">
+												<option> </option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4 ms-auto">
+										<div class="controls">
+										<label class="form-label mt-1" for="afetado"><b>Usuário Afetado *</b></label>
+											<select class="form-control usuario" name="afetado" id="afetado"> </select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 ms-auto">
+										<div class="controls">
+										<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
+											<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
+												placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+											<span id="contProb">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+										</div>
+									</div>
+									<div class="col-md-6 ms-auto">
+										<div class="controls">
+										<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
+											<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
+												placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+											<span id="contObs">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 ms-auto">
+										<div class="controls">
+											<label class="control-label mt-1"><b>Forma de Abertura *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+													<option value="TELEFONE">Telefone</option>
+													<option value="EMAIL">E-mail</option>
+													<option value="WHATSAPP">Whatsapp</option>
+													<option value="LOCAL">No local</option>
+													<option value="PROATIVO">Proativo</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6 ms-auto">
+										<div class="controls">
+											<label class="form-label mt-1"><b>Prioridade *</b></label>
+											<select class="form-select" id="prioridade" name="prioridade">
+												<option value="BAIXA">Baixa</option>
+												<option value="MEDIA">Media</option>
+												<option value="ALTA">Alta</option>
+												<option value="CRITICA">Crítico</option>
+												<option value="PLANEJADA">Planejada</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="controls">
+										<label class="form-label mt-1"><b>Categoria *</b></label>
+											<select class="form-select" id="categoria" name="categoria">
+												<option value="SOFTWARE">Software</option>
+												<option value="HARDWARE">Hardware</option>
+												<option value="EMAIL">Email</option>
+												<option value="SHAREPOINT">SharePoint</option>
+												<option value="INTERNET">Internet</option>
+												<option value="SERVIDORES">Servidores</option>
+												<option value="OUTROS">Outros</option>
+												<option value="REDE">Rede</option>
+												<option value="CABEAMENTO">Cabeamento</option>
+												<option value="SMARTPHONE">Smartphone</option>
+												<option value="PROJETO">Projeto</option>
+												<option value="BACKUP">Backup</option>
+												<option value="COTACAO">Cotação</option>
+												<option value="MIGRACAO">Migração</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="controls">
+										<label class="form-label mt-1"><b>Classificação *</b></label>
+											<select class="form-select" id="classificacao" name="classificacao">
+												<option value="INCIDENTE">Incidente</option>
+												<option value="PROBLEMA">Problema</option>
+												<option value="SOLICITACAO">Solicitação</option>
+												<option value="ACESSO">Acesso</option>
+												<option value="EVENTO">Evento</option>
+												<option value="BACKUP">Backup</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="controls">
+										<label class="form-label mt-1"><b>Onsite / Offsite *</b></label>
+											<select class="form-select" id="local" name="local">
+												<option value="OFFSITE">Offsite</option>
+												<option value="ONSITE">Onsite</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="controls">
+										<label class="form-label mt-1"><b>Técnico </b></label>
+											<select class="form-select" id="nomeFuncionarioClone" name="nomeFuncionarioClone"> </select>
+										</div>
+									</div>
+									<div class="col-md-4 ms-auto">
+										<label class="form-label mt-1"><b>Status *</b></label>
+										<div class="controls">
+											<select class="form-select" id="statusClone" name="statusClone">
+												<option value="ABERTO">ABERTO</option>
+												<option value="ANDAMENTO">ANDAMENTO</option>
+												<option value="AGENDADO">AGENDADO</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8-auto" id="agendamentos" style="display: none">
+										<div class="control-group">
+											<label class="form-label mt-4"><b>Data Agendamento *</b></label>
+											<div class="datetimepicker">
+												<input type="date" id="date" name="date" value="">
+												<span> </span>
+												<input type="time" id="time" name="time" value="">
+											</div>
+											<div class="info">
+												<strong>Compatibility check:</strong>
+												Date "<span id="date-output"> </span>",
+												Time "<span id="time-output"> </span>"
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+								<span id="botaoSalvar"> </span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ########################################### Modal NOVA SOLICITACAO ############################################# -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -1125,6 +1295,58 @@
 			}else{
 				alert("Selecione (Funcionario, data de inicio e data de término)");
 			}
+		}
+		
+		function clonar(){
+			var id = $('#idmodal').text(),
+				local = $('#localmodal').val(),
+				formaAbertura = $('#formaAberturaModalEdicao').val(),
+				categoria = $('#categoriamodal').val(),
+				classificacao = $('#classificacaomodal').val(),
+				prioridade = $('#prioridademodal').val(),
+				descricao = $('#descricaomodal').val(),
+				observacao = $('#observacaomodal').val(),
+				resolucao = $('#resolucaomodal').val(),
+				funcionario = $('#nomeFuncionarioModal').val(); 
+			$('#nomeCliente').empty();
+			$('#nomeFuncionarioClone').empty();
+			$('#nomeCliente').append('<option value=""></option>');
+			nova();
+			
+			$('#nomeCliente').val("");
+			$('#solicitante').empty();
+			$('#afetado').empty();
+			$('#descricao').val("");
+			$('#observacao').val("");
+			$('#resolucaomodal').val("");
+			
+			$('#descricao').val(descricao);
+			$('#observacao').val(observacao);
+			$('#resolucaomodal').val(resolucao);
+			$('#formaAbertura').val(formaAbertura);
+			$('#prioridade').val(prioridade);
+			$('#categoria').val(categoria);
+			$('#classificacao').val(classificacao);
+			$('#local').val(local);
+		}
+		function nova() {
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/getData",
+				success: function (data) {
+					for (var i = 0; i < data.clientes.length; i++) {
+						$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+					}
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionarioClone').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
 		}
 		
 		function carregaCard(id){
@@ -2070,6 +2292,134 @@
 		    else {$('.no-result').hide();}
 				  });
 		});
+		
+		$(document).ready(function () {
+				var divCliente = $("#nomeCliente");
+				divCliente.on("change", function () {
+					var nomeCliente = $("#nomeCliente").val();
+					var json = {"nomeCliente": nomeCliente};
+					$("#botaoSalvar").empty();
+
+					if(nomeCliente > 0){
+						$('#botaoSalvar').append(
+							'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+						);
+						
+						$.ajax({
+						url: "/sistech/colaborador/list/" + nomeCliente,
+						type: "GET",
+						data: json,
+						success: function (data) {
+
+							if (data != null) {
+								var boxSolicitante = $('#solicitante');
+								boxSolicitante.find('option').remove();
+
+								var boxAfetado = $('#afetado');
+								boxAfetado.find('option').remove();
+
+								$('#boxSolicitante').append('<option value="" slected="selected"></option>');
+								$('#boxAfetado').append('<option value="" slected="selected"></option>');
+
+								$.each(data, function (i, item) {
+									$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+								});
+								$('#solicitante').append('<option value="Suporte" slected="selected">Suporte</option>');
+								$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
+
+								$.each(data, function (i, item) {
+									$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+								});
+								$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
+								$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+							}
+						},
+						erro: function (request, status, error) { },
+						complete: function (data) { }
+						})
+					} else{
+						$("#botaoSalvar").empty();
+						$('#solicitante').empty();
+						$('#afetado').empty();
+					}
+					
+				});
+			});
+			
+			var divStatus = $("#statusClone");
+			var status = $("#statusClone").val();
+			divStatus.on("change", function(){
+				var status = $("#statusClone").val();
+				if(status === 'AGENDADO'){
+					$("#agendamentos").stop().slideToggle(1000);
+				}else {
+					document.getElementById('agendamentos').style.display = 'none';
+				}
+			} );
+			
+			var dateEl = document.getElementById('date');
+			var timeEl = document.getElementById('time');
+			
+			document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+			document.getElementById('time-output').innerHTML = timeEl.type === 'time';
+			
+			
+			function salvar() {
+						var solicitante = $('#solicitante').val(),
+							descricao = $('#descricao').val(),
+							afetado = $('#afetado').val(),
+							observacao = $('#observacao').val(),
+							abertoPor = $('#abertoPor').val(),
+							prioridade = $('#prioridade').val(),
+							formaAbertura = $('#formaAbertura').val(),
+							categoria = $('#categoria').val(),
+							classificacao = $('#classificacao').val(),
+							local = $('#local').val(),
+							status = $('#statusClone').val(),
+							nomeCliente = $('#nomeCliente').val(),
+							nomeFuncionario = $('#nomeFuncionario').val(),
+							dataAgendado = $('#date').val(),
+							horaAgendado = $('#time').val();
+
+						$.ajax({
+							type: "POST",
+							contentType: "application/json",
+							url: "/sistech/solicitacao",
+							data: JSON.stringify({
+								"solicitante": solicitante,
+								"descricao": descricao,
+								"afetado": afetado,
+								"observacao": observacao,
+								"abertoPor": abertoPor,
+								"prioridade": prioridade,
+								"formaAbertura": formaAbertura,
+								"categoria": categoria,
+								"classificacao": classificacao,
+								"local": local,
+								"status": status,
+								"nomeCliente": nomeCliente,
+								"nomeFuncionario": nomeFuncionario,
+								"dataAgendado": dataAgendado,
+								"horaAgendado": horaAgendado
+							}),
+							success: function (data) {
+							
+								alert("Solicitação adicionada com sucesso!");
+								
+								var solicitante = $('#solicitante').empty(),
+									descricao = $('#descricao').val(""),
+									afetado = $('#afetado').empty(),
+									observacao = $('#observacao').val(""),
+									nomeCliente = $('#nomeCliente').val(""),
+									dataAgendado = $('#date').val(""),
+									horaAgendado = $('#time').val("");
+							},
+							statusCode: {
+							    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+							    401: function() { alert('Realize login novamente!'); }
+							}
+						});
+					}
 	</script>
 </body>
 </html>

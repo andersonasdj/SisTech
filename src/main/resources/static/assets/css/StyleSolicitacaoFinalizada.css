@@ -3,6 +3,10 @@
 	box-sizing: border-box;
 }
 
+.modal-content-finalizado {
+    border: 5px solid rgb(48 159 0);
+}
+
 .calendarioAberturaModal {
 	display: inline-flex;
 	align-items: center;
