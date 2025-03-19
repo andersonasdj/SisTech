@@ -103,7 +103,6 @@
 				        <option value="250">250</option>
 				        <option value="300" selected >300</option>
 				        <option value="350">350</option>
-						<option value="350">350</option>
 						<option value="400">400</option>
 						<option value="450">450</option>
 						<option value="500">500</option>
@@ -680,7 +679,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -820,7 +822,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login"; 
+					}
 			}
 			});
 		}
@@ -925,7 +930,10 @@
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			});
