@@ -515,7 +515,7 @@ public class SolicitacaoService {
 		timeSheetService.cadastraTimesheet(
 				solicitacao, solicitacao.getFuncionario(),
 				solicitacao.getDataAndamento(),
-				LocalDateTime.now().withNano(0),
+				((solicitacao.getDataFinalizado() != null) ? solicitacao.getDataFinalizado() : LocalDateTime.now().withNano(0)),
 				solicitacao.getDuracao(),
 				status
 		);
