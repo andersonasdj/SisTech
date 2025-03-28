@@ -95,7 +95,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="nomeCliente"><b>Cliente</b></label>
+								<label class="control-label" for="nomeCliente"><b>Cliente *</b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
 										<option> </option>
@@ -106,7 +106,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="formaAbertura"><b>Forma de Abertura *</b></label>
+								<label class="control-label" for="formaAbertura"><b>Forma de Abertura </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
 										<option value="TELEFONE">Telefone</option>
@@ -173,10 +173,11 @@
 						</div>
 					</div>
 					<br />
+					
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="categoria"><b>Categoria *</b></label>
+								<label class="control-label" for="categoria"><b>Categoria </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="categoria" name="categoria">
 										<option value="SOFTWARE">Software</option>
@@ -199,7 +200,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="classificacao"><b>Classificação *</b></label>
+								<label class="control-label" for="classificacao"><b>Classificação </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="classificacao" name="classificacao">
 										<option value="INCIDENTE">Incidente</option>
@@ -217,7 +218,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="prioridade"><b>Prioridade *</b></label>
+								<label class="control-label" for="prioridade"><b>Prioridade </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="prioridade" name="prioridade">
 										<option value="BAIXA">Baixa</option>
@@ -231,7 +232,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="local"><b>Onsite / Offsite *</b></label>
+								<label class="control-label" for="local"><b>Onsite / Offsite </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="local" name="local">
 										<option value="OFFSITE">Offsite</option>
@@ -247,24 +248,46 @@
 							<div class="control-group">
 								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
 								<div class="controls">
-									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"> </select>
+									<select class="form-select mt-3" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
+							
 							<div class="control-group">
-								<label class="control-label" for="status"><b>Status *</b></label>
+								
+								<label class="control-label" for="status"><b> Status &nbsp; </b>
+								
+									<b class="blink" style="color: rgb(255, 120, 0); font-size: 20px;"><i class="bi bi-exclamation-triangle"></i></b>	
+								</label>
 								<div class="controls">
-									<select class="form-select mt-2" id="status" name="status">
+									<select style="border: 2px solid rgb(46, 194, 126) !important;" class="form-select mt-2" id="status" name="status">
 										<option value="ABERTO">ABERTO</option>
 										<option value="ANDAMENTO">ANDAMENTO</option>
 										<option value="AGENDADO">AGENDADO</option>
+										<option value="FINALIZADO" style="color: red;">*FINALIZADO*</option>
 									</select>
 								</div>
 							</div>
 						</div>
 					</div>
 					<br />
+					
+					<div class="row" id="resolucaoarea" style="display: none">
+						<div class="col-md-8">
+							<div class="control-group">
+								<label class="control-label" for="resolucao"><b>Resolução*</b></label>
+								<div class="controls">
+									<textarea class="form-control mt-2" rows="4" id="resolucao" name="resolucao" type="text"
+										placeholder="Resolução" onkeyup="limite_textarea_resolucao(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+									<span id="contResolucao">300</span> Restantes <br>
+								</div>
+							</div>
+							<br />
+						</div>
+						
+					</div>
+					
 					<div class="row">
 						<div class="col-md-4" id="agendamentos" style="display: none">
 							<div class="control-group">
@@ -282,6 +305,42 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="row" id="finalizados" style="display: none">
+						<div class="col-md-4" >
+							<div class="control-group">
+								<label class="control-label"><b>Data Andamento *</b></label>
+								<div class="datetimepicker">
+									<input type="date" id="opendate" name="opendate" value="">
+									<span></span>
+									<input type="time" id="opentime" name="opentime" value="">
+								</div>
+								<div class="info">
+									<strong>Compatibility check:</strong>
+									Date "<span id="date-output"></span>",
+									Time "<span id="time-output"></span>"
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-4">
+							<div class="control-group">
+								<label class="control-label"><b>Data Finalizado *</b></label>
+								<div class="datetimepicker">
+									<input type="date" id="closedate" name="closedate" value="">
+									<span></span>
+									<input type="time" id="closetime" name="closetime" value="">
+								</div>
+								<div class="info">
+									<strong>Compatibility check:</strong>
+									Date "<span id="date-output"></span>",
+									Time "<span id="time-output"></span>"
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
 					<div class="control-group">
 						<div class="controls">
 							<span id="botaoSalvar"> </span>
@@ -620,6 +679,11 @@
 	</script>
 
 	<script>
+		
+		
+		
+		
+		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -649,6 +713,7 @@
 				descricao = $('#descricao').val(),
 				afetado = $('#afetado').val(),
 				observacao = $('#observacao').val(),
+				resolucao = $('#resolucao').val(),
 				abertoPor = $('#abertoPor').val(),
 				prioridade = $('#prioridade').val(),
 				formaAbertura = $('#formaAbertura').val(),
@@ -660,6 +725,11 @@
 				nomeFuncionario = $('#nomeFuncionario').val(),
 				dataAgendado = $('#date').val(),
 				horaAgendado = $('#time').val();
+				
+				dataAndamento = $('#opendate').val(),
+				horaAndamento = $('#opentime').val();
+				dataFinalizado = $('#closedate').val(),
+				horaFinalizado = $('#closetime').val();
 
 			$.ajax({
 				type: "POST",
@@ -670,6 +740,7 @@
 					"descricao": descricao,
 					"afetado": afetado,
 					"observacao": observacao,
+					"resolucao": resolucao,
 					"abertoPor": abertoPor,
 					"prioridade": prioridade,
 					"formaAbertura": formaAbertura,
@@ -680,13 +751,19 @@
 					"nomeCliente": nomeCliente,
 					"nomeFuncionario": nomeFuncionario,
 					"dataAgendado": dataAgendado,
-					"horaAgendado": horaAgendado
+					"horaAgendado": horaAgendado,
+					"dataAndamento": dataAndamento,
+					"horaAndamento": horaAndamento,
+					"dataFinalizado": dataFinalizado,
+					"horaFinalizado": horaFinalizado
+					
 				}),
 				success: function (data) {
 					$('#solicitante').val("");
 					$('#descricao').val("");
 					$('#afetado').val("");
 					$('#observacao').val("");
+					$('#resolucao').val(""),
 					$('#abertoPor').val("");
 					$('#nomeCliente').val("");
 					$("#botaoSalvar").empty();
@@ -697,6 +774,10 @@
 					$('#time').val("");
 					$('#celSolicitante').text("");
 					$('#celAfetado').text("");
+					$('#opendate').val("");
+					$('#opentime').val("");
+					$('#closedate').val("");
+					$('#closetime').val("");
 					alert("Solicitação criada com sucesso!");
 				},
 				statusCode: {
@@ -767,8 +848,16 @@
 			var status = $("#status").val();
 			if(status === 'AGENDADO'){
 				$("#agendamentos").stop().slideToggle(1000);
+				document.getElementById('finalizados').style.display = 'none';
+				document.getElementById('resolucaoarea').style.display = 'none';
+			}else if(status === 'FINALIZADO'){
+					$("#resolucaoarea").stop().slideToggle(1000);
+					$("#finalizados").stop().slideToggle(1000);
+					document.getElementById('agendamentos').style.display = 'none';
 			}else {
 				document.getElementById('agendamentos').style.display = 'none';
+				document.getElementById('finalizados').style.display = 'none';
+				document.getElementById('resolucaoarea').style.display = 'none';
 			}
 		} );
 		
@@ -895,6 +984,16 @@
 				document.getElementById('contObs').innerHTML = resto;
 			} else {
 				document.getElementById('observacao').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_resolucao(valor) {
+			quant = 300;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contResolucao').innerHTML = resto;
+			} else {
+				document.getElementById('resolucao').value = valor.substr(0, quant);
 			}
 		}
 		

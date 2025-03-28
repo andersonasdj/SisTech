@@ -2,6 +2,8 @@ package br.com.techgol.app.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import br.com.techgol.app.dto.DtoAtualizarCliente;
 import br.com.techgol.app.dto.DtoCadastroCliente;
 import jakarta.persistence.Column;
@@ -36,7 +38,7 @@ public class Cliente extends Usuario {
 		
 		this.nomeCliente = dados.nomeCliente();
 		this.setUsername(dados.username());
-		this.setPassword(dados.password());
+		this.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()));
 		this.setAtivo(true);
 		this.setMfa(false);
 		this.setDataAtualizacao(LocalDateTime.now().withNano(0));
@@ -53,7 +55,7 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.setId(dados.id());
 		this.nomeCliente = dados.nomeCliente();
 		this.setUsername(dados.username());
-		this.setPassword(dados.password());
+		this.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()));
 		this.setAtivo(dados.ativo());
 		this.setMfa(false);
 		this.setDataAtualizacao(LocalDateTime.now().withNano(0));

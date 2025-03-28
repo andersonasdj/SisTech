@@ -458,13 +458,7 @@ public class SolicitacaoService {
 				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + solicitacao.getDuracao() < 15) {
 					solicitacao.setDuracao(15l);
 					
-					timeSheetService.cadastraTimesheet(
-							solicitacao, solicitacao.getFuncionario(),
-							solicitacao.getDataAndamento(),
-							LocalDateTime.now().withNano(0),
-							solicitacao.getDuracao(),
-							dados.status()
-					);
+					cadastraTimeSheetSemSoma(dados.status(), solicitacao);
 					
 				}else {
 					Long tempoAnterior = solicitacao.getDuracao();
@@ -480,13 +474,7 @@ public class SolicitacaoService {
 				}
 			}else {
 				solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes());
-				timeSheetService.cadastraTimesheet(
-						solicitacao, solicitacao.getFuncionario(),
-						solicitacao.getDataAndamento(),
-						LocalDateTime.now().withNano(0),
-						solicitacao.getDuracao(),
-						dados.status()
-				);
+				cadastraTimeSheetSemSoma(dados.status(), solicitacao);
 			}
 			
 		}
@@ -521,6 +509,16 @@ public class SolicitacaoService {
 		solicitacao.setVersao(solicitacao.getVersao()+1);
 		solicitacao.setPeso(calcularPeso(solicitacao));
 		return repository.save(solicitacao);
+	}
+
+	public void cadastraTimeSheetSemSoma(Status status, Solicitacao solicitacao) {
+		timeSheetService.cadastraTimesheet(
+				solicitacao, solicitacao.getFuncionario(),
+				solicitacao.getDataAndamento(),
+				LocalDateTime.now().withNano(0),
+				solicitacao.getDuracao(),
+				status
+		);
 	}
 	
 	public ProjecaoDadosImpressao impressao(Long id) {
@@ -582,7 +580,14 @@ public class SolicitacaoService {
 		solicitacao.setPeso(calcularPeso(solicitacao));
 		solicitacao.setVersao(0);
 		
-		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(repository.save(solicitacao));
+		
+		Solicitacao solicitacaoSalva = repository.save(solicitacao);
+		
+		if(solicitacao.getStatus().equals(Status.FINALIZADO)) {
+			cadastraTimeSheetSemSoma(solicitacao.getStatus(), solicitacaoSalva);
+		}
+
+		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(solicitacaoSalva);
 		
 		
 		if(config.isStatus() && !config.getEmail().isEmpty()) {

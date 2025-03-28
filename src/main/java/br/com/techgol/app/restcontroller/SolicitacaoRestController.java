@@ -1,5 +1,6 @@
 package br.com.techgol.app.restcontroller;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -355,6 +356,27 @@ public class SolicitacaoRestController {
 		return	solicitacaoService.restaurar(dado.id());
 	}
 	
+	
+	
+//	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
+//	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
+//		
+//		Cliente cliente = clienteService.buscaClientePorNome(dados.nomeCliente());
+//		Solicitacao solicitacao = new Solicitacao(dados, cliente);
+//		
+//		if(dados.nomeFuncionario() != null) {
+//			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());
+//			solicitacao.setFuncionario(funcionario);
+//		}
+//		
+//		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
+//			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
+//		}
+//		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
+//	}
+	
+	
+	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 		
@@ -369,8 +391,20 @@ public class SolicitacaoRestController {
 		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
 			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
 		}
-		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
+		
+		if(dados.status().equals(Status.FINALIZADO) && !dados.dataAndamento().isBlank() && !dados.dataFinalizado().isBlank()) {
+			solicitacao.setDataAbertura(LocalDateTime.parse(dados.dataAndamento()+"T"+dados.horaAndamento()));
+			solicitacao.setDataAndamento(LocalDateTime.parse(dados.dataAndamento()+"T"+dados.horaAndamento()));
+			solicitacao.setDataFinalizado(LocalDateTime.parse(dados.dataFinalizado()+"T"+dados.horaFinalizado()));
+			solicitacao.setStatus(Status.FINALIZADO);
+			solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), solicitacao.getDataFinalizado()).toMinutes());
+			solicitacao.setResolucao(dados.resolucao());
+			return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
+		}else {
+			return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
+		}
 	}
+	
 	
 	@PostMapping("/modelo") //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 	public String cadastrarNovaModelo(@RequestBody DtoCadastroSolicitacaoModelo dados ) {

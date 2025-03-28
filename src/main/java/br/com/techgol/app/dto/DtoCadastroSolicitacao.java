@@ -14,6 +14,7 @@ public record DtoCadastroSolicitacao(
 		String descricao,
 		String observacao,
 		String abertoPor,
+		String resolucao,
 		Prioridade prioridade,
 		FormaAbertura formaAbertura,
 		Categoria categoria,
@@ -24,7 +25,11 @@ public record DtoCadastroSolicitacao(
 		Long nomeCliente,
 		Long nomeFuncionario,
 		String dataAgendado,
-		String horaAgendado
+		String horaAgendado,
+		String dataAndamento,
+		String horaAndamento,
+		String dataFinalizado,
+		String horaFinalizado
 		
 		) {
 		
