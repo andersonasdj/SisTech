@@ -338,8 +338,22 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="row">				
+							<div class="col-md-8">
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(15)">15 M</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(20)">20 M</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(30)">30 M</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(60)">1 H</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(120)">2 H</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(180)">3 H</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(240)">4 H</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(300)">5 H</button>
+								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(480)">8 H</button>
+							</div>
+						</div>
 					</div>
-					
+					<br />			
 					
 					<div class="control-group">
 						<div class="controls">
@@ -355,7 +369,7 @@
 		<footer class="container-fluid text-center text-white">
 				<!-- Copyright -->
 				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
-					2024 Copyright:
+					2025 Copyright:
 					<a class="text-white" href="#">Techgold</a>
 				</div>
 				<!-- Copyright -->
@@ -515,6 +529,27 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script>
+		
+		function preencheDias(minutos){
+			var data = new Date();
+			var final = new Date();
+			var hoje, mes, dia ;
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			
+			if(data.getDate() < 10){ dia = "0"+data.getDate(); }
+			else{ dia = data.getDate(); }
+			var hoje = data.getFullYear()+'-'+mes+'-'+dia;
+			final.setMinutes(data.getMinutes() + minutos)
+			$('#opendate').val(hoje);
+			$('#closedate').val(hoje);
+			$('#opentime').val( (data.getHours() < 10 ? '0':'') + data.getHours()+ ':'+ (data.getMinutes() < 10 ? '0' : '') + data.getMinutes());
+			$('#closetime').val( (final.getHours() < 10 ? '0': '') + final.getHours()+':'+ (final.getMinutes() < 10 ? '0' : '') + final.getMinutes() );
+			
+		}
+				
 		
 		function editarColaboradores() {
 			var idCliente = $('#nomeCliente').val();
