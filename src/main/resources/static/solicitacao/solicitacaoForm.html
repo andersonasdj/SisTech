@@ -341,15 +341,14 @@
 						
 						<div class="row">				
 							<div class="col-md-8">
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(15)">15 M</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(20)">20 M</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(30)">30 M</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(60)">1 H</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(120)">2 H</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(180)">3 H</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(240)">4 H</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(300)">5 H</button>
-								<button class="btn btn-dark btn-sm mt-2" onclick="preencheDias(480)">8 H</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(15)">15 M</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(20)">20 M</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(30)">30 M</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(60)">1 H</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(120)">2 H</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(180)">3 H</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(240)">4 H</button>
+								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(300)">5 H</button>
 							</div>
 						</div>
 					</div>
@@ -542,11 +541,11 @@
 			if(data.getDate() < 10){ dia = "0"+data.getDate(); }
 			else{ dia = data.getDate(); }
 			var hoje = data.getFullYear()+'-'+mes+'-'+dia;
-			final.setMinutes(data.getMinutes() + minutos)
+			final.setMinutes(data.getMinutes() - minutos)
 			$('#opendate').val(hoje);
+			$('#closetime').val( (data.getHours() < 10 ? '0':'') + data.getHours()+ ':'+ (data.getMinutes() < 10 ? '0' : '') + data.getMinutes());
 			$('#closedate').val(hoje);
-			$('#opentime').val( (data.getHours() < 10 ? '0':'') + data.getHours()+ ':'+ (data.getMinutes() < 10 ? '0' : '') + data.getMinutes());
-			$('#closetime').val( (final.getHours() < 10 ? '0': '') + final.getHours()+':'+ (final.getMinutes() < 10 ? '0' : '') + final.getMinutes() );
+			$('#opentime').val( (final.getHours() < 10 ? '0': '') + final.getHours()+':'+ (final.getMinutes() < 10 ? '0' : '') + final.getMinutes() );
 			
 		}
 				

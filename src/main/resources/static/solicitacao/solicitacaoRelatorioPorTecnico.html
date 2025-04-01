@@ -479,6 +479,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printFinalizado()><i class="bi bi-printer"> </i></button>
 						<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
@@ -973,6 +974,39 @@
 	<script src="../assets/js/timeline.js"></script>
 	
 	<script>
+		function excluir() {
+			if (confirm("Tem certeza que deseja excluir a solicitação ?") == true) {
+				
+				var id = $('#idModalEdicao').text();
+				var modalName;
+				
+				if(id == ' '){
+					id = $('#idModalNaoFinalizado').text();
+					modalName ='#edicaoModalNaoFinalizado';
+				}else{
+					modalName ='#edicaoModal';
+				}
+				
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/excluir/" + id,
+					success: function () {
+						remove.fadeOut(800, function () {
+							remove.remove();
+						});
+						$('#idModalEdicao').text(' ')
+						$('#idModalNaoFinalizado').text(' ');
+						$(modalName).modal('hide');
+					},
+					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
+				});
+				
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+			}
+		}
+		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -1118,6 +1152,8 @@
 							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
 							$('#timesheet').append('<b> Timesheet</b>');
 							$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						}else{
+							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
 						}
 					},
 					error: function (e) {

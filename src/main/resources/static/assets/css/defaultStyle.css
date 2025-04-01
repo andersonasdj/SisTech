@@ -8,6 +8,11 @@
     white-space: nowrap;
 }
 
+.btn-time-custon {
+	--bs-btn-bg: #a4d94e !important; 
+	--bs-btn-hover-bg: #84f59d !important;
+}
+
 .navbar {
     --bs-navbar-brand-font-size: 1.45rem !important;
     --bs-navbar-hover-color: rgb(0, 0, 0) !important;

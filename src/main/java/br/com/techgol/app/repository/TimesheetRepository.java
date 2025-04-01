@@ -33,6 +33,9 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 			+ "AND t.fim <= :fim "
 			+ "ORDER BY t.id")
 	public List<TimelineProjecao> listarTimeline(Long id, LocalDateTime inicio, LocalDateTime fim);
-	
+
+	public void deleteBySolicitacaoId(Long id);
+
+	public boolean existsBySolicitacaoId(Long id);
 	
 }

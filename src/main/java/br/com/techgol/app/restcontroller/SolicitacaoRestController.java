@@ -357,7 +357,6 @@ public class SolicitacaoRestController {
 	}
 	
 	
-	
 //	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO
 //	public DtoSolicitacaoComFuncionario cadastrarNova(@RequestBody DtoCadastroSolicitacao dados ) {
 //		
@@ -374,7 +373,6 @@ public class SolicitacaoRestController {
 //		}
 //		return solicitacaoService.salvarNovaSolicitacao(solicitacao); 
 //	}
-	
 	
 	
 	@PostMapping //SALVA UMA NOVA SOLICITAÇÃO NO BANCO

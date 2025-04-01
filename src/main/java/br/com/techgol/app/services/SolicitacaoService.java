@@ -290,7 +290,14 @@ public class SolicitacaoService {
 	public String exclusaoLogigaSolicitacao(Long id) {
 		
 		if(repository.existsById(id)) {
+			
 			Solicitacao solicitacao = repository.getReferenceById(id);
+			
+			//DELETA DO TIMESHEET ANTES DA DELECAO LOGICA
+			if(timeSheetService.findById(solicitacao.getId())) {
+				timeSheetService.deletaSolicitacao(solicitacao.getId());
+			}
+			
 			solicitacao.setStatus(Status.EXCLUIDO);
 			solicitacao.setDataAtualizacao(LocalDateTime.now().withNano(0));
 			solicitacao.setExcluido(true);
@@ -1001,6 +1008,7 @@ public class SolicitacaoService {
 		solicitacao.setStatus(Status.ABERTO);
 		solicitacao.setDataAndamento(null);
 		solicitacao.setDataAgendado(null);
+		solicitacao.setDuracao(0l);
 		return new DtoDadosRestauracao(solicitacao.getId());
 	}
 

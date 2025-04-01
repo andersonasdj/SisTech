@@ -66,4 +66,13 @@ public class TimeSheetService {
 			return repository.listarTimeline(id, inicio, fim);
 		}
 	}
+
+	public void deletaSolicitacao(Long id) {
+		repository.deleteBySolicitacaoId(id);
+		
+	}
+
+	public boolean findById(Long id) {
+		return repository.existsBySolicitacaoId(id);
+	}
 }
