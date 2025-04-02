@@ -1062,6 +1062,18 @@
 					url: "/sistech/solicitacao/relatorio/funcionario/"+funcionario_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"?size="+QtdItens,
 					
 					success: function (data) {
+						
+						if(QtdItens != data.totalElements && data.totalElements > 500){
+							$('#qtdItensPage').empty();
+							$('#qtdItensPage').append('<option value="' + QtdItens + '">' + QtdItens + '</option>'
+							+'<option value="100">100</option>'
+							+'<option value="200">200</option>'
+							+'<option value="300">300</option>'
+							+'<option value="400">400</option>'
+							+'<option value="500">500</option>'
+							+'<option value="' + data.totalElements + '">' + data.totalElements + '</option>');
+						}
+						
 						$('#totalElementos').text("");
 						$('#totalElementos').text(data.totalElements);
 						$("#conteudo").stop().slideToggle(600);

@@ -528,7 +528,6 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script>
-		
 		function preencheDias(minutos){
 			var data = new Date();
 			var final = new Date();
@@ -546,10 +545,8 @@
 			$('#closetime').val( (data.getHours() < 10 ? '0':'') + data.getHours()+ ':'+ (data.getMinutes() < 10 ? '0' : '') + data.getMinutes());
 			$('#closedate').val(hoje);
 			$('#opentime').val( (final.getHours() < 10 ? '0': '') + final.getHours()+':'+ (final.getMinutes() < 10 ? '0' : '') + final.getMinutes() );
-			
 		}
 				
-		
 		function editarColaboradores() {
 			var idCliente = $('#nomeCliente').val();
 			
