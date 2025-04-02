@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import br.com.techgol.app.model.ConjuntoModelos;
 import br.com.techgol.app.model.ModeloSolicitacao;
 
 public interface ModeloSolicitacaoRepository extends JpaRepository<ModeloSolicitacao, Long>{
@@ -25,6 +26,9 @@ public interface ModeloSolicitacaoRepository extends JpaRepository<ModeloSolicit
 					+ "FROM modelo_solicitacoes s "
 					+ "WHERE s.id=:id")
 	ModeloSolicitacao buscarSolocitacaoModeloPorId(Long id);
+
+
+	void deleteByConjuntoModelos(ConjuntoModelos buscaPorId);
 
 
 }

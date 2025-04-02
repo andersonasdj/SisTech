@@ -50,4 +50,9 @@ public class ConjuntoModeloSolicitacaoService {
 	public ConjuntoModelos buscarPorId(Long id) {
 		return repository.buscaPorId(id);
 	}
+
+	@CacheEvict(value = {"nomesConjuntoModelos","idConjuntoModelos","listarTodosConjuntoModelos"}, allEntries = true)
+	public void deletarPorId(Long id) {
+		repository.deleteById(id);
+	}
 }

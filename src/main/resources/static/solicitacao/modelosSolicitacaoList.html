@@ -174,6 +174,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" onclick=excluirModelo()><i class="bi bi-trash"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" onclick="atualizaModelo()">Salvar</button>
 					</div>
@@ -542,6 +543,32 @@
 	<script>
 		listarModelos();
 		
+		function excluirModelo(){
+			
+			var id = $('#idModeloEditmodal').val();
+			
+			if (confirm("Tem certeza que deseja excluir esse modelo de ID: " + id + " ?") == true) {
+				
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+				
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/api/solicitacao/modelo/" + id,
+					success: function (data) {
+						alert(data);
+						
+						remove.fadeOut(800, function () {
+							remove.remove();
+						});
+						$('#editModeloModal').modal('hide');
+					},
+					error: function (e) { alert("Voce não possui permissão para esta operação!"); }
+				});
+			}
+		}
+		
 		function salvarModelo(){
 			var nomeModelo = $('#nomeModeloAddmodal').val();
 			
@@ -562,6 +589,7 @@
 					+ '</tr>'
 					
 					$('#tabela-modelos').append(itens);
+					$('#nomeModeloAddmodal').val('');
 					$('#addModeloModal').modal('hide');
 				},
 				statusCode: {

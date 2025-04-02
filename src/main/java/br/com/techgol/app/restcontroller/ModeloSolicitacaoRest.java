@@ -103,4 +103,25 @@ public class ModeloSolicitacaoRest {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_EDITOR')")
+	@DeleteMapping("/{id}")
+	public String deletaModelo(@PathVariable Long id) {
+		System.out.println("controlle");
+		
+		List<ModeloSolicitacao> itensModelos = modeloSolicitacaoRepository.buscarSolocitacoesModelosPorIdConjunto(id);
+
+		if(conjuntoModelosRepository.existsById(id)) {
+			System.out.println("DENTRO IF");
+			
+			itensModelos.forEach(i -> {
+				modeloSolicitacaoRepository.deleteById(i.getId());
+			});
+			conjuntoModeloSolicitacaoService.deletarPorId(id);
+			
+			return "Modelo deletado com sucesso!";
+		}else {
+			return "Não foi possível realizar a deleção!";
+		}
+	}
+	
 }
