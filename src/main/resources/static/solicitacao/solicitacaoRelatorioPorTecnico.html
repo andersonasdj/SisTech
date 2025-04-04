@@ -242,7 +242,7 @@
 							<th>Afetado</th>
 							<th>Classificações</th>
 							<th>Descrição</th>
-							<th>Prioridade</th>
+							<th>Criticidade</th>
 							<th>Classificação</th>
 							<th>Responsável</th>
 							<th>Status</th>
@@ -264,7 +264,7 @@
 			<div class="container-fluid">
 				<div class="row justify-content-between">
 					<div class="col-3 col-s-12" id="formaAbertura">
-						<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
+						<h5 style="text-align: center;" class="mt-3">Canal de abertura</h5>
 						<canvas id="formaAberturaSolicitacoes" style="height:35vh; width:30vw"> </canvas>
 					</div>
 					<div class="col-3" id="local">
@@ -272,7 +272,7 @@
 						<canvas id="localSolicitacoes" class="col-s-2" > </canvas>
 					</div>
 					<div class="col-3" id="prioridade">
-						<h5 style="text-align: center;" class="mt-3">Prioridade</h5>
+						<h5 style="text-align: center;" class="mt-3">Criticidade</h5>
 						<canvas id="prioridadeSolicitacoes" class="col-s-3"> </canvas>
 					</div>
 				</div>
@@ -323,8 +323,9 @@
 				<div class="modal-content modal-content-finalizado">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
-						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+							&nbsp; <button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
 							<span hidden id="idHistorico"> </span>
+							&nbsp; &nbsp;<span id="btnTimesheet"> </span></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
@@ -363,7 +364,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
-									<label class="control-label"><b>Solicitante * </b>
+									<label class="control-label"><b>Solicitante *</b>
 										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
@@ -381,7 +382,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="control-group mt-2">
-									<label class="control-label" for="formaAberturaModalEdicao"><b>Forma de Abertura *</b></label>
+									<label class="control-label" for="formaAberturaModalEdicao"><b>Canal de Abertura</b></label>
 									<div class="controls">
 										<select class="form-select mt-2" id="formaAberturaModalEdicao" name="formaAberturaModalEdicao"> </select>
 									</div>
@@ -408,13 +409,13 @@
 							<div class="col-md-4 ms-auto">
 								<div class="control-group fonteModal">
 									<label class="form-label mt-2"><b>Duração</b></label>
-									<p><span id="duracaoModalEdicao"> </span></p>
+									<p><b><span id="duracaoModalEdicao" style="color: darkblue;"> </b></span></p>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
+								<label class="form-label mt-3" for="categoriamodal"><b>Categoria</b></label>
 								<div class="controls fonteModal">
 									<select class="form-select" id="categoriamodal" name="categoriamodal">
 										<option value="SOFTWARE">Software</option>
@@ -435,7 +436,7 @@
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
+								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação</b></label>
 								<div class="controls fonteModal">
 									<select class="form-select" id="classificacaomodal" name="classificacaomodal">
 										<option value="INCIDENTE">Incidente</option>
@@ -448,7 +449,7 @@
 								</div>
 							</div>
 							<div class="col-md-4">
-								<label class="form-label mt-3" for="prioridademodal"><b>Prioridade *</b></label>
+								<label class="form-label mt-3" for="prioridademodal"><b>Criticidade</b></label>
 								<div class="controls fonteModal">
 									<select class="form-select" id="prioridademodal" name="prioridademodal">
 										<option value="BAIXA">Baixa</option>
@@ -489,14 +490,15 @@
 			</div>
 		</div>
 		<!-- ####################################################  MODAL EDIÇÃO FINALIZADO ######################################################## -->
-		
 		<!-- ################################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
 		<div class="modal fade" id="edicaoModalNaoFinalizado" tabindex="-1" aria-labelledby="edicaoModalNaoFinalizado" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
+						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span>
+						&nbsp;
 						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						&nbsp; &nbsp;<span id="btnTimesheetNaoFinalizado"> </span></h1>
 						<span hidden id="idHistorico"> </span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
@@ -561,7 +563,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="control-group mt-3">
-									<label class="control-label mt-2" for="formaAberturaModalNaoFinalizado"><b>Forma de Abertura *</b></label>
+									<label class="control-label mt-2" for="formaAberturaModalNaoFinalizado"><b>Canal de Abertura</b></label>
 									<div class="controls">
 										<select class="form-select mt-2" id="formaAberturaModalNaoFinalizado" name="formaAberturaModalNaoFinalizado"> </select>
 									</div>
@@ -570,7 +572,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="categoriaModalNaoFinalizado"><b>Categoria *</b></label>
+								<label class="form-label mt-3" for="categoriaModalNaoFinalizado"><b>Categoria</b></label>
 								<div class="controls">
 									<div class="controls">
 										<select class="form-select" id="categoriaModalNaoFinalizado" name="categoriaModalNaoFinalizado">
@@ -593,7 +595,7 @@
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="classificacaoModalNaoFinalizado"><b>Classificação *</b></label>
+								<label class="form-label mt-3" for="classificacaoModalNaoFinalizado"><b>Classificação</b></label>
 								<div class="controls">
 									<select class="form-select" id="classificacaoModalNaoFinalizado" name="classificacaoModalNaoFinalizado">
 										<option value="INCIDENTE">Incidente</option>
@@ -606,7 +608,7 @@
 								</div>
 							</div>
 							<div class="col-md-4">
-								<label class="form-label mt-3" for="prioridaModalNaoFinalizado"><b>Prioridade *</b></label>
+								<label class="form-label mt-3" for="prioridaModalNaoFinalizado"><b>Criticidade</b></label>
 								<div class="controls">
 									<select class="form-select" id="prioridaModalNaoFinalizado" name="prioridaModalNaoFinalizado">
 										<option value="BAIXA">Baixa</option>
@@ -656,7 +658,6 @@
 			</div>
 		</div>
 		<!-- ###############################################  MODAL EDIÇÃO NÃO FINALIZADO ############################################### -->
-		
 		<!-- ################################################  MODAL EDIÇÃO TIMELINE CARD ############################################### -->
 		<div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineModal" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -681,10 +682,10 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6 mt-3">
-								Forma Abertura: <b><span id="formaAberturaModalCard"></span></b>	
+								Canal Abertura: <b><span id="formaAberturaModalCard"></span></b>	
 							</div>
 							<div class="col-md-6 mt-3">
-								Prioridade: <b><span id="prioridadeModalCard"></span></b>	
+								Criticidade: <b><span id="prioridadeModalCard"></span></b>	
 							</div>
 						</div>
 						<div class="row">
@@ -729,7 +730,6 @@
 			</div>
 		</div>
 		<!-- ################################################  MODAL EDIÇÃO TIMELINE CARD ############################################### -->
-		
 		<!-- ###################################################### MODAL HISTORICO ##################################################### -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -795,7 +795,6 @@
 			</div>
 		</div>
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
-		
 		<!-- ################################ MODAL NOVA SOLICITACAO ############################################# -->
 				<div class="modal fade" id="modalNovaSolicitacao" tabindex="-1" aria-labelledby="modalNovaSolicitacao" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -963,7 +962,42 @@
 						</div>
 					</div>
 				</div>
-				<!-- ########################################### Modal NOVA SOLICITACAO ############################################# -->
+				<!-- ########################################### MODAL NOVA SOLICITACAO ############################################# -->
+				<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
+				<div class="modal fade" id="modalTimesheetSolicitacao" tabindex="-1" aria-labelledby="modalTimesheetSolicitacao" aria-hidden="true">
+					<div class="modal-dialog modal-xl">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1><span style="color: #0101DF;">Lista de tempos da solicitação</span> 
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+							</div>
+							<div class="modal-body">
+								<div class="table-responsive mt-3">
+								<table class="table table-hover table-bordered table-striped results sortable" id="tabela-timesheet" style="text-align: center;">
+									<thead>
+										<tr>
+											<th scope="col">ID</th>
+											<th scope="col">Funcionário</th>
+											<th scope="col">Início</th>
+											<th scope="col">Fim</th>
+											<th scope="col">Duração <span style="font-size: 10px;"> (minutos)</span></th>
+											<th scope="col">Status</th>
+										</tr>
+									</thead>
+									<tbody id="tabela-timesheet-corpo">
+										<tr> </tr>
+									</tbody>
+								</table>
+							</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edicaoModal">Voltar</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -974,6 +1008,35 @@
 	<script src="../assets/js/timeline.js"></script>
 	
 	<script>
+		
+		function exibeTimesheet(id){
+			$('#tabela-timesheet-corpo').empty();			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/v1/timesheet/"+id,
+				success: function (data) {
+					
+					data.content.map(i => {
+						var itens = 
+						'<tr id=linha' + i.id + '>'
+						+ '<td id=name' + i.id + '>' + i.id + '</td>'
+						+ '<td>' + i.nomeFuncionario + '</td>'
+						+ '<td>' + i.inicio + '</td>'
+						+ '<td>' + i.fim + '</td>'
+						+ '<td>' + i.duracao + '</td>'
+						+ '<td>' + i.status + '</td>'
+						+ '</tr>'
+						$('#tabela-timesheet').append(itens);
+						}
+					);
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		}
 		function excluir() {
 			if (confirm("Tem certeza que deseja excluir a solicitação ?") == true) {
 				
@@ -1582,6 +1645,11 @@
 				success: function (data) {
 					
 					if(data.funcionarios != null && data.colaboradores != null){
+						
+						$('#btnTimesheet').text("");
+						if(data.duracao > 0){
+							$('#btnTimesheet').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
+						}
 
 						$('#idModalEdicao').text("");
 						$('#dataAtualizacaoModalEdicao').text("");
@@ -1798,6 +1866,11 @@
 				success: function (data) {
 					
 					if(data.funcionarios != null && data.colaboradores != null){
+						
+						$('#btnTimesheetNaoFinalizado').text("");
+						if(data.duracao > 0){
+							$('#btnTimesheetNaoFinalizado').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
+						}
 
 						$('#idModalNaoFinalizado').text("");
 						$('#dataAtualizacaoModalNaoFinalizado').text("");
@@ -2110,7 +2183,7 @@
 						data: {
 							labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
 							datasets: [{
-								label: 'Prioridade das Solicitações: ',
+								label: 'Criticidade das Solicitações: ',
 								data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
 								backgroundColor: [
 									'rgba(12, 218, 205, 0.5)',
@@ -2180,7 +2253,7 @@
 						data: {
 							labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp', 'Proativo'],
 							datasets: [{
-								label: 'Metodo de abertura Solicitações: ',
+								label: 'Canal de abertura Solicitações: ',
 								data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
 								backgroundColor: [
 									'rgba(255, 135, 0, 0.5)',

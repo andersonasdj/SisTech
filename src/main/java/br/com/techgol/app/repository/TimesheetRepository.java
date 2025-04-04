@@ -3,11 +3,14 @@ package br.com.techgol.app.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.techgol.app.model.TimeSheet;
 import br.com.techgol.app.orm.TimelineProjecao;
+import br.com.techgol.app.orm.TimesheetProjecao;
 
 public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 	
@@ -37,5 +40,15 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 	public void deleteBySolicitacaoId(Long id);
 
 	public boolean existsBySolicitacaoId(Long id);
+
+	public List<TimeSheet> findBySolicitacaoId(Long id);
+	
+	@Query(nativeQuery = true,
+			value = "SELECT t.id, t.inicio, t.fim, t.status, t.duracao, f.nomeFuncionario "
+			+ "FROM timesheet t "
+			+ "INNER JOIN funcionarios f ON t.funcionario_id=f.id "
+			+ "WHERE t.solicitacao_id=:id "
+			+ "ORDER BY t.id")
+	public Page<TimesheetProjecao> listarTimesheetProjecao(Pageable page, Long id);
 	
 }

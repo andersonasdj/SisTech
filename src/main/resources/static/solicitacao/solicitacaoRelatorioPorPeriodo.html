@@ -356,7 +356,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
-						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						&nbsp; <button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						&nbsp; &nbsp;<span id="btnTimesheet"> </span>
 							<span hidden id="idHistorico"> </span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
@@ -526,7 +527,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
-						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						&nbsp; <button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						&nbsp; &nbsp;<span id="btnTimesheetNaoFinalizado"> </span>
 						<span hidden id="idHistorico"> </span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
@@ -749,6 +751,40 @@
 			</div>
 		</div>
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
+		<div class="modal fade" id="modalTimesheetSolicitacao" tabindex="-1" aria-labelledby="modalTimesheetSolicitacao" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1><span style="color: #0101DF;">Lista de tempos da solicitação</span> 
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive mt-3">
+						<table class="table table-hover table-bordered table-striped results sortable" id="tabela-timesheet" style="text-align: center;">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Funcionário</th>
+									<th scope="col">Início</th>
+									<th scope="col">Fim</th>
+									<th scope="col">Duração <span style="font-size: 10px;"> (minutos)</span></th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+							<tbody id="tabela-timesheet-corpo">
+								<tr> </tr>
+							</tbody>
+						</table>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -757,6 +793,35 @@
 	<script src="../assets/js/chart.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script>
+		
+		function exibeTimesheet(id){
+			$('#tabela-timesheet-corpo').empty();			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/v1/timesheet/"+id,
+				success: function (data) {
+					
+					data.content.map(i => {
+						var itens = 
+						'<tr id=linha' + i.id + '>'
+						+ '<td id=name' + i.id + '>' + i.id + '</td>'
+						+ '<td>' + i.nomeFuncionario + '</td>'
+						+ '<td>' + i.inicio + '</td>'
+						+ '<td>' + i.fim + '</td>'
+						+ '<td>' + i.duracao + '</td>'
+						+ '<td>' + i.status + '</td>'
+						+ '</tr>'
+						$('#tabela-timesheet').append(itens);
+						}
+					);
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+		}
 		
 		$(document).ready(function () {
 			var divQtdItens = $("#qtdItensPage");
@@ -1097,6 +1162,11 @@
 				contentType: "application/json",
 				url: "/sistech/solicitacao/relatorio/editar/" + id,
 				success: function (data) {
+					
+					$('#btnTimesheet').text("");
+					if(data.duracao > 0){
+						$('#btnTimesheet').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
+					}
 
 					$('#idModalEdicao').text("");
 					$('#dataAtualizacaoModalEdicao').text("");
@@ -1315,6 +1385,11 @@
 				contentType: "application/json",
 				url: "/sistech/solicitacao/busca/" + id,
 				success: function (data) {
+					
+					$('#btnTimesheetNaoFinalizado').text("");
+					if(data.duracao > 0){
+						$('#btnTimesheetNaoFinalizado').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
+					}
 
 					$('#idModalNaoFinalizado').text("");
 					$('#dataAtualizacaoModalNaoFinalizado').text("");

@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.model.Funcionario;
@@ -12,6 +14,7 @@ import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.TimeSheet;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.TimelineProjecao;
+import br.com.techgol.app.orm.TimesheetProjecao;
 import br.com.techgol.app.repository.TimesheetRepository;
 import jakarta.transaction.Transactional;
 
@@ -74,5 +77,11 @@ public class TimeSheetService {
 
 	public boolean findById(Long id) {
 		return repository.existsBySolicitacaoId(id);
+	}
+
+	public Page<TimesheetProjecao> listaTimesheetPorIdSolicitacao(Pageable page,  Long id) {
+		
+		return repository.listarTimesheetProjecao(page, id);
+		
 	}
 }

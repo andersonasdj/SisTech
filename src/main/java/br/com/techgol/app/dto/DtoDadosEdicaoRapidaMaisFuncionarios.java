@@ -39,7 +39,8 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 		List<String> funcionarios,
 		List<String> colaboradores,
 		Long clienteId,
-		String log_id) {
+		String log_id,
+		Long duracao){
 
 	public DtoDadosEdicaoRapidaMaisFuncionarios(Solicitacao dados, List<String> s, List<String> c) {
 		this(
@@ -66,7 +67,8 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				s,
 				c,
 				dados.getCliente().getId(),
-				(dados.getLog() != null) ? dados.getLog().getId().toString() : " "
+				(dados.getLog() != null) ? dados.getLog().getId().toString() : " ",
+				(dados.getDuracao() > 0) ? dados.getDuracao() : 0
 				);
 	}
 

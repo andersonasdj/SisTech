@@ -255,63 +255,65 @@
 		function refeicao(){
 			var refeicao = $('#refeicaoValor').val();
 			
-			if(refeicao == 'false'){
-				$('#btnRefeicao').empty();
-				$('#refeicaoValor').val(true);
-				$.ajax({
-					type: "PUT",
-					contentType: "application/json",
-					url: "/sistech/funcionarios/refeicao",
-					data: JSON.stringify(
-						{ "refeicao": true }
-					),
-					success: function (data) { 
-						if(data){
-							alert("Status alterado para ( Em Refeição )");	
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
-						}else{
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
-							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
-						}
-					},
-					statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { 
-							alert('Realize login novamente!');
-							window.location.href = "/sistech/login"; 
-						}
-					}
-				});
-				
-			}else{
-				$('#btnRefeicao').empty();
-				$('#refeicaoValor').val(false);
-				$.ajax({
-					type: "PUT",
-					contentType: "application/json",
-					url: "/sistech/funcionarios/refeicao",
-					data: JSON.stringify(
-						{ "refeicao": false }
-					),
-					success: function (data) { 
-						if(data){
-							alert("Status alterado para ( Online! )");	
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
-						}else{
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
-							alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
-						}
-					},
-					statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { 
-							alert('Realize login novamente!');
-							window.location.href = "/sistech/login"; 
-						}
-					}
-				});
-			}
 			
+			if (confirm("Tem certeza que deseja alterar seu estatus ?") == true) {
+				if(refeicao == 'false'){
+					$('#btnRefeicao').empty();
+					$('#refeicaoValor').val(true);
+					$.ajax({
+						type: "PUT",
+						contentType: "application/json",
+						url: "/sistech/funcionarios/refeicao",
+						data: JSON.stringify(
+							{ "refeicao": true }
+						),
+						success: function (data) { 
+							if(data){
+								alert("Status alterado para ( Em Refeição )");	
+								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
+							}else{
+								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
+								alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { 
+								alert('Realize login novamente!');
+								window.location.href = "/sistech/login"; 
+							}
+						}
+					});
+					
+				}else{
+					$('#btnRefeicao').empty();
+					$('#refeicaoValor').val(false);
+					$.ajax({
+						type: "PUT",
+						contentType: "application/json",
+						url: "/sistech/funcionarios/refeicao",
+						data: JSON.stringify(
+							{ "refeicao": false }
+						),
+						success: function (data) { 
+							if(data){
+								alert("Status alterado para ( Online! )");	
+								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
+							}else{
+								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
+								alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
+							}
+						},
+						statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						    401: function() { 
+								alert('Realize login novamente!');
+								window.location.href = "/sistech/login"; 
+							}
+						}
+					});
+				}
+			}
 		}
 		
 		function aviso(){

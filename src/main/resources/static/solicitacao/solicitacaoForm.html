@@ -106,7 +106,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="formaAbertura"><b>Forma de Abertura </b></label>
+								<label class="control-label" for="formaAbertura"><b>Canal de Abertura </b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
 										<option value="TELEFONE">Telefone</option>
@@ -218,9 +218,9 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="control-group">
-								<label class="control-label" for="prioridade"><b>Prioridade </b></label>
+								<label class="control-label" for="criticidade"><b>Criticidade </b></label>
 								<div class="controls">
-									<select class="form-select mt-2" id="prioridade" name="prioridade">
+									<select class="form-select mt-2" id="criticidade" name="criticidade">
 										<option value="BAIXA">Baixa</option>
 										<option value="MEDIA">Media</option>
 										<option value="ALTA">Alta</option>
@@ -746,7 +746,7 @@
 				observacao = $('#observacao').val(),
 				resolucao = $('#resolucao').val(),
 				abertoPor = $('#abertoPor').val(),
-				prioridade = $('#prioridade').val(),
+				criticidade = $('#criticidade').val(),
 				formaAbertura = $('#formaAbertura').val(),
 				categoria = $('#categoria').val(),
 				classificacao = $('#classificacao').val(),
@@ -773,7 +773,7 @@
 					"observacao": observacao,
 					"resolucao": resolucao,
 					"abertoPor": abertoPor,
-					"prioridade": prioridade,
+					"prioridade": criticidade,
 					"formaAbertura": formaAbertura,
 					"categoria": categoria,
 					"classificacao": classificacao,

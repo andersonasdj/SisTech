@@ -13,6 +13,11 @@
 	--bs-btn-hover-bg: #84f59d !important;
 }
 
+.btn-timesheet {
+	--bs-btn-bg: rgb(153, 193, 241) !important; 
+	--bs-btn-hover-bg: rgb(246, 97, 81) !important;
+}
+
 .navbar {
     --bs-navbar-brand-font-size: 1.45rem !important;
     --bs-navbar-hover-color: rgb(0, 0, 0) !important;
