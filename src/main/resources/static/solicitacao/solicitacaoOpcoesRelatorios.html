@@ -185,12 +185,12 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID:  
-							<span id="idModalEdicaoModalEdicao"> </span>&nbsp;
-							<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
+						<h1 class="modal-title fs-6" id="edicaoModal">Edição rápida ID:
+							<span id="idModalEdicaoModalEdicao"> </span></h1>&nbsp; &nbsp;
+							<button class="btn btn-sm btn btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
 							&nbsp; &nbsp;<span id="btnTimesheet"> </span>
 							<span hidden id="idHistoricoModalEdicao"> </span>
-						</h1>
+						
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
@@ -342,7 +342,7 @@
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
-						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
 				</div>
@@ -354,8 +354,8 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span></h1>
-						&nbsp; <button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoNaoFinalizado()">Histórico</button>
+						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição rápida ID: <span id="idModalNaoFinalizado"> </span></h1>
+						&nbsp; &nbsp;<button class="btn btn-sm btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoNaoFinalizado()">Histórico</button>
 						&nbsp; &nbsp;<span id="btnTimesheetNaoFinalizado"> </span>
 							<span hidden id="idHistoricoModalEdicaoNaoFinalizado"> </span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
@@ -520,7 +520,7 @@
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
-						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
 				</div>
@@ -1115,7 +1115,7 @@
 						
 						$('#idHistoricoModalEdicao').text("");
 						$('#idModalEdicaoModalEdicao').text("");
-						$('#dataAtualizacaoModalEdicao').text("");
+						$('#dataAtualizacaoModalEdicao').empty();
 						$('#descricaomodal').val("");
 						$('#resolucaomodal').val("");
 						$('#observacaomodal').val("");
@@ -1142,7 +1142,7 @@
 						$('#horaAndamentoModalEdicao').val(data.horaAndamento);
 						$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
 						$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
-						$('#dataAtualizacaoModalEdicao').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
+						$('#dataAtualizacaoModalEdicao').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#idModalEdicaoModalEdicao').text(data.id);
 						$('#descricaomodal').val(data.descricao);
 						$('#resolucaomodal').val(data.resolucao);
@@ -1405,7 +1405,7 @@
 
 						$('#idHistoricoModalEdicaoNaoFinalizado').text("");
 						$('#idModalNaoFinalizado').text("");
-						$('#dataAtualizacaoModalNaoFinalizado').text("");
+						$('#dataAtualizacaoModalNaoFinalizado').empty();
 						$('#descricaoModalNaoFinalizado').val("");
 						$('#resolucaoModalNaoFinalizado').val("");
 						$('#observacaoModalNaoFinalizado').val("");
@@ -1425,7 +1425,7 @@
 						$('#idHistoricoModalEdicaoNaoFinalizado').text(data.log_id);
 						$('#id_cliente').text(data.clienteId);
 						$('#idModalNaoFinalizado').text(data.id);
-						$('#dataAtualizacaoModalNaoFinalizado').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
+						$('#dataAtualizacaoModalNaoFinalizado').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#descricaoModalNaoFinalizado').val(data.descricao);
 						$('#resolucaoModalNaoFinalizado').val(data.resolucao);
 						$('#observacaoModalNaoFinalizado').val(data.observacao);

@@ -96,7 +96,7 @@
 					<div class="col-md-3">
 						<div class="control-group">
 							<div class="controls">
-								<label class="control-label mt-2"><b>Funcionario</b></label>
+								<label class="control-label mt-2" for="nomeFuncionario"><b>Funcionario</b></label>
 								<div class="controls">
 									<select class="form-select mt-2" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
@@ -173,7 +173,7 @@
 				<div class="row">				
 					<div class="col-md-3">
 						<div class="control-group">
-							<label class="form-label mt-4 fonteModal"><b>Data Inicio *</b></label>
+							<label class="form-label mt-4 fonteModal" for="dataInicio"><b>Data Inicio *</b></label>
 							<div class="calendarioAberturaModal">
 								<input type="date" id="dataInicio" name="dataAberturaModalEdicao" >
 								<span> </span>
@@ -182,7 +182,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="control-group">
-							<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
+							<label class="form-label mt-4 fonteModal" for="dataFim"><b>Data Fim *</b></label>
 							<div class="calendarioAndamentoModal">
 								<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
 								<span> </span>
@@ -226,7 +226,7 @@
 			    </div>
 			    <div class="col-4">
 					<div class="form-group pull-right">
-			    		<input type="text" class="search form-control" placeholder="Busca">
+			    		<input type="text" id="campo-busca" class="search form-control" placeholder="Busca">
 					</div>
 					<span class="counter pull-right"> </span>
 			    </div>
@@ -322,8 +322,8 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content modal-content-finalizado">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
-							&nbsp; <button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						<h1 class="modal-title fs-6" id="edicaoModal">Edição rápida ID: <span id="idModalEdicao"> </span></h1>
+							&nbsp; &nbsp;<button class="btn btn-sm btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
 							<span hidden id="idHistorico"> </span>
 							&nbsp; &nbsp;<span id="btnTimesheet"> </span></h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
@@ -332,7 +332,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="control-group">
-									<label class="form-label mt-4 fonteModal"><b>Data Abertura *</b></label>
+									<label class="form-label mt-4 fonteModal" for="dataAberturaModalEdicao"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
 										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 112px;">
 										<span> </span>
@@ -342,7 +342,7 @@
 							</div>
 								<div class="col-md-4">
 									<div class="control-group">
-										<label class="form-label mt-4 fonteModal"><b>Data Andamento *</b></label>
+										<label class="form-label mt-4 fonteModal" for="dataAndamentoModalEdicao"><b>Data Andamento *</b></label>
 										<div class="calendarioAndamentoModal">
 											<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 112px;">
 											<span> </span>
@@ -352,7 +352,7 @@
 								</div>
 							<div class="col-md-4">
 								<div class="control-group fonteModal">
-									<label class="form-label mt-4 fonteModal"><b>Data Finalizado *</b></label>
+									<label class="form-label mt-4 fonteModal" for="dataFinalizadoModalEdicao"><b>Data Finalizado *</b></label>
 									<div class="calendarioFinalizadoModal">
 										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 112px;">
 										<span> </span>
@@ -364,7 +364,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-2">
-									<label class="control-label"><b>Solicitante *</b>
+									<label class="control-label" for="nomeSolicitanteModalEdicao"><b>Solicitante *</b>
 										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
@@ -474,8 +474,8 @@
 						<label class="form-label mt-3 fonteModal" for="resolucaomodal"><b>Resolução</b></label>
 						<textarea class="form-control" rows="3" id="resolucaomodal" class="form-control" spellcheck="true"> </textarea>
 						<div class="row">
-							<div class="col-md-6 mt-3">
-								Ultima atualização: <span id="dataAtualizacaoModalEdicao"></span>
+							<div class="col-md-12 mt-3">
+								<span id="dataAtualizacaoModalEdicao"></span>
 							</div>
 						</div>
 					</div>
@@ -483,7 +483,7 @@
 						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printFinalizado()><i class="bi bi-printer"> </i></button>
 						<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
-						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#finalizadosModal">Fechar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
 				</div>
@@ -497,7 +497,7 @@
 					<div class="modal-header">
 						<h1 class="modal-title fs-6" id="edicaoModalNaoFinalizado">Edição ID: <span id="idModalNaoFinalizado"> </span>
 						&nbsp;
-						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						<button class="btn btn-sm btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
 						&nbsp; &nbsp;<span id="btnTimesheetNaoFinalizado"> </span></h1>
 						<span hidden id="idHistorico"> </span>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
@@ -528,7 +528,7 @@
 						<div class="row">
 							<div class="col-md-8-auto" id="agendamentosmodal" style="display: none">
 								<div class="control-group">
-									<label class="form-label mt-4"><b>Data Agendamento *</b></label>
+									<label class="form-label mt-4" for="dataModalNaoFinalizado"><b>Data Agendamento *</b></label>
 									<div class="datetimepickerModal">
 										<input type="date" id="dataModalNaoFinalizado" name="dataModalNaoFinalizado" value="">
 										<span> </span>
@@ -545,7 +545,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group mt-3">
-									<label class="control-label"><b>Solicitante * </b>
+									<label class="control-label" for="nomeSolicitanteModalNaoFinalizado"><b>Solicitante * </b>
 										<span id="botaoColaboradores"> </span>
 									</label>
 									<div class="controls">
@@ -611,11 +611,11 @@
 								<label class="form-label mt-3" for="prioridaModalNaoFinalizado"><b>Criticidade</b></label>
 								<div class="controls">
 									<select class="form-select" id="prioridaModalNaoFinalizado" name="prioridaModalNaoFinalizado">
-										<option value="BAIXA">Baixa</option>
-										<option value="MEDIA">Media</option>
-										<option value="ALTA">Alta</option>
-										<option value="CRITICA">Crítico</option>
-										<option value="PLANEJADA">Planejada</option>
+										<option value="BAIXA">BAIXA</option>
+										<option value="MEDIA">MEDIA</option>
+										<option value="ALTA">ALTA</option>
+										<option value="CRITICA">CRITICA</option>
+										<option value="PLANEJADA">PLANEJADA</option>
 									</select>
 								</div>
 							</div>
@@ -643,7 +643,7 @@
 						<div class="row">
 							<div class="col-md-12 mt-3">
 								<div class="controls">
-									Ultima atualização: <span id="dataAtualizacaoModalNaoFinalizado"> </span>
+									<span id="dataAtualizacaoModalNaoFinalizado"> </span>
 								</div>
 							</div>
 						</div>
@@ -651,7 +651,7 @@
 					<div class="modal-footer">
 						<button class="btn btn-danger btn-sm" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=printNaoFinalizado()><i class="bi bi-printer"> </i></button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
 				</div>
@@ -849,7 +849,7 @@
 								<div class="row">
 									<div class="col-md-6 ms-auto">
 										<div class="controls">
-											<label class="control-label mt-1"><b>Forma de Abertura *</b></label>
+											<label class="control-label mt-1"><b>Canal de Abertura</b></label>
 											<div class="controls">
 												<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
 													<option value="TELEFONE">Telefone</option>
@@ -863,7 +863,7 @@
 									</div>
 									<div class="col-md-6 ms-auto">
 										<div class="controls">
-											<label class="form-label mt-1"><b>Prioridade *</b></label>
+											<label class="form-label mt-1"><b>Criticidade</b></label>
 											<select class="form-select" id="prioridade" name="prioridade">
 												<option value="BAIXA">Baixa</option>
 												<option value="MEDIA">Media</option>
@@ -877,7 +877,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="controls">
-										<label class="form-label mt-1"><b>Categoria *</b></label>
+										<label class="form-label mt-1"><b>Categoria</b></label>
 											<select class="form-select" id="categoria" name="categoria">
 												<option value="SOFTWARE">Software</option>
 												<option value="HARDWARE">Hardware</option>
@@ -898,7 +898,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="controls">
-										<label class="form-label mt-1"><b>Classificação *</b></label>
+										<label class="form-label mt-1"><b>Classificação</b></label>
 											<select class="form-select" id="classificacao" name="classificacao">
 												<option value="INCIDENTE">Incidente</option>
 												<option value="PROBLEMA">Problema</option>
@@ -913,7 +913,7 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="controls">
-										<label class="form-label mt-1"><b>Onsite / Offsite *</b></label>
+										<label class="form-label mt-1"><b>Onsite / Offsite</b></label>
 											<select class="form-select" id="local" name="local">
 												<option value="OFFSITE">Offsite</option>
 												<option value="ONSITE">Onsite</option>
@@ -927,7 +927,7 @@
 										</div>
 									</div>
 									<div class="col-md-4 ms-auto">
-										<label class="form-label mt-1"><b>Status *</b></label>
+										<label class="form-label mt-1"><b>Status</b></label>
 										<div class="controls">
 											<select class="form-select" id="statusClone" name="statusClone">
 												<option value="ABERTO">ABERTO</option>
@@ -940,7 +940,7 @@
 								<div class="row">
 									<div class="col-md-8-auto" id="agendamentos" style="display: none">
 										<div class="control-group">
-											<label class="form-label mt-4"><b>Data Agendamento *</b></label>
+											<label class="form-label mt-4" for="date"><b>Data Agendamento *</b></label>
 											<div class="datetimepicker">
 												<input type="date" id="date" name="date" value="">
 												<span> </span>
@@ -1006,9 +1006,7 @@
 	<script src="../assets/js/chart.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/timeline.js"></script>
-	
 	<script>
-		
 		function exibeTimesheet(id){
 			$('#tabela-timesheet-corpo').empty();			
 			$.ajax({
@@ -1652,7 +1650,7 @@
 						}
 
 						$('#idModalEdicao').text("");
-						$('#dataAtualizacaoModalEdicao').text("");
+						$('#dataAtualizacaoModalEdicao').empty();
 						$('#descricaomodal').val("");
 						$('#resolucaomodal').val("");
 						$('#observacaomodal').val("");
@@ -1680,7 +1678,7 @@
 						$('#horaAndamentoModalEdicao').val(data.horaAndamento);
 						$('#dataFinalizadoModalEdicao').val(data.dataFinalizado);
 						$('#horaFinalizadoModalEdicao').val(data.horaFinalizado);
-						$('#dataAtualizacaoModalEdicao').text(data.dataAtualizacao);
+						$('#dataAtualizacaoModalEdicao').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#idModalEdicao').text(data.id);
 						$('#descricaomodal').val(data.descricao);
 						$('#resolucaomodal').val(data.resolucao);
@@ -1873,7 +1871,7 @@
 						}
 
 						$('#idModalNaoFinalizado').text("");
-						$('#dataAtualizacaoModalNaoFinalizado').text("");
+						$('#dataAtualizacaoModalNaoFinalizado').empty();
 						$('#descricaoModalNaoFinalizado').val("");
 						$('#resolucaoModalNaoFinalizado').val("");
 						$('#observacaoModalNaoFinalizado').val("");
@@ -1893,7 +1891,7 @@
 	
 						$('#idHistorico').text(data.log_id);
 						$('#idModalNaoFinalizado').text(data.id);
-						$('#dataAtualizacaoModalNaoFinalizado').text(data.dataAtualizacao);
+						$('#dataAtualizacaoModalNaoFinalizado').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#descricaoModalNaoFinalizado').val(data.descricao);
 						$('#resolucaoModalNaoFinalizado').val(data.resolucao);
 						$('#observacaoModalNaoFinalizado').val(data.observacao);

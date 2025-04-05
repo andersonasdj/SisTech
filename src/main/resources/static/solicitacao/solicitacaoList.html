@@ -215,7 +215,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1> &nbsp; &nbsp;
-						<button class="btn btn-sm btn btn-light" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
+						<button class="btn btn-sm btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistorico()">Histórico</button>
 						&nbsp; &nbsp;
 						<span id="btnTimesheet"> </span>
 						<span hidden id="idHistorico"> </span>
@@ -271,6 +271,7 @@
 									<div class="controls">
 										<select class="form-control solicitante mt-3" name="nomeSolicitanteModal" id="nomeSolicitanteModal"> </select>
 									</div>
+									<span style="color: blue;" id="celSolicitante"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -279,11 +280,12 @@
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="nomeAfetadoModal" id="nomeAfetadoModal"> </select>
 									</div>
+									<span style="color: blue;" id="celAfetado"> </span>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="control-group mt-3">
-									<label class="form-label" for="formaAberturaModal"><b>Canal de Abertura *</b></label>
+									<label class="form-label" for="formaAberturaModal"><b>Canal de Abertura</b></label>
 									<div class="controls">
 										<select class="form-control usuario mt-2" name="formaAberturaModal" id="formaAberturaModal"> </select>
 									</div>
@@ -291,23 +293,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group mt-2">
-									<span style="color: blue;" id="celSolicitante"> </span>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="control-group mt-2">
-									<span style="color: blue;" id="celAfetado"> </span>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="control-group mt-2"> </div>
-							</div>
-						</div>
-						<div class="row">
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="categoriamodal"><b>Categoria *</b></label>
+								<label class="form-label mt-3" for="categoriamodal"><b>Categoria</b></label>
 								<div class="controls">
 									<div class="controls">
 										<select class="form-select" id="categoriamodal" name="categoriamodal">
@@ -330,7 +317,7 @@
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação *</b></label>
+								<label class="form-label mt-3" for="classificacaomodal"><b>Classificação</b></label>
 								<div class="controls">
 									<select class="form-select" id="classificacaomodal" name="classificacaomodal">
 										<option value="INCIDENTE">Incidente</option>
@@ -343,7 +330,7 @@
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-3" for="prioridademodal"><b>Criticidade *</b></label>
+								<label class="form-label mt-3" for="prioridademodal"><b>Criticidade</b></label>
 								<div class="controls">
 									<select class="form-select" id="prioridademodal" name="prioridademodal">
 										<option value="BAIXA">Baixa</option>
@@ -455,7 +442,7 @@
 						<div class="row">
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
-									<label class="control-label mt-1" for="formaAbertura"><b>Canal de Abertura *</b></label>
+									<label class="control-label mt-1" for="formaAbertura"><b>Canal de Abertura</b></label>
 									<div class="controls">
 										<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
 											<option value="TELEFONE">Telefone</option>
@@ -469,7 +456,7 @@
 							</div>
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
-									<label class="form-label mt-1" for="prioridade"><b>Criticidade *</b></label>
+									<label class="form-label mt-1" for="prioridade"><b>Criticidade</b></label>
 									<select class="form-select" id="prioridade" name="prioridade">
 										<option value="BAIXA">Baixa</option>
 										<option value="MEDIA">Media</option>
@@ -483,7 +470,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="controls">
-								<label class="form-label mt-1" for="categoria"><b>Categoria *</b></label>
+								<label class="form-label mt-1" for="categoria"><b>Categoria</b></label>
 									<select class="form-select" id="categoria" name="categoria">
 										<option value="SOFTWARE">Software</option>
 										<option value="HARDWARE">Hardware</option>
@@ -504,7 +491,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="controls">
-								<label class="form-label mt-1" for="classificacao"><b>Classificação *</b></label>
+								<label class="form-label mt-1" for="classificacao"><b>Classificação</b></label>
 									<select class="form-select" id="classificacao" name="classificacao">
 										<option value="INCIDENTE">Incidente</option>
 										<option value="PROBLEMA">Problema</option>
@@ -519,7 +506,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="controls">
-								<label class="form-label mt-1" for="local"><b>Onsite / Offsite *</b></label>
+								<label class="form-label mt-1" for="local"><b>Onsite / Offsite</b></label>
 									<select class="form-select" id="local" name="local">
 										<option value="OFFSITE">Offsite</option>
 										<option value="ONSITE">Onsite</option>
@@ -528,12 +515,12 @@
 							</div>
 							<div class="col-md-4">
 								<div class="controls">
-								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico </b></label>
+								<label class="form-label mt-1" for="nomeFuncionario"><b>Técnico</b></label>
 									<select class="form-select" id="nomeFuncionario" name="nomeFuncionario"> </select>
 								</div>
 							</div>
 							<div class="col-md-4 ms-auto">
-								<label class="form-label mt-1" for="status"><b>Status *</b></label>
+								<label class="form-label mt-1" for="status"><b>Status</b></label>
 								<div class="controls">
 									<select class="form-select" id="status" name="status">
 										<option value="ABERTO">ABERTO</option>
@@ -654,7 +641,6 @@
   	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
   	<script>
-		//export table to pdf
 		function generatePDF() {
 		  var doc = new jsPDF('l', 'pt');
 		
@@ -800,7 +786,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		} 
@@ -974,7 +963,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1093,7 +1085,7 @@
 						
 						$('#idmodal').text("");
 						$('#idHistorico').text("");
-						$('#dataAtualizacaoModal').text("");
+						$('#dataAtualizacaoModal').empty();
 						$('#versaoModal').text("");
 						$('#descricaomodal').val("");
 						$('#resolucaomodal').val("");
@@ -1114,7 +1106,7 @@
 						$('#idHistorico').text(data.log_id);
 						$('#idmodal').text(data.id);
 						$('#id_cliente').text(data.clienteId);
-						$('#dataAtualizacaoModal').text(" * Aberto por: " + data.abertoPor + " * Atualizado em: " + data.dataAtualizacao);
+						$('#dataAtualizacaoModal').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#versaoModal').text(data.versao);
 						$('#descricaomodal').val(data.descricao);
 						$('#resolucaomodal').val(data.resolucao);
@@ -1221,9 +1213,9 @@
 							contentType: "application/json",
 							url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.solicitante,
 							success: function (data) {
-								$('#celSolicitante').text(" ");
-								if(data != null){
-									$('#celSolicitante').text(data);
+								$('#celSolicitante').empty();
+								if(data != null && data != ""){
+									$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 								}
 							},
 							statusCode: {
@@ -1238,14 +1230,17 @@
 							contentType: "application/json",
 							url: "/sistech/colaborador/list/cliente/"+ data.clienteId +"/"+ data.afetado,
 							success: function (data) {
-								$('#celAfetado').text(" ");
-								if(data != null){
-									$('#celAfetado').text(data);
+								$('#celAfetado').empty();
+								if(data != null && data != ""){
+									$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 								}
 							},
 							statusCode: {
 							    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-							    401: function() { alert('Realize login novamente!'); }
+								401: function() { 
+									alert('Realize login novamente!'); 
+									window.location.href = "/sistech/login"; 
+								}
 							}
 						});
 						
@@ -1256,7 +1251,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1271,14 +1269,17 @@
 					contentType: "application/json",
 					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
 					success: function (data) {
-						$('#celSolicitante').text(" ");
-						if(data != null){
-							$('#celSolicitante').text(data);
+						$('#celSolicitante').empty();
+						if(data != null && data != ""){
+							$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 						}
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			});
@@ -1294,14 +1295,17 @@
 					contentType: "application/json",
 					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
 					success: function (data) {
-						$('#celAfetado').text(" ");
-						if(data != null){
-							$('#celAfetado').text(data);
+						$('#celAfetado').empty();
+						if(data != null && data != ""){
+							$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 						}
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			});
@@ -1467,7 +1471,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1488,7 +1495,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1590,7 +1600,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1686,7 +1699,6 @@
 					$('#solicitante').empty();
 					$('#afetado').empty();
 				}
-				
 			});
 		});
 		

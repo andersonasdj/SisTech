@@ -246,7 +246,6 @@
 			</div>
 		</div>
 		<!-- ########################################## MODAL EDIÇÃO CLIENTE ################################################ -->
-
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
 		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
 			aria-hidden="true">
@@ -254,20 +253,20 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5" id="modalLabelColaborador">
-							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
-								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
+							<button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
+							&nbsp;
+							<a href="#" onclick="generatePDF()"> <i class="bi bi-printer"></i></a>
 							<input type="text" hidden id="idColaboradoCliente" name="idColaboradoCliente">
 						</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-
-					<table class="table table-striped align-middle" id="tabela-colaboradores">
+					<table class="table table-striped align-middle table-action" id="tabela-colaboradores">
 						<thead>
 							<tr>
-								<th scope="col">Id</th>
-								<th scope="col">Nome</th>
-								<th scope="col">Celular</th>
-								<th scope="col">Ação</th>
+								<th data-field="id">Id</th>
+								<th data-field="nome">Nome</th>
+								<th data-field="celular">Celular</th>
+								<th data-field="acao">Ação</th>
 							</tr>
 						</thead>
 						<tbody id="tbColaboradoresCorpo">
@@ -281,7 +280,6 @@
 			</div>
 		</div>
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
-
 		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
 		<div class="modal fade" id="addColaboradorModal" tabindex="-1" aria-labelledby="addColaboradorModalLabel"
 			aria-hidden="true">
@@ -309,7 +307,6 @@
 			</div>
 		</div>
 		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
-		
 		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
 		<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
 			aria-hidden="true">
@@ -402,6 +399,8 @@
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/jspdf.min.js"></script>
+	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
 	<script>
 		
 		var input = document.getElementById("palavraChave");
@@ -456,14 +455,16 @@
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			}else{
 				listarTodos();
 			}
 		}
-		
 		
 		function listarVip(filtro){
 			$('#corpoClientes').empty();
@@ -506,7 +507,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 			}
 			});
 		}
@@ -573,7 +577,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+				    401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 			}
 			});
 		}
@@ -589,7 +596,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 			}
 		});
 		
@@ -647,7 +657,10 @@
 			},
 			statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 			}
 		});
 			
@@ -690,7 +703,10 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 				}
 			});
 		}
@@ -786,7 +802,10 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); },
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						},
 					    405: function() { alert('Você não possui permissão de edição!'); }
 				}
 			});
@@ -803,11 +822,11 @@
 					$('#idColaboradoCliente').val(id);
 
 					var itens = data.map(i =>
-
+					
 						'<tr id=linhaModalColaborador' + i.id + '>'
 						+ '<td>' + i.id + '</td>'
 						+ '<td>' + i.nomeColaborador + '</td>'
-						+ '<td>' + i.celular + '</t}>'
+						+ '<td><i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55' + i.celular.replace(/[^0-9]/g, '')+'" target="_blank">' + i.celular + '</a></t}>'
 						+ '<td>'
 						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
 						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')><i class="bi bi-trash"></i></button>'
@@ -818,7 +837,10 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 				}
 			});
 		}
@@ -850,7 +872,10 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 				}
 			});
 		}		
@@ -880,7 +905,10 @@
 				},
 				statusCode: {
 					500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -920,7 +948,10 @@
 				},
 				statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 				}
 			});
 		}
@@ -980,7 +1011,10 @@
 				},
 				statusCode: {
 					500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -1012,6 +1046,21 @@
 		    else {$('.no-result').hide();}
 				  });
 		});
+		
+		function generatePDF() {
+		  var doc = new jsPDF('l', 'pt');
+		  var elem = document.getElementById('tabela-colaboradores');
+		  var data = doc.autoTableHtmlToJson(elem);
+		  doc.autoTable(data.columns, data.rows, {
+		    margin: {left: 35},
+		    theme: 'grid',
+		    tableWidth: 'auto',
+		    fontSize: 7,
+		    overflow: 'linebreak',
+		    }
+		  );
+		  doc.save('Colaboradores.pdf');
+		}
 	</script>
 </body>
 </html>

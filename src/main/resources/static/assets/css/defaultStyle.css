@@ -13,6 +13,21 @@
 	--bs-btn-hover-bg: #84f59d !important;
 }
 
+.btn-historico {
+	--bs-btn-bg: rgb(153, 193, 241) !important; 
+	--bs-btn-hover-bg: rgb(246, 97, 81) !important;
+}
+.color-lnk{
+	color: #0b770a !important;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.wpp-color{
+	color: #0f6a12;
+	font-weight: bold;
+}
+
 .btn-timesheet {
 	--bs-btn-bg: rgb(153, 193, 241) !important; 
 	--bs-btn-hover-bg: rgb(246, 97, 81) !important;

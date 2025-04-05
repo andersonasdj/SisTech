@@ -128,6 +128,7 @@
 								<div class="controls">
 									<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"> </select>
 								</div>
+								<span style="color: blue;"  id="celSolicitante"> </span>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -136,18 +137,19 @@
 								<div class="controls">
 									<select class="form-control usuario mt-2" name="afetado" id="afetado"> </select>
 								</div>
+								<span style="color: blue;"  id="celAfetado"> </span>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group mt-2">
-								<span style="color: blue;"  id="celSolicitante"> </span>
+								
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="control-group mt-1">
-								<span style="color: blue;"  id="celAfetado"> </span>
+								
 							</div>
 						</div>
 					</div>
@@ -574,7 +576,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -606,7 +611,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -637,7 +645,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
 				}
 			});
 		}
@@ -677,7 +688,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
 				    405: function() { alert('Voce não tem permissão!'); }
 				}
 			});
@@ -701,7 +715,10 @@
 					},
 					statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
 				    405: function() { alert('Voce não tem permissão para exclusão!'); }
 				}
 				});
@@ -710,11 +727,6 @@
 	</script>
 
 	<script>
-		
-		
-		
-		
-		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -735,7 +747,10 @@
 			},
 			statusCode: {
 			    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-			    401: function() { alert('Realize login novamente!'); }
+				401: function() { 
+					alert('Realize login novamente!'); 
+					window.location.href = "/sistech/login"; 
+				}
 			}
 		});
 
@@ -813,7 +828,10 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
 				    405: function() { alert('Verifique se todos os campos foram marcados!'); }
 				}
 			});
@@ -837,14 +855,17 @@
 					contentType: "application/json",
 					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
 					success: function (data) {
-						$('#celSolicitante').text(" ");
-						if(data != null){
-							$('#celSolicitante').text(data);
+						$('#celSolicitante').empty();
+						if(data != null && data != ""){
+							$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 						}
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			});
@@ -860,14 +881,17 @@
 					contentType: "application/json",
 					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
 					success: function (data) {
-						$('#celAfetado').text(" ");
-						if(data != null){
-							$('#celAfetado').text(data);
+						$('#celAfetado').empty();
+						if(data != null && data != ""){
+							$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 						}
 					},
 					statusCode: {
 					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					}
 				});
 			});
@@ -952,14 +976,17 @@
 								contentType: "application/json",
 								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeSolicitante,
 								success: function (data) {
-									$('#celSolicitante').text(" ");
-									if(data != null){
-										$('#celSolicitante').text(data);
+									$('#celSolicitante').empty();
+									if(data != null && data != ""){
+										$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 									}
 								},
 								statusCode: {
 								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-								    401: function() { alert('Realize login novamente!'); }
+									401: function() { 
+										alert('Realize login novamente!'); 
+										window.location.href = "/sistech/login"; 
+									}
 								}
 							});
 							
@@ -969,21 +996,27 @@
 								contentType: "application/json",
 								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeAfetado,
 								success: function (data) {
-									$('#celAfetado').text(" ");
-									if(data != null){
-										$('#celAfetado').text(data);
+									$('#celAfetado').empty();
+									if(data != null && data != ""){
+										$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
 									}
 								},
 								statusCode: {
 								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-								    401: function() { alert('Realize login novamente!'); }
+									401: function() { 
+										alert('Realize login novamente!'); 
+										window.location.href = "/sistech/login"; 
+									}
 								}
 							});
 						}
 					},
 					statusCode: {
 				    	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				   		401: function() { alert('Realize login novamente!'); }
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
 					},
 					complete: function (data) { }
 					})
