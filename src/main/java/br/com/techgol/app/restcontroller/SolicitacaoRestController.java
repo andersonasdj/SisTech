@@ -431,6 +431,7 @@ public class SolicitacaoRestController {
 				solicitacao.setPrioridade(m.getPrioridade());
 				solicitacao.setStatus(m.getStatus());
 				solicitacao.setExcluido(false);
+				solicitacao.setDuracao(0l);
 				solicitacaoService.salvarNovaSolicitacao(solicitacao);
 			});
 			

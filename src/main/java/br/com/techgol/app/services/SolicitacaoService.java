@@ -375,6 +375,7 @@ public class SolicitacaoService {
 			finalizado = true;
 		}
 		if(andamento || finalizado) {
+			
 			solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), solicitacao.getDataFinalizado()).toMinutes());
 			timeSheetService.atualizaTimesheet(solicitacao);
 		}

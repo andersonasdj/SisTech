@@ -56,4 +56,13 @@ public class TimeSheet {
 		this.duracao = duração;
 		this.status = status;
 	}
+
+	public TimeSheet(Solicitacao solicitacao) {
+		this.solicitacao = solicitacao;
+		this.funcionario = solicitacao.getFuncionario();
+		this.inicio = solicitacao.getDataAndamento();
+		this.fim = solicitacao.getDataFinalizado();
+		this.duracao = solicitacao.getDuracao();
+		this.status = solicitacao.getStatus();
+	}
 }

@@ -14,6 +14,8 @@ import br.com.techgol.app.orm.TimesheetProjecao;
 
 public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 	
+	public void deleteBySolicitacao_idAndFuncionario_id(Long solicitacao_id, Long funcionario_id);
+	
 	@Query(nativeQuery = true,
 			value = "SELECT * FROM timesheet t "
 					+ "WHERE t.solicitacao_id= :idSolicitacao "

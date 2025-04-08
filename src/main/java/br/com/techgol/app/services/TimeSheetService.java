@@ -16,7 +16,6 @@ import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.orm.TimesheetProjecao;
 import br.com.techgol.app.repository.TimesheetRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class TimeSheetService {
@@ -29,15 +28,26 @@ public class TimeSheetService {
 		return repository.save(timeSheet);
 	}
 
-	@Transactional
+//	@Transactional
+//	public void atualizaTimesheet(Solicitacao solicitacao) {
+//		
+//		TimeSheet timeSheet =  repository.buscaTimeSheetParaEdicao(solicitacao.getId(), solicitacao.getFuncionario().getId(), solicitacao.getStatus().toString());
+//		
+//		if(timeSheet != null) {
+//			timeSheet.setInicio(solicitacao.getDataAndamento());
+//			timeSheet.setFim(solicitacao.getDataFinalizado());
+//			timeSheet.setDuracao(solicitacao.getDuracao());
+//		}
+//	}
+	
 	public void atualizaTimesheet(Solicitacao solicitacao) {
-		TimeSheet timeSheet =  repository.buscaTimeSheetParaEdicao(solicitacao.getId(), solicitacao.getFuncionario().getId(), solicitacao.getStatus().toString());
-		if(timeSheet != null) {
-			timeSheet.setInicio(solicitacao.getDataAndamento());
-			timeSheet.setFim(solicitacao.getDataFinalizado());
-			timeSheet.setDuracao(solicitacao.getDuracao());
-		}
+		
+		repository.deleteBySolicitacao_idAndFuncionario_id(solicitacao.getId(), solicitacao.getFuncionario().getId());
+		TimeSheet timeSheet =  new TimeSheet(solicitacao);
+		repository.save(timeSheet);
+		
 	}
+	
 	
 	public Long minutosPorFuncionarioPeriodo(Long id, LocalDate ini, LocalDate termino) {
 		
@@ -83,5 +93,9 @@ public class TimeSheetService {
 		
 		return repository.listarTimesheetProjecao(page, id);
 		
+	}
+
+	public void deletaTimesheetPorId(Long id) {
+		repository.deleteById(id);
 	}
 }
