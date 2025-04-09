@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="br">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
+	<link rel="stylesheet" href="../assets/css/styleDashBoardCliente.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
+	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<title>Sistech - Solicitações</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"> </span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"> </i></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		<div class="container-fluid borda-pontilhada">
+				
+				<div class="row">				
+					<div class="col-md-3">
+						<div class="control-group">
+							<label class="form-label mt-4 fonteModal"><b>Data Inicio *</b></label>
+							<div class="calendarioAberturaModal">
+								<input type="date" id="dataInicio" name="dataAberturaModalEdicao" >
+								<span> </span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<label class="form-label mt-4 fonteModal"><b>Data Fim *</b></label>
+							<div class="calendarioAndamentoModal">
+								<input type="date" id="dataFim" name="dataAndamentoModalEdicao" value="">
+								<span> </span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">				
+					<div class="col-md-3 mt-2">
+						<div class="control-group">
+
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<br />
+							<span style="font-size: 18px;" id="horasTotais"> </span>
+							<span style="font-size: 18px;" id="diasUteis"> </span>
+							<span style="font-size: 18px;" id="horaDia"> </span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="control-group">
+							<br />
+							<span style="font-size: 18px;" id="qtdAbertos"> </span>
+							<span style="font-size: 18px;" id="qtdAtualizados"> </span>
+							<span style="font-size: 18px;" id="qtdFechados"> </span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">				
+					<div class="col-md-4">
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheHoje()">Hoje</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(7)">7 dias</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(15)">15 dias</button>
+						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(30)">30 dias</button>
+					</div>
+				</div>
+				
+				
+				<hr class="bg-danger border-2 border-top border">
+				
+				<div class="row">				
+					<div class="col-md-1">
+						<button class="btn btn-primary btn-sm mt-3" onclick="listarRendimentos()">listar</button>
+					</div>
+				</div>
+				<br />
+		</div>
+		
+		<div id="conteudo" style="display: none;">
+			<br />
+			<div class="table-responsive">
+				<table  class="table table-hover table-striped table-bordered align-middle results sortable" id="tabela-rendimentos" style="text-align: center;">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">Funcionario</th>
+							<th scope="col">Finalizados</th>
+							<th scope="col">Atualizados</th>
+							<th scope="col">Horas <span style="font-size: 10px;"> (minutos)</span></th>
+						</tr>
+					</thead>
+					<tbody id="corpoRendimentos">
+						<tr> </tr>
+					</tbody>
+				</table>
+				<nav aria-label="Page navigation example">
+				  <ul id="paginas" class="pagination"> </ul>
+				</nav>
+			</div>
+		</div>
+		<br /><br />
+
+		<br />
+		<footer class="container-fluid fixed-bottom text-center text-white">
+				<!-- Copyright -->
+				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+					2025 Copyright:
+					<a class="text-white" href="#">Techgold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
+		
+	</div>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/sorttable.js"></script>
+	<script src="../assets/js/chart.js"></script>
+	<script>
+		
+		
+		function listarRendimentos(){
+			var inicio = $('#dataInicio').val();
+			var fim = $('#dataFim').val();
+			
+			$('#corpoRendimentos').empty();
+			
+			var data_inicial  = new Date(inicio);
+			var data_final = new Date(fim);
+			
+			var resultados = [];
+			var data_inicio = data_inicial;
+			var final_semana = [5,6];
+			while (data_inicio <= data_final) {
+			 	var data = new Date(data_inicio);
+			 	if (!final_semana.includes(data.getDay())){
+			 		var data_formatada = data.toISOString().slice(0,10);
+			 		resultados.push(data_formatada);
+				}
+			    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
+			}
+			
+			if(inicio != "" && fim != ""){	
+				document.getElementById('conteudo').style.display = 'none';
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/solicitacao/relatorio/rendimento/inicio/"+inicio+"/fim/"+fim,
+										
+					success: function (data) {
+						$("#conteudo").stop().slideToggle(600);
+						
+						data.forEach(i =>{
+							var horas;
+							if(i.qtdHoras != null){
+								horas = minutosParaHorasTexto(i.qtdHoras);
+							}else{
+								horas = 0;
+							}
+							var itens = 
+								'<tr>'
+								+ '<td>' + i.nomeFuncionario + '</td>'
+								+ '<td>' + i.qtdFinalizados + '</td>'
+								+ '<td>' + i.qtdAtualizados + '</td>'
+								+ '<td>' + horas + '</td>'
+								+ '</tr>'
+								$('#corpoRendimentos').append(itens);
+						});
+						
+					},
+					statusCode: {
+				   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    	401: function() { alert('Realize login novamente!'); }
+					}
+				});
+				
+			}else{
+				alert("Selecione (Cliente, data de inicio e data de término)");
+			}
+		}
+		
+		function minutosParaHorasTexto(minutos){
+			if(minutos<=60){
+				return`${minutos} minutos`;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return`${horas} h ${min} m`;
+			}
+		}
+		
+		function minutosParaHorasNumero(minutos){
+			if(minutos<=60){
+				return minutos;
+			}else{
+				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+				return horas+"."+min;
+			}
+		}
+		
+	</script>
+	<script>
+		function preencheHoje(){
+			var data = new Date();
+			var hoje, mes, dia;
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			
+			if(data.getDate() < 10){ dia = "0"+data.getDate(); }
+			else{ dia = data.getDate(); }
+			var hoje = data.getFullYear()+'-'+mes+'-'+dia;
+			
+			$('#dataInicio').val(hoje);
+			$('#dataFim').val(hoje);
+		}
+		
+		function preencheDias(dias){
+			var inicio, fim, mes, diaInicio, diaFim;
+			var data = new Date();
+			
+			if(data.getDate() < 10){ diaFim = "0"+data.getDate(); }
+			else{ diaFim = data.getDate(); }
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			var fim = data.getFullYear()+'-'+mes+'-'+diaFim;
+
+			data.setDate(data.getDate() - dias);
+			
+			if(data.getDate() < 10){ diaInicio = "0"+data.getDate(); }
+			else{ diaInicio = data.getDate(); }
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			var inicio = data.getFullYear()+'-'+mes+'-'+diaInicio;
+			
+			$('#dataInicio').val(inicio);
+			$('#dataFim').val(fim);
+		}
+		
+	</script>
+</body>
+</html>

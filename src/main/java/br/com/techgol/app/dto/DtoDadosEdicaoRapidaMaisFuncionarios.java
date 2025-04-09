@@ -68,7 +68,7 @@ public record DtoDadosEdicaoRapidaMaisFuncionarios(
 				c,
 				dados.getCliente().getId(),
 				(dados.getLog() != null) ? dados.getLog().getId().toString() : " ",
-				(dados.getDuracao() > 0) ? dados.getDuracao() : 0
+				(dados.getDuracao() != null) ? dados.getDuracao() : 0
 				);
 	}
 

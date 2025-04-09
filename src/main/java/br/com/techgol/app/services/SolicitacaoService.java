@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
+import br.com.techgol.app.dto.DtoRendimentosFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -303,6 +305,7 @@ public class SolicitacaoService {
 			solicitacao.setExcluido(true);
 			solicitacao.setDataAgendado(null);
 			solicitacao.setDataAndamento(null);
+			solicitacao.setDuracao(0l);
 			return "Excluido com sucesso!";
 		}else {
 			return "Não foi possível excluir";
@@ -1321,5 +1324,26 @@ public class SolicitacaoService {
 		return null;
 	}
 
+	public List<DtoRendimentosFuncionarios> gerarRelatorioRendimento(LocalDate ini, LocalDate termino) {
+		
+		List<DtoListarFuncionarios> funcionarios = funcionarioService.listarAtivos();
+		List<DtoRendimentosFuncionarios> lista = new ArrayList<>();
+		
+		LocalDateTime inicio, fim;
+		inicio = ini.atTime(00, 00, 00);
+		fim = termino.atTime(23, 59, 59);
+		
+		funcionarios.forEach(f -> {
+			int qtdFechadas = repository.totalFechadasPeriodoPorFuncionario(f.id(), false, inicio, fim);
+			int qtdAtualizados = repository.totalAtualizadosPeriodoPorFuncionario(f.id(), false, inicio, fim);
+			Long qtdHoras = timeSheetService.totalHorasPeriodoPorFuncionario(f.id(), inicio, fim);
+			lista.add(new DtoRendimentosFuncionarios(f.nomeFuncionario(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l) ));
+		});
+		
+		lista.sort(Comparator.comparing(DtoRendimentosFuncionarios::qtdHoras).reversed());
+		
+		return lista;
+		
+	}
 
 }

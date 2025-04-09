@@ -34,6 +34,7 @@ import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoDataAgendado;
 import br.com.techgol.app.dto.DtoModelosParaSolicitacao;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
+import br.com.techgol.app.dto.DtoRendimentosFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
@@ -86,6 +87,14 @@ public class SolicitacaoRestController {
 	
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
+	
+	
+	@GetMapping("/relatorio/rendimento/inicio/{inicio}/fim/{fim}")
+	public List<DtoRendimentosFuncionarios> listarRelatorioRendimentoPorPeriodo(@PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+		
+		return solicitacaoService.gerarRelatorioRendimento(inicio, fim);
+		
+	}
 	
 	
 	@GetMapping("/relatorio/periodo/{periodo}/inicio/{inicio}/fim/{fim}/{abertura}/{categoria}/{classificacao}/{local}/{prioridade}/{status}")

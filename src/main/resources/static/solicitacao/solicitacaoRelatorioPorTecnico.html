@@ -982,6 +982,7 @@
 											<th scope="col">Fim</th>
 											<th scope="col">Duração <span style="font-size: 10px;"> (minutos)</span></th>
 											<th scope="col">Status</th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody id="tabela-timesheet-corpo">
@@ -1007,6 +1008,32 @@
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/timeline.js"></script>
 	<script>
+		function excluirTimesheet(id){
+			if (confirm("Tem certeza que deseja excluir esse registro de horario ?") == true) {
+					var t = "#linhaTimesheet" + id;
+					var remove = $(t).closest('tr');
+					$.ajax({
+						type: "DELETE",
+						contentType: "application/json",
+						url: "/sistech/api/v1/timesheet/" + id,
+						success: function () {
+							remove.fadeOut(800, function () {
+								remove.remove();
+							});
+						},
+						statusCode: {
+							500: function() { alert('Erro! Contate o desenvolvedor!'); },
+							401: function() { 
+								alert('Realize login novamente!'); 
+								window.location.href = "/sistech/login"; 
+							},
+							405: function() { alert('Voce não possui permissão para realizar essa operação!'); }
+						}
+					});
+				}
+			
+		}
+		
 		function exibeTimesheet(id){
 			$('#tabela-timesheet-corpo').empty();			
 			$.ajax({
@@ -1017,13 +1044,14 @@
 					
 					data.content.map(i => {
 						var itens = 
-						'<tr id=linha' + i.id + '>'
+						'<tr id=linhaTimesheet' + i.id + '>'
 						+ '<td id=name' + i.id + '>' + i.id + '</td>'
 						+ '<td>' + i.nomeFuncionario + '</td>'
 						+ '<td>' + i.inicio + '</td>'
 						+ '<td>' + i.fim + '</td>'
 						+ '<td>' + i.duracao + '</td>'
 						+ '<td>' + i.status + '</td>'
+						+ '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluirTimesheet('+i.id +')><i class="bi bi-trash"> </i></a></td>'
 						+ '</tr>'
 						$('#tabela-timesheet').append(itens);
 						}

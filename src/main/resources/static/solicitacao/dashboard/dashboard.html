@@ -91,11 +91,11 @@
 		<div class="container-fluid">
 			<div class="row justify-content-between">
 				<div class="col-3">
-					<h5 style="text-align: center;" class="mt-3">Formas de abertura</h5>
+					<h5 style="text-align: center;" class="mt-3">Canal de abertura</h5>
 					<canvas id="formaAberturaSolicitacoes" style="height:68vh; width:40vw"> </canvas>
 				</div>
 				<div class="col-3">
-					<h5 style="text-align: center;" class="mt-3">Prioridade das solicitações</h5>
+					<h5 style="text-align: center;" class="mt-3">Criticidade das solicitações</h5>
 					<canvas id="prioridadeSolicitacoes" style="height:68vh; width:40vw"> </canvas>
 				</div>
 				<div class="col-3 col-s-12">
@@ -272,7 +272,7 @@
 						data: {
 							labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
 							datasets: [{
-								label: 'Prioridade das Solicitações: ',
+								label: 'Criticidade das Solicitações: ',
 								data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
 								backgroundColor: [
 									'rgba(12, 218, 205, 0.5)',
@@ -378,7 +378,7 @@
 						data: {
 							labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp ', 'Proativo'],
 							datasets: [{
-								label: 'Metodo de abertura Solicitações: ',
+								label: 'Canal de abertura: ',
 								data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
 								backgroundColor: [
 									'rgba(255, 135, 0, 0.5)',

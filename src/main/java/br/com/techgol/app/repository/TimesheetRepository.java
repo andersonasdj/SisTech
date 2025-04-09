@@ -52,5 +52,13 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 			+ "WHERE t.solicitacao_id=:id "
 			+ "ORDER BY t.id")
 	public Page<TimesheetProjecao> listarTimesheetProjecao(Pageable page, Long id);
+
+	
+	@Query(nativeQuery = true,
+			value = "SELECT SUM(t.duracao) FROM timesheet t "
+			+ "WHERE t.funcionario_id = :id "
+			+ "AND t.inicio >= :inicio "
+			+ "AND t.fim <= :fim")
+	public Long totalHorasPeriodoPorFuncionario(Long id, LocalDateTime inicio, LocalDateTime fim);
 	
 }

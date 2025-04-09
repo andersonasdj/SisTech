@@ -339,9 +339,11 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
+						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" onclick="atualiza()">Salvar</button>
 					</div>
@@ -520,6 +522,7 @@
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
+						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar </button>
 						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaNaoFinalizado()">Salvar</button>
 					</div>
@@ -1666,8 +1669,16 @@
 			});
 		}
 		function excluir() {
+			var id, modal; 
+			if($('#idModalNaoFinalizado').text() != ' '){
+				id = $('#idModalNaoFinalizado').text();
+				modal ="#edicaoModalNaoFinalizado"
+			}else{
+				id = $('#idModalEdicaoModalEdicao').text();
+				modal = "#edicaoModal";
+			}
+			
 			if (confirm("Tem certeza que deseja excluir a solicitação de ID: " + id + " ?") == true) {
-				var id = $('#idModalNaoFinalizado').text();
 				var t = "#linha" + id;
 				var remove = $(t).closest('tr');
 				$.ajax({
@@ -1678,7 +1689,9 @@
 						remove.fadeOut(800, function () {
 							remove.remove();
 						});
-						$('#edicaoModalNaoFInalizado').modal('hide');
+						$('#idModalNaoFinalizado').text(' ');
+						$('#idModalEdicaoModalEdicao').text(' ');
+						$(modal).modal('hide');
 						preencheBotoesTabela();
 					},
 					error: function (e) { alert("Erro: Não foi possivel excluir a solicitação!"); }
@@ -1690,7 +1703,6 @@
 			if (confirm("Tem certeza que deseja enviar o email de notificação ?") == true) {
 				
 				var id;
-				
 				var idFinalizado= $('#idModalEdicaoModalEdicao').text();
 				var idNaoFinalizado= $('#idModalNaoFinalizado').text();
 				
