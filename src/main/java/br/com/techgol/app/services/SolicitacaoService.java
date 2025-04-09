@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -1324,6 +1325,7 @@ public class SolicitacaoService {
 		return null;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<DtoRendimentosFuncionarios> gerarRelatorioRendimento(LocalDate ini, LocalDate termino) {
 		
 		List<DtoListarFuncionarios> funcionarios = funcionarioService.listarAtivos();
