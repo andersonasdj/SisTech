@@ -90,9 +90,7 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		
 		<div class="container-fluid borda-pontilhada">
-				
 				<div class="row">				
 					<div class="col-md-3">
 						<div class="control-group">
@@ -122,7 +120,6 @@
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(30)">30 dias</button>
 					</div>
 				</div>
-				
 				<div class="row">				
 					<div class="col-md-1">
 						<button class="btn btn-primary btn-sm mt-3" onclick="listarRendimentos()">listar</button>
@@ -137,7 +134,7 @@
 				<table  class="table table-hover table-striped table-bordered align-middle results sortable table-action" id="tabela-rendimentos" style="text-align: center;">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">Funcionario</th>
+							<th scope="col">Cliente</th>
 							<th scope="col">Finalizados</th>
 							<th scope="col">Atualizados</th>
 							<th scope="col">Duração</th>
@@ -159,9 +156,9 @@
 						<h5 style="text-align: center;" class="mt-3">Duração (minutos)</h5>
 						<canvas id="minutosSolicitacoes" style="height:35vh; width:30vw"> </canvas>
 					</div>
-					<div class="col-7 col-s-8" id="graficoFuncionarios">
-						<h5 style="text-align: center;" class="mt-3">Finalizadas por funcionario</h5>
-						<canvas id="funcionariosSolicitacoes" style="height:35vh; width:30vw"> </canvas>
+					<div class="col-7 col-s-8" id="graficoClientes">
+						<h5 style="text-align: center;" class="mt-3">Finalizadas por Cliente</h5>
+						<canvas id="clientesSolicitacoes" style="height:35vh; width:30vw"> </canvas>
 					</div>
 					
 					<div class="col-2"> </div>
@@ -217,7 +214,7 @@
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/solicitacao/relatorio/rendimento/inicio/"+inicio+"/fim/"+fim,
+					url: "/sistech/solicitacao/relatorio/rendimento/cliente/inicio/"+inicio+"/fim/"+fim,
 										
 					success: function (data) {
 						$("#conteudo").stop().slideToggle(600);$("#conteudoGrafico").stop().slideToggle(1000);
@@ -231,7 +228,7 @@
 							}
 							var itens = 
 								'<tr>'
-								+ '<td>' + i.nomeFuncionario + '</td>'
+								+ '<td>' + i.nomeCliente + '</td>'
 								+ '<td>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
 								+ '<td>' + horas + '</td>'
@@ -239,27 +236,27 @@
 								$('#corpoRendimentos').append(itens);
 						});
 						
-						document.getElementById('funcionariosSolicitacoes').remove();
-						$('#graficoFuncionarios').append('<canvas id="funcionariosSolicitacoes" style="height:35vh; width:30vw"></canvas>');
+						document.getElementById('clientesSolicitacoes').remove();
+						$('#graficoClientes').append('<canvas id="clientesSolicitacoes" style="height:35vh; width:30vw"></canvas>');
 
 						var labelNomes=[], labelTemposNomes=[], labelQuantidades=[], labelTempos=[];
 						
 						for(var i=0; i < data.length ; i++){
 							if(data[i].qtdHoras != 0){
-								labelTemposNomes[i]=data[i].nomeFuncionario + " (" + data[i].qtdHoras+ ")";
+								labelTemposNomes[i]=data[i].nomeCliente + " (" + data[i].qtdHoras+ ")";
 								labelTempos[i]=data[i].qtdHoras;
 							}
-							labelNomes[i]=data[i].nomeFuncionario + " (" + data[i].qtdFinalizados+ ")";
+							labelNomes[i]=data[i].nomeCliente + " (" + data[i].qtdFinalizados+ ")";
 							labelQuantidades[i]=data[i].qtdFinalizados;
 						}
 
-						const ctx5 = document.getElementById('funcionariosSolicitacoes');
+						const ctx5 = document.getElementById('clientesSolicitacoes');
 						new Chart(ctx5, {
 							type: 'line',
 							data: {
 								labels: labelNomes,
 								datasets: [{
-									label: 'Finalizados por funcionario: ',
+									label: 'Finalizados por Clientes: ',
 									data: labelQuantidades,
 									backgroundColor: [
 										'rgba(255, 0, 0, 0.5)',
@@ -295,7 +292,7 @@
 						data: {
 							labels: labelTemposNomes,
 							datasets: [{
-								label: 'Finalizados por funcionario: ',
+								label: 'Finalizados por Cliente: ',
 								data: labelTempos,
 								backgroundColor: [
 									'rgba(255, 0, 0, 0.5)',
@@ -338,7 +335,7 @@
 				});
 				
 			}else{
-				alert("Selecione data de inicio e data de término");
+				alert("Selecione (data de inicio e data de término)");
 			}
 		}
 		

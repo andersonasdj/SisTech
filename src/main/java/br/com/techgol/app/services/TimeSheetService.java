@@ -102,4 +102,5 @@ public class TimeSheetService {
 	public Long totalHorasPeriodoPorFuncionario(Long id, LocalDateTime inicio, LocalDateTime fim) {
 		return repository.totalHorasPeriodoPorFuncionario(id, inicio, fim);
 	}
+	
 }

@@ -22,6 +22,10 @@ public class ClienteService {
 	@Autowired
 	ClienteRepository repository;
 	
+	public List<DtoClienteList> listarAtivos() {
+		return repository.listarClientes().stream().map(DtoClienteList::new).toList();
+	}
+	
 	public Page<DtoClienteList> listarClientePorPalavra(Pageable page, String conteudo) {
 		return repository.listarClientesPorPalavra(page, conteudo).map(DtoClienteList::new);
 	}

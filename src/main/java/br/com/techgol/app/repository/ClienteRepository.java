@@ -8,8 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.techgol.app.model.Cliente;
+import br.com.techgol.app.model.Funcionario;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+	
+	
+	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=true", nativeQuery = true)
+	public List<Cliente> listarClientes();
 	
 	
 	@Query(value = "SELECT * "

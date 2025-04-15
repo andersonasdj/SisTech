@@ -16,12 +16,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
+import br.com.techgol.app.dto.DtoRendimentosClientes;
 import br.com.techgol.app.dto.DtoRendimentosFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
@@ -1343,6 +1345,29 @@ public class SolicitacaoService {
 		});
 		
 		lista.sort(Comparator.comparing(DtoRendimentosFuncionarios::qtdHoras).reversed());
+		
+		return lista;
+		
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
+		
+		List<DtoClienteList> clientes = clienteService.listarAtivos();
+		List<DtoRendimentosClientes> lista = new ArrayList<>();
+		
+		LocalDateTime inicio, fim;
+		inicio = ini.atTime(00, 00, 00);
+		fim = termino.atTime(23, 59, 59);
+		
+		clientes.forEach(f -> {
+			int qtdFechadas = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicio, fim);
+			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
+			Long qtdHoras = repository.totalHorasPeriodoPorCliente(f.id(), inicio, fim);
+			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l) ));
+		});
+		
+		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
 		
 		return lista;
 		

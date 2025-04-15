@@ -106,5 +106,12 @@ public class SolicitacaoController {
 		
 		return "solicitacaoRelatorioRendimentoPorPeriodo.html";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/relatoriosrendimentoclienteperiodo")
+	public String relatorioRendimentoClientePeriodo() {
+		
+		return "solicitacaoRelatorioRendimentoClientePorPeriodo.html";
+	}
 
 }
