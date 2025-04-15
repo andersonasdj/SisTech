@@ -110,6 +110,12 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-md-3 mt-2">
+						<div class="control-group mt-3">
+							<span style="font-size: 22px;" id="diasUteis"> </span>
+						</div>
+					</div>
 				</div>
 				<br />
 				<div class="row">				
@@ -135,8 +141,10 @@
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">Cliente</th>
-							<th scope="col">Finalizados</th>
-							<th scope="col">Atualizados</th>
+							<th scope="col">Abertos no Período</th>
+							<th scope="col">Atualizados no Período</th>
+							<th scope="col">Finalizados no Período</th>
+							<th scope="col">Média Hora / dia</th>
 							<th scope="col">Banco de Horas</th>
 							<th scope="col">Duração</th>
 						</tr>
@@ -235,18 +243,36 @@
 							
 							if(i.qtdHoras > i.tempoContratado){
 								alerta = 'style="color: red"';
-							}else{
+							}else if(i.qtdHoras > (i.tempoContratado /2) && i.qtdHoras < i.tempoContratado) {
+								alerta = 'style="color: #d97b02"';
+							}
+							else{
 								alerta = 'style="color: green"';
 							}
+							
+
+							$('#diasUteis').empty();
+							$('#horaDia').empty();
+							
+							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+							
+							
 							var itens = 
 								'<tr>'
 								+ '<td>' + i.nomeCliente + '</td>'
-								+ '<td>' + i.qtdFinalizados + '</td>'
+								+ '<td>' + i.qtdAbertos + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
+								+ '<td>' + i.qtdFinalizados + '</td>'
+								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(2) )+ '</td>'
 								+ '<td>' + tempoContratado + '</td>'
 								+ '<td '+alerta+'><b>' + horas + '</b></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
+								
+								
+								
+								
+								
 						});
 						
 						document.getElementById('clientesSolicitacoes').remove();
@@ -357,7 +383,7 @@
 				return`${minutos} minutos`;
 			}else{
 				const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
-				return`${horas} h ${min} m`;
+				return`${horas} horas ${min} minutos`;
 			}
 		}
 		

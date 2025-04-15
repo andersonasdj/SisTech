@@ -5,6 +5,7 @@ public record DtoRendimentosClientes(
 		int qtdFinalizados,
 		int qtdAtualizados,
 		Long qtdHoras,
-		Long tempoContratado) {
+		Long tempoContratado,
+		int qtdAbertos) {
 
 }
