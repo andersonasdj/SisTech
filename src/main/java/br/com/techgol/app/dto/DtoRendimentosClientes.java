@@ -4,6 +4,7 @@ public record DtoRendimentosClientes(
 		String nomeCliente,
 		int qtdFinalizados,
 		int qtdAtualizados,
-		Long qtdHoras) {
+		Long qtdHoras,
+		Long tempoContratado) {
 
 }

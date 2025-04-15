@@ -137,6 +137,7 @@
 							<th scope="col">Cliente</th>
 							<th scope="col">Finalizados</th>
 							<th scope="col">Atualizados</th>
+							<th scope="col">Banco de Horas</th>
 							<th scope="col">Duração</th>
 						</tr>
 					</thead>
@@ -220,18 +221,30 @@
 						$("#conteudo").stop().slideToggle(600);$("#conteudoGrafico").stop().slideToggle(1000);
 						
 						data.forEach(i =>{
-							var horas;
+							var horas, tempoContratado, alerta;
 							if(i.qtdHoras != null){
 								horas = minutosParaHorasTexto(i.qtdHoras);
 							}else{
 								horas = 0;
+							}
+							if(i.tempoContratado != null){
+								tempoContratado = minutosParaHorasTexto(i.tempoContratado);
+							}else{
+								tempoContratado = 0;
+							}
+							
+							if(i.qtdHoras > i.tempoContratado){
+								alerta = 'style="color: red"';
+							}else{
+								alerta = 'style="color: green"';
 							}
 							var itens = 
 								'<tr>'
 								+ '<td>' + i.nomeCliente + '</td>'
 								+ '<td>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
-								+ '<td>' + horas + '</td>'
+								+ '<td>' + tempoContratado + '</td>'
+								+ '<td '+alerta+'><b>' + horas + '</b></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
 						});

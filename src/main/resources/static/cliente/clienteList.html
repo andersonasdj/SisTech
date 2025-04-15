@@ -216,24 +216,31 @@
 						<div class="row">
 							
 							<div class="col-md-6">
-								<label class="form-label mt-2" for="bairroModal"><b>Bairro</b></label>
+								<label class="form-label mt-1" for="bairroModal"><b>Bairro</b></label>
 								<input type="text" id="bairroModal" class="form-control"><br />
 							</div>
 							
 							<div class="col-md-6">
-								<label class="form-label mt-2" for="ativoModal"><b>Ativo</b></label>
+								<label class="form-label mt-1" for="ativoModal"><b>Ativo</b></label>
 								<select class="form-select" id="ativoModal"> </select>
 							</div>
 						</div>
 						
 						<div class="row">
 							<div class="col-md-6">
-								<label class="form-label mt-2" for="redFlagModal"><b>Red Flag</b></label>
+								<label class="form-label mt-1" for="redFlagModal"><b>Red Flag</b></label>
 								<select class="form-select" id="redFlagModal"> </select>
 							</div>
 							<div class="col-md-6">
-								<label class="form-label mt-2" for="vipModal"><b>VIP</b></label>
+								<label class="form-label mt-1" for="vipModal"><b>VIP</b></label>
 								<select class="form-select" id="vipModal"> </select>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-3" for="tempoContratado"><b>Banco de Horas</b></label>
+								<input type="text" id="tempoContratado" class="form-control" onkeyup="handleComa(event)"><br />
 							</div>
 						</div>
 						</br>
@@ -615,6 +622,17 @@
 		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
 		  return value
 		}
+		
+		const handleComa = (event) => {
+		  let input = event.target
+		  input.value = horaMask(input.value)
+		}
+		
+		const horaMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/[^0-9\.]/g,'');
+		  return value;
+		}
 	</script>
 	
 	<script>
@@ -765,6 +783,8 @@
 					$('#vipModal').empty();
 					$('#redFlagModal').empty();
 					$('#bairroModal').val("");
+					$('#tempoContratado').val("");
+					
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -774,6 +794,7 @@
 					$('#senhamodal').val(data.password);
 					$('#cnpjmodal').val(data.cnpj);
 					$('#bairroModal').val(data.bairro);
+					$('#tempoContratado').val(data.tempoContratado/60);
 					
 					
 					if (data.ativo == true) {
@@ -968,6 +989,8 @@
 				vip = $('#vipModal').val(),
 				redFlag = $('#redFlagModal').val();
 				bairro = $('#bairroModal').val(),
+				tempoContratado = $('#tempoContratado').val(),
+				
 			
 			$.ajax({
 				type: "PUT",
@@ -984,7 +1007,8 @@
 					"ativo": ativo,
 					"vip": vip,
 					"redFlag": redFlag,
-					"bairro": bairro
+					"bairro": bairro,
+					"tempoContratado":tempoContratado*60
 				}),
 				success: function (data) {
 					

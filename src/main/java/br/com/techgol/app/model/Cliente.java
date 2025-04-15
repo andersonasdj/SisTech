@@ -34,6 +34,8 @@ public class Cliente extends Usuario {
 	@Column(length = 20)
 	private String bairro;
 	
+	private Long tempoContratado;
+	
 	public Cliente(DtoCadastroCliente dados) {
 		
 		this.nomeCliente = dados.nomeCliente();
@@ -48,6 +50,7 @@ public class Cliente extends Usuario {
 		this.redFlag = false;
 		this.vip = false;
 		this.bairro = dados.bairro();
+		this.tempoContratado = dados.tempoContratado();
 	}
 	
 public Cliente(DtoAtualizarCliente dados) {
@@ -65,5 +68,6 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.redFlag = dados.redFlag();
 		this.vip = dados.vip();
 		this.bairro = dados.bairro();
+		this.tempoContratado = dados.tempoContratado();
 	}
 }

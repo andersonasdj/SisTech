@@ -9,12 +9,13 @@ public record DtoClienteList(
 		boolean ativo,
 		String nomeCliente,
 		boolean vip,
-		boolean redFlag
+		boolean redFlag,
+		Long tempoContratado
 		
 		) implements Serializable {
 	
 	public DtoClienteList(Cliente c){
-		this(c.getId(), c.getAtivo(), c.getNomeCliente(), c.isVip(), c.isRedFlag());
+		this(c.getId(), c.getAtivo(), c.getNomeCliente(), c.isVip(), c.isRedFlag(), c.getTempoContratado());
 		
 		
 	}

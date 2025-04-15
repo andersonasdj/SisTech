@@ -108,6 +108,9 @@
 			
 			<label for="cnpj" class="form-laber mt-2">CNPJ</label>
 			<input type="text" id="cnpj" class="form-control mt-2" autocomplete="off" style="width: 300px;">
+			
+			<label for="tempoContratado" class="form-laber mt-2">Banco de Horas</label>
+			<input type="text" id="tempoContratado" onkeyup="handleComa(event)" class="form-control mt-2" autocomplete="off" style="width: 300px;">
 		</div>
 		<br />
 		<button class="btn btn-success" onclick="salvar()">Salvar</button>
@@ -176,6 +179,7 @@
 			var password = $('#password').val();
 			var bairro = $('#bairro').val();
 			var cnpj = $('#cnpj').val();
+			var tempoContratado = $('#tempoContratado').val();
 			
 			$.ajax({
 				type: "POST",
@@ -189,7 +193,8 @@
 					    "username": username,
 					    "password": password,
 					    "cnpj": cnpj,
-					    "bairro": bairro
+					    "bairro": bairro,
+						"tempoContratado": tempoContratado*60
 					}
 				),
 				success: function (data) { 
@@ -214,6 +219,16 @@
 		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
 		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
 		  return value
+		}
+		const handleComa = (event) => {
+		  let input = event.target
+		  input.value = horaMask(input.value)
+		}
+		
+		const horaMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/[^0-9\.]/g,'');
+		  return value;
 		}
 	</script>
 </body>
