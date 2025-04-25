@@ -145,8 +145,8 @@
 							<th scope="col">Atualizados no Período</th>
 							<th scope="col">Finalizados no Período</th>
 							<th scope="col">Média Hora / dia</th>
-							<th scope="col">Banco de Horas</th>
-							<th scope="col">Duração</th>
+							<th scope="col">Franquia</th>
+							<th scope="col">Consumo da Franquia</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -199,8 +199,9 @@
 			var inicio = $('#dataInicio').val();
 			var fim = $('#dataFim').val();
 			var cliente = $('#cliente'+id).text();
+			var franquia = $('#franquia'+id).text();
 			
-			window.open('../impressao-timesheet-cliente?id='+id+'&inicio='+inicio+'&fim='+fim+'&nome='+cliente, '_blank');
+			window.open('../impressao-timesheet-cliente?id='+id+'&inicio='+inicio+'&fim='+fim+'&nome='+cliente+'&franquia='+franquia, '_blank');
       	}
 		
 		
@@ -258,7 +259,6 @@
 							else{
 								alerta = 'style="color: green"';
 							}
-							
 
 							$('#diasUteis').empty();
 							$('#horaDia').empty();
@@ -274,7 +274,7 @@
 								+ '<td>' + i.qtdAtualizados + '</td>'
 								+ '<td>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(2) )+ '</td>'
-								+ '<td>' + tempoContratado + '</td>'
+								+ '<td id=franquia'+i.clienteId+'>' + tempoContratado + '</td>'
 								+ '<td '+alerta+'><b>' + horas + '</b></td>'
 								+ '<td> <a href="#" onclick=printRelatorio('+i.clienteId+')><i class="bi bi-printer"></i></a></td>'
 								+ '</tr>'
