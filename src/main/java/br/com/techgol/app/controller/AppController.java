@@ -13,6 +13,11 @@ public class AppController {
 	@Autowired
 	FuncionarioService service;
 	
+	@GetMapping("/impressao-timesheet-cliente")
+	public String impressaoTimeSheetCliente() {
+		return "templates/impressao-timesheet-cliente.html";
+	}
+	
 	@GetMapping("/upload")
 	public String teste() {
 		return "templates/upload.html";

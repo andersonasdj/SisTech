@@ -24,7 +24,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT SUM(s.duracao) FROM solicitacoes s "
-			+ "WHERE s.cliente_id = :id "
+			+ "WHERE s.excluido = false "
+			+ "AND s.cliente_id = :id "
 			+ "AND s.dataFinalizado >= :inicio "
 			+ "AND s.dataFinalizado <= :fim")
 	public Long totalHorasPeriodoPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim);

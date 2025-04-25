@@ -1365,7 +1365,7 @@ public class SolicitacaoService {
 			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
 			Long qtdHoras = repository.totalHorasPeriodoPorCliente(f.id(), inicio, fim);
 			int qtdAbertos = repository.totalabertasPeriodoPorCliente(f.id(), false, inicio, fim);
-			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos));
+			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id()));
 		});
 		
 		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());

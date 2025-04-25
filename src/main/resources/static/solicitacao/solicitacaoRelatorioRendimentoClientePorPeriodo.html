@@ -147,6 +147,7 @@
 							<th scope="col">Média Hora / dia</th>
 							<th scope="col">Banco de Horas</th>
 							<th scope="col">Duração</th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody id="corpoRendimentos">
@@ -193,6 +194,14 @@
 	<script src="../assets/js/sorttable.js"></script>
 	<script src="../assets/js/chart.js"></script>
 	<script>
+		
+		function printRelatorio(id) {
+			var inicio = $('#dataInicio').val();
+			var fim = $('#dataFim').val();
+			var cliente = $('#cliente'+id).text();
+			
+			window.open('../impressao-timesheet-cliente?id='+id+'&inicio='+inicio+'&fim='+fim+'&nome='+cliente, '_blank');
+      	}
 		
 		
 		function listarRendimentos(){
@@ -258,19 +267,18 @@
 							
 							
 							var itens = 
+							
 								'<tr>'
-								+ '<td>' + i.nomeCliente + '</td>'
+								+ '<td id=cliente'+i.clienteId+'>' + i.nomeCliente + '</td>'
 								+ '<td>' + i.qtdAbertos + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
 								+ '<td>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(2) )+ '</td>'
 								+ '<td>' + tempoContratado + '</td>'
 								+ '<td '+alerta+'><b>' + horas + '</b></td>'
+								+ '<td> <a href="#" onclick=printRelatorio('+i.clienteId+')><i class="bi bi-printer"></i></a></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
-								
-								
-								
 								
 								
 						});

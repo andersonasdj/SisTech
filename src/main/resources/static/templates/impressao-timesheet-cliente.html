@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Sistech - Impressão</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="assets/css/relatorio.css">
+ </head>
+  <body style="margin: 0; padding: 0; background-color:#eaeced " bgcolor="#eaeced">
+
+    <!-- Header -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1" >
+      <tr>
+        <td height="20"></td>
+      </tr>
+      <tr>
+        <td>
+          <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-top-left-radius: 10px;
+			border-top-right-radius: 10px;">
+
+            <tr>
+              <td>
+                <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <table width="330" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                          <tbody>
+                            <tr>
+                              <td align="left"><br> <span id="nomeCliente" style="font-size: 22px; color: #5b5b5b; font-family: 'Open Sans', sans-serif;" > </span>  </td>
+                            </tr>
+                            <tr class="hiddenMobile">
+                              <td height="90" style="font-size: 25px; color: rgb(2, 75, 165)"><span id="cliente"> </span></td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left; font-weight: bold;">
+								Total de Solicitações: <span id="totalSolicitacoes"> </span>
+								<br>Horas contabilizadas: <span id="duracao"> </span>
+                                <br>Período início: <span id="dataInicio"> </span>
+                                <br>Período fim: <span id="dataFim"> </span>
+								<p></p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                          <tbody>
+                            <tr class="visibleMobile">
+                              <td height="20"> </td>
+                            </tr>
+                            <tr>
+                              <td height="5"> </td>
+                            </tr>
+                           
+                            <tr>
+                            <tr class="hiddenMobile">
+                              <td height="30"> </td>
+                            </tr>
+							<tr>
+                             <td style="font-size: 21px; color: rgb(2, 75, 165); letter-spacing: -1px; font-family: 'Open Sans', sans-serif; line-height: 1; vertical-align: top; text-align: right;">
+                               Relatório Geral
+                             </td>
+                           	</tr>
+                            <tr class="visibleMobile">
+                              <td height="30"> </td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 13px; color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                                <small>Data: </small> <span id="data"> </span><br />
+                                <small id="dataHoje"> </small>
+                              </td>
+                            </tr>
+							<tr>
+		                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+								   <td height="85"> </td>
+		                      </td>
+		                    </tr>
+												
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <!-- /Header -->
+    <!-- Order Details -->
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+		
+     <tbody>
+		
+       <tr>
+         <td>
+           <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+             <tbody>
+               <tr>
+                 <td>
+                   <table class="tabela" id="tabela-usuarios" width="700" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 12px;">
+
+						<thead>
+							<tr class="table-primary">
+								<th>ID</th>
+								<th>Data Abertura</th>
+								<th>Solicitante</th>
+								<th>Afetado</th>
+								<th>Descrição</th>
+								<th>Responsável</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody id="corpoSolicitacoes">
+							<tr> </tr>
+						</tbody>
+					
+                   </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td height="20"> </td>
+               </tr>
+             </tbody>
+           </table>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+      
+    
+    
+    <!-- /Total -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+      <tr>
+        <td>
+          <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
+            <tr>
+              <td>
+                <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                  <tbody>
+					 <tr>
+                      <td class="linhaPadrao"> <td height="35"> </td> </td>
+                    </tr>
+                    <tr>
+                      <td class="linhaPadrao"> <td height="35"> </td> </td>
+                    </tr>
+                    <tr>
+                      <td class="linhaPadrao"> Tecnologia da Informação </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr class="spacer">
+              <td height="50"> </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="20"> </td>
+      </tr>
+    </table>
+    
+</body>
+<script src="./assets/js/jquery-3.6.3.js"></script>
+<script src="./assets/js/moment.js"></script>
+<script>
+	var url_atual = window.location.href;
+	
+	var url = new URL(url_atual);
+	var cliente_id = url.searchParams.get("id");
+	var inicio = url.searchParams.get("inicio");
+	var fim = url.searchParams.get("fim");
+	var cliente = url.searchParams.get("nome");
+	
+	$.ajax({
+		type: "GET",
+		contentType: "application/json",
+		url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim,
+		
+		success: function (data) {
+			
+			$('#totalSolicitacoes').text('');
+			$('#dataInicio').text('');
+			$('#dataFim').text('');
+			$('#cliente').text('');
+			$('#corpoSolicitacoes').empty();
+			$('#duracao').empty();
+			
+			$('#totalSolicitacoes').text(data.totalElements);
+			$('#dataInicio').text(inicio);
+			$('#dataFim').text(fim);
+			$('#cliente').text(cliente);
+			
+			$('#data').text('');
+			$('#data').text(dataAtualFormatada());
+			var duracao=0;
+			
+			data.content.map(i => {
+				
+				duracao = duracao + i.duracao;
+				var itens =
+					'<tr id=linha' + i.id +'>'
+					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td id="td-table">' + i.dataAbertura + '</td>'
+					+ '<td id="td-table">' + i.solicitante + '</td>'
+					+ '<td id="td-table">' + i.afetado + '</td>'
+					+ '<td id="td-table">' + i.descricao + '</td>'
+					+ '<td id="td-table">' + i.nomeFuncionario + '</td>'
+					+ '<td id="td-table">' + i.status + '</td>'
+					+ '</tr>'
+					$('#tabela-usuarios').append(itens);
+					});
+				$('#duracao').text(minutosParaHorasTexto(duracao));
+				
+			
+		},
+		statusCode: {
+	   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+	    	401: function() { alert('Realize login novamente!'); }
+		}
+	});
+	
+	function minutosParaHorasTexto(minutos){
+		if(minutos<=60){
+			return`${minutos} minutos`;
+		}else{
+			const horas = Math.floor(minutos / 60), min = Math.round((minutos / 60 - horas ) * 60 );
+			return`${horas} horas ${min} minutos`;
+		}
+	}
+	
+	function dataAtualFormatada(){
+	    var data = new Date(),
+	        dia  = data.getDate().toString(),
+	        diaF = (dia.length == 1) ? '0'+dia : dia,
+	        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+	        mesF = (mes.length == 1) ? '0'+mes : mes,
+	        anoF = data.getFullYear();
+	    return diaF+"/"+mesF+"/"+anoF;
+	}
+	
+</script>
+</html>
