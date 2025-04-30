@@ -15,10 +15,10 @@
       </tr>
       <tr>
         <td>
-          <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+          <table width="1100" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
             <tr>
               <td>
-                <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                <table width="1000" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
                   <tbody>
                     <tr>
                       <td>
@@ -35,7 +35,6 @@
                                 Período: <span id="dataInicio"> </span> &nbsp - &nbsp <span id="dataFim"> </span>
 								<br><span id="diasUteis"> </span>
 								<br>Total de Solicitações: <span id="totalSolicitacoes"> </span>
-								<br>Franquia: <span id="franquia"> </span>
 								<br>Consumo da Franquia: <span id="duracao"> </span>
 								<p></p>
                               </td>
@@ -83,18 +82,19 @@
      <tbody>
        <tr>
          <td>
-           <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+           <table width="1100" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+			<tr class="spacer"> <td height="20"> </td> </tr>
              <tbody>
                <tr>
                  <td>
-                   <table class="tabela" id="tabela-usuarios" width="700" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 12px;">
+                   <table class="tabela" id="tabela-usuarios" width="1000" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 12px;">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>Data Abertura</th>
 								<th>Solicitante</th>
 								<th>Afetado</th>
-								<th>Descrição</th>
+								<th>Descrição / Resolução</th>
 								<th>Responsável</th>
 								<th>Duração <span style="font-size: 10px;"> (minutos)</span></th>
 								<th>Status</th>
@@ -120,26 +120,54 @@
     <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
       <tr>
         <td>
-          <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
+          <table width="1100" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
             <tr>
               <td>
-                <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
-                  <tbody>
-					 <tr>
-                      <td class="linhaPadrao"> <td height="35"> </td> </td>
-                    </tr>
-                    <tr>
-                      <td class="linhaPadrao"> <td height="35"> </td> </td>
-                    </tr>
-                    <tr>
-                      <td class="linhaPadrao"> Tecnologia da Informação </td>
-                    </tr>
-                  </tbody>
+                <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+					<tr class="spacer">	<td height="10"> </td>	</tr>
+	                  <tbody>
+						 <tr>
+							<td height="35"> 
+								<div class="col-3" id="local" style="padding-right: 30px">
+									<h4 style="text-align: center;" class="mt-3">Localicação</h4>
+									<canvas id="localSolicitacoes" class="col-s-2" > </canvas>
+								</div>
+							</td> 
+							<td height="35"> 
+								<div class="col-3" id="prioridade" style="padding-left: 30px">
+									<h4 style="text-align: center;" class="mt-3">Criticidade</h4>
+									<canvas id="prioridadeSolicitacoes" class="col-s-3"> </canvas>
+								</div>
+						 	</td>
+	                    </tr>
+						<tr class="spacer"> <td height="50"> </td>
+			           	</tr>
+	                    <tr>
+							<td height="35"> 
+								<div class="col-3" id="classificacao" style="padding-right: 30px">
+									<h4 style="text-align: center;" class="mt-3">Classificação</h4>
+									<canvas id="classificacaoSolicitacoes" class="col-s-3"> </canvas>
+								</div>
+							</td> 
+							<td height="35"> 
+								<div class="col-3" id="formaAbertura" style="padding-left: 30px">
+									<h4 style="text-align: center;" class="mt-3">Canal de abertura</h4>
+									<canvas id="formaAberturaSolicitacoes" > </canvas>
+								</div>
+						 	</td>
+	                    </tr>
+	                  </tbody>
                 </table>
               </td>
             </tr>
             <tr class="spacer">
               <td height="50"> </td>
+            </tr>
+			<tr>
+	          <td class="linhaPadrao"> Tecnologia da Informação </td>
+	        </tr>
+			<tr class="spacer">
+              <td height="20"> </td>
             </tr>
           </table>
         </td>
@@ -152,6 +180,7 @@
 </body>
 <script src="./assets/js/jquery-3.6.3.js"></script>
 <script src="./assets/js/moment.js"></script>
+<script src="./assets/js/chart.js"></script>
 <script>
 	var url_atual = window.location.href;
 	
@@ -160,7 +189,6 @@
 	var inicio = url.searchParams.get("inicio");
 	var fim = url.searchParams.get("fim");
 	var cliente = url.searchParams.get("nome");
-	var franquia = url.searchParams.get("franquia");
 	
 	$.ajax({
 		type: "GET",
@@ -168,7 +196,6 @@
 		url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim,
 		
 		success: function (data) {
-			
 			
 			$('#totalSolicitacoes').text('');
 			$('#dataInicio').text('');
@@ -181,7 +208,6 @@
 			$('#dataInicio').text(inicio);
 			$('#dataFim').text(fim);
 			$('#cliente').text(cliente);
-			$('#franquia').text(franquia);
 			
 			$('#data').text('');
 			$('#data').text(dataAtualFormatada());
@@ -196,7 +222,7 @@
 					+ '<td id="td-table">' + i.dataAbertura + '</td>'
 					+ '<td id="td-table">' + i.solicitante + '</td>'
 					+ '<td id="td-table">' + i.afetado + '</td>'
-					+ '<td id="td-table">' + i.descricao + '</td>'
+					+ '<td id="td-table">' + i.descricao + '<p><b>Resolução: </b>' + i.resolucao + '</p></td>'
 					+ '<td id="td-table">' + i.nomeFuncionario + '</td>'
 					+ '<td id="td-table">' + i.duracao + '</td>'
 					+ '<td id="td-table" style="color: #004700">' + i.status + '</td>'
@@ -229,6 +255,21 @@
 		}
 	});
 	
+	
+	$.ajax({
+		type: "GET",
+		contentType: "application/json",
+		url: "/sistech/solicitacao/relatorio/grafico/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim,
+		
+		success: function (data) {
+			montaGraficos(data);
+		},
+		statusCode: {
+	   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+	    	401: function() { alert('Realize login novamente!'); }
+		}
+	});
+	
 	function minutosParaHorasTexto(minutos){
 		if(minutos<=60){
 			return`${minutos} minutos`;
@@ -247,6 +288,151 @@
 	        anoF = data.getFullYear();
 	    return diaF+"/"+mesF+"/"+anoF;
 	}
+	
+	
+	function montaGraficos(data){
+		
+			if (data != null) {
+				
+			document.getElementById('localSolicitacoes').remove();
+			$('#local').append('<canvas id="localSolicitacoes" style="height:30vh; width:25vw"></canvas>');
+			
+			var ctx = document.getElementById('localSolicitacoes');
+			new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: ['Onsite', 'Offsite'],
+					datasets: [{
+						label: 'Local das Solicitações: ',
+						data: [data.onsite, data.offsite],
+						backgroundColor: [
+							'rgba(255, 0, 0, 0.5)',
+							'rgba(12, 218, 205, 0.5)',
+							'rgba(255, 205, 86, 0.2)',
+							'rgba(121, 125, 127, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(201, 203, 207, 0.2)'
+						],
+						borderColor: [
+							'rgb(255, 0, 0, 0.5)',
+							'rgb(12, 218, 205, 0.5)',
+							'rgb(255, 205, 86)',
+							'rgb(121, 125, 127)',
+							'rgb(54, 162, 235)',
+							'rgb(153, 102, 255)',
+							'rgb(201, 203, 207)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: { }
+			});
+				
+			document.getElementById('prioridadeSolicitacoes').remove();
+			$('#prioridade').append('<canvas id="prioridadeSolicitacoes" style="height:30vh; width:25vw"></canvas>');
+			
+			const ctx3 = document.getElementById('prioridadeSolicitacoes');
+			new Chart(ctx3, {
+				type: 'bar',
+				data: {
+					labels: ['Baixa', 'Media', 'Alta', 'Critica', 'Planejada'],
+					datasets: [{
+						label: 'Criticidade das Solicitações: ',
+						data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
+						backgroundColor: [
+							'rgba(12, 218, 205, 0.5)',
+							'rgba(255, 240, 0, 0.5)',
+							'rgba(255, 135, 0, 0.5)',
+							'rgba(255, 0, 0, 0.5)',
+							'rgba(26, 26, 209, 0.5)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(201, 203, 207, 0.2)'
+						],
+						borderColor: [
+							'rgb(12, 218, 205, 0.5)',
+							'rgb(255, 240, 0, 0.5)',
+							'rgb(255, 135, 0, 0.5)',
+							'rgb(255, 0, 0, 0.5)',
+							'rgb(26, 26, 209, 0.5)',
+							'rgb(153, 102, 255, 0.2)',
+							'rgb(201, 203, 207, 0.2)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: { }
+			});
+						
+			const ctx2 = document.getElementById('classificacaoSolicitacoes');
+			new Chart(ctx2, {
+				type: 'bar',
+				data: {
+					labels: ['Problema (' + data.problema +')', 'Incidente ('+ data.incidente +')', 'Solicitação (' + data.solicitacao +')', 'Acesso (' + data.acesso +')', 'Backup (' + data.backup +')', 'Evento (' + data.evento+')'],
+					datasets: [{
+						label: 'Classificação Solicitações: ',
+						data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
+						backgroundColor: [
+							'rgba(255, 0, 0, 0.5)',
+							'rgba(255, 135, 0, 0.5)',
+							'rgba(255, 240, 0, 0.5)',
+							'rgba(158, 255, 0, 0.5)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(201, 203, 207, 0.2)'
+						],
+						borderColor: [
+							'rgb(255, 0, 0, 0.5)',
+							'rgb(255, 135, 0, 0.5)',
+							'rgb(255, 240, 0, 0.5)',
+							'rgb(158, 255, 0, 0.5)',
+							'rgb(54, 162, 235, 0.2)',
+							'rgb(153, 102, 255, 0.2)',
+							'rgb(201, 203, 207, 0.2)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: { responsive: true, }
+			});
+			
+			document.getElementById('formaAberturaSolicitacoes').remove();
+			$('#formaAbertura').append('<canvas id="formaAberturaSolicitacoes" style="height:30vh; width:25vw;"></canvas>');
+			
+			const ctx5 = document.getElementById('formaAberturaSolicitacoes');
+			new Chart(ctx5, {
+				type: 'bar',
+				data: {
+					labels: ['Email ', 'Telefone ', 'Local ', 'Whatsapp', 'Proativo'],
+					datasets: [{
+						label: 'Canal de abertura Solicitações: ',
+						data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
+						backgroundColor: [
+							'rgba(255, 135, 0, 0.5)',
+							'rgba(255, 0, 0, 0.5)',
+							'rgba(255, 240, 0, 0.5)',
+							'rgba(158, 255, 0, 0.5)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(201, 203, 207, 0.2)'
+						],
+						borderColor: [
+							'rgb(255, 135, 0, 0.5)',
+							'rgb(255, 0, 0, 0.5)',
+							'rgb(255, 240, 0, 0.5)',
+							'rgb(158, 255, 0, 0.5)',
+							'rgb(54, 162, 235, 0.2)',
+							'rgb(153, 102, 255, 0.2)',
+							'rgb(201, 203, 207, 0.2)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: { responsive: true, }
+			});
+				
+			}
+		}
 	
 </script>
 </html>

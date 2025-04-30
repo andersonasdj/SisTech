@@ -822,14 +822,14 @@
 						alertaPrioridade,
 						tempo,
 						alerta,
-						dataAgendado="";
+						dataStatus="";
 					if(i.peso > 7){alertaPeso = "class='blink' style='color: red; font-weight: bold;'";}
 					else if(i.peso > 3 && i.peso <= 7 ){alertaPeso = "style='color: orange; font-weight: bold;'";}
 					else{alertaPeso = "style='color: blue; font-weight: bold;'";}
 					
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
-					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataStatus = i.dataAgendado; }
+					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
@@ -865,7 +865,7 @@
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td class=funcionario-responsavel id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
+					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: red; font-weight: bold">'+ dataStatus +'</span></td>'
 					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
 					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
@@ -909,7 +909,7 @@
 						redFlag,
 						tempo,
 						alerta,
-						dataAgendado = "",
+						dataStatus = "",
 						alertaPeso;
 					
 					if(i.peso > 7){ alertaPeso = "class='blink' style='color: red; font-weight: bold;'"; }
@@ -917,8 +917,8 @@
 					else{ alertaPeso = "style='color: blue; font-weight: bold;'"; }
 					
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
-					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataStatus = i.dataAgendado; }
+					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
@@ -954,7 +954,7 @@
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td class=funcionario-responsavel id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
+					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: red; font-weight: bold">'+ dataStatus +'</span></td>'
 					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
 					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
@@ -1015,7 +1015,7 @@
 						tempo,
 						alerta,
 						alertaPeso,
-						dataAgendado = "";
+						dataStatus = "";
 						
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
@@ -1025,8 +1025,8 @@
 						alertaPeso = "style='color: blue; font-weight: bold;'";
 					}
 					if(i.status == "ABERTO"){ status = "class='table-danger'" }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
-					if(i.status == "ANDAMENTO"){ status = "class='table-info'" }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataStatus = i.dataAgendado; }
+					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
@@ -1062,7 +1062,7 @@
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td class=funcionario-responsavel id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataAgendado +'</span></td>'
+					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: red; font-weight: bold">'+ dataStatus +'</span></td>'
 					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
 					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'

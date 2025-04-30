@@ -35,5 +35,7 @@ public interface SolicitacaoProjecao {
 	boolean getRedFlag();
 	Long getLog_Id();
 	Long getPeso();
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	LocalDateTime getDataAndamento();
 
 }

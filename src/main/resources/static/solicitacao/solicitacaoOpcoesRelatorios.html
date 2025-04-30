@@ -1020,13 +1020,13 @@
 			
 				data.content.map(i => {
 					var tempo=0,
-						dataAgendado =" ";
-					if(i.status == "ABERTO"){ status = "class='table-danger'"; dataAgendado = " " }
-					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = i.dataAgendado; }
-					if(i.status == "ANDAMENTO"){ status = "class='table-primary'"; dataAgendado = " "  }
-					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"; dataAgendado = " "  }
-					if(i.status == "PAUSADO"){ status = "class='table-light'"; dataAgendado = " "  }
-					if(i.status == "FINALIZADO"){ status = "class='table-success'"; dataAgendado = " "  }
+						dataStatus =" ";
+					if(i.status == "ABERTO"){ status = "class='table-danger'"; dataStatus = " " }
+					if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataStatus = i.dataAgendado; }
+					if(i.status == "ANDAMENTO"){ status = "class='table-primary'"; dataStatus = i.dataAndamento;  }
+					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"; dataStatus = " "  }
+					if(i.status == "PAUSADO"){ status = "class='table-light'"; dataStatus = " "  }
+					if(i.status == "FINALIZADO"){ status = "class='table-success'"; dataStatus = " "  }
 					var modal;
 					if(i.status != "FINALIZADO"){
 						modal = "data-bs-toggle='modal' data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
@@ -1052,7 +1052,7 @@
 					+ '<td>' + i.prioridade + '</td>'
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td><p>' + i.status + '<b></p><span style="font-size: 13px; color: red">' + dataAgendado + '</span></b></td>'
+					+ '<td><p>' + i.status + '<b></p><span style="font-size: 13px; color: red">' + dataStatus + '</span></b></td>'
 					+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
 					+ '<td>' + i.versao + '</td>'
 					+ '</tr>'

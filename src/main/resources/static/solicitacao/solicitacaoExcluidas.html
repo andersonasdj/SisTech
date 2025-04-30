@@ -202,7 +202,7 @@
 					+ '<td>' + i.prioridade + '</td>'
 					+ '<td>' + i.classificacao + '</td>'
 					+ '<td>' + i.nomeFuncionario + '</td>'
-					+ '<td>' + i.status + '</td>'
+					+ '<td id=status' + i.id + ' style="color: red; font-weight: bold;"><p>' + i.status + '</p><span style="font-size:12px">'+ i.dataAtualizacao +'</span></td>'
 					+ '<td>'
 					+ ' <button class="btn btn-primary btn-sm" onclick=restaurar(' + i.id + ')><i class="bi bi-skip-backward"></i></button>'
 					+ '</td>'

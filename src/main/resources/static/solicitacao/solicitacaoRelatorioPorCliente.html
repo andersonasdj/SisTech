@@ -771,7 +771,6 @@
 						}
 					});
 				}
-			
 		}
 				
 		function excluir() {
@@ -890,7 +889,6 @@
 		}
 		
 		function exibeHistorico(){
-			
 			var id = $('#idHistorico').text();
 			$('#log').val("");
 			$.ajax({
@@ -966,9 +964,10 @@
 						}
 						var tempoTotal=0;
 						data.content.map(i => {
+							var dataStatus="";
 							if(i.status == "ABERTO"){ status = "class='table-danger'"}
-							if(i.status == "AGENDADO"){ status = "class='table-warning'"}
-							if(i.status == "ANDAMENTO"){ status = "class='table-primary'"}
+							if(i.status == "AGENDADO"){ status = "class='table-warning'"; dataStatus = i.dataAgendado; }
+							if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 							if(i.status == "AGUARDANDO"){ status = "class='table-secondary'"}
 							if(i.status == "PAUSADO"){ status = "class='table-light'"}
 							if(i.status == "FINALIZADO"){ status = "class='table-success'"}
@@ -999,7 +998,7 @@
 							+ '<td>' + i.prioridade + '</td>'
 							+ '<td>' + i.classificacao + '</td>'
 							+ '<td>' + i.nomeFuncionario + '</td>'
-							+ '<td>' + i.status + '</td>'
+							+ '<td id=status' + i.id + '><p>' + i.status + '</p><span style="font-size:12px">'+ dataStatus +'</span></td>'
 							+ '<td '+ alerta +'><b>' + tempo + '</b></td>'
 							+ '<td>' + i.versao + '</td>'
 							+ '</tr>'

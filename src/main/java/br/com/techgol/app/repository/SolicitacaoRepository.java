@@ -34,7 +34,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 					+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 					+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 					+ "FROM solicitacoes s "
 					+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -57,7 +57,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -80,7 +80,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 					+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+					+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 					+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 					+ "FROM solicitacoes s "
 					+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -259,7 +259,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
-			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -270,7 +270,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.peso, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.duracao, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
-			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -413,7 +413,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -427,7 +427,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -442,7 +442,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAndamento, s.dataAgendado, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -469,7 +469,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, s.dataAndamento, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
@@ -480,7 +480,34 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "AND s.dataAbertura <= :fim")
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAbertura(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, s.dataAndamento, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.status = 'FINALIZADO' "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataFinalizado >= :inicio "
+			+ "AND s.dataFinalizado <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataFechamento(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
+	@Query(nativeQuery = true,
+			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, s.dataAndamento, "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "FROM solicitacoes s "
+			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
+			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
+			+ "WHERE s.funcionario_id=:funcionario_id "
+			+ "AND s.excluido = :excluida "
+			+ "AND s.dataAtualizacao >= :inicio "
+			+ "AND s.dataAtualizacao <= :fim")
+	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAtualizado(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 
 	@Query(nativeQuery = true,
 			value = "SELECT COUNT(*) FROM solicitacoes s "
@@ -534,38 +561,9 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
-			+ "FROM solicitacoes s "
-			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
-			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.funcionario_id=:funcionario_id "
-			+ "AND s.status = 'FINALIZADO' "
-			+ "AND s.excluido = :excluida "
-			+ "AND s.dataFinalizado >= :inicio "
-			+ "AND s.dataFinalizado <= :fim")
-	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataFechamento(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
-	
-	@Query(nativeQuery = true,
-			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
-			+ "FROM solicitacoes s "
-			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
-			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
-			+ "WHERE s.funcionario_id=:funcionario_id "
-			+ "AND s.excluido = :excluida "
-			+ "AND s.dataAtualizacao >= :inicio "
-			+ "AND s.dataAtualizacao <= :fim")
-	public Page<SolicitacaoProjecao> listarSolicitacoesPorFuncionarioDataAtualizado(Pageable page, Long funcionario_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
-	
-	@Query(nativeQuery = true,
-			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id,  "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAndamento "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -592,7 +590,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.versao, s.dataAgendado, "
-			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao "
+			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAndamento "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
