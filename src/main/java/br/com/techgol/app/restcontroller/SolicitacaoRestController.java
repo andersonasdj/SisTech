@@ -121,7 +121,7 @@ public class SolicitacaoRestController {
 	}
 	
 	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
-	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(sort= {"id"}, direction = Direction.DESC) Pageable page) {
+	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 	   return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);
 	}
 	

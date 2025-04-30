@@ -190,11 +190,12 @@
 	var inicio = url.searchParams.get("inicio");
 	var fim = url.searchParams.get("fim");
 	var cliente = url.searchParams.get("nome");
+	var size = url.searchParams.get("size");
 	
 	$.ajax({
 		type: "GET",
 		contentType: "application/json",
-		url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim,
+		url: "/sistech/solicitacao/relatorio/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim+"?size="+size,
 		
 		success: function (data) {
 			
