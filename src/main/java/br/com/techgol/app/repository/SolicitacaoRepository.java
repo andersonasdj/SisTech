@@ -522,7 +522,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "WHERE s.funcionario_id = :id "
 			+ "AND s.excluido = :excluido "
 			+ "AND s.dataFinalizado >= :inicio "
-			+ "AND s.dataFinalizado <= :fim")
+			+ "AND s.dataFinalizado <= :fim "
+			+ "AND s.status = 'FINALIZADO'")
 	public int totalFechadasPeriodoPorFuncionario(Long id, Boolean excluido, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(nativeQuery = true,
@@ -547,7 +548,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			+ "WHERE s.cliente_id = :id "
 			+ "AND s.excluido = :excluido "
 			+ "AND s.dataFinalizado >= :inicio "
-			+ "AND s.dataFinalizado <= :fim")
+			+ "AND s.dataFinalizado <= :fim "
+			+ "AND s.status = 'FINALIZADO'")
 	public int totalFechadasPeriodoPorCliente(Long id, Boolean excluido, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(nativeQuery = true,

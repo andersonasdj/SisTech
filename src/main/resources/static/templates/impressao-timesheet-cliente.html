@@ -22,16 +22,19 @@
                   <tbody>
                     <tr>
                       <td>
-                        <table width="330" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                        <table width="450" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
                           <tbody>
                             <tr>
-                              <td align="left"><br> <span id="nomeCliente" style="font-size: 22px; color: #5b5b5b; font-family: 'Open Sans', sans-serif;" > </span>  </td>
+                              <td align="left"><br> <span id="nomeCliente" style="font-size: 22px; color: #5b5b5b; font-family: 'Arial';" > </span>  </td>
                             </tr>
                             <tr class="hiddenMobile">
-                              <td height="90" style="font-size: 40px; color: rgb(2, 75, 165)"><span id="cliente"> </span></td>
+                              <td height="70" style="font-size: 40px; color: rgb(2, 75, 165)"><span id="cliente"> </span></td>
+                            </tr>
+							<tr class="visibleMobile">
+                            	<td height="15"> </td>
                             </tr>
                             <tr>
-                              <td style="font-size: 16px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 22px; vertical-align: top; text-align: left; font-weight: bold;">
+                              <td style="font-size: 17px; color: #5b5b5b; font-family: 'Arial'; line-height: 28px; vertical-align: top; text-align: left; font-weight: bold;">
                                 Período: <span id="dataInicio"> </span> &nbsp - &nbsp <span id="dataFim"> </span>
 								<br><span id="diasUteis"> </span>
 								<br>Total de Solicitações: <span id="totalSolicitacoes"> </span>
@@ -43,23 +46,23 @@
                         </table>
                         <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
                           <tbody>
-                            <tr class="visibleMobile"> <td height="20"><p><img src="./assets/img/p1.png" style="height: 90px;"></p>  </td> </tr>
-                            <tr> <td height="5"> </td> </tr>
+                            <tr class="visibleMobile"> <td height="20"><p><img src="./assets/img/p1.png" style="height: 60px; padding-top: 10px;"></p>  </td> </tr>
+                            <tr> <td height="10"> </td> </tr>
 							<tr>
-                             <td style="font-size: 20px; color: rgb(2, 75, 165); letter-spacing: -1px; font-family: 'Open Sans', sans-serif; line-height: 1; vertical-align: top; text-align: right;">
+                             <td style="font-size: 20px; color: rgb(2, 75, 165); letter-spacing: -1px; font-family: 'Arial'; line-height: 1; vertical-align: top; text-align: right;">
                                Relatório Geral
                              </td>
                            	</tr>
                             <tr class="visibleMobile">
-                              <td height="20"> </td>
+                              <td height="5"> </td>
                             </tr>
                             <tr>
-                              <td style="font-size: 16px; color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                              <td style="font-size: 16px; color: rgb(0, 0, 0); font-family: 'Arial'; line-height: 18px; vertical-align: top; text-align: right;">
                                 Data: <span id="data"> </span><br />
                               </td>
                             </tr>
 							<tr>
-		                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+		                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Arial'; line-height: 18px; vertical-align: top; text-align: left;">
 								<td height="85"> </td>
 		                      </td>
 		                    </tr>
@@ -86,7 +89,7 @@
              <tbody>
                <tr>
                  <td>
-                   <table class="tabela" id="tabela-usuarios" width="1000" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 16px;">
+                   <table class="tabela" id="tabela-usuarios" width="1000" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 16px; font-family: 'Arial';">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -128,13 +131,13 @@
 						 <tr>
 							<td height="35"> 
 								<div id="local" style="padding-right: 30px">
-									<h2 style="text-align: center; color: #00147b;">Localicação</h2>
+									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Localicação</h2>
 									<canvas id="localSolicitacoes"> </canvas>
 								</div>
 							</td> 
 							<td height="35"> 
 								<div id="prioridade" style="padding-left: 30px">
-									<h2 style="text-align: center; color: #00147b;">Criticidade</h2>
+									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Criticidade</h2>
 									<canvas id="prioridadeSolicitacoes"> </canvas>
 								</div>
 						 	</td>
@@ -144,13 +147,13 @@
 	                    <tr>
 							<td height="35"> 
 								<div id="classificacao" style="padding-right: 30px">
-									<h2 style="text-align: center; color: #00147b;">Classificação</h2>
+									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Classificação</h2>
 									<canvas id="classificacaoSolicitacoes"> </canvas>
 								</div>
 							</td> 
 							<td height="35"> 
 								<div id="formaAbertura" style="padding-left: 30px">
-									<h2 style="text-align: center; color: #00147b;">Canal de abertura</h2>
+									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Canal de abertura</h2>
 									<canvas id="formaAberturaSolicitacoes" > </canvas>
 								</div>
 						 	</td>
@@ -184,7 +187,6 @@
 <script src="./assets/js/chart.js"></script>
 <script>
 	var url_atual = window.location.href;
-	
 	var url = new URL(url_atual);
 	var cliente_id = url.searchParams.get("id");
 	var inicio = url.searchParams.get("inicio");
@@ -230,7 +232,7 @@
 					+ '<td id="td-table" style="color: #004700">' + i.status + '</td>'
 					+ '</tr>'
 					$('#tabela-usuarios').append(itens);
-					});
+			});
 					
 					var data_inicial  = new Date(inicio);
 					var data_final = new Date(fim);
@@ -256,7 +258,6 @@
 	    	401: function() { alert('Realize login novamente!'); }
 		}
 	});
-	
 	
 	$.ajax({
 		type: "GET",
@@ -291,157 +292,117 @@
 	    return diaF+"/"+mesF+"/"+anoF;
 	}
 	
-	
 	function montaGraficos(data){
-		
 			if (data != null) {
+				document.getElementById('localSolicitacoes').remove();
+				$('#local').append('<canvas id="localSolicitacoes" ></canvas>');
 				
-			document.getElementById('localSolicitacoes').remove();
-			$('#local').append('<canvas id="localSolicitacoes" ></canvas>');
-			
-			var ctx = document.getElementById('localSolicitacoes');
-			new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: ['Onsite ('+data.onsite+')', 'Offsite ('+data.offsite+')'],
-					datasets: [{
-						label: 'Local das Solicitações: ',
-						data: [data.onsite, data.offsite],
-						backgroundColor: [
-							'rgba(255, 0, 0, 0.5)',
-							'rgba(12, 218, 205, 0.5)',
-							'rgba(255, 205, 86, 0.2)',
-							'rgba(121, 125, 127, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(201, 203, 207, 0.2)'
-						],
-						borderColor: [
-							'rgb(255, 0, 0, 0.5)',
-							'rgb(12, 218, 205, 0.5)',
-							'rgb(255, 205, 86)',
-							'rgb(121, 125, 127)',
-							'rgb(54, 162, 235)',
-							'rgb(153, 102, 255)',
-							'rgb(201, 203, 207)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: { 
-					responsive: true,
+				var ctx = document.getElementById('localSolicitacoes');
+				new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: ['Onsite ('+data.onsite+')', 'Offsite ('+data.offsite+')'],
+						datasets: [{
+							label: 'Local das Solicitações: ',
+							data: [data.onsite, data.offsite],
+							backgroundColor: [
+								'rgba(255, 0, 0, 0.5)',
+								'rgba(0, 120, 0, 0.5)'
+							],
+							borderColor: [
+								'rgb(255, 0, 0, 0.5)',
+								'rgb(0, 100, 0, 0.5)'
+							],
+							borderWidth: 4
+						}]
+					},
+					options: { 
+						responsive: true,
+					}
+				});
 					
-				}
-			});
+				document.getElementById('prioridadeSolicitacoes').remove();
+				$('#prioridade').append('<canvas id="prioridadeSolicitacoes" ></canvas>');
 				
-			document.getElementById('prioridadeSolicitacoes').remove();
-			$('#prioridade').append('<canvas id="prioridadeSolicitacoes" ></canvas>');
-			
-			const ctx3 = document.getElementById('prioridadeSolicitacoes');
-			new Chart(ctx3, {
-				type: 'doughnut',
-				data: {
-					labels: ['Baixa ('+data.baixa+')', 'Media ('+data.media +')', 'Alta ('+ data.alta+')', 'Critica ('+data.critica+')', 'Planejada ('+data.planejada+')'],
-					datasets: [{
-						label: 'Criticidade das Solicitações: ',
-						data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
-						backgroundColor: [
-							'rgba(12, 218, 205, 0.5)',
-							'rgba(255, 240, 0, 0.5)',
-							'rgba(255, 135, 0, 0.5)',
-							'rgba(255, 0, 0, 0.5)',
-							'rgba(26, 26, 209, 0.5)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(201, 203, 207, 0.2)'
-						],
-						borderColor: [
-							'rgb(12, 218, 205, 0.5)',
-							'rgb(255, 240, 0, 0.5)',
-							'rgb(255, 135, 0, 0.5)',
-							'rgb(255, 0, 0, 0.5)',
-							'rgb(26, 26, 209, 0.5)',
-							'rgb(153, 102, 255, 0.2)',
-							'rgb(201, 203, 207, 0.2)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: { 
-					responsive: true,
-				}
-			});
-						
-			document.getElementById('classificacaoSolicitacoes').remove();
-			$('#classificacao').append('<canvas id="classificacaoSolicitacoes"></canvas>');
-			const ctx2 = document.getElementById('classificacaoSolicitacoes');
-			new Chart(ctx2, {
-				type: 'bar',
-				data: {
-					labels: ['Problema (' + data.problema +')', 'Incidente ('+ data.incidente +')', 'Solicitação (' + data.solicitacao +')', 'Acesso (' + data.acesso +')', 'Backup (' + data.backup +')', 'Evento (' + data.evento+')'],
-					datasets: [{
-						label: 'Classificação Solicitações: ',
-						data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
-						backgroundColor: [
-							'rgba(255, 0, 0, 0.5)',
-							'rgba(255, 135, 0, 0.5)',
-							'rgba(255, 240, 0, 0.5)',
-							'rgba(158, 255, 0, 0.5)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(201, 203, 207, 0.2)'
-						],
-						borderColor: [
-							'rgb(255, 0, 0, 0.5)',
-							'rgb(255, 135, 0, 0.5)',
-							'rgb(255, 240, 0, 0.5)',
-							'rgb(158, 255, 0, 0.5)',
-							'rgb(54, 162, 235, 0.2)',
-							'rgb(153, 102, 255, 0.2)',
-							'rgb(201, 203, 207, 0.2)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: { responsive: true, }
-			});
-			
-			document.getElementById('formaAberturaSolicitacoes').remove();
-			$('#formaAbertura').append('<canvas id="formaAberturaSolicitacoes"></canvas>');
-			
-			const ctx5 = document.getElementById('formaAberturaSolicitacoes');
-			new Chart(ctx5, {
-				type: 'doughnut',
-				data: {
-					labels: ['Email ('+data.email+')', 'Telefone ('+data.telefone+')', 'Local ('+data.local+')', 'Whatsapp ('+data.whatsapp+')', 'Proativo ('+data.proativo+')'],
-					datasets: [{
-						label: 'Canal de abertura Solicitações: ',
-						data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
-						backgroundColor: [
-							'rgba(255, 135, 0, 0.5)',
-							'rgba(255, 0, 0, 0.5)',
-							'rgba(255, 240, 0, 0.5)',
-							'rgba(158, 255, 0, 0.5)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(201, 203, 207, 0.2)'
-						],
-						borderColor: [
-							'rgb(255, 135, 0, 0.5)',
-							'rgb(255, 0, 0, 0.5)',
-							'rgb(255, 240, 0, 0.5)',
-							'rgb(158, 255, 0, 0.5)',
-							'rgb(54, 162, 235, 0.2)',
-							'rgb(153, 102, 255, 0.2)',
-							'rgb(201, 203, 207, 0.2)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: { responsive: true, }
-			});
+				const ctx3 = document.getElementById('prioridadeSolicitacoes');
+				new Chart(ctx3, {
+					type: 'doughnut',
+					data: {
+						labels: ['Baixa ('+data.baixa+')', 'Media ('+data.media +')', 'Alta ('+ data.alta+')', 'Critica ('+data.critica+')', 'Planejada ('+data.planejada+')'],
+						datasets: [{
+							label: 'Criticidade das Solicitações: ',
+							data: [data.baixa, data.media, data.alta, data.critica, data.planejada],
+							backgroundColor: [
+								'rgba(0, 120, 0, 0.5)',
+								'rgba(120, 120, 0, 0.5)',
+								'rgba(255, 50, 0, 0.5)',
+								'rgba(255, 0, 0, 0.5)',
+								'rgba(26, 26, 209, 0.5)',
+							],
+							borderWidth: 0
+						}]
+					},
+					options: { 
+						responsive: true,
+					}
+				});
+							
+				document.getElementById('classificacaoSolicitacoes').remove();
+				$('#classificacao').append('<canvas id="classificacaoSolicitacoes"></canvas>');
+				const ctx2 = document.getElementById('classificacaoSolicitacoes');
+				new Chart(ctx2, {
+					type: 'bar',
+					data: {
+						labels: ['Problema (' + data.problema +')', 'Incidente ('+ data.incidente +')', 'Solicitação (' + data.solicitacao +')', 'Acesso (' + data.acesso +')', 'Backup (' + data.backup +')', 'Evento (' + data.evento+')'],
+						datasets: [{
+							label: 'Classificação Solicitações: ',
+							data: [data.problema, data.incidente, data.solicitacao, data.acesso, data.backup,  data.evento],
+							backgroundColor: [
+								'rgba(255, 0, 0, 0.5)',
+								'rgba(255, 60, 0, 0.5)',
+								'rgba(255, 120, 0, 0.5)',
+								'rgba(0, 150, 0, 0.5)',
+								'rgba(0, 100, 255, 0.5)',
+								'rgba(0, 150, 150, 0.5)',
+							],
+							borderColor: [
+								'rgb(153, 102, 255, 0.5)',
+								'rgb(153, 102, 255, 0.5)',
+								'rgb(153, 102, 255, 0.5)',
+								'rgb(153, 102, 255, 0.5)',
+								'rgb(153, 102, 255, 0.5)',
+								'rgb(153, 102, 255, 0.5)',
+							],
+							borderWidth: 2
+						}]
+					},
+					options: { responsive: true, }
+				});
 				
+				document.getElementById('formaAberturaSolicitacoes').remove();
+				$('#formaAbertura').append('<canvas id="formaAberturaSolicitacoes"></canvas>');
+				
+				const ctx5 = document.getElementById('formaAberturaSolicitacoes');
+				new Chart(ctx5, {
+					type: 'doughnut',
+					data: {
+						labels: ['Email ('+data.email+')', 'Telefone ('+data.telefone+')', 'Local ('+data.local+')', 'Whatsapp ('+data.whatsapp+')', 'Proativo ('+data.proativo+')'],
+						datasets: [{
+							label: 'Canal de abertura Solicitações: ',
+							data: [data.email, data.telefone, data.local, data.whatsapp, data.proativo],
+							backgroundColor: [
+								'rgba(255, 60, 0, 0.5)',
+								'rgba(255, 0, 0, 0.5)',
+								'rgba(255, 160, 0, 0.5)',
+								'rgba(0, 150, 0, 0.5)',
+								'rgba(0, 100, 255, 0.5)'
+							],
+							borderWidth: 0
+						}]
+					},
+					options: { responsive: true, }
+				});
 			}
 		}
-	
 </script>
 </html>
