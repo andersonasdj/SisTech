@@ -220,7 +220,6 @@
 			$('#dataFim').text('');
 			$('#cliente').text('');
 			$('#corpoSolicitacoes').empty();
-			$('#duracao').empty();
 			
 			$('#totalSolicitacoes').text(data.totalElements);
 			$('#dataInicio').text(inicio);
@@ -264,7 +263,6 @@
 					}
 					
 					$('#diasUteis').append('Dias úteis: '+resultados.length);	
-				$('#duracao').text(minutosParaHorasTexto(duracao));
 			
 		},
 		statusCode: {
@@ -280,6 +278,8 @@
 		
 		success: function (data) {
 			montaGraficos(data);
+			$('#duracao').empty();
+			$('#duracao').text(minutosParaHorasTexto(data.totalMinutosMes));
 		},
 		statusCode: {
 	   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
