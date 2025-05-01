@@ -3,10 +3,13 @@
     border-collapse: collapse; /*define a separação entre as bordar*/
     padding: 2px;
     text-align: center;
-    border: 1px solid rgb(160 160 160);
-	padding-left: 10px;
-	padding-right: 10px;
+	width: 970px !important;
 }
+
+.table thead th {
+	background-color: rgb(165, 165, 165);
+}
+
 th{
     background-color: #c1ddff;
 	
@@ -21,4 +24,14 @@ th{
 .linhaPadrao{
 	font-size: 12px; color: #5b5b5b; font-family: 'Arial'; line-height: 18px; vertical-align: top;
 	vertical-align: top; text-align: center;
+}
+
+.borda-pontilhada {
+	color: rgb(61, 56, 70);
+	color: rgb(61, 56, 70);
+	background: #fff;
+	border: 2px dashed #C8CBCE;
+	-webkit-transition: box-shadow 0.3s, border-color 0.3s;
+	-moz-transition: box-shadow 0.3s, border-color 0.3s;
+	transition: box-shadow 0.3s, border-color 0.3s;
 }

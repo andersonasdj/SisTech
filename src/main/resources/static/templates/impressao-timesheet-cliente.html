@@ -5,6 +5,8 @@
   <title>Sistech - Impressão</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="assets/css/relatorio.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
  </head>
   <body style="margin: 0; padding: 0; background-color:#e1e1e1 " bgcolor="#eaeced">
 
@@ -18,7 +20,7 @@
           <table width="1100" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
             <tr>
               <td>
-                <table width="1000" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                <table width="970" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
                   <tbody>
                     <tr>
                       <td>
@@ -35,10 +37,10 @@
                             </tr>
                             <tr>
                               <td style="font-size: 17px; color: #5b5b5b; font-family: 'Arial'; line-height: 28px; vertical-align: top; text-align: left; font-weight: bold;">
-                                Período: <span id="dataInicio"> </span> &nbsp - &nbsp <span id="dataFim"> </span>
-								<br><span id="diasUteis"> </span>
-								<br>Total de Solicitações: <span id="totalSolicitacoes"> </span>
-								<br>Consumo da Franquia: <span id="duracao"> </span>
+                                <i class="bi bi-calendar3"></i>&nbsp Período: <span id="dataInicio"> </span> &nbsp - &nbsp <span id="dataFim"> </span>
+								<br><i class="bi bi-pin-angle"></i>&nbsp<span id="diasUteis"> </span>
+								<br><i class="bi bi-list-check"></i>&nbsp Total de Solicitações: <span id="totalSolicitacoes"> </span>
+								<br><i class="bi bi-clock-history"></i>&nbsp Consumo da Franquia: <span id="duracao"> </span>
 								<p></p>
                               </td>
                             </tr>
@@ -46,8 +48,8 @@
                         </table>
                         <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
                           <tbody>
-                            <tr class="visibleMobile"> <td height="20"><p><img src="./assets/img/p1.png" style="height: 60px; padding-top: 10px;"></p>  </td> </tr>
-                            <tr> <td height="10"> </td> </tr>
+                            <tr class="visibleMobile"> <td height="20"><p><img src="./assets/img/p1.png" style="height: 60px; margin-top: 35px;"></p>  </td> </tr>
+                            <tr> <td height="62"> </td> </tr>
 							<tr>
                              <td style="font-size: 20px; color: rgb(2, 75, 165); letter-spacing: -1px; font-family: 'Arial'; line-height: 1; vertical-align: top; text-align: right;">
                                Relatório Geral
@@ -63,7 +65,7 @@
                             </tr>
 							<tr>
 		                      <td style="font-size: 12px; color: #5b5b5b; font-family: 'Arial'; line-height: 18px; vertical-align: top; text-align: left;">
-								<td height="85"> </td>
+								<td height="38"> </td>
 		                      </td>
 		                    </tr>
                           </tbody>
@@ -89,7 +91,7 @@
              <tbody>
                <tr>
                  <td>
-                   <table class="tabela" id="tabela-usuarios" width="970" border="1" cellpadding="0" cellspacing="0" align="center" class="fullPadding" style="font-size: 16px; font-family: 'Arial';">
+                   <table class="tabela table table-bordered table-striped" id="solicitacoes" width="970"  align="center"  style="font-size: 15px; ">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -125,35 +127,47 @@
           <table width="1100" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 0 0 10px 10px;">
             <tr>
               <td>
-                <table width="1000" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                <table class="borda-pontilhada" width="970" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
 					<tr class="spacer">	<td height="20"> </td>	</tr>
+					
 	                  <tbody>
+						
 						 <tr>
-							<td height="35"> 
-								<div id="local" style="padding-right: 30px">
-									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Localicação</h2>
+							<td height="35">  
+								<div id="local" style="padding-left: 10px; padding-right: 30px">
+									<h4 style="text-align: center; color: #00147b;"><i class="bi bi-geo-alt"></i> Localicação</h4>
+									<p></p>
 									<canvas id="localSolicitacoes"> </canvas>
 								</div>
 							</td> 
 							<td height="35"> 
 								<div id="prioridade" style="padding-left: 30px">
-									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Criticidade</h2>
+									<h4 style="text-align: center; color: #00147b;"><i class="bi bi-exclamation-triangle"></i> Criticidade</h4>
+									<p></p>
 									<canvas id="prioridadeSolicitacoes"> </canvas>
 								</div>
 						 	</td>
 	                    </tr>
-						<tr class="spacer"> <td height="50"> </td>
+						<tr class="spacer"> 
+							<td> 
+								<hr class="bg-danger border-3 border-top border"> 
+								<td height="20"> 
+									<hr class="bg-danger border-3 border-top border">
+								</td>
+							</td>
 			           	</tr>
 	                    <tr>
 							<td height="35"> 
-								<div id="classificacao" style="padding-right: 30px">
-									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Classificação</h2>
+								<div id="classificacao" style="padding-left: 10px; padding-right: 30px; padding-bottom: 10px;">
+									<h4 style="text-align: center; color: #00147b;"><i class="bi bi-question-octagon"></i> Classificação</h4>
+									<p></p>
 									<canvas id="classificacaoSolicitacoes"> </canvas>
 								</div>
 							</td> 
 							<td height="35"> 
-								<div id="formaAbertura" style="padding-left: 30px">
-									<h2 style="text-align: center; color: #00147b; font-family: 'Arial';">Canal de abertura</h2>
+								<div id="formaAbertura" style="padding-left: 30px; padding-bottom: 20px;">
+									<h4 style="text-align: center; color: #00147b;"><i class="bi bi-headset"></i> Canal de abertura</h4>
+									<p></p>
 									<canvas id="formaAberturaSolicitacoes" > </canvas>
 								</div>
 						 	</td>
@@ -167,7 +181,7 @@
             </tr>
 			<tr>
 	        	<td class="linhaPadrao"> 
-					<p>Tecnologia da Informação</p> 
+					<p><u>Tecnologia da Informação</u></p> 
 				</td>
 	        </tr>
 			<tr class="spacer">
@@ -182,9 +196,9 @@
     </table>
     
 </body>
-<script src="./assets/js/jquery-3.6.3.js"></script>
-<script src="./assets/js/moment.js"></script>
-<script src="./assets/js/chart.js"></script>
+<script src="assets/js/jquery-3.6.3.js"></script>
+<script src="assets/js/moment.js"></script>
+<script src="assets/js/chart.js"></script>
 <script>
 	var url_atual = window.location.href;
 	var url = new URL(url_atual);
@@ -231,7 +245,7 @@
 					+ '<td id="td-table">' + i.duracao + '</td>'
 					+ '<td id="td-table" style="color: #004700">' + i.status + '</td>'
 					+ '</tr>'
-					$('#tabela-usuarios').append(itens);
+					$('#solicitacoes').append(itens);
 			});
 					
 					var data_inicial  = new Date(inicio);
