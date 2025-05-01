@@ -266,7 +266,6 @@
 							
 							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
 							
-							
 							var itens = 
 							
 								'<tr>'
@@ -274,14 +273,12 @@
 								+ '<td>' + i.qtdAbertos + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
 								+ '<td id=qtdFinalizados'+i.clienteId+'>' + i.qtdFinalizados + '</td>'
-								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(2) )+ '</td>'
+								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(0) )+ '</td>'
 								+ '<td id=franquia'+i.clienteId+'>' + tempoContratado + '</td>'
 								+ '<td '+alerta+'><b>' + horas + '</b></td>'
-								+ '<td> <a href="#" onclick=printRelatorio('+i.clienteId+')><i class="bi bi-printer"></i></a></td>'
+								+ '<td> <a href="#" onclick=printRelatorio('+i.clienteId+')><i style="font-size: 25px" class="bi bi-printer"></i></a></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
-								
-								
 						});
 						
 						document.getElementById('clientesSolicitacoes').remove();
