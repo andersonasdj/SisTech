@@ -28,7 +28,6 @@ th{
 
 .borda-pontilhada {
 	color: rgb(61, 56, 70);
-	color: rgb(61, 56, 70);
 	background: #fff;
 	border: 2px dashed #C8CBCE;
 	-webkit-transition: box-shadow 0.3s, border-color 0.3s;
