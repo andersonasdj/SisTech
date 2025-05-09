@@ -642,7 +642,7 @@
   	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
   	<script>
-		function atualizaContador(dataInicial){
+		function atualizaContador(dataInicial, status){
 			
 			const agora = new Date();
 			const outraData = converteData(dataInicial);
@@ -654,7 +654,17 @@
 			const minutos = Math.floor((segundosTotais % 3600) / 60);
 			const segundos = segundosTotais % 60;
 			
-			return `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+			if(minutos < 0){
+				return `Faltan: ${dias*-1}d ${horas*-1}h ${minutos*-1}m`;
+			}else{
+				if(status == 'PAUSADO' || status == 'AGUARDANDO' || status == 'ABERTO'){
+					return `Atualização: ${dias}d ${horas}h ${minutos}m`;	
+				}else{
+					return `Passaram: ${dias}d ${horas}h ${minutos}m`;	
+				}
+			}
+			
+			
 		}
 		
 		function converteData(dataStr){
@@ -887,7 +897,7 @@
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td class=funcionario-responsavel id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: blue; font-weight: bold">'+ dataStatus +'<p style="color : red"> ' + ((dataStatus != null && dataStatus != '') ? atualizaContador(dataStatus): " ") + '</p></span></td>'
+					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: blue; font-weight: bold">'+ dataStatus +'<p style="color : red"> ' + ((dataStatus != null && dataStatus != '') ? atualizaContador(dataStatus, i.status): atualizaContador(i.dataAtualizacao, i.status)) + '</p></span></td>'
 					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
 					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
