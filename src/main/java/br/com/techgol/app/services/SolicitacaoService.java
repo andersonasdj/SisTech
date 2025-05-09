@@ -4,10 +4,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,7 @@ import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
+import br.com.techgol.app.dto.DtoHistorico;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
 import br.com.techgol.app.dto.DtoRendimentosClientes;
@@ -820,7 +824,7 @@ public class SolicitacaoService {
 			return new DtoDashboardFuncionarios(onsite,offsite,problema,incidente,solicitacao,
 					backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
 					agendado,aguardando,pausado,finalizado,totalSolicitacoes,totalMinutosMes,
-					totalMesCorrente, email, telefone, local, whatsapp, proativo);
+					totalMesCorrente, email, telefone, local, whatsapp, proativo, null);
 			
 		}else {
 			return null;
@@ -834,6 +838,36 @@ public class SolicitacaoService {
 		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
 		Long totalMinutosMes=0l;
 		List<PojecaoResumidaFinalizados> solicitacoes;
+
+		
+		Map<YearMonth, LocalDate[]> rangeDeMeses = new LinkedHashMap<>();
+		LocalDate hoje = LocalDate.now();
+		
+		for(int i = 9; i >= 0; i--) {
+			YearMonth ym = YearMonth.from(hoje.minusMonths(i));
+			LocalDate inicioMes = ym.atDay(1);
+			LocalDate fimMes = ym.atEndOfMonth();
+			rangeDeMeses.put(ym, new LocalDate[] {inicioMes,fimMes});
+		}
+		
+		List<DtoHistorico> historico = new ArrayList<>();
+		
+		for(Map.Entry<YearMonth, LocalDate[]> entry : rangeDeMeses.entrySet()) {
+			
+			LocalDateTime inicoMes, fimMes;
+			LocalDate [] datas = entry.getValue();
+			inicoMes = datas[0].atTime(00, 00, 00);
+			fimMes = datas[1].atTime(23, 59, 59);
+			
+			String mesAtual = entry.getKey().toString();
+			int qtdMes = repository.totalFechadasPeriodoPorCliente(id, false, inicoMes, fimMes);
+			historico.add(new DtoHistorico(mesAtual, qtdMes));
+		}
+		
+		
+		
+		
+		
 		if(ini != null  && termino != null ) {
 			inicio = ini.atTime(00, 00, 00);
 			fim = termino.atTime(23, 59, 59);
@@ -936,7 +970,7 @@ public class SolicitacaoService {
 			return new DtoDashboardFuncionarios(onsite,offsite,problema,incidente,solicitacao,
 					backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
 					agendado,aguardando,pausado,finalizado,totalSolicitacoes,totalMinutosMes,
-					totalMesCorrente, email, telefone, local, whatsapp, proativo);
+					totalMesCorrente, email, telefone, local, whatsapp, proativo, historico);
 			
 		}else {
 			return null;
@@ -1353,6 +1387,17 @@ public class SolicitacaoService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
 		
+		Map<YearMonth, LocalDate[]> rangeDeMeses = new LinkedHashMap<>();
+		LocalDate hoje = LocalDate.now();
+		
+		for(int i = 5; i >= 0; i--) {
+			YearMonth ym = YearMonth.from(hoje.minusMonths(i));
+			LocalDate inicioMes = ym.atDay(1);
+			LocalDate fimMes = ym.atEndOfMonth();
+			rangeDeMeses.put(ym, new LocalDate[] {inicioMes,fimMes});
+		}
+		
+		
 		List<DtoClienteList> clientes = clienteService.listarAtivos();
 		List<DtoRendimentosClientes> lista = new ArrayList<>();
 		
@@ -1361,11 +1406,26 @@ public class SolicitacaoService {
 		fim = termino.atTime(23, 59, 59);
 		
 		clientes.forEach(f -> {
+			
+			List<DtoHistorico> historico = new ArrayList<>();
+			
+			for(Map.Entry<YearMonth, LocalDate[]> entry : rangeDeMeses.entrySet()) {
+				
+				LocalDateTime inicoMes, fimMes;
+				LocalDate [] datas = entry.getValue();
+				inicoMes = datas[0].atTime(00, 00, 00);
+				fimMes = datas[1].atTime(23, 59, 59);
+				
+				String mesAtual = entry.getKey().toString();
+				int qtdMes = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicoMes, fimMes);
+				historico.add(new DtoHistorico(mesAtual, qtdMes));
+			}
+			
 			int qtdFechadas = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicio, fim);
 			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
 			Long qtdHoras = repository.totalHorasPeriodoPorCliente(f.id(), inicio, fim);
 			int qtdAbertos = repository.totalabertasPeriodoPorCliente(f.id(), false, inicio, fim);
-			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id()));
+			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id(), historico));
 		});
 		
 		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());

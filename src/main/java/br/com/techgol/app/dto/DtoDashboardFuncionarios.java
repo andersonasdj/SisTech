@@ -1,5 +1,7 @@
 package br.com.techgol.app.dto;
 
+import java.util.List;
+
 public record DtoDashboardFuncionarios(
 		
 		int onsite,
@@ -28,6 +30,7 @@ public record DtoDashboardFuncionarios(
 		int telefone,
 		int local,
 		int whatsapp,
-		int proativo) {
+		int proativo,
+		List<DtoHistorico> historico) {
 
 }

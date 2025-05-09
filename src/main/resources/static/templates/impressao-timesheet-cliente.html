@@ -135,7 +135,7 @@
 						 <tr>
 							<td height="35">  
 								<div id="local" style="padding-left: 10px; padding-right: 30px">
-									<h5 style="text-align: center; color: rgb(94, 92, 100);"><i class="bi bi-geo-alt"></i> Localicação</h5>
+									<h5 style="text-align: center; color: rgb(94, 92, 100);"><i class="bi bi-geo-alt"></i> Localização</h5>
 									<p></p>
 									<canvas id="localSolicitacoes"> </canvas>
 								</div>
@@ -172,6 +172,27 @@
 								</div>
 						 	</td>
 	                    </tr>
+						<tr class="spacer"> 
+							<td style="padding-left: 15px;"> 
+								<hr class="bg-danger border-3 border-top border"> 
+								<td height="90" style="padding-right: 15px;"> 
+									<hr class="bg-danger border-2 border-top border">
+								</td>
+							</td>
+			           	</tr>
+						
+						
+						<tr>
+							<td height="35"> 
+								<div id="historico" style="padding-left: 10px; padding-right: 30px; padding-bottom: 10px;">
+									<h5 style="text-align: center; color: rgb(94, 92, 100);"><i class="bi bi-bar-chart"></i> Histórico</h5>
+									<p></p>
+									<canvas id="historicoSolicitacoes"> </canvas>
+								</div>
+							</td> 
+	                    </tr>
+						
+						
 	                  </tbody>
                 </table>
               </td>
@@ -228,11 +249,9 @@
 			
 			$('#data').text('');
 			$('#data').text(dataAtualFormatada());
-			var duracao=0;
 			
 			data.content.map(i => {
 				
-				duracao = duracao + i.duracao;
 				var itens =
 					'<tr id=linha' + i.id +'>'
 					+ '<td id="td-table">' + i.id + '</td>'
@@ -416,6 +435,41 @@
 					},
 					options: { responsive: true, }
 				});
+				
+				document.getElementById('historicoSolicitacoes').remove();
+				$('#historico').append('<canvas id="historicoSolicitacoes"></canvas>');
+				
+				const ctx6 = document.getElementById('historicoSolicitacoes');
+				
+				var labelMes=[];
+				var labelQuantidades=[];
+				
+				for(var i=0; i < data.historico.length ; i++){
+					labelMes[i]=data.historico[i].mes + " " + data.historico[i].qtd;
+					labelQuantidades[i]=data.historico[i].qtd;
+				}
+				
+				new Chart(ctx6, {
+					type: 'line',
+					data: {
+						labels: labelMes,
+						datasets: [{
+							label: 'Historico das Solicitações: ',
+							data: labelQuantidades,
+							backgroundColor: [
+								'rgba(255, 60, 0, 0.5)',
+								'rgba(255, 0, 0, 0.5)',
+								'rgba(255, 160, 0, 0.5)',
+								'rgba(0, 150, 0, 0.5)',
+								'rgba(0, 100, 255, 0.5)'
+							],
+							borderWidth: 1,
+							tension: 0.2
+						}]
+					},
+					options: { responsive: true, }
+				});
+				
 			}
 		}
 </script>
