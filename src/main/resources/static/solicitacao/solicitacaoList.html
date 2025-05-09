@@ -642,6 +642,28 @@
   	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
   	<script>
+		function atualizaContador(dataInicial){
+			
+			const agora = new Date();
+			const outraData = converteData(dataInicial);
+			const diferenca = agora - outraData;
+			const segundosTotais = Math.floor(diferenca / 1000);
+			
+			const dias = Math.floor(segundosTotais / 86400);
+			const horas = Math.floor((segundosTotais % 86400) / 3600);
+			const minutos = Math.floor((segundosTotais % 3600) / 60);
+			const segundos = segundosTotais % 60;
+			
+			return `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+		}
+		
+		function converteData(dataStr){
+			const [data, hora] = dataStr.split(' ');
+			const [dia, mes, ano] = data.split('/').map(Number);
+			const [horas, minutos] = hora.split(':').map(Number);
+			return new Date(ano, mes -1, dia, horas, minutos);
+		}
+		
 		function generatePDF() {
 		  var doc = new jsPDF('l', 'pt');
 		
@@ -865,7 +887,7 @@
 					+ '<td id=prioridade' + i.id+'><span '+alertaPrioridade+' >' + i.prioridade + '</span></td>'
 					+ '<td id=classificacao' + i.id + '><p>' + i.classificacao + '</p> Peso: <span '+ alertaPeso + '>' + i.peso +'</span></td>'
 					+ '<td class=funcionario-responsavel id=nomeFuncionario' + i.id + '>' + i.nomeFuncionario + '</td>'
-					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: red; font-weight: bold">'+ dataStatus +'</span></td>'
+					+ '<td id=status' + i.id + ' ><p>' + i.status + '</p><span style="font-size:12px ; color: blue; font-weight: bold">'+ dataStatus +'<p style="color : red"> ' + ((dataStatus != null && dataStatus != '') ? atualizaContador(dataStatus): " ") + '</p></span></td>'
 					+ '<td id=duracao' + i.id + '><span '+alerta+'><b>' + tempo + '</b></span></td>'
 					+ '<td id=versao' + i.id + ' class=escondeVersao>' + i.versao + '</td>'
 					+ '</tr>'
