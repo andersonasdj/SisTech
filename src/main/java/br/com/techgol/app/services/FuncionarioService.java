@@ -27,6 +27,13 @@ public class FuncionarioService {
 	@Autowired
 	FuncionarioRepository repository;
 	
+	@Transactional
+	public void atualizaImagem(Long id, String caminhoFoto) {
+		Funcionario funcionario = repository.getReferenceById(id);
+		funcionario.setCaminhoFoto(caminhoFoto);
+	}
+	
+	
 	@Cacheable(value="nomesFuncionariosAtivos")
 	public List<String> listarNomesFuncionariosAtivos() {
 		return repository.listarNomesFuncionarios();

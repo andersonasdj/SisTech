@@ -95,8 +95,9 @@
 				    <div class="col-2 col-s-4">
 							<div id="containerPerfil">
 								<aside class="">
-										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="...">
+									<span id="fotoDePerfil"></span>
 								</aside>
+									<span class="ocultar-link" style="font-size: 9px; padding-left: 50px;" data-bs-toggle="modal" data-bs-target="#modalFoto"><a href="#">Alterar imagem</a> </span>
 							<br /><br />
 						</div>
 				    </div>
@@ -182,6 +183,40 @@
 		</div>
 	<!-- ################################################# MODAL AVISOS ################################################# -->
 	
+	<!-- ################################################# MODAL FOTO ################################################# -->
+			<div class="modal fade" id="modalFoto" tabindex="-1" aria-labelledby="modalFoto"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="modalLabelColaborador">Atualização de foto de perfil</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+						</div>
+						<br />
+						<div class="container">
+								<div class="Neon Neon-theme-dragdropbox">
+									<form id="uploadForm" enctype="multipart/form-data">
+										
+										<div class="Neon-input-dragDrop">
+											<div class="Neon-input-inner">
+												<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+												<span id="inputId"></span>
+												<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
+											</div>
+											<br />
+										<button type="submit" class="Neon-input-choose-btn green">Enviar</button>
+										</div>
+									</form>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- ################################################# MODAL FOTO ################################################# -->
+	
 	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
 		<div class="modal fade" id="modalTrocaDeSenha" tabindex="-1" aria-labelledby="modalTrocaDeSenha"
 			aria-hidden="true">
@@ -252,9 +287,12 @@
 	<script src="assets/js/chart.js"></script>
 	<script src="assets/js/password-generator.js"></script>
 	<script>
+		$(document).ready(function () {
+			home();
+		});
+		
 		function refeicao(){
 			var refeicao = $('#refeicaoValor').val();
-			
 			
 			if (confirm("Tem certeza que deseja alterar seu estatus ?") == true) {
 				if(refeicao == 'false'){
@@ -339,125 +377,152 @@
 			})
 		}
 		
-		$(document).ready(function () {
-				$.ajax({
-					url: "/sistech/funcionarios/home",
-					type: "GET",
-					success: function (data) {
-						
-					if(data.refeicao != null){
-						if(data.refeicao == true){
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
-						}else{
-							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
-						}
+		function home(){
+			$.ajax({
+				url: "/sistech/funcionarios/home",
+				type: "GET",
+				success: function (data) {
+					
+					insereFoto(data.id);
+					
+					$('#inputId').append('<input type="hidden" id="id" name="id" value="'+data.id+'"></input>');
+					
+				if(data.refeicao != null){
+					if(data.refeicao == true){
+						$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
 					}else{
-						$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
+						$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
 					}
-						
-						if(data.avisos > 0){
-							$('#btnAvisos').append('<p class="nav-item dropdown">'
-								+'<a class="blink" href="#" data-bs-toggle="modal" data-bs-target="#modalLabelColaborador" onclick="aviso()" role="button"'
-								+'aria-expanded="false">'
-								+'<b><span style="color: red; font-size: 27px;"><i class="bi bi-bell"></i><span style="color : red; font-size: 15px">'+ data.avisos +'</span></span> </b></a></p>');
-						}
-						
-						if(data.agendadosAtrasados > 0){
-							$('#agendamentosAtrasados').append('<b> Agendamentos Atrasados: </b><span><a href="/sistech/solicitacao/relatorios" style="color: red; font-size: 25px">' + data.agendadosAtrasados +'</a></span>');
-						}
-						if(data.agendadosHoje > 0){
-							$('#agendamentosHoje').append('<b> Agendamentos Hoje: </b><span><a href="/sistech/solicitacao/relatorios" style="color: orange; font-size: 25px">' + data.agendadosHoje +'</a></span>');
-						}
-						
-						$('#saudacao').text(data.saudacao);
-						$('#nomeFuncionario').text(data.nomeFuncionario);
-						$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
-						
-						if(data.trocaSenha == true){
-							$("#modalTrocaDeSenha").modal('toggle'); 
-						}
-						<!--Chart.defaults.color = "#FFFFFF";-->
-						const ctx = document.getElementById('minhasSolicitacoes');
-						new Chart(ctx, {
-					    type: 'bar',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
-					        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-						     scales: { y: { min: 0, max: data.solicitacoes.total } } 
-						}
-					  });
-					  
-					  const ctx2 = document.getElementById('geralSolicitacoes');
-					  new Chart(ctx2, {
-					    type: 'line',
-					    data: {
-					      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-					      datasets: [{
-					        label: 'Solicitações gerais: ' + data.gerais.total,
-					        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
-					         backgroundColor: [
-							      'rgba(255, 99, 132, 0.2)',
-							      'rgba(0, 150, 255, 0.2)',
-							      'rgba(255, 205, 86, 0.2)',
-							      'rgba(121, 125, 127, 0.2)',
-							      'rgba(54, 162, 235, 0.2)',
-							      'rgba(153, 102, 255, 0.2)',
-							      'rgba(201, 203, 207, 0.2)'
-							    ],
-							    borderColor: [
-							      'rgb(255, 99, 132)',
-							      'rgb(0, 150, 255)',
-							      'rgb(255, 205, 86)',
-							      'rgb(121, 125, 127)',
-							      'rgb(54, 162, 235)',
-							      'rgb(153, 102, 255)',
-							      'rgb(201, 203, 207)'
-					    	],
-					        borderWidth: 1
-					      }]
-					    },
-					    options: {
-							 responsive: true,
-							  tension: 0.2,
-						     scales: { y: { min: 0, max: data.gerais.total } }
-						}
-					  });
-					},
-					statusCode: {
-					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					    401: function() { 
-							alert('Realize login novamente!');
-							window.location.href = "/sistech/login"; 
-						}
-					},
-					complete: function (data) { }
-				})
-		});
+				}else{
+					$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
+				}
+					
+					if(data.avisos > 0){
+						$('#btnAvisos').append('<p class="nav-item dropdown">'
+							+'<a class="blink" href="#" data-bs-toggle="modal" data-bs-target="#modalLabelColaborador" onclick="aviso()" role="button"'
+							+'aria-expanded="false">'
+							+'<b><span style="color: red; font-size: 27px;"><i class="bi bi-bell"></i><span style="color : red; font-size: 15px">'+ data.avisos +'</span></span> </b></a></p>');
+					}
+					
+					if(data.agendadosAtrasados > 0){
+						$('#agendamentosAtrasados').append('<b> Agendamentos Atrasados: </b><span><a href="/sistech/solicitacao/relatorios" style="color: red; font-size: 25px">' + data.agendadosAtrasados +'</a></span>');
+					}
+					if(data.agendadosHoje > 0){
+						$('#agendamentosHoje').append('<b> Agendamentos Hoje: </b><span><a href="/sistech/solicitacao/relatorios" style="color: orange; font-size: 25px">' + data.agendadosHoje +'</a></span>');
+					}
+					
+					$('#saudacao').text(data.saudacao);
+					$('#nomeFuncionario').text(data.nomeFuncionario);
+					$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
+					
+					if(data.trocaSenha == true){
+						$("#modalTrocaDeSenha").modal('toggle'); 
+					}
+					<!--Chart.defaults.color = "#FFFFFF";-->
+					const ctx = document.getElementById('minhasSolicitacoes');
+					new Chart(ctx, {
+				    type: 'bar',
+				    data: {
+				      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
+				      datasets: [{
+				        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
+				        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
+				         backgroundColor: [
+						      'rgba(255, 99, 132, 0.2)',
+						      'rgba(0, 150, 255, 0.2)',
+						      'rgba(255, 205, 86, 0.2)',
+						      'rgba(121, 125, 127, 0.2)',
+						      'rgba(54, 162, 235, 0.2)',
+						      'rgba(153, 102, 255, 0.2)',
+						      'rgba(201, 203, 207, 0.2)'
+						    ],
+						    borderColor: [
+						      'rgb(255, 99, 132)',
+						      'rgb(0, 150, 255)',
+						      'rgb(255, 205, 86)',
+						      'rgb(121, 125, 127)',
+						      'rgb(54, 162, 235)',
+						      'rgb(153, 102, 255)',
+						      'rgb(201, 203, 207)'
+				    	],
+				        borderWidth: 1
+				      }]
+				    },
+				    options: {
+						 responsive: true,
+					     scales: { y: { min: 0, max: data.solicitacoes.total } } 
+					}
+				  });
+				  
+				  const ctx2 = document.getElementById('geralSolicitacoes');
+				  new Chart(ctx2, {
+				    type: 'line',
+				    data: {
+				      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
+				      datasets: [{
+				        label: 'Solicitações gerais: ' + data.gerais.total,
+				        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
+				         backgroundColor: [
+						      'rgba(255, 99, 132, 0.2)',
+						      'rgba(0, 150, 255, 0.2)',
+						      'rgba(255, 205, 86, 0.2)',
+						      'rgba(121, 125, 127, 0.2)',
+						      'rgba(54, 162, 235, 0.2)',
+						      'rgba(153, 102, 255, 0.2)',
+						      'rgba(201, 203, 207, 0.2)'
+						    ],
+						    borderColor: [
+						      'rgb(255, 99, 132)',
+						      'rgb(0, 150, 255)',
+						      'rgb(255, 205, 86)',
+						      'rgb(121, 125, 127)',
+						      'rgb(54, 162, 235)',
+						      'rgb(153, 102, 255)',
+						      'rgb(201, 203, 207)'
+				    	],
+				        borderWidth: 1
+				      }]
+				    },
+				    options: {
+						 responsive: true,
+						  tension: 0.2,
+					     scales: { y: { min: 0, max: data.gerais.total } }
+					}
+				  });
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { 
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login"; 
+					}
+				},
+				complete: function (data) { }
+			})
+		}
+		
+		function insereFoto(id){
+			$.ajax({
+				url: "/sistech/api/file/perfil/"+id,
+				type: "GET",
+				success: function (data) {
+					if(data != null){
+						$('#fotoDePerfil').append('<img id="" src="./api/file/perfil/'+id+'" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">')
+					}else{
+						$('#fotoDePerfil').append('<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">')
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { 
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login"; 
+					}
+				},
+				complete: function (data) { }
+			})
+		}
+		
 	</script>
 	<script>
 		setInterval(() => {
@@ -510,5 +575,24 @@
 		  ampm.innerHTML = am;
 		})
 	</script>
+	<script>
+	    	document.getElementById("uploadForm").addEventListener("submit", function (e){
+				e.preventDefault();
+				
+				const form = document.getElementById("uploadForm");
+				const formData = new FormData(form);
+				
+				fetch("/sistech/api/file/perfil/upload", {
+					method: "POST",
+					body: formData
+				})
+				.then(res => res.text())
+				.then(data => {
+					alert("Aviso: " + data);
+					window.location.reload();
+				});
+			});
+			
+	    </script>
 </body>
 </html>

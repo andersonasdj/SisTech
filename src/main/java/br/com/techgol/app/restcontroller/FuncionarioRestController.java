@@ -119,7 +119,8 @@ public class FuncionarioRestController {
 						(trocaSenha) != null ? trocaSenha : false,
 						service.buscaSolicitacoes(funcionario),
 						service.buscaSolicitacoesGerais(),
-						refeicao
+						refeicao,
+						funcionario.getId()
 				));
 	}
 	

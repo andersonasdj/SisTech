@@ -11,6 +11,7 @@ public record DtoFuncionarioHome(
 		Boolean trocaSenha,
 		DtoSolicitacoesFuncionario solicitacoes,
 		DtoSolicitacoesGerais gerais,
-		Boolean refeicao
+		Boolean refeicao,
+		Long id
 		) {
 }
