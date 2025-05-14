@@ -162,46 +162,53 @@
 		<hr class="bg-danger border-2 border-top border-danger">
 
 		<div class="container">
-			
 			<div class="Neon Neon-theme-dragdropbox">
-				<form id="uploadForm" enctype="multipart/form-data">
-					<input
-						style="z-index: 999; opacity: 0; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;"
-						name="file" id="file" type="file">
-					<div class="Neon-input-dragDrop">
-						<div class="Neon-input-inner">
-							<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-							<div class="Neon-input-text">
-							</div><a class="Neon-input-choose-btn blue">Selecione o arquivo</a>
-						</div>
-						<br />
-					<button type="submit" class="Neon-input-choose-btn green">Enviar</button>
+				<input
+					style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;"
+					name="files[]" id="filer_input2" multiple="multiple" type="file">
+				<div class="Neon-input-dragDrop">
+					<div class="Neon-input-inner">
+						<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+						<div class="Neon-input-text">
+							<h3>Drag&amp;Drop files here</h3> <span
+								style="display:inline-block; margin: 15px 0">or</span>
+						</div><a class="Neon-input-choose-btn blue">Browse Files</a>
 					</div>
-				</form>
+				</div>
 			</div>
-			
 		</div>
 
 		<br /><br />
 		<br /><br />
-		
+		<footer class="text-center text-white">
+			<div class="container-fluid">
+				<!-- Grid container -->
+				<div class="p-4 pb-0">
+					<!-- Section: Social media -->
+					<section class="mb-4">
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,191,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(30,144,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(65,105,225);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,255);" href="#!" role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,205);" href="#!"	role="button"></a>
+						<a class="btn btn-primary btn-floating m-1" style="background-color: rgb(0,0,128);" href="#!"	role="button"></a>
+					</section>
+					<!-- Section: Social media -->
+				</div>
+				<!-- Grid container -->
+
+				<!-- Copyright -->
+				<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2024 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+				<!-- Copyright -->
+		</footer>
 	</div>
 	<script>
-    	document.getElementById("uploadForm").addEventListener("submit", function (e){
-			e.preventDefault();
-			
-			const form = document.getElementById("uploadForm");
-			const formData = new FormData(form);
-			
-			fetch("/sistech/api/file/upload", {
-				method: "POST",
-				body: formData
-			})
-			.then(res => res.text())
-			.then(data => alert("Resposta: " + data))
-			.then(err => alert("Erro: " + err));
-		});
-		
+      function print() {
+        window.open('./impressao', '_blank');
+      }
     </script>
 	<script src="assets/js/jquery-3.6.3.js"></script>
 	<script src="assets/js/popper.min.js"></script>
