@@ -95,7 +95,9 @@
 				    <div class="col-2 col-s-4">
 							<div id="containerPerfil">
 								<aside class="">
-									<span id="fotoDePerfil"></span>
+									<span id="fotoDePerfil">
+										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">
+									</span>
 								</aside>
 									<span class="ocultar-link" style="font-size: 9px; padding-left: 50px;" data-bs-toggle="modal" data-bs-target="#modalFoto"><a href="#">Alterar imagem</a> </span>
 							<br /><br />
@@ -287,9 +289,7 @@
 	<script src="assets/js/chart.js"></script>
 	<script src="assets/js/password-generator.js"></script>
 	<script>
-		$(document).ready(function () {
 			home();
-		});
 		
 		function refeicao(){
 			var refeicao = $('#refeicaoValor').val();
@@ -507,9 +507,8 @@
 				type: "GET",
 				success: function (data) {
 					if(data != null){
+						$('#fotoDePerfil').empty();
 						$('#fotoDePerfil').append('<img id="" src="./api/file/perfil/'+id+'" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">')
-					}else{
-						$('#fotoDePerfil').append('<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">')
 					}
 				},
 				statusCode: {
