@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.techgol.app.dto.DtoFile;
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.services.FuncionarioService;
+import br.com.techgol.app.services.SolicitacaoService;
 
 @RestController
 @RequestMapping("/api/file")
@@ -45,6 +48,9 @@ public class FileRestController {
 	@Autowired
 	FuncionarioService service;
 	
+	@Autowired
+	SolicitacaoService solicitacaoService;
+	
 	@Value("${upload.dir}")
 	private String UPLOAD_DIR;
 	
@@ -52,7 +58,7 @@ public class FileRestController {
 	public ResponseEntity<String> uploadFile(@ModelAttribute DtoFile uploadRequest){
 		
 		MultipartFile file = uploadRequest.file();
-		String id = uploadRequest.id();
+		Long id = uploadRequest.id();
 		
 		if(file.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("o arquivo está vazio");
@@ -87,12 +93,12 @@ public class FileRestController {
 	        ((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario()
 	    );
 
-	    if (!uploadRequest.id().equals(funcionario.getId().toString())) {
+	    if (!uploadRequest.id().equals(funcionario.getId())) {
 	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não autorizado a alterar este perfil.");
 	    }
 
 	    MultipartFile file = uploadRequest.file();
-	    String id = uploadRequest.id();
+	    Long id = uploadRequest.id();
 	    String contentType = file.getContentType();
 	    String originalFileName = file.getOriginalFilename();
 
@@ -215,5 +221,124 @@ public class FileRestController {
 		}
 		
 	}
+	
+	
+	
+	@PostMapping("/solicitacao/upload")
+	public ResponseEntity<String> solicitacaoUploadFile(@ModelAttribute DtoFile uploadRequest) {
+	    
+	    Solicitacao solicitacao = solicitacaoService.buscarPorId(uploadRequest.id());
+	    
+	    if (!uploadRequest.id().equals(solicitacao.getId())) {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não autorizado a alterar esta solicitacao.");
+	    }
+
+	    MultipartFile file = uploadRequest.file();
+	    Long id = uploadRequest.id();
+	    String contentType = file.getContentType();
+	    String originalFileName = file.getOriginalFilename();
+
+	    if (!isValidImage(contentType, originalFileName)) {
+	        return ResponseEntity.badRequest().body("Somente arquivos JPEG e PNG são permitidos");
+	    }
+
+	    if (file.isEmpty()) {
+	        return ResponseEntity.badRequest().body("O arquivo está vazio");
+	    }
+
+	    try {
+	        File uploadDir = new File(UPLOAD_DIR + "/solicitacoes/" + id + "/");
+	        if (!uploadDir.exists() && !uploadDir.mkdirs()) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não foi possível criar o diretório");
+	        }
+
+	        // Limpa arquivos existentes
+	        Files.list(uploadDir.toPath())
+	            .filter(Files::isRegularFile)
+	            .forEach(path -> {
+	                try {
+	                    Files.delete(path);
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            });
+
+	        BufferedImage originalImage = ImageIO.read(file.getInputStream());
+	        if (originalImage == null) {
+	            return ResponseEntity.badRequest().body("Arquivo inválido.");
+	        }
+
+	        // Cria nova imagem RGB com fundo branco (para remover transparência)
+	        BufferedImage newImage = new BufferedImage(
+	            originalImage.getWidth(),
+	            originalImage.getHeight(),
+	            BufferedImage.TYPE_INT_RGB
+	        );
+	        Graphics2D g = newImage.createGraphics();
+	        g.setColor(Color.WHITE); // fundo branco
+	        g.fillRect(0, 0, originalImage.getWidth(), originalImage.getHeight());
+	        g.drawImage(originalImage, 0, 0, null);
+	        g.dispose();
+
+	        // Salva como JPEG com compressão
+	        String finalFileName = "solicitacao_" + id + ".jpg";
+	        Path destino = Paths.get(uploadDir.getAbsolutePath(), finalFileName);
+
+	        try (OutputStream os = Files.newOutputStream(destino)) {
+	            ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+	            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+	            writer.setOutput(ios);
+
+	            ImageWriteParam param = writer.getDefaultWriteParam();
+	            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+	            param.setCompressionQuality(0.3f); // 0.0 = baixa qualidade, 1.0 = alta
+
+	            writer.write(null, new IIOImage(newImage, null, null), param);
+	            ios.close();
+	            writer.dispose();
+	        }
+
+	        solicitacaoService.atualizaArquivo(solicitacao.getId(), "/solicitacoes/" + id + "/" + finalFileName);
+	        return ResponseEntity.ok("Arquivo enviado com sucesso!");
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o arquivo!");
+	    }
+	}
+	
+	
+	@GetMapping("/solicitacao/{id}")
+	public ResponseEntity<Resource> baixarAnexo(@PathVariable Long id) {
+		
+		System.out.println("ID: " + id);
+	    try {
+	        Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
+
+	        // Caminho completo do anexo
+	        Path caminhoArquivo = Paths.get(UPLOAD_DIR).resolve(UPLOAD_DIR + solicitacao.getAnexo()).normalize();
+	        Resource recurso = new UrlResource(caminhoArquivo.toUri());
+
+	        if (!recurso.exists() || !recurso.isReadable()) {
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        String contentType = Files.probeContentType(caminhoArquivo);
+	        if (contentType == null) {
+	            contentType = "application/octet-stream";
+	        }
+
+	        return ResponseEntity.ok()
+	            .contentType(MediaType.parseMediaType(contentType))
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+	            .body(recurso);
+
+	    } catch (MalformedURLException e) {
+	        return ResponseEntity.badRequest().build();
+	    } catch (Exception e) {
+	        return ResponseEntity.internalServerError().build();
+	    }
+	}
+
 
 }

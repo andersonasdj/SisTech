@@ -101,6 +101,8 @@ public class Solicitacao {
 	
 	private Long peso;
 	
+	private String anexo;
+	
 	public Solicitacao(DtoCadastroSolicitacao dados, Cliente cliente, Funcionario funcionario) {
 		this.cliente = cliente;
 		this.formaAbertura = dados.formaAbertura();

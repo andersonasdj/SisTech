@@ -219,6 +219,9 @@
 						&nbsp; &nbsp;
 						<span id="btnTimesheet"> </span>
 						<span hidden id="idHistorico"> </span>
+						&nbsp; &nbsp;
+						<span id="btnAnexo"> </span>
+						
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
 					<div class="modal-body">
@@ -633,6 +636,39 @@
 					</div>
 				</div>
 				<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
+				<!-- ################################################ MODAL ARQUIVO ################################################# -->
+				<div class="modal fade" id="modalArquivo" tabindex="-1" aria-labelledby="modalArquivo"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo da solicitação</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+							</div>
+							<br />
+							<div class="container">
+									<div class="Neon Neon-theme-dragdropbox">
+										<form id="uploadForm" enctype="multipart/form-data">
+											
+											<div class="Neon-input-dragDrop">
+												<div class="Neon-input-inner">
+													<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+													<span id="inputId"></span>
+													<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
+												</div>
+												<br />
+											<button type="submit" class="Neon-input-choose-btn green">Enviar</button>
+											</div>
+										</form>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- ################################################ MODAL ARQUIVO ################################################# -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -1112,7 +1148,20 @@
 				success: function (data) {
 					
 					if(data.funcionario != null && data.colaboradores != null){
+						
+						$('#inputId').empty();
 						$('#btnTimesheet').text("");
+						$('#btnAnexo').text("");
+						if(data.anexo != null && data.anexo != ' '){
+							$('#btnAnexo').append('<button class="btn btn-sm btn-timesheet" onclick="baixarAnexo('+id+')"><i class="bi bi-paperclip"></i>Baixar Anexo</button>&nbsp; &nbsp;');
+							$('#btnAnexo').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalArquivo"><i class="bi bi-paperclip"></i>Alterar Anexo</button>');
+							$('#inputId').append('<input type="hidden" id="id" name="id" value="'+data.id+'"></input>');
+													
+						}else{
+							$('#btnAnexo').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalArquivo"><i class="bi bi-paperclip"></i>Incluir Anexo</button>');
+							$('#inputId').append('<input type="hidden" id="id" name="id" value="'+data.id+'"></input>');
+						}
+						
 						if(data.duracao > 0){
 							$('#btnTimesheet').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
 						}
@@ -1824,6 +1873,66 @@
 		    else {$('.no-result').hide();}
 				  });
 		});
+	</script>
+	<script>
+	    	document.getElementById("uploadForm").addEventListener("submit", function (e){
+				e.preventDefault();
+				
+				const form = document.getElementById("uploadForm");
+				const formData = new FormData(form);
+				
+				fetch("/sistech/api/file/solicitacao/upload", {
+					method: "POST",
+					body: formData
+				})
+				.then(res => res.text())
+				.then(data => {
+					alert("Aviso: " + data);
+				});
+			});
+			
+			
+			function baixarAnexo(id) {
+			    $.ajax({
+			        url: "/sistech/api/file/solicitacao/" + id,
+			        type: "GET",
+			        xhrFields: {
+			            responseType: 'blob' // força a resposta como binário
+			        },
+			        success: function (blob, status, xhr) {
+			            // Tenta extrair o nome do arquivo do header Content-Disposition
+			            const disposition = xhr.getResponseHeader('Content-Disposition');
+			            let fileName = "arquivo";
+
+			            if (disposition && disposition.indexOf('filename=') !== -1) {
+			                const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+			                if (matches != null && matches[1]) {
+			                    fileName = matches[1].replace(/['"]/g, '');
+			                }
+			            }
+
+			            const url = window.URL.createObjectURL(blob);
+			            const a = document.createElement('a');
+			            a.href = url;
+			            a.download = fileName;
+			            document.body.appendChild(a);
+			            a.click();
+			            a.remove();
+			            window.URL.revokeObjectURL(url); // libera memória
+			        },
+			        error: function (xhr) {
+			            if (xhr.status === 500) {
+			                alert('Erro! Contate o desenvolvedor!');
+			            } else if (xhr.status === 401) {
+			                alert('Realize login novamente!');
+			                window.location.href = "/sistech/login";
+			            } else if (xhr.status === 404) {
+			                alert('Arquivo não encontrado!');
+			            }
+			        }
+			    });
+			}
+
 	</script>
 </body>
 </html>

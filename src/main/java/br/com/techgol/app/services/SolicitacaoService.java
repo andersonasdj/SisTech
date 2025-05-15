@@ -90,6 +90,11 @@ public class SolicitacaoService {
 	@Autowired
 	private ColaboradorService colaboradorService;
 	
+	@Transactional
+	public void atualizaArquivo(Long id, String caminhoFoto) {
+		Solicitacao solicitacao = repository.getReferenceById(id);
+		solicitacao.setAnexo(caminhoFoto);
+	}
 	
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPalavra(Pageable page, String conteudo) {
 		return repository.listarSolicitacoesPorPalavra(page, conteudo);
