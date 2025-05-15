@@ -1,11 +1,21 @@
 package br.com.techgol.app.restcontroller;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,63 +82,89 @@ public class FileRestController {
 	}
 	
 	@PostMapping("/perfil/upload")
-	public ResponseEntity<String> perfilUploadFile(@ModelAttribute DtoFile uploadRequest){
-		
-		Funcionario funcionario = service.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-		
-		if(uploadRequest.id().equals(funcionario.getId().toString())) {
-			MultipartFile file = uploadRequest.file();
-			String id = uploadRequest.id();
+	public ResponseEntity<String> perfilUploadFile(@ModelAttribute DtoFile uploadRequest) {
+	    Funcionario funcionario = service.buscaPorNome(
+	        ((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario()
+	    );
 
-			String contentType = file.getContentType();
-			String fileNameTest = file.getOriginalFilename();
-			
-			if(!isValidImage(contentType, fileNameTest)) {
-				return ResponseEntity.badRequest().body("Somente arquivos JPEG e PNG são permitidos");
-			}
-			
-			if(file.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("o arquivo está vazio");
-			}
-			
-			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-			
-			try {
-				File uploadDir = new File(UPLOAD_DIR+"/perfil/"+id+"/");
-				
-				if(!uploadDir.exists()) {
-					boolean created = uploadDir.mkdirs();
-					
-					if(!created) {
-						return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não foi possivel criar o diretorio");
-					}
-				}
-				Path diretoriParaLimpar = Paths.get(uploadDir.toString());
-				
-				Files.list(diretoriParaLimpar)
-				.filter(Files::isRegularFile)
-				.forEach(path -> {
-					try {
-						Files.delete(path);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				});
-				
-				File dest = new File(UPLOAD_DIR +"/perfil/"+ id +"/" + fileName);
-				file.transferTo(dest);
-				
-				service.atualizaImagem(funcionario.getId(), "/perfil/"+ id +"/" + fileName);
-				
-				return ResponseEntity.ok("Arquivo enviado com sucesso!");
-			} catch (IOException e) {
-				e.printStackTrace();
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o arquivo!");
-			}
-		}else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o arquivo!");
-		}
+	    if (!uploadRequest.id().equals(funcionario.getId().toString())) {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não autorizado a alterar este perfil.");
+	    }
+
+	    MultipartFile file = uploadRequest.file();
+	    String id = uploadRequest.id();
+	    String contentType = file.getContentType();
+	    String originalFileName = file.getOriginalFilename();
+
+	    if (!isValidImage(contentType, originalFileName)) {
+	        return ResponseEntity.badRequest().body("Somente arquivos JPEG e PNG são permitidos");
+	    }
+
+	    if (file.isEmpty()) {
+	        return ResponseEntity.badRequest().body("O arquivo está vazio");
+	    }
+
+	    try {
+	        File uploadDir = new File(UPLOAD_DIR + "/perfil/" + id + "/");
+	        if (!uploadDir.exists() && !uploadDir.mkdirs()) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não foi possível criar o diretório");
+	        }
+
+	        // Limpa arquivos existentes
+	        Files.list(uploadDir.toPath())
+	            .filter(Files::isRegularFile)
+	            .forEach(path -> {
+	                try {
+	                    Files.delete(path);
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            });
+
+	        BufferedImage originalImage = ImageIO.read(file.getInputStream());
+	        if (originalImage == null) {
+	            return ResponseEntity.badRequest().body("Arquivo inválido.");
+	        }
+
+	        // Cria nova imagem RGB com fundo branco (para remover transparência)
+	        BufferedImage newImage = new BufferedImage(
+	            originalImage.getWidth(),
+	            originalImage.getHeight(),
+	            BufferedImage.TYPE_INT_RGB
+	        );
+	        Graphics2D g = newImage.createGraphics();
+	        g.setColor(Color.WHITE); // fundo branco
+	        g.fillRect(0, 0, originalImage.getWidth(), originalImage.getHeight());
+	        g.drawImage(originalImage, 0, 0, null);
+	        g.dispose();
+
+	        // Salva como JPEG com compressão
+	        String finalFileName = "perfil_" + id + ".jpg";
+	        Path destino = Paths.get(uploadDir.getAbsolutePath(), finalFileName);
+
+	        try (OutputStream os = Files.newOutputStream(destino)) {
+	            ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+	            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+	            writer.setOutput(ios);
+
+	            ImageWriteParam param = writer.getDefaultWriteParam();
+	            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+	            param.setCompressionQuality(0.2f); // 0.0 = baixa qualidade, 1.0 = alta
+
+	            writer.write(null, new IIOImage(newImage, null, null), param);
+	            ios.close();
+	            writer.dispose();
+	        }
+
+	        service.atualizaImagem(funcionario.getId(), "/perfil/" + id + "/" + finalFileName);
+	        return ResponseEntity.ok("Arquivo enviado com sucesso!");
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o arquivo!");
+	    }
 	}
+
 	
 	private boolean isValidImage(String contentType, String fileName) {
 		return (contentType != null && (

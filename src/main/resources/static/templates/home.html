@@ -96,7 +96,6 @@
 							<div id="containerPerfil">
 								<aside class="">
 									<span id="fotoDePerfil">
-										<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">
 									</span>
 								</aside>
 									<span class="ocultar-link" style="font-size: 9px; padding-left: 50px;" data-bs-toggle="modal" data-bs-target="#modalFoto"><a href="#">Alterar imagem</a> </span>
@@ -291,90 +290,68 @@
 	<script>
 			home();
 		
-		function refeicao(){
-			var refeicao = $('#refeicaoValor').val();
-			
-			if (confirm("Tem certeza que deseja alterar seu estatus ?") == true) {
-				if(refeicao == 'false'){
-					$('#btnRefeicao').empty();
-					$('#refeicaoValor').val(true);
-					$.ajax({
-						type: "PUT",
-						contentType: "application/json",
-						url: "/sistech/funcionarios/refeicao",
-						data: JSON.stringify(
-							{ "refeicao": true }
-						),
-						success: function (data) { 
-							if(data){
-								alert("Status alterado para ( Em Refeição )");	
-								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
-							}else{
-								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
-								alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
-							}
-						},
-						statusCode: {
-						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-						    401: function() { 
-								alert('Realize login novamente!');
-								window.location.href = "/sistech/login"; 
-							}
+			function refeicao() {
+				const $refeicaoInput = $('#refeicaoValor');
+				const $btnRefeicao = $('#btnRefeicao');
+				const refeicaoAtual = $refeicaoInput.val() === 'true';
+				const novoStatus = !refeicaoAtual;
+
+				if (!confirm("Tem certeza que deseja alterar seu estatus?")) return;
+
+				const statusLabel = novoStatus ? 'Em Refeição' : 'Online';
+				const cor = novoStatus ? 'red' : 'green';
+				const valorInput = novoStatus ? 'true' : 'false';
+
+				$btnRefeicao.empty();
+				$refeicaoInput.val(novoStatus);
+
+				$.ajax({
+					type: "PUT",
+					contentType: "application/json",
+					url: "/sistech/funcionarios/refeicao",
+					data: JSON.stringify({ refeicao: novoStatus }),
+					success: function (data) {
+						if (data) {
+							alert("Status alterado para (" + statusLabel + ")");
+						} else {
+							alert("Não foi possível atualizar seu status!\n\nA alteração do status só pode ser realizada uma vez ao dia.");
 						}
-					});
-					
-				}else{
-					$('#btnRefeicao').empty();
-					$('#refeicaoValor').val(false);
-					$.ajax({
-						type: "PUT",
-						contentType: "application/json",
-						url: "/sistech/funcionarios/refeicao",
-						data: JSON.stringify(
-							{ "refeicao": false }
-						),
-						success: function (data) { 
-							if(data){
-								alert("Status alterado para ( Online! )");	
-								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i></a>');
-							}else{
-								$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="true"></i></a>');
-								alert("Não foi possivel atualizar seu status! \n\nA alteração do status só pode ser realizada uma vez ao dia.");
-							}
-						},
-						statusCode: {
-						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-						    401: function() { 
-								alert('Realize login novamente!');
-								window.location.href = "/sistech/login"; 
-							}
+
+						$btnRefeicao.append(`
+							<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição">
+								<i class="bi bi-cup-hot" style="color: ${data ? cor : (cor === 'red' ? 'green' : 'red')}; font-size: 27px;">
+									<input type="hidden" id="refeicaoValor" name="refeicaoValor" value="${data ? valorInput : refeicaoAtual}">
+								</i>
+							</a>
+						`);
+					},
+					statusCode: {
+						500: function () { alert('Erro! Contate o desenvolvedor!'); },
+						401: function () {
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login";
 						}
-					});
-				}
-			}
-		}
-		
-		function aviso(){
-			$('#conteudoAvisos').empty();
-			
-			$.ajax({
-				url: "/sistech/api/v1/avisos",
-				type: "GET",
-				success: function (data) {
-					$('#conteudoAvisos').append('<br />')
-					data.map(i => {
-						$('#conteudoAvisos').append('<p><b> * ' + i.aviso + '</b></p> ')
-					});
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { 
-						alert('Realize login novamente!');
-						window.location.href = "/sistech/login"; 
 					}
-				},
-				complete: function (data) { }
-			})
+				});
+			}
+		
+		function aviso() {
+			const $conteudoAvisos = $('#conteudoAvisos');
+			$conteudoAvisos.empty().append('<br />');
+
+			$.get("/sistech/api/v1/avisos")
+				.done(function (data) {
+					const avisosHtml = data.map(i => `<p><b>* ${i.aviso}</b></p>`).join('');
+					$conteudoAvisos.append(avisosHtml);
+				})
+				.fail(function (xhr) {
+					if (xhr.status === 500) {
+						alert('Erro! Contate o desenvolvedor!');
+					} else if (xhr.status === 401) {
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login";
+					}
+				});
 		}
 		
 		function home(){
@@ -502,24 +479,45 @@
 		}
 		
 		function insereFoto(id){
+			
 			$.ajax({
-				url: "/sistech/api/file/perfil/"+id,
-				type: "GET",
-				success: function (data) {
-					if(data != null){
+					url: "/sistech/api/file/perfil/" + id,
+					type: "GET",
+					xhrFields: {
+						responseType: 'blob' // força a resposta como binário (imagem ou não)
+					},
+					success: function (blob) {
+						const contentType = blob.type;
+
 						$('#fotoDePerfil').empty();
-						$('#fotoDePerfil').append('<img id="" src="./api/file/perfil/'+id+'" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">')
+
+						if (contentType.startsWith('image/')) {
+							// Cria URL da imagem recebida
+							const imageUrl = URL.createObjectURL(blob);
+							$('#fotoDePerfil').append(
+								'<img src="' + imageUrl + '" style="width: 180px" class="img-fluid img-thumbnail" alt="Foto de perfil" data-bs-toggle="modal" data-bs-target="#modalFoto">'
+							);
+						} else {
+							// Caso não seja imagem, exibe uma imagem padrão
+							$('#fotoDePerfil').append(
+								'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
+							);
+						}
+					},
+					error: function (xhr) {
+						$('#fotoDePerfil').empty();
+						$('#fotoDePerfil').append(
+							'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
+						);
+
+						if (xhr.status === 500) {
+							alert('Erro! Contate o desenvolvedor!');
+						} else if (xhr.status === 401) {
+							alert('Realize login novamente!');
+							window.location.href = "/sistech/login";
+						}
 					}
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { 
-						alert('Realize login novamente!');
-						window.location.href = "/sistech/login"; 
-					}
-				},
-				complete: function (data) { }
-			})
+				});
 		}
 		
 	</script>
@@ -591,7 +589,6 @@
 					window.location.reload();
 				});
 			});
-			
-	    </script>
+	</script>
 </body>
 </html>
