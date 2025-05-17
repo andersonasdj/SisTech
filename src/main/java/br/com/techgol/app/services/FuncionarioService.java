@@ -33,7 +33,6 @@ public class FuncionarioService {
 		funcionario.setCaminhoFoto(caminhoFoto);
 	}
 	
-	
 	@Cacheable(value="nomesFuncionariosAtivos")
 	public List<String> listarNomesFuncionariosAtivos() {
 		return repository.listarNomesFuncionarios();

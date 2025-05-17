@@ -21,20 +21,19 @@ public class AppController {
 	@Autowired
 	FuncionarioService funcionarioService;
 	
-	// Exibe o formulário de verificação de 2FA
     @GetMapping("/2fa")
     public String exibirFormulario2FA(HttpSession session, Model model) {
+    	System.out.println("TESTE");
         Funcionario tempUser = (Funcionario) session.getAttribute("TEMP_USER");
 
         if (tempUser == null) {
             return "redirect:/login";
         }
 
-        model.addAttribute("email", tempUser.getEmail()); // Se quiser exibir para qual email foi enviado
-        return "templates/2fa.html"; // Nome do template (ex: templates/2fa.html ou 2fa.jsp)
+        model.addAttribute("email", tempUser.getEmail());
+        return "templates/2fa.html";
     }
     
- // Valida o código 2FA
     @PostMapping("/verify-2fa")
     public String verificarCodigo2FA(@RequestParam("codigo") String codigo, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -47,31 +46,27 @@ public class AppController {
             return "redirect:/login";
         }
 
-        // Recarrega o usuário do banco para pegar o código mais recente
         Funcionario funcionarioBanco = funcionarioService.buscaPorNome(tempUser.getNomeFuncionario());
 
         if (funcionarioBanco.getCode() != null && funcionarioBanco.getCode().equals(codigo)) {
-            // Código correto → autenticar manualmente
+       
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     funcionarioBanco, null, funcionarioBanco.getAuthorities()
             );
 
             SecurityContextHolder.getContext().setAuthentication(authToken);
-
-            // Invalida código após uso (opcional)
+            
             funcionarioBanco.setCode(null);
-            funcionarioService.atualizarCode(funcionarioBanco); // ou o método adequado
+            funcionarioService.atualizarCode(funcionarioBanco);
 
-            // Remove usuário temporário da sessão
             session.removeAttribute("TEMP_USER");
 
             return "redirect:/home";
         } else {
             request.setAttribute("erro", "Código inválido");
-            return "2fa";
+            return "templates/2fa.html";
         }
     }
-	
 	
 	@GetMapping("/impressao-timesheet-cliente")
 	public String impressaoTimeSheetCliente() {

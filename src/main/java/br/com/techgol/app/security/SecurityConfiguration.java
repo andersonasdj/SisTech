@@ -1,6 +1,5 @@
 package br.com.techgol.app.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -29,34 +26,31 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		
-		httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(headers -> headers.disable())
-                //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/templates/**").permitAll()
-                                .requestMatchers("/assets/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/create").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/create").permitAll()
-                                .anyRequest().authenticated()
-                ).httpBasic(withDefaults()).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/login")
-                                .defaultSuccessUrl("/home")
-                                .permitAll()
-                )
-                .sessionManagement((sessionManagement) -> sessionManagement.invalidSessionUrl("/login")
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/templates/**", "/assets/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login", "/create").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/create").permitAll()
+                        .anyRequest().authenticated()
+                    )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home")
+                        .permitAll()
+                    )
+                .sessionManagement(session -> session
+                        .invalidSessionUrl("/login")
                         .maximumSessions(1)
-                        .sessionRegistry(sessionRegistry()))
-                .logout(logout -> logout.logoutSuccessUrl("/login")
+                        .sessionRegistry(sessionRegistry())
+                    )
+                .logout(logout -> logout
                         .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"))
-        		;
+                        .deleteCookies("JSESSIONID")
+                );
 		 
 		 return httpSecurity.build();
 	}

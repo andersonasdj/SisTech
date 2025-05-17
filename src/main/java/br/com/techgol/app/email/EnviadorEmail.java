@@ -28,6 +28,33 @@ public class EnviadorEmail {
 	
 		@Autowired
 	    private JavaMailSender emailSender;
+		
+		
+		@Async
+	    public void enviar2fa(String email, String assunto, String mensagem) {
+	        try {
+	            
+	            MimeMessage message = emailSender.createMimeMessage();
+	            message.setSubject(assunto);
+	            MimeMessageHelper helper;
+	            helper = new MimeMessageHelper(message, true);
+	            helper.setFrom(senderEmail);
+	            helper.setTo(email);
+	            helper.setText(mensagem, true);
+	            emailSender.send(message);
+	            
+	            System.out.println("Enviando email!");
+	            System.out.println("OK");
+
+	            //Simulando demora de 3 segundos para enviar email
+	            //Thread.sleep(3000);
+
+	        } catch (Exception e) {
+	            throw new RuntimeException("Erro ao enviar email!", e);
+	        }
+	    }
+		
+		
 
 		@Async
 	    public void enviarEmailNovaSolicitacao(DtoSolicitacaoComFuncionario dados, String destinatario) {

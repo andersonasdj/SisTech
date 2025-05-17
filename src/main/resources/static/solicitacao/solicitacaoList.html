@@ -669,6 +669,28 @@
 					</div>
 				</div>
 			<!-- ################################################ MODAL ARQUIVO ################################################# -->
+			<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
+				<div class="modal fade" id="modalExibirAnexo" tabindex="-1" aria-labelledby="modalExibirAnexo"
+					aria-hidden="true">
+					<div class="modal-dialog modal-xl">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+							</div>
+							<br />
+							<div class="container">
+								
+								<div id="imagem-container"></div>
+	
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -678,6 +700,7 @@
   	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script> 
   	<script>
+		
 		function atualizaContador(dataInicial, status){
 			const agora = new Date();
 			const outraData = converteData(dataInicial);
@@ -1153,8 +1176,9 @@
 						$('#btnTimesheet').text("");
 						$('#btnAnexo').text("");
 						if(data.anexo != null && data.anexo != ' '){
-							$('#btnAnexo').append('<button class="btn btn-sm btn-timesheet" onclick="baixarAnexo('+id+')"><i class="bi bi-paperclip"></i>Baixar Anexo</button>&nbsp; &nbsp;');
-							$('#btnAnexo').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalArquivo"><i class="bi bi-paperclip"></i>Alterar Anexo</button>');
+							$('#btnAnexo').append('<button class="btn btn-sm btn-anexo" onclick="baixarAnexo('+id+')"><i class="bi bi-paperclip"></i>Baixar</button>&nbsp; &nbsp;');
+							$('#btnAnexo').append('<button class="btn btn-sm btn-anexo" data-bs-toggle="modal" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+id+')"><i class="bi bi-paperclip"></i>Visualizar</button>&nbsp; &nbsp;');
+							$('#btnAnexo').append('<button class="btn btn-sm btn-anexo" data-bs-toggle="modal" data-bs-target="#modalArquivo"><i class="bi bi-paperclip"></i>Alterar</button>');
 							$('#inputId').append('<input type="hidden" id="id" name="id" value="'+data.id+'"></input>');
 													
 						}else{
@@ -1891,7 +1915,46 @@
 				});
 			});
 			
-			
+			function exibirAnexo(id) {
+			    $.ajax({
+			        url: "/sistech/api/file/solicitacao/" + id,
+			        type: "GET",
+			        xhrFields: {
+			            responseType: 'blob'
+			        },
+			        success: function (blob, status, xhr) {
+			            const contentType = xhr.getResponseHeader("Content-Type");
+
+			            if (!contentType.startsWith("image/")) {
+			                alert("O arquivo não é uma imagem.");
+			                return;
+			            }
+
+			            const url = URL.createObjectURL(blob);
+
+			            const img = document.createElement('img');
+			            img.src = url;
+			            img.alt = "Imagem recebida";
+			            img.style.maxWidth = "100%";
+			            img.style.border = "1px solid #ccc";
+
+			            const container = document.getElementById("imagem-container");
+			            container.innerHTML = ""; // limpa anterior
+			            container.appendChild(img);
+			        },
+			        error: function (xhr) {
+			            if (xhr.status === 500) {
+			                alert('Erro! Contate o desenvolvedor!');
+			            } else if (xhr.status === 401) {
+			                alert('Realize login novamente!');
+			                window.location.href = "/sistech/login";
+			            } else if (xhr.status === 404) {
+			                alert('Arquivo não encontrado!');
+			            }
+			        }
+			    });
+			}		
+				
 			function baixarAnexo(id) {
 			    $.ajax({
 			        url: "/sistech/api/file/solicitacao/" + id,

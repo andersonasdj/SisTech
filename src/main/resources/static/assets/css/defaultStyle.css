@@ -17,6 +17,12 @@
 	--bs-btn-bg: rgb(153, 193, 241) !important; 
 	--bs-btn-hover-bg: rgb(246, 97, 81) !important;
 }
+
+.btn-anexo {
+	--bs-btn-bg: rgb(87, 227, 137) !important; 
+	--bs-btn-hover-bg: rgb(255, 190, 111) !important;
+}
+
 .color-lnk{
 	color: #0b770a !important;
 	font-weight: bold;

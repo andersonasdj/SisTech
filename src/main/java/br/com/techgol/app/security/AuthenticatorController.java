@@ -75,16 +75,3 @@ public class AuthenticatorController {
 	
 
 }
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-
-//	@PostMapping("/login")
-//	public ResponseEntity<?> login(@RequestBody AuthenticationDTO data)  {
-//		
-//		System.out.println("CONTROLLER LOGIN POST");
-//		
-//		String senhaEncriptada = new BCryptPasswordEncoder().encode(data.password());
-//		var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), senhaEncriptada);
-//		var auth = this.authenticationManager.authenticate(usernamePassword);
-//		return ResponseEntity.ok().build();
-//	}

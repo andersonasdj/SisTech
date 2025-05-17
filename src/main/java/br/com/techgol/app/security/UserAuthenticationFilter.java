@@ -22,37 +22,29 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class UserAuthenticationFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private FuncionarioService funcionarioService;
-	
-	@Autowired
-	private LogLoginService loginService;
-	
-	@Autowired
-	private ConfiguracaoPaisesService paisesService;
-	
-	@Autowired
-	private DefaultBruteForceProtectionService bf;
+	@Autowired private FuncionarioService funcionarioService;
+	@Autowired private LogLoginService loginService;
+	@Autowired private ConfiguracaoPaisesService paisesService;
+	@Autowired private DefaultBruteForceProtectionService bf;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		//System.out.println(Thread.currentThread().getName());
 		
-		if(request.getRequestURI().trim().equals("/sistech/login") && request.getMethod().trim().equals("POST")) {
+		boolean isLoginPost = "/sistech/login".equals(request.getRequestURI().trim()) && "POST".equalsIgnoreCase(request.getMethod().trim());
+		
+		if(isLoginPost) {
+			
 			doFilter(request, response, filterChain);
-			if(SecurityContextHolder.getContext().getAuthentication() != null)  {
-				Funcionario funcionario = funcionarioService.buscaPorNome(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-				if(funcionario.getAtivo()  && paisesService.paisesAtivos().contains(request.getLocale().getCountry())) {
-					System.out.println("\nDENTRO DO FILTRO!");
+			
+			var auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			if(auth != null && auth.getPrincipal() instanceof Funcionario)  {
+				 Funcionario funcionario = funcionarioService.buscaPorNome(((Funcionario) auth.getPrincipal()).getNomeFuncionario());
+				 
+				 boolean paisAutorizado = paisesService.paisesAtivos().contains(request.getLocale().getCountry());
+				 
+				if(funcionario.getAtivo() && paisAutorizado) {
 					System.out.println("FUNCIONARIO LOGADO: " + funcionario.getNomeFuncionario());
-					System.out.println("LOCAL: " + request.getLocalName());
-					System.out.println((request.getHeader("X-Real-IP")) != null ? "ENDERECO IP: "+request.getHeader("X-Real-IP") : "ENDERECO IP: "+request.getLocalAddr());
-					System.out.println("PAIS: " + request.getLocale().getCountry());
-					System.out.println("ENDEREÇO REMOTO: " + request.getRemoteAddr());
-					System.out.println((request.getHeader("Host")) != null ? "HOST REMOTO: " +request.getHeader("Host") : "HOST REMOTO: " + request.getLocalAddr());
-					System.out.println("ROLE: " + funcionario.getRole());
-					System.out.println("ATIVO : "+funcionario.getAtivo());
-					System.out.println("URI: " + request.getRequestURI()+"\n");
 					
 					funcionarioService.atualizaIpLogin(funcionario, request.getRemoteHost(),request.getLocale().getCountry());
 					loginService.salvaLog(new LogLogin(

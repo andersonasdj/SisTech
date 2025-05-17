@@ -37,5 +37,6 @@ public interface SolicitacaoProjecao {
 	Long getPeso();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getDataAndamento();
+	String getAnexo();
 
 }

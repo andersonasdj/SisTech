@@ -37,7 +37,8 @@ public record DtoSolicitacaoProjecaoCompletaColaboradores(
 		String dataAtualizacao,
 		List<String> funcionarios,
 		List<String> colaboradores,
-		String log_id
+		String log_id,
+		String anexo
 		
 		) {
 
@@ -68,7 +69,8 @@ public record DtoSolicitacaoProjecaoCompletaColaboradores(
 				s.getDataAtualizacao().toString(),
 				f,
 				c,
-				(s.getLog() != null) ? s.getLog().getId().toString() : " "
+				(s.getLog() != null) ? s.getLog().getId().toString() : " ",
+				s.getAnexo()
 				);
 	}
 
