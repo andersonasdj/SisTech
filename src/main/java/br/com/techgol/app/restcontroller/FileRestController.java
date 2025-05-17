@@ -311,7 +311,6 @@ public class FileRestController {
 	@GetMapping("/solicitacao/{id}")
 	public ResponseEntity<Resource> baixarAnexo(@PathVariable Long id) {
 		
-		System.out.println("ID: " + id);
 	    try {
 	        Solicitacao solicitacao = solicitacaoService.buscarPorId(id);
 

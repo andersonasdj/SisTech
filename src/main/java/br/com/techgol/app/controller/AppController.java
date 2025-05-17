@@ -2,16 +2,76 @@ package br.com.techgol.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.services.FuncionarioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AppController {
 	
 	@Autowired
-	FuncionarioService service;
+	FuncionarioService funcionarioService;
+	
+	// Exibe o formulário de verificação de 2FA
+    @GetMapping("/2fa")
+    public String exibirFormulario2FA(HttpSession session, Model model) {
+        Funcionario tempUser = (Funcionario) session.getAttribute("TEMP_USER");
+
+        if (tempUser == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("email", tempUser.getEmail()); // Se quiser exibir para qual email foi enviado
+        return "templates/2fa.html"; // Nome do template (ex: templates/2fa.html ou 2fa.jsp)
+    }
+    
+ // Valida o código 2FA
+    @PostMapping("/verify-2fa")
+    public String verificarCodigo2FA(@RequestParam("codigo") String codigo, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        }
+
+        Funcionario tempUser = (Funcionario) session.getAttribute("TEMP_USER");
+        if (tempUser == null) {
+            return "redirect:/login";
+        }
+
+        // Recarrega o usuário do banco para pegar o código mais recente
+        Funcionario funcionarioBanco = funcionarioService.buscaPorNome(tempUser.getNomeFuncionario());
+
+        if (funcionarioBanco.getCode() != null && funcionarioBanco.getCode().equals(codigo)) {
+            // Código correto → autenticar manualmente
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    funcionarioBanco, null, funcionarioBanco.getAuthorities()
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            // Invalida código após uso (opcional)
+            funcionarioBanco.setCode(null);
+            funcionarioService.atualizarCode(funcionarioBanco); // ou o método adequado
+
+            // Remove usuário temporário da sessão
+            session.removeAttribute("TEMP_USER");
+
+            return "redirect:/home";
+        } else {
+            request.setAttribute("erro", "Código inválido");
+            return "2fa";
+        }
+    }
+	
 	
 	@GetMapping("/impressao-timesheet-cliente")
 	public String impressaoTimeSheetCliente() {
@@ -45,7 +105,7 @@ public class AppController {
 	
 	@GetMapping("/create")	//ENDPOINT PARA CRIACAO DO PRIMEIRO USUARIO DO SISTEMA
 	public String create() {
-		if(service.existeFuncionarios() == 0) {
+		if(funcionarioService.existeFuncionarios() == 0) {
 			return "templates/create.html";
 		}else {
 			return "/logout";

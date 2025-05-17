@@ -14,12 +14,13 @@ public record DtoListarFuncionarios(
 		Boolean ausente,
 		Boolean refeicao,
 		String role,
-		String dataAtualizacao
+		String dataAtualizacao,
+		String email
 		) implements Serializable {
 	
 	
 	public DtoListarFuncionarios(Funcionario f) {
-		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getAtivo(), f.getMfa(), f.getAusente(), f.getRefeicao(), f.getRole().toString(), f.getDataAtualizacao().toString());
+		this(f.getId(), f.getNomeFuncionario(), f.getUsername(), f.getAtivo(), f.getMfa(), f.getAusente(), f.getRefeicao(), f.getRole().toString(), f.getDataAtualizacao().toString(), f.getEmail());
 	}
 	
 

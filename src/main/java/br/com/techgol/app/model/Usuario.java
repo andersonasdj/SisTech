@@ -36,5 +36,7 @@ public class Usuario {
 	private LocalDateTime dataAtualizacao;
 	private LocalDateTime dataUltimoLogin;
 	private String pais;
+	private String code;
+	private String email;
 
 }

@@ -150,6 +150,15 @@
 								<input type="text" id="idmodal" class="form-control" style="width: 95px;" readonly>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-2" for="emailmodal"><b>E-mail *</b></label>
+								<input type="text" id="emailmodal" class="form-control">
+							</div>
+						</div>
+						
+						
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="usuariomodal"><b>Usuario *</b></label>
@@ -422,6 +431,7 @@
 					$('#dataUltimoLoginModal').text("");
 					$('#dataUltimaTrocaSenhaModal').text("");
 					$('#ausenteModal').empty();
+					$('#emailmodal').val("");
 					
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeFuncionario);
@@ -429,6 +439,7 @@
 					$('#senhamodal').val(data.password);
 					$('#dataUltimoLoginModal').text(data.dataUltimoLogin);
 					$('#dataUltimaTrocaSenhaModal').text(data.dataAtualizacaoSenha);
+					$('#emailmodal').val(data.email);
 					
 					var ausente, status;
 					
@@ -533,6 +544,7 @@
 			var ativo = $('#statusModal').val();
 			var mfa = $('#mfaModal').val();
 			var ausente = $('#ausenteModal').val();
+			var email = $('#emailmodal').val();
 			
 			var trocaSenha = document.getElementById("trocaSenha");
 			if(trocaSenha.checked){ trocaSenha=true } else { trocaSenha=false }
@@ -549,7 +561,8 @@
 					"ativo": ativo,
 					"mfa": mfa,
 					"ausente": ausente,
-					"trocaSenha":trocaSenha
+					"trocaSenha":trocaSenha,
+					"email":email
 				}),
 				success: function (data) {
 					var status, ausente;

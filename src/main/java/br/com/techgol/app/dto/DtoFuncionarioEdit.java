@@ -21,7 +21,8 @@ public record DtoFuncionarioEdit(
 		LocalDateTime dataAtualizacaoSenha,
 		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 		LocalDateTime dataUltimoLogin,
-		Boolean trocaSenha
+		Boolean trocaSenha,
+		String email
 		) {
 	
 	public DtoFuncionarioEdit(Funcionario f) {
@@ -36,7 +37,8 @@ public record DtoFuncionarioEdit(
 				f.getDataAtualizacao(),
 				f.getDataAtualizacaoSenha(),
 				f.getDataUltimoLogin(),
-				(f.getTrocaSenha()) != null? f.getTrocaSenha(): false
+				(f.getTrocaSenha()) != null? f.getTrocaSenha(): false,
+				f.getEmail()
 				);
 	}
 

@@ -62,6 +62,7 @@ public class FuncionarioService {
 		funcionario.setNomeFuncionario(dados.nomeFuncionario());
 		funcionario.setMfa(dados.mfa());
 		funcionario.setAusente(dados.ausente());
+		funcionario.setEmail(dados.email());
 		
 		if(repository.count() > 1) {
 			funcionario.setRole(dados.role());
@@ -195,5 +196,12 @@ public class FuncionarioService {
 
 	public Boolean exigeTrocaDeSenha(Long id) {
 		return repository.exigeTrocaDeSenha(id);
+	}
+
+	@Transactional
+	public void atualizarCode(Funcionario f) {
+		Funcionario funcionario = repository.getReferenceById(f.getId());
+		funcionario.setCode(f.getCode());
+		
 	}
 }
