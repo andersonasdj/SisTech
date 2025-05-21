@@ -25,6 +25,7 @@ import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoHistorico;
+import br.com.techgol.app.dto.DtoHistoricoDias;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
 import br.com.techgol.app.dto.DtoRendimentosClientes;
@@ -829,7 +830,7 @@ public class SolicitacaoService {
 			return new DtoDashboardFuncionarios(onsite,offsite,problema,incidente,solicitacao,
 					backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
 					agendado,aguardando,pausado,finalizado,totalSolicitacoes,totalMinutosMes,
-					totalMesCorrente, email, telefone, local, whatsapp, proativo, null);
+					totalMesCorrente, email, telefone, local, whatsapp, proativo, null, null);
 			
 		}else {
 			return null;
@@ -870,7 +871,25 @@ public class SolicitacaoService {
 		}
 		
 		
-		
+		Map<LocalDate, LocalDateTime[]> rangeDeDias = new LinkedHashMap<>();
+
+		for (int i = 29; i >= 0; i--) {
+		    LocalDate dia = hoje.minusDays(i);
+		    LocalDateTime inicioDia = dia.atTime(0, 0, 0);
+		    LocalDateTime fimDia = dia.atTime(23, 59, 59);
+		    rangeDeDias.put(dia, new LocalDateTime[] {inicioDia, fimDia});
+		}
+
+		List<DtoHistoricoDias> historicoDias = new ArrayList<>();
+
+		for (Map.Entry<LocalDate, LocalDateTime[]> entry : rangeDeDias.entrySet()) {
+		    LocalDateTime inicioDia = entry.getValue()[0];
+		    LocalDateTime fimDia = entry.getValue()[1];
+		    
+		    String dataFormatada = entry.getKey().toString(); // Ou formate como preferir, ex: dd/MM
+		    int qtdDia = repository.totalFechadasPeriodoPorCliente(id, false, inicioDia, fimDia);
+		    historicoDias.add(new DtoHistoricoDias(dataFormatada, qtdDia));
+		}
 		
 		
 		if(ini != null  && termino != null ) {
@@ -975,7 +994,7 @@ public class SolicitacaoService {
 			return new DtoDashboardFuncionarios(onsite,offsite,problema,incidente,solicitacao,
 					backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
 					agendado,aguardando,pausado,finalizado,totalSolicitacoes,totalMinutosMes,
-					totalMesCorrente, email, telefone, local, whatsapp, proativo, historico);
+					totalMesCorrente, email, telefone, local, whatsapp, proativo, historico, historicoDias);
 			
 		}else {
 			return null;

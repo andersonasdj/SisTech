@@ -31,6 +31,7 @@ public record DtoDashboardFuncionarios(
 		int local,
 		int whatsapp,
 		int proativo,
-		List<DtoHistorico> historico) {
+		List<DtoHistorico> historico,
+		List<DtoHistoricoDias> historicoDias) {
 
 }
