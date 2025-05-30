@@ -720,8 +720,6 @@ public class EnviadorEmail {
 	            
 	            if (arquivo.exists()) {
 	                helper.addAttachment(arquivo.getName(), arquivo);
-	            } else {
-	                System.out.println("Arquivo de anexo não encontrado: " + caminhoImagem);
 	            }
 	            
 	            emailSender.send(message);
