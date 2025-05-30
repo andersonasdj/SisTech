@@ -461,12 +461,12 @@ public class SolicitacaoRestController {
 		return solicitacaoService.exclusaoLogigaSolicitacao(id);
 	}
 	
-	@PostMapping("/notificar/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
+	@PostMapping("/notificar/{id}")
 	public String notificarCliente(@PathVariable Long id) {
 		return solicitacaoService.notificarCliente(id);
 	}
 	
-	@PutMapping("/cancelar/{id}") //EXCLUSÃO LÓGICA DE UMA SOLICITAÇÃO-ENVIA PARA LIXEIRA
+	@PutMapping("/cancelar/{id}")
 	public String cancelar(@PathVariable Long id) {
 		return solicitacaoService.cancelarSolicitacao(id);
 	}

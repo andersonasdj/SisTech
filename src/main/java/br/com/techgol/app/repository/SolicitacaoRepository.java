@@ -656,7 +656,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, s.cliente_id, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, s.cliente_id, s.anexo, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, s.formaAbertura, "
 			+ "s.solicitante, s.status, c.nomeCliente, f.nomeFuncionario, "
 			+ "s.dataAbertura, s.duracao, s.dataAndamento, s.dataFinalizado, s.dataAtualizacao "

@@ -1,5 +1,6 @@
 package br.com.techgol.app.email;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class EnviadorEmail {
 		@Autowired
 	    private JavaMailSender emailSender;
 		
+		@Value("${upload.dir}")
+		private String UPLOAD_DIR;
 		
 		@Async
 	    public void enviar2fa(String email, String assunto, String mensagem) {
@@ -698,6 +701,7 @@ public class EnviadorEmail {
 					+ "</body>";
 			
 			 try {
+				 
 				MimeMessage message = emailSender.createMimeMessage();
 	            message.setSubject("Solicitação de atendimento - " + solicitacao.getId());
 	            MimeMessageHelper helper;
@@ -708,6 +712,18 @@ public class EnviadorEmail {
 				}
 	            helper.setTo(destinatario);
 	            helper.setText(corpoEmail,true);
+	            
+	            
+	            // Caminho do anexo
+	            String caminhoImagem = UPLOAD_DIR + solicitacao.getAnexo();
+	            File arquivo = new File(caminhoImagem);
+	            
+	            if (arquivo.exists()) {
+	                helper.addAttachment(arquivo.getName(), arquivo);
+	            } else {
+	                System.out.println("Arquivo de anexo não encontrado: " + caminhoImagem);
+	            }
+	            
 	            emailSender.send(message);
 			 }catch (Exception e) {
 		            throw new RuntimeException("Erro ao enviar email!", e);

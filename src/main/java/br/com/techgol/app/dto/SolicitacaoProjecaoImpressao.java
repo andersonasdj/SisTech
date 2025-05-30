@@ -1,9 +1,8 @@
-package br.com.techgol.app.orm;
+package br.com.techgol.app.dto;
 
 import java.time.LocalDateTime;
 
-public interface SolicitacaoProjecaoCompleta {
-	
+public interface SolicitacaoProjecaoImpressao{
 	Long getId();
 	Long getCliente_id();
 	String getAbertoPor();
