@@ -34,7 +34,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 		
 		if(isLoginPost) {
 			
-			doFilter(request, response, filterChain);
+			filterChain.doFilter(request, response);
 			
 			var auth = SecurityContextHolder.getContext().getAuthentication();
 			
@@ -103,9 +103,10 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 				System.out.println(user + " - USUARIO SEM SESSÃO PASSOU NO FILTRO!");
 				SecurityContextHolder.clearContext();
 			}
+		}else {
+			filterChain.doFilter(request, response);
 		}
 		
-		filterChain.doFilter(request, response);
 	}
 	
 	String getBrowser(HttpServletRequest request) {

@@ -8,14 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.techgol.app.model.Cliente;
-import br.com.techgol.app.model.Funcionario;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
-	
 	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=true", nativeQuery = true)
 	public List<Cliente> listarClientes();
-	
 	
 	@Query(value = "SELECT * "
 			+ "FROM clientes c "
@@ -57,5 +54,4 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.redFlag = 1 AND c.vip = 1 ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<Cliente> listarClientesRedFlagEVip();
-
 }

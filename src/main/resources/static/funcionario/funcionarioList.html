@@ -112,6 +112,7 @@
 						<th scope="col">Nome</th>
 						<th scope="col">Presença</th>
 						<th scope="col">Ativo</th>
+						<th scope="col">2FA</th>
 						<th scope="col">Função</th>
 						<th scope="col">Ação</th>
 					</tr>
@@ -290,18 +291,22 @@
 			success: function (data) {
 				
 				data.map(i => {
-					var status, ausente;
-					if(i.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
-					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
+					var status, ausente, mfa;
+					if(i.ativo == true){ status = "<FONT COLOR='#008000'>On</FONT>"; }
+					else{ status = "<FONT COLOR='#ff0000'>Off</FONT>"; }
 					
 					if(i.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
 					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
+					
+					if(i.mfa == true){ mfa = "<FONT COLOR='#008000'>On</FONT>"; }
+					else{ mfa = "<FONT COLOR='#ff0000'>Off</FONT>"; }
 					
 					var itens =
 					'<tr id=linha' + i.id + '>'
 					+ '<td id=name' + i.id + '>' + i.nomeFuncionario + '</td>'
 					+ '<td>' + ausente + '</td>'
 					+ '<td>' + status + '</td>'
+					+ '<td>' + mfa + '</td>'
 					+ '<td>' + i.role + '</td>'
 					+ '<td>'
 					+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + i.id + ')" style="border: none; background: none;">'
@@ -545,6 +550,7 @@
 			var mfa = $('#mfaModal').val();
 			var ausente = $('#ausenteModal').val();
 			var email = $('#emailmodal').val();
+			var mfa = $('#mfaModal').val();
 			
 			var trocaSenha = document.getElementById("trocaSenha");
 			if(trocaSenha.checked){ trocaSenha=true } else { trocaSenha=false }
@@ -566,17 +572,21 @@
 				}),
 				success: function (data) {
 					var status, ausente;
-					if(data.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
-					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
+					if(data.ativo == true){ status = "<FONT COLOR='#008000'>On</FONT>"; }
+					else{ status = "<FONT COLOR='#ff0000'>Off</FONT>"; }
 					
 					if(data.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
 					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
 					
+					if(data.mfa == true){ mfa = "<FONT COLOR='#008000'>On</FONT>"; }
+					else{ mfa = "<FONT COLOR='#ff0000'>Off</FONT>"; }
+										
 					var itens = 
 						'<tr id=linha' + data.id + '>'
 						+ '<td id=name' + data.id + '>' + data.nomeFuncionario + '</td>'
 						+ '<td>' + ausente + '</td>'
 						+ '<td>' + status + '</td>'
+						+ '<td>' + mfa + '</td>'
 						+ '<td>' + data.role + '</td>'
 						+ '<td>'
 						+ '<button data-bs-toggle="modal" data-bs-target="#exampleModalSenha" onclick="preencheModalPassword(' + data.id + ')" style="border: none; background: none;">'

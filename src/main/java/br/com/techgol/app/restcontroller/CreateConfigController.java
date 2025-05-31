@@ -1,4 +1,4 @@
-package br.com.techgol.app.security;
+package br.com.techgol.app.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ import br.com.techgol.app.services.FuncionarioService;
 
 @RestController
 @RequestMapping()
-public class AuthenticatorController {
+public class CreateConfigController {
 	
 	@Autowired
 	private FuncionarioService service;

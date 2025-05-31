@@ -23,7 +23,6 @@ public class EnviadorEmail {
 		@Value("${spring.mail.username}")
 		private String senderEmail;
 		
-		
 		@Value("${sistech.email.copia}")
 		private String copiaEmail;
 	
@@ -40,14 +39,12 @@ public class EnviadorEmail {
 	            MimeMessage message = emailSender.createMimeMessage();
 	            message.setSubject(assunto);
 	            MimeMessageHelper helper;
+	            message.setContent(mensagem, "text/html; charset=utf-8");
 	            helper = new MimeMessageHelper(message, true);
 	            helper.setFrom(senderEmail);
 	            helper.setTo(email);
 	            helper.setText(mensagem, true);
 	            emailSender.send(message);
-	            
-	            System.out.println("Enviando email!");
-	            System.out.println("OK");
 
 	            //Simulando demora de 3 segundos para enviar email
 	            //Thread.sleep(3000);
@@ -56,8 +53,6 @@ public class EnviadorEmail {
 	            throw new RuntimeException("Erro ao enviar email!", e);
 	        }
 	    }
-		
-		
 
 		@Async
 	    public void enviarEmailNovaSolicitacao(DtoSolicitacaoComFuncionario dados, String destinatario) {
@@ -701,7 +696,6 @@ public class EnviadorEmail {
 					+ "</body>";
 			
 			 try {
-				 
 				MimeMessage message = emailSender.createMimeMessage();
 	            message.setSubject("Solicitação de atendimento - " + solicitacao.getId());
 	            MimeMessageHelper helper;
@@ -712,7 +706,6 @@ public class EnviadorEmail {
 				}
 	            helper.setTo(destinatario);
 	            helper.setText(corpoEmail,true);
-	            
 	            
 	            // Caminho do anexo
 	            String caminhoImagem = UPLOAD_DIR + solicitacao.getAnexo();

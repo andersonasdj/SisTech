@@ -1,8 +1,13 @@
 package br.com.techgol.app.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +28,6 @@ public class AppController {
 	
     @GetMapping("/2fa")
     public String exibirFormulario2FA(HttpSession session, Model model) {
-    	System.out.println("TESTE");
         Funcionario tempUser = (Funcionario) session.getAttribute("TEMP_USER");
 
         if (tempUser == null) {
@@ -35,7 +39,7 @@ public class AppController {
     }
     
     @PostMapping("/verify-2fa")
-    public String verificarCodigo2FA(@RequestParam("codigo") String codigo, HttpServletRequest request) {
+    public String verificarCodigo2FA(@RequestParam String codigo, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return "redirect:/login";
@@ -49,40 +53,46 @@ public class AppController {
         Funcionario funcionarioBanco = funcionarioService.buscaPorNome(tempUser.getNomeFuncionario());
 
         if (funcionarioBanco.getCode() != null && funcionarioBanco.getCode().equals(codigo)) {
-       
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    funcionarioBanco, null, funcionarioBanco.getAuthorities()
-            );
 
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-            
+            // Marca como verificado para mudar autoridade para ROLE_USER
+            funcionarioBanco.setTwoFactorVerified(true);
             funcionarioBanco.setCode(null);
             funcionarioService.atualizarCode(funcionarioBanco);
 
-            session.removeAttribute("TEMP_USER");
+            // Recupera authorities reais
+            Collection<? extends GrantedAuthority> authorities = funcionarioBanco.getAuthorities();
 
+            // Promove a autenticação
+            UsernamePasswordAuthenticationToken fullAuth = new UsernamePasswordAuthenticationToken(funcionarioBanco, null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(fullAuth);
+            
+            session.removeAttribute("TEMP_USER");
             return "redirect:/home";
         } else {
             request.setAttribute("erro", "Código inválido");
-            return "templates/2fa.html";
+            return "redirect:/2fa?error="+ URLEncoder.encode("Código inválido!", StandardCharsets.UTF_8);
         }
     }
-	
+
+    @PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/impressao-timesheet-cliente")
 	public String impressaoTimeSheetCliente() {
 		return "templates/impressao-timesheet-cliente.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/upload")
 	public String teste() {
 		return "templates/upload.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/impressao")
 	public String impressaoSolicitacao() {
 		return "templates/impressao.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/impressao-relatorio")
 	public String impressaoRelatorioCliente() {
 		return "templates/impressao-relatorio-cliente.html";
@@ -107,21 +117,25 @@ public class AppController {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/home")
 	public String home() {
 		return "templates/home.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/sobre")
 	public String sobre() {
 		return "templates/sobre.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/avisos")
 	public String avisos() {
 		return "templates/avisos.html";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/funcionalidades")
 	public String funcionalidades() {
 		return "templates/funcionalidade.html";
@@ -145,11 +159,9 @@ public class AppController {
 		return "templates/gerencia.html";
 	}
 	
-	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/configuracoes")
 	public String configuracoes() {
 		return "templates/configuracoes.html";
 	}
-
 }

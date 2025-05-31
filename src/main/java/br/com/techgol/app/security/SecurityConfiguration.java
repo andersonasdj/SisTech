@@ -20,39 +20,41 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 	
-	@Autowired
-	private UserAuthenticationFilter filter;
-	
+	@Autowired private UserAuthenticationFilter filter;
+	@Autowired private TwoFactorRedirectFilter twoFactorRedirectFilter;
+	@Autowired private CustomAuthenticationSuccessHandler customSuccessHandler;
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/templates/**", "/assets/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/login", "/create").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/create").permitAll()
-                        .anyRequest().authenticated()
-                    )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/home")
-                        .permitAll()
-                    )
-                .sessionManagement(session -> session
-                        .invalidSessionUrl("/login")
-                        .maximumSessions(1)
-                        .sessionRegistry(sessionRegistry())
-                    )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                );
-		 
-		 return httpSecurity.build();
+	    httpSecurity
+	        .csrf(AbstractHttpConfigurer::disable)
+	        .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+	        .addFilterAfter(twoFactorRedirectFilter, UserAuthenticationFilter.class)
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/templates/**", "/assets/**").permitAll()
+	            .requestMatchers("/2fa", "/2fa/**", "/verify-2fa").hasAuthority("PRE_2FA")
+	            .requestMatchers(HttpMethod.POST, "/login", "/create").permitAll()
+	            .requestMatchers(HttpMethod.GET, "/create").permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .successHandler(customSuccessHandler)
+	            .permitAll()
+	        )
+	        .sessionManagement(session -> session
+	            .invalidSessionUrl("/login")
+	            .maximumSessions(1)
+	            .sessionRegistry(sessionRegistry())
+	        )
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .logoutSuccessUrl("/login")
+	            .invalidateHttpSession(true)
+	            .deleteCookies("JSESSIONID")
+	        );
+
+	    return httpSecurity.build();
 	}
 
     @Bean

@@ -49,6 +49,8 @@ public class Funcionario extends Usuario implements UserDetails {
 	
 	private int tentativasLogin;
 	
+	private boolean twoFactorVerified = false; // controle interno
+	
 	public Funcionario(DtoCadastroFuncionario dados) {
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.password());
 		
@@ -68,7 +70,10 @@ public class Funcionario extends Usuario implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"), new SimpleGrantedAuthority("ROLE_EDITOR") );
 		else if(this.role == UserRole.EDITOR) return List.of(new SimpleGrantedAuthority("ROLE_EDITOR"),new SimpleGrantedAuthority("ROLE_USER"));
-		else{return List.of(new SimpleGrantedAuthority("ROLE_USER"));}
+		else if(this.role == UserRole.USER) {return List.of(new SimpleGrantedAuthority("ROLE_USER"));}
+		else {
+			 return List.of(new SimpleGrantedAuthority("PRE_2FA"));
+		}
 	}
 
 	@Override

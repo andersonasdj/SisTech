@@ -20,18 +20,16 @@ public class TwoFactorAuthService {
     private static final SecureRandom random = new SecureRandom();
 
     public void gerarEEnviarCodigo(Funcionario funcionario) {
-        // Gera um código aleatório de 6 dígitos
         String codigo = String.format("%06d", random.nextInt(1_000_000));
         
         funcionario.setCode(codigo);
+        funcionario.setTwoFactorVerified(false);
         funcionarioService.atualizarCode(funcionario);
 
-        // Envia o código por e-mail
         String assunto = "Seu código de verificação";
-        String mensagem = "Olá " + funcionario.getNomeFuncionario() + ",\n\n"
-                + "Seu código de verificação é: " + codigo + "\n\n"
-                + "Este código é válido por 10 minutos.\n\n"
-                + "Atenciosamente,\nEquipe de Segurança";
+        String mensagem = "Olá, " + funcionario.getNomeFuncionario() + ".<br><br>"
+                + "Seu código de verificação é: <b>" + codigo + "</b><br><br>"
+                + "Este código é pessoal e intransferível. Não compartilhe com ninguém. <br><br>Atenciosamente, <br>Equipe de Segurança";
 
         enviador.enviar2fa(funcionario.getEmail(), assunto, mensagem);
     }
