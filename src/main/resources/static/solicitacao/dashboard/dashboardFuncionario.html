@@ -1151,17 +1151,10 @@
 								$('#qtdFinalizados').text("");
 								$('#qtdNaoFinalizados').text("");
 								$('#totalMesCorrente').text("");
-								$('#totalMinutosMes').text("");
 								$('#qtdFinalizados').text(data.finalizado);
 								$('#qtdNaoFinalizados').text(data.aberto + data.andamento + data.agendado + data.aguardando + data.pausado);
 								$('#totalSolicitacoes').text("Total: "+ data.totalSolicitacoes);
 								$('#totalMesCorrente').text("Total de solicitações do mês: " + data.totalMesCorrente);
-								
-								if(data.totalMinutosMes <= 60){
-									$('#totalMinutosMes').text("Tempo total do mês: " + data.totalMinutosMes + " minutos");
-								}else{
-									$('#totalMinutosMes').text("Tempo total do mês: " + Math.round(data.totalMinutosMes / 60)  + " horas");
-								}
 								
 								document.getElementById('localSolicitacoes').remove();
 								$('#local').append('<canvas id="localSolicitacoes" style="height:60vh; width:40vw"></canvas>');

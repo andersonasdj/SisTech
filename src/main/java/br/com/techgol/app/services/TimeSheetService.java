@@ -26,7 +26,6 @@ public class TimeSheetService {
 	@Autowired
 	private TimesheetRepository repository;
 	
-	
 	public Long timesheetPorFuncionarioPeriodoMinutos(Long id, LocalDateTime inicio, LocalDateTime fim) {
 	    
 	    List<TimeSheet> timeSheets = repository.buscarTimesheetPorFuncionarioPeriodo(id, inicio, fim);

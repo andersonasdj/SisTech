@@ -708,7 +708,7 @@ public class SolicitacaoService {
 		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
 		totalMesCorrente = repository.countByFuncionarioIdAndExcluidoAndDataFinalizadoAfter(id, false, dataDePesquisa);
 		
-		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByFuncionarioIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);;
+		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByFuncionarioIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);
 		
 		for (PojecaoResumidaFinalizados s : solicitacoes) {
 			if(s.getDuracao() != null) {
