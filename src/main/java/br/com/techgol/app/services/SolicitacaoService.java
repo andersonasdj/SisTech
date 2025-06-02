@@ -1399,7 +1399,8 @@ public class SolicitacaoService {
 			int qtdFechadas = repository.totalFechadasPeriodoPorFuncionario(f.id(), false, inicio, fim);
 			int qtdAtualizados = repository.totalAtualizadosPeriodoPorFuncionario(f.id(), false, inicio, fim);
 			Long qtdHoras = timeSheetService.totalHorasPeriodoPorFuncionario(f.id(), inicio, fim);
-			lista.add(new DtoRendimentosFuncionarios(f.nomeFuncionario(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l) ));
+			Long qtdHorasReais = timeSheetService.timesheetPorFuncionarioPeriodoMinutos(f.id(), inicio, fim);
+			lista.add(new DtoRendimentosFuncionarios(f.nomeFuncionario(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), qtdHorasReais));
 		});
 		
 		lista.sort(Comparator.comparing(DtoRendimentosFuncionarios::qtdHoras).reversed());

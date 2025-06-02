@@ -4,6 +4,7 @@ public record DtoRendimentosFuncionarios(
 		String nomeFuncionario,
 		int qtdFinalizados,
 		int qtdAtualizados,
-		Long qtdHoras) {
+		Long qtdHoras,
+		Long qtdHorasReais) {
 
 }

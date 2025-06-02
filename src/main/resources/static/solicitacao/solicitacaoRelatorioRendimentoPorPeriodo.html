@@ -140,7 +140,8 @@
 							<th scope="col">Funcionario</th>
 							<th scope="col">Finalizados</th>
 							<th scope="col">Atualizados</th>
-							<th scope="col">Duração</th>
+							<th scope="col">Timesheet</th>
+							<th scope="col">Timesheet <span style="font-size: 12px; color: rgb(249, 240, 107);">(com sobreposição)</span></th>
 						</tr>
 					</thead>
 					<tbody id="corpoRendimentos">
@@ -223,17 +224,24 @@
 						$("#conteudo").stop().slideToggle(600);$("#conteudoGrafico").stop().slideToggle(1000);
 						
 						data.forEach(i =>{
-							var horas;
+							var horas, horasReais;
 							if(i.qtdHoras != null){
 								horas = minutosParaHorasTexto(i.qtdHoras);
 							}else{
 								horas = 0;
+							}
+							
+							if(i.qtdHorasReais != null){
+								horasReais = minutosParaHorasTexto(i.qtdHorasReais);
+							}else{
+								horasReais = 0;
 							}
 							var itens = 
 								'<tr>'
 								+ '<td>' + i.nomeFuncionario + '</td>'
 								+ '<td>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
+								+ '<td>' + horasReais + '</td>'
 								+ '<td>' + horas + '</td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);

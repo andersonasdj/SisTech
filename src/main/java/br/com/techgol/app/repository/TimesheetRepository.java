@@ -13,6 +13,10 @@ import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.orm.TimesheetProjecao;
 
 public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
+
+	@Query(nativeQuery = true,
+			value = "SELECT * FROM timesheet t WHERE t.funcionario_id=:id AND t.inicio >= :inicio AND t.fim <= :fim")
+	public List<TimeSheet> buscarTimesheetPorFuncionarioPeriodo(Long id, LocalDateTime inicio, LocalDateTime fim);
 	
 	public void deleteBySolicitacao_idAndFuncionario_id(Long solicitacao_id, Long funcionario_id);
 	
@@ -26,7 +30,6 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 	@Query(nativeQuery = true,
 			value = "SELECT SUM(t.duracao) FROM timesheet t WHERE t.funcionario_id=:id AND t.inicio >= :inicio AND t.fim <= :fim")
 	public Long buscarMinutosPorFuncionarioPeriodo(Long id, LocalDateTime inicio, LocalDateTime fim);
-
 	
 	@Query(nativeQuery = true,
 			value = "SELECT t.id, t.inicio, t.fim, t.status, t.duracao, c.nomeCliente, t.solicitacao_id, s.local "

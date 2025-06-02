@@ -157,8 +157,12 @@
 					</div>
 					<div class="col-md-3 mt-2">
 						<div class="control-group">
+							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="timesheet-real"> </span>
+							<span style="font-size: 18px;" id="qtdMinutosTotais-real"> </span>
+							<br>
 							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="timesheet"> </span>
 							<span style="font-size: 18px;" id="qtdMinutosTotais"> </span>
+							
 						</div>
 					</div>
 				</div>
@@ -1312,10 +1316,28 @@
 					success: function (data) {
 						if(data != 0){
 							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
-							$('#timesheet').append('<b> Timesheet</b>');
+							$('#timesheet').append('<b> Timesheet <span style="font-size: 12px; color: red">(*com sobreposição)</span></b>');
 							$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
 						}else{
 							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+						}
+					},
+					error: function (e) {
+						alert(e);
+					}
+				});
+				
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/v1/timesheet/horas/id/"+funcionario_id+"/"+inicio+"/"+fim,
+					success: function (data) {
+						if(data != 0){
+							$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
+							$('#timesheet-real').append('<b> Timesheet</b>');
+							$('#qtdMinutosTotais-real').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						}else{
+							$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
 						}
 					},
 					error: function (e) {
@@ -1358,6 +1380,41 @@
 						$('#qtdAtualizados').append('<li> Atualizados no perído: <b>'+data.qtdAtualizados+'</b></li>');
 					},
 					error: function (e) { alert(e); }
+				});
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
+					success: function (data) {
+						if(data != 0){
+							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+							$('#timesheet').append('<b> Timesheet <span style="font-size: 12px; color: red">(*com sobreposição)</span></b>');
+							$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						}else{
+							$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+						}
+					},
+					error: function (e) {
+						alert(e);
+					}
+				});
+				
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/v1/timesheet/horas/id/"+funcionario_id+"/"+inicio+"/"+fim,
+					success: function (data) {
+						if(data != 0){
+							$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
+							$('#timesheet-real').append('<b> Timesheet</b>');
+							$('#qtdMinutosTotais-real').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+						}else{
+							$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
+						}
+					},
+					error: function (e) {
+						alert(e);
+					}
 				});
 			}else if(funcionario_id != "" && inicio != "" && fim != "" && representacao == "timeline"){
 				document.getElementById('conteudo').style.display = 'none';
@@ -1477,17 +1534,35 @@
 						contentType: "application/json",
 						url: "/sistech/api/v1/timesheet/id/"+funcionario_id+"/"+inicio+"/"+fim,
 						success: function (data) {
-								if(data != 0){
-									$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
-									$('#timesheet').append('<b> Timesheet</b>');
-									$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
-									
-									$('#diasUteis').empty();$('#horasTotais').empty();$('#horaDia').empty();$('#tituloSolicitacoes').empty();
-									$('#tituloSolicitacoes').append('<b> Solicitações</b>');
-									$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
-								}
+							if(data != 0){
+								$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+								$('#timesheet').append('<b> Timesheet <span style="font-size: 12px; color: red">(*com sobreposição)</span></b>');
+								$('#qtdMinutosTotais').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+							}else{
+								$('#timesheet').empty(); $('#qtdMinutosTotais').empty();
+							}
 						},
-						error: function (e) { alert(e); }
+						error: function (e) {
+							alert(e);
+						}
+					});
+					
+					$.ajax({
+						type: "GET",
+						contentType: "application/json",
+						url: "/sistech/api/v1/timesheet/horas/id/"+funcionario_id+"/"+inicio+"/"+fim,
+						success: function (data) {
+							if(data != 0){
+								$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
+								$('#timesheet-real').append('<b> Timesheet</b>');
+								$('#qtdMinutosTotais-real').append('<li> Tempo trabalhado: <b>'+ minutosParaHorasTexto(data)+'</b></li>');
+							}else{
+								$('#timesheet-real').empty(); $('#qtdMinutosTotais-real').empty();
+							}
+						},
+						error: function (e) {
+							alert(e);
+						}
 					});
 				}
 			}else{
