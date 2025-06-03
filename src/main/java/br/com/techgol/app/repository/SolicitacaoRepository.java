@@ -21,15 +21,14 @@ import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
-	
 	@Query(nativeQuery = true,
 			value = "SELECT SUM(s.duracao) FROM solicitacoes s "
 			+ "WHERE s.excluido = false "
 			+ "AND s.cliente_id = :id "
+			+ "AND s.status = 'FINALIZADO' "
 			+ "AND s.dataFinalizado >= :inicio "
 			+ "AND s.dataFinalizado <= :fim")
 	public Long totalHorasPeriodoPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim);
-	
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -51,9 +50,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodoRelatorioAbertura(Pageable page, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
 			String abertura, String categoria, String classificacao, String local, String prioridade, String status);
 	
-	
-	
-	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
@@ -74,9 +70,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodoRelatorioFechamento(Pageable page, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
 			String abertura, String categoria, String classificacao, String local, String prioridade);
 	
-	
-	
-	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 					+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
@@ -96,8 +89,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 					+ "AND s.dataAtualizacao <= :fim")
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorPeriodoRelatorioAtualizado(Pageable page, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
 			String abertura, String categoria, String classificacao, String local, String prioridade, String status);
-	
-	
 	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
@@ -141,7 +132,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorDataRelatorioAberturaFiltro(Pageable page, Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
 			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
 	
-	
 	@Query(nativeQuery = true,
 			value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.duracao, s.log_id, "
@@ -164,14 +154,11 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorDataRelatorioFechamentoFiltro(Pageable page, Long cliente_id, Boolean excluida, LocalDateTime inicio, LocalDateTime fim, 
 			String abertura, String categoria, String classificacao, String local, String prioridade, String funcionario_id);
 	
-	
-	
 	@Query(value = "SELECT s.id, s.dataAbertura "
 			+ "FROM solicitacoes s "
 			+ "WHERE s.excluido = false " 
 			+ "AND s.dataAbertura >= :data",nativeQuery = true)
 	public List<ProjecaoDashboardGerencia> buscaDadosDashboardGerencia(LocalDate data);
-	
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, "
