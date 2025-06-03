@@ -273,18 +273,13 @@
 		
 		success: function (data) {
 			
-			$('#totalSolicitacoes').text('');
-			$('#dataInicio').text('');
-			$('#dataFim').text('');
-			$('#cliente').text('');
+			$('#totalSolicitacoes, #dataInicio, #dataFim, #cliente, #data').text('');
 			$('#corpoSolicitacoes').empty();
-			
+
 			$('#totalSolicitacoes').text(data.totalElements);
 			$('#dataInicio').text(inicio);
 			$('#dataFim').text(fim);
 			$('#cliente').text(cliente);
-			
-			$('#data').text('');
 			$('#data').text(dataAtualFormatada());
 			
 			data.content.map(i => {
@@ -303,23 +298,22 @@
 					$('#solicitacoes').append(itens);
 			});
 					
-					var data_inicial  = new Date(inicio);
-					var data_final = new Date(fim);
-					
-					var resultados = [];
-					var data_inicio = data_inicial;
-					var final_semana = [5,6];
-					while (data_inicio <= data_final) {
-					 	var data = new Date(data_inicio);
-					 	if (!final_semana.includes(data.getDay())){
-					 		var data_formatada = data.toISOString().slice(0,10);
-					 		resultados.push(data_formatada);
-						}
-					    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
-					}
-					
-					$('#diasUteis').append('Dias úteis: '+resultados.length);	
+			var data_inicial  = new Date(inicio);
+			var data_final = new Date(fim);
 			
+			var resultados = [];
+			var data_inicio = data_inicial;
+			var final_semana = [5,6];
+			while (data_inicio <= data_final) {
+			 	var data = new Date(data_inicio);
+			 	if (!final_semana.includes(data.getDay())){
+			 		var data_formatada = data.toISOString().slice(0,10);
+			 		resultados.push(data_formatada);
+				}
+			    	data_inicio.setUTCDate(data_inicio.getUTCDate() + 1);
+			}
+			
+			$('#diasUteis').append('Dias úteis: '+resultados.length);	
 		},
 		statusCode: {
 	   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -327,21 +321,18 @@
 		}
 	});
 	
-	$.ajax({
-		type: "GET",
-		contentType: "application/json",
-		url: "/sistech/solicitacao/relatorio/grafico/cliente/"+cliente_id+"/fechamento/inicio/"+inicio+"/fim/"+fim,
-		
-		success: function (data) {
-			montaGraficos(data);
-			$('#duracao').empty();
-			$('#duracao').text(minutosParaHorasTexto(data.totalMinutosMes));
-		},
-		statusCode: {
-	   	 	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-	    	401: function() { alert('Realize login novamente!'); }
-		}
-	});
+	$.getJSON(`/sistech/solicitacao/relatorio/grafico/cliente/${cliente_id}/fechamento/inicio/${inicio}/fim/${fim}`)
+	  .done(function(data) {
+	    montaGraficos(data);
+	    $('#duracao').empty().text(minutosParaHorasTexto(data.totalMinutosMes));
+	  })
+	  .fail(function(jqXHR) {
+	    if (jqXHR.status === 500) {
+	      alert('Erro! Contate o desenvolvedor!');
+	    } else if (jqXHR.status === 401) {
+	      alert('Realize login novamente!');
+	    }
+	  });
 	
 	function minutosParaHorasTexto(minutos){
 		if(minutos<=60){
@@ -542,8 +533,6 @@
 					},
 					options: { responsive: true, }
 				});
-				
-				
 			}
 		}
 </script>

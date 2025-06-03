@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="br">
-<html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -557,8 +556,7 @@
 				contentType: "application/json",
 				url: "/sistech/colaborador/list/" + idCliente,
 				success: function (data) {
-					$('#tbColaboradoresCorpo').empty();
-					$('#idColaboradoCliente').empty();
+					$('#tbColaboradoresCorpo, #idColaboradoCliente').empty();
 					$('#idColaboradoCliente').append(idCliente);
 
 					var itens = data.map(i =>
@@ -590,10 +588,7 @@
 				contentType: "application/json",
 				url: "/sistech/colaborador/edit/" + id,
 				success: function (data) {
-					$('#idEdicaoModal').val("");
-					$('#nomeEdicaoModal').val("");
-					$('#celularEdicaoModal').val("");
-					$('#emailEdicaoModal').val("");
+					$('#idEdicaoModal, #nomeEdicaoModal, #celularEdicaoModal, #emailEdicaoModal').val("");
 					$('#statusEdicaoModal').empty();
 					
 					$('#idEdicaoModal').val(data.id);

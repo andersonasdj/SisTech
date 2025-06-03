@@ -349,22 +349,29 @@
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="descricaomodal"><b>Descrição</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="descricaomodal" class="form-control" spellcheck="true"></textarea>
+									<textarea class="form-control" rows="3" id="descricaomodal" 
+									onkeyup="limitarTextarea(this.value, 'contDescri', 'descricaomodal')"class="form-control" spellcheck="true"></textarea>
+									<span id="contDescri">300</span>
+									<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<label class="form-label mt-3" for="observacaomodal"><b>Observação</b></label>
 								<div class="controls">
-									<textarea class="form-control" rows="3" id="observacaomodal" onkeyup="limite_textarea_obs_edit(this.value)" class="form-control" spellcheck="true"> </textarea>
-									<span id="contObsEdit">300</span><span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+									<textarea class="form-control" rows="3" id="observacaomodal"
+										onkeyup="limitarTextarea(this.value, 'contObsEdit', 'observacaomodal')" spellcheck="true"></textarea>
+									<span id="contObsEdit">300</span>
+									<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<label class="form-label mt-3" for="resolucaomodal"><b>Resolução</b></label>
 							<div class="controls">
-								<textarea class="form-control" rows="3" id="resolucaomodal" onkeyup="limite_textarea_resol_edit(this.value)" class="form-control" spellcheck="true"> </textarea>
-								<span id="contResolEdit">300</span><span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+								<textarea class="form-control" rows="3" id="resolucaomodal"
+									onkeyup="limitarTextarea(this.value, 'contResolEdit', 'resolucaomodal')" spellcheck="true"></textarea>
+								<span id="contResolEdit">300</span>
+								<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 							</div>
 						</div>
 						<div class="row">
@@ -428,16 +435,17 @@
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
 								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
-									<textarea class="form-control" rows="4" id="descricao" name="descricao" type="text"
-										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+									<textarea class="form-control input-xlarge" rows="4" id="descricao" name="descricao" type="text"
+										placeholder="Problema Relatado" onkeyup="limitarTextarea(this.value, 'contProb', 'descricao')" 
+										spellcheck="true" required></textarea>
 									<span id="contProb">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
 								<div class="controls">
 								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
-									<textarea class="form-control" rows="4" id="observacao" name="observacao" type="text"
-										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+									<textarea class="form-control input-xlarge" rows="4" id="observacao" name="observacao" type="text"
+										placeholder="Observação" onkeyup="limitarTextarea(this.value, 'contObs', 'observacao')" spellcheck="true" required></textarea>
 									<span id="contObs">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
@@ -680,9 +688,7 @@
 							</div>
 							<br />
 							<div class="container">
-								
 								<div id="imagem-container"></div>
-	
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
@@ -778,7 +784,6 @@
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
 				    401: function() { alert('Realize login novamente!'); }
-					
 				}
 			});
 		}
@@ -809,8 +814,7 @@
 		}
 		
 		function exibeTodas(){
-			$('#corpoSolicitacoes').empty();
-			$('#paginas').empty();
+			$('#corpoSolicitacoes, #paginas').empty();
 			exibeTodasSolicitacoes();
 		}
 		
@@ -844,17 +848,12 @@
 				observacao = $('#observacaomodal').val(),
 				resolucao = $('#resolucaomodal').val(),
 				funcionario = $('#nomeFuncionarioModal').val(); 
-			$('#nomeCliente').empty();
-			$('#nomeFuncionario').empty();
+			$('#nomeCliente, #nomeFuncionario').empty();
 			$('#nomeCliente').append('<option value=""></option>');
 			nova();
 			
-			$('#nomeCliente').val("");
-			$('#solicitante').empty();
-			$('#afetado').empty();
-			$('#descricao').val("");
-			$('#observacao').val("");
-			$('#resolucaomodal').val("");
+			$('#solicitante, #afetado').empty();
+			$('#nomeCliente, #descricao, #observacao, #resolucaomodal').val("");
 					
 			$('#descricao').val(descricao);
 			$('#observacao').val(observacao);
@@ -994,13 +993,7 @@
 				$("#numPag"+num).attr("style","color:red");
 				
 				data.content.map(i => {
-					var status,
-						vip,
-						redFlag,
-						tempo,
-						alerta,
-						dataStatus = "",
-						alertaPeso;
+					var status, vip, redFlag, tempo, alerta, dataStatus = "", alertaPeso;
 					
 					if(i.peso > 7){ alertaPeso = "class='blink' style='color: red; font-weight: bold;'"; }
 					else if(i.peso > 3 && i.peso <= 7 ){ alertaPeso = "style='color: orange; font-weight: bold;'"; }
@@ -1088,8 +1081,7 @@
 		});
 
 		function exibeItens(data){
-				$('#corpoSolicitacoes').empty();
-				$('#paginas').empty();
+				$('#corpoSolicitacoes, #paginas').empty();
 				
 				$('#totalElementos').text("");
 				$('#totalElementos').text(data.totalElements);
@@ -1099,13 +1091,7 @@
 				}
 				
 				data.content.map(i => {
-					var status,
-						vip,
-						redFlag,
-						tempo,
-						alerta,
-						alertaPeso,
-						dataStatus = "";
+					var status, vip, redFlag, tempo, alerta, alertaPeso, dataStatus = "";
 						
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
@@ -1173,8 +1159,7 @@
 					if(data.funcionario != null && data.colaboradores != null){
 						
 						$('#inputId').empty();
-						$('#btnTimesheet').text("");
-						$('#btnAnexo').text("");
+						$('#btnTimesheet, #btnAnexo').text("");
 						if(data.anexo != null && data.anexo != ' '){
 							$('#btnAnexo').append('<button class="btn btn-sm btn-anexo" onclick="baixarAnexo('+id+')"><i class="bi bi-paperclip"></i>Baixar</button>&nbsp; &nbsp;');
 							$('#btnAnexo').append('<button class="btn btn-sm btn-anexo" data-bs-toggle="modal" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+id+')"><i class="bi bi-paperclip"></i>Visualizar</button>&nbsp; &nbsp;');
@@ -1190,34 +1175,19 @@
 							$('#btnTimesheet').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
 						}
 						
-						$('#idmodal').text("");
-						$('#idHistorico').text("");
-						$('#dataAtualizacaoModal').empty();
-						$('#versaoModal').text("");
-						$('#descricaomodal').val("");
-						$('#resolucaomodal').val("");
-						$('#observacaomodal').val("");
-						$('#statusmodal').empty();
-						$('#categoriamodal').empty();
-						$('#classificacaomodal').empty();
-						$('#prioridademodal').empty();
-						$('#localmodal').empty();
-						$('#nomeFuncionarioModal').empty();
-						$('#nomeSolicitanteModal').empty();
-						$('#nomeAfetadoModal').empty();
-						$('#dateModal').val("");
-						$('#timeModal').val("");
-						$('#formaAberturaModal').empty();
-						$('#id_cliente').text("");
-	
+						$('#idmodal, #idHistorico, #versaoModal, #id_cliente').text('');
+						$('#dataAtualizacaoModal, #statusmodal, #categoriamodal, #classificacaomodal, #prioridademodal, #localmodal, #nomeFuncionarioModal, #nomeSolicitanteModal, #nomeAfetadoModal, #formaAberturaModal').empty();
+						$('#descricaomodal, #resolucaomodal, #observacaomodal, #dateModal, #timeModal').val('');
+
 						$('#idHistorico').text(data.log_id);
 						$('#idmodal').text(data.id);
 						$('#id_cliente').text(data.clienteId);
-						$('#dataAtualizacaoModal').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#versaoModal').text(data.versao);
 						$('#descricaomodal').val(data.descricao);
 						$('#resolucaomodal').val(data.resolucao);
 						$('#observacaomodal').val(data.observacao);
+
+						$('#dataAtualizacaoModal').append('<span style="font-size: 14px"> <i class="bi bi-person-plus"></i> Aberto por: ' + data.abertoPor + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-calendar3"></i> Atualizado em: ' + data.dataAtualizacao+'</span>');
 						$('#nomeFuncionarioModal').append("<option value=" + data.funcionario + ">" + data.funcionario + "</option>");
 						$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
 							+'<option value="SOFTWARE">SOFTWARE</option>'
@@ -1535,13 +1505,7 @@
 						});
 						
 					}else{
-						var status,
-							vip,
-							redFlag,
-							alerta,
-							duracao,
-							tempo,
-							alertaPeso;
+						var status, vip, redFlag, alerta, duracao, tempo, alertaPeso;
 						if(data.status == "ABERTO"){ status = "table-danger" }
 						if(data.status == "AGENDADO"){ status = "table-warning" }
 						if(data.status == "ANDAMENTO"){ status = "table-info" }
@@ -1565,15 +1529,13 @@
 							if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = data.duracao;}
 						}else {tempo = " "; alerta = " "}
 						
+						['solicitante','afetado','descricao','prioridade'].map(id => $('#' + id + data.id).empty());
+
 						$('#linha'+data.id).removeClass();
 						$('#linha'+data.id).addClass(status);
-						$('#solicitante'+data.id).empty();
 						$('#solicitante'+data.id).append(data.solicitante);
-						$('#afetado'+data.id).empty();
 						$('#afetado'+data.id).append(data.afetado);
-						$('#descricao'+data.id).empty();
 						$('#descricao'+data.id).append(data.descricao);
-						$('#prioridade'+data.id).empty();
 						
 						if(data.prioridade == "CRITICA"){
 							$('#prioridade'+data.id).append("<span class='blink' style='color: red; font-weight: bold;'>"+data.prioridade+"</span>");
@@ -1583,19 +1545,14 @@
 							$('#prioridade'+data.id).append("<span>"+data.prioridade+"</span>");
 						}
 						
-						$('#classificacao'+data.id).empty();
+						['classificacao','nomeFuncionario','status','versao','local','name','duracao'].map(id => $('#' + id + data.id).empty());
+						
 						$('#classificacao'+data.id).append("<p>"+data.classificacao+"</p>Peso: <span " + alertaPeso + ">"+ data.peso+"</span>");
-						$('#nomeFuncionario'+data.id).empty();
 						$('#nomeFuncionario'+data.id).append(data.nomeFuncionario);
-						$('#status'+data.id).empty();
 						$('#status'+data.id).append(data.status);
-						$('#versao'+data.id).empty();
 						$('#versao'+data.id).append(data.versao);
-						$('#local'+data.id).empty();
 						$('#local'+data.id).append("<p>Local: "+data.local+"</p>Categoria: "+ data.categoria);
-						$('#name'+data.id).empty();
 						$('#name'+data.id).append("<span class='novaSolicitacao' >"+ data.id +"</span>");
-						$('#duracao'+data.id).empty();
 						$('#duracao'+data.id).append('<span '+ alerta + '><b>' + tempo + '</b></span>');
 						
 						$('#modalEdicao').modal('hide');
@@ -1674,12 +1631,7 @@
 					"horaAgendado": horaAgendado
 				}),
 				success: function (data) {
-					var funcionario,
-						status,
-						vip,
-						redFlag,
-						dataAgendado = "",
-						alertaPeso;
+					var funcionario, status, vip, redFlag, dataAgendado = "", alertaPeso;
 						
 					if(data.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
@@ -1741,46 +1693,18 @@
 			});
 		}
 		
-		function limite_textarea_prob(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contProb').innerHTML = resto;
+		function limitarTextarea(valor, idContador, idCampo) {
+			const limite = 300;
+			const total = valor.length;
+
+			if (total <= limite) {
+				const restante = limite - total;
+				document.getElementById(idContador).innerHTML = restante;
 			} else {
-				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
+				document.getElementById(idCampo).value = valor.substr(0, limite);
 			}
 		}
-		function limite_textarea_obs(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contObs').innerHTML = resto;
-			} else {
-				document.getElementById('observacao').value = valor.substr(0, quant);
-			}
-		}
-		function limite_textarea_resol_edit(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contResolEdit').innerHTML = resto;
-			} else {
-				document.getElementById('resolucaomodal').value = valor.substr(0, quant);
-			}
-		}
-		function limite_textarea_obs_edit(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contObsEdit').innerHTML = resto;
-			} else {
-				document.getElementById('observacaomodal').value = valor.substr(0, quant);
-			}
-		}
+		
 	</script>
 	<script>
 		$(document).ready(function () {
@@ -1828,9 +1752,7 @@
 					complete: function (data) { }
 					})
 				} else{
-					$("#botaoSalvar").empty();
-					$('#solicitante').empty();
-					$('#afetado').empty();
+					$("#botaoSalvar, #solicitante, #afetado").empty();
 				}
 			});
 		});
@@ -1995,7 +1917,6 @@
 			        }
 			    });
 			}
-
 	</script>
 </body>
 </html>
