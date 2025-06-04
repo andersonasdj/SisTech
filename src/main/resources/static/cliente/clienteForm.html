@@ -86,33 +86,52 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div id="form-cliente">
-			<label for="nomeCliente" class="form-laber mt-2">Nome</label>
-			<input type="text" id="nomeCliente" class="form-control mt-2" autocomplete="off" style="width: 350px;">
-			
-			<label for="endereco" class="form-laber mt-2">Endereco</label>
-			<input type="text" id="endereco" class="form-control mt-2" autocomplete="off" style="width: 350px;">
-			
-			<label for="bairro" class="form-laber mt-2">Bairro</label>
-			<input type="text" id="bairro" class="form-control mt-2" autocomplete="off" style="width: 350px;">
-			
-			<label for="telefone" class="form-laber mt-2">telefone</label>
-			<input ttype="tel" maxlength="15" onkeyup="handlePhone(event)" id="telefone" class="form-control mt-2" style="width: 200px;">
-			
-			<label for="username" class="form-laber mt-2">Usuario</label>
-			<input type="text" id="username" class="form-control mt-2" autocomplete="off" style="width: 200px;">
-		
-			<label for="password" class="form-laber mt-2">Senha</label>
-			<input type="password" id="password" class="form-control mt-2" autocomplete="off" style="width: 300px;">
-			
-			<label for="cnpj" class="form-laber mt-2">CNPJ</label>
-			<input type="text" id="cnpj" class="form-control mt-2" autocomplete="off" style="width: 300px;">
-			
-			<label for="tempoContratado" class="form-laber mt-2">Banco de Horas</label>
-			<input type="text" id="tempoContratado" onkeyup="handleComa(event)" class="form-control mt-2" autocomplete="off" style="width: 300px;">
-		</div>
-		<br />
-		<button class="btn btn-success" onclick="salvar()">Salvar</button>
+		<form id="form-cliente" class="row g-3" style="max-width: 600px;">
+		  <div class="col-12">
+		    <label for="nomeCliente" class="form-label">Nome</label>
+		    <input type="text" id="nomeCliente" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12">
+		    <label for="endereco" class="form-label">Endereço</label>
+		    <input type="text" id="endereco" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="bairro" class="form-label">Bairro</label>
+		    <input type="text" id="bairro" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="telefone" class="form-label">Telefone</label>
+		    <input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="telefone" class="form-control" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="username" class="form-label">Usuário</label>
+		    <input type="text" id="username" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="password" class="form-label">Senha</label>
+		    <input type="password" id="password" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="cnpj" class="form-label">CNPJ</label>
+		    <input type="text" id="cnpj" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12 col-md-6">
+		    <label for="tempoContratado" class="form-label">Banco de Horas</label>
+		    <input type="text" id="tempoContratado" onkeyup="handleComa(event)" class="form-control" autocomplete="off" />
+		  </div>
+
+		  <div class="col-12">
+		    <button type="button" class="btn btn-success" onclick="salvar()">Salvar</button>
+		  </div>
+		</form>
+
 
 		<br /><br /><br />
 		<footer class="container-fluid fixed-bottom text-center text-white">

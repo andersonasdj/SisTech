@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="assets/img/favicon.ico">
+	<link rel="stylesheet" href="assets/css/defaultStyle.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/password-generator.css">
+	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="assets/css/toastui-calendar.min.css" />
+	<!-- Flatpickr CSS -->
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<title>Agenda Técnica</title>
+	<style>
+		#calendar {
+		  height: calc(100vh - 250px);
+		  min-height: 600px;
+		}
+	   
+	    .popup {
+	      position: absolute;
+	      z-index: 10;
+	      background: #fff;
+	      border: 1px solid #ccc;
+	      padding: 16px;
+	      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+	      display: none;
+	    }
+	    .popup input, .popup button {
+	      display: block;
+	      margin-bottom: 10px;
+	    }
+	  </style>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="./assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/sistech/home">Início</a>
+						</li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout">
+								<i class="bi bi-power"style="font-size: 2rem; color: red;"> </i>
+							</a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
+
+		<hr class="bg-danger border-2 border-top border-danger">
+		<br />
+		
+		<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+		  <div class="btn-group" role="group" aria-label="Navegação do calendário">
+		    <button class="btn btn-sm btn-secondary" id="prevBtn">Anterior</button>
+		    <button class="btn btn-sm btn-outline-primary" id="todayBtn">Hoje</button>
+		    <button class="btn btn-sm btn-secondary" id="nextBtn">Próximo</button>
+		  </div>
+
+		  <select id="viewSelect" class="form-select form-select-sm w-auto">
+		    <option value="month">Mês</option>
+		    <option value="week">Semana</option>
+		  </select>
+		</div>
+
+		<h4 id="currentMonth" class="mb-3"></h4>
+
+
+		<div id="calendar"></div>
+
+		<div id="popup" class="popup p-3 border rounded bg-light" style="max-width: 320px;">
+			<div class="mb-3">
+			    <label for="calendarId" class="form-label">Tipo:</label>
+			    <select id="calendarId" class="form-select">
+			      <option value="1">Técnico</option>
+			      <option value="2">Supervisão</option>
+				  <option value="3">Férias</optio>
+					<option value="4">Ausência</option>
+			    </select>
+			  </div>
+		  <div class="mb-3">
+		    <label for="eventTitle" class="form-label">Título do evento:</label>
+		    <input type="text" id="eventTitle" class="form-control" placeholder="Título" />
+		  </div>
+		  
+		  <div class="mb-3">
+		    <label for="startDate" class="form-label">Data início:</label>
+		    <input type="datetime-local" id="startDate" class="form-control" />
+		  </div>
+		  
+		  <div class="mb-3">
+		    <label for="endDate" class="form-label">Data fim:</label>
+		    <input type="datetime-local" id="endDate" class="form-control" />
+		  </div>
+
+		  <div class="d-flex justify-content-between">
+		    <div>
+		      <button id="cancelEvent" class="btn btn-secondary me-2">Cancelar</button>
+		      <button id="saveEvent" class="btn btn-primary">Salvar</button>
+		    </div>
+		  </div>
+		</div>
+		
+		
+		
+		
+			<div id="popupEdit" class="popup p-3 border rounded bg-light" style="max-width: 320px;">
+				
+				<div class="mb-3">
+				    <label for="calendarIdEdit" class="form-label">Tipo:</label>
+				    <select id="calendarIdEdit" class="form-select">
+				      <option value="1">Técnico</option>
+				      <option value="2">Supervisão</option>
+					  <option value="3">Férias</optio>
+						<option value="4">Ausência</option>
+				    </select>
+				  </div>
+				
+				<div class="mb-3">
+				    <label for="eventId" class="form-label">ID:</label>
+				    <input type="text" id="eventId" class="form-control" placeholder="Título" />
+				  </div>
+				
+			  <div class="mb-3">
+			    <label for="eventTitleEdit" class="form-label">Título do evento:</label>
+			    <input type="text" id="eventTitleEdit" class="form-control" placeholder="Título" />
+			  </div>
+			  
+			  <div class="mb-3">
+			    <label for="startDateEdit" class="form-label">Data início:</label>
+			    <input type="datetime-local" id="startDateEdit" class="form-control" />
+			  </div>
+			  
+			  <div class="mb-3">
+			    <label for="endDateEdit" class="form-label">Data fim:</label>
+			    <input type="datetime-local" id="endDateEdit" class="form-control" />
+			  </div>
+
+			  <div class="d-flex justify-content-between">
+			    <button id="deleteEvent" class="btn btn-danger">Excluir</button>
+			    <div>
+			      <button id="cancelEventEdit" class="btn btn-secondary me-2">Cancelar</button>
+			      <button id="updateEvent" class="btn btn-primary">Salvar</button>
+			    </div>
+			  </div>
+			</div>
+		
+		
+		
+		
+		<footer class="container-fluid fixed-bottom text-center text-white">
+				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2025 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+		</footer>
+	</div>
+	<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="container-password">
+						<div class="result">
+							<div class="result__info right">click para copiar</div>
+							<div class="result__info left">copiado</div>
+							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
+						</div>
+						<div class="length range__slider" data-min="4" data-max="32">
+							<div class="length__title field-title" data-length='0'>Tamanho:</div>
+							<input id="slider" type="range" min="4" max="32" value="16" />
+						</div>
+						<div class="settings">
+							<span class="settings__title field-title">configurações</span>
+							<div class="setting">
+								<input type="checkbox" id="uppercase" checked />
+								<label for="uppercase">Incluir Maiúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="lowercase" checked />
+								<label for="lowercase">Incluir Minúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="number" checked />
+								<label for="number">Incluir Número</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="symbol" />
+								<label for="symbol">Incluir Símbolo</label>
+							</div>
+						</div>
+						<button class="btn generate" id="generate">Gerar Senha</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+	<script src="assets/js/toastui-calendar.min.js"></script>
+	<script src="assets/js/jquery-3.6.3.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/password-generator.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	
+	<script>
+		const Calendar = tui.Calendar;
+		
+		const calendar = new Calendar('#calendar', {
+		  defaultView: 'month',
+		  taskView: false,
+		  useFormPopup: false,
+		  useDetailPopup: false,
+		  calendars: 		  [
+		      {
+		        id: '1',
+		        name: 'Técnico',
+		        backgroundColor: '#ffbb3b',
+		        borderColor: '#ffa500',
+		        color: '#000000' // cor do texto
+		      },
+		      {
+		        id: '2',
+		        name: 'Supervisão',
+		        backgroundColor: '#00a9ff',
+		        borderColor: '#007acc',
+		        color: '#ffffff'
+		      },
+  		      {
+  		        id: '3',
+  		        name: 'Férias',
+  		        backgroundColor: '#d25565',
+  		        borderColor: '#a03e4f',
+  		        color: '#ffffff'
+  		      },
+			  {
+		        id: '4',
+		        name: 'Ausência',
+		        backgroundColor: '#10B981',
+		        borderColor: '#059669',
+		        color: '#ffffff'
+		      }
+		    ],
+		  usageStatistics: false,
+		  week: {
+		    showTimezoneCollapseButton: true,
+		    timezonesCollapsed: false
+		  },
+		  useCreationPopup: false,
+		  useDetailPopup: false,
+		  timezone: {
+		      zones: [
+		        {
+		          timezoneName: 'America/Sao_Paulo',
+		          displayLabel: 'Horário de Brasília',
+		          tooltip: 'UTC-03:00'
+		        }
+		      ]
+		    }
+		});
+		carregaEventos();
+		
+		function updateMonthDisplay() {
+		  const date = calendar.getDate();
+		  const formatter = new Intl.DateTimeFormat('pt-BR', {
+		    month: 'long',
+		    year: 'numeric',
+		    timeZone: 'America/Sao_Paulo'
+		  });
+
+		  const formatted = formatter.format(date);
+		  document.getElementById('currentMonth').textContent =
+		    formatted.charAt(0).toUpperCase() + formatted.slice(1);
+		}
+		
+		updateMonthDisplay();
+		
+		document.getElementById('prevBtn').addEventListener('click', () => {
+		  calendar.prev();
+		  updateMonthDisplay();
+		});
+
+		document.getElementById('nextBtn').addEventListener('click', () => {
+		  calendar.next();
+		  updateMonthDisplay();
+		});
+
+		document.getElementById('todayBtn').addEventListener('click', () => {
+		  calendar.today();
+		  updateMonthDisplay();
+		});
+
+		document.getElementById('viewSelect').addEventListener('change', (e) => {
+		  calendar.changeView(e.target.value, true);
+		  updateMonthDisplay();
+		});
+		
+		// Carrega eventos salvos do banco de dados
+		function carregaEventos(){
+			
+			fetch('/sistech/api/eventos')
+			
+			  .then(res => res.json())
+			  .then(eventos => {
+			    const eventosFormatados = eventos.map(evento => ({
+			      id: evento.id.toString(),
+			      calendarId: evento.calendarId.toString(),
+			      title: evento.titulo,
+			      category: 'time',
+			      start: evento.dataInicio,
+			      end: evento.dataFim
+			    }));
+
+			    calendar.createEvents(eventosFormatados);
+			  })
+			  .catch(err => console.error('Erro ao carregar eventos:', err));
+		}
+
+	 	const popup = document.getElementById('popup');
+		
+	    const titleInput = document.getElementById('eventTitle');
+	    const startInput = document.getElementById('startDate');
+	    const endInput = document.getElementById('endDate');
+	    let popupPosition = { x: 0, y: 0 };
+	    let pendingEventData = null;
+		
+		const titleInputEdit = document.getElementById('eventTitleEdit');
+		const popupEdit = document.getElementById('popupEdit');
+		const eventId = document.getElementById('eventId');
+	    const startInputEdit = document.getElementById('startDateEdit');
+	    const endInputEdit = document.getElementById('endDateEdit');
+
+		//Clique na data
+		calendar.on('selectDateTime', function(eventData) {
+			console.log("OI");
+		  pendingEventData = eventData;
+		  titleInput.value = '';
+		  startInput.value = formatDateTimeInput(eventData.start);
+		  endInput.value = formatDateTimeInput(eventData.end);
+
+		  popup.style.top = '200px';
+		  popup.style.left = '300px';
+		  popup.style.display = 'block';
+		});
+			
+		calendar.on('clickEvent', function({ event }) {
+		  
+		  pendingEventData = event;
+		  eventId.value = event.id;
+		  titleInputEdit.value = event.title;
+  		  titleInputEdit.value = event.title;
+  		  startInputEdit.value = formatDateTimeInput(event.start);
+  		  endInputEdit.value = formatDateTimeInput(event.end);
+		  calendarIdEdit.value = event.calendarId;
+		  
+		  popupEdit.style.top = '200px';
+		  popupEdit.style.left = '300px';
+		  popupEdit.style.display = 'block';
+		});
+
+
+	    document.getElementById('saveEvent').addEventListener('click', () => {
+	      const novoEvento = {
+	        titulo: titleInput.value,
+			dataInicio: toLocalISOString(new Date(startInput.value)),
+			dataFim: toLocalISOString(new Date(endInput.value)),
+			calendarId: calendarId.value,
+	      };
+
+	      fetch('/sistech/api/eventos', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        body: JSON.stringify(novoEvento)
+	      })
+	      .then(res => res.json())
+	      .then(data => {
+	        calendar.createEvents([{
+	          id: data.id || String(Math.random()),
+	          calendarId: calendarId.toString(),
+	          title: data.titulo,
+	          category: 'time',
+	          start: data.dataInicio,
+	          end: data.dataFim
+	        }]);
+	        popup.style.display = 'none';
+	      });
+	    });
+		
+		// EDITA
+		document.getElementById('updateEvent').addEventListener('click', () => {
+			
+			const novoEvento = {
+				calendarId: $("#calendarIdEdit").val(),
+				id: $("#eventId").val(),
+		        titulo: $("#eventTitleEdit").val(),
+				dataInicio: $("#startDateEdit").val(),
+				dataFim: $("#endDateEdit").val()
+		      };
+			  const idDelete = pendingEventData.id;
+			  const calendarId = pendingEventData.calendarId;
+
+	      fetch('/sistech/api/eventos', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        body: JSON.stringify(novoEvento)
+	      })
+	      .then(res => res.json())
+	      .then(data => {
+			calendar.deleteEvent(idDelete, calendarId);
+	        calendar.createEvents([{
+	          id: data.id,
+	          calendarId: data.calendarId.toString(),
+	          title: data.titulo,
+	          category: 'time',
+	          start: data.dataInicio,
+	          end: data.dataFim
+	        }]);
+			
+	        popupEdit.style.display = 'none';
+	      });
+	    });
+
+	    document.getElementById('cancelEvent').addEventListener('click', () => {
+	      popup.style.display = 'none';
+	    });
+		
+		document.getElementById('cancelEventEdit').addEventListener('click', () => {
+	      popupEdit.style.display = 'none';
+	    });
+			
+		document.getElementById('deleteEvent').addEventListener('click', () => {
+		  if (!pendingEventData || !pendingEventData.id) {
+		    alert('Nenhum evento selecionado para excluir.');
+		    return;
+		  }
+
+		  const id = pendingEventData.id;
+		  const calendarId = pendingEventData.calendarId;
+
+		  fetch(`/sistech/api/eventos/${id}`, {
+		    method: 'DELETE'
+		  })
+		  .then(res => {
+		    if (res.ok) {
+		      calendar.deleteEvent(id, calendarId);
+		      popupEdit.style.display = 'none';
+		    } else {
+		      alert('Erro ao deletar o evento no servidor.');
+		    }
+		  })
+		  .catch(err => {
+		    console.error('Erro ao deletar evento:', err);
+		    alert('Erro ao deletar o evento.');
+		  });
+		});
+
+	    function formatDateTimeInput(date) {
+	      const pad = n => String(n).padStart(2, '0');
+	      return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+	    }
+		
+		function toLocalISOString(date) {
+		  const local = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+		  return local.toISOString().slice(0, -1); // remove o 'Z' (que indica UTC)
+		}
+
+	  </script>
+</body>
+</html>

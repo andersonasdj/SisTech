@@ -87,292 +87,290 @@
 		<hr class="bg-danger border-2 border-top border-danger">
 
 		<div class="container corpoFormulario" style="display: block;">
-			<div id="form-solicitacao">
-				<fieldset>
-					<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" data-toggle="tooltip" data-placement="top" title="Modelos prontos de solicitação" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
-					<br /> <br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="nomeCliente"><b>Cliente *</b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
-										<option> </option>
-									</select>
+				<div id="form-solicitacao">
+					<fieldset>
+						<legend>Solicitação de Atendimento - <a href="/sistech/solicitacao/model" data-toggle="tooltip" data-placement="top" title="Modelos prontos de solicitação" class="btn btn-success btn-sm">Usar modelos</a>  </legend>
+						<br /> <br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="nomeCliente"><b>Cliente *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
+											<option> </option>
+										</select>
+									</div>
 								</div>
+								<br />
 							</div>
-							<br />
-						</div>
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="formaAbertura"><b>Canal de Abertura </b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
-										<option value="TELEFONE">Telefone</option>
-										<option value="EMAIL">E-mail</option>
-										<option value="WHATSAPP">Whatsapp</option>
-										<option value="LOCAL">No local</option>
-										<option value="PROATIVO">Proativo</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class="control-label" for="solicitante"><b>Solicitante * </b>
-									<span id="botaoColaboradores"> </span>
-								</label>
-								<div class="controls">
-									<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"> </select>
-								</div>
-								<span style="color: blue;"  id="celSolicitante"> </span>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
-								<div class="controls">
-									<select class="form-control usuario mt-2" name="afetado" id="afetado"> </select>
-								</div>
-								<span style="color: blue;"  id="celAfetado"> </span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group mt-2">
-								
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="control-group mt-1">
-								
-							</div>
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
-								<div class="controls">
-									<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
-										placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
-									<span id="contProb">300</span> Restantes <br>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="formaAbertura"><b>Canal de Abertura </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+											<option value="TELEFONE">Telefone</option>
+											<option value="EMAIL">E-mail</option>
+											<option value="WHATSAPP">Whatsapp</option>
+											<option value="LOCAL">No local</option>
+											<option value="PROATIVO">Proativo</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<label class="control-label" for="observacao"><b>Observações</b></label>
-							<div class="controls">
-								<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
-									placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
-								<span id="contObs">300</span> Restantes <br>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label" for="solicitante"><b>Solicitante * </b>
+										<span id="botaoColaboradores"> </span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"> </select>
+									</div>
+									<span style="color: blue;"  id="celSolicitante"> </span>
+								</div>
 							</div>
-						</div>
-					</div>
-					<br />
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="categoria"><b>Categoria </b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="categoria" name="categoria">
-										<option value="SOFTWARE">Software</option>
-										<option value="HARDWARE">Hardware</option>
-										<option value="EMAIL">Email</option>
-										<option value="SHAREPOINT">SharePoint</option>
-										<option value="INTERNET">Internet</option>
-										<option value="SERVIDORES">Servidores</option>
-										<option value="OUTROS">Outros</option>
-										<option value="REDE">Rede</option>
-										<option value="CABEAMENTO">Cabeamento</option>
-										<option value="SMARTPHONE">Smartphone</option>
-										<option value="PROJETO">Projeto</option>
-										<option value="BACKUP">Backup</option>
-										<option value="COTACAO">Cotação</option>
-										<option value="MIGRACAO">Migração</option>
-									</select>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="afetado" id="afetado"> </select>
+									</div>
+									<span style="color: blue;"  id="celAfetado"> </span>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="classificacao"><b>Classificação </b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="classificacao" name="classificacao">
-										<option value="INCIDENTE">Incidente</option>
-										<option value="PROBLEMA">Problema</option>
-										<option value="SOLICITACAO">Solicitação</option>
-										<option value="ACESSO">Acesso</option>
-										<option value="EVENTO">Evento</option>
-										<option value="BACKUP">Backup</option>
-									</select>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-1">
+									
 								</div>
 							</div>
 						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="criticidade"><b>Criticidade </b></label>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
+									<div class="controls">
+										<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" type="text"
+											placeholder="Problema Relatado" onkeyup="limite_textarea_prob(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+										<span id="contProb">300</span> Restantes <br>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label class="control-label" for="observacao"><b>Observações</b></label>
 								<div class="controls">
-									<select class="form-select mt-2" id="criticidade" name="criticidade">
-										<option value="BAIXA">Baixa</option>
-										<option value="MEDIA">Media</option>
-										<option value="ALTA">Alta</option>
-										<option value="CRITICA">Crítico</option>
-										<option value="PLANEJADA">Planejada</option>
-									</select>
+									<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" type="text"
+										placeholder="Observação" onkeyup="limite_textarea_obs(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+									<span id="contObs">300</span> Restantes <br>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="local"><b>Onsite / Offsite </b></label>
-								<div class="controls">
-									<select class="form-select mt-2" id="local" name="local">
-										<option value="OFFSITE">Offsite</option>
-										<option value="ONSITE">Onsite</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
-								<div class="controls">
-									<select class="form-select mt-3" id="nomeFuncionario" name="nomeFuncionario"> </select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							
-							<div class="control-group">
-								
-								<label class="control-label" for="status"><b> Status &nbsp; </b>
-								
-									<b class="blink" style="color: rgb(255, 120, 0); font-size: 20px;"><i class="bi bi-exclamation-triangle"></i></b>	
-								</label>
-								<div class="controls">
-									<select style="border: 2px solid rgb(46, 194, 126) !important;" class="form-select mt-2" id="status" name="status">
-										<option value="ABERTO">ABERTO</option>
-										<option value="ANDAMENTO">ANDAMENTO</option>
-										<option value="AGENDADO">AGENDADO</option>
-										<option value="FINALIZADO" style="color: red;">*FINALIZADO*</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
-					
-					<div class="row" id="resolucaoarea" style="display: none">
-						<div class="col-md-8">
-							<div class="control-group">
-								<label class="control-label" for="resolucao"><b>Resolução*</b></label>
-								<div class="controls">
-									<textarea class="form-control mt-2" rows="4" id="resolucao" name="resolucao" type="text"
-										placeholder="Resolução" onkeyup="limite_textarea_resolucao(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
-									<span id="contResolucao">300</span> Restantes <br>
-								</div>
-							</div>
-							<br />
-						</div>
+						<br />
 						
-					</div>
-					
-					<div class="row">
-						<div class="col-md-4" id="agendamentos" style="display: none">
-							<div class="control-group">
-								<label class="control-label"><b>Data Agendamento *</b></label>
-								<div class="datetimepicker">
-									<input type="date" id="date" name="date" value="">
-									<span></span>
-									<input type="time" id="time" name="time" value="">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="categoria"><b>Categoria </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="categoria" name="categoria">
+											<option value="SOFTWARE">Software</option>
+											<option value="HARDWARE">Hardware</option>
+											<option value="EMAIL">Email</option>
+											<option value="SHAREPOINT">SharePoint</option>
+											<option value="INTERNET">Internet</option>
+											<option value="SERVIDORES">Servidores</option>
+											<option value="OUTROS">Outros</option>
+											<option value="REDE">Rede</option>
+											<option value="CABEAMENTO">Cabeamento</option>
+											<option value="SMARTPHONE">Smartphone</option>
+											<option value="PROJETO">Projeto</option>
+											<option value="BACKUP">Backup</option>
+											<option value="COTACAO">Cotação</option>
+											<option value="MIGRACAO">Migração</option>
+										</select>
+									</div>
 								</div>
-								<div class="info">
-									<strong>Compatibility check:</strong>
-									Date "<span id="date-output"></span>",
-									Time "<span id="time-output"></span>"
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="classificacao"><b>Classificação </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="classificacao" name="classificacao">
+											<option value="INCIDENTE">Incidente</option>
+											<option value="PROBLEMA">Problema</option>
+											<option value="SOLICITACAO">Solicitação</option>
+											<option value="ACESSO">Acesso</option>
+											<option value="EVENTO">Evento</option>
+											<option value="BACKUP">Backup</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row" id="finalizados" style="display: none">
-						<div class="col-md-4" >
-							<div class="control-group">
-								<label class="control-label"><b>Data Andamento *</b></label>
-								<div class="datetimepicker">
-									<input type="date" id="opendate" name="opendate" value="">
-									<span></span>
-									<input type="time" id="opentime" name="opentime" value="">
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="criticidade"><b>Criticidade </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="criticidade" name="criticidade">
+											<option value="BAIXA">Baixa</option>
+											<option value="MEDIA">Media</option>
+											<option value="ALTA">Alta</option>
+											<option value="CRITICA">Crítico</option>
+											<option value="PLANEJADA">Planejada</option>
+										</select>
+									</div>
 								</div>
-								<div class="info">
-									<strong>Compatibility check:</strong>
-									Date "<span id="date-output"></span>",
-									Time "<span id="time-output"></span>"
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="local"><b>Onsite / Offsite </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="local" name="local">
+											<option value="OFFSITE">Offsite</option>
+											<option value="ONSITE">Onsite</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+									<div class="controls">
+										<select class="form-select mt-3" id="nomeFuncionario" name="nomeFuncionario"> </select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								
+								<div class="control-group">
+									
+									<label class="control-label" for="status"><b> Status &nbsp; </b>
+									
+										<b class="blink" style="color: rgb(255, 120, 0); font-size: 20px;"><i class="bi bi-exclamation-triangle"></i></b>	
+									</label>
+									<div class="controls">
+										<select class="form-select mt-2 border-success rounded shadow-sm" id="status" name="status">
+											<option value="ABERTO">ABERTO</option>
+											<option value="ANDAMENTO">ANDAMENTO</option>
+											<option value="AGENDADO">AGENDADO</option>
+											<option value="FINALIZADO" style="color: red;">*FINALIZADO*</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br />
 						
-						<div class="col-md-4">
-							<div class="control-group">
-								<label class="control-label"><b>Data Finalizado *</b></label>
-								<div class="datetimepicker">
-									<input type="date" id="closedate" name="closedate" value="">
-									<span></span>
-									<input type="time" id="closetime" name="closetime" value="">
-								</div>
-								<div class="info">
-									<strong>Compatibility check:</strong>
-									Date "<span id="date-output"></span>",
-									Time "<span id="time-output"></span>"
-								</div>
-							</div>
-						</div>
-						
-						<div class="row">				
+						<div class="row" id="resolucaoarea" style="display: none">
 							<div class="col-md-8">
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(15)">15 M</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(20)">20 M</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(30)">30 M</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(60)">1 H</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(120)">2 H</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(180)">3 H</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(240)">4 H</button>
-								<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(300)">5 H</button>
+								<div class="control-group">
+									<label class="control-label" for="resolucao"><b>Resolução*</b></label>
+									<div class="controls">
+										<textarea class="form-control mt-2" rows="4" id="resolucao" name="resolucao" type="text"
+											placeholder="Resolução" onkeyup="limite_textarea_resolucao(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+										<span id="contResolucao">300</span> Restantes <br>
+									</div>
+								</div>
+								<br />
+							</div>
+							
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4" id="agendamentos" style="display: none">
+								<div class="control-group">
+									<label class="control-label"><b>Data Agendamento *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="date" name="date" value="">
+										<span></span>
+										<input type="time" id="time" name="time" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<br />			
-					
-					<div class="control-group">
-						<div class="controls">
-							<span id="botaoSalvar"> </span>
-							<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"> </i></a>
+						
+						<div class="row" id="finalizados" style="display: none">
+							<div class="col-md-4" >
+								<div class="control-group">
+									<label class="control-label"><b>Data Andamento *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="opendate" name="opendate" value="">
+										<span></span>
+										<input type="time" id="opentime" name="opentime" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label"><b>Data Finalizado *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="closedate" name="closedate" value="">
+										<span></span>
+										<input type="time" id="closetime" name="closetime" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">				
+								<div class="col-md-8">
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(15)">15 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(20)">20 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(30)">30 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(60)">1 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(120)">2 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(180)">3 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(240)">4 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(300)">5 H</button>
+								</div>
+							</div>
 						</div>
-					</div>
-					<br /><br />
-					<legend> </legend>
-				</fieldset>
-			</div>
+						<br />			
+						
+						<div class="control-group">
+							<div class="controls">
+								<span id="botaoSalvar"> </span>
+								<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"> </i></a>
+							</div>
+						</div>
+						<br /><br />
+						<legend> </legend>
+					</fieldset>
+				</div>
 		</div>
 		<footer class="container-fluid text-center text-white">
-				<!-- Copyright -->
 				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
 					2025 Copyright:
 					<a class="text-white" href="#">Techgold</a>
 				</div>
-				<!-- Copyright -->
 		</footer>
 		
 		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->

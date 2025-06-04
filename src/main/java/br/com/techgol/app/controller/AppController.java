@@ -164,4 +164,16 @@ public class AppController {
 	public String configuracoes() {
 		return "templates/configuracoes.html";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/calendario")
+	public String calendario() {
+		return "templates/calendario.html";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/calendario2")
+	public String calendario2() {
+		return "templates/calendario2.html";
+	}
 }

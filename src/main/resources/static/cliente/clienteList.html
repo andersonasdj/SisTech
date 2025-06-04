@@ -433,9 +433,9 @@
 						data.content.map(i => {
 							var status;
 							if(i.ativo == true){
-								status = "<FONT COLOR='#008000'>Ativado</FONT>";
+								status = '<span class="badge bg-success">Ativado</span>';
 							}else{
-								status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+								status = '<span class="badge bg-danger">Desativado</span>';
 							}
 							
 							var vip =" ";
@@ -446,7 +446,7 @@
 							var itens = 
 							'<tr id=linha' + i.id + '>'
 							+ '<td>' + i.nomeCliente + vip + redFlag + '</td>'
-							+ '<td>' + status + '</t}>'
+							+ '<td>' + status + '</td>'
 							+ '<td>'
 							+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick=editar(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
 							+ ' <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick=editarColaboradores(' + i.id + ')><i class="bi bi-people"></i></button>'
@@ -485,9 +485,9 @@
 				data.map(i => {
 					var status;
 					if(i.ativo == true){
-						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+						status = '<span class="badge bg-success">Ativado</span>';
 					}else{
-						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+						status = '<span class="badge bg-danger">Desativado</span>';
 					}
 					
 					var vip =" ";
@@ -555,9 +555,9 @@
 				data.content.map(i => {
 					var status;
 					if(i.ativo == true){
-						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+						status = '<span class="badge bg-success">Ativado</span>';
 					}else{
-						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+						status = '<span class="badge bg-danger">Desativado</span>';
 					}
 					
 					var vip =" ";
@@ -646,9 +646,9 @@
 				data.map(i => {
 					var status;
 					if(i.ativo == true){
-						status = "<FONT COLOR='#008000'>Ativado</FONT>";
+						status = '<span class="badge bg-success">Ativado</span>';
 					}else{
-						status = "<FONT COLOR='#ff0000'>Desativado</FONT>";
+						status = '<span class="badge bg-danger">Desativado</span>';
 					}
 					
 					var vip =" ";
@@ -1009,8 +1009,11 @@
 				success: function (data) {
 					
 					var status,vipData ="",redFlagData="";
-					if(data.ativo == true){ status = "<FONT COLOR='#008000'>Ativado</FONT>"; }
-					else{ status = "<FONT COLOR='#ff0000'>Desativado</FONT>"; }
+					if(i.ativo == true){
+						status = '<span class="badge bg-success">Ativado</span>';
+					}else{
+						status = '<span class="badge bg-danger">Desativado</span>';
+					}
 					
 					if(data.vip == true){ vipData = "<span style='color: RoyalBlue; font-size: 15px'><b> * VIP </b></span>"; }
 					if(data.redFlag == true){ redFlagData = "<span style='color: red; font-size: 15px'><b> * REDFLAG </b></span>"; }
