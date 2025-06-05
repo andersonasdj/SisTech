@@ -288,3 +288,22 @@ HTML CSSResult Skip Results Iframe .Neon {
 	-moz-transition: all 0.2s;
 	transition: all 0.2s;
 }
+
+#calendar {
+	  height: calc(100vh - 250px);
+	  min-height: 600px;
+	}
+   
+    .popup {
+      position: absolute;
+      z-index: 10;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      display: none;
+    }
+    .popup input, .popup button {
+      display: block;
+      margin-bottom: 10px;
+    }

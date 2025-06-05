@@ -28,6 +28,6 @@ public class Evento {
 
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
-
+    
     // Getters e Setters
 }

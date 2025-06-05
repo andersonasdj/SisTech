@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.EventoDTO;
+import br.com.techgol.app.dto.EventoDTOList;
 import br.com.techgol.app.model.Evento;
 import br.com.techgol.app.repository.EventoRepository;
 
@@ -38,8 +39,8 @@ public class EventoRestController {
     }
 
     @PostMapping
-    public Evento salvar(@RequestBody Evento evento) {
-        return repo.save(evento);
+    public EventoDTOList salvar(@RequestBody Evento evento) {
+    	return new EventoDTOList(repo.save(evento));
     }
 
     @DeleteMapping("/{id}")
