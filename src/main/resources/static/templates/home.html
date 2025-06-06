@@ -89,47 +89,55 @@
 
 		<hr class="bg-danger border-2 border-top border-danger">
 			<div class="container-fluid">
-				<div class="row justify-content-between">
-				    <div class="col-2 col-s-4">
-							<div id="containerPerfil">
-								<aside class="">
-									<span id="fotoDePerfil">
-									</span>
-								</aside>
-									<span class="ocultar-link" style="font-size: 9px; padding-left: 50px;" data-bs-toggle="modal" data-bs-target="#modalFoto"><a href="#">Alterar imagem</a> </span>
-							<br /><br />
-						</div>
-				    </div>
-				    <div class="col-7 col-s-6">
-						<br />
-				    		<p><span id="saudacao"> </span> <b><span id="nomeFuncionario"> </span></b></p>
-							<p><span id="dataUltimoLogin"> </span></p>
-							<span id="btnAvisos"> </span>
-							<span>
-								<a id="btnRefeicao" class="" href="#" onclick="refeicao()" role="button" aria-expanded="false"></a>
-							</span>
-				    </div>
-				    <div class="col-3 col-s-6">
-						<div class="calender">
-							<div class="top">
-								<span id="months">Janeiro</span>
-							</div>
-							<span id="days">Sabado</span>
-							<span id="dates">01</span>
-							<span id="years">2024</span>
-						</div>
-						<p class="time-title">Hoje</p>
-						<div class="time">
-						    <div id="hours">00</div>
-						    <div id="minutes">00</div>
-						    <div id="seconds">00</div>
-						    <div id="ampm">00</div>
-						</div>
-			   		</div>
+			  <div class="row justify-content-between align-items-center">
+			    
+			    <!-- Foto de Perfil + Informações -->
+			    <div class="col-9 d-flex align-items-center">
+			      <!-- Foto de Perfil -->
+			      <div class="me-4 text-center ocultar-link" style="min-width: 80px;">
+			        <span id="fotoDePerfil"></span>
+			        <br />
+			        <span class="ocultar-link" style="font-size: 9px;" data-bs-toggle="modal" data-bs-target="#modalFoto">
+			          <a href="#">Alterar imagem</a>
+			        </span>
+			      </div>
+	
+			      <!-- Dados do Funcionário -->
+			      <div>
+			        <p class="mb-1"><span id="saudacao"></span> <b><span id="nomeFuncionario"></span></b></p>
+			        <p class="mb-2"><span id="dataUltimoLogin"></span></p>
+			        <div class="d-flex flex-wrap gap-2">
+			          <a id="btnRefeicao" href="#" onclick="refeicao()" role="button" aria-expanded="false"></a>
+			          &nbsp &nbsp<span id="btnAvisos"></span>
+			        </div>
+			      </div>
 			    </div>
-			 </div>
+	
+			    <!-- Calendário -->
+			    <div class="col-3 col-s-6">
+			      <a href="/sistech/calendario" style="all: unset; cursor: pointer; display: block;">
+			        <div class="calender">
+			          <div class="top">
+			            <span id="months">Janeiro</span>
+			          </div>
+			          <span id="days">Sabado</span>
+			          <span id="dates">01</span>
+			          <span id="years">2024</span>
+			        </div>
+			        <p class="time-title">Hoje</p>
+			        <div class="time">
+			          <div id="hours">00</div>
+			          <div id="minutes">00</div>
+			          <div id="seconds">00</div>
+			          <div id="ampm">00</div>
+			        </div>
+			      </a>
+			    </div>
+			    
+			  </div>
+			</div>
 		</div>
-		
+		<br >
 		<div id="resultados-graficos">
 			<div class="container-fluid">
 				<span id="agendamentosAtrasados"> </span><br />

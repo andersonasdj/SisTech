@@ -288,14 +288,24 @@
 				
 				data.map(i => {
 					var status, ausente, mfa;
-					if(i.ativo == true){ status = "<FONT COLOR='#008000'>On</FONT>"; }
-					else{ status = "<FONT COLOR='#ff0000'>Off</FONT>"; }
 					
-					if(i.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
-					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
+					if(i.ativo == true){
+						status = '<span class="badge bg-success">Ativado</span>';
+					}else{
+						status = '<span class="badge bg-danger">Desativado</span>';
+					}
 					
-					if(i.mfa == true){ mfa = "<FONT COLOR='#008000'>On</FONT>"; }
-					else{ mfa = "<FONT COLOR='#ff0000'>Off</FONT>"; }
+					if(i.ausente == true){
+						ausente = '<span class="badge bg-danger">Ausente</span>';
+					}else{
+						ausente = '<span class="badge bg-success">Presente</span>';
+					}
+					
+					if(i.mfa == true){
+						mfa = '<span class="badge bg-success">On</span>';
+					}else{
+						mfa = '<span class="badge bg-danger">Off</span>';
+					}
 					
 					var itens =
 					'<tr id=linha' + i.id + '>'
@@ -546,7 +556,6 @@
 			var mfa = $('#mfaModal').val();
 			var ausente = $('#ausenteModal').val();
 			var email = $('#emailmodal').val();
-			var mfa = $('#mfaModal').val();
 			
 			var trocaSenha = document.getElementById("trocaSenha");
 			if(trocaSenha.checked){ trocaSenha=true } else { trocaSenha=false }
@@ -568,14 +577,24 @@
 				}),
 				success: function (data) {
 					var status, ausente;
-					if(data.ativo == true){ status = "<FONT COLOR='#008000'>On</FONT>"; }
-					else{ status = "<FONT COLOR='#ff0000'>Off</FONT>"; }
 					
-					if(data.ausente == true){ ausente = "<FONT COLOR='#ff0000''>Ausente</FONT>"; }
-					else{ ausente = "<FONT COLOR='#008000'>Presente</FONT>"; }
+					if(data.ativo == true){
+						status = '<span class="badge bg-success">Ativado</span>';
+					}else{
+						status = '<span class="badge bg-danger">Desativado</span>';
+					}
 					
-					if(data.mfa == true){ mfa = "<FONT COLOR='#008000'>On</FONT>"; }
-					else{ mfa = "<FONT COLOR='#ff0000'>Off</FONT>"; }
+					if(data.ausente == true){
+						ausente = '<span class="badge bg-danger">Ausente</span>';
+					}else{
+						ausente = '<span class="badge bg-success">Presente</span>';
+					}
+					
+					if(data.mfa == true){
+						mfa = '<span class="badge bg-success">On</span>';
+					}else{
+						mfa = '<span class="badge bg-danger">Off</span>';
+					}
 										
 					var itens = 
 						'<tr id=linha' + data.id + '>'

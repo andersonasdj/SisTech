@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class EventoRestController {
 	@Autowired
     private EventoRepository repo;
 	
+	@PreAuthorize("hasRole('ROLE_EDITOR')")
 	@DeleteMapping("/api/eventos/{id}")
 	public ResponseEntity<Void> deletarEvento(@PathVariable Long id) {
 		repo.deleteById(id);
@@ -38,11 +40,13 @@ public class EventoRestController {
         return repo.findAll().stream().map(EventoDTO::new).collect(Collectors.toList());
     }
 
+	@PreAuthorize("hasRole('ROLE_EDITOR')")
     @PostMapping
     public EventoDTOList salvar(@RequestBody Evento evento) {
     	return new EventoDTOList(repo.save(evento));
     }
 
+    @PreAuthorize("hasRole('ROLE_EDITOR')")
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable Long id) {
         repo.deleteById(id);
