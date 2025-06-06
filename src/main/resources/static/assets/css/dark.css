@@ -64,6 +64,12 @@ body.dark-mode {
   body.dark-mode #popup .form-label {
     color: #f8f9fa;
   }
+  
+  body.dark-mode .colorTextBtn {
+      color: rgb(0, 0, 0);
+    }
+  
+
 
   body.dark-mode #popup .form-control,
   body.dark-mode #popup .form-select {
@@ -114,6 +120,10 @@ body.dark-mode {
   body.dark-mode #popupEdit hr {
     border-color: #495057;
   }
+  
+  body.dark-mode #currentMonth{
+     color: rgb(255, 255, 255);
+   }
 
   body.dark-mode #popupEdit .btn-outline-secondary {
     border-color: #adb5bd;

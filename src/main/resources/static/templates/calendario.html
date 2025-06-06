@@ -103,38 +103,71 @@
 		
 		<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
 		  <div class="btn-group" role="group" aria-label="Navegação do calendário">
-		    <button class="btn btn-sm btn-light" id="prevBtn"><img src="./assets/img/left.png" > </button>
-		    <button class="btn btn-sm btn-sm btn-light " id="todayBtn">Hoje</button>
-		    <button class="btn btn-sm btn-light" id="nextBtn"><img src="./assets/img/right.png" ></button>
-		  </div>  &nbsp;
-		  <span id="currentMonth" class=""></span> &nbsp;
+		    <button class="btn btn-sm btn-light btn-nav" id="prevBtn">
+		      <img src="./assets/img/left.png" alt="Anterior">
+		    </button>
+		    <button class="btn btn-sm btn-light btn-nav" id="todayBtn">Hoje</button>
+		    <button class="btn btn-sm btn-light btn-nav" id="nextBtn">
+		      <img src="./assets/img/right.png" alt="Próximo">
+		    </button>
+		  </div>
+
+		  <span id="currentMonth"></span>
+
 		  <select id="viewSelect" class="form-select form-select-sm w-auto">
 		    <option value="month">Mês</option>
 		    <option value="week">Semana</option>
 		  </select>
 		</div>
 		<div class="d-flex justify-content-end w-100">
-		  <div class="mb-3 d-flex flex-wrap align-items-center gap-3 text-end">
-			<div class="d-flex align-items-center legenda" data-calendar-id="1" style="cursor:pointer;">
-			  <span class="me-2" style="width: 16px; height: 16px; background-color: #ffbb3b; border: 1px solid #ffa500; display: inline-block;"></span>
-			  <span>Técnico</span>
-			</div>
-		   	<div class="d-flex align-items-center legenda" data-calendar-id="2" style="cursor:pointer;">
-		      <span class="me-2" style="width: 16px; height: 16px; background-color: #00a9ff; border: 1px solid #007acc; display: inline-block;"></span>
-		      <span>Supervisão</span>
+		  <div class="mb-3 d-flex flex-wrap align-items-center gap-2 text-end">
+		    
+		    <div class="d-flex align-items-center legenda" data-calendar-id="1" style="background-color: #fff7df; border-color: #ffbb3b;">
+		      <span class="color-dot" style="background-color: #ffbb3b;"></span>
+		      <span class="colorTextBtn">Solicitação</span>
 		    </div>
-		    <div class="d-flex align-items-center legenda" data-calendar-id="3" style="cursor:pointer;">
-		      <span class="me-2" style="width: 16px; height: 16px; background-color: #83DB23; border: 1px solid #019D05; display: inline-block;"></span>
-		      <span>Férias</span>
+
+		    <div class="d-flex align-items-center legenda" data-calendar-id="2" style="background-color: #e0f4ff; border-color: #00a9ff;">
+		      <span class="color-dot" style="background-color: #00a9ff;"></span>
+		      <span class="colorTextBtn">Supervisão</spanclass="colorTextBtn">
 		    </div>
-		   	<div class="d-flex align-items-center legenda" data-calendar-id="4" style="cursor:pointer;">
-		      <span class="me-2" style="width: 16px; height: 16px; background-color: #FF0000; border: 1px solid #B90000; display: inline-block;"></span>
-		      <span>Ausência</span>
+
+		    <div class="d-flex align-items-center legenda" data-calendar-id="3" style="background-color: #ecfbe0; border-color: #83DB23;">
+		      <span class="color-dot" style="background-color: #83DB23;"></span>
+		      <span class="colorTextBtn">Férias</span>
 		    </div>
+
+		    <div class="d-flex align-items-center legenda" data-calendar-id="4" style="background-color: #ffe5e5; border-color: #FF0000;">
+		      <span class="color-dot" style="background-color: #FF0000;"></span>
+		      <span class="colorTextBtn">Ausência</span>
+		    </div>
+
+		    <div class="d-flex align-items-center legenda" data-calendar-id="5" style="background-color: #efe8fc; border-color: #8708BE;">
+		      <span class="color-dot" style="background-color: #8708BE;"></span>
+		      <span class="colorTextBtn">Escala</span>
+		    </div>
+
+		    <div class="d-flex align-items-center legenda" data-calendar-id="6" style="background-color: #e0e0e0; border-color: #000000;">
+		      <span class="color-dot" style="background-color: #000000;"></span>
+		      <span class="colorTextBtn">Renovação</span>
+		    </div>
+
 		  </div>
 		</div>
 
 		<div id="calendar"></div>
+		
+		<div id="popup-backdrop" style="
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100vw;
+		  height: 100vh;
+		  background-color: rgba(0, 0, 0, 0.5);
+		  z-index: 1040;
+		  display: none;
+		"></div>
+		
 		
 		<div id="popup" class="popup p-4 border rounded-4 shadow bg-white" style="max-width: 380px; min-width: 300px;">
 		  <h5 class="mb-3 fw-semibold text-primary d-flex align-items-center">
@@ -143,10 +176,12 @@
 		  <div class="mb-3">
 		    <label for="calendarId" class="form-label fw-semibold">Tipo de evento:</label>
 		    <select id="calendarId" class="form-select rounded-3">
-		      <option value="1">Técnico</option>
+		      <option value="1">Solicitação</option>
 		      <option value="2">Supervisão</option>
 		      <option value="3">Férias</option>
 		      <option value="4">Ausência</option>
+			  <option value="5">Escala</option>
+			  <option value="6">Renovação</option>
 		    </select>
 		  </div>
 		  <div class="mb-3">
@@ -180,10 +215,12 @@
 		  <div class="mb-3">
 		    <label for="calendarIdEdit" class="form-label fw-semibold">Tipo de evento:</label>
 		    <select id="calendarIdEdit" class="form-select rounded-3">
-		      <option value="1">Técnico</option>
+		      <option value="1">Solicitação</option>
 		      <option value="2">Supervisão</option>
 		      <option value="3">Férias</option>
 		      <option value="4">Ausência</option>
+			  <option value="5">Escala</option>
+			  <option value="6">Renovação</option>
 		    </select>
 		  </div>
 		  <div class="mb-3">
@@ -281,35 +318,13 @@
 		  taskView: false,
 		  useFormPopup: false,
 		  useDetailPopup: false,
-		  calendars: 		  [
-		      {
-		        id: '1',
-		        name: 'Técnico',
-		        backgroundColor: '#ffbb3b',
-		        borderColor: '#ffa500',
-		        color: '#000000'
-		      },
-		      {
-		        id: '2',
-		        name: 'Supervisão',
-		        backgroundColor: '#00a9ff',
-		        borderColor: '#007acc',
-		        color: '#ffffff'
-		      },
-  		      {
-  		        id: '3',
-  		        name: 'Férias',
-  		        backgroundColor: '#83DB23',
-  		        borderColor: '#019D05',
-  		        color: '#000000'
-  		      },
-			  {
-		        id: '4',
-		        name: 'Ausência',
-		        backgroundColor: '#FF0000',
-		        borderColor: '#B90000',
-		        color: '#ffffff'
-		      }
+		  calendars: [
+		      { id: '1', name: 'Solicitação', backgroundColor: '#ffbb3b', borderColor: '#ffa500', color: '#000000' },
+		      { id: '2', name: 'Supervisão', backgroundColor: '#00a9ff', borderColor: '#007acc', color: '#ffffff' },
+		      { id: '3', name: 'Férias', backgroundColor: '#83DB23', borderColor: '#019D05', color: '#000000' },
+		      { id: '4', name: 'Ausência', backgroundColor: '#FF0000', borderColor: '#B90000', color: '#ffffff' },
+		      { id: '5', name: 'Escala', backgroundColor: '#8708BE', borderColor: '#8708BE', color: '#ffffff' },
+			  { id: '6', name: 'Renovação', backgroundColor: '#000000', borderColor: '#000000', color: '#ffffff' }
 		    ],
 		  usageStatistics: false,
 		  week: {
@@ -336,7 +351,6 @@
 			      height: '200px'
 			    }
 			  },
-			 
 		});
 		carregaEventos();
 		
@@ -539,7 +553,7 @@
 		}
 
 		//##### ALTERA EXIBIÇÃO DOS EVENTOS #####
-		const activeCalendars = new Set(['1', '2', '3', '4']);
+		const activeCalendars = new Set(['1', '2', '3', '4', '5', '6']);
 		$('.legenda').on('click', function () {
 			const calendarId = $(this).data('calendar-id').toString();
 			if (activeCalendars.has(calendarId)) {
@@ -552,6 +566,7 @@
 			calendar.setCalendarVisibility(calendarId, activeCalendars.has(calendarId));
 		});
 		//##### ALTERA EXIBIÇÃO DOS EVENTOS #####
+		
 	  </script>
 </body>
 </html>
