@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/StyleSolicitacaoFinalizada.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
 	<title>Sistech - Solicitações</title>
 </head>
 <body>
@@ -66,9 +67,16 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
 								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
 							</ul>
 						</li>
 					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -190,6 +198,7 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/sorttable.js"></script>
 	<script src="../assets/js/chart.js"></script>
+	<script src="../assets/js/dark.js"></script>
 	<script>
 		
 		function printRelatorio(id) {

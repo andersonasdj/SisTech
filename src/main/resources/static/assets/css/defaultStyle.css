@@ -130,7 +130,6 @@
 	}
 }
 
-
 table {
   font-family: arial;
   max-width: 100%;
@@ -307,3 +306,15 @@ HTML CSSResult Skip Results Iframe .Neon {
       display: block;
       margin-bottom: 10px;
     }
+	
+	.toastui-calendar-see-more {
+			  width: 500px !important; 
+			  height: 400px !important;
+			  max-height: 80vh !important;
+			  overflow-y: auto !important;
+			  padding: 10px !important;
+			}
+			.toastui-calendar-see-more .tui-calendar-more-list {
+			  max-height: 260px !important;
+			  overflow-y: auto !important;
+			}

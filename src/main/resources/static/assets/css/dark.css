@@ -1,0 +1,152 @@
+/* Estilos para o modo escuro */
+body.dark-mode {
+    background-color: rgb(61, 56, 70);
+    color: #f1f1f1;
+  }
+
+  body.dark-mode .navbar {
+    background-color: rgb(61, 56, 70) !important;
+  }
+
+  body.dark-mode .navbar .nav-link,
+  body.dark-mode .navbar-brand {
+    color: #f1f1f1 !important;
+  }
+
+  body.dark-mode .dropdown-menu {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+
+  body.dark-mode .dropdown-item {
+    color: #fff;
+  }
+
+  body.dark-mode .dropdown-item:hover {
+    background-color: #444;
+  }
+
+  body.dark-mode footer {
+    background-color: rgb(61, 56, 70);
+    color: #f1f1f1;
+  }
+  
+  body.dark-mode .modal-content {
+    background-color: #212529; /* similar ao bg-dark */
+    color: #f8f9fa; /* texto claro */
+  }
+
+  body.dark-mode .modal-header,
+  body.dark-mode .modal-footer {
+    border-color: #343a40; /* bordas mais escuras */
+  }
+
+  body.dark-mode .btn-close {
+    filter: invert(1); /* deixa o botão de fechar branco */
+  }
+
+  body.dark-mode .btn-primary {
+    background-color: #495057;
+    border-color: #6c757d;
+  }
+
+  body.dark-mode .btn-primary:hover {
+    background-color: #343a40;
+    border-color: #495057;
+  }
+  
+  body.dark-mode #popup {
+    background-color: #2c2f33 !important;
+    color: #f8f9fa;
+    border-color: #3a3f44;
+  }
+
+  body.dark-mode #popup .form-label {
+    color: #f8f9fa;
+  }
+
+  body.dark-mode #popup .form-control,
+  body.dark-mode #popup .form-select {
+    background-color: #3a3f44;
+    color: #f8f9fa;
+    border-color: #555;
+  }
+
+  body.dark-mode #popup .form-control::placeholder {
+    color: #ced4da;
+  }
+
+  body.dark-mode #popup hr {
+    border-color: #495057;
+  }
+
+  body.dark-mode #popup .btn-outline-secondary {
+    border-color: #adb5bd;
+    color: #adb5bd;
+  }
+
+  body.dark-mode #popup .btn-outline-secondary:hover {
+    background-color: #adb5bd;
+    color: #212529;
+  }
+  
+  body.dark-mode #popupEdit {
+    background-color: #2c2f33 !important;
+    color: #f8f9fa;
+    border-color: #3a3f44;
+  }
+
+  body.dark-mode #popupEdit .form-label {
+    color: #f8f9fa;
+  }
+
+  body.dark-mode #popupEdit .form-control,
+  body.dark-mode #popupEdit .form-select {
+    background-color: #3a3f44;
+    color: #f8f9fa;
+    border-color: #555;
+  }
+
+  body.dark-mode #popupEdit .form-control::placeholder {
+    color: #ced4da;
+  }
+
+  body.dark-mode #popupEdit hr {
+    border-color: #495057;
+  }
+
+  body.dark-mode #popupEdit .btn-outline-secondary {
+    border-color: #adb5bd;
+    color: #adb5bd;
+  }
+
+  body.dark-mode #popupEdit .btn-outline-secondary:hover {
+    background-color: #adb5bd;
+    color: #212529;
+  }
+
+  body.dark-mode #popupEdit .btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+  
+  /* Estilo para inputs de data e hora no modo escuro */
+  body.dark-mode input[type="date"],
+  body.dark-mode input[type="time"] {
+    background-color: #2c2f33;
+    color: #f8f9fa;
+    border: 1px solid #555;
+  }
+
+  body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator,
+  body.dark-mode input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+  /* Estilo para a <span> entre os inputs */
+  body.dark-mode .datetimepicker span {
+	margin-right: 0;
+	margin-left: 0;
+	border-right: 0;
+    color: rgb(0, 0, 0);
+  }

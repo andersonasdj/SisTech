@@ -9,7 +9,8 @@
 	<link rel="stylesheet" href="assets/css/password-generator.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="assets/css/toastui-calendar.min.css" />
-	 <link rel="stylesheet" href="assets/css/flatpickr.min.css">
+	<link rel="stylesheet" href="assets/css/flatpickr.min.css">
+	<link rel="stylesheet" href="assets/css/dark.css">
 	<title>Agenda Técnica</title>
 </head>
 <body>
@@ -71,6 +72,12 @@
 							</ul>
 						</li>
 					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> </a>
@@ -164,6 +171,7 @@
 		    </button>
 		  </div>
 		</div>
+
 		
 		<div id="popupEdit" class="popup p-4 border rounded-4 shadow bg-white" style="max-width: 380px; min-width: 300px;">
 		  <h5 class="mb-3 fw-semibold text-primary d-flex align-items-center">
@@ -196,19 +204,20 @@
 		  </div>
 		  <hr />
 		  <div class="d-flex justify-content-between align-items-center">
-		    <button id="deleteEvent" class="btn btn-outline-danger rounded-3">
+		    <button id="deleteEvent" class="btn btn-sm btn-outline-danger rounded-3">
 		      <i class="bi bi-trash me-1"></i> Excluir
-		    </button>
+		    </button>&nbsp; &nbsp;
 		    <div class="d-flex gap-2">
-		      <button id="cancelEventEdit" class="btn btn-outline-secondary rounded-3 px-3">
+		      <button id="cancelEventEdit" class="btn btn-sm btn-outline-secondary rounded-3 px-3">
 		        <i class="bi bi-x-circle me-1"></i> Cancelar
 		      </button>
-		      <button id="updateEvent" class="btn btn-primary rounded-3 px-3">
+		      <button id="updateEvent" class="btn btn-sm btn-primary rounded-3 px-3">
 		        <i class="bi bi-check-circle me-1"></i> Salvar
 		      </button>
 		    </div>
 		  </div>
 		</div>
+
 		<footer class="container-fluid fixed-bottom text-center text-white">
 				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
 					© 2025 Copyright:
@@ -263,6 +272,7 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/password-generator.js"></script>
 	<script src="assets/js/flatpickr.js"></script>
+	<script src="assets/js/dark.js"></script>
 	<script>
 		const Calendar = tui.Calendar;
 		
@@ -316,7 +326,17 @@
 		          tooltip: 'UTC-03:00'
 		        }
 		      ]
-		    }
+		    },
+			month: {
+			    visibleWeeksCount: 0,
+			    isAlways6Weeks: false,
+			    visibleEventCount: 3,
+			    moreLayerSize: {
+			      width: '300px',
+			      height: '200px'
+			    }
+			  },
+			 
 		});
 		carregaEventos();
 		

@@ -9,7 +9,37 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/password-generator.css">
 	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
 	<title>Sistech - Funcionarios</title>
+	<style>
+			body.dark-mode table {
+			  background-color: #212529;
+			  color: #f8f9fa;
+			}
+
+			body.dark-mode th,
+			body.dark-mode td {
+			  background-color: rgb(119, 118, 123);
+			  color: #f8f9fa;
+			  border-color: #343a40;
+			}
+
+			body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+			  background-color: #2c3034;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-hover tbody tr:hover {
+			  background-color: #343a40;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-primary {
+			  background-color: #0d6efd;
+			  color: #fff;
+			}
+
+	</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -64,9 +94,16 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
 								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
 							</ul>
 						</li>
 					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -279,6 +316,7 @@
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/dark.js"></script>
 	<script>
 		$.ajax({
 			type: "GET",

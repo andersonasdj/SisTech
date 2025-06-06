@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="assets/css/stylePerfil.css">
 	<link rel="stylesheet" href="assets/css/password-generator.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="assets/css/dark.css">
 	<title>SisTech - TechGold</title>
 </head>
 <body>
@@ -68,6 +69,12 @@
 							</ul>
 						</li>
 					</ul>
+					<span class="nav-item">
+					  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+					    <i class="bi bi-moon"></i> Modo Escuro
+					  </button>
+					</span>
+					&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle color-text" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
@@ -291,6 +298,7 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/chart.js"></script>
 	<script src="assets/js/password-generator.js"></script>
+	<script src="assets/js/dark.js"></script>
 	<script>
 			home();
 		
@@ -399,7 +407,11 @@
 					if(data.trocaSenha == true){
 						$("#modalTrocaDeSenha").modal('toggle'); 
 					}
+					
 					<!--Chart.defaults.color = "#FFFFFF";-->
+					
+					const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+					
 					const ctx = document.getElementById('minhasSolicitacoes');
 					new Chart(ctx, {
 				    type: 'bar',
@@ -431,8 +443,9 @@
 				    },
 				    options: {
 						 responsive: true,
-					     scales: { y: { min: 0, max: data.solicitacoes.total } } 
-					}
+					     scales: { y: { min: 0, max: data.solicitacoes.total } }
+					},
+					options: getChartOptions(isDarkMode, data.solicitacoes.total)
 				  });
 				  
 				  const ctx2 = document.getElementById('geralSolicitacoes');
@@ -468,7 +481,8 @@
 						 responsive: true,
 						  tension: 0.2,
 					     scales: { y: { min: 0, max: data.gerais.total } }
-					}
+					},
+					options: getChartOptions(isDarkMode, data.solicitacoes.total)
 				  });
 				},
 				statusCode: {
@@ -575,6 +589,40 @@
 		  seconds.innerHTML = s;
 		  ampm.innerHTML = am;
 		})
+		
+		function getChartOptions(isDarkMode, maxValue) {
+		  return {
+		    responsive: true,
+		    scales: {
+		      x: {
+		        ticks: {
+		          color: isDarkMode ? '#f8f9fa' : '#212529'
+		        },
+		        grid: {
+		          color: isDarkMode ? '#444' : '#ddd'
+		        }
+		      },
+		      y: {
+		        min: 0,
+		        max: maxValue,
+		        ticks: {
+		          color: isDarkMode ? '#f8f9fa' : '#212529'
+		        },
+		        grid: {
+		          color: isDarkMode ? '#444' : '#ddd'
+		        }
+		      }
+		    },
+		    plugins: {
+		      legend: {
+		        labels: {
+		          color: isDarkMode ? '#f8f9fa' : '#212529'
+		        }
+		      }
+		    }
+		  };
+		}
+
 	</script>
 	<script>
 	    	document.getElementById("uploadForm").addEventListener("submit", function (e){
@@ -594,5 +642,6 @@
 				});
 			});
 	</script>
+
 </body>
 </html>
