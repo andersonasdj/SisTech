@@ -22,7 +22,6 @@ public class ClienteService {
 	@Autowired
 	ClienteRepository repository;
 	
-	
 	public Cliente buscaClientePorToken(String token) {
 		return repository.findByToken(token);
 	}

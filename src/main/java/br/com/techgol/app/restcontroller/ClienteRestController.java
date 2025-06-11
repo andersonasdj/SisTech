@@ -53,7 +53,6 @@ public class ClienteRestController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/gettoken")
 	public ResponseEntity<String> enviar() {
-	    System.out.println("TESTE");
 
 	    DtoToken dados = new DtoToken(AGENT_KEY);
 
@@ -65,7 +64,7 @@ public class ClienteRestController {
 
 	        HttpClient client = HttpClient.newHttpClient();
 	        HttpRequest request = HttpRequest.newBuilder()
-	                .uri(URI.create("http://localhost:8080/agent/api/auth/token"))
+	                .uri(URI.create("http://localhost:8089/agent/api/auth/token"))
 	                .header("Content-Type", "application/json")
 	                .POST(HttpRequest.BodyPublishers.ofString(json))
 	                .build();
