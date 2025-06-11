@@ -1,8 +1,13 @@
 package br.com.techgol.app.restcontroller;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,10 +23,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import br.com.techgol.app.dto.DadosClienteEditDTO;
 import br.com.techgol.app.dto.DtoAtualizarCliente;
 import br.com.techgol.app.dto.DtoCadastroCliente;
 import br.com.techgol.app.dto.DtoClienteList;
+import br.com.techgol.app.dto.DtoToken;
 import br.com.techgol.app.repository.ClienteRepository;
 import br.com.techgol.app.services.ClienteService;
 
@@ -29,11 +40,52 @@ import br.com.techgol.app.services.ClienteService;
 @RequestMapping("clientes")
 public class ClienteRestController {
 	
+	@Value("${sistech.security.agentkey}")
+    private String AGENT_KEY;
+	
 	@Autowired
 	private ClienteRepository repository;
 	
 	@Autowired
 	private ClienteService service;
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/gettoken")
+	public ResponseEntity<String> enviar() {
+	    System.out.println("TESTE");
+
+	    DtoToken dados = new DtoToken(AGENT_KEY);
+
+	    try {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.registerModule(new JavaTimeModule());
+	        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	        String json = mapper.writeValueAsString(dados);
+
+	        HttpClient client = HttpClient.newHttpClient();
+	        HttpRequest request = HttpRequest.newBuilder()
+	                .uri(URI.create("http://localhost:8080/agent/api/auth/token"))
+	                .header("Content-Type", "application/json")
+	                .POST(HttpRequest.BodyPublishers.ofString(json))
+	                .build();
+
+	        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+	        System.out.println("Status: " + response.statusCode());
+	        System.out.println("Resposta: " + response.body());
+
+	        JsonNode root = mapper.readTree(response.body());
+	        String token = root.path("token").asText(); 
+
+	        return ResponseEntity.ok(token);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(500).body("Erro ao obter token");
+	    }
+	}
+
 	
 	@GetMapping("nome/{conteudo}") //RETORNA DTO COM PROJEÇÃO DOS DADOS NECESSÀRIO COM NATIVE QUERY
 	public Page<DtoClienteList> buscarClientePorPalavras(@PathVariable String conteudo,  @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {

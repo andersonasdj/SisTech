@@ -20,11 +20,12 @@ public record DtoAtualizarCliente(
 		Boolean vip,
 		Boolean redFlag,
 		String bairro,
-		Long tempoContratado) {
+		Long tempoContratado,
+		String token) {
 
 	public DtoAtualizarCliente(Cliente c) {
 		
-		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getBairro(), c.getTempoContratado());
+		this(c.getId(),c.getNomeCliente(),c.getUsername(),c.getPassword(),c.getEndereco(),c.getTelefone(),c.getCnpj(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getBairro(), c.getTempoContratado(), c.getToken());
 	}
 
 }

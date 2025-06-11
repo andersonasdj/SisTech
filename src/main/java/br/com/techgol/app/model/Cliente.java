@@ -34,6 +34,9 @@ public class Cliente extends Usuario {
 	@Column(length = 20)
 	private String bairro;
 	
+	@Column(length = 300)
+	private String token;
+	
 	private Long tempoContratado;
 	
 	public Cliente(DtoCadastroCliente dados) {
@@ -51,6 +54,7 @@ public class Cliente extends Usuario {
 		this.vip = false;
 		this.bairro = dados.bairro();
 		this.tempoContratado = dados.tempoContratado();
+		this.token = dados.token();
 	}
 	
 public Cliente(DtoAtualizarCliente dados) {
@@ -69,5 +73,6 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.vip = dados.vip();
 		this.bairro = dados.bairro();
 		this.tempoContratado = dados.tempoContratado();
+		this.token = dados.token();
 	}
 }

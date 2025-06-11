@@ -38,8 +38,7 @@
 			  color: #fff;
 			}
 
-
-			</style>
+	</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -277,6 +276,19 @@
 								<input type="text" id="tempoContratado" class="form-control" onkeyup="handleComa(event)"><br />
 							</div>
 						</div>
+						
+						<div class="row align-items-end">
+						    <div class="col-md-10">
+						        <label class="form-label" for="apitokenModal"><b>API Token</b></label>
+						        <input type="text" id="apitokenModal" class="form-control">
+						    </div>
+						    <div class="col-md-2">
+						        <label class="form-label d-none d-md-block">&nbsp;</label>
+						        <button type="button" class="btn btn-primary w-100" onclick="gerarToken()"><i class="bi bi-arrow-clockwise"></i></button>
+						    </div>
+						</div>
+
+						
 						</br>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -444,6 +456,27 @@
 	<script src="../assets/js/jspdf.plugin.autotable.js"></script>
 	<script src="../assets/js/dark.js"></script>
 	<script>
+		
+		function gerarToken(){
+			if (confirm("Deseja gerar um novo token? \nCuidado: Essa acão pode interferir na comunição de API!")) {
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/clientes/gettoken",
+					success: function (data) {
+						$('#apitokenModal').val("");
+						$('#apitokenModal').val(data);
+					},
+					statusCode: {
+						    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+							401: function() { 
+								alert('Realize login novamente!'); 
+								window.location.href = "/sistech/login"; 
+							}
+					}
+				});
+			}
+		}
 		
 		var input = document.getElementById("palavraChave");
 		input.addEventListener("keypress", function(event) {
@@ -819,6 +852,7 @@
 					$('#redFlagModal').empty();
 					$('#bairroModal').val("");
 					$('#tempoContratado').val("");
+					$('#apitokenModal').val("");
 					
 
 					$('#idmodal').val(data.id);
@@ -830,6 +864,7 @@
 					$('#cnpjmodal').val(data.cnpj);
 					$('#bairroModal').val(data.bairro);
 					$('#tempoContratado').val(data.tempoContratado/60);
+					$('#apitokenModal').val(data.token);
 					
 					
 					if (data.ativo == true) {
@@ -943,6 +978,7 @@
 				vip = $('#statusEdicaoModal').val(),
 				email = $('#emailEdicaoModal').val(),
 				idCliente = $('#idColaboradoCliente').val();
+				token = $('#apitokenModal').val("");
 
 			$.ajax({
 				type: "PUT",
@@ -954,7 +990,8 @@
 					"celular": celular,
 					"vip": vip,
 					"email": email,
-					"idCliente": idCliente
+					"idCliente": idCliente,
+					"token": token
 				}),
 				success: function (data) {
 					alert(data);
@@ -1025,7 +1062,7 @@
 				redFlag = $('#redFlagModal').val();
 				bairro = $('#bairroModal').val(),
 				tempoContratado = $('#tempoContratado').val(),
-				
+				token = $('#apitokenModal').val(),
 			
 			$.ajax({
 				type: "PUT",
@@ -1043,12 +1080,13 @@
 					"vip": vip,
 					"redFlag": redFlag,
 					"bairro": bairro,
-					"tempoContratado":tempoContratado*60
+					"tempoContratado":tempoContratado*60,
+					"token": token
 				}),
 				success: function (data) {
 					
 					var status,vipData ="",redFlagData="";
-					if(i.ativo == true){
+					if(data.ativo == true){
 						status = '<span class="badge bg-success">Ativado</span>';
 					}else{
 						status = '<span class="badge bg-danger">Desativado</span>';

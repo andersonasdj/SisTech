@@ -54,4 +54,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	@Query(value = "SELECT * FROM clientes c WHERE c.ativo=1 AND c.redFlag = 1 AND c.vip = 1 ORDER BY c.nomeCliente", nativeQuery = true)
 	public List<Cliente> listarClientesRedFlagEVip();
+
+	public Cliente findByToken(String token);
 }

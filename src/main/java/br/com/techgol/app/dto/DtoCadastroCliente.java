@@ -13,6 +13,7 @@ public record DtoCadastroCliente(
 		String telefone,
 		String cnpj,
 		String bairro,
-		Long tempoContratado
+		Long tempoContratado,
+		String token
 		) {}
 
