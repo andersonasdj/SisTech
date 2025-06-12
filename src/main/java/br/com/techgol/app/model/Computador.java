@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "computadorSolicitacao.java")
+@Table(name = "computador")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -79,6 +79,9 @@ public class Computador {
 	
 	@Column(name="ram", length = 200)
 	private String ram;
+	
+	@Column(name="username", length = 200)
+	private String username;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;

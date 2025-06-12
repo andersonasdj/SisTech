@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
+	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
+	<title>Sistech - Computadores</title>
+	<style>
+			body.dark-mode table {
+			  background-color: #212529;
+			  color: #f8f9fa;
+			}
+
+			body.dark-mode th,
+			body.dark-mode td {
+			  background-color: rgb(119, 118, 123);
+			  color: #f8f9fa;
+			  border-color: #343a40;
+			}
+
+			body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+			  background-color: #2c3034;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-hover tbody tr:hover {
+			  background-color: #343a40;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-primary {
+			  background-color: #0d6efd;
+			  color: #fff;
+			}
+
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
+							</ul>
+						</li>
+					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		<div class="container-fluid">
+		  <div class="row">
+		    <div class="col">
+				<a href="/sistech/funcionario/form"> <button class="btn btn-sm btn-primary">Novo </button></a>
+		    </div>
+		    <div class="col">
+		    </div>
+		    <div class="col">
+				<div class="form-group pull-right">
+		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca" autocomplete="off">
+				</div>
+				<span class="counter pull-right"> </span>
+		    </div>
+		  </div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped align-middle results" id="tabela-computadores">
+				<thead>
+					<tr>
+						<th scope="col">Cliente</th>
+						<th scope="col">Hostname</th>
+						<th scope="col">Usuário</th>
+						<th scope="col">SO</th>
+						<th scope="col">CPU</th>
+						<th scope="col">Memória</th>
+						<th scope="col">Dico</th>
+						<th scope="col">Fabricante</th>
+						<th scope="col">Serial</th>
+						<th scope="col">MAC</th>
+						<th scope="col">Boot</th>
+						<th scope="col">Ultima Autalização</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr> </tr>
+				</tbody>
+			</table>
+		</div>
+		<br /><br />
+		<footer class="container-fluid fixed-bottom text-center text-white">
+				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2025 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+		</footer>
+
+		
+	
+		
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/dark.js"></script>
+	<script>
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/api/v1/computador",
+			success: function (data) {
+				data.map(i => {
+					var itens =
+					'<tr id=linha' + i.id + '>'
+					+ '<td id=name' + i.id + '>' + i.cliente + '</td>'
+					+ '<td>' + i.name + '</td>'
+					+ '<td>' + i.username + '</td>'
+					+ '<td>' + i.os + '</td>'
+					+ '<td>' + i.cpu + '</td>'
+					+ '<td>' + i.ram + '</td>'
+					+ '<td>' + i.disk + '</td>'
+					+ '<td>' + i.manufacturer + '</td>'
+					+ '<td>' + i.serial + '</td>'
+					+ '<td>' + i.mac + '</td>'
+					+ '<td>' + i.last_boot_time + '</td>'
+					+ '<td>' + i.last_seen + '</td>'
+					+ '<td><botton onclick="excluir('+i.id+')">excluir</botton></td>'
+					+ '</tr>'
+					$('#tabela-computadores').append(itens);
+				});
+			},
+			statusCode: {
+			  	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+			    401: function() { alert('Realize login novamente!'); }
+			}
+		});
+		
+		function excluir(id) {
+			if (confirm("Tem certeza que deseja excluir?" + id) == true) {
+				var t = "#linha" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/api/v1/computador/" + id,
+					success: function () {
+						remove.fadeOut(1500, function () {
+							remove.remove();
+						});
+					},
+					error: function (e) { alert("Não foi possível excluir"); }
+				});
+			}
+		}
+		
+		
+
+		
+		
+	</script>
+	<script>
+		$(document).ready(function() {
+		  $(".search").keyup(function () {
+		    var searchTerm = $(".search").val();
+		    var listItem = $('.results tbody').children('tr');
+		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		    
+		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+		  		return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		  });
+		    
+		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','false');
+		  });
+		
+		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','true');
+		  });
+		
+		  var jobCount = $('.results tbody tr[visible="true"]').length;
+		    $('.counter').text(jobCount + ' item');
+		
+		  if(jobCount == '0') {$('.no-result').show();}
+		    else {$('.no-result').hide();}
+				  });
+		});
+	</script>
+</body>
+</html>
