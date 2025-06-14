@@ -26,10 +26,7 @@ public class ComputadorRestController {
 	
 	@DeleteMapping("/{id}")
 	public String deletarComputador(@PathVariable Long id){
-		System.out.println("EXCLUIR: " + id);
-		System.out.println(repository.existsById(id));
 		if(repository.existsById(id)) {
-			System.out.println("EXISTE");
 			try {
 				repository.deleteById(id);
 				return "Computador excluído!";
