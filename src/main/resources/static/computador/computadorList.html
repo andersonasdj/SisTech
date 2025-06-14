@@ -129,13 +129,8 @@
 							<th scope="col">SO</th>
 							<th scope="col">CPU</th>
 							<th scope="col">Memória</th>
-							<th scope="col">Armazenamento</th>
-							<th scope="col">Disponivel</th>
 							<th scope="col">Fabricante</th>
 							<th scope="col">Serial</th>
-							<th scope="col">IP</th>
-							<th scope="col">MAC</th>
-							<th scope="col">Boot</th>
 							<th scope="col">Ultima Autalização</th>
 							<th></th>
 						</tr>
@@ -214,19 +209,8 @@
 				        <td title="${i.os}">${i.os}</td>
 				        <td class="long-text" title="${i.cpu}">${i.cpu}</td>
 				        <td title="${i.ram}">Instalada: ${i.ram}<p>Disponível: ${i.ramAvailable}</td>
-						<td class="long-text" title="${i.disk && i.disk.length ? i.disk.join(', ') : ''}">
-						  ${i.disk && i.disk.length ? i.disk.join('<br>') : ''}
-						</td>
-						<td class="long-text" title="${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join(', ') : ''}">
-						  ${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join('<br>') : ''}
-						</td>
 						<td class="long-text" title="${i.manufacturer}">${i.manufacturer}</td>
 						<td class="long-text" title="${i.serial}">${i.serial}</td>
-						<td class="long-text" title="${i.ipAddresses && i.ipAddresses.length ? i.ipAddresses.join(', ') : ''}">
-						  ${i.ipAddresses && i.ipAddresses.length ? i.ipAddresses.join('<br>') : ''}
-						</td>
-				        <td class="long-text" title="${i.mac}">${i.mac}</td>
-				        <td title="${i.last_boot_time}">${i.last_boot_time}</td>
 				        <td title="${i.last_seen}">${i.last_seen}</td>
 				        <td><button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button></td>
 				      </tr>`;
