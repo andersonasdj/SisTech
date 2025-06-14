@@ -243,11 +243,11 @@
 				              <p><strong>SO:</strong> ${i.os}</p>
 				              <p><strong>CPU:</strong> ${i.cpu}</p>
 				              <p><strong>RAM:</strong> ${i.ram} (Disponível: ${i.ramAvailable})</p>
-				              <p><strong>Disco:</strong> ${i.disk.join(', ')}</p>
-				              <p><strong>Disponível:</strong> ${i.diskAvailable.join(', ')}</p>
+				              <p><strong>Disco:</strong> ${i.disk && i.disk.length ? i.disk.join(', ') : ''}</p>
+				              <p><strong>Disponível:</strong>  ${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join('<br>') : ''}</p>
 				              <p><strong>Fabricante:</strong> ${i.manufacturer}</p>
 				              <p><strong>Serial:</strong> ${i.serial}</p>
-				              <p><strong>IP:</strong> ${i.ipAddresses.join(', ')}</p>
+				              <p><strong>IP:</strong> ${i.ipAddresses && i.ipAddresses.length ? i.ipAddresses.join(', ') : ''}</p>
 				              <p><strong>MAC:</strong> ${i.mac}</p>
 				              <p><strong>Boot:</strong> ${i.last_boot_time}</p>
 				              <p><strong>Última Atualização:</strong> ${i.last_seen}</p>
