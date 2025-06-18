@@ -196,7 +196,7 @@
 					const lastSeenDate = new Date(isoString);
 					const now = new Date();
 					const diffMinutes = (now - lastSeenDate) / 1000 / 60;
-					const isOnline = diffMinutes <= 10;
+					const isOnline = diffMinutes <= 4;
 					const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
 
 				      // Tabela
@@ -227,7 +227,7 @@
 				              <p><strong>SO:</strong> ${i.os}</p>
 				              <p><strong>CPU:</strong> ${i.cpu}</p>
 				              <p><strong>RAM:</strong> ${i.ram} (Disponível: ${i.ramAvailable})</p>
-				              <p><strong>Disco:</strong> ${i.disk && i.disk.length ? i.disk.join(', ') : ''}</p>
+				              <p><strong>Armazenamento:</strong> ${i.disk && i.disk.length ? i.disk.join(', ') : ''}</p>
 				              <p><strong>Disponível:</strong>  ${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join('<br>') : ''}</p>
 				              <p><strong>Fabricante:</strong> ${i.manufacturer}</p>
 				              <p><strong>Serial:</strong> ${i.serial}</p>
@@ -250,8 +250,16 @@
 		
 		function excluir(id) {
 		    if (confirm("Tem certeza que deseja excluir o ID " + id + "?")) {
-		      document.getElementById("linha" + id)?.remove();
-		      document.getElementById("card-" + id)?.remove();
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/api/v1/computador/" + id,
+					success: function () {
+						document.getElementById("linha" + id)?.remove();
+						document.getElementById("card-" + id)?.remove();
+					},
+					error: function (e) { alert("Não foi possível excluir"); }
+				});
 		    }
 		  }
 		
