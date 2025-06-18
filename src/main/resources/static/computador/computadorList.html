@@ -196,7 +196,7 @@
 					const lastSeenDate = new Date(isoString);
 					const now = new Date();
 					const diffMinutes = (now - lastSeenDate) / 1000 / 60;
-					const isOnline = diffMinutes <= 4;
+					const isOnline = diffMinutes <= 5;
 					const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
 
 				      // Tabela
