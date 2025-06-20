@@ -11,5 +11,8 @@ public interface ComputadorRepository extends JpaRepository<Computador, Long> {
 
 	@Query(value = "SELECT * FROM computador c", nativeQuery = true)
 	public List<Computador> listarTodos();
+	
+	@Query(value = "SELECT * FROM computador c WHERE c.cliente_id = :id", nativeQuery = true)
+	public List<Computador> listarTodosCliente(Long id);
 
 }

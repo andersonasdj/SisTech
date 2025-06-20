@@ -121,6 +121,8 @@ public class Computador {
     private String uuid;
     private boolean isVirtualMachine;
     private String domain;
-    public String deviceType;
+    private String deviceType;
+    private String antivirus;
+    private List<String> bitlockerRecoveryKeys;
 
 }

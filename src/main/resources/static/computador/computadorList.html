@@ -99,12 +99,30 @@
 		
 		<div class="container-fluid">
 			
+			<div class="row justify-content-between">
+				<div class="col-4 col-s-12">
+					<div class="control-group">
+						<div class="controls">
+							<select class="form-select" id="idCliente" name="idCliente" style="width: 250px;"> </select>
+						</div>
+					</div>
+				</div>
+				<div class="col-2 col-s-12 mt-2">
+					<h4><span class="spamTotal" id="totalSolicitacoes"> </span></h4>
+				</div>
+				
+				<div class="col-4 col-s-12">
+					<a href="#" onclick="listarComputadores()" class="btn"><i class="bi bi-arrow-clockwise"> </i></a>
+					<button class="btn">Total <span id="qtdComputadores"> </span></button>
+				</div>
+			</div>
+			<hr class="bg-danger border-2 border-top border-danger">
+			
 		  <div class="row">
 		    <div class="col">
 				<button class="btn btn-primary" onclick="alternarVisualizacao()" id="btnToggleView">
 				  Visualizar como Cards
 				</button>
-
 
 		    </div>
 		    <div class="col">
@@ -123,6 +141,7 @@
 						<tr>
 							<th scope="col">Status</th>
 							<th scope="col">Cliente</th>
+							<th scope="col">Comentário</th>
 							<th scope="col">Domínio</th>
 							<th scope="col">Hostname</th>
 							<th scope="col">Usuário</th>
@@ -135,7 +154,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="corpoComputadores">
 						<tr> </tr>
 					</tbody>
 				</table>
@@ -150,6 +169,39 @@
 				</div>
 		</footer>
 		
+		
+		
+		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
+		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicao" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1> &nbsp; &nbsp;
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+					</div>
+					<div class="modal-body">
+						<span id="id_cliente" style="display: none;" > </span>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="col-md-9">
+									<label class="form-label mt-2" for="comentario-modal"><b>Comentário</b></label>
+									<input type="text" id="comentario-modal" class="form-control">
+								</div>
+							<br />
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
+								<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaComputador()">Salvar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
+				
+				
+		
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
@@ -161,8 +213,55 @@
 				new bootstrap.Tooltip(el);
 			});
 		});
+		
+		$(document).ready(function () {
+			$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/getData",
+				success: function (data) {
+					for (var i = 0; i < data.clientes.length; i++) {
+						$('#idCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+					}
+					listarComputadores();
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
+			
+			var divCliente = $("#idCliente");
+			divCliente.on("change", function () {
+				listarComputadores();
+			});
+		});
 	</script>
 	<script>
+		function atualizaComputador(){
+			
+			var id = $('#idmodal').text();
+			var comment = $('#comentario-modal').val();
+			
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/api/v1/computador",
+				data: JSON.stringify({
+					"id": id,
+					"comment": comment
+				}),
+				success: function (data) {
+					
+					alert(data);
+					listarComputadores();
+				},
+				error: function (e) { alert("Você não tem permissão !"); }
+			});
+			
+			
+		}
+		
 		function alternarVisualizacao() {
 		  const tabela = document.getElementById('visualizacao-tabela');
 		  const cards = document.getElementById('visualizacao-cards');
@@ -182,71 +281,110 @@
 	</script>
 
 	<script>
-		$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/api/v1/computador",
-			success: function (data) {
-				data.forEach(i => {
-					const dateString = i.last_seen;
-					const [datePart, timePart] = dateString.split(' ');
-					const [day, month, year] = datePart.split('/');
-					const isoString = `${year}-${month}-${day}T${timePart}`;
+		function editar(id){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/api/v1/computador/"+id,
+				success: function (data) {
+					$('#idmodal').text("");
+					$('#idmodal').text(data.id);
+					$('#comentario-modal').val("");
+					$('#comentario-modal').val(data.comment);
+				},
+				statusCode: {
+				  	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); }
+				}
+			});
 					
-					const lastSeenDate = new Date(isoString);
-					const now = new Date();
-					const diffMinutes = (now - lastSeenDate) / 1000 / 60;
-					const isOnline = diffMinutes <= 5;
-					const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
-
-				      // Tabela
-				      var itens = `<tr id="linha${i.id}">
-						<td>${statusHTML}</td>
-				        <td title="${i.cliente}">${i.cliente}</td>
-				        <td title="${i.domain}">${i.domain}</td>
-				        <td title="${i.name}">${i.name}</td>
-				        <td title="${i.username}">${i.username}</td>
-				        <td title="${i.os}">${i.os}</td>
-				        <td class="long-text" title="${i.cpu}">${i.cpu}</td>
-				        <td title="${i.ram}">Instalada: ${i.ram}<p>Disponível: ${i.ramAvailable}</td>
-						<td class="long-text" title="${i.manufacturer}">${i.manufacturer}</td>
-						<td class="long-text" title="${i.serial}">${i.serial}</td>
-				        <td title="${i.last_seen}">${i.last_seen}</td>
-				        <td><button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button></td>
-				      </tr>`;
-				      $('#tabela-computadores').append(itens);
-
-				      // Card
-				      var card = `
-				        <div class="col-md-6 col-lg-4" id="card-${i.id}">
-				          <div class="card card-computador">
-				            <div class="card-body">
-				              <h5 class="card-title"><td>${statusHTML}</td> ${i.cliente} - ${i.name}</h5>
-				              <p><strong>Domínio:</strong> ${i.domain}</p>
-				              <p><strong>Usuário:</strong> ${i.username}</p>
-				              <p><strong>SO:</strong> ${i.os}</p>
-				              <p><strong>CPU:</strong> ${i.cpu}</p>
-				              <p><strong>RAM:</strong> ${i.ram} (Disponível: ${i.ramAvailable})</p>
-				              <p><strong>Armazenamento:</strong> ${i.disk && i.disk.length ? i.disk.join(', ') : ''}</p>
-				              <p><strong>Disponível:</strong>  ${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join('<br>') : ''}</p>
-				              <p><strong>Fabricante:</strong> ${i.manufacturer}</p>
-				              <p><strong>Serial:</strong> ${i.serial}</p>
-				              <p><strong>IP:</strong> ${i.ipAddresses && i.ipAddresses.length ? i.ipAddresses.join(', ') : ''}</p>
-				              <p><strong>MAC:</strong> ${i.mac}</p>
-				              <p><strong>Boot:</strong> ${i.last_boot_time}</p>
-				              <p><strong>Última Atualização:</strong> ${i.last_seen}</p>
-				              <button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button>
-				            </div>
-				          </div>
-				        </div>`;
-				      $('#visualizacao-cards').append(card);
-			  });
-			},
-			statusCode: {
-			  	500: function() { alert('Erro! Contate o desenvolvedor!'); },
-			    401: function() { alert('Realize login novamente!'); }
+		}
+		
+		function listarComputadores(){
+			var idCliente = $("#idCliente").val();
+			
+			if(idCliente > 0){
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/api/v1/computador/cliente/"+idCliente,
+					success: function (data) {
+						
+						$('#qtdComputadores').text("");
+						$('#qtdComputadores').text(data.length);
+						$('#corpoComputadores').empty();
+						$('#visualizacao-cards').empty();
+						
+						data.forEach(i => {
+							const dateString = i.last_seen;
+							const [datePart, timePart] = dateString.split(' ');
+							const [day, month, year] = datePart.split('/');
+							const isoString = `${year}-${month}-${day}T${timePart}`;
+							
+							const lastSeenDate = new Date(isoString);
+							const now = new Date();
+							const diffMinutes = (now - lastSeenDate) / 1000 / 60;
+							const isOnline = diffMinutes <= 5;
+							const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
+	
+							
+							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
+						      // Tabela
+						      var itens = `<tr id="linha${i.id}" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(${i.id})>
+								<td>${statusHTML}</td>
+						        <td title="${i.cliente}">${i.cliente}</td>
+								<td title="${i.comment}">${i.comment}</td>
+						        <td title="${i.domain}">${i.domain}</td>
+						        <td title="${i.name}">${i.name}</td>
+						        <td title="${i.username}">${i.username}</td>
+						        <td title="${i.os}">${i.os}</td>
+						        <td class="long-text" title="${i.cpu}">${i.cpu}</td>
+						        <td title="${i.ram}">Instalada: ${i.ram}<p>Disponível: ${i.ramAvailable}</td>
+								<td class="long-text" title="${i.manufacturer}">${i.manufacturer}</td>
+								<td class="long-text" title="${i.serial}">${i.serial}</td>
+						        <td title="${i.last_seen}">${i.last_seen}</td>
+						        <td><button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button></td>
+						      </tr>`;
+						      $('#tabela-computadores').append(itens);
+	
+						      // Card
+						      var card = `
+						        <div class="col-md-6 col-lg-4" id="card-${i.id}">
+						          <div class="card card-computador">
+						            <div class="card-body">
+						              <h5 class="card-title"><td>${statusHTML}</td> ${i.cliente} - ${i.name}</h5>
+						              <p><strong>Domínio:</strong> ${i.domain}</p>
+						              <p><strong>Usuário:</strong> ${i.username}</p>
+						              <p><strong>SO:</strong> ${i.os}</p>
+						              <p><strong>CPU:</strong> ${i.cpu}</p>
+						              <p><strong>RAM:</strong> ${i.ram} (Disponível: ${i.ramAvailable})</p>
+						              <p><strong>Armazenamento:</strong> ${i.disk && i.disk.length ? i.disk.join(', ') : ''}</p>
+						              <p><strong>Disponível:</strong>  ${i.diskAvailable && i.diskAvailable.length ? i.diskAvailable.join('<br>') : ''}</p>
+						              <p><strong>Fabricante:</strong> ${i.manufacturer}</p>
+									  <p><strong>Bitlocker:</strong>  ${i.bitlockerRecoveryKeys && i.bitlockerRecoveryKeys.length ? i.bitlockerRecoveryKeys.join('<br>') : ''}</p>
+									  <p><strong>Antivirus:</strong> ${i.antivirus}</p>
+									  <p><strong>Serial:</strong> ${i.serial}</p>
+						              <p><strong>IP:</strong> ${i.ipAddresses && i.ipAddresses.length ? i.ipAddresses.join(', ') : ''}</p>
+						              <p><strong>MAC:</strong> ${i.mac}</p>
+						              <p><strong>Boot:</strong> ${i.last_boot_time}</p>
+						              <p><strong>Última Atualização:</strong> ${i.last_seen}</p>
+						              <button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button>
+						            </div>
+						          </div>
+						        </div>`;
+						      $('#visualizacao-cards').append(card);
+					  });
+					},
+					statusCode: {
+					  	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					    401: function() { alert('Realize login novamente!'); }
+					}
+				});
+			}else{
+				alert("Selecione o cliente!");
 			}
-		});
+			
+		}
 		
 		function excluir(id) {
 		    if (confirm("Tem certeza que deseja excluir o ID " + id + "?")) {

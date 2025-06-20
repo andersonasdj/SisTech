@@ -47,7 +47,9 @@ public record DtoComputadoresList(
 		String uuid,
 		boolean isVirtualMachine,
 		String domain,
-		String deviceType
+		String deviceType,
+		String antivirus,
+		List<String> bitlockerRecoveryKeys
 		) {
 	
 	public DtoComputadoresList(Computador c) {
@@ -57,7 +59,7 @@ public record DtoComputadoresList(
 				c.getRamAvailable(), c.getDiskAvailable(), c.getIpAddresses(), c.getNetworkSpeedMbps(), c.getComment(),
 				c.getSystemUptimeSeconds(), c.getMemorySlots(), c.getGateway(), c.getDnsServers(), c.getGpus(),
 				c.getBiosVersion(), c.getBiosVendor(), c.getBiosReleaseDate(), c.getMonitores(), c.getUuid(),
-				c.isVirtualMachine(), c.getDomain(), c.getDeviceType()
+				c.isVirtualMachine(), c.getDomain(), c.getDeviceType(), c.getAntivirus(), c.getBitlockerRecoveryKeys()
 				);
 	}
 
