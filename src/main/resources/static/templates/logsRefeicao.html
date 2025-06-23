@@ -109,21 +109,24 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div class="container-fluid">
-		  <div class="row">
-		    <div class="col">
-				<a href="/sistech/logAcesso" class="button btn btn-sm btn-secondary"> Logs Acesso</a>
-				<a href="/sistech/logRefeicao" class="button btn btn-sm btn-secondary"> Logs Refeição</a>
-				<a href="/sistech/gerencia/home" class="button btn btn-sm btn-secondary"> Dashboard</a>
-		    </div>
-		    <div class="col"> </div>
-		    <div class="col">
-				<div class="form-group pull-right">
-		    		<input type="text" class="search form-control" placeholder="Busca">
-				</div>
-				<span class="counter pull-right"> </span>
-		    </div>
-		  </div>
+		<div class=" my-4">
+		    <div class="card shadow-sm">
+		      <div class="card-header bg-secondary text-white">
+		        <i class="bi bi-journal-text"></i> Logs e Relatórios
+		      </div>
+		      <div class="card-body">
+		        <div class="d-flex flex-wrap gap-2 mb-3">
+		          <a href="/sistech/logAcesso" class="btn btn-outline-dark btn-sm"><i class="bi bi-box-arrow-in-right"></i> Logs Acesso</a>
+		          <a href="/sistech/logRefeicao" class="btn btn-outline-dark btn-sm"><i class="bi bi-cup-straw"></i> Logs Refeição</a>
+		          <a href="/sistech/solicitacao/relatoriosrendimentoperiodo" class="btn btn-outline-dark btn-sm"><i class="bi bi-file-earmark-bar-graph"></i> Rendimento Funcionário</a>
+		          <a href="/sistech/solicitacao/relatoriosrendimentoclienteperiodo" class="btn btn-outline-dark btn-sm"><i class="bi bi-person-lines-fill"></i> Rendimento Cliente</a>
+		        </div>
+				<div class="col-md-4">
+		           <input type="text" class="form-control search" placeholder="Buscar...">
+		           <div class="counter"></div>
+		         </div>
+		  	</div>
+		   </div>
 		</div>
 		
 		<div class="table-responsive">

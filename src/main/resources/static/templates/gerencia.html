@@ -127,21 +127,22 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 		<hr class="bg-danger border-2 border-top border-danger">
 
-		<div class="container-fluid">
-		  <div class="row">
-		    <div class="col">
-				<a href="/sistech/logAcesso" class="button btn btn-sm btn-secondary"> Logs Acesso</a>
-				<a href="/sistech/logRefeicao" class="button btn btn-sm btn-secondary"> Logs Refeição</a>
-				<a href="/sistech/gerencia/home" class="button btn btn-sm btn-secondary"> Dashboard</a><p></p>
-				<a href="/sistech/solicitacao/relatoriosrendimentoperiodo" class="button btn btn-sm btn-secondary"> Relatorio Rendimento</a>
-				<a href="/sistech/solicitacao/relatoriosrendimentoclienteperiodo" class="button btn btn-sm btn-secondary"> Relatorio Rendimento Cliente</a>
-		    </div>
-		    <div class="col"> </div>
-		    <div class="col"> </div>
-		  </div>
+		<div class=" my-4">
+		    <div class="card shadow-sm">
+		      <div class="card-header bg-secondary text-white">
+		        <i class="bi bi-journal-text"></i> Logs e Relatórios
+		      </div>
+		      <div class="card-body">
+		        <div class="d-flex flex-wrap gap-2 mb-3">
+		          <a href="/sistech/logAcesso" class="btn btn-outline-dark btn-sm"><i class="bi bi-box-arrow-in-right"></i> Logs Acesso</a>
+		          <a href="/sistech/logRefeicao" class="btn btn-outline-dark btn-sm"><i class="bi bi-cup-straw"></i> Logs Refeição</a>
+		          <a href="/sistech/solicitacao/relatoriosrendimentoperiodo" class="btn btn-outline-dark btn-sm"><i class="bi bi-file-earmark-bar-graph"></i> Rendimento Funcionário</a>
+		          <a href="/sistech/solicitacao/relatoriosrendimentoclienteperiodo" class="btn btn-outline-dark btn-sm"><i class="bi bi-person-lines-fill"></i> Rendimento Cliente</a>
+		        </div>
+		  	</div>
+		   </div>
 		</div>
-
-		<br /><br />
+	</div>
 		<footer class="container-fluid fixed-bottom text-center text-white">
 				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
 					2025 Copyright:
@@ -194,61 +195,5 @@
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/password-generator.js"></script>
-	<script>
-		$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/sistema/logs",
-			success: function (data) {
-				
-				data.map(i => {
-					var itens =
-					'<tr id=linha' + i.id + '>'
-					+ '<td id=name' + i.id + '>' + i.dataLogin + '</td>'
-					+ '<td>' + i.usuario + '</td>'
-					+ '<td>' + i.ip + '</td>'
-					+ '<td>' + i.hostname + '</td>'
-					+ '<td>' + i.enderecoServer+ '</td>'
-					+ '<td>' + i.nomeLocal + '</td>'
-					+ '<td>' + i.pais + '</td>'
-					+ '<td>' + i.uri + '</td>'
-					+ '<td>' + i.browser + '</td>'
-					+ '<td>' + i.status + '</td>'
-					+ '<td>' + i.descricao + '</td>'
-					+ '</tr>'
-				$('#tabela-usuarios').append(itens);
-				});
-			},
-			error: function (e) { alert(e); }
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
-		  $(".search").keyup(function () {
-		    var searchTerm = $(".search").val();
-		    var listItem = $('.results tbody').children('tr');
-		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-		    
-		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-		        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-		    }
-		  });
-		    
-		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-		    $(this).attr('visible','false');
-		  });
-		
-		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-		    $(this).attr('visible','true');
-		  });
-		
-		  var jobCount = $('.results tbody tr[visible="true"]').length;
-		    $('.counter').text(jobCount + ' item');
-		
-		  if(jobCount == '0') {$('.no-result').show();}
-		    else {$('.no-result').hide();}
-				  });
-		});
-	</script>
 </body>
 </html>

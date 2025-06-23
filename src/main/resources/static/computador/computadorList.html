@@ -169,38 +169,58 @@
 				</div>
 		</footer>
 		
-		
-		
 		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
-		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicao" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
+		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+				<div class="modal-content shadow-lg border-0 rounded-3">
 					<div class="modal-header">
-						<h1 class="modal-title fs-6" id="modalEdicao">Edição ID: <span id="idmodal"> </span></h1> &nbsp; &nbsp;
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+						<h5 class="modal-title" id="modalEdicaoLabel">
+							🛠️ Edição do Computador — ID: <span id="idmodal" class="fw-bold"></span>
+						</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
+
 					<div class="modal-body">
-						<span id="id_cliente" style="display: none;" > </span>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="col-md-9">
-									<label class="form-label mt-2" for="comentario-modal"><b>Comentário</b></label>
-									<input type="text" id="comentario-modal" class="form-control">
+						<span id="id_cliente" style="display: none;"></span>
+
+						<div class="row g-3">
+							<div class="col-md-6">
+								<div class="form-floating">
+									<input type="text" id="comentario-modal" class="form-control" placeholder="Comentário">
+									<label for="comentario-modal"><b>Comentário</b></label>
 								</div>
-							<br />
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
-								<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualizaComputador()">Salvar</button>
+
+							<div class="col-md-6 d-flex flex-column justify-content-center">
+								<div class="form-check form-switch mb-2">
+									<input class="form-check-input" type="checkbox" id="storageMonitor">
+									<label class="form-check-label" for="storageMonitor">
+										Ativar Monitoramento de Armazenamento
+									</label>
+								</div>
+
+								<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="statusMonitor">
+									<label class="form-check-label" for="statusMonitor">
+										Ativar Monitoramento de Status
+									</label>
+								</div>
 							</div>
 						</div>
+					</div>
+
+					<div class="modal-footer bg-light">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Fechar o quadro de edição">
+							<i class="bi bi-x-circle"></i> Fechar
+						</button>
+						<button type="button" class="btn btn-success" onclick="atualizaComputador()" title="Salvar a solicitação">
+							<i class="bi bi-save2"></i> Salvar
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO ######################################################## -->
-				
-				
 		
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -238,29 +258,32 @@
 		});
 	</script>
 	<script>
-		function atualizaComputador(){
-			
+		function atualizaComputador() {
 			var id = $('#idmodal').text();
 			var comment = $('#comentario-modal').val();
-			
+			var storageMonitor = $('#storageMonitor').prop("checked");
+			var statusMonitor = $('#statusMonitor').prop("checked");
+
 			$.ajax({
 				type: "PUT",
 				contentType: "application/json",
 				url: "/sistech/api/v1/computador",
 				data: JSON.stringify({
 					"id": id,
-					"comment": comment
+					"comment": comment,
+					"storageMonitor": storageMonitor,
+					"statusMonitor": statusMonitor
 				}),
 				success: function (data) {
-					
 					alert(data);
 					listarComputadores();
 				},
-				error: function (e) { alert("Você não tem permissão !"); }
+				error: function (e) {
+					alert("Você não tem permissão !");
+				}
 			});
-			
-			
 		}
+
 		
 		function alternarVisualizacao() {
 		  const tabela = document.getElementById('visualizacao-tabela');
@@ -291,6 +314,10 @@
 					$('#idmodal').text(data.id);
 					$('#comentario-modal').val("");
 					$('#comentario-modal').val(data.comment);
+					
+					// Preenche os checkboxes com base nos valores booleanos
+					$('#storageMonitor').prop("checked", data.storageMonitor === true);
+					$('#statusMonitor').prop("checked", data.statusMonitor === true);
 				},
 				statusCode: {
 				  	500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -354,6 +381,7 @@
 						            <div class="card-body">
 						              <h5 class="card-title"><td>${statusHTML}</td> ${i.cliente} - ${i.name}</h5>
 						              <p><strong>Domínio:</strong> ${i.domain}</p>
+									  <p><strong>Comentário:</strong> ${i.comment}</p>
 						              <p><strong>Usuário:</strong> ${i.username}</p>
 						              <p><strong>SO:</strong> ${i.os}</p>
 						              <p><strong>CPU:</strong> ${i.cpu}</p>

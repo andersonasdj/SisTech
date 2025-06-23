@@ -20,6 +20,8 @@ public class ComputadorService {
 		if(repository.existsById(dto.id())) {
 			Computador computador = repository.getReferenceById(dto.id());
 			computador.setComment(dto.comment());
+			computador.setStorageMonitor(dto.storageMonitor());
+			computador.setStatusMonitor(dto.statusMonitor());
 			return "Computador atualizado com sucesso!";
 		}else {
 			return "Não foi possível atualizar!";
