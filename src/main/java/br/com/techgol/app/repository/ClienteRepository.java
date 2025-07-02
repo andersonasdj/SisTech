@@ -16,7 +16,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	@Query(value = "SELECT * "
 			+ "FROM clientes c "
-			+ "WHERE c.nomeCliente LIKE %:conteudo% "
+			+ "WHERE c.nomeCliente COLLATE utf8mb4_general_ci LIKE CONCAT('%', :conteudo, '%') "
 			+ "ORDER BY c.id DESC" ,nativeQuery = true)
 	public Page<Cliente> listarClientesPorPalavra(Pageable page, String conteudo);
 	
