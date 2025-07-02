@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.email.EnviadorEmail;
+import br.com.techgol.app.model.Computador;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.enums.Agendamentos;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
@@ -19,20 +20,26 @@ public class AgendamentoService {
 	
 	private static final String TIME_ZONE = "America/Sao_Paulo";
 
-	@Autowired
-	SolicitacaoService solicitacaoService;
-	
-	@Autowired
-	EnviadorEmail email;
-	
-	@Autowired
-	ConfiguracaoEmailService configuracaoEmailService;
+	@Autowired EnviadorEmail email;
+	@Autowired ConfiguracaoEmailService configuracaoEmailService;
+	@Autowired SolicitacaoService solicitacaoService;
+	@Autowired ComputadorService computadorService;
 	
 	/*
 	 * "0 0 * * * MON-FRI"  -> envia toda hora minuto e segundo zero nas segundas e sextas
 	 * 
 	 * 
 	 */
+	
+	@Scheduled(cron = "0 */2 8-21 * * *", zone = TIME_ZONE) //CADA 2 MINUTOS
+	public void monitorHosts() {
+		List<Computador> computadores = computadorService.listarComputadoresOffline();
+		if(!computadores.isEmpty()) {
+			computadorService.abrirSolicitacoesHostsOff(computadores);
+		}
+	}
+	
+	
 	
 	@Scheduled(cron = "0 */2 * * * *", zone = TIME_ZONE) //RECALCULADO A CADA 2 MINUTOS
 	public void recalculoPesoSolicitacoes() {

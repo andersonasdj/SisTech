@@ -165,4 +165,27 @@ public class Solicitacao {
 		return log;
 	}
 
+	public Solicitacao(Computador c, Funcionario f) {
+		this.abertoPor = "Sistema";
+		this.afetado = c.getComment();
+		this.solicitante = "Sistema";
+		this.categoria = Categoria.SOFTWARE;
+		this.classificacao = Classificacao.PROBLEMA;
+		this.cliente = c.getCliente();
+		this.dataAbertura = LocalDateTime.now().withNano(0);
+		this.dataAtualizacao = LocalDateTime.now().withNano(0);
+		this.descricao = "HOST OFFLINE - "+ c.getName();
+		this.prioridade = Prioridade.CRITICA;
+		this.formaAbertura = FormaAbertura.PROATIVO;
+		this.local = Local.ONSITE;
+		this.peso = 200l;
+		this.versao = 0;
+		this.solicitante = "Sistema";
+		this.status = Status.ABERTO;
+		this.funcionario = f;
+		this.excluido = false;
+		this.observacao = "* Ultima vez online: "+ c.getLast_seen() + "\n* Plataforma: " + c.getPlatform() + "\n* Os: " + c.getOs();
+		
+	}
+
 }

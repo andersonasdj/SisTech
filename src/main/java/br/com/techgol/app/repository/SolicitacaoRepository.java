@@ -1193,6 +1193,8 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 							+ "AND s.dataAtualizacao <= :dataFim "
 							+ "AND s.excluido = :excluido")
 			public int totalPorClientePeriodoDataAtualizado(Long id, Boolean excluido,  LocalDateTime dataInicio, LocalDateTime dataFim);
+
+			public Solicitacao findByDescricaoAndStatus(String string, Status aberto);
 			
 			//##################################################################################################################
 

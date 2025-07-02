@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
+import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 import jakarta.mail.internet.MimeMessage;
@@ -158,6 +159,46 @@ public class EnviadorEmail {
             System.out.println("Enviando email Relatório diário!");
             System.out.println("OK");
 			
+		}
+		
+		public void enviarEmailHostOffline(Solicitacao s, String assunto, String destinatario, String texto) {
+		    try {
+		        MimeMessage message = emailSender.createMimeMessage();
+		        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+		        helper.setFrom(senderEmail);
+		        helper.setTo(destinatario);
+		        helper.setSubject(assunto);
+
+		        String corpoHtml = """
+		        <html>
+		          <body style="font-family: Arial, sans-serif; color: #333;">
+		            <div style="border: 2px solid red; padding: 15px; border-radius: 5px;">
+		              <h2 style="color: red;">🚨 ALERTA - HOST OFFLINE</h2>
+		              <p style="font-size: 14px;">
+		                 %s
+		              </p>
+		              <p>
+		                 <strong>Solicitação ID:</strong> %d<br/>
+		                 <strong>Data da solicitação:</strong> %s
+		              </p>
+		              <p style="color: #555;">
+		                 Verifique imediatamente o status do computador e tome as ações necessárias.
+		              </p>
+		            </div>
+		          </body>
+		        </html>
+		        """.formatted(
+		                s.getId(),
+		                s.getDataAbertura() != null ? s.getDataAbertura().toString() : "N/A"
+		        );
+
+		        helper.setText(corpoHtml, true);
+
+		        emailSender.send(message);
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 		}
 
 		public void enviarEmail(List<SolicitacaoProjecaoEntidadeComAtributos> solicitacao, String assunto, String destinatario, String texto) {
