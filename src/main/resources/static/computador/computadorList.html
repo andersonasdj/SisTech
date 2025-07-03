@@ -182,7 +182,6 @@
 		        <div class="col-md-6">
 		          <h6 class="text-primary border-bottom pb-1 mb-2">Informações Gerais</h6>
 		          <ul class="list-group list-group-flush small">
-		            <li class="list-group-item"><strong>Status:</strong> <span id="detalhe-status"></span></li>
 		            <li class="list-group-item"><strong>Comentário:</strong> <span id="detalhe-comentario"></span></li>
 		            <li class="list-group-item"><strong>Hostname:</strong> <span id="detalhe-hostname"></span></li>
 		            <li class="list-group-item"><strong>Domínio:</strong> <span id="detalhe-dominio"></span></li>
@@ -224,6 +223,7 @@
 		            <li class="list-group-item"><strong>Fabricante:</strong> <span id="detalhe-fabricante"></span></li>
 		            <li class="list-group-item"><strong>Bios Release:</strong> <span id="detalhe-biosrelease"></span></li>
 		            <li class="list-group-item"><strong>Timezone:</strong> <span id="detalhe-timezone"></span></li>
+					<li class="list-group-item"><strong>GPU:</strong> <span id="detalhe-gpu"></span></li>
 		            <li class="list-group-item"><strong>Última Atualização:</strong> <span id="detalhe-atualizacao"></span></li>
 		            <li class="list-group-item"><strong>Último Boot:</strong> <span id="detalhe-ultimoboot"></span></li>
 		            <li class="list-group-item"><strong>Instalação Agente:</strong> <span id="detalhe-instalacaoagente"></span></li>
@@ -233,11 +233,7 @@
 		      </div>
 		    </div>
 		  </div>
-
 		</div>
-
-
-		
 		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
 		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -333,18 +329,6 @@
 		    url: "/sistech/api/v1/computador/completo/" + id,
 		    success: function (data) {
 				
-				const dateString = data.last_seen;
-				const [datePart, timePart] = dateString.split(' ');
-				const [day, month, year] = datePart.split('/');
-				const isoString = `${year}-${month}-${day}T${timePart}`;
-				
-				const lastSeenDate = new Date(isoString);
-				const now = new Date();
-				const diffMinutes = (now - lastSeenDate) / 1000 / 60;
-				const isOnline = diffMinutes <= 5;
-				const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
-				$("#detalhe-status").text("");
-				$("#detalhe-status").append(statusHTML);
 				$("#detalhe-comentario").text(data.comment);
 		      	$("#detalhe-hostname").text(data.name);
 		      	$("#detalhe-dominio").text(data.domain);
@@ -372,6 +356,7 @@
 				$("#detalhe-instalacaoagente").text(data.agent_install_date);
 				$("#detalhe-ultimoboot").text(data.last_boot_time);
 		      	$("#detalhe-atualizacao").text(data.last_seen);
+				$("#detalhe-gpu").text(data.gpus ? data.gpus.join(", ") : "");
 
 		      // abre a offcanvas
 		      let canvas = new bootstrap.Offcanvas(document.getElementById('detalheComputador'));
@@ -380,7 +365,6 @@
 		    error: function () { alert("Erro ao carregar detalhes"); }
 		  });
 		}
-
 
 		function atualizaComputador() {
 			var id = $('#idmodal').text();
