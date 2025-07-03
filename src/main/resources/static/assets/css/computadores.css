@@ -92,3 +92,16 @@
 	  .offline {
 	  	background-color: red;
 	  }
+	  
+	  .btn-group-sm .btn:hover {
+	    transform: scale(1.1);
+	    transition: transform 0.2s ease;
+	  }
+	  
+	  #detalheComputador .list-group-item {
+	    font-size: 0.9rem;
+	  }
+	  #detalheComputador .list-group-item strong {
+	    color: rgb(61, 56, 70);
+	  }
+

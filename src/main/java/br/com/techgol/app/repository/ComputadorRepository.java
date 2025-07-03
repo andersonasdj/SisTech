@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.techgol.app.model.Computador;
+import br.com.techgol.app.orm.ProjecaoComputadorCompleto;
 
 public interface ComputadorRepository extends JpaRepository<Computador, Long> {
 
@@ -25,6 +26,15 @@ public interface ComputadorRepository extends JpaRepository<Computador, Long> {
 					+ "WHERE c.last_seen <= :limite "
 					+ "AND c.statusMonitor = true")
 	public List<Computador> listarComputadoresOffline(@Param("limite") LocalDateTime limite);
+
+	
+	@Query("""
+		    SELECT c 
+		    FROM Computador c 
+		    WHERE c.id = :id
+		""")
+	public ProjecaoComputadorCompleto buscarComputadorProjecaoCompleta(@Param("id") Long id);
+
 	
 	
 	

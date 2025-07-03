@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoComputadorResumido;
 import br.com.techgol.app.dto.DtoComputadoresList;
+import br.com.techgol.app.orm.ProjecaoComputadorCompleto;
 import br.com.techgol.app.repository.ComputadorRepository;
 import br.com.techgol.app.services.ComputadorService;
 
@@ -64,6 +65,13 @@ public class ComputadorRestController {
 	public DtoComputadorResumido buscarComputador(@PathVariable Long id){
 		
 		return new DtoComputadorResumido(repository.getReferenceById(id));
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/completo/{id}")
+	public ProjecaoComputadorCompleto buscarComputadorCompleto(@PathVariable Long id){
+		
+		return repository.buscarComputadorProjecaoCompleta(id);
 	}
 
 }

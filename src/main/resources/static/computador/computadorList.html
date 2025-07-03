@@ -169,6 +169,75 @@
 				</div>
 		</footer>
 		
+		<div id="detalheComputador" class="offcanvas offcanvas-bottom shadow rounded-top" tabindex="-1" style="height: 90vh; max-height: 90vh; overflow-y: auto;">
+		  <div class="offcanvas-header bg-secondary text-white">
+		    <h5 id="detalheComputadorLabel">
+		      <i class="bi bi-pc-display"></i> Detalhes do Computador
+		    </h5>
+		    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body bg-light" id="detalheComputadorConteudo">
+		    <div class="container">
+		      <div class="row g-3">
+		        <div class="col-md-6">
+		          <h6 class="text-primary border-bottom pb-1 mb-2">Informações Gerais</h6>
+		          <ul class="list-group list-group-flush small">
+		            <li class="list-group-item"><strong>Status:</strong> <span id="detalhe-status"></span></li>
+		            <li class="list-group-item"><strong>Comentário:</strong> <span id="detalhe-comentario"></span></li>
+		            <li class="list-group-item"><strong>Hostname:</strong> <span id="detalhe-hostname"></span></li>
+		            <li class="list-group-item"><strong>Domínio:</strong> <span id="detalhe-dominio"></span></li>
+		            <li class="list-group-item"><strong>Usuário:</strong> <span id="detalhe-usuario"></span></li>
+		            <li class="list-group-item"><strong>Plataforma:</strong> <span id="detalhe-plataforma"></span></li>
+		            <li class="list-group-item"><strong>OS:</strong> <span id="detalhe-os"></span></li>
+		            <li class="list-group-item"><strong>Arquitetura:</strong> <span id="detalhe-arquitetura"></span></li>
+		          </ul>
+
+		          <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Memória & Processador</h6>
+		          <ul class="list-group list-group-flush small">
+		            <li class="list-group-item"><strong>CPU:</strong> <span id="detalhe-cpu"></span></li>
+		            <li class="list-group-item"><strong>Memória:</strong> <span id="detalhe-memoria"></span></li>
+		            <li class="list-group-item"><strong>Slots de Memória:</strong> <span id="detalhe-slotsmemoria"></span></li>
+		          </ul>
+				  
+				  <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Rede</h6>
+		          <ul class="list-group list-group-flush small">
+		            <li class="list-group-item"><strong>IP:</strong> <span id="detalhe-ip"></span></li>
+		            <li class="list-group-item"><strong>Gateway:</strong> <span id="detalhe-gateway"></span></li>
+		            <li class="list-group-item"><strong>DNS:</strong> <span id="detalhe-dns"></span></li>
+		            <li class="list-group-item"><strong>MAC:</strong> <span id="detalhe-mac"></span></li>
+		          </ul>
+		        </div>
+
+		        <div class="col-md-6">
+		          <h6 class="text-primary border-bottom pb-1 mb-2">Armazenamento & Segurança</h6>
+		          <ul class="list-group list-group-flush small">
+		            <li class="list-group-item"><strong>Armazenamento:</strong> <span id="detalhe-disco"></span></li>
+					<li class="list-group-item"><strong>Disponível:</strong> <span id="detalhe-discodisponivel"></span></li>
+		            <li class="list-group-item"><strong>Tipo:</strong> <span id="detalhe-tipo"></span></li>
+		            <li class="list-group-item"><strong>Antivirus:</strong> <span id="detalhe-antivirus"></span></li>
+		            <li class="list-group-item"><strong>Bitlocker:</strong> <span id="detalhe-bitlocker"></span></li>
+		          </ul>
+
+		          <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Outros</h6>
+		          <ul class="list-group list-group-flush small">
+		            <li class="list-group-item"><strong>Serial:</strong> <span id="detalhe-serial"></span></li>
+		            <li class="list-group-item"><strong>Fabricante:</strong> <span id="detalhe-fabricante"></span></li>
+		            <li class="list-group-item"><strong>Bios Release:</strong> <span id="detalhe-biosrelease"></span></li>
+		            <li class="list-group-item"><strong>Timezone:</strong> <span id="detalhe-timezone"></span></li>
+		            <li class="list-group-item"><strong>Última Atualização:</strong> <span id="detalhe-atualizacao"></span></li>
+		            <li class="list-group-item"><strong>Último Boot:</strong> <span id="detalhe-ultimoboot"></span></li>
+		            <li class="list-group-item"><strong>Instalação Agente:</strong> <span id="detalhe-instalacaoagente"></span></li>
+		          </ul>
+		        </div>
+
+		      </div>
+		    </div>
+		  </div>
+
+		</div>
+
+
+		
 		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
 		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -208,7 +277,7 @@
 							</div>
 						</div>
 					</div>
-
+					
 					<div class="modal-footer bg-light">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Fechar o quadro de edição">
 							<i class="bi bi-x-circle"></i> Fechar
@@ -258,6 +327,61 @@
 		});
 	</script>
 	<script>
+		function mostrarDetalhes(id) {
+		  $.ajax({
+		    type: "GET",
+		    url: "/sistech/api/v1/computador/completo/" + id,
+		    success: function (data) {
+				
+				const dateString = data.last_seen;
+				const [datePart, timePart] = dateString.split(' ');
+				const [day, month, year] = datePart.split('/');
+				const isoString = `${year}-${month}-${day}T${timePart}`;
+				
+				const lastSeenDate = new Date(isoString);
+				const now = new Date();
+				const diffMinutes = (now - lastSeenDate) / 1000 / 60;
+				const isOnline = diffMinutes <= 5;
+				const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
+				$("#detalhe-status").text("");
+				$("#detalhe-status").append(statusHTML);
+				$("#detalhe-comentario").text(data.comment);
+		      	$("#detalhe-hostname").text(data.name);
+		      	$("#detalhe-dominio").text(data.domain);
+		      	$("#detalhe-usuario").text(data.username);
+				$("#detalhe-plataforma").text(data.platform);
+				$("#detalhe-os").text(data.os);
+				$("#detalhe-arquitetura").text(data.osArchitecture);
+		      	$("#detalhe-cpu").text(data.cpu);
+		      	$("#detalhe-memoria").text(`${data.ram} (Disponível: ${data.ramAvailable})`);
+				$("#detalhe-slotsmemoria").text(data.memorySlots ? data.memorySlots.join(", ") : "");
+				$("#detalhe-serial").text(data.serial);
+				$("#detalhe-timezone").text(data.timeZone);
+				
+		      	$("#detalhe-disco").text(data.disk ? data.disk.join(", ") : "");
+				$("#detalhe-discodisponivel").text(data.diskAvailable ? data.diskAvailable.join(", ") : "");
+		      	$("#detalhe-ip").text(data.ipAddresses ? data.ipAddresses.join(", ") : "");
+				$("#detalhe-dns").text(data.dnsServers ? data.dnsServers.join(", ") : "");
+				$("#detalhe-gateway").text(data.gateway);
+		      	$("#detalhe-mac").text(data.mac);
+				$("#detalhe-fabricante").text(data.manufacturer);
+				$("#detalhe-tipo").text(data.deviceType);
+				$("#detalhe-antivirus").text(data.antivirus);
+				$("#detalhe-bitlocker").text(data.bitlockerRecoveryKeys ? data.bitlockerRecoveryKeys.join(", ") : "");
+				$("#detalhe-biosrelease").text(data.biosReleaseDate);
+				$("#detalhe-instalacaoagente").text(data.agent_install_date);
+				$("#detalhe-ultimoboot").text(data.last_boot_time);
+		      	$("#detalhe-atualizacao").text(data.last_seen);
+
+		      // abre a offcanvas
+		      let canvas = new bootstrap.Offcanvas(document.getElementById('detalheComputador'));
+		      canvas.show();
+		    },
+		    error: function () { alert("Erro ao carregar detalhes"); }
+		  });
+		}
+
+
 		function atualizaComputador() {
 			var id = $('#idmodal').text();
 			var comment = $('#comentario-modal').val();
@@ -352,15 +476,18 @@
 							const now = new Date();
 							const diffMinutes = (now - lastSeenDate) / 1000 / 60;
 							const isOnline = diffMinutes <= 5;
-							const statusHTML = `<span class="status-indicator ${isOnline ? 'online' : 'offline'}" title="${isOnline ? 'Online' : 'Offline'}"></span>`;
+							const statusHTML = `<span class="badge rounded-pill ${isOnline ? 'bg-success' : 'bg-danger'}">
+							  ${isOnline ? '<i class="bi bi-check-circle-fill"></i> Online' : '<i class="bi bi-x-circle-fill"></i> Offline'}
+							</span>`;
+
 	
 							
 							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 						      // Tabela
-						      var itens = `<tr id="linha${i.id}" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(${i.id})>
+						      var itens = `<tr id="linha${i.id}">
 								<td>${statusHTML}</td>
 						        <td class="long-text" title="${i.cliente}">${i.cliente}</td>
-								<td class="long-text" title="${i.comment}">${i.comment != null ? i.comment: ' '}</td>
+								<td class="long-text" title="${i.comment}" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(${i.id})>${i.comment != null ? i.comment: ' '}</td>
 						        <td title="${i.domain}">${i.domain}</td>
 						        <td class="long-text" title="${i.name}">${i.name}</td>
 						        <td title="${i.username}">${i.username}</td>
@@ -369,8 +496,21 @@
 						        <td class="long-text" title="${i.ram}">Instalada: ${i.ram}<p>Disponível: ${i.ramAvailable}</td>
 								<td class="long-text" title="${i.manufacturer}">${i.manufacturer}</td>
 								<td class="long-text" title="${i.serial}">${i.serial}</td>
-						        <td title="${i.last_seen}">${i.last_seen}</td>
-						        <td><button class="btn btn-sm btn-danger" onclick="excluir(${i.id})">Excluir</button></td>
+						        <td class="long-text" title="${i.last_seen}">${i.last_seen}</td>
+								<td class="long-text text-center">
+								  <div class="btn-group btn-group-sm" role="group">
+								    <button class="btn btn-outline-primary" title="Visualizar detalhes" onclick="mostrarDetalhes(${i.id})">
+								      <i class="bi bi-eye"></i>
+								    </button>
+								    <button class="btn btn-outline-secondary" title="Editar comentário" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick="editar(${i.id})">
+								      <i class="bi bi-pencil-square"></i>
+								    </button>
+								    <button class="btn btn-outline-danger" title="Excluir computador" onclick="excluir(${i.id})">
+								      <i class="bi bi-trash"></i>
+								    </button>
+								  </div>
+								</td>
+
 						      </tr>`;
 						      $('#tabela-computadores').append(itens);
 	
