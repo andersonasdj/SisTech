@@ -168,6 +168,23 @@
 						</div>
 					</div>
 					<br />
+					
+					<div class="form-check mb-3">
+					  <input class="form-check-input" type="checkbox" value="" id="modoLoteCheckbox" onchange="alternarModoLote()">
+					  <label class="form-check-label" for="modoLoteCheckbox">
+					    Abrir em lote
+					  </label>
+					</div>
+					
+					<div id="clientesCheckboxContainer" class="d-none border p-3" style="max-height: 300px; overflow-y: auto;">
+					  <div id="checkboxGrid" class="row gy-2"></div>
+					</div>
+
+
+
+
+					<br />
+					
 					<div class="control-group">
 						<div class="controls">
 							<span id="botaoSalvar"></span>
@@ -343,6 +360,63 @@
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/dark.js"></script>
 	<script>
+		function alternarModoLote() {
+		  const modoLote = document.getElementById('modoLoteCheckbox').checked;
+		  document.getElementById('nomeCliente').disabled = modoLote;
+		  document.getElementById('clientesCheckboxContainer').classList.toggle('d-none', !modoLote);
+
+		  if (modoLote) {
+		    listarClientesCheckbox(); // preencher checkboxes
+		  } else {
+		    document.getElementById('clientesCheckboxContainer').innerHTML = '';
+			$("#botaoSalvar").empty();	
+		  }
+		}
+		
+		function listarClientesCheckbox() {
+		  $.ajax({
+		    type: "GET",
+		    contentType: "application/json",
+		    url: "/sistech/solicitacao/getData",
+		    success: function (data) {
+				
+				$('#solicitante').empty();
+				$('#afetado').empty();
+				$("#botaoSalvar").empty();	
+								
+				$('#solicitante').append('<option value="Suporte" slected="selected">Suporte</option>');
+				$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
+	
+				$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
+				$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+									
+				$('#botaoSalvar').append(
+					'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+				);
+				
+				let container = $('#clientesCheckboxContainer');
+				container.html('<div class="row gy-2" id="checkboxGrid"></div>');
+
+				let grid = $('#checkboxGrid');
+				data.clientes.forEach((cliente, index) => {
+				  const id = data.clientesId[index];
+				  const nome = cliente;
+				  grid.append(`
+				    <div class="col-md-6 col-lg-4 col-xl-3">
+				      <div class="form-check">
+				        <input class="form-check-input" type="checkbox" name="clientesSelecionados" value="${id}" id="clienteCheck${id}">
+				        <label class="form-check-label" for="clienteCheck${id}">${nome}</label>
+				      </div>
+				    </div>
+				  `);
+				});
+		    },
+		    statusCode: {
+		      500: () => alert('Erro! Contate o desenvolvedor!'),
+		      401: () => alert('Realize login novamente!')
+		    }
+		  });
+		}
 		
 		function editarColaboradores() {
 			var idCliente = $('#nomeCliente').val();
@@ -552,35 +626,67 @@
 				nomeCliente = $('#nomeCliente').val(),
 				nomeFuncionario = $('#nomeFuncionario').val(),
 				modelo = $('#modelo').val();
+				
+				let modoLote = $('#modoLoteCheckbox').is(':checked');
+				let clientesSelecionados = [];
+				
+				if (modoLote) {
+				  $('input[name="clientesSelecionados"]:checked').each(function () {
+				    clientesSelecionados.push($(this).val());
+				  });
 
-			$.ajax({
-				type: "POST",
-				contentType: "application/json",
-				url: "/sistech/solicitacao/modelo",
-				data: JSON.stringify({
-					"solicitante": solicitante,
-					"afetado": afetado,
-					"nomeCliente": nomeCliente,
-					"nomeFuncionario": nomeFuncionario,
-					"modelo": modelo
-				}),
-				success: function (data) {
-					$('#solicitante').val("");
-					$('#afetado').val("");
-					$('#nomeCliente').val("");
-					$('#nomeFuncionario').val("");
-					$('#modelo').val("");
-					$('#celAfetado').text("");
-					$('#celSolicitante').text("");
-					alert("Solicitação criada com sucesso!");
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); },
-				    405: function() { alert('Verifique se todos os campos foram marcados!'); }
+				  if (clientesSelecionados.length === 0) {
+				    alert("Selecione ao menos um cliente para o envio em lote.");
+				    return;
+				  }
+
+				  // Envio em lote
+				  clientesSelecionados.forEach(clienteId => {
+				    enviarSolicitacao({
+				      solicitante,
+				      afetado,
+				      nomeCliente: clienteId,
+				      nomeFuncionario,
+				      modelo
+				    });
+				  });
+				  alert("Solicitação em lote criada com sucesso!");
+
+				} else {
+				  // Envio único
+				  let nomeCliente = $('#nomeCliente').val();
+				  enviarSolicitacao({
+				    solicitante,
+				    afetado,
+				    nomeCliente,
+				    nomeFuncionario,
+				    modelo
+				  });
+				  alert("Solicitação criada com sucesso!");
 				}
-			});
 		}
+		
+		function enviarSolicitacao(payload) {
+		  $.ajax({
+		    type: "POST",
+		    contentType: "application/json",
+		    url: "/sistech/solicitacao/modelo",
+		    data: JSON.stringify(payload),
+		    success: function () {
+			  	$('#solicitante').val("");
+				$('#afetado').val("");
+				$('#nomeCliente').val("");
+				$('#nomeFuncionario').val("");
+				$('#modelo').val("");
+				$('#celAfetado').text("");
+				$('#celSolicitante').text("");
+		    },
+		    error: function () {
+		      alert("Erro ao enviar solicitação para cliente ID: " + payload.nomeCliente);
+		    }
+		  });
+		}
+
 	</script>
 	<script>
 		$(document).ready(function () {
