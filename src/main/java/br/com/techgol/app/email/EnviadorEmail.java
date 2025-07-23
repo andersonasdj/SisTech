@@ -122,43 +122,163 @@ public class EnviadorEmail {
 	        }
 	    }
 
+//		public void enviarEmail(DtoDashboard dto, String assunto, String destinatario, String texto) {
+//			var email = new SimpleMailMessage();
+//            email.setFrom(senderEmail);
+//            email.setSubject(assunto);
+//            email.setTo(destinatario);
+//            email.setText(texto
+//            		+ " Total de Solicitações:  " + dto.totalSolicitacoes() + "\n"
+//            		+ "  * ABERTAS: " + dto.aberto() + "\n"
+//            		+ "  * AGENDADAS: " + dto.agendado() + "\n"
+//            		+ "  * AGUARDANDO: " + dto.aguardando() + "\n"
+//            		+ "  * ANDAMENTO: " + dto.andamento() + "\n"
+//            		+ "  * PAUSADAS: " + dto.pausado() + "\n"
+//            		+ "  \n############################################### \n"
+//            		+ " Local das solicitações:  \n"
+//            		+ "  * ONSITE: " + dto.onsite() + "\n"
+//            		+ "  * OFFSITE: " + dto.offsite() + "\n"
+//            		+ "  \n############################################### \n"
+//            		+ " Classificação das Solicitações:  \n"
+//            		+ "  * INCIDENTE: " + dto.incidente() + "\n"
+//            		+ "  * PROBLEMA: " + dto.problema() + "\n"
+//            		+ "  * SOLICITAÇÃO: " + dto.solicitacao() + "\n"
+//            		+ "  * ACESSO: " + dto.acesso() + "\n"
+//            		+ "  * EVENTO: " + dto.evento() + "\n"
+//            		+ "  * BACKUP: " + dto.backup() + "\n"
+//            		+ "  \n############################################### \n"
+//            		+ " Prioridade das Solicitações:  \n"
+//            		+ "  * BAIXA: " + dto.baixa() + "\n"
+//            		+ "  * MEDIA: " + dto.media() + "\n"
+//            		+ "  * ALTA: " + dto.alta() + "\n"
+//            		+ "  * CRITICA: " + dto.critica() + "\n"
+//            		+ "  * PLANEJADA: " + dto.planejada() + "\n"
+//            		
+//            		);
+//        	emailSender.send(email);
+//            System.out.println("Enviando email Relatório diário!");
+//            System.out.println("OK");
+//			
+//		}
+		
 		public void enviarEmail(DtoDashboard dto, String assunto, String destinatario, String texto) {
-			var email = new SimpleMailMessage();
-            email.setFrom(senderEmail);
-            email.setSubject(assunto);
-            email.setTo(destinatario);
-            email.setText(texto
-            		+ " Total de Solicitações:  " + dto.totalSolicitacoes() + "\n"
-            		+ "  * ABERTAS: " + dto.aberto() + "\n"
-            		+ "  * AGENDADAS: " + dto.agendado() + "\n"
-            		+ "  * AGUARDANDO: " + dto.aguardando() + "\n"
-            		+ "  * ANDAMENTO: " + dto.andamento() + "\n"
-            		+ "  * PAUSADAS: " + dto.pausado() + "\n"
-            		+ "  \n############################################### \n"
-            		+ " Local das solicitações:  \n"
-            		+ "  * ONSITE: " + dto.onsite() + "\n"
-            		+ "  * OFFSITE: " + dto.offsite() + "\n"
-            		+ "  \n############################################### \n"
-            		+ " Classificação das Solicitações:  \n"
-            		+ "  * INCIDENTE: " + dto.incidente() + "\n"
-            		+ "  * PROBLEMA: " + dto.problema() + "\n"
-            		+ "  * SOLICITAÇÃO: " + dto.solicitacao() + "\n"
-            		+ "  * ACESSO: " + dto.acesso() + "\n"
-            		+ "  * EVENTO: " + dto.evento() + "\n"
-            		+ "  * BACKUP: " + dto.backup() + "\n"
-            		+ "  \n############################################### \n"
-            		+ " Prioridade das Solicitações:  \n"
-            		+ "  * BAIXA: " + dto.baixa() + "\n"
-            		+ "  * MEDIA: " + dto.media() + "\n"
-            		+ "  * ALTA: " + dto.alta() + "\n"
-            		+ "  * CRITICA: " + dto.critica() + "\n"
-            		+ "  * PLANEJADA: " + dto.planejada() + "\n"
-            		
-            		);
-        	emailSender.send(email);
-            System.out.println("Enviando email Relatório diário!");
-            System.out.println("OK");
-			
+		    try {
+		        MimeMessage message = emailSender.createMimeMessage();
+		        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+		        helper.setFrom(senderEmail);
+		        helper.setTo(destinatario);
+		        helper.setSubject(assunto);
+
+		        // Conteúdo HTML
+		        String conteudoHtml = """
+		            <html>
+		            <head>
+		                <style>
+		                    body {
+		                        font-family: Arial, sans-serif;
+		                        color: #333;
+		                        line-height: 1.5;
+		                    }
+		                    h2 {
+		                        color: #0056b3;
+		                    }
+		                    table {
+		                        width: 100%%;
+		                        border-collapse: collapse;
+		                        margin-top: 10px;
+		                        margin-bottom: 20px;
+		                    }
+		                    table, th, td {
+		                        border: 1px solid #ccc;
+		                    }
+		                    th, td {
+		                        padding: 8px;
+		                        text-align: left;
+		                    }
+		                    th {
+		                        background-color: #f2f2f2;
+		                    }
+		                    .section-title {
+		                        margin-top: 20px;
+		                        font-size: 1.1em;
+		                        color: #444;
+		                        text-transform: uppercase;
+		                    }
+		                </style>
+		            </head>
+		            <body>
+		                <h2>Relatório Diário</h2>
+		                <p>%s</p>
+		                
+		                <div class="section-title">Resumo de Solicitações</div>
+		                <table>
+		                    <tr><th>Total de Solicitações</th><td>%d</td></tr>
+		                    <tr><th>Abertas</th><td>%d</td></tr>
+		                    <tr><th>Agendadas</th><td>%d</td></tr>
+		                    <tr><th>Aguardando</th><td>%d</td></tr>
+		                    <tr><th>Andamento</th><td>%d</td></tr>
+		                    <tr><th>Pausadas</th><td>%d</td></tr>
+		                </table>
+
+		                <div class="section-title">Local das Solicitações</div>
+		                <table>
+		                    <tr><th>Onsite</th><td>%d</td></tr>
+		                    <tr><th>Offsite</th><td>%d</td></tr>
+		                </table>
+
+		                <div class="section-title">Classificação</div>
+		                <table>
+		                    <tr><th>Incidente</th><td>%d</td></tr>
+		                    <tr><th>Problema</th><td>%d</td></tr>
+		                    <tr><th>Solicitação</th><td>%d</td></tr>
+		                    <tr><th>Acesso</th><td>%d</td></tr>
+		                    <tr><th>Evento</th><td>%d</td></tr>
+		                    <tr><th>Backup</th><td>%d</td></tr>
+		                </table>
+
+		                <div class="section-title">Prioridades</div>
+		                <table>
+		                    <tr><th>Baixa</th><td>%d</td></tr>
+		                    <tr><th>Média</th><td>%d</td></tr>
+		                    <tr><th>Alta</th><td>%d</td></tr>
+		                    <tr><th>Crítica</th><td>%d</td></tr>
+		                    <tr><th>Planejada</th><td>%d</td></tr>
+		                </table>
+		            </body>
+		            </html>
+		        """.formatted(
+		            texto,
+		            dto.totalSolicitacoes(),
+		            dto.aberto(),
+		            dto.agendado(),
+		            dto.aguardando(),
+		            dto.andamento(),
+		            dto.pausado(),
+		            dto.onsite(),
+		            dto.offsite(),
+		            dto.incidente(),
+		            dto.problema(),
+		            dto.solicitacao(),
+		            dto.acesso(),
+		            dto.evento(),
+		            dto.backup(),
+		            dto.baixa(),
+		            dto.media(),
+		            dto.alta(),
+		            dto.critica(),
+		            dto.planejada()
+		        );
+
+		        helper.setText(conteudoHtml, true);
+		        emailSender.send(message);
+
+		        System.out.println("Enviando email Relatório diário!");
+		        System.out.println("OK");
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        System.err.println("Erro ao enviar email: " + e.getMessage());
+		    }
 		}
 		
 		public void enviarEmailHostOffline(Solicitacao s, String assunto, String destinatario, String texto) {
@@ -203,55 +323,170 @@ public class EnviadorEmail {
 
 		public void enviarEmail(List<SolicitacaoProjecaoEntidadeComAtributos> solicitacao, String assunto, String destinatario, String texto) {
 			
-			String corpoEmail = "<html><body>"
-					+ "<style>"
-					+ "table, th, td {\n"
-					+ "  border: 1px solid white;\n"
-					+ "  border-collapse: collapse;\n"
-					+ "  border-spacing: 15px 10px;\n"
-					+ "}\n"
-					+ "table>tbody>tr>td {\n"
-					+ " padding: 5px 20px;\n"
-					+ "	background-color: #FFED8A;\n"
-					+ "}"
-					+ "</style>"
-					+ "<br /><h3> " + texto +" </h3><br /> "
-					+ "<table style=\"text-align: center;\" cellspacing=\"3\" border=\"1\">\n"
-					+ "				<thead>\n"
-					+ "					<tr>\n"
-					+ "						<th scope=\"col\">ID</th>\n"
-					+ "						<th scope=\"col\">Data Abertura</th>\n"
-					+ "						<th scope=\"col\">Cliente</th>\n"
-					+ "						<th scope=\"col\">Solicitante</th>\n"
-					+ "						<th scope=\"col\">Afetado</th>\n"
-					+ "						<th scope=\"col\">Classificações</th>\n"
-					+ "						<th scope=\"col\">Descrição</th>\n"
-					+ "						<th scope=\"col\">Prioridade</th>\n"
-					+ "						<th scope=\"col\">Responsável</th>\n"
-					+ "						<th scope=\"col\">Status</th>\n"
-					+ "					</tr>\n"
-					+ "				</thead>\n"
-					+ "				<tbody>";
+//			String corpoEmail = "<html><body>"
+//					+ "<style>"
+//					+ "table, th, td {\n"
+//					+ "  border: 1px solid white;\n"
+//					+ "  border-collapse: collapse;\n"
+//					+ "  border-spacing: 15px 10px;\n"
+//					+ "}\n"
+//					+ "table>tbody>tr>td {\n"
+//					+ " padding: 5px 20px;\n"
+//					+ "	background-color: #FFED8A;\n"
+//					+ "}"
+//					+ "</style>"
+//					+ "<br /><h3> " + texto +" </h3><br /> "
+//					+ "<table style=\"text-align: center;\" cellspacing=\"3\" border=\"1\">\n"
+//					+ "				<thead>\n"
+//					+ "					<tr>\n"
+//					+ "						<th scope=\"col\">ID</th>\n"
+//					+ "						<th scope=\"col\">Data Abertura</th>\n"
+//					+ "						<th scope=\"col\">Cliente</th>\n"
+//					+ "						<th scope=\"col\">Solicitante</th>\n"
+//					+ "						<th scope=\"col\">Afetado</th>\n"
+//					+ "						<th scope=\"col\">Classificações</th>\n"
+//					+ "						<th scope=\"col\">Descrição</th>\n"
+//					+ "						<th scope=\"col\">Prioridade</th>\n"
+//					+ "						<th scope=\"col\">Responsável</th>\n"
+//					+ "						<th scope=\"col\">Status</th>\n"
+//					+ "					</tr>\n"
+//					+ "				</thead>\n"
+//					+ "				<tbody>";
 			
-			for(int i=0; i < solicitacao.size(); i++ ) {
-				corpoEmail += "<tr>"
-								+ "<td>" + solicitacao.get(i).getId() + "</td>"
-								+ "<td>" + solicitacao.get(i).getDataAbertura() + "</td>"
-								+ "<td>" + solicitacao.get(i).getNomeCliente() + "</td>"
-								+ "<td>" + solicitacao.get(i).getSolicitante() + "</td>"
-								+ "<td>" + solicitacao.get(i).getAfetado() + "</td>"
-								+ "<td>" + solicitacao.get(i).getClassificacao() + "</td>"
-								+ "<td>" + solicitacao.get(i).getDescricao() + "</td>"
-								+ "<td>" + solicitacao.get(i).getPrioridade() + "</td>"
-								+ "<td>" + solicitacao.get(i).getNomeFuncionario() + "</td>"
-								+ "<td>" + solicitacao.get(i).getStatus() + "<p>"+ solicitacao.get(i).getDataAgendado() +"</p></td>"
-							+ "</tr>";
+			String corpoEmail = """
+					<html>
+					<head>
+					    <style>
+					        body {
+					            font-family: Arial, sans-serif;
+					            color: #333;
+					            font-size: 14px;
+					        }
+					        h3 {
+					            color: #444;
+					            margin-bottom: 10px;
+					        }
+					        table {
+					            width: 100%;
+					            border-collapse: collapse;
+					            margin-top: 10px;
+					        }
+					        thead {
+					            background-color: #0056b3;
+					            color: white;
+					        }
+					        thead th {
+					            padding: 8px 12px;
+					            text-align: center;
+					        }
+					        tbody tr:nth-child(even) {
+					            background-color: #f9f9f9;
+					        }
+					        tbody td {
+					            padding: 8px 12px;
+					            text-align: center;
+					            border-bottom: 1px solid #ddd;
+					        }
+					        .prioridade-alta {
+					            background-color: #ff4d4d;
+					            color: white;
+					            font-weight: bold;
+					        }
+					        .prioridade-media {
+					            background-color: #ffa64d;
+					            color: white;
+					        }
+					        .prioridade-baixa {
+					            background-color: #4caf50;
+					            color: white;
+					        }
+					        .status-aberto {
+					            font-weight: bold;
+					            color: #0056b3;
+					        }
+					        .descricao {
+					            text-align: left;
+					            white-space: pre-line;
+					        }
+					    </style>
+					</head>
+					<body>
+					    <h3>%s</h3>
+					    <table>
+					        <thead>
+					            <tr>
+					                <th>ID</th>
+					                <th>Data Abertura</th>
+					                <th>Cliente</th>
+					                <th>Solicitante</th>
+					                <th>Afetado</th>
+					                <th>Classificação</th>
+					                <th>Descrição</th>
+					                <th>Prioridade</th>
+					                <th>Responsável</th>
+					                <th>Status</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					""".formatted(texto);
+
+//			for(int i=0; i < solicitacao.size(); i++ ) {
+//				corpoEmail += "<tr>"
+//								+ "<td>" + solicitacao.get(i).getId() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getDataAbertura() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getNomeCliente() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getSolicitante() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getAfetado() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getClassificacao() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getDescricao() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getPrioridade() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getNomeFuncionario() + "</td>"
+//								+ "<td>" + solicitacao.get(i).getStatus() + "<p>"+ solicitacao.get(i).getDataAgendado() +"</p></td>"
+//							+ "</tr>";
+//			}
+//			
+//			corpoEmail += "</tbody>\n"
+//					+ "	</table>"
+//					+ "<br /><br />"
+//					+ "</body></html>";
+			
+			for (SolicitacaoProjecaoEntidadeComAtributos s : solicitacao) {
+			    String prioridadeClass = switch (s.getPrioridade().toUpperCase()) {
+			        case "ALTA" -> "prioridade-alta";
+			        case "MEDIA" -> "prioridade-media";
+			        case "BAIXA" -> "prioridade-baixa";
+			        default -> "";
+			    };
+
+			    corpoEmail += """
+			        <tr>
+			            <td>%d</td>
+			            <td>%s</td>
+			            <td>%s</td>
+			            <td>%s</td>
+			            <td>%s</td>
+			            <td>%s</td>
+			            <td class="descricao">%s</td>
+			            <td class="%s">%s</td>
+			            <td>%s</td>
+			            <td class="status-aberto">%s<br><small>%s</small></td>
+			        </tr>
+			    """.formatted(
+			        s.getId(),
+			        s.getDataAbertura(),
+			        s.getNomeCliente(),
+			        s.getSolicitante(),
+			        s.getAfetado(),
+			        s.getClassificacao(),
+			        s.getDescricao(),
+			        prioridadeClass,
+			        s.getPrioridade(),
+			        s.getNomeFuncionario(),
+			        s.getStatus(),
+			        s.getDataAgendado()
+			    );
 			}
-			
-			corpoEmail += "</tbody>\n"
-					+ "	</table>"
-					+ "<br /><br />"
-					+ "</body></html>";
+			corpoEmail += "</tbody></table></body></html>";
 			
 			 try {
 				

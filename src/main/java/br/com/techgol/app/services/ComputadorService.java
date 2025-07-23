@@ -50,7 +50,7 @@ public class ComputadorService {
 	}
 
 	public List<Computador> listarComputadoresOffline() {
-		LocalDateTime limite = LocalDateTime.now().minusMinutes(5);
+		LocalDateTime limite = LocalDateTime.now().minusMinutes(7);
 		return repository.listarComputadoresOffline(limite);
 	}
 
