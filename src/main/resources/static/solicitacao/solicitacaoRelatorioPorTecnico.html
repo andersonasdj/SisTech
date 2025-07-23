@@ -71,6 +71,12 @@
 								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
 							</ul>
 						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Computadores</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/computador/list">Listar</a></li>
+							</ul>
+						</li>
 					</ul>
 					<span class="nav-item">
 						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
@@ -442,6 +448,8 @@
 										<option value="BACKUP">Backup</option>
 										<option value="COTACAO">Cotação</option>
 										<option value="MIGRACAO">Migração</option>
+										<option value="DOMINIOS">Domínios</option>
+										<option value="HOSPEDAGENS">Hospedagens</option>
 									</select>
 								</div>
 							</div>
@@ -604,6 +612,8 @@
 											<option value="BACKUP">Backup</option>
 											<option value="COTACAO">COTAÇÃO</option>
 											<option value="MIGRACAO">MIGRAÇÃO</option>
+											<option value="DOMINIOS">DOMÍNIOS</option>
+											<option value="HOSPEDAGENS">HOSPEDAGENS</option>
 										</select>
 									</div>
 								</div>
@@ -907,6 +917,8 @@
 												<option value="BACKUP">Backup</option>
 												<option value="COTACAO">Cotação</option>
 												<option value="MIGRACAO">Migração</option>
+												<option value="DOMINIOS">Domínios</option>
+												<option value="HOSPEDAGENS">Hospedagens</option>
 											</select>
 										</div>
 									</div>
@@ -1896,20 +1908,22 @@
 							+'<option value="PROATIVO">PROATIVO</option>');
 						
 						$('#categoriamodal').append("<option value="+ data.categoria +">"+ data.categoria+"</option>"
-							+'<option value="SOFTWARE">SOFTWARE</option>'
-							+'<option value="HARDWARE">HARDWARE</option>'
-							+'<option value="EMAIL">EMAIL</option>'
-							+'<option value="SHAREPOINT">SHAREPOINT</option>'
-							+'<option value="INTERNET">INTERNET</option>'
-							+'<option value="SERVIDORES">SERVIDORES</option>'
-							+'<option value="OUTROS">OUTROS</option>'
-							+'<option value="REDE">REDE</option>'
-							+'<option value="CABEAMENTO">CABEAMENTO</option>'
-							+'<option value="SMARTPHONE">SMARTPHONE</option>'
-							+'<option value="PROJETO">PROJETO</option>'
-							+'<option value="BACKUP">BACKUP</option>'
-							+'<option value="COTACAO">COTAÇÃO</option>'
-							+'<option value="MIGRACAO">MIGRAÇÃO</option>"');
+						+'<option value="SOFTWARE">SOFTWARE</option>'
+						+'<option value="HARDWARE">HARDWARE</option>'
+						+'<option value="EMAIL">EMAIL</option>'
+						+'<option value="SHAREPOINT">SHAREPOINT</option>'
+						+'<option value="INTERNET">INTERNET</option>'
+						+'<option value="SERVIDORES">SERVIDORES</option>'
+						+'<option value="OUTROS">OUTROS</option>'
+						+'<option value="REDE">REDE</option>'
+						+'<option value="CABEAMENTO">CABEAMENTO</option>'
+						+'<option value="SMARTPHONE">SMARTPHONE</option>'
+						+'<option value="PROJETO">PROJETO</option>'
+						+'<option value="BACKUP">BACKUP</option>'
+						+'<option value="COTACAO">COTAÇÃO</option>'
+						+'<option value="MIGRACAO">MIGRAÇÃO</option>'
+						+'<option value="DOMINIOS">DOMÍNIOS</option>'
+						+'<option value="HOSPEDAGENS">HOSPEDAGENS</option>');
 						$('#classificacaomodal').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
 							+'<option value="INCIDENTE">INCIDENTE</option>'
 							+'<option value="PROBLEMA">PROBLEMA</option>'
@@ -2133,7 +2147,9 @@
 							+'<option value="PROJETO">PROJETO</option>'
 							+'<option value="BACKUP">BACKUP</option>'
 							+'<option value="COTACAO">COTAÇÃO</option>'
-							+'<option value="MIGRACAO">MIGRAÇÃO</option>"');
+							+'<option value="MIGRACAO">MIGRAÇÃO</option>'
+							+'<option value="DOMINIOS">DOMÍNIOS</option>'
+							+'<option value="HOSPEDAGENS">HOSPEDAGENS</option>');
 						$('#classificacaoModalNaoFinalizado').append("<option value="+ data.classificacao +">"+ data.classificacao+"</option>"
 							+'<option value="INCIDENTE">INCIDENTE</option>'
 							+'<option value="PROBLEMA">PROBLEMA</option>'
