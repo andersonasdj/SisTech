@@ -146,6 +146,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Status</th>
+							<th></th>
 							<th scope="col">Cliente</th>
 							<th scope="col">Comentário</th>
 							<th scope="col">Domínio</th>
@@ -204,7 +205,7 @@
 		            <li class="list-group-item"><strong>Slots de Memória:</strong> <span id="detalhe-slotsmemoria"></span></li>
 		          </ul>
 				  
-				  <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Rede</h6>
+				  <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Rede <span id="velocidade-rede"></span></h6>
 		          <ul class="list-group list-group-flush small">
 		            <li class="list-group-item"><strong>IP:</strong> <span id="detalhe-ip"></span></li>
 		            <li class="list-group-item"><strong>Gateway:</strong> <span id="detalhe-gateway"></span></li>
@@ -334,6 +335,9 @@
 		    type: "GET",
 		    url: "/sistech/api/v1/computador/completo/" + id,
 		    success: function (data) {
+				
+				$("#velocidade-rede").text(" ");
+				$("#velocidade-rede").text(' ('+ data.networkSpeedMbps +' Mbps) ');
 				
 				$("#detalhe-comentario").text(data.comment);
 		      	$("#detalhe-hostname").text(data.name);
@@ -469,13 +473,20 @@
 							const statusHTML = `<span class="badge rounded-pill ${isOnline ? 'bg-success' : 'bg-danger'}">
 							  ${isOnline ? '<i class="bi bi-check-circle-fill"></i> Online' : '<i class="bi bi-x-circle-fill"></i> Offline'}
 							</span>`;
-
+							
+							let deviceIcon = '';
+							if (i.deviceType === 'Notebook') {
+							    deviceIcon = '<i class="bi bi-laptop" title="Notebook"></i> ';
+							} else if (i.deviceType === 'Desktop') {
+							    deviceIcon = '<i class="bi bi-pc" title="Desktop"></i> ';
+							}
 	
 							
 							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 						      // Tabela
 						      var itens = `<tr id="linha${i.id}">
 								<td>${statusHTML}</td>
+								<td>${deviceIcon}</td>
 						        <td class="long-text" title="${i.cliente}">${i.cliente}</td>
 								<td class="long-text" title="${i.comment}" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(${i.id})>${i.comment != null ? i.comment: ' '}</td>
 						        <td title="${i.domain}">${i.domain}</td>
