@@ -149,7 +149,6 @@
 							<th></th>
 							<th scope="col">Cliente</th>
 							<th scope="col">Comentário</th>
-							<th scope="col">Domínio</th>
 							<th scope="col">Hostname</th>
 							<th scope="col">Usuário</th>
 							<th scope="col">SO</th>
@@ -476,11 +475,16 @@
 							
 							let deviceIcon = '';
 							if (i.deviceType === 'Notebook') {
-							    deviceIcon = '<i class="bi bi-laptop" title="Notebook"></i> ';
+							    deviceIcon = '<i class="bi bi-laptop fs-3" title="Notebook"></i> ';
 							} else if (i.deviceType === 'Desktop') {
-							    deviceIcon = '<i class="bi bi-pc" title="Desktop"></i> ';
+							    deviceIcon = '<i class="bi bi-pc fs-3" title="Desktop"></i> ';
+							} else if (i.deviceType === 'Servidor') {
+							    deviceIcon = '<i class="bi bi-server fs-3" title="Servidor"></i> ';
 							}
-	
+							
+							if (i.statusMonitor === true) {
+							    deviceIcon += '<i class="bi bi-activity fs-4 text-success" title="Monitoramento Ativo"></i> ';
+							}
 							
 							'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 						      // Tabela
@@ -489,10 +493,9 @@
 								<td>${deviceIcon}</td>
 						        <td class="long-text" title="${i.cliente}">${i.cliente}</td>
 								<td class="long-text" title="${i.comment}" data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(${i.id})>${i.comment != null ? i.comment: ' '}</td>
-						        <td title="${i.domain}">${i.domain}</td>
 						        <td class="long-text" title="${i.name}">${i.name}</td>
-						        <td title="${i.username}">${i.username}</td>
-						        <td title="${i.os}">${i.os}</td>
+						        <td class="long-text" title="${i.username}">${i.username}</td>
+						        <td class="long-text" title="${i.os}">${i.os}</td>
 						        <td title="${i.cpu}">${i.cpu}</td>
 						        <td class="long-text" title="${i.ram}">Instalada: ${i.ram}<p>Disponível: ${i.ramAvailable}</td>
 								<td class="long-text" title="${i.manufacturer}">${i.manufacturer}</td>
