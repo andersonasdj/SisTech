@@ -50,5 +50,7 @@ public interface ProjecaoComputadorCompleto {
     String getDeviceType();
     String getAntivirus();
     List<String> getBitlockerRecoveryKeys();
+    String getDevice_name();
+    public List<String> getDiskModels();
 
 }
