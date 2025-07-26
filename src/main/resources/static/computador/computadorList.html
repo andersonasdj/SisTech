@@ -195,8 +195,8 @@
 		            <li class="list-group-item"><strong>Plataforma:</strong> <span id="detalhe-plataforma"></span></li>
 		            <li class="list-group-item"><strong>OS:</strong> <span id="detalhe-os"></span></li>
 		            <li class="list-group-item"><strong>Arquitetura:</strong> <span id="detalhe-arquitetura"></span></li>
-					<li class="list-group-item"><strong>Tipo:</strong> <span id="detalhe-tipo"></span></li>
-					<li class="list-group-item"><strong>Modelo:</strong> <span id="detalhe-modelo"></span></li>
+					<li class="list-group-item"><strong>Tipo Dispositivo:</strong> <span id="detalhe-tipo"></span></li>
+					<li class="list-group-item"><strong>Modelo Dispositivo:</strong> <span id="detalhe-modelo"></span></li>
 					<li class="list-group-item"><strong>Serial:</strong> <span id="detalhe-serial"></span></li>
 		          </ul>
 
@@ -221,7 +221,6 @@
 		          <ul class="list-group list-group-flush small">
 		            <li class="list-group-item"><strong>Armazenamento:</strong> <span id="detalhe-disco"></span></li>
 					<li class="list-group-item"><strong>Disponível:</strong> <span id="detalhe-discodisponivel"></span></li>
-					<li class="list-group-item"><strong>Modelo:</strong> <span id="detalhe-modeloarmazenamento"></span></li>
 		            <li class="list-group-item"><strong>Antivirus:</strong> <span id="detalhe-antivirus"></span></li>
 		            <li class="list-group-item"><strong>Bitlocker:</strong> <span id="detalhe-bitlocker"></span></li>
 					<li class="list-group-item"><strong>Modelos Armazenamento:</strong> <span id="detalhe-modelodisco"></span></li>
@@ -356,7 +355,6 @@
 				
 		      	$("#detalhe-disco").text(data.disk ? data.disk.join(", ") : "");
 				$("#detalhe-discodisponivel").text(data.diskAvailable ? data.diskAvailable.join(", ") : "");
-				$("#detalhe-modeloarmazenamento").text(data.diskModels ? data.diskModels.join(", ") : "");
 		      	$("#detalhe-ip").text(data.ipAddresses ? data.ipAddresses.join(", ") : "");
 				$("#detalhe-dns").text(data.dnsServers ? data.dnsServers.join(", ") : "");
 				$("#detalhe-gateway").text(data.gateway);
