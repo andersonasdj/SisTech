@@ -411,7 +411,7 @@ public class EnviadorEmail {
 					    </style>
 					</head>
 					<body>
-					    <h3>%s</h3>
+					    <br /><h3>  </h3><br /> "
 					    <table>
 					        <thead>
 					            <tr>
@@ -428,7 +428,7 @@ public class EnviadorEmail {
 					            </tr>
 					        </thead>
 					        <tbody>
-					""".formatted(texto);
+					""";
 
 //			for(int i=0; i < solicitacao.size(); i++ ) {
 //				corpoEmail += "<tr>"

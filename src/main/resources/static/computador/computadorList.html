@@ -218,9 +218,11 @@
 		          <ul class="list-group list-group-flush small">
 		            <li class="list-group-item"><strong>Armazenamento:</strong> <span id="detalhe-disco"></span></li>
 					<li class="list-group-item"><strong>Disponível:</strong> <span id="detalhe-discodisponivel"></span></li>
+					<li class="list-group-item"><strong>Modelo:</strong> <span id="detalhe-modeloarmazenamento"></span></li>
 		            <li class="list-group-item"><strong>Tipo:</strong> <span id="detalhe-tipo"></span></li>
 		            <li class="list-group-item"><strong>Antivirus:</strong> <span id="detalhe-antivirus"></span></li>
 		            <li class="list-group-item"><strong>Bitlocker:</strong> <span id="detalhe-bitlocker"></span></li>
+					<li class="list-group-item"><strong>Modelos Armazenamento:</strong> <span id="detalhe-modelodisco"></span></li>
 		          </ul>
 
 		          <h6 class="text-primary border-bottom pb-1 mt-4 mb-2">Outros</h6>
@@ -354,6 +356,7 @@
 				
 		      	$("#detalhe-disco").text(data.disk ? data.disk.join(", ") : "");
 				$("#detalhe-discodisponivel").text(data.diskAvailable ? data.diskAvailable.join(", ") : "");
+				$("#detalhe-modeloarmazenamento").text(data.diskModels ? data.diskModels.join(", ") : "");
 		      	$("#detalhe-ip").text(data.ipAddresses ? data.ipAddresses.join(", ") : "");
 				$("#detalhe-dns").text(data.dnsServers ? data.dnsServers.join(", ") : "");
 				$("#detalhe-gateway").text(data.gateway);
@@ -368,6 +371,8 @@
 		      	$("#detalhe-atualizacao").text(data.last_seen);
 				$("#detalhe-gpu").text(data.gpus ? data.gpus.join(", ") : "");
 				$("#detalhe-modelo").text(data.device_name);
+				$("#detalhe-modelodisco").text(data.diskModels ? data.diskModels.join(", ") : "");
+				
 				
 
 		      // abre a offcanvas
