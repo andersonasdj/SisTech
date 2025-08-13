@@ -1430,7 +1430,7 @@
 		}
 		
 		function excluirTimesheet(id){
-			if (confirm("Tem certeza que deseja excluir esse registro de horario ?") == true) {
+			if (confirm("Tem certeza que deseja excluir esse registro de horario ?\n O tempo da solicitação será recalculado") == true) {
 					var t = "#linhaTimesheet" + id;
 					var remove = $(t).closest('tr');
 					$.ajax({

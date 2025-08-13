@@ -75,7 +75,6 @@ public class TimesheetRestController {
 		service.deletaTimesheetPorId(id);
 	}
 	
-	
 	@GetMapping("/id/{id}/{inicio}/{fim}")
 	public Long minutosPorFuncionarioPeriodo(@PathVariable Long id, @PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
 		

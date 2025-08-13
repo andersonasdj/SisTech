@@ -17,14 +17,16 @@ import br.com.techgol.app.model.TimeSheet;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.orm.TimesheetProjecao;
+import br.com.techgol.app.repository.SolicitacaoRepository;
 import br.com.techgol.app.repository.TimesheetRepository;
 import br.com.techgol.app.util.TimeSheetUtils;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TimeSheetService {
 	
-	@Autowired
-	private TimesheetRepository repository;
+	@Autowired private TimesheetRepository repository;
+	@Autowired private SolicitacaoRepository solicitacaoRepository;
 	
 	public Long timesheetPorFuncionarioPeriodoMinutos(Long id, LocalDateTime inicio, LocalDateTime fim) {
 	    
@@ -127,9 +129,23 @@ public class TimeSheetService {
 		return repository.listarTimesheetProjecao(page, id);
 		
 	}
-
+	
+	@Transactional
 	public void deletaTimesheetPorId(Long id) {
+		Long idSolicitacao = repository.buscaPorId(id);
 		repository.deleteById(id);
+		Long duracao = repository.bucarDuracaoIdSolicitacao(idSolicitacao);
+		
+		if(solicitacaoRepository.existsById(idSolicitacao)) {
+			Solicitacao solicitacao = solicitacaoRepository.getReferenceById(idSolicitacao);
+			if(duracao != null) {
+				solicitacao.setDuracao(duracao);
+			}else {
+				solicitacao.setDuracao(0l);
+			}
+		}else {
+			System.out.println("Não foi possivel recalcular a duracao da solicitacao");
+		}
 	}
 
 	public Long totalHorasPeriodoPorFuncionario(Long id, LocalDateTime inicio, LocalDateTime fim) {

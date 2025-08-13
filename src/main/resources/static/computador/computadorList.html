@@ -370,8 +370,6 @@
 				$("#detalhe-gpu").text(data.gpus ? data.gpus.join(", ") : "");
 				$("#detalhe-modelo").text(data.device_name);
 				$("#detalhe-modelodisco").text(data.diskModels ? data.diskModels.join(", ") : "");
-				
-				
 
 		      // abre a offcanvas
 		      let canvas = new bootstrap.Offcanvas(document.getElementById('detalheComputador'));
@@ -406,7 +404,6 @@
 				}
 			});
 		}
-
 		
 		function alternarVisualizacao() {
 		  const tabela = document.getElementById('visualizacao-tabela');
