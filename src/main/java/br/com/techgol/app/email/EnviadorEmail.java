@@ -294,9 +294,7 @@ public class EnviadorEmail {
 		          <body style="font-family: Arial, sans-serif; color: #333;">
 		            <div style="border: 2px solid red; padding: 15px; border-radius: 5px;">
 		              <h2 style="color: red;">🚨 ALERTA - HOST OFFLINE</h2>
-		              <p style="font-size: 14px;">
-		                 %s
-		              </p>
+		              <p style="font-size: 14px;"> </p>
 		              <p>
 		                 <strong>Solicitação ID:</strong> %d<br/>
 		                 <strong>Data da solicitação:</strong> %s

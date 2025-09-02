@@ -127,6 +127,7 @@ public class Computador {
     private boolean storageMonitor;
     private boolean statusMonitor;
     
+    @Column(name="diskModels", length = 400)
     private List<String> diskModels;
 
 }
