@@ -228,7 +228,7 @@
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-6" id="edicaoModal">Edição rápida ID:
+						<h1 class="modal-title fs-6" id="edicaoModal"><span id="nomeClienteModalFinalizado"> </span> - Edição rápida ID:
 							<span id="idModalEdicaoModalEdicao"> </span></h1>&nbsp; &nbsp;
 							<button class="btn btn-sm btn btn-historico" data-bs-toggle="modal" data-bs-target="#modalHistorico" onclick="exibeHistoricoFinalizado()">Histórico</button>
 							&nbsp; &nbsp;<span id="btnTimesheet"> </span>
@@ -240,7 +240,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="control-group">
-									<label class="form-label mt-4 fonteModal"><b>Data Abertura *</b></label>
+									<label class="form-label mt-2 fonteModal"><b>Data Abertura *</b></label>
 									<div class="calendarioAberturaModal">
 										<input type="date" id="dataAberturaModalEdicao" name="dataAberturaModalEdicao" value="" style="width: 112px;">
 										<span> </span>
@@ -250,7 +250,7 @@
 							</div>
 								<div class="col-md-4">
 									<div class="control-group">
-										<label class="form-label mt-4 fonteModal"><b>Data Andamento *</b></label>
+										<label class="form-label mt-2 fonteModal"><b>Data Andamento *</b></label>
 										<div class="calendarioAndamentoModal">
 											<input type="date" id="dataAndamentoModalEdicao" name="dataAndamentoModalEdicao" value="" style="width: 112px;">
 											<span> </span>
@@ -260,7 +260,7 @@
 								</div>
 							<div class="col-md-4 ms-auto">
 								<div class="control-group fonteModal">
-									<label class="form-label mt-4 fonteModal"><b>Data Finalizado *</b></label>
+									<label class="form-label mt-2 fonteModal"><b>Data Finalizado *</b></label>
 									<div class="calendarioFinalizadoModal">
 										<input type="date" id="dataFinalizadoModalEdicao" name="dataFinalizadoModalEdicao" value="" style="width: 112px;">
 										<span> </span>
@@ -384,6 +384,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Migrar a solicitação" data-bs-toggle="modal" data-bs-target="#modalMigrarSolicitacao" onclick=migrarSolicitacao()><i class="bi bi-building-gear"></i></button>
 						<button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluir()><i class="bi bi-trash"> </i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
@@ -577,7 +578,7 @@
 			</div>
 		</div>
 		<!-- #################################  MODAL EDIÇÃO NÃO FINALIZADO ######################################################## -->
-		<!-- ################################################### Modal HISTORICO ############################################# -->
+		<!-- ################################################### MODAL HISTORICO ############################################# -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
@@ -601,7 +602,59 @@
 				</div>
 			</div>
 		</div>
-		<!-- ########################################## Modal HISTORICO ############################################# -->
+		<!-- ########################################## MODAL HISTORICO ############################################# -->
+		<!-- ################################################### MODAL MIGRAR SOLICITACAO ############################################# -->
+				<div class="modal fade" id="modalMigrarSolicitacao" tabindex="-1" aria-labelledby="modalMigrarSolicitacao" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="modalHistorico">Migração de Solicitação de Cliente - ID: <span id="idModalMigracao"> </span></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="control-group">
+											<label class="control-label" for="nomeClienteMigracao"><b>Cliente *</b></label>
+											<div class="controls">
+												<select class="form-select mt-2" id="nomeClienteMigracao" name="nomeClienteMigracao">
+												</select>
+											</div>
+										</div>
+										<br />
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label" for="solicitanteMigracao"><b>Solicitante * </b>
+												<span id="botaoColaboradores"> </span>
+											</label>
+											<div class="controls">
+												<select class="form-control solicitante mt-3" name="solicitanteMigracao" id="solicitanteMigracao"> </select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="control-group">
+											<label class="form-label" for="afetadoMigracao"><b>Usuário Afetado *</b></label>
+											<div class="controls">
+												<select class="form-control usuario mt-2" name="afetadoMigracao" id="afetadoMigracao"> </select>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div class="modal-footer">
+								<span id="botaoSalvar"> </span>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- ########################################## MODAL MIGRAR SOLICITACAO ############################################# -->
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
 			aria-hidden="true">
@@ -692,6 +745,191 @@
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/dark.js"></script>
 	<script>
+		
+		$(document).ready(function () {
+			var divCliente = $("#nomeClienteMigracao");
+			divCliente.on("change", function () {
+				preencheSolicitanteMigracao();
+			});
+		});
+				
+		function preencheSolicitanteMigracao(){
+				var idCliente = $("#nomeClienteMigracao").val();
+				var json = {"nomeCliente": idCliente};
+			
+				if(idCliente > 0){
+					$("#botaoSalvar").empty();
+					$('#botaoSalvar').append(
+						'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvarMigracao()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+					);
+					
+					$.ajax({
+					url: "/sistech/colaborador/list/" + idCliente,
+					type: "GET",
+					data: json,
+					success: function (data) {
+
+						if (data != null) {
+							
+							var boxSolicitante = $('#solicitanteMigracao');
+							boxSolicitante.find('option').remove();
+
+							var boxAfetado = $('#afetadoMigracao');
+							boxAfetado.find('option').remove();
+
+							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
+							$('#boxAfetado').append('<option value="" slected="selected"></option>');
+
+							$.each(data, function (i, item) {
+								$('#solicitanteMigracao').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#solicitanteMigracao').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#solicitanteMigracao').append('<option value="Geral" slected="selected">Geral</option>');
+
+							$.each(data, function (i, item) {
+								$('#afetadoMigracao').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#afetadoMigracao').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#afetadoMigracao').append('<option value="Geral" slected="selected">Geral</option>');
+							
+							var id_cliente = $('#nomeClienteMigracao').val();
+							var nomeSolicitante = $("#solicitanteMigracao").val();
+							
+						}
+					},
+					statusCode: {
+				    	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
+					},
+					complete: function (data) { }
+					})
+				}else{
+					$("#botaoSalvar").empty();
+					$('#solicitanteMigracao').empty();
+					$('#afetadoMigracao').empty();
+				}
+		}
+
+		
+		function salvarMigracao(){
+			var idSolicitacao = $("#idModalMigracao").text();
+			var idCliente = $("#nomeClienteMigracao").val();
+			var solicitante = $("#solicitanteMigracao").val();
+			var afetado = $("#afetadoMigracao").val();
+			
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/migracao",
+				data: JSON.stringify({
+					"idSolicitacao": idSolicitacao,
+					"idCliente": idCliente,
+					"solicitante": solicitante,
+					"afetado": afetado
+				}),
+				success: function (data) {
+									
+					var modal = "",
+						tempo,
+						alerta,
+						status ="";
+					if(data.status != "FINALIZADO"){
+						modal = "data-bs-target='#edicaoModalNaoFinalizado' onclick=editarNaoFinalizada(";
+					}
+					else{
+						modal = "data-bs-target='#edicaoModal' onclick=editar(";
+					}
+					
+					if(data.duracao != null){
+						if(data.duracao <= 240 ){ alerta = "style='color: green; font-size: 19px'" ; tempo = data.duracao;}
+						if(data.duracao > 240 && data.duracao < 420){ alerta = "style='color: Chocolate; font-size: 19px'" ; tempo = data.duracao;}
+						if(data.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = data.duracao;}
+					}else {tempo = " " ; alerta = " "}
+					
+						$('#linha' + data.id).remove();
+						$('#exampleModal').modal('hide');
+						alert("atualizado com sucesso");
+						
+						if(data.status == "ABERTO"){ status = "class='table-danger'" }
+						if(data.status == "AGENDADO"){ status = "class='table-warning'"; dataAgendado = data.dataAgendado; }
+						if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
+						if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
+						if(data.status == "PAUSADO"){ status = "class='table-light'" }
+						if(data.status == "FINALIZADO"){ status = "class='table-success'" }
+						var itens =
+						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" '+ modal + data.id + ')>'
+						+ '<td id=name' + data.id + '>' + data.id + '</td>'
+						+ '<td>' + data.dataAbertura + '</td>'
+						+ '<td>' + data.nomeCliente + '</td>'
+						+ '<td>' + data.solicitante + '</td>'
+						+ '<td>' + data.afetado + '</td>'
+						+ '<td style="font-size: 12px;"><p> Local: ' + data.local + '</p><p> Categoria: ' + data.categoria +'</p>' + '</td>'
+						+ '<td>' + data.descricao + '</td>'
+						+ '<td>' + data.prioridade + '</td>'
+						+ '<td>' + data.classificacao + '</td>'
+						+ '<td>' + data.nomeFuncionario + '</td>'
+						+ '<td>' + data.status + '</td>'
+						+ '<td '+ alerta +'><b>' + data.duracao + '</b></td>'
+						+ '<td>' + data.versao + '</td>'
+						+ '</tr>'
+						$('#linha' + data.id).remove();
+						$('#tabela-solicitacoes').append(itens);
+						$('#modalMigrarSolicitacao').modal('hide');
+						preencheBotoesTabela();
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				    401: function() { alert('Realize login novamente!'); },
+					405: function() { alert('Você não possui permissão de edição!'); }
+				}
+			});
+			
+		}
+		
+		function migrarSolicitacao(){
+			
+			var id = $('#idModalEdicaoModalEdicao').text();
+			$('#idModalMigracao').text("");
+			$('#idModalMigracao').text(id);
+			
+			var nomeCliente = $('#nomeClienteModalFinalizado').text();
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/solicitacao/getData",
+				success: function (data) {
+					
+					if(data.refeicao != true){
+						$('#nomeClienteMigracao').empty();
+						$('#nomeClienteMigracao').append('<option value="' + id + '">' + nomeCliente + '</option>');
+						for (var i = 0; i < data.clientes.length; i++) {
+							$('#nomeClienteMigracao').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+						}
+						$('#solicitanteMigracao').empty();
+						$('#afetadoMigracao').empty();
+						$('#solicitanteMigracao').append('<option value="Suporte" slected="selected">Suporte</option>');
+						$('#solicitanteMigracao').append('<option value="Geral" slected="selected">Geral</option>');
+						$('#afetadoMigracao').append('<option value="Suporte" slected="selected">Suporte</option>');
+						$('#afetadoMigracao').append('<option value="Geral" slected="selected">Geral</option>');
+					}else {
+						alert("Seu status está Offline, modifique para Online para atendimento!");
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
+				}
+			});
+		}
+		
+		
+		
 		function exibeTimesheet(id){
 			$('#tabela-timesheet-corpo').empty();			
 			$.ajax({
@@ -1161,6 +1399,9 @@
 						if(data.duracao > 0){
 							$('#btnTimesheet').append('<button class="btn btn-sm btn-timesheet" data-bs-toggle="modal" data-bs-target="#modalTimesheetSolicitacao" onclick="exibeTimesheet('+ id +')"><i class="bi bi-clock-history"></i></button>');
 						}
+						
+						$('#nomeClienteModalFinalizado').text("");
+						$('#nomeClienteModalFinalizado').text(data.nomeCliente);
 						
 						$('#idHistoricoModalEdicao').text("");
 						$('#idModalEdicaoModalEdicao').text("");

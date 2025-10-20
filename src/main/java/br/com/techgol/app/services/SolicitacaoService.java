@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
+import br.com.techgol.app.dto.DtoDadosMigracao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
@@ -39,6 +40,7 @@ import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
+import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.LogSolicitacao;
@@ -326,7 +328,7 @@ public class SolicitacaoService {
 	}
 	
 	@Transactional
-	public String cancelarSolicitacao(Long id) {
+	public String cancelarSolicitacao(Long id, DtoDadosEdicaoRapida dados) {
 		
 		if(repository.existsById(id)) {
 			Solicitacao solicitacao = repository.getReferenceById(id);
@@ -336,8 +338,15 @@ public class SolicitacaoService {
 			solicitacao.setDataAndamento(null);
 			solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
 			solicitacao.setDuracao(0l);
-			String descricao = solicitacao.getDescricao();
+			String descricao = dados.descricao();
 			solicitacao.setDescricao("SOLICITAÇÃO CANCELADA!\n\n" + descricao);
+			solicitacao.setObservacao(dados.observacao());
+			solicitacao.setResolucao(dados.resolucao());
+			solicitacao.setLocal(dados.local());
+			solicitacao.setCategoria(dados.categoria());
+			solicitacao.setClassificacao(dados.classificacao());
+			solicitacao.setPrioridade(dados.prioridade());
+			solicitacao.setFormaAbertura(dados.formaAbertura());
 			return "Cancelado com sucesso!";
 		}else {
 			return "Não foi possível cancelar";
@@ -1452,6 +1461,32 @@ public class SolicitacaoService {
 		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
 		
 		return lista;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public Solicitacao migracao(DtoDadosMigracao dados) {
+		
+		Solicitacao solicitacao = repository.getReferenceById(dados.idSolicitacao());
+		Cliente cliente = clienteService.buscaClientePorNome(dados.idCliente());
+		
+		solicitacao.setCliente(cliente);
+		solicitacao.setSolicitante(dados.solicitante());
+		solicitacao.setAfetado(dados.afetado());
+
+		String funcionarioBase = (((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
+		if(solicitacao.getLog() != null) {
+			LogSolicitacao log = logSolicitacaoRepository.getReferenceById(solicitacao.getLog().getId());
+			String conteudo = log.getLog() + " ** SOLICITAÇÃO MIGRADA ** \n" + solicitacao.geraLog(funcionarioBase);
+			log.setLog(conteudo);
+			logSolicitacaoRepository.save(log);
+		}else {
+			LogSolicitacao log = new LogSolicitacao(solicitacao);
+			logSolicitacaoRepository.save(log);
+			solicitacao.setLog(log);
+		}
+		solicitacao.setVersao(solicitacao.getVersao()+1);
+		solicitacao.setPeso(calcularPeso(solicitacao));
+		return repository.save(solicitacao);
 	}
 
 }

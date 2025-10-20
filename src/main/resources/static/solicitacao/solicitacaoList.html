@@ -817,10 +817,43 @@
 				var id = $('#idmodal').text();
 				var t = "#linha" + id;
 				var remove = $(t).closest('tr');
+				
+				var descricao = $('#descricaomodal').val();
+				var resolucao = $('#resolucaomodal').val();
+				var observacao = $('#observacaomodal').val();
+				var status = $('#statusmodal').val();
+				var categoria = $('#categoriamodal').val();
+				var classificacao = $('#classificacaomodal').val();
+				var prioridade = $('#prioridademodal').val();
+				var local = $('#localmodal').val();
+				var nomeFuncionario = $('#nomeFuncionarioModal').val();
+				var solicitante = $('#nomeSolicitanteModal').val();
+				var afetado = $('#nomeAfetadoModal').val();
+				var dataAgendado = $('#dateModal').val();
+				var horaAgendado = $('#timeModal').val();
+				var formaAbertura = $('#formaAberturaModal').val(); 
+				
 				$.ajax({
 					type: "PUT",
 					contentType: "application/json",
 					url: "/sistech/solicitacao/cancelar/" + id,
+					data: JSON.stringify({
+						"id": id,
+						"descricao": descricao,
+						"resolucao": resolucao,
+						"observacao": observacao,
+						"status": status,
+						"categoria": categoria,
+						"classificacao": classificacao,
+						"prioridade": prioridade,
+						"local": local,
+						"nomeFuncionario": nomeFuncionario,
+						"solicitante": solicitante,
+						"afetado": afetado,
+						"dataAgendado": dataAgendado,
+						"horaAgendado": horaAgendado,
+						"formaAbertura": formaAbertura
+					}),
 					success: function () {
 						remove.fadeOut(900, function () {
 							remove.remove();

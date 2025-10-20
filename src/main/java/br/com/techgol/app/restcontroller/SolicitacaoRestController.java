@@ -27,6 +27,7 @@ import br.com.techgol.app.dto.DtoCadastroSolicitacao;
 import br.com.techgol.app.dto.DtoCadastroSolicitacaoModelo;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapidaMaisFuncionarios;
+import br.com.techgol.app.dto.DtoDadosMigracao;
 import br.com.techgol.app.dto.DtoDadosParaSolicitacao;
 import br.com.techgol.app.dto.DtoDadosRestauracao;
 import br.com.techgol.app.dto.DtoDashboardCliente;
@@ -361,6 +362,11 @@ public class SolicitacaoRestController {
 		return new DtoSolicitacaoComFuncionario(solicitacaoService.edicaoRapida(dados));
 	}
 	
+	@PutMapping("/migracao") //MIGRACAO DE SOLICITACAO
+	private DtoSolicitacaoComFuncionario migracao(@RequestBody DtoDadosMigracao dados) {
+		return new DtoSolicitacaoComFuncionario(solicitacaoService.migracao(dados));
+	}
+	
 	@PutMapping("/finalizada/atualizar") //ATUALIZA SOLICITACAO FINALIZADA
 	private DtoSolicitacaoComFuncionario edicaoFinalizada(@RequestBody DtoSolicitacaoFinalizada dados) {
 		return solicitacaoService.edicaoFinalizada(dados);
@@ -467,8 +473,8 @@ public class SolicitacaoRestController {
 	}
 	
 	@PutMapping("/cancelar/{id}")
-	public String cancelar(@PathVariable Long id) {
-		return solicitacaoService.cancelarSolicitacao(id);
+	public String cancelar(@PathVariable Long id, @RequestBody DtoDadosEdicaoRapida dados) {
+		return solicitacaoService.cancelarSolicitacao(id, dados);
 	}
 	
 	@GetMapping("quantidade/andamento/{id}")

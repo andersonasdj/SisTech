@@ -161,7 +161,6 @@ public class Solicitacao {
 				+ " * Status: " + this.getStatus() + (this.getStatus().equals(Status.AGENDADO) ?  " - " + this.getDataAgendado() :"") + (this.getStatus().equals(Status.ANDAMENTO)? " - " + this.getDataAndamento() : "") +"\n "
 				+ " * Funcionário atribuído: " + this.getFuncionario().getNomeFuncionario() + "\n\n"
 				+ "########################################\n\n";
-		
 		return log;
 	}
 
