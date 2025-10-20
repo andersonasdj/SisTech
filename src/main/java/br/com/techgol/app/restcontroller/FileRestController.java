@@ -155,7 +155,7 @@ public class FileRestController {
 
 	            ImageWriteParam param = writer.getDefaultWriteParam();
 	            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-	            param.setCompressionQuality(0.2f); // 0.0 = baixa qualidade, 1.0 = alta
+	            param.setCompressionQuality(0.3f); // 0.0 = baixa qualidade, 1.0 = alta
 
 	            writer.write(null, new IIOImage(newImage, null, null), param);
 	            ios.close();

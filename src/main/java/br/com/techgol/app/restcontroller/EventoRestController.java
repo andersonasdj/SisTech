@@ -25,8 +25,7 @@ import br.com.techgol.app.repository.EventoRepository;
 @CrossOrigin(origins = "*")
 public class EventoRestController {
 
-	@Autowired
-    private EventoRepository repo;
+	@Autowired private EventoRepository repo;
 	
 	@PreAuthorize("hasRole('ROLE_EDITOR')")
 	@DeleteMapping("/api/eventos/{id}")
@@ -40,7 +39,7 @@ public class EventoRestController {
         return repo.findAll().stream().map(EventoDTO::new).collect(Collectors.toList());
     }
 
-	@PreAuthorize("hasRole('ROLE_EDITOR')")
+	@PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     public EventoDTOList salvar(@RequestBody Evento evento) {
     	return new EventoDTOList(repo.save(evento));
