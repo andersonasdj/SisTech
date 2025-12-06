@@ -5,6 +5,7 @@ public record DtoRendimentosFuncionarios(
 		int qtdFinalizados,
 		int qtdAtualizados,
 		Long qtdHoras,
-		Long qtdHorasReais) {
+		Long qtdHorasReais,
+		Long funcionarioId) {
 
 }

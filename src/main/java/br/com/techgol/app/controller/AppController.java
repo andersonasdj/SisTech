@@ -79,6 +79,12 @@ public class AppController {
 	public String impressaoTimeSheetCliente() {
 		return "templates/impressao-timesheet-cliente.html";
 	}
+    
+    @PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/impressao-timesheet-funcionario")
+	public String impressaoTimeSheetFuncionario() {
+		return "templates/impressao-timesheet-funcionario.html";
+	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/upload")

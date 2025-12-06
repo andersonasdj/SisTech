@@ -123,7 +123,7 @@ public class SolicitacaoRestController {
 	
 	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorClienteDataInicioFim(@PathVariable Long id, @PathVariable String periodo, @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 100, sort= {"id"}, direction = Direction.DESC) Pageable page) {
-	   return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);
+		return solicitacaoService.listarSolicitacoesPorData(page, id, periodo, inicio, fim);
 	}
 	
 	@GetMapping("/relatorio/cliente/{id}/{periodo}/inicio/{inicio}/fim/{fim}/{abertura}/{categoria}/{classificacao}/{local}/{prioridade}/{nomeFuncionario}")
@@ -136,7 +136,6 @@ public class SolicitacaoRestController {
 	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-		
 		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, periodo, inicio, fim);
 		}else {

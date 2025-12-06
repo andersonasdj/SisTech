@@ -125,6 +125,14 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-md-3 mt-2">
+						<div class="control-group">
+							<span style="font-size: 18px; color: rgb(13, 110, 253);" id="tituloSolicitacoes"> </span>
+							<span style="font-size: 18px;" id="diasUteis"> </span>
+						</div>
+					</div>
+					
 				</div>
 				<br />
 				<div class="row">				
@@ -154,7 +162,10 @@
 							<th scope="col">Finalizados</th>
 							<th scope="col">Atualizados</th>
 							<th scope="col">Timesheet</th>
+							<th scope="col">Hora/Dia</th>
 							<th scope="col">Timesheet <span style="font-size: 12px; color: rgb(249, 240, 107);">(com sobreposição)</span></th>
+							<th scope="col">Hora/Dia <span style="font-size: 12px; color: rgb(249, 240, 107);">(com sobreposição)</span></th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody id="corpoRendimentos">
@@ -199,6 +210,14 @@
 	<script src="../assets/js/chart.js"></script>
 	<script src="../assets/js/dark.js"></script>
 	<script>
+		function printRelatorio(id) {
+			var inicio = $('#dataInicio').val();
+			var fim = $('#dataFim').val();
+			var funcionario = $('#funcionario'+id).text();
+			var size = $('#qtdFinalizados'+id).text();
+			
+			window.open('../impressao-timesheet-funcionario?id='+id+'&inicio='+inicio+'&fim='+fim+'&nome='+funcionario+'&size='+size, '_blank');
+      	}
 		
 		function listarRendimentos(){
 			var inicio = $('#dataInicio').val();
@@ -230,28 +249,40 @@
 					url: "/sistech/solicitacao/relatorio/rendimento/inicio/"+inicio+"/fim/"+fim,
 										
 					success: function (data) {
+						
+						$('#diasUteis').empty();$('#tituloSolicitacoes').empty();
+						$('#tituloSolicitacoes').append('<b> Período</b>');
+						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+						
+						
 						$("#conteudo").stop().slideToggle(600);$("#conteudoGrafico").stop().slideToggle(1000);
 						
 						data.forEach(i =>{
-							var horas, horasReais;
+							var horas, horasReais, horasDias, horasReaisDias;
 							if(i.qtdHoras != null){
 								horas = minutosParaHorasTexto(i.qtdHoras);
+								horasDias = minutosParaHorasTexto((i.qtdHoras/resultados.length).toFixed(2));
 							}else{
 								horas = 0;
 							}
 							
 							if(i.qtdHorasReais != null){
 								horasReais = minutosParaHorasTexto(i.qtdHorasReais);
+								horasReaisDias = minutosParaHorasTexto((i.qtdHorasReais/resultados.length).toFixed(2));
 							}else{
 								horasReais = 0;
 							}
+							
 							var itens = 
 								'<tr>'
-								+ '<td>' + i.nomeFuncionario + '</td>'
-								+ '<td>' + i.qtdFinalizados + '</td>'
+								+ '<td id=funcionario'+i.funcionarioId+'>' + i.nomeFuncionario + '</td>'
+								+ '<td id=qtdFinalizados'+i.funcionarioId+'>' + i.qtdFinalizados + '</td>'
 								+ '<td>' + i.qtdAtualizados + '</td>'
 								+ '<td>' + horasReais + '</td>'
-								+ '<td>' + horas + '</td>'
+								+ '<td>'+horasReaisDias+'</td>'
+								+ '<td><span style="font-size: 12px; color: red;"><b>' + horas + '</b></span></td>'
+								+ '<td><span style="font-size: 12px; color: red;"><b>'+horasDias+'</b></span></td>'
+								+ '<td> <a href="#" onclick=printRelatorio('+i.funcionarioId+')><i style="font-size: 25px" class="bi bi-printer"></i></a></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
 						});
