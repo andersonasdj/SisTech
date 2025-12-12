@@ -34,6 +34,10 @@ public class CSVService {
 		if(local.equals("*")) {local = "";}
 		if(prioridade.equals("*")) {prioridade = "";}
 		if(nomeFuncionario.equals("*")) {nomeFuncionario = "";}
+		if (id != null && id == -1L) { 
+	        // Ou qualquer valor que esteja usando para representar "não selecionado"
+	        id = null;
+	    }
 		return buscaSolicitacoesFiltradasParaCsv(id, periodo, ini, termino, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
 	}
 	
@@ -52,11 +56,11 @@ public class CSVService {
 		
 		List<SolicitacaoProjecao> solicitacao;
 		if(periodo.equals("abertura")) {
-			solicitacao = repository.listarSolicitacoesPorPeriodoAberturaDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			solicitacao = repository.listarSolicitacoesPorPeriodoAberturaDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade);
 		}else if(periodo.equals("fechamento")) {
-			solicitacao = repository.listarSolicitacoesPorPeriodoFechamentoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			solicitacao = repository.listarSolicitacoesPorPeriodoFechamentoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade);
 		}else {
-			solicitacao = repository.listarSolicitacoesPorPeriodoAtualizadoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade, nomeFuncionario);
+			solicitacao = repository.listarSolicitacoesPorPeriodoAtualizadoDataCsv(id, false, inicio, fim, abertura, categoria, classificacao, local, prioridade);
 		}
 		
 	    ByteArrayInputStream in = CSVHelper.solicitacoesNaoFinalizadasToCSV(solicitacao);

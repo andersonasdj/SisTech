@@ -863,7 +863,7 @@
 			var classificacao = $('#classificacao').val();
 			var local = $('#local').val();
 			var prioridade = $('#prioridade').val();
-			var nomeFuncionario = $('#nomeFuncionario').val();
+			var nomeFuncionario = "*";
 			
 			if(abertura == ""){ abertura = "*"; }
 			if(categoria == ""){ categoria = "*"; }
@@ -876,7 +876,7 @@
 				$.ajax({
 					type: "GET",
 					contentType: "application/json",
-					url: "/sistech/api/csv/relatorio/cliente/"+cliente_id+"/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+nomeFuncionario,
+					url: "/sistech/api/csv/relatorio/cliente/-1/"+periodo+"/inicio/"+inicio+"/fim/"+fim+"/"+abertura+"/"+categoria+"/"+classificacao+"/"+local+"/"+prioridade+"/"+nomeFuncionario,
 					success: function (data) {
 						var csvContent = "data:text/csv;charset=utf-8," + data;
 	    				window.open(csvContent);
