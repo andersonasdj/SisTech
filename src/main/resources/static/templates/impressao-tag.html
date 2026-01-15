@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>SisTech - Etiquetas de Serviço</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <style>
+    :root{
+      --label-w: 70mm; /* 7cm */
+      --label-h: 40mm; /* 4cm */
+      --gap: 8mm;
+      --pad: 2.5mm;
+      --font: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: var(--font);
+      color: #111;
+    }
+
+    .sheet{
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 12mm;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .labels{
+      display: grid;
+      grid-template-columns: var(--label-w) var(--label-w);
+      gap: var(--gap);
+      justify-content: center;
+      align-content: start;
+    }
+
+    .label-cut{
+      width: var(--label-w);
+      height: var(--label-h);
+      position: relative;
+      box-sizing: border-box;
+      border: 1px dashed #333;
+      background: #fff;
+    }
+
+    .label-cut:before,
+    .label-cut:after{
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      width: 6mm;
+      height: 6mm;
+      border: 0;
+    }
+
+    .label-cut:before{
+      top: -2mm;
+      left: -2mm;
+      border-top: 2px solid #111;
+      border-left: 2px solid #111;
+    }
+
+    .label-cut:after{
+      bottom: -2mm;
+      right: -2mm;
+      border-bottom: 2px solid #111;
+      border-right: 2px solid #111;
+    }
+
+    .label{
+      height: 100%;
+      box-sizing: border-box;
+      padding: var(--pad);
+
+      background: #ffffff;
+      border: 1px solid #cfcfcf;
+      border-radius: 10px;
+
+      display: flex;
+      flex-direction: column;
+
+      /* garante o rodapé "grudado" embaixo */
+      justify-content: space-between;
+
+      overflow: hidden;
+    }
+
+    /* Cabeçalho */
+    .top{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2mm;
+    }
+
+    .cliente{
+      font-size: 8.4pt;
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 62%;
+      word-break: break-word;
+    }
+
+    .osbox{
+      text-align: right;
+      min-width: 35%;
+    }
+
+    .os-title{
+      font-size: 7pt;
+      font-weight: 800;
+      color: #1c71d8;
+      line-height: 1.1;
+    }
+
+    .os-id{
+      margin-top: 0.6mm;
+      font-size: 8.4pt;
+      font-weight: 900;
+      color: #000;
+      line-height: 1.1;
+    }
+
+    .meta{
+      margin-top: 0.3mm;
+      font-size: 6.2pt;
+      color: #333;
+      line-height: 1.15;
+      word-break: break-word;
+    }
+
+    /* Área do meio (descrição com espaçamento dos dados) */
+    .content{
+      display: flex;
+      flex-direction: column;
+      gap: 1.8mm;
+      margin-top: 1.2mm;
+      margin-bottom: 2.2mm;
+      flex: 1; /* ocupa o espaço disponível */
+      overflow: hidden;
+    }
+
+    .desc{
+      font-size: 6.8pt;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.2;
+
+      /* quebra normal */
+      white-space: normal;
+      word-break: break-word;
+
+      /* não deixar empurrar o rodapé pra fora */
+      overflow: hidden;
+    }
+
+    /* Rodapé fixo */
+    .footer{
+      border-top: 1px solid rgba(0,0,0,.15);
+      padding-top: 1.2mm;
+
+      font-size: 6.2pt;
+      color: #222;
+      line-height: 1.25;
+    }
+
+    .footer-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1mm 2mm;
+    }
+
+    .kv{
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .kv b{
+      font-weight: 800;
+      color: #000;
+    }
+
+    @media print{
+      *{
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      @page{
+        size: A4;
+        margin: 10mm;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sheet">
+    <div class="labels">
+
+      <!-- ETIQUETA 1 -->
+      <div class="label-cut">
+        <div class="label">
+          <div class="top">
+            <div class="cliente" id="nomeCliente"></div>
+            <div class="osbox">
+              <div class="os-title">Ordem de Serviço</div>
+              <div class="os-id">#<span id="idSolicitacao"></span></div>
+              <div class="meta" id="dataHoje"></div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="desc">
+              <b>Descrição:</b> <span id="descricao"></span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="footer-grid">
+              <div class="kv"><b>Solicitação:</b> <span id="solicitante"></span></div>
+              <div class="kv"><b>Afetado:</b> <span id="afetado"></span></div>
+              <div class="kv"><b>Aberto:</b> <span id="dataAbertura"></span></div>
+              <div class="kv"><b>Status:</b> <span id="status"></span></div>
+              <div class="kv"><b>Categoria:</b> <span id="categoria"></span></div>
+              <div class="kv"><b>Classificação:</b> <span id="classificacao"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETIQUETA 2 -->
+      <div class="label-cut">
+        <div class="label">
+          <div class="top">
+            <div class="cliente" id="nomeCliente2"></div>
+            <div class="osbox">
+              <div class="os-title">Ordem de Serviço</div>
+              <div class="os-id">#<span id="idSolicitacao2"></span></div>
+              <div class="meta" id="dataHoje2"></div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="desc">
+              <b>Descrição:</b> <span id="descricao2"></span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="footer-grid">
+              <div class="kv"><b>Solicitação:</b> <span id="solicitante2"></span></div>
+              <div class="kv"><b>Afetado:</b> <span id="afetado2"></span></div>
+              <div class="kv"><b>Aberto:</b> <span id="dataAbertura2"></span></div>
+              <div class="kv"><b>Status:</b> <span id="status2"></span></div>
+              <div class="kv"><b>Categoria:</b> <span id="categoria2"></span></div>
+              <div class="kv"><b>Classificação:</b> <span id="classificacao2"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETIQUETA 3 -->
+      <div class="label-cut">
+        <div class="label">
+          <div class="top">
+            <div class="cliente" id="nomeCliente3"></div>
+            <div class="osbox">
+              <div class="os-title">Ordem de Serviço</div>
+              <div class="os-id">#<span id="idSolicitacao3"></span></div>
+              <div class="meta" id="dataHoje3"></div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="desc">
+              <b>Descrição:</b> <span id="descricao3"></span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="footer-grid">
+              <div class="kv"><b>Solicitação:</b> <span id="solicitante3"></span></div>
+              <div class="kv"><b>Afetado:</b> <span id="afetado3"></span></div>
+              <div class="kv"><b>Aberto:</b> <span id="dataAbertura3"></span></div>
+              <div class="kv"><b>Status:</b> <span id="status3"></span></div>
+              <div class="kv"><b>Categoria:</b> <span id="categoria3"></span></div>
+              <div class="kv"><b>Classificação:</b> <span id="classificacao3"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETIQUETA 4 -->
+      <div class="label-cut">
+        <div class="label">
+          <div class="top">
+            <div class="cliente" id="nomeCliente4"></div>
+            <div class="osbox">
+              <div class="os-title">Ordem de Serviço</div>
+              <div class="os-id">#<span id="idSolicitacao4"></span></div>
+              <div class="meta" id="dataHoje4"></div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="desc">
+              <b>Descrição:</b> <span id="descricao4"></span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="footer-grid">
+              <div class="kv"><b>Solicitação:</b> <span id="solicitante4"></span></div>
+              <div class="kv"><b>Afetado:</b> <span id="afetado4"></span></div>
+              <div class="kv"><b>Aberto:</b> <span id="dataAbertura4"></span></div>
+              <div class="kv"><b>Status:</b> <span id="status4"></span></div>
+              <div class="kv"><b>Categoria:</b> <span id="categoria4"></span></div>
+              <div class="kv"><b>Classificação:</b> <span id="classificacao4"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./assets/js/jquery-3.6.3.js"></script>
+  <script src="./assets/js/moment.js"></script>
+
+  <script>
+    var url_atual = window.location.href;
+    var id  = Number(url_atual.substr(url_atual.indexOf('=')+1));
+
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: "/sistech/solicitacao/impressao/" + id,
+      success: function (data) {
+
+        function preencherEtiqueta(sufixo){
+          const s = sufixo ? sufixo : "";
+
+          $('#nomeCliente' + s).text(data.nomeCliente);
+          $('#idSolicitacao' + s).text(data.id);
+          $('#dataHoje' + s).text(moment(Date()).format('DD/MM/YYYY'));
+          $('#descricao' + s).text(data.descricao);
+          $('#solicitante' + s).text(data.solicitante);
+          $('#afetado' + s).text(data.afetado);
+          $('#dataAbertura' + s).text(moment(data.dataAbertura).format('DD/MM HH:mm'));
+          $('#status' + s).text(data.status);
+          $('#categoria' + s).text(data.categoria);
+          $('#classificacao' + s).text(data.classificacao);
+        }
+
+        // Preenche as 4 etiquetas
+        preencherEtiqueta("");   // 1
+        preencherEtiqueta("2");  // 2
+        preencherEtiqueta("3");  // 3
+        preencherEtiqueta("4");  // 4
+
+        // Auto print (opcional)
+        // window.print();
+      },
+      statusCode: {
+        500: function() { alert('Erro! Contate o desenvolvedor!'); },
+        401: function() { alert('Realize login novamente!'); }
+      }
+    });
+  </script>
+</body>
+</html>

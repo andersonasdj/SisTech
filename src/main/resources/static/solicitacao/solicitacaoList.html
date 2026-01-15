@@ -192,7 +192,7 @@
 		<footer class="container-fluid fixed-bottom text-center text-white">
 				<!-- Copyright -->
 				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
-					© 2025 Copyright:
+					© 2026 Copyright:
 					<a class="text-white" href="#">TechGold</a>
 				</div>
 				<!-- Copyright -->
@@ -407,6 +407,7 @@
 						<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Notificar cliente" onclick=notificarCliente()><i class="bi bi-envelope"></i></i></button>
 						<button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Cancelar a solicitação" onclick=cancelar()><i class="bi bi-x-octagon"> </i></button>
 						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a solicitação" onclick=print()><i class="bi bi-printer"> </i></button>
+						<button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Imprimir a tag identificação" onclick=printTag()><i class="bi bi bi-tags"> </i></button>
 						<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Clonar a solicitação" data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" onclick=clonar()><i class="bi bi-copy"> </i></button>
 						<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fechar o quadro de edição" data-bs-dismiss="modal">Fechar</button>
 						<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Salvar a solicitação" onclick="atualiza()">Salvar</button>
@@ -812,6 +813,12 @@
 			var id= $('#idmodal').text();
        		window.open('../impressao?id='+id, '_blank');
       	}
+		
+		function printTag() {
+			var id= $('#idmodal').text();
+       		window.open('../impressao-tag?id='+id, '_blank');
+      	}
+		
 		
 		function cancelar(){
 			if (confirm("Tem certeza que deseja cancelar a solicitação ?") == true) {
@@ -1902,44 +1909,58 @@
 			});
 			
 			function exibirAnexo(id) {
-			    $.ajax({
-			        url: "/sistech/api/file/solicitacao/" + id,
-			        type: "GET",
-			        xhrFields: {
-			            responseType: 'blob'
-			        },
-			        success: function (blob, status, xhr) {
-			            const contentType = xhr.getResponseHeader("Content-Type");
+			  $.ajax({
+			    url: "/sistech/api/file/solicitacao/" + id,
+			    type: "GET",
+			    xhrFields: {
+			      responseType: 'blob'
+			    },
+			    success: function (blob, status, xhr) {
+			      const contentType = (xhr.getResponseHeader("Content-Type") || "").toLowerCase();
 
-			            if (!contentType.startsWith("image/")) {
-			                alert("O arquivo não é uma imagem.");
-			                return;
-			            }
+			      const url = URL.createObjectURL(blob);
 
-			            const url = URL.createObjectURL(blob);
+			      const container = document.getElementById("imagem-container");
+			      container.innerHTML = "";
 
-			            const img = document.createElement('img');
-			            img.src = url;
-			            img.alt = "Imagem recebida";
-			            img.style.maxWidth = "100%";
-			            img.style.border = "1px solid #ccc";
+			     
+			      if (contentType.startsWith("image/")) {
+			        const img = document.createElement('img');
+			        img.src = url;
+			        img.alt = "Imagem recebida";
+			        img.style.maxWidth = "100%";
+			        img.style.border = "1px solid #ccc";
 
-			            const container = document.getElementById("imagem-container");
-			            container.innerHTML = ""; // limpa anterior
-			            container.appendChild(img);
-			        },
-			        error: function (xhr) {
-			            if (xhr.status === 500) {
-			                alert('Erro! Contate o desenvolvedor!');
-			            } else if (xhr.status === 401) {
-			                alert('Realize login novamente!');
-			                window.location.href = "/sistech/login";
-			            } else if (xhr.status === 404) {
-			                alert('Arquivo não encontrado!');
-			            }
-			        }
-			    });
-			}		
+			        container.appendChild(img);
+			        return;
+			      }
+
+			     
+			      if (contentType === "application/pdf") {
+			        const iframe = document.createElement("iframe");
+			        iframe.src = url;
+			        iframe.style.width = "100%";
+			        iframe.style.height = "600px";
+			        iframe.style.border = "1px solid #ccc";
+
+			        container.appendChild(iframe);
+			        return;
+			      }
+
+			      alert("Tipo de arquivo não suportado para visualização: " + contentType);
+			    },
+			    error: function (xhr) {
+			      if (xhr.status === 500) {
+			        alert('Erro! Contate o desenvolvedor!');
+			      } else if (xhr.status === 401) {
+			        alert('Realize login novamente!');
+			        window.location.href = "/sistech/login";
+			      } else if (xhr.status === 404) {
+			        alert('Arquivo não encontrado!');
+			      }
+			    }
+			  });
+			}
 				
 			function baixarAnexo(id) {
 			    $.ajax({

@@ -99,6 +99,12 @@ public class AppController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/impressao-tag")
+	public String impressaoSolicitacaoTag() {
+		return "templates/impressao-tag.html";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/impressao-relatorio")
 	public String impressaoRelatorioCliente() {
 		return "templates/impressao-relatorio-cliente.html";
