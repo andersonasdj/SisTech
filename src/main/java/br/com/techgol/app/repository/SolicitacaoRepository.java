@@ -245,7 +245,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	public Long listarSolicitacoesFinalizadasHojeQtd(String status, Boolean excluida, LocalDateTime inicio, LocalDateTime fim);
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
-			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, "
+			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, s.anexo, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
 			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
 			+ "FROM solicitacoes s "
@@ -257,7 +257,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.peso, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.duracao, "
-			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
+			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, s.anexo, "
 			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "

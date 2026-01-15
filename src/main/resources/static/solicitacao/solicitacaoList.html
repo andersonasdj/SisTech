@@ -164,6 +164,7 @@
 				<thead>
 					<tr>
 						<th data-field="id">ID</th>
+						<th data-field="anexo"></th>
 						<th data-field="abertura">Data Abertura</th>
 						<th data-field="cliente">Cliente</th>
 						<th data-field="solicitante">Solicitante</th>
@@ -956,14 +957,8 @@
 				}
 				
 				data.content.map(i => {
-					var status,
-						vip,
-						redFlag,
-						alertaPeso,
-						alertaPrioridade,
-						tempo,
-						alerta,
-						dataStatus="";
+					var status, anexo, vip, redFlag, alertaPeso, alertaPrioridade, tempo, alerta, dataStatus="";
+					
 					if(i.peso > 7){alertaPeso = "class='blink' style='color: red; font-weight: bold;'";}
 					else if(i.peso > 3 && i.peso <= 7 ){alertaPeso = "style='color: orange; font-weight: bold;'";}
 					else{alertaPeso = "style='color: blue; font-weight: bold;'";}
@@ -994,9 +989,14 @@
 						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
 					}else {tempo = " "; alerta = " "}
 					
+					if(i.anexo != null){
+						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
+					}else {anexo = ""}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td style="color: blue;" >' + anexo + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
@@ -1045,7 +1045,7 @@
 				$("#numPag"+num).attr("style","color:red");
 				
 				data.content.map(i => {
-					var status, vip, redFlag, tempo, alerta, dataStatus = "", alertaPeso;
+					var status, vip, anexo, redFlag, tempo, alerta, dataStatus = "", alertaPeso;
 					
 					if(i.peso > 7){ alertaPeso = "class='blink' style='color: red; font-weight: bold;'"; }
 					else if(i.peso > 3 && i.peso <= 7 ){ alertaPeso = "style='color: orange; font-weight: bold;'"; }
@@ -1077,9 +1077,14 @@
 						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
 					}else {tempo = " "; alerta = " "}
 					
+					if(i.anexo != null){
+						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
+					}else {anexo = ""}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td>' + anexo + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
@@ -1143,7 +1148,7 @@
 				}
 				
 				data.content.map(i => {
-					var status, vip, redFlag, tempo, alerta, alertaPeso, dataStatus = "";
+					var status, vip, anexo, redFlag, tempo, alerta, alertaPeso, dataStatus = "";
 						
 					if(i.peso > 7){
 						alertaPeso = "class='blink' style='color: red; font-weight: bold;'";
@@ -1178,9 +1183,14 @@
 						if(i.duracao > 420){  alerta = "style='color: red; font-size: 19px'" ; tempo = i.duracao;}
 					}else {tempo = " "; alerta = " "}
 					
+					if(i.anexo != null){
+						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
+					}else {anexo = ""}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
+					+ '<td style="color: blue;" >' + anexo + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
