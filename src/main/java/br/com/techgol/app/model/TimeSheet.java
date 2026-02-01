@@ -48,6 +48,8 @@ public class TimeSheet {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
+	private Long idcliente;
+	
 	public TimeSheet(Solicitacao solicitacao, Funcionario funcionario, LocalDateTime inicio, LocalDateTime fim, Long duração, Status status) {
 		this.solicitacao = solicitacao;
 		this.funcionario = funcionario;
@@ -55,6 +57,7 @@ public class TimeSheet {
 		this.fim = fim;
 		this.duracao = duração;
 		this.status = status;
+		this.idcliente = solicitacao.getCliente().getId();
 	}
 
 	public TimeSheet(Solicitacao solicitacao) {
@@ -64,5 +67,6 @@ public class TimeSheet {
 		this.fim = solicitacao.getDataFinalizado();
 		this.duracao = solicitacao.getDuracao();
 		this.status = solicitacao.getStatus();
+		this.idcliente = solicitacao.getCliente().getId();
 	}
 }

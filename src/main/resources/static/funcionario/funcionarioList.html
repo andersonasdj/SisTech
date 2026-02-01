@@ -519,8 +519,14 @@
 						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
 						$('#funcaomodal').append("<option value=EDITOR>EDITOR</option>");
 						$('#funcaomodal').append("<option value=USER>USER</option>");
+						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
 						
 					} else if(data.role == 'EDITOR'){
+						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
+						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
+						$('#funcaomodal').append("<option value=USER>USER</option>");
+						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
+					} else if(data.role == 'SADMIN'){
 						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
 						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
 						$('#funcaomodal').append("<option value=USER>USER</option>");
@@ -528,6 +534,7 @@
 						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
 						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
 						$('#funcaomodal').append("<option value=EDITOR>EDITOR</option>");
+						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
 					}
 					
 					if (data.ativo == true) {

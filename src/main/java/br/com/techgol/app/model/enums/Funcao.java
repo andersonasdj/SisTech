@@ -1,6 +1,6 @@
 package br.com.techgol.app.model.enums;
 
 public enum Funcao {
-	ADMIN,USER;
+	ADMIN,USER,SADMIN;
 
 }
