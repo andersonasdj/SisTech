@@ -1,15 +1,18 @@
 package br.com.techgol.app.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.techgol.app.model.Funcionario;
+import br.com.techgol.app.model.UserRole;
 
-public record DtoFuncionarioEdit(
+public record DtoFuncionarioAdvancedList(
 		Long id,
 		String nomeFuncionario,
 		String username,
+		UserRole role,
 		Boolean ativo,
 		Boolean mfa,
 		Boolean ausente,
@@ -20,14 +23,16 @@ public record DtoFuncionarioEdit(
 		@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 		LocalDateTime dataUltimoLogin,
 		Boolean trocaSenha,
-		String email
+		String email,
+		BigDecimal valorHora
 		) {
 	
-	public DtoFuncionarioEdit(Funcionario f) {
+	public DtoFuncionarioAdvancedList(Funcionario f) {
 		this(
 				f.getId(), 
 				f.getNomeFuncionario(), 
 				f.getUsername(), 
+				f.getRole(),
 				f.getAtivo(),
 				f.getMfa(),
 				(f.getAusente()) != null ? f.getAusente(): false,
@@ -35,7 +40,8 @@ public record DtoFuncionarioEdit(
 				f.getDataAtualizacaoSenha(),
 				f.getDataUltimoLogin(),
 				(f.getTrocaSenha()) != null? f.getTrocaSenha(): false,
-				f.getEmail()
+				f.getEmail(),
+				f.getValorHora()
 				);
 	}
 

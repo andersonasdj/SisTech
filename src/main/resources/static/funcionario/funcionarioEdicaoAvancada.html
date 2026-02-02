@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
+	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
+	<title>Sistech - Funcionarios</title>
+	<style>
+			body.dark-mode table {
+			  background-color: #212529;
+			  color: #f8f9fa;
+			}
+
+			body.dark-mode th,
+			body.dark-mode td {
+			  background-color: rgb(119, 118, 123);
+			  color: #f8f9fa;
+			  border-color: #343a40;
+			}
+
+			body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+			  background-color: #2c3034;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-hover tbody tr:hover {
+			  background-color: #343a40;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-primary {
+			  background-color: #0d6efd;
+			  color: #fff;
+			}
+
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Computadores</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/computador/list">Listar</a></li>
+							</ul>
+						</li>
+					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		<div class="card mb-4">
+		    <div class="card-header">
+		        <i class="bi bi-person-badge"></i>
+		        <b>Dados do Funcionário</b>
+		    </div>
+
+		    <div class="card-body">
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>ID:</b></div>
+		            <div class="col-md-8"><span id="txtId"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Nome:</b></div>
+		            <div class="col-md-8"><span id="txtNome"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Usuário:</b></div>
+		            <div class="col-md-8"><span id="txtUsername"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>E-mail:</b></div>
+		            <div class="col-md-8"><span id="txtEmail"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Status:</b></div>
+		            <div class="col-md-8"><span id="txtAtivo"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>MFA:</b></div>
+		            <div class="col-md-8"><span id="txtMfa"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Presença:</b></div>
+		            <div class="col-md-8"><span id="txtAusente"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Exigir troca de senha:</b></div>
+		            <div class="col-md-8"><span id="txtTrocaSenha"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Último login:</b></div>
+		            <div class="col-md-8"><span id="txtUltimoLogin"></span></div>
+		        </div>
+
+		        <div class="row mb-2">
+		            <div class="col-md-4"><b>Última troca de senha:</b></div>
+		            <div class="col-md-8"><span id="txtUltimaTrocaSenha"></span></div>
+		        </div>
+
+		        <div class="row">
+		            <div class="col-md-4"><b>Última atualização:</b></div>
+		            <div class="col-md-8"><span id="txtAtualizacao"></span></div>
+		        </div>
+		    </div>
+		</div>
+		
+		<div class=" mt-4">
+
+		    <h4>
+		        <i class="bi bi-gear"></i>
+		        Configurações Avançadas do Funcionário
+		    </h4>
+
+		    <hr>
+
+		    <input type="hidden" id="idFuncionario">
+
+		    <div class="row">
+		        <div class="col-md-6">
+		            <label class="form-label"><b>Função</b></label>
+		            <select id="role" class="form-select"></select>
+		        </div>
+
+		        <div class="col-md-6">
+		            <label class="form-label"><b>Valor / Hora (R$)</b></label>
+		            <input type="number"
+		                   step="0.01"
+		                   min="0"
+		                   id="valorHora"
+		                   class="form-control">
+		        </div>
+		    </div>
+
+		    <div class="mt-4">
+		        <button class="btn btn-primary" onclick="salvar()">
+		            Salvar
+		        </button>
+		        <a href="#" onclick="window.close()" class="btn btn-secondary">
+		            Fechar
+		        </a>
+		    </div>
+
+		</div>
+		
+		
+		<br /><br />
+		<footer class="container-fluid fixed-bottom text-center text-white">
+				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+					© 2025 Copyright:
+					<a class="text-white" href="#">TechGold</a>
+				</div>
+		</footer>
+
+	
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator" aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="container-password">
+						<div class="result">
+							<div class="result__info right">click para copiar</div>
+							<div class="result__info left">copiado</div>
+							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
+						</div>
+						<div class="length range__slider" data-min="4" data-max="32">
+							<div class="length__title field-title" data-length='0'>Tamanho:</div>
+							<input id="slider" type="range" min="4" max="32" value="16" />
+						</div>
+						<div class="settings">
+							<span class="settings__title field-title">configurações</span>
+							<div class="setting">
+								<input type="checkbox" id="uppercase" checked />
+								<label for="uppercase">Incluir Maiúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="lowercase" checked />
+								<label for="lowercase">Incluir Minúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="number" checked />
+								<label for="number">Incluir Número</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="symbol" />
+								<label for="symbol">Incluir Símbolo</label>
+							</div>
+						</div>
+						<button class="btn generate" id="generate">Gerar Senha</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<!-- MODAL - CONFIGURAÇÕES AVANÇADAS DO FUNCIONÁRIO -->
+		<div class="modal fade" id="modalConfiguracoesAvancadas" tabindex="-1"
+		     aria-labelledby="modalConfiguracoesAvancadasLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-md modal-dialog-centered">
+		        <div class="modal-content">
+
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="modalConfiguracoesAvancadasLabel">
+		                    <i class="bi bi-gear"></i> Configurações Avançadas
+		                </h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		            </div>
+
+		            <div class="modal-body">
+		                <!-- ID oculto -->
+		                <input type="hidden" id="idFuncionarioAvancado">
+
+		                <div class="row">
+		                    <!-- FUNÇÃO -->
+		                    <div class="col-md-12">
+		                        <label class="form-label mt-2"><b>Função do usuário</b></label>
+		                        <select class="form-select" id="funcaoAvancada">
+		                            <!-- preenchido via JS -->
+		                        </select>
+		                    </div>
+		                </div>
+
+		                <div class="row">
+		                    <!-- VALOR / HORA -->
+		                    <div class="col-md-6">
+		                        <label class="form-label mt-3"><b>Valor por hora (R$)</b></label>
+		                        <input type="number"
+		                               step="0.01"
+		                               min="0"
+		                               id="valorHora"
+		                               class="form-control"
+		                               placeholder="Ex: 85.00">
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="modal-footer">
+		                <button class="btn btn-secondary" data-bs-dismiss="modal">
+		                    Fechar
+		                </button>
+		                <button class="btn btn-primary" onclick="salvarConfiguracoesAvancadas()">
+		                    Salvar
+		                </button>
+		            </div>
+
+		        </div>
+		    </div>
+		</div>
+		<!-- MODAL - CONFIGURAÇÕES AVANÇADAS DO FUNCIONÁRIO -->
+
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/dark.js"></script>
+	<script>	
+		
+		$(document).ready(function () {
+		    const id = extrairIdDaURL();
+		    $('#idFuncionario').val(id);
+
+		    $.ajax({
+		        type: "GET",
+		        url: `/sistech/funcionarios/avancado/${id}`,
+		        success: function (data) {
+					$('#txtId').text(data.id);
+				   $('#txtNome').text(data.nomeFuncionario);
+				   $('#txtUsername').text(data.username);
+				   $('#txtEmail').text(data.email || '-');
+
+				   $('#txtAtivo').html(data.ativo
+				       ? '<span class="badge bg-success">Ativo</span>'
+				       : '<span class="badge bg-danger">Inativo</span>'
+				   );
+
+				   $('#txtMfa').html(data.mfa
+				       ? '<span class="badge bg-success">Ativo</span>'
+				       : '<span class="badge bg-secondary">Desativado</span>'
+				   );
+
+				   $('#txtAusente').html(data.ausente
+				       ? '<span class="badge bg-warning text-dark">Ausente</span>'
+				       : '<span class="badge bg-success">Presente</span>'
+				   );
+
+				   $('#txtTrocaSenha').html(data.trocaSenha
+				       ? '<span class="badge bg-warning text-dark">Sim</span>'
+				       : '<span class="badge bg-secondary">Não</span>'
+				   );
+
+				   $('#txtUltimoLogin').text(data.dataUltimoLogin || '-');
+				   $('#txtUltimaTrocaSenha').text(data.dataAtualizacaoSenha || '-');
+				   $('#txtAtualizacao').text(data.dataAtualizacao || '-');
+
+				   // Campos administrativos
+				   preencherRoles(data.role);
+				   $('#valorHora').val(data.valorHora);
+		        },
+		        error: function () {
+		            alert("Acesso não autorizado.");
+		            window.close();
+		        }
+		    });
+		});
+
+		function extrairIdDaURL() {
+			const params = new URLSearchParams(window.location.search);
+			return params.get('id');
+		}
+
+		function preencherRoles(roleAtual) {
+		    const roles = ['ADMIN', 'EDITOR', 'USER', 'SADMIN'];
+
+		    roles.forEach(r => {
+		        $('#role').append(
+		            `<option value="${r}" ${r === roleAtual ? 'selected' : ''}>${r}</option>`
+		        );
+		    });
+		}
+
+		function salvar() {
+		    $.ajax({
+		        type: "PUT",
+		        contentType: "application/json",
+		        url: "/sistech/funcionarios/avancado",
+		        data: JSON.stringify({
+		            id: $('#idFuncionario').val(),
+		            role: $('#role').val(),
+		            valorHora: $('#valorHora').val()
+		        }),
+		        success: function () {
+		            alert("Configurações salvas com sucesso!");
+		        },
+		        error: function () {
+		            alert("Você não tem permissão.");
+		        }
+		    });
+		}
+		
+		
+	</script>
+</body>
+</html>

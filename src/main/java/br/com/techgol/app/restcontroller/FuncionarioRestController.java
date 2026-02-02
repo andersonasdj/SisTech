@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
+import br.com.techgol.app.dto.DtoFuncionarioAdvancedEdit;
+import br.com.techgol.app.dto.DtoFuncionarioAdvancedList;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoFuncionarioHome;
 import br.com.techgol.app.dto.DtoFuncionarioRefeicao;
@@ -69,7 +71,7 @@ public class FuncionarioRestController {
 //		return service.listarNomesCliente();
 //	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}") //RESTORNA UMA DTO DE UM FUNCIONARIO POR ID
 	public ResponseEntity<DtoFuncionarioEdit> editar(@PathVariable Long id ) {
 		return ResponseEntity.ok().body(service.editar(id));
@@ -124,7 +126,7 @@ public class FuncionarioRestController {
 				));
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	@PutMapping //ATUALIZA UM FUNCIONARIO
 	public ResponseEntity<DtoListarFuncionarios> atualizar(@RequestBody DtoFuncionarioEdit dados) {
 		return ResponseEntity.ok().body(service.atualizarFuncionario(dados));
@@ -152,7 +154,7 @@ public class FuncionarioRestController {
 		service.alteraStatusRefeicao(dados.id(), dados.refeicao());
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	@PutMapping("/senha") //ATUALIZA A SENHA PARA QUALQUER USUARIO
 	public boolean atualizar(@RequestBody DtoSenha dados) {
 		return service.atualizarSenha(dados);
@@ -170,10 +172,22 @@ public class FuncionarioRestController {
 		}
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	@DeleteMapping("/{id}")
 	public boolean deletar(@PathVariable Long id ) {
 		return service.deletar(id);
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/avancado/{id}") //RESTORNA UMA DTO DE UM FUNCIONARIO POR ID
+	public ResponseEntity<DtoFuncionarioAdvancedList> edicaoAvancada(@PathVariable Long id ) {
+		return ResponseEntity.ok().body(service.advancedEdit(id));
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PutMapping("/avancado") //RESTORNA UMA DTO DE UM FUNCIONARIO POR ID
+	public ResponseEntity<DtoFuncionarioAdvancedEdit> salvarEdicaoAvancada(@RequestBody DtoFuncionarioAdvancedEdit dados ) {
+		return ResponseEntity.ok().body(service.atualizarFuncionarioAdvanced(dados));
 	}
 	
 }

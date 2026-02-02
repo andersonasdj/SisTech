@@ -204,9 +204,9 @@
 								<label class="form-label mt-2" for="usuariomodal"><b>Usuario *</b></label>
 								<input type="text" id="usuariomodal" class="form-control">
 							</div>
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="funcaomodal"><b>Função</b></label>
-								<select class="form-select" id="funcaomodal" aria-label="Default select example"> </select>
+							<div class="col-md-6 ms-auto"> 
+								<label class="form-label mt-2" for="ausenteModal"><b>Presença <i class="bi bi-chat-text" data-toggle="tooltip" data-placement="top" title="Oculta do dashboard"></i></b></label>
+								<select class="form-select" id="ausenteModal" aria-label="Default select example"> </select>
 							</div>
 						</div>
 						<div class="row">
@@ -220,16 +220,13 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 ms-auto">
-								<label class="form-label mt-2" for="trocaSenha"><b>Exigir troca de senha </b></label>
+							<div class="col-md-12 ms-auto">
+								<label class="form-label mt-3" for="trocaSenha"><b>Exigir troca de senha </b></label>
 								<label>
 		                  			<input type="checkbox" name="trocaSenha" id="trocaSenha"  value="true">
 		                		</label>
 							</div>
-							<div class="col-md-6 ms-auto"> 
-								<label class="form-label mt-2" for="ausenteModal"><b>Presença <i class="bi bi-chat-text" data-toggle="tooltip" data-placement="top" title="Oculta do dashboard"></i></b></label>
-								<select class="form-select" id="ausenteModal" aria-label="Default select example"> </select>
-							</div>
+							
 						</div>
 						<div class="row">
 							<div class="col-md-6 ms-auto">
@@ -242,10 +239,25 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary" onclick="atualizar()">Salvar</button>
+					<div class="modal-footer d-flex justify-content-between">
+					    <div>
+					        <button type="button"
+					                class="btn btn-outline-dark"
+					                onclick="abrirConfiguracoesAvancadas()">
+					            <i class="bi bi-gear"></i> Configurações avançadas
+					        </button>
+					    </div>
+
+					    <div>
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					            Fechar
+					        </button>
+					        <button type="button" class="btn btn-primary" onclick="atualizar()">
+					            Salvar
+					        </button>
+					    </div>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -318,12 +330,105 @@
 			</div>
 		</div>
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<!-- MODAL - CONFIGURAÇÕES AVANÇADAS DO FUNCIONÁRIO -->
+		<div class="modal fade" id="modalConfiguracoesAvancadas" tabindex="-1"
+		     aria-labelledby="modalConfiguracoesAvancadasLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-md modal-dialog-centered">
+		        <div class="modal-content">
+
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="modalConfiguracoesAvancadasLabel">
+		                    <i class="bi bi-gear"></i> Configurações Avançadas
+		                </h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		            </div>
+
+		            <div class="modal-body">
+		                <!-- ID oculto -->
+		                <input type="hidden" id="idFuncionarioAvancado">
+
+		                <div class="row">
+		                    <!-- FUNÇÃO -->
+		                    <div class="col-md-12">
+		                        <label class="form-label mt-2"><b>Função do usuário</b></label>
+		                        <select class="form-select" id="funcaoAvancada">
+		                            <!-- preenchido via JS -->
+		                        </select>
+		                    </div>
+		                </div>
+
+		                <div class="row">
+		                    <!-- VALOR / HORA -->
+		                    <div class="col-md-6">
+		                        <label class="form-label mt-3"><b>Valor por hora (R$)</b></label>
+		                        <input type="number"
+		                               step="0.01"
+		                               min="0"
+		                               id="valorHora"
+		                               class="form-control"
+		                               placeholder="Ex: 85.00">
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="modal-footer">
+		                <button class="btn btn-secondary" data-bs-dismiss="modal">
+		                    Fechar
+		                </button>
+		                <button class="btn btn-primary" onclick="salvarConfiguracoesAvancadas()">
+		                    Salvar
+		                </button>
+		            </div>
+
+		        </div>
+		    </div>
+		</div>
+		<!-- MODAL - CONFIGURAÇÕES AVANÇADAS DO FUNCIONÁRIO -->
+
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/password-generator.js"></script>
 	<script src="../assets/js/dark.js"></script>
-	<script>
+	<script>	
+		function abrirConfiguracoesAvancadas() {
+			const idFuncionario = $('#idmodal').val();
+
+			   if (!idFuncionario) {
+			       alert("Funcionário não identificado.");
+			       return;
+			   }
+
+			   window.open(
+			       `/sistech/funcionario/avancado?id=${idFuncionario}`,
+			       '_blank'
+			   );
+		}
+		
+		function salvarConfiguracoesAvancadas() {
+		    const id = $('#idFuncionarioAvancado').val();
+		    const role = $('#funcaoAvancada').val();
+		    const valorHora = $('#valorHora').val();
+
+		    $.ajax({
+		        type: "PUT",
+		        contentType: "application/json",
+		        url: "/sistech/funcionarios/configuracoes-avancadas",
+		        data: JSON.stringify({
+		            id: id,
+		            role: role,
+		            valorHora: valorHora
+		        }),
+		        success: function () {
+		            alert("Configurações avançadas atualizadas com sucesso!");
+		            $('#modalConfiguracoesAvancadas').modal('hide');
+		        },
+		        error: function () {
+		            alert("Você não tem permissão para essa ação.");
+		        }
+		    });
+		}
+		
 		$.ajax({
 			type: "GET",
 			contentType: "application/json",
@@ -515,28 +620,6 @@
 						$('#ausenteModal').append("<option value=true>Ausente</option>");
 					}
 					
-					if (data.role == 'ADMIN') {
-						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
-						$('#funcaomodal').append("<option value=EDITOR>EDITOR</option>");
-						$('#funcaomodal').append("<option value=USER>USER</option>");
-						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
-						
-					} else if(data.role == 'EDITOR'){
-						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
-						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
-						$('#funcaomodal').append("<option value=USER>USER</option>");
-						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
-					} else if(data.role == 'SADMIN'){
-						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
-						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
-						$('#funcaomodal').append("<option value=USER>USER</option>");
-					} else {
-						$('#funcaomodal').append("<option value=" + data.role + ">" + data.role + "</option>");
-						$('#funcaomodal').append("<option value=ADMIN>ADMIN</option>");
-						$('#funcaomodal').append("<option value=EDITOR>EDITOR</option>");
-						$('#funcaomodal').append("<option value=SADMIN>SADMIN</option>");
-					}
-					
 					if (data.ativo == true) {
 						$('#statusModal').append("<option value=" + data.ativo + ">" + status + "</option>");
 						$('#statusModal').append("<option value=false>Desativado</option>");
@@ -555,7 +638,8 @@
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { alert('Realize login novamente!'); }
+				    401: function() { alert('Realize login novamente!'); },
+					405: function() { alert('Voce não tem permissão para exclusão!'); }
 				}
 			});
 		}
@@ -602,7 +686,6 @@
 			var id = $('#idmodal').val();
 			var nomeFuncionario = $('#nomemodal').val();
 			var username = $('#usuariomodal').val();
-			var role = $('#funcaomodal').val();
 			var ativo = $('#statusModal').val();
 			var mfa = $('#mfaModal').val();
 			var ausente = $('#ausenteModal').val();
@@ -619,7 +702,6 @@
 					"id": id,
 					"nomeFuncionario": nomeFuncionario,
 					"username": username,
-					"role": role,
 					"ativo": ativo,
 					"mfa": mfa,
 					"ausente": ausente,

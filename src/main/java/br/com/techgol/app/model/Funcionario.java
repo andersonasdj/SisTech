@@ -1,5 +1,6 @@
 package br.com.techgol.app.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -50,6 +51,8 @@ public class Funcionario extends Usuario implements UserDetails {
 	private int tentativasLogin;
 	
 	private boolean twoFactorVerified = false; // controle interno
+	
+	private BigDecimal valorHora;
 	
 	public Funcionario(DtoCadastroFuncionario dados) {
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(dados.password());

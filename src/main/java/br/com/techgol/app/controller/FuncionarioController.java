@@ -13,21 +13,24 @@ public class FuncionarioController {
 	@GetMapping("/list")
 	public String listar() {
 		return "funcionarioList.html";
-		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	@GetMapping("/form")
 	public String formulario() {
 		return "funcionarioForm.html";
-		
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/perfil")
 	public String perfil() {
 		return "perfil.html";
-		
+	}
+	
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
+	@GetMapping("/avancado")
+	public String configuracoesAvancada() {
+		return "funcionarioEdicaoAvancada.html";
 	}
 	
 }

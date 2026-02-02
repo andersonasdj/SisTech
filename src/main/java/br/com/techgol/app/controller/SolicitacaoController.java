@@ -114,7 +114,7 @@ public class SolicitacaoController {
 		return "solicitacaoRelatorioPorPeriodo.html";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	@GetMapping("/relatoriosrendimentoperiodo")
 	public String relatorioRendimentoPeriodo() {
 		

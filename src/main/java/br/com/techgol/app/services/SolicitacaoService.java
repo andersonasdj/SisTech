@@ -1441,7 +1441,7 @@ public class SolicitacaoService {
 		return null;
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	public List<DtoRendimentosFuncionarios> gerarRelatorioRendimento(LocalDate ini, LocalDate termino) {
 		
 		List<DtoListarFuncionarios> funcionarios = funcionarioService.listarAtivos();

@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoCadastroFuncionario;
+import br.com.techgol.app.dto.DtoFuncionarioAdvancedEdit;
+import br.com.techgol.app.dto.DtoFuncionarioAdvancedList;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
@@ -64,7 +66,6 @@ public class FuncionarioService {
 		funcionario.setEmail(dados.email());
 		
 		if(repository.count() > 1) {
-			funcionario.setRole(dados.role());
 			funcionario.setAtivo(dados.ativo());
 		}
 		funcionario.setTrocaSenha(dados.trocaSenha());
@@ -176,6 +177,14 @@ public class FuncionarioService {
 		}
 	}
 	
+	public DtoFuncionarioEdit edicaoAvancada(Long id) {
+		if(repository.existsById(id)) {
+			return new DtoFuncionarioEdit(repository.getReferenceById(id));
+		}else {
+			return null;
+		}
+	}
+	
 	public boolean deletar(Long id) {
 		if(repository.existsById(id)) {
 			repository.deleteById(id);
@@ -202,5 +211,28 @@ public class FuncionarioService {
 		Funcionario funcionario = repository.getReferenceById(f.getId());
 		funcionario.setCode(f.getCode());
 		
+	}
+	
+	@Transactional
+	@CacheEvict(value = {"nomesFuncionariosAtivos","idFuncionariosAtivos"}, allEntries = true)
+	public DtoFuncionarioAdvancedEdit atualizarFuncionarioAdvanced(DtoFuncionarioAdvancedEdit dados) {
+		
+		Funcionario funcionario = repository.getReferenceById(dados.id());
+		
+		if(repository.count() > 1) {
+			funcionario.setRole(dados.role());
+		}
+		funcionario.setValorHora(dados.valorHora());
+		funcionario.setDataAtualizacao(LocalDateTime.now().withNano(0));
+		funcionario.setTentativasLogin(0);
+		return new DtoFuncionarioAdvancedEdit(funcionario);
+	}
+	
+	public DtoFuncionarioAdvancedList advancedEdit(Long id) {
+		if(repository.existsById(id)) {
+			return new DtoFuncionarioAdvancedList(repository.getReferenceById(id));
+		}else {
+			return null;
+		}
 	}
 }
