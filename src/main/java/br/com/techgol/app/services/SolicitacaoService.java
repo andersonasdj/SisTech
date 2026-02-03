@@ -1,5 +1,7 @@
 package br.com.techgol.app.services;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +29,7 @@ import br.com.techgol.app.dto.DtoDashboardCliente;
 import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoHistorico;
 import br.com.techgol.app.dto.DtoHistoricoDias;
+import br.com.techgol.app.dto.DtoListarCustoFuncionarios;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
 import br.com.techgol.app.dto.DtoRendimentosClientes;
@@ -1464,51 +1467,131 @@ public class SolicitacaoService {
 		return lista;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
-		
-//		Map<YearMonth, LocalDate[]> rangeDeMeses = new LinkedHashMap<>();
-//		LocalDate hoje = LocalDate.now();
-//		for(int i = 5; i >= 0; i--) {
-//			YearMonth ym = YearMonth.from(hoje.minusMonths(i));
-//			LocalDate inicioMes = ym.atDay(1);
-//			LocalDate fimMes = ym.atEndOfMonth();
-//			rangeDeMeses.put(ym, new LocalDate[] {inicioMes,fimMes});
-//		}
-		
-		List<DtoClienteList> clientes = clienteService.listarAtivos();
-		List<DtoRendimentosClientes> lista = new ArrayList<>();
-		
-		LocalDateTime inicio, fim;
-		inicio = ini.atTime(00, 00, 00);
-		fim = termino.atTime(23, 59, 59);
-		
-		clientes.forEach(f -> {
-			
-//			List<DtoHistorico> historico = new ArrayList<>();
-//			for(Map.Entry<YearMonth, LocalDate[]> entry : rangeDeMeses.entrySet()) {
-//				LocalDateTime inicoMes, fimMes;
-//				LocalDate [] datas = entry.getValue();
-//				inicoMes = datas[0].atTime(00, 00, 00);
-//				fimMes = datas[1].atTime(23, 59, 59);
-//				String mesAtual = entry.getKey().toString();
-//				int qtdMes = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicoMes, fimMes);
-//				historico.add(new DtoHistorico(mesAtual, qtdMes));
-//			}
-			
-			int qtdFechadas = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicio, fim);
-			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
-			Long qtdHoras = repository.totalHorasPeriodoPorCliente(f.id(), inicio, fim);
-			int qtdAbertos = repository.totalabertasPeriodoPorCliente(f.id(), false, inicio, fim);
-			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id()
-					//, historico
-					));
-		});
-		
-		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
-		
-		return lista;
+	@PreAuthorize("hasRole('ROLE_SADMIN')")
+	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(
+	        LocalDate ini, LocalDate termino) {
+
+	    List<DtoClienteList> clientes = clienteService.listarAtivos();
+	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
+
+	    List<DtoRendimentosClientes> lista = new ArrayList<>();
+
+	    LocalDateTime inicio = ini.atTime(0, 0, 0);
+	    LocalDateTime fim = termino.atTime(23, 59, 59);
+
+	    // 🔹 FOR tradicional para permitir acumulação
+	    for (DtoClienteList cliente : clientes) {
+
+	        BigDecimal custoOperacional = BigDecimal.ZERO;
+
+	        for (DtoListarCustoFuncionarios func : funcionarios) {
+
+	            BigDecimal minutosTrabalhados =
+	                timeSheetService.custoOperacionalTecPorCliente(
+	                    cliente.id(), inicio, fim, func.id()
+	                );
+
+	            if (minutosTrabalhados != null && func.valorHora() != null) {
+	            	
+	            	// minutos / 60 = horas
+	                BigDecimal horasTrabalhadas = minutosTrabalhados.divide(
+	                    BigDecimal.valueOf(60),
+	                    2, // escala (casas decimais)
+	                    RoundingMode.HALF_UP
+	                );
+
+	                BigDecimal custoFuncionario =
+	                    horasTrabalhadas.multiply(func.valorHora());
+
+	                custoOperacional = custoOperacional.add(custoFuncionario);
+	            }
+	        }
+
+	        int qtdFechadas =
+	            repository.totalFechadasPeriodoPorCliente(
+	                cliente.id(), false, inicio, fim
+	            );
+
+	        int qtdAtualizados =
+	            repository.totalAtualizadosPeriodoPorCliente(
+	                cliente.id(), false, inicio, fim
+	            );
+
+	        Long qtdHoras =
+	            repository.totalHorasPeriodoPorCliente(
+	                cliente.id(), inicio, fim
+	            );
+
+	        int qtdAbertos =
+	            repository.totalabertasPeriodoPorCliente(
+	                cliente.id(), false, inicio, fim
+	            );
+
+	        lista.add(
+	            new DtoRendimentosClientes(
+	                cliente.nomeCliente(),
+	                qtdFechadas,
+	                qtdAtualizados,
+	                qtdHoras != null ? qtdHoras : 0L,
+	                cliente.tempoContratado(),
+	                qtdAbertos,
+	                cliente.id(),
+	                custoOperacional
+	            )
+	        );
+	    }
+
+	    lista.sort(
+	        Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed()
+	    );
+
+	    return lista;
 	}
+
+	
+//	@PreAuthorize("hasRole('ROLE_SADMIN')")
+//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
+//		
+//		
+//		List<DtoClienteList> clientes = clienteService.listarAtivos();
+//		List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
+//		
+//		funcionarios.forEach(f -> {
+//			System.out.println(f.id() +"\n"+f.valorHora());
+//		});
+//		
+//		List<DtoRendimentosClientes> lista = new ArrayList<>();
+//		
+//		LocalDateTime inicio, fim;
+//		inicio = ini.atTime(00, 00, 00);
+//		fim = termino.atTime(23, 59, 59);
+//
+//		BigDecimal custoOperacional= BigDecimal.ZERO;
+//		
+//		clientes.forEach(f -> {
+//			
+//			funcionarios.forEach(func -> {
+//				BigDecimal horasTrabalhadas = timeSheetService.custoOperacionalTecPorCliente(f.id(),inicio,fim,func.id());
+//				
+//				if (horasTrabalhadas != null && func.valorHora() != null) {
+//					BigDecimal custoFuncionario = horasTrabalhadas.multiply(func.valorHora());
+//					custoOperacional = custoOperacional.add(custoFuncionario);
+//				}
+//				
+//			});
+//			
+//			
+//			int qtdFechadas = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicio, fim);
+//			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
+//			Long qtdHoras = repository.totalHorasPeriodoPorCliente(f.id(), inicio, fim);
+//			int qtdAbertos = repository.totalabertasPeriodoPorCliente(f.id(), false, inicio, fim);
+//			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id(), null));
+//		});
+//		
+//		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
+//		
+//		return lista;
+//	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Solicitacao migracao(DtoDadosMigracao dados) {

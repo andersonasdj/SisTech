@@ -1,5 +1,7 @@
 package br.com.techgol.app.dto;
 
+import java.math.BigDecimal;
+
 public record DtoRendimentosClientes(
 		String nomeCliente,
 		int qtdFinalizados,
@@ -7,7 +9,8 @@ public record DtoRendimentosClientes(
 		Long qtdHoras,
 		Long tempoContratado,
 		int qtdAbertos,
-		Long clienteId//,
+		Long clienteId,//,
+		BigDecimal custoOperacional
 		//List<DtoHistorico> historico
 		) {
 

@@ -1,5 +1,6 @@
 package br.com.techgol.app.services;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -150,6 +151,10 @@ public class TimeSheetService {
 
 	public Long totalHorasPeriodoPorFuncionario(Long id, LocalDateTime inicio, LocalDateTime fim) {
 		return repository.totalHorasPeriodoPorFuncionario(id, inicio, fim);
+	}
+
+	public BigDecimal custoOperacionalTecPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim, Long idFuncionario) {
+		return repository.custoOperacionalTecPorCliente(id, inicio, fim, idFuncionario);
 	}
 	
 }

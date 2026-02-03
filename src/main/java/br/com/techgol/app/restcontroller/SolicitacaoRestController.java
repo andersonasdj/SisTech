@@ -90,7 +90,7 @@ public class SolicitacaoRestController {
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
-	@GetMapping("/relatorio/rendimento/cliente/inicio/{inicio}/fim/{fim}")
+	@GetMapping("/relatorio/rendimento/cliente/inicio/{inicio}/fim/{fim}") //Construção do relatório executivo do cliente
 	public List<DtoRendimentosClientes> listarRelatorioRendimentoClientePorPeriodo(@PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
 		
 		return solicitacaoService.gerarRelatorioRendimentoClientes(inicio, fim);

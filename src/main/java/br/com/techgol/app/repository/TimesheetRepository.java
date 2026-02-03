@@ -1,5 +1,6 @@
 package br.com.techgol.app.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -75,4 +76,12 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 			+ "WHERE t.solicitacao_id=:id ")
 	public Long bucarDuracaoIdSolicitacao(Long id);
 	
+	
+	@Query(nativeQuery = true,
+			value = "SELECT SUM(t.duracao) FROM timesheet t "
+			+ "WHERE t.idcliente = :id "
+			+ "AND t.inicio >= :inicio "
+			+ "AND t.fim <= :fim "
+			+ "AND t.funcionario_id = :funcionarioId")
+	public BigDecimal custoOperacionalTecPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim, Long funcionarioId);
 }

@@ -160,6 +160,7 @@
 							<th scope="col">Média Hora / dia</th>
 							<th scope="col">Franquia</th>
 							<th scope="col">Consumo da Franquia</th>
+							<th scope="col">Custo Operacional</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -282,12 +283,13 @@
 							
 								'<tr>'
 								+ '<td id=cliente'+i.clienteId+'>' + i.nomeCliente + '</td>'
-								+ '<td>' + i.qtdAbertos + '</td>'
-								+ '<td>' + i.qtdAtualizados + '</td>'
-								+ '<td id=qtdFinalizados'+i.clienteId+'>' + i.qtdFinalizados + '</td>'
-								+ '<td>' + minutosParaHorasTexto( (i.qtdHoras/resultados.length).toFixed(0) )+ '</td>'
+								+ '<td data-sort-value="'+i.qtdAbertos+'">' + i.qtdAbertos + '</td>'
+								+ '<td data-sort-value="'+i.qtdAtualizados+'">' + i.qtdAtualizados + '</td>'
+								+ '<td id=qtdFinalizados'+i.clienteId+' data-sort-value="'+i.qtdFinalizados+'">' + i.qtdFinalizados + '</td>'
+								+ '<td data-sort-value="'+(i.qtdHoras/resultados.length).toFixed(0)+'">'+minutosParaHorasTexto((i.qtdHoras/resultados.length).toFixed(0)) + '</td>'
 								+ '<td id=franquia'+i.clienteId+'>' + tempoContratado + '</td>'
-								+ '<td '+alerta+'><b>' + horas + '</b></td>'
+								+ '<td '+alerta+' data-sort-value="'+i.qtdHoras+'"><b>' + horas + '</b></td>'
+								+ '<td data-sort-value="'+i.custoOperacional+'"><b>'+ formatarMoedaBR(i.custoOperacional) + '</b></td>'
 								+ '<td> <a href="#" onclick=printRelatorio('+i.clienteId+')><i style="font-size: 25px" class="bi bi-printer"></i></a></td>'
 								+ '</tr>'
 								$('#corpoRendimentos').append(itens);
@@ -394,6 +396,16 @@
 			}else{
 				alert("Selecione (data de inicio e data de término)");
 			}
+			
+			const formatarMoedaBR = (valor) => {
+			    return new Intl.NumberFormat('pt-BR', {
+			        style: 'currency',
+			        currency: 'BRL',
+			        minimumFractionDigits: 2,
+			        maximumFractionDigits: 2
+			    }).format(valor);
+			};
+
 		}
 		
 		function minutosParaHorasTexto(minutos){

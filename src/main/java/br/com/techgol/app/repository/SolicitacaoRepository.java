@@ -1331,5 +1331,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			public Solicitacao findByDescricaoAndStatus(String string, Status aberto);
 			
 			//##################################################################################################################
+			
+			
 
 }

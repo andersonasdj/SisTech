@@ -14,6 +14,7 @@ import br.com.techgol.app.dto.DtoCadastroFuncionario;
 import br.com.techgol.app.dto.DtoFuncionarioAdvancedEdit;
 import br.com.techgol.app.dto.DtoFuncionarioAdvancedList;
 import br.com.techgol.app.dto.DtoFuncionarioEdit;
+import br.com.techgol.app.dto.DtoListarCustoFuncionarios;
 import br.com.techgol.app.dto.DtoListarFuncionarios;
 import br.com.techgol.app.dto.DtoSenha;
 import br.com.techgol.app.dto.DtoSolicitacoesFuncionario;
@@ -167,6 +168,10 @@ public class FuncionarioService {
 	
 	public List<DtoListarFuncionarios> listarAtivos() {
 		return repository.listarFuncionarios().stream().map(DtoListarFuncionarios::new).toList();
+	}
+	
+	public List<DtoListarCustoFuncionarios> listarCustoAtivos() {
+		return repository.listarFuncionarios().stream().map(DtoListarCustoFuncionarios::new).toList();
 	}
 	
 	public DtoFuncionarioEdit editar(Long id) {
