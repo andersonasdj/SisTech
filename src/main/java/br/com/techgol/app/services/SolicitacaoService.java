@@ -10,6 +10,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import br.com.techgol.app.dto.CustoOperacionalProjection;
 import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosMigracao;
@@ -39,6 +41,7 @@ import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
 import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompleta;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.DtoSolicitacoesRelatorioFuncionario;
+import br.com.techgol.app.dto.MetricasClienteProjection;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
@@ -1467,72 +1470,91 @@ public class SolicitacaoService {
 		return lista;
 	}
 	
+	
 	@PreAuthorize("hasRole('ROLE_SADMIN')")
 	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(
-	        LocalDate ini, LocalDate termino) {
-
-	    List<DtoClienteList> clientes = clienteService.listarAtivos();
-	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
-
-	    List<DtoRendimentosClientes> lista = new ArrayList<>();
+	        LocalDate ini,
+	        LocalDate termino
+	) {
 
 	    LocalDateTime inicio = ini.atTime(0, 0, 0);
 	    LocalDateTime fim = termino.atTime(23, 59, 59);
 
-	    // 🔹 FOR tradicional para permitir acumulação
+	    List<DtoClienteList> clientes = clienteService.listarAtivos();
+	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
+
+	    // 🔹 1 query: custos agrupados
+	    List<CustoOperacionalProjection> custosRaw =
+	        timeSheetService.buscarCustosAgrupados(inicio, fim);
+
+	    // 🔹 1 query: métricas consolidadas
+	    List<MetricasClienteProjection> metricasRaw =
+	    		timeSheetService.buscarMetricasPorCliente(inicio, fim);
+
+	    // ------------------------------
+	    // MAP: cliente → funcionario → minutos
+	    // ------------------------------
+	    Map<Long, Map<Long, BigDecimal>> custoMap = new HashMap<>();
+
+	    for (CustoOperacionalProjection c : custosRaw) {
+	        custoMap
+	            .computeIfAbsent(c.getClienteId(), k -> new HashMap<>())
+	            .put(c.getFuncionarioId(), c.getTotalMinutos());
+	    }
+
+	    // ------------------------------
+	    // MAP: cliente → métricas
+	    // ------------------------------
+	    Map<Long, MetricasClienteProjection> metricasMap = new HashMap<>();
+	    for (MetricasClienteProjection m : metricasRaw) {
+	        metricasMap.put(m.getClienteId(), m);
+	    }
+
+	    // ------------------------------
+	    // Cálculo final em memória
+	    // ------------------------------
+	    List<DtoRendimentosClientes> lista = new ArrayList<>();
+
 	    for (DtoClienteList cliente : clientes) {
 
 	        BigDecimal custoOperacional = BigDecimal.ZERO;
 
+	        Map<Long, BigDecimal> custosCliente =
+	            custoMap.getOrDefault(cliente.id(), Map.of());
+
 	        for (DtoListarCustoFuncionarios func : funcionarios) {
 
-	            BigDecimal minutosTrabalhados =
-	                timeSheetService.custoOperacionalTecPorCliente(
-	                    cliente.id(), inicio, fim, func.id()
-	                );
+	            BigDecimal minutos =
+	                custosCliente.getOrDefault(func.id(), BigDecimal.ZERO);
 
-	            if (minutosTrabalhados != null && func.valorHora() != null) {
-	            	
-	            	// minutos / 60 = horas
-	                BigDecimal horasTrabalhadas = minutosTrabalhados.divide(
+	            if (func.valorHora() != null && minutos.compareTo(BigDecimal.ZERO) > 0) {
+
+	                BigDecimal horas = minutos.divide(
 	                    BigDecimal.valueOf(60),
-	                    2, // escala (casas decimais)
+	                    2,
 	                    RoundingMode.HALF_UP
 	                );
 
-	                BigDecimal custoFuncionario =
-	                    horasTrabalhadas.multiply(func.valorHora());
-
-	                custoOperacional = custoOperacional.add(custoFuncionario);
+	                custoOperacional = custoOperacional.add(
+	                    horas.multiply(func.valorHora())
+	                );
 	            }
 	        }
 
-	        int qtdFechadas =
-	            repository.totalFechadasPeriodoPorCliente(
-	                cliente.id(), false, inicio, fim
-	            );
-
-	        int qtdAtualizados =
-	            repository.totalAtualizadosPeriodoPorCliente(
-	                cliente.id(), false, inicio, fim
-	            );
-
-	        Long qtdHoras =
-	            repository.totalHorasPeriodoPorCliente(
-	                cliente.id(), inicio, fim
-	            );
-
-	        int qtdAbertos =
-	            repository.totalabertasPeriodoPorCliente(
-	                cliente.id(), false, inicio, fim
-	            );
+	        MetricasClienteProjection m =
+	        	    metricasMap.get(cliente.id());
+	        
+	        long qtdFechadas   = m != null ? m.getQtdFechadas()   : 0;
+	        long qtdAtualizados= m != null ? m.getQtdAtualizados(): 0;
+	        long qtdAbertos    = m != null ? m.getQtdAbertos()    : 0;
+	        long totalMinutos  = m != null ? m.getTotalMinutos().longValue() : 0L;
 
 	        lista.add(
 	            new DtoRendimentosClientes(
 	                cliente.nomeCliente(),
 	                qtdFechadas,
 	                qtdAtualizados,
-	                qtdHoras != null ? qtdHoras : 0L,
+	                totalMinutos,
 	                cliente.tempoContratado(),
 	                qtdAbertos,
 	                cliente.id(),
@@ -1547,6 +1569,101 @@ public class SolicitacaoService {
 
 	    return lista;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@PreAuthorize("hasRole('ROLE_SADMIN')")
+//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(
+//	        LocalDate ini, LocalDate termino) {
+//
+//	    List<DtoClienteList> clientes = clienteService.listarAtivos();
+//	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
+//
+//	    List<DtoRendimentosClientes> lista = new ArrayList<>();
+//
+//	    LocalDateTime inicio = ini.atTime(0, 0, 0);
+//	    LocalDateTime fim = termino.atTime(23, 59, 59);
+//
+//	    // 🔹 FOR tradicional para permitir acumulação
+//	    for (DtoClienteList cliente : clientes) {
+//
+//	        BigDecimal custoOperacional = BigDecimal.ZERO;
+//
+//	        for (DtoListarCustoFuncionarios func : funcionarios) {
+//
+//	            BigDecimal minutosTrabalhados =
+//	                timeSheetService.custoOperacionalTecPorCliente(
+//	                    cliente.id(), inicio, fim, func.id()
+//	                );
+//
+//	            if (minutosTrabalhados != null && func.valorHora() != null) {
+//	            	
+//	            	// minutos / 60 = horas
+//	                BigDecimal horasTrabalhadas = minutosTrabalhados.divide(
+//	                    BigDecimal.valueOf(60),
+//	                    2, // escala (casas decimais)
+//	                    RoundingMode.HALF_UP
+//	                );
+//
+//	                BigDecimal custoFuncionario =
+//	                    horasTrabalhadas.multiply(func.valorHora());
+//
+//	                custoOperacional = custoOperacional.add(custoFuncionario);
+//	            }
+//	        }
+//
+//	        int qtdFechadas =
+//	            repository.totalFechadasPeriodoPorCliente(
+//	                cliente.id(), false, inicio, fim
+//	            );
+//
+//	        int qtdAtualizados =
+//	            repository.totalAtualizadosPeriodoPorCliente(
+//	                cliente.id(), false, inicio, fim
+//	            );
+//
+//	        Long qtdHoras =
+//	            repository.totalHorasPeriodoPorCliente(
+//	                cliente.id(), inicio, fim
+//	            );
+//
+//	        int qtdAbertos =
+//	            repository.totalabertasPeriodoPorCliente(
+//	                cliente.id(), false, inicio, fim
+//	            );
+//
+//	        lista.add(
+//	            new DtoRendimentosClientes(
+//	                cliente.nomeCliente(),
+//	                qtdFechadas,
+//	                qtdAtualizados,
+//	                qtdHoras != null ? qtdHoras : 0L,
+//	                cliente.tempoContratado(),
+//	                qtdAbertos,
+//	                cliente.id(),
+//	                custoOperacional
+//	            )
+//	        );
+//	    }
+//
+//	    lista.sort(
+//	        Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed()
+//	    );
+//
+//	    return lista;
+//	}
 
 	
 //	@PreAuthorize("hasRole('ROLE_SADMIN')")

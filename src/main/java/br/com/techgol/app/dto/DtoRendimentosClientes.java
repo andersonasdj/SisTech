@@ -4,14 +4,15 @@ import java.math.BigDecimal;
 
 public record DtoRendimentosClientes(
 		String nomeCliente,
-		int qtdFinalizados,
-		int qtdAtualizados,
-		Long qtdHoras,
+		long qtdFinalizados,
+		long qtdAtualizados,
+		long qtdHoras,
 		Long tempoContratado,
-		int qtdAbertos,
+		long qtdAbertos,
 		Long clienteId,//,
 		BigDecimal custoOperacional
 		//List<DtoHistorico> historico
 		) {
+
 
 }

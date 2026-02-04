@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.techgol.app.dto.CustoOperacionalProjection;
+import br.com.techgol.app.dto.MetricasClienteProjection;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.TimeSheet;
@@ -155,6 +157,14 @@ public class TimeSheetService {
 
 	public BigDecimal custoOperacionalTecPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim, Long idFuncionario) {
 		return repository.custoOperacionalTecPorCliente(id, inicio, fim, idFuncionario);
+	}
+
+	public List<CustoOperacionalProjection> buscarCustosAgrupados(LocalDateTime inicio, LocalDateTime fim) {
+		return repository.buscarCustosAgrupados(inicio, fim);
+	}
+
+	public List<MetricasClienteProjection> buscarMetricasPorCliente(LocalDateTime inicio, LocalDateTime fim) {
+		return solicitacaoRepository.buscarMetricasPorCliente(inicio, fim);
 	}
 	
 }

@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import br.com.techgol.app.dto.CustoOperacionalProjection;
 import br.com.techgol.app.model.TimeSheet;
 import br.com.techgol.app.orm.TimelineProjecao;
 import br.com.techgol.app.orm.TimesheetProjecao;
@@ -84,4 +86,24 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 			+ "AND t.fim <= :fim "
 			+ "AND t.funcionario_id = :funcionarioId")
 	public BigDecimal custoOperacionalTecPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim, Long funcionarioId);
+	
+	
+	
+	@Query(
+	        value = """
+	            SELECT 
+	                t.idcliente        AS clienteId,
+	                t.funcionario_id   AS funcionarioId,
+	                COALESCE(SUM(t.duracao), 0) AS totalMinutos
+	            FROM timesheet t
+	            WHERE t.inicio >= :inicio
+	              AND t.inicio <  :fim
+	            GROUP BY t.idcliente, t.funcionario_id
+	        """,
+	        nativeQuery = true
+	    )
+	    List<CustoOperacionalProjection> buscarCustosAgrupados(
+	        @Param("inicio") LocalDateTime inicio,
+	        @Param("fim") LocalDateTime fim
+	    );
 }

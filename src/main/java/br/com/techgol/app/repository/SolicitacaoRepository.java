@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import br.com.techgol.app.dto.MetricasClienteProjection;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
@@ -1329,6 +1330,26 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			public int totalPorClientePeriodoDataAtualizado(Long id, Boolean excluido,  LocalDateTime dataInicio, LocalDateTime dataFim);
 
 			public Solicitacao findByDescricaoAndStatus(String string, Status aberto);
+
+			@Query(
+			        value = """
+			            SELECT
+			                s.cliente_id AS clienteId,
+			                SUM(CASE WHEN s.status = 'FECHADA' THEN 1 ELSE 0 END)     AS qtdFechadas,
+			                SUM(CASE WHEN s.status = 'ATUALIZADA' THEN 1 ELSE 0 END)  AS qtdAtualizados,
+			                SUM(CASE WHEN s.status = 'ABERTA' THEN 1 ELSE 0 END)      AS qtdAbertos,
+			                COALESCE(SUM(s.duracao), 0)                              AS totalMinutos
+			            FROM solicitacoes s
+			            WHERE s.dataFinalizado >= :inicio
+			              AND s.dataFinalizado <  :fim
+			            GROUP BY s.cliente_id
+			        """,
+			        nativeQuery = true
+			    )
+			    List<MetricasClienteProjection> buscarMetricasPorCliente(
+			        @Param("inicio") LocalDateTime inicio,
+			        @Param("fim") LocalDateTime fim
+			    );
 			
 			//##################################################################################################################
 			
