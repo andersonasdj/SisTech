@@ -1519,36 +1519,30 @@ public class SolicitacaoService {
 
 	        BigDecimal custoOperacional = BigDecimal.ZERO;
 
-	        Map<Long, BigDecimal> custosCliente =
-	            custoMap.getOrDefault(cliente.id(), Map.of());
+	        Map<Long, BigDecimal> custosCliente = custoMap.getOrDefault(cliente.id(), Map.of());
 
 	        for (DtoListarCustoFuncionarios func : funcionarios) {
 
-	            BigDecimal minutos =
-	                custosCliente.getOrDefault(func.id(), BigDecimal.ZERO);
+	            BigDecimal minutos = custosCliente.getOrDefault(func.id(), BigDecimal.ZERO);
 
 	            if (func.valorHora() != null && minutos.compareTo(BigDecimal.ZERO) > 0) {
 
-	                BigDecimal horas = minutos.divide(
-	                    BigDecimal.valueOf(60),
-	                    2,
-	                    RoundingMode.HALF_UP
-	                );
-
-	                custoOperacional = custoOperacional.add(
-	                    horas.multiply(func.valorHora())
-	                );
+	                BigDecimal horas = minutos.divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
+	                custoOperacional = custoOperacional.add(horas.multiply(func.valorHora()));
 	            }
 	        }
 
-	        MetricasClienteProjection m =
-	        	    metricasMap.get(cliente.id());
+	        MetricasClienteProjection m = metricasMap.get(cliente.id());
 	        
 	        long qtdFechadas   = m != null ? m.getQtdFechadas()   : 0;
 	        long qtdAtualizados= m != null ? m.getQtdAtualizados(): 0;
 	        long qtdAbertos    = m != null ? m.getQtdAbertos()    : 0;
 	        long totalMinutos  = m != null ? m.getTotalMinutos().longValue() : 0L;
 
+	        System.out.println("ABERT: " + qtdAbertos);
+	        System.out.println("FECHA: " + qtdFechadas);
+	        System.out.println("\n");
+	        
 	        lista.add(
 	            new DtoRendimentosClientes(
 	                cliente.nomeCliente(),

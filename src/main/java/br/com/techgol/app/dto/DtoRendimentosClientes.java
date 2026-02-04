@@ -9,9 +9,8 @@ public record DtoRendimentosClientes(
 		long qtdHoras,
 		Long tempoContratado,
 		long qtdAbertos,
-		Long clienteId,//,
+		Long clienteId,
 		BigDecimal custoOperacional
-		//List<DtoHistorico> historico
 		) {
 
 

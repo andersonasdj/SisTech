@@ -1334,15 +1334,43 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			@Query(
 			        value = """
 			            SELECT
-			                s.cliente_id AS clienteId,
-			                SUM(CASE WHEN s.status = 'FECHADA' THEN 1 ELSE 0 END)     AS qtdFechadas,
-			                SUM(CASE WHEN s.status = 'ATUALIZADA' THEN 1 ELSE 0 END)  AS qtdAtualizados,
-			                SUM(CASE WHEN s.status = 'ABERTA' THEN 1 ELSE 0 END)      AS qtdAbertos,
-			                COALESCE(SUM(s.duracao), 0)                              AS totalMinutos
-			            FROM solicitacoes s
-			            WHERE s.dataFinalizado >= :inicio
-			              AND s.dataFinalizado <  :fim
-			            GROUP BY s.cliente_id
+						    s.cliente_id AS clienteId,
+						    SUM(
+						        CASE
+						            WHEN s.status = 'FINALIZADO'
+						             AND s.dataFinalizado >= :inicio
+						             AND s.dataFinalizado <  :fim
+						            THEN 1 ELSE 0
+						        END
+						    ) AS qtdFechadas,
+						    SUM(
+						        CASE
+						            WHEN s.dataAtualizacao >= :inicio
+						             AND s.dataAtualizacao <  :fim
+						            THEN 1 ELSE 0
+						        END
+						    ) AS qtdAtualizados,
+						    SUM(
+						        CASE
+						            WHEN s.dataAbertura >= :inicio
+						             AND s.dataAbertura <  :fim
+						            THEN 1 ELSE 0
+						        END
+						    ) AS qtdAbertos,
+						    COALESCE(
+						        SUM(
+						            CASE
+						                WHEN s.status = 'FINALIZADO'
+						                 AND s.dataFinalizado >= :inicio
+						                 AND s.dataFinalizado <  :fim
+						                THEN s.duracao
+						                ELSE 0
+						            END
+						        ), 0
+						    ) AS totalMinutos
+						
+						FROM solicitacoes s
+						GROUP BY s.cliente_id;
 			        """,
 			        nativeQuery = true
 			    )

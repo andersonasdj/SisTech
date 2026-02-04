@@ -87,8 +87,6 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 			+ "AND t.funcionario_id = :funcionarioId")
 	public BigDecimal custoOperacionalTecPorCliente(Long id, LocalDateTime inicio, LocalDateTime fim, Long funcionarioId);
 	
-	
-	
 	@Query(
 	        value = """
 	            SELECT 
@@ -97,7 +95,7 @@ public interface TimesheetRepository extends JpaRepository<TimeSheet, Long> {
 	                COALESCE(SUM(t.duracao), 0) AS totalMinutos
 	            FROM timesheet t
 	            WHERE t.inicio >= :inicio
-	              AND t.inicio <  :fim
+	              AND t.fim <  :fim
 	            GROUP BY t.idcliente, t.funcionario_id
 	        """,
 	        nativeQuery = true
