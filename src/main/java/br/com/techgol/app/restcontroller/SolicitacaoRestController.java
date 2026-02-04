@@ -225,7 +225,7 @@ public class SolicitacaoRestController {
 	private DtoDadosParaSolicitacao listagemUsuariosAtivosCondicional() {
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
 		
-		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+		if(funcionarioBase.getRole().toString().equals("SADMIN")|| funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return new DtoDadosParaSolicitacao(clienteService.listarNomesClienteAtivos(),
 					clienteService.listarIdClienteAtivos(), 
 					funcionarioService.listarNomesFuncionariosAtivos(),
@@ -406,8 +406,10 @@ public class SolicitacaoRestController {
 			solicitacao.setFuncionario(funcionario);
 		}
 		
-		if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
-			solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
+		if(dados.status().equals(Status.AGENDADO)) {
+			if(!dados.dataAgendado().isBlank() || !dados.dataAgendado().isEmpty()) {
+				solicitacao.setDataAgendado(LocalDateTime.parse(dados.dataAgendado()+"T"+dados.horaAgendado()));
+			}
 		}
 		
 		if(dados.status().equals(Status.FINALIZADO) && !dados.dataAndamento().isBlank() && !dados.dataFinalizado().isBlank()) {

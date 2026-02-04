@@ -23,6 +23,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.CustoOperacionalProjection;
+import br.com.techgol.app.dto.DashboardClienteProjection;
+import br.com.techgol.app.dto.DashboardFuncionarioProjection;
 import br.com.techgol.app.dto.DtoClienteList;
 import br.com.techgol.app.dto.DtoDadosEdicaoRapida;
 import br.com.techgol.app.dto.DtoDadosMigracao;
@@ -492,16 +494,18 @@ public class SolicitacaoService {
 			
 		}
 		if(dados.status().equals(Status.FINALIZADO)) {
-			solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
+			//solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
 			if(solicitacao.getDuracao() != null) {
 				if(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + solicitacao.getDuracao() < 15) {
 					solicitacao.setDuracao(15l);
-					
+					solicitacao.setDataFinalizado(LocalDateTime.now().plusMinutes(15).withNano(0));
+
 					cadastraTimeSheetSemSoma(dados.status(), solicitacao);
 					
 				}else {
 					Long tempoAnterior = solicitacao.getDuracao();
 					solicitacao.setDuracao(Duration.between(solicitacao.getDataAndamento(), LocalDateTime.now()).toMinutes() + tempoAnterior);
+					solicitacao.setDataFinalizado(LocalDateTime.now().withNano(0));
 					
 					timeSheetService.cadastraTimesheet(
 							solicitacao, solicitacao.getFuncionario(),
@@ -561,9 +565,7 @@ public class SolicitacaoService {
 	}
 	
 	public ProjecaoDadosImpressao impressao(Long id) {
-		
 		return repository.impressaoPorId(id);
-		
 	}
 
 	public List<Solicitacao> buscarTodos() {
@@ -615,10 +617,8 @@ public class SolicitacaoService {
 		LogSolicitacao log = logSolicitacaoRepository.save(new LogSolicitacao(solicitacao));
 		
 		solicitacao.setLog(log);
-		
 		solicitacao.setPeso(calcularPeso(solicitacao));
 		solicitacao.setVersao(0);
-		
 		
 		Solicitacao solicitacaoSalva = repository.save(solicitacao);
 		
@@ -627,7 +627,6 @@ public class SolicitacaoService {
 		}
 
 		DtoSolicitacaoComFuncionario dados = new DtoSolicitacaoComFuncionario(solicitacaoSalva);
-		
 		
 		if(config.isStatus() && !config.getEmail().isEmpty()) {
 			envia.enviar(dados); // ### ENVIA EMAIL NO CADASTRO
@@ -638,102 +637,186 @@ public class SolicitacaoService {
 		return dados;
 	}
 	
+//	public DtoDashboardCliente geraDashboardCliente(Long id) {
+//		
+//		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
+//		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
+//		Long totalMinutosMes=0l;
+//		LocalDate dataPesquisa = LocalDate.now().plusDays(-LocalDate.now().getDayOfMonth()).plusDays(1);
+//		LocalDateTime dataDePesquisa;
+//		dataDePesquisa = dataPesquisa.atTime(00, 00, 00);
+//		
+//		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString(), false);
+//		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString(), false);
+//		email = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.EMAIL.toString(), false);
+//		telefone = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.TELEFONE.toString(), false);
+//		local = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.LOCAL.toString(), false);
+//		whatsapp = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.WHATSAPP.toString(), false);
+//		proativo = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.PROATIVO.toString(), false);
+//		problema = repository.totalPorClassificacaoPorCliente(id, Classificacao.PROBLEMA.toString(), false);
+//		incidente = repository.totalPorClassificacaoPorCliente(id, Classificacao.INCIDENTE.toString(), false);
+//		solicitacao = repository.totalPorClassificacaoPorCliente(id, Classificacao.SOLICITACAO.toString(), false);
+//		backup = repository.totalPorClassificacaoPorCliente(id, Classificacao.BACKUP.toString(), false);
+//		acesso = repository.totalPorClassificacaoPorCliente(id, Classificacao.ACESSO.toString(), false);
+//		evento = repository.totalPorClassificacaoPorCliente(id, Classificacao.EVENTO.toString(), false);
+//		baixa = repository.totalPorPrioridadePorCliente(id, Prioridade.BAIXA.toString(), false);
+//		media = repository.totalPorPrioridadePorCliente(id, Prioridade.MEDIA.toString(), false);
+//		alta = repository.totalPorPrioridadePorCliente(id, Prioridade.ALTA.toString(), false);
+//		critica = repository.totalPorPrioridadePorCliente(id, Prioridade.CRITICA.toString(), false);
+//		planejada = repository.totalPorPrioridadePorCliente(id, Prioridade.PLANEJADA.toString(), false);
+//		aberto = repository.countByClienteIdAndStatusAndExcluido(id, Status.ABERTO, false);
+//		andamento = repository.countByClienteIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
+//		agendado = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGENDADO, false);
+//		aguardando = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGUARDANDO, false);
+//		pausado = repository.countByClienteIdAndStatusAndExcluido(id, Status.PAUSADO, false);
+//		finalizado = repository.countByClienteIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
+//		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+//		totalMesCorrente = repository.countByClienteIdAndExcluidoAndDataFinalizadoAfter(id, false, dataDePesquisa);
+//		
+//		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);;
+//		
+//		for (PojecaoResumidaFinalizados s : solicitacoes) {
+//			if(s.getDuracao() != null) {
+//				totalMinutosMes += s.getDuracao();
+//			}
+//		}
+//		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
+//				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
+//				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
+//				totalMinutosMes, email, telefone, local, whatsapp, proativo);
+//	}
+	
+//	public DtoDashboardCliente geraDashboardFuncionario(Long id) {
+//		
+//		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
+//		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
+//		Long totalMinutosMes=0l;
+//		LocalDate dataPesquisa = LocalDate.now().plusDays(-LocalDate.now().getDayOfMonth()).plusDays(1);
+//		LocalDateTime dataDePesquisa;
+//		dataDePesquisa = dataPesquisa.atTime(00, 00, 00);
+//		
+//		onsite = repository.totalPorLocalPorFuncionario(id, Local.ONSITE.toString(), false);
+//		offsite = repository.totalPorLocalPorFuncionario(id, Local.OFFSITE.toString(), false);
+//		email = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.EMAIL.toString(), false);
+//		telefone = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.TELEFONE.toString(), false);
+//		local = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.LOCAL.toString(), false);
+//		whatsapp = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.WHATSAPP.toString(), false);
+//		proativo = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.PROATIVO.toString(), false);
+//		problema = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.PROBLEMA.toString(), false);
+//		incidente = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.INCIDENTE.toString(), false);
+//		solicitacao = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.SOLICITACAO.toString(), false);
+//		backup = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.BACKUP.toString(), false);
+//		acesso = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.ACESSO.toString(), false);
+//		evento = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.EVENTO.toString(), false);
+//		baixa = repository.totalPorPrioridadePorFuncionario(id, Prioridade.BAIXA.toString(), false);
+//		media = repository.totalPorPrioridadePorFuncionario(id, Prioridade.MEDIA.toString(), false);
+//		alta = repository.totalPorPrioridadePorFuncionario(id, Prioridade.ALTA.toString(), false);
+//		critica = repository.totalPorPrioridadePorFuncionario(id, Prioridade.CRITICA.toString(), false);
+//		planejada = repository.totalPorPrioridadePorFuncionario(id, Prioridade.PLANEJADA.toString(), false);
+//		aberto = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ABERTO, false);
+//		andamento = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
+//		agendado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.AGENDADO, false);
+//		aguardando = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.AGUARDANDO, false);
+//		pausado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.PAUSADO, false);
+//		finalizado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
+//		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
+//		totalMesCorrente = repository.countByFuncionarioIdAndExcluidoAndDataFinalizadoAfter(id, false, dataDePesquisa);
+//		
+//		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByFuncionarioIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);
+//		
+//		for (PojecaoResumidaFinalizados s : solicitacoes) {
+//			if(s.getDuracao() != null) {
+//				totalMinutosMes += s.getDuracao();
+//			}
+//		}
+//		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
+//				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
+//				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
+//				totalMinutosMes, email, telefone, local, whatsapp, proativo);
+//	}
+	
+	
+	
 	public DtoDashboardCliente geraDashboardCliente(Long id) {
-		
-		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
-		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
-		Long totalMinutosMes=0l;
-		LocalDate dataPesquisa = LocalDate.now().plusDays(-LocalDate.now().getDayOfMonth()).plusDays(1);
-		LocalDateTime dataDePesquisa;
-		dataDePesquisa = dataPesquisa.atTime(00, 00, 00);
-		
-		onsite = repository.totalPorLocalPorCliente(id, Local.ONSITE.toString(), false);
-		offsite = repository.totalPorLocalPorCliente(id, Local.OFFSITE.toString(), false);
-		email = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.EMAIL.toString(), false);
-		telefone = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.TELEFONE.toString(), false);
-		local = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.LOCAL.toString(), false);
-		whatsapp = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.WHATSAPP.toString(), false);
-		proativo = repository.totalPorFormaAberturaPorCliente(id, FormaAbertura.PROATIVO.toString(), false);
-		problema = repository.totalPorClassificacaoPorCliente(id, Classificacao.PROBLEMA.toString(), false);
-		incidente = repository.totalPorClassificacaoPorCliente(id, Classificacao.INCIDENTE.toString(), false);
-		solicitacao = repository.totalPorClassificacaoPorCliente(id, Classificacao.SOLICITACAO.toString(), false);
-		backup = repository.totalPorClassificacaoPorCliente(id, Classificacao.BACKUP.toString(), false);
-		acesso = repository.totalPorClassificacaoPorCliente(id, Classificacao.ACESSO.toString(), false);
-		evento = repository.totalPorClassificacaoPorCliente(id, Classificacao.EVENTO.toString(), false);
-		baixa = repository.totalPorPrioridadePorCliente(id, Prioridade.BAIXA.toString(), false);
-		media = repository.totalPorPrioridadePorCliente(id, Prioridade.MEDIA.toString(), false);
-		alta = repository.totalPorPrioridadePorCliente(id, Prioridade.ALTA.toString(), false);
-		critica = repository.totalPorPrioridadePorCliente(id, Prioridade.CRITICA.toString(), false);
-		planejada = repository.totalPorPrioridadePorCliente(id, Prioridade.PLANEJADA.toString(), false);
-		aberto = repository.countByClienteIdAndStatusAndExcluido(id, Status.ABERTO, false);
-		andamento = repository.countByClienteIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
-		agendado = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGENDADO, false);
-		aguardando = repository.countByClienteIdAndStatusAndExcluido(id, Status.AGUARDANDO, false);
-		pausado = repository.countByClienteIdAndStatusAndExcluido(id, Status.PAUSADO, false);
-		finalizado = repository.countByClienteIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
-		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
-		totalMesCorrente = repository.countByClienteIdAndExcluidoAndDataFinalizadoAfter(id, false, dataDePesquisa);
-		
-		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByClienteIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);;
-		
-		for (PojecaoResumidaFinalizados s : solicitacoes) {
-			if(s.getDuracao() != null) {
-				totalMinutosMes += s.getDuracao();
-			}
-		}
-		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
-				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
-				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
-				totalMinutosMes, email, telefone, local, whatsapp, proativo);
+
+	    LocalDateTime inicioMes = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+
+	    DashboardClienteProjection p = repository.gerarDashboardCliente(id, inicioMes);
+
+	    int totalSolicitacoes = p.getAberto() + p.getAndamento() + p.getAgendado() + p.getAguardando() + p.getPausado() + p.getFinalizado();
+
+	    return new DtoDashboardCliente(
+	        p.getOnsite(),
+	        p.getOffsite(),
+	        p.getProblema(),
+	        p.getIncidente(),
+	        p.getSolicitacao(),
+	        p.getBackup(),
+	        p.getAcesso(),
+	        p.getEvento(),
+	        p.getBaixa(),
+	        p.getMedia(),
+	        p.getAlta(),
+	        p.getCritica(),
+	        p.getPlanejada(),
+	        p.getAberto(),
+	        p.getAndamento(),
+	        p.getAgendado(),
+	        p.getAguardando(),
+	        p.getPausado(),
+	        p.getFinalizado(),
+	        totalSolicitacoes,
+	        p.getTotalMesCorrente(),
+	        p.getTotalMinutosMes(),
+	        p.getEmail(),
+	        p.getTelefone(),
+	        p.getLocal(),
+	        p.getWhatsapp(),
+	        p.getProativo()
+	    );
 	}
 	
 	public DtoDashboardCliente geraDashboardFuncionario(Long id) {
-		
-		int onsite,offsite,problema,incidente,solicitacao,backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,agendado,aguardando,pausado,finalizado,totalSolicitacoes;
-		int totalMesCorrente, email, telefone, local, whatsapp, proativo;
-		Long totalMinutosMes=0l;
-		LocalDate dataPesquisa = LocalDate.now().plusDays(-LocalDate.now().getDayOfMonth()).plusDays(1);
-		LocalDateTime dataDePesquisa;
-		dataDePesquisa = dataPesquisa.atTime(00, 00, 00);
-		
-		onsite = repository.totalPorLocalPorFuncionario(id, Local.ONSITE.toString(), false);
-		offsite = repository.totalPorLocalPorFuncionario(id, Local.OFFSITE.toString(), false);
-		email = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.EMAIL.toString(), false);
-		telefone = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.TELEFONE.toString(), false);
-		local = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.LOCAL.toString(), false);
-		whatsapp = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.WHATSAPP.toString(), false);
-		proativo = repository.totalPorFormaAberturaPorFuncionario(id, FormaAbertura.PROATIVO.toString(), false);
-		problema = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.PROBLEMA.toString(), false);
-		incidente = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.INCIDENTE.toString(), false);
-		solicitacao = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.SOLICITACAO.toString(), false);
-		backup = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.BACKUP.toString(), false);
-		acesso = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.ACESSO.toString(), false);
-		evento = repository.totalPorClassificacaoPorFuncionario(id, Classificacao.EVENTO.toString(), false);
-		baixa = repository.totalPorPrioridadePorFuncionario(id, Prioridade.BAIXA.toString(), false);
-		media = repository.totalPorPrioridadePorFuncionario(id, Prioridade.MEDIA.toString(), false);
-		alta = repository.totalPorPrioridadePorFuncionario(id, Prioridade.ALTA.toString(), false);
-		critica = repository.totalPorPrioridadePorFuncionario(id, Prioridade.CRITICA.toString(), false);
-		planejada = repository.totalPorPrioridadePorFuncionario(id, Prioridade.PLANEJADA.toString(), false);
-		aberto = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ABERTO, false);
-		andamento = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.ANDAMENTO, false);
-		agendado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.AGENDADO, false);
-		aguardando = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.AGUARDANDO, false);
-		pausado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.PAUSADO, false);
-		finalizado = repository.countByFuncionarioIdAndStatusAndExcluido(id, Status.FINALIZADO, false);
-		totalSolicitacoes = aberto+andamento+agendado+aguardando+pausado+finalizado;
-		totalMesCorrente = repository.countByFuncionarioIdAndExcluidoAndDataFinalizadoAfter(id, false, dataDePesquisa);
-		
-		List<PojecaoResumidaFinalizados> solicitacoes = repository.findByFuncionarioIdAndExcluidoAndStatusAndDataFinalizadoAfter(id, false, Status.FINALIZADO, dataDePesquisa);
-		
-		for (PojecaoResumidaFinalizados s : solicitacoes) {
-			if(s.getDuracao() != null) {
-				totalMinutosMes += s.getDuracao();
-			}
-		}
-		return new DtoDashboardCliente(onsite,offsite,problema,incidente,solicitacao,
-				backup,acesso,evento,baixa,media,alta,critica,planejada,aberto,andamento,
-				agendado,aguardando,pausado,finalizado,totalSolicitacoes, totalMesCorrente, 
-				totalMinutosMes, email, telefone, local, whatsapp, proativo);
+
+	    LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
+	    LocalDateTime inicioMesTime = inicioMes.atStartOfDay();
+
+	    DashboardFuncionarioProjection p =
+	        repository.gerarDashboardFuncionario(id, inicioMesTime);
+
+	    int totalSolicitacoes =
+	        p.getAberto() + p.getAndamento() + p.getAgendado()
+	      + p.getAguardando() + p.getPausado() + p.getFinalizado();
+
+	    return new DtoDashboardCliente(
+	        p.getOnsite(),
+	        p.getOffsite(),
+	        p.getProblema(),
+	        p.getIncidente(),
+	        p.getSolicitacao(),
+	        p.getBackup(),
+	        p.getAcesso(),
+	        p.getEvento(),
+	        p.getBaixa(),
+	        p.getMedia(),
+	        p.getAlta(),
+	        p.getCritica(),
+	        p.getPlanejada(),
+	        p.getAberto(),
+	        p.getAndamento(),
+	        p.getAgendado(),
+	        p.getAguardando(),
+	        p.getPausado(),
+	        p.getFinalizado(),
+	        totalSolicitacoes,
+	        p.getTotalMesCorrente(),
+	        p.getTotalMinutosMes(),
+	        p.getEmail(),
+	        p.getTelefone(),
+	        p.getLocal(),
+	        p.getWhatsapp(),
+	        p.getProativo()
+	    );
 	}
 	
 	public DtoDashboardFuncionarios geraDashboardFuncionarioPorPeriodo(Long id, String periodo, LocalDate ini, LocalDate termino) {
@@ -1466,16 +1549,12 @@ public class SolicitacaoService {
 		});
 		
 		lista.sort(Comparator.comparing(DtoRendimentosFuncionarios::qtdHoras).reversed());
-		
 		return lista;
 	}
 	
 	
 	@PreAuthorize("hasRole('ROLE_SADMIN')")
-	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(
-	        LocalDate ini,
-	        LocalDate termino
-	) {
+	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
 
 	    LocalDateTime inicio = ini.atTime(0, 0, 0);
 	    LocalDateTime fim = termino.atTime(23, 59, 59);
@@ -1483,16 +1562,16 @@ public class SolicitacaoService {
 	    List<DtoClienteList> clientes = clienteService.listarAtivos();
 	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
 
-	    // 🔹 1 query: custos agrupados
+	    //1 query: custos agrupados
 	    List<CustoOperacionalProjection> custosRaw =
 	        timeSheetService.buscarCustosAgrupados(inicio, fim);
 
-	    // 🔹 1 query: métricas consolidadas
+	    //1 query: métricas consolidadas
 	    List<MetricasClienteProjection> metricasRaw =
 	    		timeSheetService.buscarMetricasPorCliente(inicio, fim);
 
 	    // ------------------------------
-	    // MAP: cliente → funcionario → minutos
+	    //MAP: cliente → funcionario → minutos
 	    // ------------------------------
 	    Map<Long, Map<Long, BigDecimal>> custoMap = new HashMap<>();
 
@@ -1502,17 +1581,17 @@ public class SolicitacaoService {
 	            .put(c.getFuncionarioId(), c.getTotalMinutos());
 	    }
 
-	    // ------------------------------
-	    // MAP: cliente → métricas
-	    // ------------------------------
+	    // ----------------------
+	    //MAP: cliente → métricas
+	    // ----------------------
 	    Map<Long, MetricasClienteProjection> metricasMap = new HashMap<>();
 	    for (MetricasClienteProjection m : metricasRaw) {
 	        metricasMap.put(m.getClienteId(), m);
 	    }
 
-	    // ------------------------------
-	    // Cálculo final em memória
-	    // ------------------------------
+	    // -----------------------
+	    //Cálculo final em memória
+	    // -----------------------
 	    List<DtoRendimentosClientes> lista = new ArrayList<>();
 
 	    for (DtoClienteList cliente : clientes) {
@@ -1538,10 +1617,6 @@ public class SolicitacaoService {
 	        long qtdAtualizados= m != null ? m.getQtdAtualizados(): 0;
 	        long qtdAbertos    = m != null ? m.getQtdAbertos()    : 0;
 	        long totalMinutos  = m != null ? m.getTotalMinutos().longValue() : 0L;
-
-	        System.out.println("ABERT: " + qtdAbertos);
-	        System.out.println("FECHA: " + qtdFechadas);
-	        System.out.println("\n");
 	        
 	        lista.add(
 	            new DtoRendimentosClientes(
@@ -1557,30 +1632,13 @@ public class SolicitacaoService {
 	        );
 	    }
 
-	    lista.sort(
-	        Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed()
-	    );
+	    lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
 
 	    return lista;
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 //	@PreAuthorize("hasRole('ROLE_SADMIN')")
-//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(
-//	        LocalDate ini, LocalDate termino) {
+//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
 //
 //	    List<DtoClienteList> clientes = clienteService.listarAtivos();
 //	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
@@ -1590,53 +1648,25 @@ public class SolicitacaoService {
 //	    LocalDateTime inicio = ini.atTime(0, 0, 0);
 //	    LocalDateTime fim = termino.atTime(23, 59, 59);
 //
-//	    // 🔹 FOR tradicional para permitir acumulação
 //	    for (DtoClienteList cliente : clientes) {
 //
 //	        BigDecimal custoOperacional = BigDecimal.ZERO;
-//
 //	        for (DtoListarCustoFuncionarios func : funcionarios) {
 //
-//	            BigDecimal minutosTrabalhados =
-//	                timeSheetService.custoOperacionalTecPorCliente(
-//	                    cliente.id(), inicio, fim, func.id()
-//	                );
+//	            BigDecimal minutosTrabalhados = timeSheetService.custoOperacionalTecPorCliente(cliente.id(), inicio, fim, func.id());
 //
 //	            if (minutosTrabalhados != null && func.valorHora() != null) {
-//	            	
 //	            	// minutos / 60 = horas
-//	                BigDecimal horasTrabalhadas = minutosTrabalhados.divide(
-//	                    BigDecimal.valueOf(60),
-//	                    2, // escala (casas decimais)
-//	                    RoundingMode.HALF_UP
-//	                );
-//
-//	                BigDecimal custoFuncionario =
-//	                    horasTrabalhadas.multiply(func.valorHora());
-//
+//	                BigDecimal horasTrabalhadas = minutosTrabalhados.divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
+//	                BigDecimal custoFuncionario = horasTrabalhadas.multiply(func.valorHora());
 //	                custoOperacional = custoOperacional.add(custoFuncionario);
 //	            }
 //	        }
 //
-//	        int qtdFechadas =
-//	            repository.totalFechadasPeriodoPorCliente(
-//	                cliente.id(), false, inicio, fim
-//	            );
-//
-//	        int qtdAtualizados =
-//	            repository.totalAtualizadosPeriodoPorCliente(
-//	                cliente.id(), false, inicio, fim
-//	            );
-//
-//	        Long qtdHoras =
-//	            repository.totalHorasPeriodoPorCliente(
-//	                cliente.id(), inicio, fim
-//	            );
-//
-//	        int qtdAbertos =
-//	            repository.totalabertasPeriodoPorCliente(
-//	                cliente.id(), false, inicio, fim
-//	            );
+//	        int qtdFechadas = repository.totalFechadasPeriodoPorCliente(cliente.id(), false, inicio, fim);
+//	        int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(cliente.id(), false, inicio, fim);
+//	        Long qtdHoras = repository.totalHorasPeriodoPorCliente(cliente.id(), inicio, fim);
+//	        int qtdAbertos = repository.totalabertasPeriodoPorCliente(cliente.id(), false, inicio, fim);
 //
 //	        lista.add(
 //	            new DtoRendimentosClientes(
@@ -1652,25 +1682,15 @@ public class SolicitacaoService {
 //	        );
 //	    }
 //
-//	    lista.sort(
-//	        Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed()
-//	    );
-//
+//	    lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
 //	    return lista;
 //	}
-
 	
 //	@PreAuthorize("hasRole('ROLE_SADMIN')")
-//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
-//		
+//	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {	
 //		
 //		List<DtoClienteList> clientes = clienteService.listarAtivos();
-//		List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
-//		
-//		funcionarios.forEach(f -> {
-//			System.out.println(f.id() +"\n"+f.valorHora());
-//		});
-//		
+//		List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();	
 //		List<DtoRendimentosClientes> lista = new ArrayList<>();
 //		
 //		LocalDateTime inicio, fim;
@@ -1687,10 +1707,8 @@ public class SolicitacaoService {
 //				if (horasTrabalhadas != null && func.valorHora() != null) {
 //					BigDecimal custoFuncionario = horasTrabalhadas.multiply(func.valorHora());
 //					custoOperacional = custoOperacional.add(custoFuncionario);
-//				}
-//				
-//			});
-//			
+//				}	
+//			});		
 //			
 //			int qtdFechadas = repository.totalFechadasPeriodoPorCliente(f.id(), false, inicio, fim);
 //			int qtdAtualizados = repository.totalAtualizadosPeriodoPorCliente(f.id(), false, inicio, fim);
@@ -1699,8 +1717,7 @@ public class SolicitacaoService {
 //			lista.add(new DtoRendimentosClientes(f.nomeCliente(), qtdFechadas, qtdAtualizados, (qtdHoras != null ? qtdHoras : 0l), f.tempoContratado(),qtdAbertos, f.id(), null));
 //		});
 //		
-//		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
-//		
+//		lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());		
 //		return lista;
 //	}
 	

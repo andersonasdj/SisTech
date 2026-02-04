@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import br.com.techgol.app.dto.DashboardClienteProjection;
+import br.com.techgol.app.dto.DashboardFuncionarioProjection;
 import br.com.techgol.app.dto.MetricasClienteProjection;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
@@ -1378,9 +1380,139 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 			        @Param("inicio") LocalDateTime inicio,
 			        @Param("fim") LocalDateTime fim
 			    );
+
+			@Query(
+				    value = """
+				        SELECT
+				            COALESCE(SUM(CASE WHEN s.local = 'ONSITE' THEN 1 ELSE 0 END), 0) AS onsite,
+				            COALESCE(SUM(CASE WHEN s.local = 'OFFSITE' THEN 1 ELSE 0 END), 0) AS offsite,
+
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'EMAIL' THEN 1 ELSE 0 END), 0) AS email,
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'TELEFONE' THEN 1 ELSE 0 END), 0) AS telefone,
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'LOCAL' THEN 1 ELSE 0 END), 0) AS local,
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'WHATSAPP' THEN 1 ELSE 0 END), 0) AS whatsapp,
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'PROATIVO' THEN 1 ELSE 0 END), 0) AS proativo,
+
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'PROBLEMA' THEN 1 ELSE 0 END), 0) AS problema,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'INCIDENTE' THEN 1 ELSE 0 END), 0) AS incidente,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'SOLICITACAO' THEN 1 ELSE 0 END), 0) AS solicitacao,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'BACKUP' THEN 1 ELSE 0 END), 0) AS backup,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'ACESSO' THEN 1 ELSE 0 END), 0) AS acesso,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'EVENTO' THEN 1 ELSE 0 END), 0) AS evento,
+
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'BAIXA' THEN 1 ELSE 0 END), 0) AS baixa,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'MEDIA' THEN 1 ELSE 0 END), 0) AS media,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'ALTA' THEN 1 ELSE 0 END), 0) AS alta,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'CRITICA' THEN 1 ELSE 0 END), 0) AS critica,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'PLANEJADA' THEN 1 ELSE 0 END), 0) AS planejada,
+
+				            COALESCE(SUM(CASE WHEN s.status = 'ABERTO' THEN 1 ELSE 0 END), 0) AS aberto,
+				            COALESCE(SUM(CASE WHEN s.status = 'ANDAMENTO' THEN 1 ELSE 0 END), 0) AS andamento,
+				            COALESCE(SUM(CASE WHEN s.status = 'AGENDADO' THEN 1 ELSE 0 END), 0) AS agendado,
+				            COALESCE(SUM(CASE WHEN s.status = 'AGUARDANDO' THEN 1 ELSE 0 END), 0) AS aguardando,
+				            COALESCE(SUM(CASE WHEN s.status = 'PAUSADO' THEN 1 ELSE 0 END), 0) AS pausado,
+				            COALESCE(SUM(CASE WHEN s.status = 'FINALIZADO' THEN 1 ELSE 0 END), 0) AS finalizado,
+
+				            COALESCE(SUM(
+				                CASE 
+				                    WHEN s.status = 'FINALIZADO'
+				                     AND s.dataFinalizado >= :inicioMes
+				                    THEN 1 ELSE 0
+				                END
+				            ), 0) AS totalMesCorrente,
+
+				            COALESCE(
+				                SUM(
+				                    CASE
+				                        WHEN s.status = 'FINALIZADO'
+				                         AND s.dataFinalizado >= :inicioMes
+				                        THEN s.duracao
+				                        ELSE 0
+				                    END
+				                ), 0
+				            ) AS totalMinutosMes
+
+				        FROM solicitacoes s
+				        WHERE s.funcionario_id = :funcionarioId
+				          AND s.excluido = false
+				    """,
+				    nativeQuery = true
+				)
+				DashboardFuncionarioProjection gerarDashboardFuncionario(
+				    @Param("funcionarioId") Long funcionarioId,
+				    @Param("inicioMes") LocalDateTime inicioMes
+				);
 			
+			
+			@Query(
+				    value = """
+				        SELECT
+				            -- Local
+				            COALESCE(SUM(CASE WHEN s.local = 'ONSITE' THEN 1 ELSE 0 END), 0) AS onsite,
+				    		COALESCE(SUM(CASE WHEN s.local = 'OFFSITE' THEN 1 ELSE 0 END), 0) AS offsite,
+				            
+				            -- Forma de abertura
+				            COALESCE(SUM(CASE WHEN s.formaAbertura = 'EMAIL' THEN 1 ELSE 0 END), 0) AS email,
+						    COALESCE(SUM(CASE WHEN s.formaAbertura = 'TELEFONE' THEN 1 ELSE 0 END), 0) AS telefone,
+						    COALESCE(SUM(CASE WHEN s.formaAbertura = 'LOCAL' THEN 1 ELSE 0 END), 0) AS local,
+						    COALESCE(SUM(CASE WHEN s.formaAbertura = 'WHATSAPP' THEN 1 ELSE 0 END), 0) AS whatsapp,
+						    COALESCE(SUM(CASE WHEN s.formaAbertura = 'PROATIVO' THEN 1 ELSE 0 END), 0) AS proativo,
+
+				            -- Classificação
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'PROBLEMA' THEN 1 ELSE 0 END),0) AS problema,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'INCIDENTE' THEN 1 ELSE 0 END),0) AS incidente,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'SOLICITACAO' THEN 1 ELSE 0 END),0) AS solicitacao,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'BACKUP' THEN 1 ELSE 0 END),0) AS backup,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'ACESSO' THEN 1 ELSE 0 END),0) AS acesso,
+				            COALESCE(SUM(CASE WHEN s.classificacao = 'EVENTO' THEN 1 ELSE 0 END),0) AS evento,
+
+				            -- Prioridade
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'BAIXA' THEN 1 ELSE 0 END),0) AS baixa,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'MEDIA' THEN 1 ELSE 0 END),0) AS media,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'ALTA' THEN 1 ELSE 0 END),0) AS alta,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'CRITICA' THEN 1 ELSE 0 END),0) AS critica,
+				            COALESCE(SUM(CASE WHEN s.prioridade = 'PLANEJADA' THEN 1 ELSE 0 END),0) AS planejada,
+
+				            -- Status
+				            COALESCE(SUM(CASE WHEN s.status = 'ABERTO' THEN 1 ELSE 0 END), 0) AS aberto,
+						    COALESCE(SUM(CASE WHEN s.status = 'ANDAMENTO' THEN 1 ELSE 0 END), 0) AS andamento,
+						    COALESCE(SUM(CASE WHEN s.status = 'AGENDADO' THEN 1 ELSE 0 END), 0) AS agendado,
+						    COALESCE(SUM(CASE WHEN s.status = 'AGUARDANDO' THEN 1 ELSE 0 END), 0) AS aguardando,
+						    COALESCE(SUM(CASE WHEN s.status = 'PAUSADO' THEN 1 ELSE 0 END), 0) AS pausado,
+						    COALESCE(SUM(CASE WHEN s.status = 'FINALIZADO' THEN 1 ELSE 0 END), 0) AS finalizado,
+
+				            -- Finalizadas no mês corrente
+				            COALESCE(SUM(
+				                CASE
+				                    WHEN s.status = 'FINALIZADO'
+				                     AND s.dataFinalizado >= :inicioMes
+				                    THEN 1 ELSE 0
+				                END
+				            ), 0) AS totalMesCorrente,
+
+				            -- Minutos finalizados no mês corrente
+				            COALESCE(
+				                SUM(
+				                    CASE
+				                        WHEN s.status = 'FINALIZADO'
+				                         AND s.dataFinalizado >= :inicioMes
+				                        THEN s.duracao
+				                        ELSE 0
+				                    END
+				                ), 0
+				            ) AS totalMinutosMes
+
+				        FROM solicitacoes s
+				        WHERE s.cliente_id = :clienteId
+				          AND s.excluido = false
+				    """,
+				    nativeQuery = true
+				)
+				DashboardClienteProjection gerarDashboardCliente(
+				    @Param("clienteId") Long clienteId,
+				    @Param("inicioMes") LocalDateTime inicioMes
+				);
+
 			//##################################################################################################################
-			
-			
 
 }
