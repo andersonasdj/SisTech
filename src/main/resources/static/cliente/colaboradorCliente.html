@@ -374,7 +374,6 @@
 		    });
 		}
 		
-		
 		var input = document.getElementById("palavraChave");
 		input.addEventListener("keypress", function(event) {
 		  if (event.key === "Enter") {
@@ -445,17 +444,21 @@
 							      </div>
 							    </div>
 
-							    <div class="card-footer text-end">
-							      <button class="btn btn-sm btn-outline-primary"
-							              onclick="editarColaborador(${c.id})">
-							        <i class="bi bi-pencil-square"></i> Detalhes
-							      </button>
-							    </div>
+								<div class="card-footer text-end">
+								  <button class="btn btn-sm btn-outline-primary me-1"
+								          onclick="editarColaborador(${c.id})">
+								    <i class="bi bi-pencil-square"></i> Editar
+								  </button>
+
+								  <button class="btn btn-sm btn-outline-danger"
+								          onclick="excluirColaborador(${c.id}, this)">
+								    <i class="bi bi-trash"></i> Excluir
+								  </button>
+								</div>
 
 							  </div>
 							</div>
 							`;
-
 
 		                $('#listaColaboradores').append(card);
 		            });
@@ -472,6 +475,25 @@
 		    });
 		}
 		
+		function excluirColaborador(id, btn) {
+		    if (!confirm("Tem certeza que deseja excluir o colaborador de ID: " + id + " ?")) return;
+
+		    const card = $(btn).closest('.col-xl-3');
+
+		    $.ajax({
+		        type: "DELETE",
+		        contentType: "application/json",
+		        url: "/sistech/colaborador/delete/" + id,
+		        success: function () {
+		            card.fadeOut(400, function () {
+		                $(this).remove();
+		            });
+		        },
+		        error: function () {
+		            alert("Erro ao tentar excluir o colaborador!");
+		        }
+		    });
+		}
 		
 		function atualizarColaborador() {
 
@@ -496,7 +518,6 @@
 		                .getInstance(document.getElementById('editarColaboradorModal'))
 		                .hide();
 
-		            // 🔄 Atualiza a lista mantendo a busca atual
 		            buscaPorPalavra();
 		        },
 		        statusCode: {
@@ -510,9 +531,6 @@
 		        }
 		    });
 		}
-
-
-
 			
 		const handlePhone = (event) => {
 		  let input = event.target
