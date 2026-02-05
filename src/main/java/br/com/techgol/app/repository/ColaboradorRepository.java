@@ -56,7 +56,8 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 	            c.vip            AS vip,
 	            c.cliente.id     AS cliente_id,
 	            c.email          AS email,
-	            c.cliente.nomeCliente	AS nomeCliente
+	            c.cliente.nomeCliente	AS nomeCliente,
+	            c.cliente.vip	AS vipCliente
 	        FROM Colaborador c
 	        WHERE 
 		        LOWER(c.nomeColaborador) LIKE LOWER(CONCAT('%', :dados, '%'))

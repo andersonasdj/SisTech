@@ -8,4 +8,5 @@ public interface ColaboradorProjecao{
 	String getCliente_id();
 	String getEmail();
 	String getNomeCliente();
+	String getVipCliente();
 }

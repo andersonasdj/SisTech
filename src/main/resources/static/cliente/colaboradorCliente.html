@@ -109,6 +109,66 @@
 			body.dark-mode .card-footer {
 			  border-top: 1px dashed rgba(255,255,255,.15);
 			}
+			
+			.bi-whatsapp {
+			  font-size: 1.1rem;
+			  vertical-align: middle;
+			}
+			
+			body.dark-mode .badge.bg-light {
+			  background-color: #2c3034 !important;
+			  color: #f8f9fa !important;
+			  border-color: #444;
+			}
+			
+			
+			
+			/* Cliente normal */
+			.badge-cliente {
+			  background-color: #f8f9fa;
+			  color: #495057;
+			  border: 1px solid #dee2e6;
+			  font-weight: 500;
+			}
+
+			/* Cliente VIP */
+			.badge-cliente-vip {
+			  background: linear-gradient(135deg, #fff3cd, #ffe8a1);
+			  color: #664d03;
+			  border: 1px solid #ffecb5;
+			  font-weight: 600;
+			}
+
+			/* Dark mode */
+			body.dark-mode .badge-cliente {
+			  background-color: #2c3034;
+			  color: #e9ecef;
+			  border-color: #444;
+			}
+
+			body.dark-mode .badge-cliente-vip {
+			  background: linear-gradient(135deg, #5c4b00, #7a5f00);
+			  color: #fff3cd;
+			  border-color: #856404;
+			}
+
+			/* Colaborador VIP */
+			.badge-colaborador-vip {
+			  background: linear-gradient(135deg, #e7f1ff, #d0e2ff);
+			  color: #0d3b66;
+			  font-size: .65rem;
+			  font-weight: 600;
+			  padding: .25em .55em;
+			  border-radius: 10px;
+			  border: 1px solid #b6d4fe;
+			}
+
+			/* Dark mode */
+			body.dark-mode .badge-colaborador-vip {
+			  background: linear-gradient(135deg, #1c2e4a, #243b5e);
+			  color: #d6e4ff;
+			  border-color: #3d5a80;
+			}
 
 
 
@@ -241,56 +301,96 @@
 			</div>
 	</footer>
 	<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
-			<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							
-							<h1 class="modal-title fs-5">
-							    <i class="bi bi-person-gear"></i> Editar Colaborador
-							</h1>
+	<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-hidden="true">
+	  <div class="modal-dialog modal-lg modal-dialog-centered">
+	    <div class="modal-content shadow">
 
-							
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-8">
-									<label class="form-label mt-2" for="nomeEdicaoModal"><b>Nome</b></label>
-									<input type="text" id="nomeEdicaoModal" class="form-control"><br />
-								</div>
-								<div class="col-md-4 ms-auto">
-									<label class="form-label mt-2" for="idEdicaoModal">ID</label>
-									<input type="text" id="idEdicaoModal" class="form-control" readonly>
-									</di>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
-									<input type="tel" maxlength="17" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
-								</div>
-								<div class="col-md-6 ms-auto">
-									<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
-									<select class="form-select" id="statusEdicaoModal" aria-label="Default select example"> </select>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 ms-auto">
-									<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
-									<input type="text" id="emailEdicaoModal" class="form-control"><br />
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
-							<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+	      <!-- HEADER -->
+	      <div class="modal-header bg-light">
+	        <div>
+	          <h5 class="modal-title mb-0">
+	            <i class="bi bi-person-gear me-2"></i>Editar Colaborador
+	          </h5>
+	          <small class="text-muted">Atualize os dados do colaborador</small>
+	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	      </div>
+
+	      <!-- BODY -->
+	      <div class="modal-body">
+
+	        <!-- NOME + ID -->
+	        <div class="row g-3 mb-2">
+	          <div class="col-md-8">
+	            <label class="form-label fw-semibold">Nome</label>
+	            <div class="input-group">
+	              <span class="input-group-text"><i class="bi bi-person"></i></span>
+	              <input type="text" id="nomeEdicaoModal" class="form-control">
+	            </div>
+	          </div>
+
+	          <div class="col-md-4">
+	            <label class="form-label fw-semibold">ID</label>
+	            <input type="text"
+	                   id="idEdicaoModal"
+	                   class="form-control bg-light"
+	                   readonly>
+	          </div>
+	        </div>
+
+	        <!-- CELULAR + VIP -->
+	        <div class="row g-3 mb-2">
+	          <div class="col-md-6">
+	            <label class="form-label fw-semibold">Celular</label>
+	            <div class="input-group">
+	              <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+	              <input type="tel"
+	                     maxlength="17"
+	                     onkeyup="handlePhone(event)"
+	                     id="celularEdicaoModal"
+	                     class="form-control">
+	            </div>
+	          </div>
+
+	          <div class="col-md-6">
+	            <label class="form-label fw-semibold">Status VIP</label>
+	            <select class="form-select" id="statusEdicaoModal">
+	              <!-- preenchido via JS -->
+	            </select>
+	            <small class="text-muted">
+	              Colaboradores VIP possuem prioridade
+	            </small>
+	          </div>
+	        </div>
+
+	        <!-- EMAIL -->
+	        <div class="row g-3">
+	          <div class="col-md-12">
+	            <label class="form-label fw-semibold">Email</label>
+	            <div class="input-group">
+	              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+	              <input type="email" id="emailEdicaoModal" class="form-control">
+	            </div>
+	          </div>
+	        </div>
+
+	      </div>
+
+	      <!-- FOOTER -->
+	      <div class="modal-footer bg-light">
+	        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+	          Cancelar
+	        </button>
+	        <button type="button" class="btn btn-primary" onclick="atualizarColaborador()">
+	          <i class="bi bi-check-circle me-1"></i>Salvar alterações
+	        </button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+	<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
 			aria-hidden="true">
@@ -420,16 +520,38 @@
 							  <div class="card card-colaborador h-100">
 
 							    <div class="card-body">
-							      <div class="d-flex justify-content-between align-items-start">
-							        <h5 class="card-title mb-1">
-							          ${c.nomeColaborador}
-							        </h5>
-							        ${vipBadge}
-							      </div>
+									<h5 class="card-title mb-1 d-flex align-items-center">
+									  ${c.nomeColaborador}
 
-							      <small class="text-muted d-block mb-2">
-							        Cliente: ${c.nomeCliente}
-							      </small>
+									  ${
+									    c.vip === 'true'
+									      ? `
+									        <span class="badge badge-colaborador-vip ms-2">
+									          <i class="bi bi-star-fill me-1"></i> VIP
+									        </span>
+									      `
+									      : ''
+									  }
+									</h5>
+
+
+								  <div class="mb-2">
+								    ${
+								      c.vipCliente === 'true'
+								      ? `
+								        <span class="badge rounded-pill badge-cliente-vip">
+								          <i class="bi bi-star-fill me-1"></i>
+								          ${c.nomeCliente}
+								        </span>
+								      `
+								      : `
+								        <span class="badge rounded-pill badge-cliente">
+								          <i class="bi bi-building me-1"></i>
+								          ${c.nomeCliente}
+								        </span>
+								      `
+								    }
+								  </div>
 
 							      <div class="mt-3">
 							        <p class="mb-2">
@@ -437,10 +559,10 @@
 							          ${c.email ?? '-'}
 							        </p>
 
-							        <p class="mb-0">
-							          <i class="bi bi-telephone"></i>
-							          ${c.celular ?? '-'}
-							        </p>
+									<p class="mb-0">
+									  ${renderTelefoneComWhatsapp(c.celular)}
+									</p>
+
 							      </div>
 							    </div>
 
@@ -531,6 +653,34 @@
 		        }
 		    });
 		}
+		
+		function renderTelefoneComWhatsapp(numero) {
+		    if (!numero) return '-';
+
+		    // remove tudo que não for número
+		    const limpo = numero.replace(/\D/g, '');
+
+		    // celular BR normalmente tem 11 dígitos (DDD + 9 dígitos)
+		    if (limpo.length === 11) {
+		        return `
+		            <a href="https://wa.me/55${limpo}" 
+		               target="_blank"
+		               class="text-success text-decoration-none">
+		                <i class="bi bi-whatsapp"></i>
+		                ${numero}
+		            </a>
+		        `;
+		    }
+
+		    // telefone fixo ou inválido
+		    return `
+		        <span>
+		            <i class="bi bi-telephone"></i>
+		            ${numero}
+		        </span>
+		    `;
+		}
+
 			
 		const handlePhone = (event) => {
 		  let input = event.target
