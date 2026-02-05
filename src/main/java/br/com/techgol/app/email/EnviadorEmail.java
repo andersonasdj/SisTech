@@ -409,7 +409,7 @@ public class EnviadorEmail {
 					    </style>
 					</head>
 					<body>
-					    <br /><h3>  </h3><br /> "
+					    <br /><h3>  </h3><br />
 					    <table>
 					        <thead>
 					            <tr>

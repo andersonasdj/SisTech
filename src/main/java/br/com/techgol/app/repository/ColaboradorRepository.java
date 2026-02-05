@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import br.com.techgol.app.model.Colaborador;
 import br.com.techgol.app.orm.ColaboradorProjecao;
@@ -45,5 +46,24 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long>{
 	
 	@Query(value = "SELECT COUNT(*) FROM colaboradores co WHERE co.nomeColaborador=:nomeColaborador AND co.email=:email", nativeQuery = true)
 	public int verificaSeExistePorNome(String nomeColaborador, String email);
+
+
+	@Query("""
+	        SELECT 
+	            c.id            AS id,
+	            c.nomeColaborador AS nomeColaborador,
+	            c.celular        AS celular,
+	            c.vip            AS vip,
+	            c.cliente.id     AS cliente_id,
+	            c.email          AS email,
+	            c.cliente.nomeCliente	AS nomeCliente
+	        FROM Colaborador c
+	        WHERE 
+		        LOWER(c.nomeColaborador) LIKE LOWER(CONCAT('%', :dados, '%'))
+		        OR LOWER(c.email)        LIKE LOWER(CONCAT('%', :dados, '%'))
+		        OR c.celular             LIKE CONCAT('%', :dados, '%')
+		        OR LOWER(c.cliente.nomeCliente) LIKE LOWER(CONCAT('%', :dados, '%'))
+	    """)
+	    List<ColaboradorProjecao> buscarPorPalavraChave(@Param("dados") String dados);
 
 }

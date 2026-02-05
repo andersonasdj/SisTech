@@ -93,4 +93,8 @@ public class ColaboradorService {
 	public String retornaEmailColaboradorPorIdeEmail(Long id, String nome) {
 		return repository.retornarEmailColaboradorPorIdClienteNome(id,nome);
 	}
+
+	public List<ColaboradorProjecao> buscarColaboradorPorPalavraChave(String dados) {
+		return repository.buscarPorPalavraChave(dados);
+	}
 }

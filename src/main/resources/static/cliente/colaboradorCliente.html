@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/styleBusca.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
+	<link rel="stylesheet" href="../assets/css/StyleClientesFuncionarios.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
+	<title>SisTech - Colaboradores</title>
+	<style>
+			body.dark-mode table {
+			  background-color: #212529;
+			  color: #f8f9fa;
+			}
+
+			body.dark-mode th,
+			body.dark-mode td {
+			  background-color: rgb(119, 118, 123);
+			  color: #f8f9fa;
+			  border-color: #343a40;
+			}
+
+			body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+			  background-color: #2c3034;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-hover tbody tr:hover {
+			  background-color: #343a40;
+			  color: #f8f9fa !important;
+			}
+
+			body.dark-mode .table-primary {
+			  background-color: #0d6efd;
+			  color: #fff;
+			}
+			
+			/* ===== CARD BASE ===== */
+			.card-colaborador {
+			  border: none;
+			  border-radius: 14px;
+			  background: linear-gradient(180deg, #ffffff, #fafafa);
+			  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+			  transition: all .25s ease;
+			  position: relative;
+			  overflow: hidden;
+			}
+
+			.card-colaborador::before {
+			  content: "";
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  height: 4px;
+			  width: 100%;
+			  background: linear-gradient(90deg, #0d6efd, #6610f2);
+			  opacity: .9;
+			}
+
+			/* ===== HOVER ===== */
+			.card-colaborador:hover {
+			  transform: translateY(-6px);
+			  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+			}
+
+			/* ===== HEADER ===== */
+			.card-colaborador .card-title {
+			  font-weight: 600;
+			  font-size: 1.05rem;
+			}
+
+			/* ===== ICONES ===== */
+			.card-colaborador i {
+			  color: #0d6efd;
+			  margin-right: 6px;
+			}
+
+			/* ===== BADGE VIP ===== */
+			.badge-vip {
+			  background: linear-gradient(135deg, #dc3545, #a71d2a);
+			  font-size: .7rem;
+			  padding: .35em .6em;
+			  border-radius: 12px;
+			}
+
+			/* ===== FOOTER ===== */
+			.card-footer {
+			  background: transparent;
+			  border-top: 1px dashed rgba(0,0,0,.1);
+			}
+
+			/* ===== DARK MODE ===== */
+			body.dark-mode .card-colaborador {
+			  background: linear-gradient(180deg, #2c3034, #212529);
+			  box-shadow: 0 8px 22px rgba(0,0,0,.45);
+			}
+
+			body.dark-mode .card-colaborador::before {
+			  background: linear-gradient(90deg, #0d6efd, #20c997);
+			}
+
+			body.dark-mode .card-colaborador i {
+			  color: #20c997;
+			}
+
+			body.dark-mode .card-footer {
+			  border-top: 1px dashed rgba(255,255,255,.15);
+			}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Computadores</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/computador/list">Listar</a></li>
+							</ul>
+						</li>
+					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"> </i></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<hr class="bg-danger border-2 border-top border-danger">
+		
+		<div class="container-fluid">
+		  <div class="row">
+		    <div class="col"> </div>
+		    <div class="col"> </div>
+		    <div class="col">
+				<div class="d-flex">
+					<span id="contador" class="counter pull-right"> </span>
+			        <input class="form-control me-2" type="search" placeholder="Busca avançada de colaborador" aria-label="Search" id="palavraChave">
+			        <button class="btn btn-sm btn-outline-success" onclick="buscaPorPalavra()" >Buscar</button>
+				</div><br />
+		    </div>
+		  </div>
+		  
+		  <div class="container-fluid mt-4">
+		   
+			<div class="container-fluid mt-4">
+			  <div class="row g-3" id="listaColaboradores">
+
+			    <div class="col-12 text-center text-muted no-result">
+			      Nenhum colaborador encontrado
+			    </div>
+
+			  </div>
+			</div>
+
+		  </div>
+		</div>
+	</div>
+	<br /><br />
+	<footer class="container-fluid fixed-bottom text-center text-white">
+			<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+				© 2026 Copyright:
+				<a class="text-white" href="#">TechGold</a>
+			</div>
+	</footer>
+	<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+			<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							
+							<h1 class="modal-title fs-5">
+							    <i class="bi bi-person-gear"></i> Editar Colaborador
+							</h1>
+
+							
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-8">
+									<label class="form-label mt-2" for="nomeEdicaoModal"><b>Nome</b></label>
+									<input type="text" id="nomeEdicaoModal" class="form-control"><br />
+								</div>
+								<div class="col-md-4 ms-auto">
+									<label class="form-label mt-2" for="idEdicaoModal">ID</label>
+									<input type="text" id="idEdicaoModal" class="form-control" readonly>
+									</di>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
+									<input type="tel" maxlength="17" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
+								</div>
+								<div class="col-md-6 ms-auto">
+									<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
+									<select class="form-select" id="statusEdicaoModal" aria-label="Default select example"> </select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 ms-auto">
+									<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
+									<input type="text" id="emailEdicaoModal" class="form-control"><br />
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
+							<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="container-password">
+						<div class="result">
+							<div class="result__info right">click para copiar</div>
+							<div class="result__info left">copiado</div>
+							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
+						</div>
+						<div class="length range__slider" data-min="4" data-max="32">
+							<div class="length__title field-title" data-length='0'>Tamanho:</div>
+							<input id="slider" type="range" min="4" max="32" value="16" />
+						</div>
+						<div class="settings">
+							<span class="settings__title field-title">configurações</span>
+							<div class="setting">
+								<input type="checkbox" id="uppercase" checked />
+								<label for="uppercase">Incluir Maiúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="lowercase" checked />
+								<label for="lowercase">Incluir Minúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="number" checked />
+								<label for="number">Incluir Número</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="symbol" />
+								<label for="symbol">Incluir Símbolo</label>
+							</div>
+						</div>
+						<button class="btn generate" id="generate">Gerar Senha</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+	</div>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/jspdf.min.js"></script>
+	<script src="../assets/js/jspdf.plugin.autotable.js"></script>
+	<script src="../assets/js/dark.js"></script>
+	<script>
+		function editarColaborador(id){
+		    $.ajax({
+		        type: "GET",
+		        contentType: "application/json",
+		        url: "/sistech/colaborador/edit/" + id,
+		        success: function (data) {
+
+		            $('#idEdicaoModal').val(data.id);
+		            $('#nomeEdicaoModal').val(data.nomeColaborador);
+		            $('#celularEdicaoModal').val(data.celular);
+		            $('#emailEdicaoModal').val(data.email);
+
+		            $('#statusEdicaoModal').empty();
+		            $('#statusEdicaoModal').append(`
+		                <option value="true" ${data.vip === true ? 'selected' : ''}>VIP</option>
+		                <option value="false" ${data.vip === false ? 'selected' : ''}>Normal</option>
+		            `);
+
+		            const modal = new bootstrap.Modal(
+		                document.getElementById('editarColaboradorModal')
+		            );
+		            modal.show();
+		        },
+		        statusCode: {
+		            500: function() { alert('Erro! Contate o desenvolvedor!'); },
+		            401: function() {
+		                alert('Realize login novamente!');
+		                window.location.href = "/sistech/login";
+		            }
+		        }
+		    });
+		}
+		
+		
+		var input = document.getElementById("palavraChave");
+		input.addEventListener("keypress", function(event) {
+		  if (event.key === "Enter") {
+		    buscaPorPalavra();
+		  }
+		});
+		
+		function buscaPorPalavra() {
+
+		    $('#listaColaboradores').empty();
+		    $('#contador').text("");
+
+		    let palavra = $('#palavraChave').val().trim();
+
+		    if (palavra === '') {
+		        alert("Informe um valor para busca");
+		        return;
+		    }
+
+		    $.ajax({
+		        type: "GET",
+		        url: "/sistech/colaborador/buscar/" + palavra,
+		        success: function (data) {
+
+		            $('#contador').text(data.length + " item(ns)");
+
+		            if (data.length === 0) {
+		                $('#listaColaboradores').append(`
+		                    <div class="col-12 text-center text-muted">
+		                        Nenhum colaborador encontrado
+		                    </div>
+		                `);
+		                return;
+		            }
+
+		            data.forEach(c => {
+
+		                let vipBadge = c.vip === 'S'
+		                    ? `<span class="badge badge-vip ms-2">VIP</span>`
+		                    : '';
+
+							let card = `
+							<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+							  <div class="card card-colaborador h-100">
+
+							    <div class="card-body">
+							      <div class="d-flex justify-content-between align-items-start">
+							        <h5 class="card-title mb-1">
+							          ${c.nomeColaborador}
+							        </h5>
+							        ${vipBadge}
+							      </div>
+
+							      <small class="text-muted d-block mb-2">
+							        Cliente: ${c.nomeCliente}
+							      </small>
+
+							      <div class="mt-3">
+							        <p class="mb-2">
+							          <i class="bi bi-envelope"></i>
+							          ${c.email ?? '-'}
+							        </p>
+
+							        <p class="mb-0">
+							          <i class="bi bi-telephone"></i>
+							          ${c.celular ?? '-'}
+							        </p>
+							      </div>
+							    </div>
+
+							    <div class="card-footer text-end">
+							      <button class="btn btn-sm btn-outline-primary"
+							              onclick="editarColaborador(${c.id})">
+							        <i class="bi bi-pencil-square"></i> Detalhes
+							      </button>
+							    </div>
+
+							  </div>
+							</div>
+							`;
+
+
+		                $('#listaColaboradores').append(card);
+		            });
+		        },
+		        statusCode: {
+		            500: function () {
+		                alert('Erro! Contate o desenvolvedor!');
+		            },
+		            401: function () {
+		                alert('Sessão expirada. Faça login novamente.');
+		                window.location.href = "/sistech/login";
+		            }
+		        }
+		    });
+		}
+		
+		
+		function atualizarColaborador() {
+
+		    const payload = {
+		        id: $('#idEdicaoModal').val(),
+		        nomeColaborador: $('#nomeEdicaoModal').val(),
+		        celular: $('#celularEdicaoModal').val(),
+		        email: $('#emailEdicaoModal').val(),
+		        vip: $('#statusEdicaoModal').val() === 'true'
+		    };
+
+		    $.ajax({
+		        type: "PUT",
+		        contentType: "application/json",
+		        url: "/sistech/colaborador/edit",
+		        data: JSON.stringify(payload),
+		        success: function () {
+
+		            alert('Colaborador atualizado com sucesso!');
+
+		            bootstrap.Modal
+		                .getInstance(document.getElementById('editarColaboradorModal'))
+		                .hide();
+
+		            // 🔄 Atualiza a lista mantendo a busca atual
+		            buscaPorPalavra();
+		        },
+		        statusCode: {
+		            500: function() {
+		                alert('Erro ao atualizar colaborador!');
+		            },
+		            401: function() {
+		                alert('Sessão expirada!');
+		                window.location.href = "/sistech/login";
+		            }
+		        }
+		    });
+		}
+
+
+
+			
+		const handlePhone = (event) => {
+		  let input = event.target
+		  input.value = phoneMask(input.value)
+		}
+		
+		const phoneMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/\D/g,'')
+		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
+		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+		  return value
+		}
+		
+		const handleComa = (event) => {
+		  let input = event.target
+		  input.value = horaMask(input.value)
+		}
+		
+		const horaMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/[^0-9\.]/g,'');
+		  return value;
+		}
+	</script>
+	<script>
+		$(document).ready(function() {
+		  $(".search").keyup(function () {
+		    var searchTerm = $(".search").val();
+		    var listItem = $('.results tbody').children('tr');
+		    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		    
+		  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+		        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		  });
+		    
+		  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','false');
+		  });
+		
+		  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+		    $(this).attr('visible','true');
+		  });
+		
+		  var jobCount = $('.results tbody tr[visible="true"]').length;
+		    $('.counter').text(jobCount + ' item');
+		
+		  if(jobCount == '0') {$('.no-result').show();}
+		    else {$('.no-result').hide();}
+				  });
+		});
+		
+		function generatePDF() {
+		  var doc = new jsPDF('l', 'pt');
+		  var elem = document.getElementById('tabela-colaboradores');
+		  var data = doc.autoTableHtmlToJson(elem);
+		  doc.autoTable(data.columns, data.rows, {
+		    margin: {left: 35},
+		    theme: 'grid',
+		    tableWidth: 'auto',
+		    fontSize: 7,
+		    overflow: 'linebreak',
+		    }
+		  );
+		  doc.save('Colaboradores.pdf');
+		}
+	</script>
+</body>
+</html>

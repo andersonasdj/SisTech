@@ -7,4 +7,5 @@ public interface ColaboradorProjecao{
 	String getVip();
 	String getCliente_id();
 	String getEmail();
+	String getNomeCliente();
 }

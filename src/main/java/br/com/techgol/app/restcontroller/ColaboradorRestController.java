@@ -84,4 +84,12 @@ public class ColaboradorRestController {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("buscar/{dados}")
+	public ResponseEntity<List<ColaboradorProjecao>> buscarColaboradorPorPalavraChave(@PathVariable String dados) {
+
+	    return ResponseEntity.ok(service.buscarColaboradorPorPalavraChave(dados));
+	}
+
+	
 }

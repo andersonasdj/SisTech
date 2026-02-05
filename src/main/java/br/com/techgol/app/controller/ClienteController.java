@@ -20,5 +20,11 @@ public class ClienteController {
 	public String formulario() {
 		return "clienteForm.html";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/colaborador")
+	public String listarColaboradores() {
+		return "colaboradorCliente.html";
+	}
 
 }
