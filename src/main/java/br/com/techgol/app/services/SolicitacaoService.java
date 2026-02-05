@@ -47,6 +47,7 @@ import br.com.techgol.app.dto.MetricasClienteProjection;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
+import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.ConfiguracaoEmail;
@@ -1311,7 +1312,6 @@ public class SolicitacaoService {
 			return null;
 		}
 	}
-	
 
 	public Page<SolicitacaoProjecao> listarSolicitacoesPorData(Pageable page, Long id, String periodo, LocalDate ini, LocalDate termino) {
 		
@@ -1513,18 +1513,13 @@ public class SolicitacaoService {
 		System.out.println(dataPesquisa.getDayOfMonth());
 		
 		List<ProjecaoDashboardGerencia> dados = repository.buscaDadosDashboardGerencia(dataPesquisa);
-		//List<DtoTotalSolicitacoesPorDia> dadosPorDia = new ArrayList<>();
 		
 		for(int i=0; dados.size() != i; i++) {
 			
 			if (dataPesquisa.getDayOfMonth() == dados.get(i).getDataAbertura().getDayOfMonth()) {
-				System.out.println("IGUAL");
 			}else {
-				
-				System.out.println("DIFERENTE");
 				dataPesquisa.plusDays(1);
 			}
-			System.out.println(dataPesquisa);
 			
 		}
 		return null;
@@ -1554,7 +1549,8 @@ public class SolicitacaoService {
 	
 	
 	@PreAuthorize("hasRole('ROLE_SADMIN')")
-	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {
+	public DtoRelatorioRendimentoClientes gerarRelatorioRendimentoClientes(
+	        LocalDate ini, LocalDate termino) {
 
 	    LocalDateTime inicio = ini.atTime(0, 0, 0);
 	    LocalDateTime fim = termino.atTime(23, 59, 59);
@@ -1562,16 +1558,16 @@ public class SolicitacaoService {
 	    List<DtoClienteList> clientes = clienteService.listarAtivos();
 	    List<DtoListarCustoFuncionarios> funcionarios = funcionarioService.listarCustoAtivos();
 
-	    //1 query: custos agrupados
+	    // 1 query: custos agrupados
 	    List<CustoOperacionalProjection> custosRaw =
 	        timeSheetService.buscarCustosAgrupados(inicio, fim);
 
-	    //1 query: métricas consolidadas
+	    // 1 query: métricas consolidadas
 	    List<MetricasClienteProjection> metricasRaw =
-	    		timeSheetService.buscarMetricasPorCliente(inicio, fim);
+	        timeSheetService.buscarMetricasPorCliente(inicio, fim);
 
 	    // ------------------------------
-	    //MAP: cliente → funcionario → minutos
+	    // MAP: cliente → funcionario → minutos
 	    // ------------------------------
 	    Map<Long, Map<Long, BigDecimal>> custoMap = new HashMap<>();
 
@@ -1582,7 +1578,7 @@ public class SolicitacaoService {
 	    }
 
 	    // ----------------------
-	    //MAP: cliente → métricas
+	    // MAP: cliente → métricas
 	    // ----------------------
 	    Map<Long, MetricasClienteProjection> metricasMap = new HashMap<>();
 	    for (MetricasClienteProjection m : metricasRaw) {
@@ -1590,34 +1586,47 @@ public class SolicitacaoService {
 	    }
 
 	    // -----------------------
-	    //Cálculo final em memória
+	    // Cálculo final
 	    // -----------------------
 	    List<DtoRendimentosClientes> lista = new ArrayList<>();
+	    BigDecimal custoOperacionalTotal = BigDecimal.ZERO;
+	    long tempoTotalMinutos = 0L;
 
 	    for (DtoClienteList cliente : clientes) {
 
-	        BigDecimal custoOperacional = BigDecimal.ZERO;
+	        BigDecimal custoOperacionalCliente = BigDecimal.ZERO;
 
-	        Map<Long, BigDecimal> custosCliente = custoMap.getOrDefault(cliente.id(), Map.of());
+	        Map<Long, BigDecimal> custosCliente =
+	            custoMap.getOrDefault(cliente.id(), Map.of());
 
 	        for (DtoListarCustoFuncionarios func : funcionarios) {
 
-	            BigDecimal minutos = custosCliente.getOrDefault(func.id(), BigDecimal.ZERO);
+	            BigDecimal minutos =
+	                custosCliente.getOrDefault(func.id(), BigDecimal.ZERO);
 
 	            if (func.valorHora() != null && minutos.compareTo(BigDecimal.ZERO) > 0) {
 
-	                BigDecimal horas = minutos.divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
-	                custoOperacional = custoOperacional.add(horas.multiply(func.valorHora()));
+	                BigDecimal horas =
+	                    minutos.divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
+
+	                custoOperacionalCliente =
+	                    custoOperacionalCliente.add(horas.multiply(func.valorHora()));
 	            }
 	        }
 
+	        custoOperacionalTotal =
+	            custoOperacionalTotal.add(custoOperacionalCliente);
+
 	        MetricasClienteProjection m = metricasMap.get(cliente.id());
-	        
-	        long qtdFechadas   = m != null ? m.getQtdFechadas()   : 0;
-	        long qtdAtualizados= m != null ? m.getQtdAtualizados(): 0;
-	        long qtdAbertos    = m != null ? m.getQtdAbertos()    : 0;
-	        long totalMinutos  = m != null ? m.getTotalMinutos().longValue() : 0L;
-	        
+
+	        long qtdFechadas    = m != null ? m.getQtdFechadas()    : 0;
+	        long qtdAtualizados = m != null ? m.getQtdAtualizados() : 0;
+	        long qtdAbertos     = m != null ? m.getQtdAbertos()     : 0;
+	        long totalMinutos   = m != null ? m.getTotalMinutos().longValue() : 0L;
+
+	        // 🔹 acumula o tempo total
+	        tempoTotalMinutos += totalMinutos;
+
 	        lista.add(
 	            new DtoRendimentosClientes(
 	                cliente.nomeCliente(),
@@ -1627,15 +1636,21 @@ public class SolicitacaoService {
 	                cliente.tempoContratado(),
 	                qtdAbertos,
 	                cliente.id(),
-	                custoOperacional
+	                custoOperacionalCliente
 	            )
 	        );
 	    }
 
 	    lista.sort(Comparator.comparing(DtoRendimentosClientes::qtdHoras).reversed());
 
-	    return lista;
-	}	
+	    return new DtoRelatorioRendimentoClientes(
+	        lista,
+	        custoOperacionalTotal,
+	        tempoTotalMinutos
+	    );
+	}
+
+	
 	
 //	@PreAuthorize("hasRole('ROLE_SADMIN')")
 //	public List<DtoRendimentosClientes> gerarRelatorioRendimentoClientes(LocalDate ini, LocalDate termino) {

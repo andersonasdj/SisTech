@@ -126,13 +126,15 @@
 					
 					<div class="col-md-3 mt-2">
 						<div class="control-group mt-3">
-							<span style="font-size: 22px;" id="diasUteis"> </span>
+							<span id="diasUteis" class="me-3 fw-semibold"></span>
+				            <span id="custoTotalOperacional" class="me-3 fw-semibold text-muted"></span>
+				            <span id="custoTotalTempo" class="fw-semibold text-muted"></span>
 						</div>
 					</div>
 				</div>
 				<br />
 				<div class="row">				
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheHoje()">Hoje</button>
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(7)">7 dias</button>
 						<button class="btn btn-secondary btn-sm mt-2" onclick="preencheDias(15)">15 dias</button>
@@ -251,8 +253,14 @@
 										
 					success: function (data) {
 						$("#conteudo").stop().slideToggle(600);$("#conteudoGrafico").stop().slideToggle(1000);
+						$('#diasUteis').empty();
+						$('#custoTotalOperacional').empty();
+						$('#custoTotalTempo').empty();
+						$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
+						$('#custoTotalOperacional').append('<li> Custo Total Operacional: <b>'+formatarMoedaBR(data.custoOperacionalTotal)+'</b></li>');
+						$('#custoTotalTempo').append('<li> Custo Total Tempo: <b>'+minutosParaHorasTexto(data.tempoTotalMinutos)+'</b></li>');
 						
-						data.forEach(i =>{
+						data.clientes.forEach(i =>{
 							var horas, tempoContratado, alerta;
 							if(i.qtdHoras != null){
 								horas = minutosParaHorasTexto(i.qtdHoras);
@@ -274,10 +282,7 @@
 								alerta = 'style="color: green"';
 							}
 
-							$('#diasUteis').empty();
 							$('#horaDia').empty();
-							
-							$('#diasUteis').append('<li> Dias úteis: <b>'+resultados.length+'</b></li>');
 							
 							var itens = 
 							
@@ -300,14 +305,19 @@
 
 						var labelNomes=[], labelTemposNomes=[], labelQuantidades=[], labelTempos=[];
 						
-						for(var i=0; i < data.length ; i++){
-							if(data[i].qtdHoras != 0){
-								labelTemposNomes[i]=data[i].nomeCliente + " (" + data[i].qtdHoras+ ")";
-								labelTempos[i]=data[i].qtdHoras;
-							}
-							labelNomes[i]=data[i].nomeCliente + " (" + data[i].qtdFinalizados+ ")";
-							labelQuantidades[i]=data[i].qtdFinalizados;
-						}
+						data.clientes.forEach((cliente, i) => {
+
+						    if (cliente.qtdHoras && cliente.qtdHoras !== 0) {
+						        labelTemposNomes[i] =
+						            `${cliente.nomeCliente} (${cliente.qtdHoras})`;
+						        labelTempos[i] = cliente.qtdHoras;
+						    }
+
+						    labelNomes[i] =
+						        `${cliente.nomeCliente} (${cliente.qtdFinalizados})`;
+						    labelQuantidades[i] = cliente.qtdFinalizados;
+						});
+
 
 						const ctx5 = document.getElementById('clientesSolicitacoes');
 						new Chart(ctx5, {

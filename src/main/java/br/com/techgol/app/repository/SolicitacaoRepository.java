@@ -12,7 +12,10 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.techgol.app.dto.DashboardClienteProjection;
 import br.com.techgol.app.dto.DashboardFuncionarioProjection;
+import br.com.techgol.app.dto.DtoHistorico;
+import br.com.techgol.app.dto.DtoHistoricoDias;
 import br.com.techgol.app.dto.MetricasClienteProjection;
+import br.com.techgol.app.dto.dashboard.DashboardClientePeriodoProjection;
 import br.com.techgol.app.model.Solicitacao;
 import br.com.techgol.app.model.enums.Status;
 import br.com.techgol.app.orm.DtoUltimaAtualizada;
@@ -1514,5 +1517,77 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 				);
 
 			//##################################################################################################################
+
+			@Query(value = """
+				    SELECT
+				        COALESCE(SUM(CASE WHEN s.local = 'ONSITE' THEN 1 ELSE 0 END),0) onsite,
+				        COALESCE(SUM(CASE WHEN s.local = 'OFFSITE' THEN 1 ELSE 0 END),0) offsite,
+
+				        COALESCE(SUM(CASE WHEN s.formaAbertura = 'EMAIL' THEN 1 ELSE 0 END),0) email,
+				        COALESCE(SUM(CASE WHEN s.formaAbertura = 'TELEFONE' THEN 1 ELSE 0 END),0) telefone,
+				        COALESCE(SUM(CASE WHEN s.formaAbertura = 'LOCAL' THEN 1 ELSE 0 END),0) local,
+				        COALESCE(SUM(CASE WHEN s.formaAbertura = 'WHATSAPP' THEN 1 ELSE 0 END),0) whatsapp,
+				        COALESCE(SUM(CASE WHEN s.formaAbertura = 'PROATIVO' THEN 1 ELSE 0 END),0) proativo,
+
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'PROBLEMA' THEN 1 ELSE 0 END),0) problema,
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'INCIDENTE' THEN 1 ELSE 0 END),0) incidente,
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'SOLICITACAO' THEN 1 ELSE 0 END),0) solicitacao,
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'BACKUP' THEN 1 ELSE 0 END),0) backup,
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'ACESSO' THEN 1 ELSE 0 END),0) acesso,
+				        COALESCE(SUM(CASE WHEN s.classificacao = 'EVENTO' THEN 1 ELSE 0 END),0) evento,
+
+				        COALESCE(SUM(CASE WHEN s.status = 'ABERTO' THEN 1 ELSE 0 END),0) aberto,
+				        COALESCE(SUM(CASE WHEN s.status = 'ANDAMENTO' THEN 1 ELSE 0 END),0) andamento,
+				        COALESCE(SUM(CASE WHEN s.status = 'AGENDADO' THEN 1 ELSE 0 END),0) agendado,
+				        COALESCE(SUM(CASE WHEN s.status = 'AGUARDANDO' THEN 1 ELSE 0 END),0) aguardando,
+				        COALESCE(SUM(CASE WHEN s.status = 'PAUSADO' THEN 1 ELSE 0 END),0) pausado,
+				        COALESCE(SUM(CASE WHEN s.status = 'FINALIZADO' THEN 1 ELSE 0 END),0) finalizado,
+
+				        COALESCE(SUM(s.duracao),0) totalMinutos,
+				        COUNT(*) totalSolicitacoes
+				    FROM solicitacoes s
+				    WHERE s.cliente_id = :clienteId
+				      AND s.excluido = false
+				      AND (
+				            (:tipo = 'ABERTURA'    AND s.dataAbertura BETWEEN :inicio AND :fim) OR
+				            (:tipo = 'FECHAMENTO'  AND s.dataFinalizado BETWEEN :inicio AND :fim) OR
+				            (:tipo = 'ATUALIZACAO' AND s.dataAtualizacao BETWEEN :inicio AND :fim)
+				      )
+				""", nativeQuery = true)
+				DashboardClientePeriodoProjection buscarDashboardClientePeriodo(
+				    @Param("clienteId") Long clienteId,
+				    @Param("tipo") String tipo,
+				    @Param("inicio") LocalDateTime inicio,
+				    @Param("fim") LocalDateTime fim
+				);
+			
+			
+			@Query("""
+				    SELECT new br.com.techgol.app.dto.DtoHistorico(
+				        FUNCTION('DATE_FORMAT', s.dataFinalizado, '%Y-%m'),
+				        COUNT(s.id)
+				    )
+				    FROM Solicitacao s
+				    WHERE s.cliente.id = :clienteId
+				      AND s.status = 'FINALIZADO'
+				      AND s.dataFinalizado >= :inicio
+				    GROUP BY FUNCTION('DATE_FORMAT', s.dataFinalizado, '%Y-%m')
+				""")
+			List<DtoHistorico> historicoMensal(Long clienteId, LocalDateTime inicio);
+
+			
+			@Query("""
+				    SELECT new br.com.techgol.app.dto.DtoHistoricoDias(
+				        FUNCTION('DATE', s.dataFinalizado),
+				        COUNT(s.id)
+				    )
+				    FROM Solicitacao s
+				    WHERE s.cliente.id = :clienteId
+				      AND s.status = 'FINALIZADO'
+				      AND s.dataFinalizado >= :inicio
+				    GROUP BY FUNCTION('DATE', s.dataFinalizado)
+				""")
+			List<DtoHistoricoDias> historicoDiario(Long clienteId, LocalDateTime inicio);
+
 
 }

@@ -35,7 +35,6 @@ import br.com.techgol.app.dto.DtoDashboardFuncionarios;
 import br.com.techgol.app.dto.DtoDataAgendado;
 import br.com.techgol.app.dto.DtoModelosParaSolicitacao;
 import br.com.techgol.app.dto.DtoRelatorioFuncionario;
-import br.com.techgol.app.dto.DtoRendimentosClientes;
 import br.com.techgol.app.dto.DtoRendimentosFuncionarios;
 import br.com.techgol.app.dto.DtoSolicitacaoComFuncionario;
 import br.com.techgol.app.dto.DtoSolicitacaoFinalizada;
@@ -44,6 +43,7 @@ import br.com.techgol.app.dto.DtoSolicitacaoProjecaoCompletaColaboradores;
 import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
+import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.ModeloSolicitacao;
@@ -91,7 +91,7 @@ public class SolicitacaoRestController {
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
 	
 	@GetMapping("/relatorio/rendimento/cliente/inicio/{inicio}/fim/{fim}") //Construção do relatório executivo do cliente
-	public List<DtoRendimentosClientes> listarRelatorioRendimentoClientePorPeriodo(@PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
+	public DtoRelatorioRendimentoClientes listarRelatorioRendimentoClientePorPeriodo(@PathVariable LocalDate inicio, @PathVariable LocalDate fim) {
 		
 		return solicitacaoService.gerarRelatorioRendimentoClientes(inicio, fim);
 		
@@ -136,7 +136,7 @@ public class SolicitacaoRestController {
 	@GetMapping("/relatorio/funcionario/{id}/{periodo}/inicio/{inicio}/fim/{fim}")
 	public Page<SolicitacaoProjecao> listarRelatorioPorFuncionarioDataInicioFim(@PathVariable Long id, @PathVariable String periodo , @PathVariable LocalDate inicio, @PathVariable LocalDate fim, @PageableDefault(size = 50, sort= {"id"}, direction = Direction.DESC) Pageable page) {
 		Funcionario funcionarioBase = repositoryFuncionario.findBynomeFuncionario(((Funcionario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getNomeFuncionario());
-		if(funcionarioBase.getRole().toString().equals("ADMIN")) {
+		if(funcionarioBase.getRole().toString().equals("SADMIN") || funcionarioBase.getRole().toString().equals("ADMIN")) {
 			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, id, periodo, inicio, fim);
 		}else {
 			return solicitacaoService.listarSolicitacoesPorFuncionarioData(page, funcionarioBase.getId(), periodo, inicio, fim);
