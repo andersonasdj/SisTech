@@ -270,11 +270,29 @@
 		    <div class="col"> </div>
 		    <div class="col"> </div>
 		    <div class="col">
-				<div class="d-flex">
-					<span id="contador" class="counter pull-right"> </span>
-			        <input class="form-control me-2" type="search" placeholder="Busca avançada de colaborador" aria-label="Search" id="palavraChave">
-			        <button class="btn btn-sm btn-outline-success" onclick="buscaPorPalavra()" >Buscar</button>
-				</div><br />
+				<div class="d-flex align-items-center gap-2">
+				  <span id="contador" class="counter text-muted"></span>
+
+				  <input class="form-control"
+				         type="search"
+				         placeholder="Busca avançada de colaborador"
+				         aria-label="Search"
+				         id="palavraChave">
+
+				  <button class="btn btn-sm btn-outline-success"
+				          onclick="buscaPorPalavra()">
+				    <i class="bi bi-search"></i>
+				  </button>
+
+				  <button class="btn btn-sm btn-outline-secondary"
+				          onclick="limparBusca()"
+				          title="Limpar busca">
+				    <i class="bi bi-x-circle"></i>
+				  </button>
+				</div>
+				
+
+				<br />
 		    </div>
 		  </div>
 		  
@@ -510,7 +528,6 @@
 		            }
 
 		            data.forEach(c => {
-
 		                let vipBadge = c.vip === 'S'
 		                    ? `<span class="badge badge-vip ms-2">VIP</span>`
 		                    : '';
@@ -533,8 +550,6 @@
 									      : ''
 									  }
 									</h5>
-
-
 								  <div class="mb-2">
 								    ${
 								      c.vipCliente === 'true'
@@ -633,7 +648,6 @@
 		        url: "/sistech/colaborador/edit",
 		        data: JSON.stringify(payload),
 		        success: function () {
-
 		            alert('Colaborador atualizado com sucesso!');
 
 		            bootstrap.Modal
@@ -657,10 +671,8 @@
 		function renderTelefoneComWhatsapp(numero) {
 		    if (!numero) return '-';
 
-		    // remove tudo que não for número
 		    const limpo = numero.replace(/\D/g, '');
 
-		    // celular BR normalmente tem 11 dígitos (DDD + 9 dígitos)
 		    if (limpo.length === 11) {
 		        return `
 		            <a href="https://wa.me/55${limpo}" 
@@ -672,7 +684,6 @@
 		        `;
 		    }
 
-		    // telefone fixo ou inválido
 		    return `
 		        <span>
 		            <i class="bi bi-telephone"></i>
@@ -680,7 +691,24 @@
 		        </span>
 		    `;
 		}
+		
+		$('#palavraChave').on('input', function () {
+		  if ($(this).val().trim() === '') {
+		    limparBusca();
+		  }
+		});
 
+		function limparBusca() {
+		  $('#palavraChave').val('');
+		  $('#contador').text('');
+		  $('#listaColaboradores').empty();
+
+		  $('#listaColaboradores').append(`
+		    <div class="col-12 text-center text-muted no-result">
+		      Nenhum colaborador encontrado
+		    </div>
+		  `);
+		}
 			
 		const handlePhone = (event) => {
 		  let input = event.target

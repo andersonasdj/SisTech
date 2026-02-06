@@ -202,30 +202,51 @@
 		
 		<!-- ################################################### MODAL HISTORICO ############################################# -->
 		<div class="modal fade" id="modalHistorico" tabindex="-1" aria-labelledby="modalHistorico" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="modalHistorico">Histórico de Solicitação</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<label class="form-label mt-3" for="log"><b>LOG</b></label>
-								<div class="controls">
-									<textarea class="form-control" rows="20" id="log" class="form-control"></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
+		  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+		    <div class="modal-content shadow-lg">
+
+		      <div class="modal-header bg-dark text-white">
+		        <h5 class="modal-title">
+		          <i class="bi bi-clock-history"></i> Histórico da Solicitação
+		        </h5>
+		        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+		      </div>
+
+		      <div class="modal-body p-4">
+
+		        <!-- Skeleton loading -->
+		        <div id="historico-loading">
+		          <div class="placeholder-glow mb-3">
+		            <span class="placeholder col-12"></span>
+		            <span class="placeholder col-10"></span>
+		            <span class="placeholder col-8"></span>
+		          </div>
+		        </div>
+
+		        <!-- Timeline -->
+		        <div id="historico-timeline" class="timeline d-none"></div>
+
+		      </div>
+
+		      <div class="modal-footer">
+		        <button class="btn btn-outline-secondary" onclick="copiarHistorico()">
+		          <i class="bi bi-clipboard"></i> Copiar histórico
+		        </button>
+
+		        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">
+		          Voltar
+		        </button>
+
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		          Fechar
+		        </button>
+		      </div>
+
+		    </div>
+		  </div>
 		</div>
 		<!-- ########################################## MODAL HISTORICO ############################################# -->
+
 		<!-- ##########################################  MODAL EDIÇÃO ############################################### -->
 		<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicao" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -630,94 +651,139 @@
 		</div>
 		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 		<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
-				<div class="modal fade" id="modalTimesheetSolicitacao" tabindex="-1" aria-labelledby="modalTimesheetSolicitacao" aria-hidden="true">
-					<div class="modal-dialog modal-xl">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="finalizadosModal">  <span id="idmodal"> </span></h1><span style="color: #0101DF;">Lista de tempos da solicitação</span> 
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-							</div>
-							<div class="modal-body">
-								<div class="table-responsive mt-3">
-								<table class="table table-hover table-bordered table-striped results sortable" id="tabela-timesheet" style="text-align: center;">
-									<thead>
-										<tr>
-											<th scope="col">ID</th>
-											<th scope="col">Funcionário</th>
-											<th scope="col">Início</th>
-											<th scope="col">Fim</th>
-											<th scope="col">Duração <span style="font-size: 10px;"> (minutos)</span></th>
-											<th scope="col">Status</th>
-											<th scope="col"></th>
-										</tr>
-									</thead>
-									<tbody id="tabela-timesheet-corpo">
-										<tr> </tr>
-									</tbody>
-								</table>
-							</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-							</div>
-						</div>
+		<div class="modal fade" id="modalTimesheetSolicitacao" tabindex="-1" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+		    <div class="modal-content">
+
+		      <!-- HEADER -->
+		      <div class="modal-header bg-dark text-white">
+		        <h5 class="modal-title">
+		          <i class="bi bi-clock-history"></i>
+		          Timesheet da Solicitação
+		          <span class="badge bg-info ms-2">ID <span id="idmodal"></span></span>
+		        </h5>
+		        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+		      </div>
+
+		      <!-- BODY -->
+		      <div class="modal-body">
+
+		        <!-- RESUMO -->
+		        <div class="row g-3 mb-3">
+		          <div class="col-md-4">
+		            <div class="card shadow-sm">
+		              <div class="card-body text-center">
+		                <small class="text-muted">Total de Registros</small>
+		                <h4 id="totalRegistrosTimesheet">0</h4>
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="col-md-4">
+		            <div class="card shadow-sm">
+		              <div class="card-body text-center">
+		                <small class="text-muted">Tempo Total</small>
+		                <h4 id="tempoTotalTimesheet">0 min</h4>
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="col-md-4">
+		            <div class="card shadow-sm">
+		              <div class="card-body text-center">
+		                <small class="text-muted">Status Atual</small>
+		                <h5 class="text-primary" id="statusTimesheet">—</h5>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+
+		        <!-- TABELA -->
+		        <div class="table-responsive">
+		          <table class="table table-hover align-middle">
+		            <thead class="table-light">
+		              <tr class="text-center">
+		                <th>ID</th>
+		                <th>Funcionário</th>
+		                <th>Início</th>
+		                <th>Fim</th>
+		                <th>Duração (min)</th>
+		                <th>Status</th>
+		                <th>Ações</th>
+		              </tr>
+		            </thead>
+		            <tbody id="tabela-timesheet-corpo" class="text-center">
+		              <!-- preenchido via JS -->
+		            </tbody>
+		          </table>
+		        </div>
+
+		      </div>
+
+		      <!-- FOOTER -->
+		      <div class="modal-footer">
+		        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+		          Fechar
+		        </button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+		<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
+		<!-- ################################################ MODAL ARQUIVO ################################################# -->
+		<div class="modal fade" id="modalArquivo" tabindex="-1" aria-labelledby="modalArquivo"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo da solicitação</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
 					</div>
-				</div>
-				<!-- ###################################### MODAL LISTA TIMESHEET SOLICITACAO ####################################### -->
-				<!-- ################################################ MODAL ARQUIVO ################################################# -->
-				<div class="modal fade" id="modalArquivo" tabindex="-1" aria-labelledby="modalArquivo"
-					aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo da solicitação</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-							</div>
-							<br />
-							<div class="container">
-									<div class="Neon Neon-theme-dragdropbox">
-										<form id="uploadForm" enctype="multipart/form-data">
-											
-											<div class="Neon-input-dragDrop">
-												<div class="Neon-input-inner">
-													<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-													<span id="inputId"></span>
-													<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
-												</div>
-												<br />
-											<button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
-											</div>
-										</form>
+					<br />
+					<div class="container">
+							<div class="Neon Neon-theme-dragdropbox">
+								<form id="uploadForm" enctype="multipart/form-data">
+									
+									<div class="Neon-input-dragDrop">
+										<div class="Neon-input-inner">
+											<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+											<span id="inputId"></span>
+											<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
+										</div>
+										<br />
+									<button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
 									</div>
+								</form>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
-							</div>
-						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
 					</div>
 				</div>
-			<!-- ################################################ MODAL ARQUIVO ################################################# -->
-			<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
-				<div class="modal fade" id="modalExibirAnexo" tabindex="-1" aria-labelledby="modalExibirAnexo"
-					aria-hidden="true">
-					<div class="modal-dialog modal-xl">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-							</div>
-							<br />
-							<div class="container">
-								<div id="imagem-container"></div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
-							</div>
-						</div>
+			</div>
+		</div>
+	<!-- ################################################ MODAL ARQUIVO ################################################# -->
+	<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
+		<div class="modal fade" id="modalExibirAnexo" tabindex="-1" aria-labelledby="modalExibirAnexo"
+			aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabelColaborador">Anexo</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+					</div>
+					<br />
+					<div class="container">
+						<div id="imagem-container"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEdicao">Voltar</button>
 					</div>
 				</div>
-			<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
+			</div>
+		</div>
+	<!-- ############################################ MODAL VISUALISA ARQUIVO ########################################### -->
 	</div>
 	<script src="../assets/js/jquery-3.6.3.js"></script>
 	<script src="../assets/js/popper.min.js"></script>
@@ -727,7 +793,6 @@
   	<script src="../assets/js/password-generator.js"></script>
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script>
 	<script src="../assets/js/dark.js"></script>
-
   	<script>
 		
 		function atualizaContador(dataInicial, status){
@@ -782,6 +847,8 @@
 		exibeTodasSolicitacoes();
 		
 		function exibeTimesheet(id){
+			let totalMinutos = 0;
+			
 			$('#tabela-timesheet-corpo').empty();			
 			$.ajax({
 				type: "GET",
@@ -789,20 +856,34 @@
 				url: "/sistech/api/v1/timesheet/"+id,
 				success: function (data) {
 					
-					data.content.map(i => {
-						var itens = 
-						'<tr id=linhaTimesheet' + i.id + '>'
-						+ '<td id=name' + i.id + '>' + i.id + '</td>'
-						+ '<td>' + i.nomeFuncionario + '</td>'
-						+ '<td>' + i.inicio + '</td>'
-						+ '<td>' + i.fim + '</td>'
-						+ '<td>' + i.duracao + '</td>'
-						+ '<td>' + i.status + '</td>'
-						+ '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Excluir a solicitação" onclick=excluirTimesheet('+i.id +')><i class="bi bi-trash"> </i></a></td>'
-						+ '</tr>'
-						$('#tabela-timesheet').append(itens);
-						}
-					);
+					data.content.forEach(i => {
+					  totalMinutos += i.duracao || 0;
+
+					  $('#tabela-timesheet-corpo').append(`
+					    <tr id="linhaTimesheet${i.id}" data-duracao="${i.duracao || 0}">
+					      <td>${i.id}</td>
+					      <td>${i.nomeFuncionario}</td>
+					      <td>${i.inicio}</td>
+					      <td>${i.fim || '-'}</td>
+					      <td><b>${i.duracao}</b></td>
+					      <td>
+					        <span class="badge bg-${i.status === 'FINALIZADO' ? 'success' : 'warning'}">
+					          ${i.status}
+					        </span>
+					      </td>
+					      <td>
+					        <button class="btn btn-sm btn-outline-danger"
+					          onclick="excluirTimesheet(${i.id})"
+					          title="Excluir registro">
+					          <i class="bi bi-trash"></i>
+					        </button>
+					      </td>
+					    </tr>
+					  `);
+					});
+
+					$('#totalRegistrosTimesheet').text(data.content.length);
+					$('#tempoTotalTimesheet').text(totalMinutos + ' min');
 				},
 				statusCode: {
 				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
@@ -820,7 +901,6 @@
 			var id= $('#idmodal').text();
        		window.open('../impressao-tag?id='+id, '_blank');
       	}
-		
 		
 		function cancelar(){
 			if (confirm("Tem certeza que deseja cancelar a solicitação ?") == true) {
@@ -927,26 +1007,73 @@
 			$('#local').val(local);
 		}		
 		
-		function exibeHistorico(){
-			
-			var id = $('#idHistorico').text();
-			$('#log').val("");
-			$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url: "/sistech/log/"+id,
-			success: function (data) {
-				$('#log').val(data);
-			},
-			statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-					401: function() { 
-						alert('Realize login novamente!'); 
-						window.location.href = "/sistech/login"; 
-					}
-				}
-			});
-		} 
+		function exibeHistorico() {
+		  const id = $('#idHistorico').text();
+
+		  $('#historico-loading').show();
+		  $('#historico-timeline').addClass('d-none').empty();
+
+		  $.ajax({
+		    type: "GET",
+		    contentType: "application/json",
+		    url: "/sistech/log/" + id,
+		    success: function (data) {
+
+		      const separador = '########################################';
+
+		      const blocos = data
+		        .split(separador)
+		        .map(b => b.trim())
+		        .filter(b => b.length > 0)
+		        .reverse(); // mais recente em cima
+
+		      blocos.forEach(bloco => {
+		        const dataRegistro = extrairData(bloco);
+
+		        $('#historico-timeline').append(`
+		          <div class="timeline-item">
+		            <div class="timeline-card">
+		              <div class="timeline-date">
+		                <i class="bi bi-calendar-event"></i> ${dataRegistro}
+		              </div>
+		              <div class="timeline-text">${escapeHtml(bloco)}</div>
+		            </div>
+		          </div>
+		        `);
+		      });
+
+		      $('#historico-loading').hide();
+		      $('#historico-timeline').removeClass('d-none');
+		    },
+		    error: function () {
+		      alert('Erro ao carregar histórico');
+		    }
+		  });
+		}
+		
+		function escapeHtml(text) {
+		  return text
+		    .replace(/&/g, "&amp;")
+		    .replace(/</g, "&lt;")
+		    .replace(/>/g, "&gt;")
+		    .replace(/\n/g, "<br>");
+		}
+
+		/* Tenta extrair data se existir, senão retorna vazio */
+		function extrairData(texto) {
+		  const match = texto.match(/\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}/);
+		  return match ? match[0] : 'Registro';
+		}
+
+		function copiarHistorico() {
+		  let texto = '';
+		  $('.timeline-text').each(function () {
+		    texto += $(this).text() + '\n';
+		  });
+
+		  navigator.clipboard.writeText(texto)
+		    .then(() => alert('Histórico copiado!'));
+		}
 		
 		function exibeTodasSolicitacoes(){
 			var QtdItens = $("#qtdItensPage").val();
@@ -1481,30 +1608,56 @@
 			}
 		}
 		
-		function excluirTimesheet(id){
-			if (confirm("Tem certeza que deseja excluir esse registro de horario ?\n O tempo da solicitação será recalculado") == true) {
-					var t = "#linhaTimesheet" + id;
-					var remove = $(t).closest('tr');
-					$.ajax({
-						type: "DELETE",
-						contentType: "application/json",
-						url: "/sistech/api/v1/timesheet/" + id,
-						success: function () {
-							remove.fadeOut(800, function () {
-								remove.remove();
-							});
-						},
-						statusCode: {
-							500: function() { alert('Erro! Contate o desenvolvedor!'); },
-							401: function() { 
-								alert('Realize login novamente!'); 
-								window.location.href = "/sistech/login"; 
-							},
-							405: function() { alert('Voce não possui permissão para realizar essa operação!'); }
-						}
-					});
-				}
-			
+		function excluirTimesheet(id) {
+		  if (!confirm("Tem certeza que deseja excluir esse registro de horário?\nO tempo da solicitação será recalculado.")) {
+		    return;
+		  }
+
+		  const linha = $("#linhaTimesheet" + id);
+
+		  $.ajax({
+		    type: "DELETE",
+		    contentType: "application/json",
+		    url: "/sistech/api/v1/timesheet/" + id,
+		    success: function () {
+
+		      linha.fadeOut(300, function () {
+		        linha.remove();
+		        const novoTotal = recalcularResumoTimesheet();
+				atualizarDuracaoSolicitacao(novoTotal);
+				
+		      });
+
+		    },
+		    statusCode: {
+		      500: function () { alert('Erro! Contate o desenvolvedor!'); },
+		      401: function () {
+		        alert('Realize login novamente!');
+		        window.location.href = "/sistech/login";
+		      },
+		      405: function () {
+		        alert('Você não possui permissão para realizar essa operação!');
+		      }
+		    }
+		  });
+		}
+
+		function atualizarDuracaoSolicitacao(totalMinutos) {
+		  const idSolicitacao = $('#idmodal').text();
+		  const tdDuracao = $('#duracao' + idSolicitacao);
+
+		  let alerta = '';
+		  let tempo = totalMinutos;
+
+		  if (tempo <= 240) {
+		    alerta = "style='color: green; font-size: 19px'";
+		  } else if (tempo > 240 && tempo < 420) {
+		    alerta = "style='color: Chocolate; font-size: 19px'";
+		  } else {
+		    alerta = "style='color: red; font-size: 19px'";
+		  }
+
+		  tdDuracao.empty().append(`<span ${alerta}><b>${tempo}</b></span>`);
 		}
 		
 		function notificarCliente() {
@@ -1777,7 +1930,23 @@
 				document.getElementById(idCampo).value = valor.substr(0, limite);
 			}
 		}
-		
+		function recalcularResumoTimesheet() {
+		  let totalMinutos = 0;
+		  let totalRegistros = 0;
+
+		  $('#tabela-timesheet-corpo tr').each(function () {
+		    const duracao = parseInt($(this).data('duracao')) || 0;
+		    totalMinutos += duracao;
+		    totalRegistros++;
+		  });
+
+		  $('#tempoTotalTimesheet').text(totalMinutos + ' min');
+		  $('#totalRegistrosTimesheet').text(totalRegistros);
+
+		  return totalMinutos; // 🔥 chave da solução
+		}
+
+
 	</script>
 	<script>
 		$(document).ready(function () {

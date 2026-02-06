@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +12,46 @@
 	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="assets/css/dark.css">
 	<title>SisTech - TechGold</title>
+	<style>
+		body.dark-mode .card {
+		  background-color: rgb(61, 56, 70);
+		  color: #f8f9fa;
+		}
+
+		body.dark-mode .alert {
+		  background-color: #212529;
+		  border-color: #444;
+		}
+		
+		.aviso-item {
+		  padding: 14px 10px;
+		}
+
+		.aviso-item i {
+		  color: #ffc107;
+		}
+
+		body.dark-mode .modal-content {
+		  background-color: #2c3034;
+		  color: #f8f9fa;
+		}
+
+		body.dark-mode .modal-header {
+		  background-color: #212529;
+		  border-bottom: 1px solid #444;
+		}
+
+
+	</style>
 </head>
+
 <body>
 	<div class="container-fluid">
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand color-text" href="/sistech/home"><img src="./assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<a class="navbar-brand color-text" href="/sistech/home"><img src="./assets/img/key.png"
+						style="height: 18px;"> SisTech</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -25,280 +59,367 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active color-text" aria-current="page" href="/sistech/home">Início</a></li>
-							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Solicitações</a>
+						<li class="nav-item"><a class="nav-link active color-text" aria-current="page"
+								href="/sistech/home">Início</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
-								<li><hr class="dropdown-divider"></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Clientes</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
-								<li><hr class="dropdown-divider"></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/cliente/colaborador">Colaboradores</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Funcionarios</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
 								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Dashboard</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
-								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
-								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
-								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank"
+										style="color: brown; font-weight: bold;">Realtime <i
+											class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações
+										ativas</a></li>
+								<li><a class="dropdown-item"
+										href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+										data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
 								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
 								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Computadores</a>
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Computadores</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/computador/list">Listar</a></li>
 							</ul>
 						</li>
 					</ul>
 					<span class="nav-item">
-					  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
-					    <i class="bi bi-moon"></i> Modo Escuro
-					  </button>
+						<button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+							<i class="bi bi-moon"></i> Modo Escuro
+						</button>
 					</span>
 					&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle color-text" id="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<a class="nav-link dropdown-toggle color-text" id="" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"></a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
-								<li><hr class="dropdown-divider"></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
-								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
-								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li>
+								<li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
 							</ul>
 						</li>
-							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
+						<a href="/sistech/logout"><i class="bi bi-power" style="font-size: 2rem; color: red;"></i></a>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<!-- ############################################## BARRA DE NAVEGAÇÃO ################################################### -->
-
 		<hr class="bg-danger border-2 border-top border-danger">
-			<div class="container-fluid">
-			  <div class="row justify-content-between align-items-center">
-			    
-			    <!-- Foto de Perfil + Informações -->
-			    <div class="col-9 d-flex align-items-center">
-			      <!-- Foto de Perfil -->
-			      <div class="me-4 text-center ocultar-link" style="min-width: 80px;">
-			        <span id="fotoDePerfil"></span>
-			        <br />
-			        <span class="ocultar-link" style="font-size: 9px;" data-bs-toggle="modal" data-bs-target="#modalFoto">
-			          <a href="#">Alterar imagem</a>
-			        </span>
-			      </div>
-	
-			      <!-- Dados do Funcionário -->
-			      <div>
-			        <p class="mb-1"><span id="saudacao"></span> <b><span id="nomeFuncionario"></span></b></p>
-			        <p class="mb-2"><span id="dataUltimoLogin"></span></p>
-			        <div class="d-flex flex-wrap gap-2">
-			          <a id="btnRefeicao" href="#" onclick="refeicao()" role="button" aria-expanded="false"></a>
-			          &nbsp &nbsp<span id="btnAvisos"></span>
-			        </div>
-			      </div>
-			    </div>
-	
-			    <!-- Calendário -->
-			    <div class="col-3 col-s-6">
-			      <a href="/sistech/calendario" style="all: unset; cursor: pointer; display: block;">
-			        <div class="calender">
-			          <div class="top">
-			            <span id="months">Janeiro</span>
-			          </div>
-			          <span id="days">Sabado</span>
-			          <span id="dates">01</span>
-			          <span id="years">2024</span>
-			        </div>
-			        <p class="time-title">Hoje</p>
-			        <div class="time">
-			          <div id="hours">00</div>
-			          <div id="minutes">00</div>
-			          <div id="seconds">00</div>
-			          <div id="ampm">00</div>
-			        </div>
-			      </a>
-			    </div>
-			    
-			  </div>
-			</div>
-		</div>
-		<br >
-		<div id="resultados-graficos">
-			<div class="container-fluid">
-				<span id="agendamentosAtrasados"> </span><br />
-				<span id="agendamentosHoje"> </span>
-			</div>
-			<br />	
-			
-			<div class="container-fluid">
-				<div class="row justify-content-between">
-					<div class="col-4">
-						<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"> </canvas>
-					</div>
-					<div class="col-4">
-						<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+		<div class="container-fluid mb-4">
+			<div class="card shadow-sm border-0">
+				<div class="card-body">
+					<div class="row justify-content-between align-items-center">
+
+						<div class="container-fluid">
+							<div class="row justify-content-between align-items-center">
+
+								<!-- Foto de Perfil + Informações -->
+								<div class="col-9 d-flex align-items-center">
+									<!-- Foto de Perfil -->
+									<div class="me-4 text-center ocultar-link" style="min-width: 80px;">
+										<span id="fotoDePerfil"></span>
+										<br />
+										<span class="ocultar-link" style="font-size: 9px;" data-bs-toggle="modal"
+											data-bs-target="#modalFoto">
+											<a href="#">Alterar imagem</a>
+										</span>
+									</div>
+
+									<!-- Dados do Funcionário -->
+									<div>
+										<h5 class="mb-1">
+											<span id="saudacao"></span>
+											<strong class="text-primary">
+												<span id="nomeFuncionario"></span>
+											</strong>
+										</h5>
+
+										<p class="mb-2"><span id="dataUltimoLogin"></span></p>
+										<div class="d-flex flex-wrap gap-2">
+											<a id="btnRefeicao" href="#" onclick="refeicao()" role="button"
+												aria-expanded="false"></a>
+											&nbsp &nbsp <span id="btnAvisos" class="ms-2"></span>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- Calendário -->
+								<div class="col-3 col-s-6">
+									<a href="/sistech/calendario" style="all: unset; cursor: pointer; display: block;">
+										<div class="calender">
+											<div class="top">
+												<span id="months">Janeiro</span>
+											</div>
+											<span id="days">Sabado</span>
+											<span id="dates">01</span>
+											<span id="years">2024</span>
+										</div>
+										<p class="time-title">Hoje</p>
+										<div class="time">
+											<div id="hours">00</div>
+											<div id="minutes">00</div>
+											<div id="seconds">00</div>
+											<div id="ampm">00</div>
+										</div>
+									</a>
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-			
-		<br /><br /><br />
-		<footer class="container-fluid fixed-bottom text-center text-white">
-			<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
-				© 2026 Copyright:
-				<a class="text-white" href="#">TechGold</a>
+	</div>
+
+	<br>
+	<div id="resultados-graficos">
+		<div class="container-fluid">
+			<span id="agendamentosAtrasados"> </span><br />
+			<span id="agendamentosHoje"> </span>
+		</div>
+		<br />
+
+		<div class="container-fluid">
+			<div class="row justify-content-between">
+				<div class="col-4">
+					<div class="card shadow-sm border-0">
+						<div class="card-body">
+							<h6 class="text-muted mb-3">
+								<i class="bi bi-bar-chart"></i> Minhas Solicitações
+							</h6>
+							<canvas id="minhasSolicitacoes" style="height:50vh; width:40vw"></canvas>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-4">
+					<div class="card shadow-sm border-0">
+						<div class="card-body">
+							<h6 class="text-muted mb-3">
+								<i class="bi bi-bar-chart"></i> Minhas Solicitações
+							</h6>
+							<canvas id="geralSolicitacoes" style="height:50vh; width:40vw"> </canvas>
+						</div>
+					</div>
+
+				</div>
 			</div>
-			</footer>
-		</footer>
+		</div>
+	</div>
+
+	<br /><br /><br />
+	<footer class="container-fluid fixed-bottom text-center text-white">
+		<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+			© 2026 Copyright:
+			<a class="text-white" href="#">TechGold</a>
+		</div>
+	</footer>
+	</footer>
 	</div>
 	<!-- ################################################# MODAL AVISOS ################################################# -->
-		<div class="modal fade" id="modalLabelColaborador" tabindex="-1" aria-labelledby="modalLabelColaborador"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="modalLabelColaborador">Avisos</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-					</div>
-						<div class="container">
-							<div id="conteudoAvisos">
-								
-							</div>
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="modal fade" id="modalLabelColaborador" tabindex="-1"
+	     aria-labelledby="modalLabelColaborador"
+	     aria-hidden="true">
+	  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+	    <div class="modal-content shadow border-0">
+
+	      <!-- Header -->
+	      <div class="modal-header bg-light">
+	        <h5 class="modal-title d-flex align-items-center gap-2">
+	          <i class="bi bi-bell-fill text-warning"></i>
+	          Avisos do Sistema
+	        </h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	      </div>
+
+	      <!-- Body -->
+	      <div class="modal-body">
+
+	        <!-- Loading -->
+	        <div id="avisosLoading" class="text-center text-muted my-4" style="display:none;">
+	          <div class="spinner-border spinner-border-sm text-warning mb-2"></div>
+	          <div>Carregando avisos...</div>
+	        </div>
+
+	        <!-- Conteúdo -->
+	        <div id="conteudoAvisos" class="list-group list-group-flush">
+	          <!-- avisos entram aqui -->
+	        </div>
+
+	        <!-- Vazio -->
+	        <div id="avisosVazio" class="text-center text-muted my-4" style="display:none;">
+	          <i class="bi bi-check-circle fs-1 text-success"></i>
+	          <p class="mt-2 mb-0">Nenhum aviso no momento</p>
+	        </div>
+
+	      </div>
+
+	      <!-- Footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-secondary"
+	                data-bs-dismiss="modal">
+	          Fechar
+	        </button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 	<!-- ################################################# MODAL AVISOS ################################################# -->
-	
+
+
 	<!-- ################################################# MODAL FOTO ################################################# -->
-			<div class="modal fade" id="modalFoto" tabindex="-1" aria-labelledby="modalFoto"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="modalLabelColaborador">Atualização de foto de perfil</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-						</div>
-						<br />
-						<div class="container">
-								<div class="Neon Neon-theme-dragdropbox">
-									<form id="uploadForm" enctype="multipart/form-data">
-										
-										<div class="Neon-input-dragDrop">
-											<div class="Neon-input-inner">
-												<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-												<span id="inputId"></span>
-												<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
-											</div>
-											<br />
-										<button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
-										</div>
-									</form>
+	<div class="modal fade" id="modalFoto" tabindex="-1" aria-labelledby="modalFoto" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalLabelColaborador">Atualização de foto de perfil</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+				</div>
+				<br />
+				<div class="container">
+					<div class="Neon Neon-theme-dragdropbox">
+						<form id="uploadForm" enctype="multipart/form-data">
+
+							<div class="Neon-input-dragDrop">
+								<div class="Neon-input-inner">
+									<div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+									<span id="inputId"></span>
+									<input type="file" id="file" name="file" class="Neon-input-choose-btn blue"></input>
 								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-						</div>
+								<br />
+								<button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
+							</div>
+						</form>
 					</div>
 				</div>
-			</div>
-		<!-- ################################################# MODAL FOTO ################################################# -->
-	
-	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
-		<div class="modal fade" id="modalTrocaDeSenha" tabindex="-1" aria-labelledby="modalTrocaDeSenha"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="modalLabelColaborador">Aviso</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-						<div class="container">
-							<br />
-							<p><span style="font-size: 25px; color: red;">Realize a alteração de sua senha!</span> 
-								<a href="/sistech/funcionario/perfil" class="btn btn-warning">Alterar</a>
-							</p>
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Fechar</button>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
 				</div>
 			</div>
 		</div>
+	</div>
+	<!-- ################################################# MODAL FOTO ################################################# -->
+
+	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
+	<div class="modal fade" id="modalTrocaDeSenha" tabindex="-1" aria-labelledby="modalTrocaDeSenha" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalLabelColaborador">Aviso</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="container">
+					<br />
+					<p><span style="font-size: 25px; color: red;">Realize a alteração de sua senha!</span>
+						<a href="/sistech/funcionario/perfil" class="btn btn-warning">Alterar</a>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- ############################################### MODAL TROCA DE SENHS ########################################### -->
 	<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
-		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
-			aria-hidden="true">
-			<div class="modal-dialog modal-md">
-				<div class="modal-content">
-					<div class="container-password">
-						<div class="result">
-							<div class="result__info right">click para copiar</div>
-							<div class="result__info left">copiado</div>
-							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
-							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
-						</div>
-						<div class="length range__slider" data-min="4" data-max="32">
-							<div class="length__title field-title" data-length='0'>Tamanho:</div>
-							<input id="slider" type="range" min="4" max="32" value="16" />
-						</div>
-						<div class="settings">
-							<span class="settings__title field-title">configurações</span>
-							<div class="setting">
-								<input type="checkbox" id="uppercase" checked />
-								<label for="uppercase">Incluir Maiúsculo</label>
-							</div>
-							<div class="setting">
-								<input type="checkbox" id="lowercase" checked />
-								<label for="lowercase">Incluir Minúsculo</label>
-							</div>
-							<div class="setting">
-								<input type="checkbox" id="number" checked />
-								<label for="number">Incluir Número</label>
-							</div>
-							<div class="setting">
-								<input type="checkbox" id="symbol" />
-								<label for="symbol">Incluir Símbolo</label>
-							</div>
-						</div>
-						<button class="btn generate" id="generate">Gerar Senha</button>
+	<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
+		aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="container-password">
+					<div class="result">
+						<div class="result__info right">click para copiar</div>
+						<div class="result__info left">copiado</div>
+						<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+						<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
 					</div>
+					<div class="length range__slider" data-min="4" data-max="32">
+						<div class="length__title field-title" data-length='0'>Tamanho:</div>
+						<input id="slider" type="range" min="4" max="32" value="16" />
+					</div>
+					<div class="settings">
+						<span class="settings__title field-title">configurações</span>
+						<div class="setting">
+							<input type="checkbox" id="uppercase" checked />
+							<label for="uppercase">Incluir Maiúsculo</label>
+						</div>
+						<div class="setting">
+							<input type="checkbox" id="lowercase" checked />
+							<label for="lowercase">Incluir Minúsculo</label>
+						</div>
+						<div class="setting">
+							<input type="checkbox" id="number" checked />
+							<label for="number">Incluir Número</label>
+						</div>
+						<div class="setting">
+							<input type="checkbox" id="symbol" />
+							<label for="symbol">Incluir Símbolo</label>
+						</div>
+					</div>
+					<button class="btn generate" id="generate">Gerar Senha</button>
 				</div>
 			</div>
 		</div>
+	</div>
 	<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
 
 	<script src="assets/js/jquery-3.6.3.js"></script>
@@ -308,339 +429,363 @@
 	<script src="assets/js/password-generator.js"></script>
 	<script src="assets/js/dark.js"></script>
 	<script>
-			home();
-		
-			function refeicao() {
-				const $refeicaoInput = $('#refeicaoValor');
-				const $btnRefeicao = $('#btnRefeicao');
-				const refeicaoAtual = $refeicaoInput.val() === 'true';
-				const novoStatus = !refeicaoAtual;
+		home();
 
-				if (!confirm("Tem certeza que deseja alterar seu estatus?")) return;
+		function refeicao() {
+			const $refeicaoInput = $('#refeicaoValor');
+			const $btnRefeicao = $('#btnRefeicao');
+			const refeicaoAtual = $refeicaoInput.val() === 'true';
+			const novoStatus = !refeicaoAtual;
 
-				const statusLabel = novoStatus ? 'Em Refeição' : 'Online';
-				const cor = novoStatus ? 'red' : 'green';
-				const valorInput = novoStatus ? 'true' : 'false';
+			if (!confirm("Tem certeza que deseja alterar seu estatus?")) return;
 
-				$btnRefeicao.empty();
-				$refeicaoInput.val(novoStatus);
+			const statusLabel = novoStatus ? 'Em Refeição' : 'Online';
+			const cor = novoStatus ? 'red' : 'green';
+			const valorInput = novoStatus ? 'true' : 'false';
 
-				$.ajax({
-					type: "PUT",
-					contentType: "application/json",
-					url: "/sistech/funcionarios/refeicao",
-					data: JSON.stringify({ refeicao: novoStatus }),
-					success: function (data) {
-						if (data) {
-							alert("Status alterado para (" + statusLabel + ")");
-						} else {
-							alert("Não foi possível atualizar seu status!\n\nA alteração do status só pode ser realizada uma vez ao dia.");
-						}
+			$btnRefeicao.empty();
+			$refeicaoInput.val(novoStatus);
 
-						$btnRefeicao.append(`
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/funcionarios/refeicao",
+				data: JSON.stringify({refeicao: novoStatus}),
+				success: function (data) {
+					if (data) {
+						alert("Status alterado para (" + statusLabel + ")");
+					} else {
+						alert("Não foi possível atualizar seu status!\n\nA alteração do status só pode ser realizada uma vez ao dia.");
+					}
+
+					$btnRefeicao.append(`
 							<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição">
 								<i class="bi bi-cup-hot" style="color: ${data ? cor : (cor === 'red' ? 'green' : 'red')}; font-size: 27px;">
 									<input type="hidden" id="refeicaoValor" name="refeicaoValor" value="${data ? valorInput : refeicaoAtual}">
 								</i>
 							</a>
 						`);
-					},
-					statusCode: {
-						500: function () { alert('Erro! Contate o desenvolvedor!'); },
-						401: function () {
-							alert('Realize login novamente!');
-							window.location.href = "/sistech/login";
-						}
+				},
+				statusCode: {
+					500: function () {alert('Erro! Contate o desenvolvedor!');},
+					401: function () {
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login";
 					}
-				});
-			}
-		
-		function aviso() {
-			const $conteudoAvisos = $('#conteudoAvisos');
-			$conteudoAvisos.empty().append('<br />');
+				}
+			});
+		}
 
-			$.get("/sistech/api/v1/avisos")
-				.done(function (data) {
-					const avisosHtml = data.map(i => `<p><b>* ${i.aviso}</b></p>`).join('');
-					$conteudoAvisos.append(avisosHtml);
-				})
-				.fail(function (xhr) {
+		function aviso() {
+		  const $lista = $('#conteudoAvisos');
+		  const $loading = $('#avisosLoading');
+		  const $vazio = $('#avisosVazio');
+
+		  $lista.empty();
+		  $vazio.hide();
+		  $loading.show();
+
+		  $.get("/sistech/api/v1/avisos")
+		    .done(function (data) {
+		      $loading.hide();
+
+		      if (!data || data.length === 0) {
+		        $vazio.show();
+		        return;
+		      }
+
+		      data.forEach(i => {
+		        $lista.append(`
+		          <div class="list-group-item aviso-item">
+		            <div class="d-flex align-items-start gap-3">
+		              <i class="bi bi-info-circle-fill fs-5"></i>
+		              <div>
+		                <div class="fw-semibold">Aviso</div>
+		                <div class="text-muted small">${i.aviso}</div>
+		              </div>
+		            </div>
+		          </div>
+		        `);
+		      });
+		    })
+		    .fail(function (xhr) {
+		      $loading.hide();
+		      alert("Erro ao carregar avisos!");
+		      if (xhr.status === 401) {
+		        window.location.href = "/sistech/login";
+		      }
+		    });
+		}
+
+
+		function home() {
+			$.ajax({
+				url: "/sistech/funcionarios/home",
+				type: "GET",
+				success: function (data) {
+
+					insereFoto(data.id);
+
+					$('#inputId').append('<input type="hidden" id="id" name="id" value="' + data.id + '"></input>');
+
+					if (data.refeicao != null) {
+						if (data.refeicao == true) {
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="' + data.refeicao + '"></i></a>');
+						} else {
+							$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="' + data.refeicao + '"></i></a>');
+						}
+					} else {
+						$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
+					}
+
+					if (data.avisos > 0) {
+						$('#btnAvisos').append('<p class="nav-item dropdown">'
+							+ '<a class="blink" href="#" data-bs-toggle="modal" data-bs-target="#modalLabelColaborador" onclick="aviso()" role="button"'
+							+ 'aria-expanded="false">'
+							+ '<b><span style="color: red; font-size: 27px;"><i class="bi bi-bell"></i><span style="color : red; font-size: 15px">' + data.avisos + '</span></span> </b></a></p>');
+					}
+
+					if (data.agendadosAtrasados > 0) {
+						$('#agendamentosAtrasados').append('<b> Agendamentos Atrasados: </b><span><a href="/sistech/solicitacao/relatorios" style="color: red; font-size: 25px">' + data.agendadosAtrasados + '</a></span>');
+					}
+					if (data.agendadosHoje > 0) {
+						$('#agendamentosHoje').append('<b> Agendamentos Hoje: </b><span><a href="/sistech/solicitacao/relatorios" style="color: orange; font-size: 25px">' + data.agendadosHoje + '</a></span>');
+					}
+
+					$('#saudacao').text(data.saudacao);
+					$('#nomeFuncionario').text(data.nomeFuncionario);
+					$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
+
+					if (data.trocaSenha == true) {
+						$("#modalTrocaDeSenha").modal('toggle');
+					}
+
+
+					const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+					const ctx = document.getElementById('minhasSolicitacoes');
+					new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando', 'Pausado'],
+							datasets: [{
+								label: 'Minhas Solicitações: ' + data.solicitacoes.total,
+								data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
+								backgroundColor: [
+									'rgba(255, 99, 132, 0.2)',
+									'rgba(0, 150, 255, 0.2)',
+									'rgba(255, 205, 86, 0.2)',
+									'rgba(121, 125, 127, 0.2)',
+									'rgba(54, 162, 235, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132)',
+									'rgb(0, 150, 255)',
+									'rgb(255, 205, 86)',
+									'rgb(121, 125, 127)',
+									'rgb(54, 162, 235)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							scales: {y: {min: 0, max: data.solicitacoes.total}}
+						},
+						options: getChartOptions(isDarkMode, data.solicitacoes.total)
+					});
+
+					const ctx2 = document.getElementById('geralSolicitacoes');
+					new Chart(ctx2, {
+						type: 'line',
+						data: {
+							labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando', 'Pausado'],
+							datasets: [{
+								label: 'Solicitações gerais: ' + data.gerais.total,
+								data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
+								backgroundColor: [
+									'rgba(255, 99, 132, 0.2)',
+									'rgba(0, 150, 255, 0.2)',
+									'rgba(255, 205, 86, 0.2)',
+									'rgba(121, 125, 127, 0.2)',
+									'rgba(54, 162, 235, 0.2)'
+								],
+								borderColor: [
+									'rgb(255, 99, 132)',
+									'rgb(0, 150, 255)',
+									'rgb(255, 205, 86)',
+									'rgb(121, 125, 127)',
+									'rgb(54, 162, 235)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							tension: 0.2,
+							scales: {y: {min: 0, max: data.gerais.total}}
+						},
+						options: getChartOptions(isDarkMode, data.gerais.total)
+					});
+				},
+				statusCode: {
+					500: function () {alert('Erro! Contate o desenvolvedor!');},
+					401: function () {
+						alert('Realize login novamente!');
+						window.location.href = "/sistech/login";
+					}
+				},
+				complete: function (data) { }
+			})
+		}
+
+		function insereFoto(id) {
+
+			$.ajax({
+				url: "/sistech/api/file/perfil/" + id,
+				type: "GET",
+				xhrFields: {
+					responseType: 'blob' // força a resposta como binário (imagem ou não)
+				},
+				success: function (blob) {
+					const contentType = blob.type;
+
+					$('#fotoDePerfil').empty();
+
+					if (contentType.startsWith('image/')) {
+						// Cria URL da imagem recebida
+						const imageUrl = URL.createObjectURL(blob);
+						$('#fotoDePerfil').append(
+							'<img src="' + imageUrl + '" style="width: 180px" class="img-fluid img-thumbnail" alt="Foto de perfil" data-bs-toggle="modal" data-bs-target="#modalFoto">'
+						);
+					} else {
+						// Caso não seja imagem, exibe uma imagem padrão
+						$('#fotoDePerfil').append(
+							'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
+						);
+					}
+				},
+				error: function (xhr) {
+					$('#fotoDePerfil').empty();
+					$('#fotoDePerfil').append(
+						'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
+					);
+
 					if (xhr.status === 500) {
 						alert('Erro! Contate o desenvolvedor!');
 					} else if (xhr.status === 401) {
 						alert('Realize login novamente!');
 						window.location.href = "/sistech/login";
 					}
-				});
-		}
-		
-		function home(){
-			$.ajax({
-				url: "/sistech/funcionarios/home",
-				type: "GET",
-				success: function (data) {
-					
-					insereFoto(data.id);
-					
-					$('#inputId').append('<input type="hidden" id="id" name="id" value="'+data.id+'"></input>');
-					
-				if(data.refeicao != null){
-					if(data.refeicao == true){
-						$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: red; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
-					}else{
-						$('#btnRefeicao').append('<a href="#" data-toggle="tooltip" data-placement="top" title="* VERDE = Online \n* VERMELHO = Refeição"><i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="'+data.refeicao+'"></i></a>');
-					}
-				}else{
-					$('#btnRefeicao').append('<i class="bi bi-cup-hot" style="color: green; font-size: 27px;"><input type="hidden" id="refeicaoValor" name="refeicaoValor" value="false"></i>');
 				}
-					
-					if(data.avisos > 0){
-						$('#btnAvisos').append('<p class="nav-item dropdown">'
-							+'<a class="blink" href="#" data-bs-toggle="modal" data-bs-target="#modalLabelColaborador" onclick="aviso()" role="button"'
-							+'aria-expanded="false">'
-							+'<b><span style="color: red; font-size: 27px;"><i class="bi bi-bell"></i><span style="color : red; font-size: 15px">'+ data.avisos +'</span></span> </b></a></p>');
-					}
-					
-					if(data.agendadosAtrasados > 0){
-						$('#agendamentosAtrasados').append('<b> Agendamentos Atrasados: </b><span><a href="/sistech/solicitacao/relatorios" style="color: red; font-size: 25px">' + data.agendadosAtrasados +'</a></span>');
-					}
-					if(data.agendadosHoje > 0){
-						$('#agendamentosHoje').append('<b> Agendamentos Hoje: </b><span><a href="/sistech/solicitacao/relatorios" style="color: orange; font-size: 25px">' + data.agendadosHoje +'</a></span>');
-					}
-					
-					$('#saudacao').text(data.saudacao);
-					$('#nomeFuncionario').text(data.nomeFuncionario);
-					$('#dataUltimoLogin').text("Ultimo login: " + data.dataUltimoLogin);
-					
-					if(data.trocaSenha == true){
-						$("#modalTrocaDeSenha").modal('toggle'); 
-					}
-					
-					
-					const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-					
-					const ctx = document.getElementById('minhasSolicitacoes');
-					new Chart(ctx, {
-				    type: 'bar',
-				    data: {
-				      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-				      datasets: [{
-				        label: 'Minhas Solicitações: ' + data.solicitacoes.total,
-				        data: [data.solicitacoes.abertas, data.solicitacoes.andamento, data.solicitacoes.agendados, data.solicitacoes.aguardando, data.solicitacoes.pausado],
-				         backgroundColor: [
-						      'rgba(255, 99, 132, 0.2)',
-						      'rgba(0, 150, 255, 0.2)',
-						      'rgba(255, 205, 86, 0.2)',
-						      'rgba(121, 125, 127, 0.2)',
-						      'rgba(54, 162, 235, 0.2)'
-						    ],
-						    borderColor: [
-						      'rgb(255, 99, 132)',
-						      'rgb(0, 150, 255)',
-						      'rgb(255, 205, 86)',
-						      'rgb(121, 125, 127)',
-						      'rgb(54, 162, 235)'
-				    	],
-				        borderWidth: 1
-				      }]
-				    },
-				    options: {
-						 responsive: true,
-					     scales: { y: { min: 0, max: data.solicitacoes.total } }
-					},
-					options: getChartOptions(isDarkMode, data.solicitacoes.total)
-				  });
-				  
-				  const ctx2 = document.getElementById('geralSolicitacoes');
-				  new Chart(ctx2, {
-				    type: 'line',
-				    data: {
-				      labels: ['Abertas', 'Andamento', 'Agendados', 'Aguardando','Pausado'],
-				      datasets: [{
-				        label: 'Solicitações gerais: ' + data.gerais.total,
-				        data: [data.gerais.abertas, data.gerais.andamento, data.gerais.agendados, data.gerais.aguardando, data.gerais.pausado],
-				         backgroundColor: [
-						      'rgba(255, 99, 132, 0.2)',
-						      'rgba(0, 150, 255, 0.2)',
-						      'rgba(255, 205, 86, 0.2)',
-						      'rgba(121, 125, 127, 0.2)',
-						      'rgba(54, 162, 235, 0.2)'
-						    ],
-						    borderColor: [
-						      'rgb(255, 99, 132)',
-						      'rgb(0, 150, 255)',
-						      'rgb(255, 205, 86)',
-						      'rgb(121, 125, 127)',
-						      'rgb(54, 162, 235)'
-				    	],
-				        borderWidth: 1
-				      }]
-				    },
-				    options: {
-						 responsive: true,
-						  tension: 0.2,
-					     scales: { y: { min: 0, max: data.gerais.total } }
-					},
-					options: getChartOptions(isDarkMode, data.gerais.total)
-				  });
-				},
-				statusCode: {
-				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
-				    401: function() { 
-						alert('Realize login novamente!');
-						window.location.href = "/sistech/login"; 
-					}
-				},
-				complete: function (data) { }
-			})
+			});
 		}
-		
-		function insereFoto(id){
-			
-			$.ajax({
-					url: "/sistech/api/file/perfil/" + id,
-					type: "GET",
-					xhrFields: {
-						responseType: 'blob' // força a resposta como binário (imagem ou não)
-					},
-					success: function (blob) {
-						const contentType = blob.type;
 
-						$('#fotoDePerfil').empty();
-
-						if (contentType.startsWith('image/')) {
-							// Cria URL da imagem recebida
-							const imageUrl = URL.createObjectURL(blob);
-							$('#fotoDePerfil').append(
-								'<img src="' + imageUrl + '" style="width: 180px" class="img-fluid img-thumbnail" alt="Foto de perfil" data-bs-toggle="modal" data-bs-target="#modalFoto">'
-							);
-						} else {
-							// Caso não seja imagem, exibe uma imagem padrão
-							$('#fotoDePerfil').append(
-								'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
-							);
-						}
-					},
-					error: function (xhr) {
-						$('#fotoDePerfil').empty();
-						$('#fotoDePerfil').append(
-							'<img id="" src="./assets/img/login.png" style="width: 180px" class="img-fluid img-thumbnail" alt="..." data-bs-toggle="modal" data-bs-target="#modalFoto">'
-						);
-
-						if (xhr.status === 500) {
-							alert('Erro! Contate o desenvolvedor!');
-						} else if (xhr.status === 401) {
-							alert('Realize login novamente!');
-							window.location.href = "/sistech/login";
-						}
-					}
-				});
-		}
-		
 	</script>
 	<script>
 		setInterval(() => {
-		  const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-		  const weekday = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sabado"];
-		
-		  // Day
-		  let months = document.getElementById("months");
-		  let days = document.getElementById("days");
-		  let dates = document.getElementById("dates");
-		  let years = document.getElementById("years");
-		
-		  // time
-		  let hours = document.getElementById("hours");
-		  let minutes = document.getElementById("minutes");
-		  let seconds = document.getElementById("seconds");
-		  let ampm = document.getElementById("ampm");
-		
-		  //Date
-		  let ma = month[new Date().getMonth()];
-		  let dy = weekday[new Date().getUTCDay()];
-		  let dt = new Date().getDate();
-		  let yr = new Date().getFullYear();
-		
-		  //time
-		  let h = new Date().getHours();
-		  let m = new Date().getMinutes();
-		  let s = new Date().getSeconds();
-		  let am = h >= 12 ? "PM" : "AM";
-		
-		  //convart time 12 hours
-		  if (h > 12){ h = h - 12; }
-		
-		  // add zero
-		  h = (h < 10) ? "0" + h : h;
-		  m = (m < 10) ? "0" + m : m;
-		  s = (s < 10) ? "0" + s : s;
-		  dt = (dt < 10) ? "0" + dt : dt;
-		
-		  // date
-		  months.innerHTML = ma;
-		  days.innerHTML = dy;
-		  dates.innerHTML = dt;
-		  years.innerHTML = yr;
-		
-		  // time
-		  hours.innerHTML = h;
-		  minutes.innerHTML = m;
-		  seconds.innerHTML = s;
-		  ampm.innerHTML = am;
+			const month = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+			const weekday = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"];
+
+			// Day
+			let months = document.getElementById("months");
+			let days = document.getElementById("days");
+			let dates = document.getElementById("dates");
+			let years = document.getElementById("years");
+
+			// time
+			let hours = document.getElementById("hours");
+			let minutes = document.getElementById("minutes");
+			let seconds = document.getElementById("seconds");
+			let ampm = document.getElementById("ampm");
+
+			//Date
+			let ma = month[new Date().getMonth()];
+			let dy = weekday[new Date().getUTCDay()];
+			let dt = new Date().getDate();
+			let yr = new Date().getFullYear();
+
+			//time
+			let h = new Date().getHours();
+			let m = new Date().getMinutes();
+			let s = new Date().getSeconds();
+			let am = h >= 12 ? "PM" : "AM";
+
+			//convart time 12 hours
+			if (h > 12) {h = h - 12;}
+
+			// add zero
+			h = (h < 10) ? "0" + h : h;
+			m = (m < 10) ? "0" + m : m;
+			s = (s < 10) ? "0" + s : s;
+			dt = (dt < 10) ? "0" + dt : dt;
+
+			// date
+			months.innerHTML = ma;
+			days.innerHTML = dy;
+			dates.innerHTML = dt;
+			years.innerHTML = yr;
+
+			// time
+			hours.innerHTML = h;
+			minutes.innerHTML = m;
+			seconds.innerHTML = s;
+			ampm.innerHTML = am;
 		})
-		
+
 		function getChartOptions(isDarkMode, maxValue) {
-		  return {
-		    responsive: true,
-		    scales: {
-		      x: {
-		        ticks: {
-		          color: isDarkMode ? '#f8f9fa' : '#212529'
-		        },
-		        grid: {
-		          color: isDarkMode ? '#444' : '#ddd'
-		        }
-		      },
-		      y: {
-		        min: 0,
-		        max: maxValue,
-		        ticks: {
-		          color: isDarkMode ? '#f8f9fa' : '#212529'
-		        },
-		        grid: {
-		          color: isDarkMode ? '#444' : '#ddd'
-		        }
-		      }
-		    },
-		    plugins: {
-		      legend: {
-		        labels: {
-		          color: isDarkMode ? '#f8f9fa' : '#212529'
-		        }
-		      }
-		    }
-		  };
+			return {
+				responsive: true,
+				scales: {
+					x: {
+						ticks: {
+							color: isDarkMode ? '#f8f9fa' : '#212529'
+						},
+						grid: {
+							color: isDarkMode ? '#444' : '#ddd'
+						}
+					},
+					y: {
+						min: 0,
+						max: maxValue,
+						ticks: {
+							color: isDarkMode ? '#f8f9fa' : '#212529'
+						},
+						grid: {
+							color: isDarkMode ? '#444' : '#ddd'
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						labels: {
+							color: isDarkMode ? '#f8f9fa' : '#212529'
+						}
+					}
+				}
+			};
 		}
 
 	</script>
 	<script>
-	    	document.getElementById("uploadForm").addEventListener("submit", function (e){
-				e.preventDefault();
-				
-				const form = document.getElementById("uploadForm");
-				const formData = new FormData(form);
-				
-				fetch("/sistech/api/file/perfil/upload", {
-					method: "POST",
-					body: formData
-				})
+		document.getElementById("uploadForm").addEventListener("submit", function (e) {
+			e.preventDefault();
+
+			const form = document.getElementById("uploadForm");
+			const formData = new FormData(form);
+
+			fetch("/sistech/api/file/perfil/upload", {
+				method: "POST",
+				body: formData
+			})
 				.then(res => res.text())
 				.then(data => {
 					alert("Aviso: " + data);
 					window.location.reload();
 				});
-			});
+		});
 	</script>
 
 </body>
+
 </html>

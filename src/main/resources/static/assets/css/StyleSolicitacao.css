@@ -171,3 +171,49 @@ table {
                 font-weight: bold;
             }
         }
+		
+		/* Timeline */
+				.timeline {
+				  border-left: 3px solid #dee2e6;
+				  padding-left: 20px;
+				}
+
+				.timeline-item {
+				  position: relative;
+				  margin-bottom: 20px;
+				}
+
+				.timeline-item::before {
+				  content: '';
+				  position: absolute;
+				  left: -11px;
+				  top: 8px;
+				  width: 14px;
+				  height: 14px;
+				  background: #0d6efd;
+				  border-radius: 50%;
+				}
+
+				.timeline-card {
+				  background: var(--bs-body-bg);
+				  border: 1px solid #ddd;
+				  border-radius: 8px;
+				  padding: 12px 15px;
+				}
+
+				.timeline-date {
+				  font-size: 12px;
+				  color: #6c757d;
+				  margin-bottom: 4px;
+				}
+
+				.timeline-text {
+				  font-size: 14px;
+				  white-space: pre-wrap;
+				}
+
+				/* Dark mode friendly */
+				body.dark .timeline-card {
+				  background: #1e1e1e;
+				  border-color: #333;
+				}
