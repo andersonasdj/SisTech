@@ -26,5 +26,11 @@ public class ClienteController {
 	public String listarColaboradores() {
 		return "colaboradorCliente.html";
 	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/infra")
+	public String clienteInfra() {
+		return "clienteInfra.html";
+	}
 
 }
