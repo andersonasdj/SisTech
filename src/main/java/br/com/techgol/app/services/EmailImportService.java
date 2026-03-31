@@ -54,9 +54,9 @@ public class EmailImportService {
         int quantidade = emailClient.contarEmailsNaoLidos();
         emailStatusService.setQuantidade(quantidade);
 
-        System.out.println(emails.size());
+        //System.out.println("Quantidade emails não lidos : " + emails.size());
         for (Message email : emails) {
-        	System.out.println(email.subject);
+        	//System.out.println("Assunto do email: " + email.subject);
         	processarEmail(email, funcionario, iaDisponivel);
 //        	emailExecutor.execute(() -> {
 //                processarEmail(email, funcionario, iaDisponivel);
@@ -109,7 +109,6 @@ public class EmailImportService {
     	    return;
 
     	Cliente cliente = clienteOpt.get();
-
     	String corpo = "";
 
     	if(email.body != null && email.body.content != null) {
@@ -131,7 +130,6 @@ public class EmailImportService {
     	}
 
     	String assunto = email.subject != null ? email.subject : "(sem assunto)";
-
     	String descricao;
 
     	if(corpo.toLowerCase().contains(assunto.toLowerCase())) {
@@ -141,7 +139,6 @@ public class EmailImportService {
     	}
 
     	descricao = descricao.substring(0, Math.min(descricao.length(), 350));
-
     	LocalDateTime agora = LocalDateTime.now().withNano(0);
 
     	Solicitacao solicitacao = new Solicitacao();
@@ -166,12 +163,16 @@ public class EmailImportService {
         solicitacao.setPeso(0l);
 
     	solicitacaoRepository.save(solicitacao);
-
     	registrarEmailProcessado(email.id);
 
+    	
+    	/* PROCESSAMENTO DA IA
     	if(iaDisponivel && corpo.length() > 200) {
     	    aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
     	}
+    	*/
+    	
+    	
     	
 //    	 String idConversa = email.conversationId != null ? email.conversationId : email.id;
 //    	 
@@ -243,7 +244,5 @@ public class EmailImportService {
 //            aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
 //        }
     }
-    
-    
     
 }
