@@ -412,3 +412,13 @@ HTML CSSResult Skip Results Iframe .Neon {
 					      animation: piscarEnvelope 2s infinite;
 					  }		
 
+
+					  @keyframes pulseEmail {
+					      0% { transform: scale(1); }
+					      50% { transform: scale(1.2); }
+					      100% { transform: scale(1); }
+					  }
+
+					  .email-alerta {
+					      animation: pulseEmail 1s infinite;
+					  }

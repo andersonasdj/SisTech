@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.microsoft.graph.models.Message;
 
 import br.com.techgol.app.ia.AISuggestionService;
+import br.com.techgol.app.ia.EmailStatusService;
 import br.com.techgol.app.integration.GraphEmailClient;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.EmailProcessado;
@@ -41,6 +42,7 @@ public class EmailImportService {
     @Autowired private FuncionarioRepository funcionarioRepository;
     @Autowired private EmailProcessadoRepository emailRepository;
     @Autowired AISuggestionService aiSuggestionService;
+    @Autowired private EmailStatusService emailStatusService;
     //@Autowired private Executor emailExecutor; // Em teste
 
     public void processarEmails() {
@@ -48,6 +50,9 @@ public class EmailImportService {
         List<Message> emails = emailClient.buscarEmailsNaoLidos();
         Funcionario funcionario = funcionarioRepository.findBynomeFuncionario("Suporte");
         boolean iaDisponivel = aiSuggestionService.isDisponivel();
+        
+        int quantidade = emailClient.contarEmailsNaoLidos();
+        emailStatusService.setQuantidade(quantidade);
 
         System.out.println(emails.size());
         for (Message email : emails) {
@@ -91,6 +96,7 @@ public class EmailImportService {
 
     	if(solicitacaoRepository.existsByConversationId(idConversa)) {
     	    registrarEmailProcessado(email.id);
+    	   // emailClient.marcarEmailComoProcessado(idConversa);
     	    return;
     	}
 
@@ -237,5 +243,7 @@ public class EmailImportService {
 //            aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
 //        }
     }
+    
+    
     
 }

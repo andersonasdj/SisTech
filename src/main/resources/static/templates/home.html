@@ -40,8 +40,7 @@
 		  background-color: #212529;
 		  border-bottom: 1px solid #444;
 		}
-
-
+		
 	</style>
 </head>
 
@@ -130,11 +129,26 @@
 							</ul>
 						</li>
 					</ul>
-					<span class="nav-item">
-						<button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
-							<i class="bi bi-moon"></i> Modo Escuro
-						</button>
-					</span>
+					<div class="d-flex align-items-center gap-3">
+
+
+					    <!-- DARK MODE -->
+					    <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+					        <i class="bi bi-moon"></i>
+					    </button>
+						
+						<!-- EMAIL -->
+					    <div class="position-relative" title="Emails não lidos em suporte">
+					        <i class="bi bi-envelope-fill fs-5 text-primary"></i>
+					        <span id="contadorEmails"
+					              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+					            0
+					        </span>
+					    </div>
+
+					</div>
+					
+					
 					&nbsp; &nbsp; &nbsp; &nbsp;
 					<ul class="navbar-nav mb-3 mb-lg-0">
 						<li class="nav-item dropdown">
@@ -429,6 +443,32 @@
 	<script src="assets/js/password-generator.js"></script>
 	<script src="assets/js/dark.js"></script>
 	<script>
+		listarQtdNaoLidos();
+				
+				function listarQtdNaoLidos(){
+					fetch('/sistech/api/eventos/nao-lidos')
+					    .then(res => res.json())
+					    .then(qtd => {
+
+					        const badge = document.getElementById("contadorEmails");
+
+					        badge.innerText = qtd;
+
+					        if(qtd > 0){
+					            badge.style.display = "inline-block";
+					            badge.classList.add("email-alerta");
+					        } else {
+					            badge.style.display = "none";
+					            badge.classList.remove("email-alerta");
+					        }
+					    });
+				}
+				
+				setInterval(() => {
+							listarQtdNaoLidos();
+						}, 5000);
+		
+		
 		home();
 
 		function refeicao() {

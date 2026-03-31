@@ -71,4 +71,34 @@ public class GraphEmailClient {
     	    }
     }
     
+    public void marcarEmailComoProcessado(String messageId) {
+
+        Message update = new Message();
+        update.isRead = true;
+        update.categories = List.of("Processado");
+
+        graphClient
+            .users(mailbox)
+            .messages(messageId)
+            .buildRequest()
+            .patch(update);
+    }
+    
+    public int contarEmailsNaoLidos() {
+
+    	var result = graphClient
+    		    .users(mailbox)
+    		    .mailFolders(folder)
+    		    .messages()
+    		    .buildRequest()
+    		    .filter("isRead eq false")
+    		    .count(true)
+    		    .get();
+
+    	Long count = result.getCount();
+    	int quantidade = count != null ? count.intValue() : 0;
+
+        return quantidade;
+    }
+    
 }

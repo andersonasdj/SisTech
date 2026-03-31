@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.techgol.app.dto.EventoDTO;
 import br.com.techgol.app.dto.EventoDTOList;
+import br.com.techgol.app.ia.EmailStatusService;
 import br.com.techgol.app.model.Evento;
 import br.com.techgol.app.repository.EventoRepository;
 
@@ -26,6 +27,7 @@ import br.com.techgol.app.repository.EventoRepository;
 public class EventoRestController {
 
 	@Autowired private EventoRepository repo;
+	@Autowired private EmailStatusService emailStatusService;
 	
 	@PreAuthorize("hasRole('ROLE_EDITOR')")
 	@DeleteMapping("/api/eventos/{id}")
@@ -49,5 +51,10 @@ public class EventoRestController {
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable Long id) {
         repo.deleteById(id);
+    }
+    
+    @GetMapping("/nao-lidos")
+    public int getNaoLidos() {
+        return emailStatusService.getQuantidade();
     }
 }

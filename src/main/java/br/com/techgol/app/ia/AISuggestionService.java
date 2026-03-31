@@ -42,7 +42,6 @@ public class AISuggestionService {
         String contexto = contextBuilder.construirContexto(descricao, similares);
         return ollamaClient.gerarResposta(contexto);
     }
-    
    
     public String resumirEmail(String assunto, String corpo) {
 
@@ -109,9 +108,7 @@ public class AISuggestionService {
             return response.getStatusCode().is2xxSuccessful();
 
         } catch(Exception e) {
-
             return false;
-
         }
     }
     
@@ -125,12 +122,9 @@ public class AISuggestionService {
             
             System.out.println("Resumo; " + resumo);
 
-            Solicitacao s = solicitacaoRepository
-                    .findById(solicitacaoId)
-                    .orElseThrow();
+            Solicitacao s = solicitacaoRepository.findById(solicitacaoId).orElseThrow();
 
             s.setDescricao(resumo);
-
             solicitacaoRepository.save(s);
 
         } catch(Exception e) {
