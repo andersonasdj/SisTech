@@ -146,6 +146,7 @@ public class EmailImportService {
         registrarEmailProcessado(email.id);
 
         if(iaDisponivel) {
+        	System.out.println(" IA disponivel \n");
             aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
         }
     }

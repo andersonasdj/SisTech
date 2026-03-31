@@ -13,6 +13,7 @@ public class OllamaClient {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public String gerarResposta(String prompt) {
+    	System.out.println("Em client ollama");
 
         String url = "http://localhost:11434/api/generate";
 

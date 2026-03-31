@@ -131,6 +131,7 @@ public class AISuggestionService {
     public void processarResumoAsync(Long solicitacaoId, String assunto, String corpo) {
 
         try {
+        	System.out.println("Resumindo email com IA");
 
             String resumo = resumirEmail(assunto, corpo);
 
