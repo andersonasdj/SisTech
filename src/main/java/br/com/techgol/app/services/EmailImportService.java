@@ -49,7 +49,9 @@ public class EmailImportService {
         Funcionario funcionario = funcionarioRepository.findBynomeFuncionario("Suporte");
         boolean iaDisponivel = aiSuggestionService.isDisponivel();
 
+        System.out.println(emails.size());
         for (Message email : emails) {
+        	System.out.println(email.subject);
         	processarEmail(email, funcionario, iaDisponivel);
 //        	emailExecutor.execute(() -> {
 //                processarEmail(email, funcionario, iaDisponivel);
@@ -58,7 +60,8 @@ public class EmailImportService {
     }
     
     public void listaPastas() {
-    	emailClient.listarPastas();
+    	//emailClient.listarPastas();
+    	emailClient.listarPastasRecursivo("inbox");
     }
     
     public String extrairDominio(String email) {

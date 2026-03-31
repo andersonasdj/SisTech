@@ -27,7 +27,7 @@ public class GraphEmailClient {
         MessageCollectionPage page =
                 graphClient
                         .users(mailbox)
-                        .mailFolders("AAMkADU0ODY3MzBjLTk4YjUtNGYwNi05YTEzLTA3NTM1Y2MzMmJjYQAuAAAAAAASezO-YHz9TqhrjBLIUwdEAQDiAIpPvvtuTJwXmzea1JHQAAqyPGdDAAA=")
+                        .mailFolders(folder)
                         .messages()
                         .buildRequest()
                         .filter("isRead eq false")
@@ -53,6 +53,22 @@ public class GraphEmailClient {
             System.out.println("-------------------");
 
         });
+    }
+    
+    public void listarPastasRecursivo(String folderId) {
+
+    	 var folders = graphClient
+    	            .users("suporte@providerone.com.br")
+    	            .mailFolders()
+    	            .buildRequest()
+    	            .get();
+
+    	    for (var folder : folders.getCurrentPage()) {
+
+    	        System.out.println("Nome: " + folder.displayName);
+    	        System.out.println("ID: " + folder.id);
+    	        System.out.println("-----------------------");
+    	    }
     }
     
 }
