@@ -402,6 +402,13 @@ HTML CSSResult Skip Results Iframe .Neon {
 					  .checkbox-grid .form-check-input {
 					    margin-right: 8px;
 					  }
+					  @keyframes piscarEnvelope {
+					      0%   { opacity: 1; }
+					      50%  { opacity: 0.5; }
+					      100% { opacity: 1; }
+					  }
 
-					
+					  .envelope-piscando {
+					      animation: piscarEnvelope 2s infinite;
+					  }		
 

@@ -266,7 +266,7 @@
 											<div class="controls">
 												<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" placeholder="Problema Relatado"
 													onkeyup="limite_textarea_prob(this.value)" class="input-xlarge" spellcheck="true" required></textarea>
-												<span id="contProb">300</span> Restantes <br>
+												<span id="contProb">500</span> Restantes <br>
 											</div>
 										</div>
 									</div>
@@ -275,7 +275,7 @@
 										<div class="controls">
 											<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" placeholder="Observação"
 												onkeyup="limite_textarea_obs(this.value)" class="input-xlarge" spellcheck="true" required></textarea>
-											<span id="contObs">300</span> Restantes <br>
+											<span id="contObs">500</span> Restantes <br>
 										</div>
 									</div>
 								</div>
@@ -923,7 +923,7 @@
 		 }
 		 
 		 function limite_textarea_prob(valor) {
-			quant = 300;
+			quant = 500;
 			total = valor.length;
 			if (total <= quant) {
 				resto = quant - total;
@@ -933,7 +933,7 @@
 			}
 		}
 		function limite_textarea_obs(valor) {
-			quant = 300;
+			quant = 500;
 			total = valor.length;
 			if (total <= quant) {
 				resto = quant - total;

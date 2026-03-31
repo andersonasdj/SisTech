@@ -3,6 +3,7 @@ package br.com.techgol.app.repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,8 @@ import br.com.techgol.app.orm.SolicitacaoProjecaoCompleta;
 import br.com.techgol.app.orm.SolicitacaoProjecaoEntidadeComAtributos;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
+	
+	
 	
 	@Query(nativeQuery = true,
 			value = "SELECT SUM(s.duracao) FROM solicitacoes s "
@@ -253,7 +256,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.duracao, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.peso, s.anexo, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, "
-			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento, s.conversationId "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -264,7 +267,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 	@Query(value = "SELECT s.id, s.abertoPor, s.afetado, s.categoria, c.nomeCliente, s.peso, "
 			+ "s.classificacao, s.descricao, s.formaAbertura, c.redFlag, s.status, s.duracao, "
 			+ "s.local, s.observacao, s.prioridade, s.resolucao, c.vip, s.solicitante, s.versao, s.anexo, "
-			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento "
+			+ "f.nomeFuncionario, s.dataAbertura, s.dataAtualizacao, s.dataAgendado, s.log_id, s.dataAndamento, s.conversationId "
 			+ "FROM solicitacoes s "
 			+ "INNER JOIN clientes c ON s.cliente_id=c.id "
 			+ "LEFT JOIN funcionarios f ON s.funcionario_id=f.id "
@@ -1588,6 +1591,16 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 				    GROUP BY FUNCTION('DATE', s.dataFinalizado)
 				""")
 			List<DtoHistoricoDias> historicoDiario(Long clienteId, LocalDateTime inicio);
-
+			
+			public Optional<Solicitacao> findByConversationId(String conversationId);
+			
+			@Query("""
+					SELECT s
+					FROM Solicitacao s
+					WHERE LOWER(s.descricao) LIKE LOWER(CONCAT('%', :termo, '%'))
+					ORDER BY s.dataAbertura DESC 
+					LIMIT 10
+					""")
+			public List<Solicitacao> buscarChamadosSemelhantes(String termo);
 
 }

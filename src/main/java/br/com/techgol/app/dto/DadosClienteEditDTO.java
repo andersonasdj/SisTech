@@ -15,10 +15,11 @@ public record DadosClienteEditDTO(
 		String cnpj,
 		String bairro,
 		Long tempoContratado,
-		String token) {
+		String token,
+		String dominio) {
 	
 	public DadosClienteEditDTO(Cliente c) {
-		this(c.getId(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj(), c.getBairro(), c.getTempoContratado(), c.getToken());
+		this(c.getId(),c.getAtivo(), c.isVip(), c.isRedFlag(), c.getNomeCliente(),c.getEndereco(),c.getTelefone(),c.getUsername(),c.getPassword(),c.getCnpj(), c.getBairro(), c.getTempoContratado(), c.getToken(), c.getDominio());
 		
 	}
 	

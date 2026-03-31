@@ -110,6 +110,11 @@
 		    <label for="endereco" class="form-label">Endereço</label>
 		    <input type="text" id="endereco" class="form-control" autocomplete="off" />
 		  </div>
+		  
+		  <div class="col-12">
+  		    <label for="dominio" class="form-label">Domínio</label>
+  		    <input type="text" id="dominio" class="form-control" autocomplete="off" />
+  		  </div>
 
 		  <div class="col-12 col-md-6">
 		    <label for="bairro" class="form-label">Bairro</label>
@@ -205,6 +210,7 @@
 		function salvar() {
 			var nomeCliente = $('#nomeCliente').val();
 			var endereco = $('#endereco').val();
+			var dominio = $('#dominio').val();
 			var telefone = $('#telefone').val();
 			var username = $('#username').val();
 			var password = $('#password').val();
@@ -220,6 +226,7 @@
 					{
 						"nomeCliente": nomeCliente,
 						"endereco": endereco,
+						"dominio": dominio,
 					    "telefone": telefone,
 					    "username": username,
 					    "password": password,

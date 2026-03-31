@@ -255,6 +255,13 @@
 						</div>
 						
 						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label" for="dominiomodal"><b>Domínio</b></label>
+								<input type="text" id="dominiomodal" class="form-control"><br />
+							</div>
+						</div>
+						
+						<div class="row">
 							
 							<div class="col-md-6">
 								<label class="form-label mt-1" for="bairroModal"><b>Bairro</b></label>
@@ -866,6 +873,8 @@
 					$('#bairroModal').val("");
 					$('#tempoContratado').val("");
 					$('#apitokenModal').val("");
+					$('#dominiomodal').val("");
+					
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -877,6 +886,7 @@
 					$('#bairroModal').val(data.bairro);
 					$('#tempoContratado').val(data.tempoContratado/60);
 					$('#apitokenModal').val(data.token);
+					$('#dominiomodal').val(data.dominio);
 					
 					
 					if (data.ativo == true) {
@@ -1069,6 +1079,7 @@
 				telefone = $('#telefonemodal').val(),
 				cnpj = $('#cnpjmodal').val(),
 				endereco = $('#enderecomodal').val(),
+				dominio = $('#dominiomodal').val(),
 				ativo = $('#ativoModal').val(),
 				vip = $('#vipModal').val(),
 				redFlag = $('#redFlagModal').val();
@@ -1088,6 +1099,7 @@
 					"telefone": telefone,
 					"cnpj": cnpj,
 					"endereco": endereco,
+					"dominio": dominio,
 					"ativo": ativo,
 					"vip": vip,
 					"redFlag": redFlag,

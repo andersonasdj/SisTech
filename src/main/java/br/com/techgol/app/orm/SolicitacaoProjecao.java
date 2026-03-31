@@ -38,5 +38,6 @@ public interface SolicitacaoProjecao {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	LocalDateTime getDataAndamento();
 	String getAnexo();
+	String getConversationId();
 
 }

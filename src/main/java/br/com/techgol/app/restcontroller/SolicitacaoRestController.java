@@ -44,6 +44,7 @@ import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
+import br.com.techgol.app.ia.AISuggestionService;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.ModeloSolicitacao;
@@ -86,6 +87,9 @@ public class SolicitacaoRestController {
 	
 	@Autowired
 	ConjuntoModelosRepository conjuntoModelosRepository;
+	
+	@Autowired
+	AISuggestionService aiSuggestionService;
 	
 	@Autowired
 	ModeloSolicitacaoRepository modeloSolicitacaoRepository;
@@ -400,6 +404,10 @@ public class SolicitacaoRestController {
 		
 		Cliente cliente = clienteService.buscaClientePorNome(dados.nomeCliente());
 		Solicitacao solicitacao = new Solicitacao(dados, cliente);
+		
+		//String sugestao = aiSuggestionService.sugerirSolucao(solicitacao.getDescricao());
+		//solicitacao.setSugestaoIA(sugestao);
+		//System.out.println(sugestao);
 		
 		if(dados.nomeFuncionario() != null) {
 			Funcionario funcionario = repositoryFuncionario.getReferenceById(dados.nomeFuncionario());

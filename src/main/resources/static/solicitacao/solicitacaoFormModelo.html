@@ -847,27 +847,6 @@
 				}
 		}
 		
-		function limite_textarea_prob(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contProb').innerHTML = resto;
-			} else {
-				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
-			}
-		}
-		function limite_textarea_obs(valor) {
-			quant = 300;
-			total = valor.length;
-			if (total <= quant) {
-				resto = quant - total;
-				document.getElementById('contObs').innerHTML = resto;
-			} else {
-				document.getElementById('observacao').value = valor.substr(0, quant);
-			}
-		}
-		
 		const handlePhone = (event) => {
 		  let input = event.target
 		  input.value = phoneMask(input.value)

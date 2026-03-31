@@ -23,5 +23,40 @@
     "name": "upload.dir",
     "type": "java.lang.String",
     "description": "A description for 'upload.dir'"
+  },
+  {
+    "name": "m365.tenant-id",
+    "type": "java.lang.String",
+    "description": "A description for 'm365.tenant-id'"
+  },
+  {
+    "name": "m365.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'm365.client-id'"
+  },
+  {
+    "name": "m365.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'm365.client-secret'"
+  },
+  {
+    "name": "m365.mailbox",
+    "type": "java.lang.String",
+    "description": "A description for 'm365.mailbox'"
+  },
+  {
+    "name": "automation.email.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'automation.email.enabled'"
+  },
+  {
+    "name": "automation.email.interval",
+    "type": "java.lang.String",
+    "description": "A description for 'automation.email.interval'"
+  },
+  {
+    "name": "m365.mailboxfolder",
+    "type": "java.lang.String",
+    "description": "A description for 'm365.mailboxfolder'"
   }
 ]}

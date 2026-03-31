@@ -33,6 +33,8 @@ public class Cliente extends Usuario {
 	private boolean vip;
 	@Column(length = 20)
 	private String bairro;
+	@Column(length = 30)
+	private String dominio;
 	
 	@Column(length = 300)
 	private String token;
@@ -55,6 +57,7 @@ public class Cliente extends Usuario {
 		this.bairro = dados.bairro();
 		this.tempoContratado = dados.tempoContratado();
 		this.token = dados.token();
+		this.dominio = dados.dominio();
 	}
 	
 public Cliente(DtoAtualizarCliente dados) {
@@ -74,5 +77,6 @@ public Cliente(DtoAtualizarCliente dados) {
 		this.bairro = dados.bairro();
 		this.tempoContratado = dados.tempoContratado();
 		this.token = dados.token();
+		this.dominio = dados.dominio();
 	}
 }

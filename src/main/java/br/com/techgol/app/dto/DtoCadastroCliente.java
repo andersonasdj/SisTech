@@ -14,6 +14,7 @@ public record DtoCadastroCliente(
 		String cnpj,
 		String bairro,
 		Long tempoContratado,
-		String token
+		String token,
+		String dominio
 		) {}
 

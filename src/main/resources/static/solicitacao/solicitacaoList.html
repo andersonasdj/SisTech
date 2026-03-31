@@ -391,7 +391,7 @@
 								<div class="controls">
 									<textarea class="form-control" rows="3" id="descricaomodal" 
 									onkeyup="limitarTextarea(this.value, 'contDescri', 'descricaomodal')"class="form-control" spellcheck="true"></textarea>
-									<span id="contDescri">300</span>
+									<span id="contDescri">500</span>
 									<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
@@ -400,7 +400,7 @@
 								<div class="controls">
 									<textarea class="form-control" rows="3" id="observacaomodal"
 										onkeyup="limitarTextarea(this.value, 'contObsEdit', 'observacaomodal')" spellcheck="true"></textarea>
-									<span id="contObsEdit">300</span>
+									<span id="contObsEdit">500</span>
 									<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
@@ -410,7 +410,7 @@
 							<div class="controls">
 								<textarea class="form-control" rows="3" id="resolucaomodal"
 									onkeyup="limitarTextarea(this.value, 'contResolEdit', 'resolucaomodal')" spellcheck="true"></textarea>
-								<span id="contResolEdit">300</span>
+								<span id="contResolEdit">500</span>
 								<span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 							</div>
 						</div>
@@ -478,7 +478,7 @@
 								<label class="form-label mt-1" for="descricao"><b>Problema Relatado *</b></label>
 									<textarea class="form-control input-xlarge" rows="4" id="descricao" name="descricao" placeholder="Problema Relatado"
 										onkeyup="limitarTextarea(this.value, 'contProb', 'descricao')" spellcheck="true" required></textarea>
-									<span id="contProb">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+									<span id="contProb">500</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 							<div class="col-md-6 ms-auto">
@@ -486,7 +486,7 @@
 								<label class="form-label mt-1" for="observacao"><b>Observação</b></label>
 									<textarea class="form-control input-xlarge" rows="4" id="observacao" name="observacao" placeholder="Observação"
 										onkeyup="limitarTextarea(this.value, 'contObs', 'observacao')" spellcheck="true" required></textarea>
-									<span id="contObs">300</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
+									<span id="contObs">500</span> <span style="font-size: 13px; font-weight: bold;"> Restantes</span>
 								</div>
 							</div>
 						</div>
@@ -1129,10 +1129,16 @@
 						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
 					}else {anexo = ""}
 					
+					if(i.conversationId != null){
+						conversa = '<i class="bi bi-envelope-fill envelope-piscando" style="color:red;" title="Chamado via email"></i> ';
+					}else{
+						conversa = "";
+					}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
-					+ '<td style="color: blue;" >' + anexo + '</td>'
+					+ '<td style="color: blue;" >' + anexo + conversa + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
@@ -1217,10 +1223,16 @@
 						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
 					}else {anexo = ""}
 					
+					if(i.conversationId != null){
+						conversa = '<i class="bi bi-envelope-fill envelope-piscando" style="color:red;" title="Chamado via email"></i> ';
+					}else{
+						conversa = "";
+					}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
-					+ '<td>' + anexo + '</td>'
+					+ '<td>' + anexo + conversa + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
@@ -1323,10 +1335,16 @@
 						anexo = '<a href="#" data-bs-toggle="modal"" data-bs-target="#modalExibirAnexo" onclick="exibirAnexo('+i.id+')"><i class="bi bi-paperclip"></i></a> ';
 					}else {anexo = ""}
 					
+					if(i.conversationId != null){
+						conversa = '<i class="bi bi-envelope-fill envelope-piscando" style="color:red;" title="Chamado via email"></i> ';
+					}else{
+						conversa = "";
+					}
+					
 					var itens = 
 					'<tr '+ status + ' id=linha' + i.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + i.id + ')>'
 					+ '<td id=name' + i.id + '>' + i.id + '</td>'
-					+ '<td style="color: blue;" >' + anexo + '</td>'
+					+ '<td style="color: blue;" >' + anexo + conversa + '</td>'
 					+ '<td>' + i.dataAbertura + '</td>'
 					+ '<td class=nome-do-cliente>' + i.nomeCliente  + vip + redFlag + '</td>'
 					+ '<td id=solicitante' + i.id + '>' + i.solicitante + '</td>'
@@ -1920,7 +1938,7 @@
 		}
 		
 		function limitarTextarea(valor, idContador, idCampo) {
-			const limite = 300;
+			const limite = 500;
 			const total = valor.length;
 
 			if (total <= limite) {
@@ -1943,7 +1961,7 @@
 		  $('#tempoTotalTimesheet').text(totalMinutos + ' min');
 		  $('#totalRegistrosTimesheet').text(totalRegistros);
 
-		  return totalMinutos; // 🔥 chave da solução
+		  return totalMinutos;
 		}
 
 

@@ -49,6 +49,7 @@ import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
+import br.com.techgol.app.ia.AISuggestionService;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;
@@ -101,6 +102,9 @@ public class SolicitacaoService {
 	
 	@Autowired
 	private ColaboradorService colaboradorService;
+	
+	@Autowired
+	AISuggestionService aiSuggestionService;
 	
 	@Transactional
 	public void atualizaArquivo(Long id, String caminhoFoto) {
@@ -634,7 +638,7 @@ public class SolicitacaoService {
 		}else {
 			System.out.println("Sem configuração de email de abertura habilitado");
 		}
-		
+		 //aiSuggestionService.gerarSugestaoAsync(solicitacao); // ############### IA ############
 		return dados;
 	}
 	
