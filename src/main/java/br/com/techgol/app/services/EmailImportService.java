@@ -81,47 +81,65 @@ public class EmailImportService {
     
     private void processarEmail(Message email, Funcionario funcionario, boolean iaDisponivel) {
     	
-    	 String idConversa = email.conversationId != null ? email.conversationId : email.id;
-    	 
-    	 Optional<Solicitacao> solicitacaoExistente = solicitacaoRepository.findByConversationId(idConversa);
+    	if(emailRepository.existsById(email.id))
+    	    return;
 
-    		if(solicitacaoExistente.isPresent()) {
-    		    registrarEmailProcessado(email.id);
-    		    return;
-    		}
+    	if(email.from == null || email.from.emailAddress == null)
+    	    return;
 
-        if(emailRepository.existsById(email.id))
-            return;
+    	String idConversa = email.conversationId != null ? email.conversationId : email.id;
 
-        if(email.from == null || email.from.emailAddress == null)
-            return;
+    	if(solicitacaoRepository.existsByConversationId(idConversa)) {
+    	    registrarEmailProcessado(email.id);
+    	    return;
+    	}
 
-        String remetente = email.from.emailAddress.address;
-        String dominio = extrairDominio(remetente);
+    	String remetente = email.from.emailAddress.address;
+    	String dominio = extrairDominio(remetente);
 
-        Optional<Cliente> clienteOpt = clienteRepository.findByDominioIgnoreCase(dominio);
+    	Optional<Cliente> clienteOpt = clienteRepository.findByDominioIgnoreCase(dominio);
 
-        if(clienteOpt.isEmpty())
-            return;
+    	if(clienteOpt.isEmpty())
+    	    return;
 
-        Cliente cliente = clienteOpt.get();
+    	Cliente cliente = clienteOpt.get();
 
-        String corpo = "";
+    	String corpo = "";
 
-        if(email.body != null && email.body.content != null) {
-            corpo = Jsoup.parse(email.body.content).text();
-        }
+    	if(email.body != null && email.body.content != null) {
+    	    corpo = Jsoup.parse(email.body.content).text();
+    	}
 
-        corpo = corpo.replaceAll("\\s+", " ").trim();
-        String assunto = email.subject != null ? email.subject : "(sem assunto)";
+    	corpo = corpo
+    	    .replaceAll("\\s+", " ")
+    	    .trim()
+    	    .replaceAll("(?im)^att\\..*$", "")
+    	    .replaceAll("(?im)^from:.*$", "")
+    	    .replaceAll("(?im)^sent:.*$", "")
+    	    .replaceAll("(?im)^subject:.*$", "")
+    	    .split("(?i)-----original message-----")[0]
+    	    .trim();
 
-        String descricao = assunto + " - " + corpo;
-        descricao = descricao.substring(0, Math.min(descricao.length(), 350));
+    	if(corpo.length() > 1000) {
+    	    corpo = corpo.substring(0, 1000);
+    	}
 
-        LocalDateTime agora = LocalDateTime.now().withNano(0);
-        
-        Solicitacao solicitacao = new Solicitacao();
-        solicitacao.setDescricao(descricao);
+    	String assunto = email.subject != null ? email.subject : "(sem assunto)";
+
+    	String descricao;
+
+    	if(corpo.toLowerCase().contains(assunto.toLowerCase())) {
+    	    descricao = corpo;
+    	} else {
+    	    descricao = assunto + " - " + corpo;
+    	}
+
+    	descricao = descricao.substring(0, Math.min(descricao.length(), 350));
+
+    	LocalDateTime agora = LocalDateTime.now().withNano(0);
+
+    	Solicitacao solicitacao = new Solicitacao();
+    	solicitacao.setDescricao(descricao);
         solicitacao.setCliente(cliente);
         solicitacao.setFuncionario(funcionario);
         solicitacao.setFormaAbertura(FormaAbertura.EMAIL);
@@ -140,15 +158,84 @@ public class EmailImportService {
         solicitacao.setConversationId(idConversa);
         solicitacao.setDuracao(0l);
         solicitacao.setPeso(0l);
-        
-        solicitacaoRepository.save(solicitacao);
 
-        registrarEmailProcessado(email.id);
+    	solicitacaoRepository.save(solicitacao);
 
-        if(iaDisponivel) {
-        	System.out.println(" IA disponivel \n");
-            aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
-        }
+    	registrarEmailProcessado(email.id);
+
+    	if(iaDisponivel && corpo.length() > 200) {
+    	    aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
+    	}
+    	
+//    	 String idConversa = email.conversationId != null ? email.conversationId : email.id;
+//    	 
+//    	 Optional<Solicitacao> solicitacaoExistente = solicitacaoRepository.findByConversationId(idConversa);
+//
+//    		if(solicitacaoExistente.isPresent()) {
+//    		    registrarEmailProcessado(email.id);
+//    		    return;
+//    		}
+//
+//        if(emailRepository.existsById(email.id))
+//            return;
+//
+//        if(email.from == null || email.from.emailAddress == null)
+//            return;
+//
+//        String remetente = email.from.emailAddress.address;
+//        String dominio = extrairDominio(remetente);
+//
+//        Optional<Cliente> clienteOpt = clienteRepository.findByDominioIgnoreCase(dominio);
+//
+//        if(clienteOpt.isEmpty())
+//            return;
+//
+//        Cliente cliente = clienteOpt.get();
+//
+//        String corpo = "";
+//
+//        if(email.body != null && email.body.content != null) {
+//            corpo = Jsoup.parse(email.body.content).text();
+//        }
+//
+//        corpo = corpo.replaceAll("\\s+", " ").trim();
+//        
+//        String assunto = email.subject != null ? email.subject : "(sem assunto)";
+//
+//        String descricao = assunto + " - " + corpo;
+//        descricao = descricao.substring(0, Math.min(descricao.length(), 350));
+//
+//        LocalDateTime agora = LocalDateTime.now().withNano(0);
+//        
+//        Solicitacao solicitacao = new Solicitacao();
+//        solicitacao.setDescricao(descricao);
+//        solicitacao.setCliente(cliente);
+//        solicitacao.setFuncionario(funcionario);
+//        solicitacao.setFormaAbertura(FormaAbertura.EMAIL);
+//        solicitacao.setStatus(Status.ABERTO);
+//        solicitacao.setDataAbertura(agora);
+//        solicitacao.setDataAtualizacao(agora);
+//        solicitacao.setSolicitante(remetente);
+//        solicitacao.setAfetado(remetente);
+//        solicitacao.setExcluido(false);
+//        solicitacao.setCategoria(Categoria.OUTROS);
+//        solicitacao.setAbertoPor("Sistema");
+//        solicitacao.setClassificacao(Classificacao.SOLICITACAO);
+//        solicitacao.setPrioridade(Prioridade.ALTA);
+//        solicitacao.setLocal(Local.OFFSITE);
+//        solicitacao.setVersao(0);
+//        solicitacao.setConversationId(idConversa);
+//        solicitacao.setDuracao(0l);
+//        solicitacao.setPeso(0l);
+//        
+//        solicitacaoRepository.save(solicitacao);
+//
+//        registrarEmailProcessado(email.id);
+//
+//        if(iaDisponivel) {
+//        	System.out.println(" IA disponivel \n");
+//            aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
+//        }
     }
     
 }

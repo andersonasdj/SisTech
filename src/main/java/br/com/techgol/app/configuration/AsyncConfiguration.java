@@ -24,9 +24,9 @@ public class AsyncConfiguration {
     Executor emailExecutor() {
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(4);
-        executor.setMaxPoolSize(8);
-        executor.setQueueCapacity(100);
+        executor.setCorePoolSize(1);
+        executor.setMaxPoolSize(1);
+        executor.setQueueCapacity(50);
         executor.setThreadNamePrefix("email-worker-");
 
         executor.initialize();

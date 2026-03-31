@@ -1603,4 +1603,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 					""")
 			public List<Solicitacao> buscarChamadosSemelhantes(String termo);
 
+			public boolean existsByConversationId(String idConversa);
+
 }

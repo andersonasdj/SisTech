@@ -46,24 +46,12 @@ public class AISuggestionService {
    
     public String resumirEmail(String assunto, String corpo) {
 
-        String prompt = """
-    Você é um analista de suporte técnico.
+    	String prompt = """
+    			Resuma em 1 frase técnica de TI (máx 200 caracteres):
 
-    Resuma o email abaixo em uma descrição objetiva para um chamado.
-
-    Regras:
-    - máximo 350 caracteres
-    - linguagem técnica
-    - não incluir assinatura ou histórico
-
-    Assunto:
-    """ + assunto + """
-
-    Corpo do email:
-    """ + corpo + """
-
-    Resumo:
-    """;
+    			%s
+    			%s
+    			""".formatted(assunto, corpo);
 
         return ollamaClient.gerarResposta(prompt);
     }
@@ -134,6 +122,8 @@ public class AISuggestionService {
         	System.out.println("Resumindo email com IA");
 
             String resumo = resumirEmail(assunto, corpo);
+            
+            System.out.println("Resumo; " + resumo);
 
             Solicitacao s = solicitacaoRepository
                     .findById(solicitacaoId)

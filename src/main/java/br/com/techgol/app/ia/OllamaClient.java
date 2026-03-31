@@ -15,19 +15,35 @@ public class OllamaClient {
     public String gerarResposta(String prompt) {
     	System.out.println("Em client ollama");
 
-        String url = "http://localhost:11434/api/generate";
+//        String url = "http://localhost:11434/api/generate";
+//
+//        Map<String, Object> body = new HashMap<>();
+//        body.put("model", "llama3");
+//        body.put("prompt", prompt);
+//        body.put("stream", true);
+//        body.put("keep_alive", "5m");
+//        
+//        
+//        Map<String, Object> options = new HashMap<>();
+//        options.put("num_predict", 350); // limite da resposta
+//        options.put("temperature", 0.2);
+//        options.put("top_p", 0.9);
+//        
+//        body.put("options", options);
+    	String url = "http://localhost:11434/api/generate";
 
-        Map<String, Object> body = new HashMap<>();
-        body.put("model", "llama3");
-        body.put("prompt", prompt);
-        body.put("stream", false);
-        
-        Map<String, Object> options = new HashMap<>();
-        options.put("num_predict", 350); // limite da resposta
-        options.put("temperature", 0.2);
-        options.put("top_p", 0.9);
-        
-        body.put("options", options);
+    	Map<String, Object> body = new HashMap<>();
+    	body.put("model", "phi3"); // MAIS LEVE
+    	body.put("prompt", prompt);
+    	body.put("stream", false);
+    	body.put("keep_alive", "5m");
+
+    	Map<String, Object> options = new HashMap<>();
+    	options.put("num_predict", 80);   // CRÍTICO
+    	options.put("temperature", 0.2);
+    	options.put("top_p", 0.9);
+
+    	body.put("options", options);
 
         ResponseEntity<Map> response = restTemplate.postForEntity(url, body, Map.class);
 
