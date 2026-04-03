@@ -41,9 +41,9 @@ public class EmailImportService {
     @Autowired private SolicitacaoRepository solicitacaoRepository;
     @Autowired private FuncionarioRepository funcionarioRepository;
     @Autowired private EmailProcessadoRepository emailRepository;
-    //@Autowired AISuggestionService aiSuggestionService;
     @Autowired OpenAIService openAIService;
     @Autowired private EmailStatusService emailStatusService;
+    //@Autowired AISuggestionService aiSuggestionService;
     //@Autowired private Executor emailExecutor; // Em teste
 
     public void processarEmails() {
@@ -54,15 +54,15 @@ public class EmailImportService {
         int quantidade = emailClient.contarEmailsNaoLidos();
         emailStatusService.setQuantidade(quantidade);
 
-        System.out.println("IA Disponivel? :" + iaDisponivel);
-        System.out.println("Quantidade emails não lidos : " + emails.size());
+        //System.out.println("IA Disponivel? :" + iaDisponivel);
+        //System.out.println("Quantidade emails não lidos : " + emails.size());
         for (Message email : emails) {
-        	System.out.println("\n\n * Remetente do email: " + email.from.emailAddress.address);
-        	System.out.println(" * Assunto do email: " + email.subject);
+        	//System.out.println("\n\n * Remetente do email: " + email.from.emailAddress.address);
+        	//System.out.println(" * Assunto do email: " + email.subject);
         	processarEmail(email, funcionario, iaDisponivel);
-//        	emailExecutor.execute(() -> {
-//                processarEmail(email, funcionario, iaDisponivel);
-//            });
+        	//emailExecutor.execute(() -> {
+            //    processarEmail(email, funcionario, iaDisponivel);
+            //});
         }
     }
     
@@ -139,7 +139,6 @@ public class EmailImportService {
     		    .trim();
     	
     	String descricao;
-
     	String corpoLower = corpo.toLowerCase();
     	String assuntoLower = assunto.toLowerCase();
 
@@ -180,7 +179,6 @@ public class EmailImportService {
     	if(iaDisponivel && corpo.length() > 200) {
     		openAIService.resumirEmail(solicitacao.getId(), assunto, corpo);
     	}
-    	
 
     }
     
@@ -190,7 +188,6 @@ public class EmailImportService {
     	    aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
     	}
     	*/
-    	
     	
     	
 //    	 String idConversa = email.conversationId != null ? email.conversationId : email.id;

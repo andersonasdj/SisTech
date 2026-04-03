@@ -23,7 +23,7 @@ public class EmailScheduler {
 
     private final AtomicBoolean running = new AtomicBoolean(false);
 
-    @Scheduled(fixedDelayString = "${automation.email.interval:40000}")
+    @Scheduled(fixedDelayString = "${automation.email.interval:60000}")
     public void verificarEmails() {
 
         if(!running.compareAndSet(false, true))

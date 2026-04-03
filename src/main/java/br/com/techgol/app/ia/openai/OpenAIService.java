@@ -35,7 +35,7 @@ public class OpenAIService {
     public void resumirEmail(Long solicitacaoId, String assunto, String corpo) {
     	
     	 try {
-	    	System.out.println("* Resumindo email com OPENAI");
+	    	//System.out.println("* Resumindo email com OPENAI");
 	
 	        String prompt = """
 	        Você é um analista de TI, Resuma este email em até 2 linhas (máx 300 caracteres), linguagem técnica:
@@ -70,7 +70,6 @@ public class OpenAIService {
 	        Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
 	
 	        String resumo = message.get("content").toString().trim();
-	        
 	        Solicitacao s = solicitacaoRepository.findById(solicitacaoId).orElseThrow();
 	
 	        s.setDescricao(resumo);
@@ -87,7 +86,7 @@ public class OpenAIService {
 
         try {
 
-        	System.out.println("Verificando disponibilidade da IA: \n");
+        	//System.out.println("Verificando disponibilidade da IA: \n");
             RestTemplate restTemplate = new RestTemplate();
 
             HttpHeaders headers = new HttpHeaders();
