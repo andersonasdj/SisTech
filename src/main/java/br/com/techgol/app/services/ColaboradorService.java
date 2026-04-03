@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoColaboradorCadastrar;
@@ -27,7 +26,7 @@ public class ColaboradorService {
 	@Autowired
 	private ClienteRepository repositoryCliente;
 	
-	@Cacheable(value="listaNomeColaboradoresPorIdCliente")
+	@CacheEvict(value="listaNomeColaboradoresPorIdCliente")
 	public List<String> listarNomesIdCliente(Long id) {
 		return repository.listarNomesColaboradoresPorIdCliente(id);
 	}

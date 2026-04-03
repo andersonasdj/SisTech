@@ -49,7 +49,7 @@ import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoDashboardResumoFuncionario;
 import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
 import br.com.techgol.app.email.EnviaSolicitacaoCriada;
-import br.com.techgol.app.ia.AISuggestionService;
+import br.com.techgol.app.ia.ollama.AISuggestionService;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.ConfiguracaoEmail;
 import br.com.techgol.app.model.Funcionario;

@@ -121,60 +121,142 @@
 		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
 
 		<hr class="bg-danger border-2 border-top border-danger">
-		<div class="container-fluid">
-		  <div class="row">
-			  <div class="col-3">
-				<div class="control-group">
-					<div class="controls">
-				      <select name="" id="qtdItensPage" class="form-select" style="width: 80px;">
-				        <option value="100">100</option>
-				        <option value="150">150</option>
-				        <option value="200">200</option>
-				        <option value="250">250</option>
-				        <option value="300" selected >300</option>
-				        <option value="350">350</option>
-						<option value="400">400</option>
-						<option value="450">450</option>
-						<option value="500">500</option>
-				      </select>
+
+		<div class="container-fluid mb-2">
+
+		    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+		        <!-- ESQUERDA -->
+		        <div class="d-flex align-items-center gap-3">
+
+		            <!-- ITENS POR PÁGINA -->
+		            <div class="d-flex align-items-center gap-1">
+		                <small class="text-muted">Itens:</small>
+		                <select id="qtdItensPage" class="form-select form-select-sm" style="width: 80px;">
+		                    <option>100</option>
+		                    <option>150</option>
+		                    <option>200</option>
+		                    <option>250</option>
+		                    <option selected>300</option>
+		                    <option>350</option>
+		                    <option>400</option>
+		                    <option>450</option>
+		                    <option>500</option>
+		                </select>
+		            </div>
+
+					<div class="d-flex align-items-center gap-2 px-3 py-2 bg-light rounded shadow-sm">
+
+					    <i class="bi bi-bar-chart-fill text-primary fs-5"></i>
+
+					    <div class="d-flex flex-column lh-1">
+					        <small class="text-muted">Total</small>
+					        <strong class="fs-6">
+					            <span id="totalElementos">0</span> chamados
+					        </strong>
+					    </div>
+
 					</div>
-				</div>
+
+		        </div>
+
+		        <!-- DIREITA (FILTROS) -->
+		        <div class="d-flex flex-wrap gap-2">
+
+					<button class="btn btn-outline-primary btn-sm rederizaBtn"
+					    onclick="btnStatus('TRIAGEM', event)">
+					    <i class="bi bi-envelope-exclamation"></i> Triagem
+					</button>
+
+		            <button class="btn btn-outline-danger btn-sm rederizaBtn"
+		                onclick="btnStatus('ABERTO')">
+		                🔴 Aberto
+		            </button>
+
+		            <button class="btn btn-outline-info btn-sm rederizaBtn"
+		                onclick="btnStatus('ANDAMENTO')">
+		                ⚙️ Andamento
+		            </button>
+
+		            <button class="btn btn-outline-warning btn-sm rederizaBtn"
+		                onclick="btnStatus('AGENDADO')">
+		                📅 Agendado
+		            </button>
+
+		            <button class="btn btn-outline-light btn-sm rederizaBtn border text-dark"
+		                onclick="btnStatus('PAUSADO')">
+		                ⏸️ Pausado
+		            </button>
+
+		            <button class="btn btn-outline-secondary btn-sm rederizaBtn"
+		                onclick="btnStatus('AGUARDANDO')">
+		                ⏳ Aguardando
+		            </button>
+
+		            <button class="btn btn-dark btn-sm rederizaBtn"
+		                onclick="exibeTodas()">
+		                📋 Todas
+		            </button>
+
+		        </div>
+
 		    </div>
-		    <div class="col-3">
-				<b><span class="totalSolicitacoes" id="totalElementos"> </span></b>
-		    </div>
-		    <div class="col-6">
-				<button class="btn btn-danger btn-sm rederizaBtn" onclick="btnStatus('ABERTO')">ABERTO</button>
-				<button class="btn btn-primary btn-sm rederizaBtn" onclick="btnStatus('ANDAMENTO')">ANDAMENTO</button>
-				<button class="btn btn-warning btn-sm rederizaBtn" onclick="btnStatus('AGENDADO')">AGENDADO</button>
-				<button class="btn btn-light btn-sm rederizaBtn" onclick="btnStatus('PAUSADO')">PAUSADO</button>
-				<button class="btn btn-secondary btn-sm rederizaBtn" onclick="btnStatus('AGUARDANDO')">AGUARDANDO</button>
-				<button class="btn btn-dark btn-sm rederizaBtn" onclick="exibeTodas()">TODAS</button>
-		    </div>
-		  </div>
+
 		</div>
+
 		<hr class="bg-danger border-2 border-top border">
 		<span id="update" hidden> </span>
-		<div class="container-fluid">
-		  <div class="row">
-		    <div class="col-5">
-				<button data-bs-toggle="modal" data-bs-target="#modalNovaSolicitacao" class="btn btn-success btn-sm" onclick="nova()">Nova </button>
+		<div class="container-fluid mb-2">
+
+		    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+		        <!-- ESQUERDA (AÇÕES) -->
+		        <div class="d-flex align-items-center gap-2">
+
+		            <button data-bs-toggle="modal"
+		                    data-bs-target="#modalNovaSolicitacao"
+		                    class="btn btn-success btn-sm"
+		                    onclick="nova()">
+		                <i class="bi bi-plus-circle"></i> Novo chamado
+		            </button>
+
+		            <a href="/sistech/api/csv/download"
+		               class="btn btn-outline-primary btn-sm"
+		               title="Exportar CSV">
+		                <i class="bi bi-filetype-csv"></i>
+		            </a>
+
+		            <button onclick="generatePDF()"
+		                    class="btn btn-outline-danger btn-sm"
+		                    title="Exportar PDF">
+		                <i class="bi bi-filetype-pdf"></i>
+		            </button>
+
+		        </div>
+
+		        <!-- DIREITA (BUSCA) -->
+		        <div class="d-flex align-items-center gap-2">
+
+		            <div class="input-group input-group-sm" style="width: 450px;">
+		                <span class="input-group-text">
+		                    <i class="bi bi-search"></i>
+		                </span>
+		                <input id="boxBusca"
+		                       type="text"
+		                       class="form-control search"
+		                       placeholder="Buscar chamado...">
+		            </div>
+
+		            <span class="badge bg-light text-dark border">
+		                <span class="counter"></span>
+		            </span>
+
+		        </div>
+
 		    </div>
-		    <div class="col-1">
-				<a href="/sistech/api/csv/download"> <i class="bi bi-filetype-csv" style="font-size: 1.8rem; color: cornflowerblue;"> </i></a>
-		    </div>
-		    <div class="col-1">
-				<a href="#" onclick="generatePDF()"> <i class="bi bi-filetype-pdf" style="font-size: 1.8rem; color: cornflowerblue;"> </i></a>
-		    </div>
-		    <div class="col-5">
-				<div class="form-group pull-right">
-		    		<input id="boxBusca" type="text" class="search form-control" placeholder="Busca">
-				</div>
-				<span class="counter pull-right"> </span>
-		    </div>
-		  </div>
+
 		</div>
-		
+		<hr class="bg-danger border-2 border-top border">
 		<div class="table-responsive mt-2">
 			<table class="table table-bordered results sortable table-action" id="tabela-usuarios">
 				<thead>
@@ -808,6 +890,7 @@
  	<script src="../assets/js/jspdf.plugin.autotable.js"></script>
 	<script src="../assets/js/dark.js"></script>
   	<script>
+		
 		listarQtdNaoLidos();
 		
 		function listarQtdNaoLidos(){
@@ -882,8 +965,14 @@
   	</script>
   
 	<script>
-		exibeTodasSolicitacoes();
-		
+		const urlParams = new URLSearchParams(window.location.search);
+		const statusURL = urlParams.get("status");
+				
+				if(statusURL)
+					btnStatus(statusURL);
+				else
+					exibeTodasSolicitacoes();
+					
 		function exibeTimesheet(id){
 			let totalMinutos = 0;
 			
@@ -1000,6 +1089,10 @@
 		
 		function btnStatus(status){
 			var QtdItens = $("#qtdItensPage").val();
+			document.querySelectorAll('.rederizaBtn')
+			       .forEach(b => b.classList.remove('active'));
+
+			   //event.target.classList.add('active');
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
@@ -1142,6 +1235,7 @@
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.status == "TRIAGEM"){ status = "class='table-primary'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
@@ -1236,6 +1330,7 @@
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.status == "TRIAGEM"){ status = "class='table-primary'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
@@ -1348,6 +1443,7 @@
 					if(i.status == "ANDAMENTO"){ status = "class='table-info'"; dataStatus = i.dataAndamento; }
 					if(i.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(i.status == "PAUSADO"){ status = "class='table-light'" }
+					if(i.status == "TRIAGEM"){ status = "class='table-primary'" }
 					if(i.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(i.redFlag == true){ 
 						if(i.vip == true){
@@ -1539,7 +1635,14 @@
 							$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
 							$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
 							document.getElementById('agendamentosmodal').style.display = 'none';
-						}
+						} if (data.status == 'TRIAGEM') {
+								$('#statusmodal').append("<option value=" + data.status + ">" + data.status + "</option>");
+								$('#statusmodal').append("<option value=ABERTO>ABERTO</option>");
+								$('#statusmodal').append("<option value=ANDAMENTO>ANDAMENTO</option>");
+								$('#statusmodal').append("<option value=AGUARDANDO>AGUARDANDO</option>");
+								$('#statusmodal').append("<option value=AGENDADO>AGENDADO</option>");
+								document.getElementById('agendamentosmodal').style.display = 'none';
+							}
 						
 						$.ajax({
 							type: "GET",
@@ -1793,6 +1896,7 @@
 						if(data.status == "ANDAMENTO"){ status = "table-info" }
 						if(data.status == "AGUARDANDO"){ status = "table-secondary" }
 						if(data.status == "PAUSADO"){ status = "table-light" }
+						if(data.status == "TRIAGEM"){ status = "class='table-primary'" }
 						if(data.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 						if(data.redFlag == true){ 
 							if(data.vip == true){
@@ -1927,6 +2031,7 @@
 					if(data.status == "ANDAMENTO"){ status = "class='table-info'" }
 					if(data.status == "AGUARDANDO"){ status = "class='table-secondary'" }
 					if(data.status == "PAUSADO"){ status = "class='table-light'" }
+					if(data.status == "TRIAGEM"){ status = "class='table-primary'" }
 					
 					if(data.vip == true){ vip = "<span style='color: RoyalBlue; font-size: 15px'><p><b> VIP </span>" }else{vip =""}
 					if(data.redFlag == true){ 
@@ -1939,6 +2044,7 @@
 					var itens =
 						'<tr '+ status + ' id=linha' + data.id + ' data-bs-toggle="modal" data-bs-target="#modalEdicao" onclick=editar(' + data.id + ')>'
 						+ '<td id=name' + data.id + '>' + data.id + '</td>'
+						+ '<td style="color: blue;" ></td>'
 						+ '<td>' + data.dataAbertura + '</td>'
 						+ '<td>' + data.nomeCliente  + vip + redFlag + '</td>'
 						+ '<td id=solicitante' + data.id + '>' + data.solicitante + '</td>'

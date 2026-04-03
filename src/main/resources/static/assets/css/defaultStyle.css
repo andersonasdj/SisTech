@@ -129,6 +129,10 @@
     	--bs-btn-font-size: 0.95rem !important;
 	}
 }
+.rederizaBtn.active {
+    transform: scale(1.05);
+    border: 2px solid #000;
+}
 
 table {
   font-family: arial;
@@ -421,4 +425,8 @@ HTML CSSResult Skip Results Iframe .Neon {
 
 					  .email-alerta {
 					      animation: pulseEmail 1s infinite;
+					  }
+					  
+					  .btn:hover {
+					      transform: scale(1.09);
 					  }

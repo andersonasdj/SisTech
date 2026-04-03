@@ -44,7 +44,7 @@ import br.com.techgol.app.dto.DtoSolicitacaoRelatorios;
 import br.com.techgol.app.dto.dashboard.DtoDashboard;
 import br.com.techgol.app.dto.dashboard.DtoDashboardGerencia;
 import br.com.techgol.app.dto.dashboard.DtoRelatorioRendimentoClientes;
-import br.com.techgol.app.ia.AISuggestionService;
+import br.com.techgol.app.ia.ollama.AISuggestionService;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.Funcionario;
 import br.com.techgol.app.model.ModeloSolicitacao;

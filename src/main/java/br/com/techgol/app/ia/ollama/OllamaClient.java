@@ -1,4 +1,4 @@
-package br.com.techgol.app.ia;
+package br.com.techgol.app.ia.ollama;
 
 import java.util.HashMap;
 import java.util.Map;

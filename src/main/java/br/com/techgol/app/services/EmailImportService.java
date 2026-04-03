@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.microsoft.graph.models.Message;
 
-import br.com.techgol.app.ia.AISuggestionService;
 import br.com.techgol.app.ia.EmailStatusService;
+import br.com.techgol.app.ia.openai.OpenAIService;
 import br.com.techgol.app.integration.GraphEmailClient;
 import br.com.techgol.app.model.Cliente;
 import br.com.techgol.app.model.EmailProcessado;
@@ -41,7 +41,8 @@ public class EmailImportService {
     @Autowired private SolicitacaoRepository solicitacaoRepository;
     @Autowired private FuncionarioRepository funcionarioRepository;
     @Autowired private EmailProcessadoRepository emailRepository;
-    @Autowired AISuggestionService aiSuggestionService;
+    //@Autowired AISuggestionService aiSuggestionService;
+    @Autowired OpenAIService openAIService;
     @Autowired private EmailStatusService emailStatusService;
     //@Autowired private Executor emailExecutor; // Em teste
 
@@ -49,14 +50,15 @@ public class EmailImportService {
 
         List<Message> emails = emailClient.buscarEmailsNaoLidos();
         Funcionario funcionario = funcionarioRepository.findBynomeFuncionario("Suporte");
-        boolean iaDisponivel = aiSuggestionService.isDisponivel();
-        
+        boolean iaDisponivel = openAIService.isDisponivel();
         int quantidade = emailClient.contarEmailsNaoLidos();
         emailStatusService.setQuantidade(quantidade);
 
-        //System.out.println("Quantidade emails não lidos : " + emails.size());
+        System.out.println("IA Disponivel? :" + iaDisponivel);
+        System.out.println("Quantidade emails não lidos : " + emails.size());
         for (Message email : emails) {
-        	//System.out.println("Assunto do email: " + email.subject);
+        	System.out.println("\n\n * Remetente do email: " + email.from.emailAddress.address);
+        	System.out.println(" * Assunto do email: " + email.subject);
         	processarEmail(email, funcionario, iaDisponivel);
 //        	emailExecutor.execute(() -> {
 //                processarEmail(email, funcionario, iaDisponivel);
@@ -130,9 +132,18 @@ public class EmailImportService {
     	}
 
     	String assunto = email.subject != null ? email.subject : "(sem assunto)";
+    	assunto = assunto
+    		    .replaceAll("(?i)^re:\\s*", "")
+    		    .replaceAll("(?i)^fw:\\s*", "")
+    		    .replaceAll("(?i)^enc:\\s*", "")
+    		    .trim();
+    	
     	String descricao;
 
-    	if(corpo.toLowerCase().contains(assunto.toLowerCase())) {
+    	String corpoLower = corpo.toLowerCase();
+    	String assuntoLower = assunto.toLowerCase();
+
+    	if(corpoLower.contains(assuntoLower)) {
     	    descricao = corpo;
     	} else {
     	    descricao = assunto + " - " + corpo;
@@ -146,7 +157,7 @@ public class EmailImportService {
         solicitacao.setCliente(cliente);
         solicitacao.setFuncionario(funcionario);
         solicitacao.setFormaAbertura(FormaAbertura.EMAIL);
-        solicitacao.setStatus(Status.ABERTO);
+        solicitacao.setStatus(Status.TRIAGEM);
         solicitacao.setDataAbertura(agora);
         solicitacao.setDataAtualizacao(agora);
         solicitacao.setSolicitante(remetente);
@@ -164,8 +175,16 @@ public class EmailImportService {
 
     	solicitacaoRepository.save(solicitacao);
     	registrarEmailProcessado(email.id);
-
     	
+    	// PROCESSAMENTO DA IA
+    	if(iaDisponivel && corpo.length() > 200) {
+    		openAIService.resumirEmail(solicitacao.getId(), assunto, corpo);
+    	}
+    	
+
+    }
+    
+}	
     	/* PROCESSAMENTO DA IA
     	if(iaDisponivel && corpo.length() > 200) {
     	    aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
@@ -243,6 +262,3 @@ public class EmailImportService {
 //        	System.out.println(" IA disponivel \n");
 //            aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
 //        }
-    }
-    
-}

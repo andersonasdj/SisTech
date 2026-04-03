@@ -58,5 +58,15 @@
     "name": "m365.mailboxfolder",
     "type": "java.lang.String",
     "description": "A description for 'm365.mailboxfolder'"
+  },
+  {
+    "name": "openai.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.key'"
+  },
+  {
+    "name": "openai.model",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.model'"
   }
 ]}
