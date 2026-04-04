@@ -31,7 +31,7 @@ public class GraphEmailClient {
                         .messages()
                         .buildRequest()
                         .filter("isRead eq false")
-                        .top(30)
+                        .top(100)
                         .orderBy("receivedDateTime desc")
                         .get();
 
@@ -76,6 +76,7 @@ public class GraphEmailClient {
         Message update = new Message();
         update.isRead = true;
         update.categories = List.of("Processado");
+        //System.out.println("MARCANDO EMAIL PROCESSADO!!");
 
         graphClient
             .users(mailbox)

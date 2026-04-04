@@ -98,7 +98,6 @@ public class EmailImportService {
 
     	if(solicitacaoRepository.existsByConversationId(idConversa)) {
     	    registrarEmailProcessado(email.id);
-    	   // emailClient.marcarEmailComoProcessado(idConversa);
     	    return;
     	}
 
@@ -174,6 +173,7 @@ public class EmailImportService {
 
     	solicitacaoRepository.save(solicitacao);
     	registrarEmailProcessado(email.id);
+    	emailClient.marcarEmailComoProcessado(email.id);
     	
     	// PROCESSAMENTO DA IA
     	if(iaDisponivel && corpo.length() > 200) {
@@ -188,8 +188,7 @@ public class EmailImportService {
     	    aiSuggestionService.processarResumoAsync(solicitacao.getId(), assunto, corpo);
     	}
     	*/
-    	
-    	
+    	    	
 //    	 String idConversa = email.conversationId != null ? email.conversationId : email.id;
 //    	 
 //    	 Optional<Solicitacao> solicitacaoExistente = solicitacaoRepository.findByConversationId(idConversa);
