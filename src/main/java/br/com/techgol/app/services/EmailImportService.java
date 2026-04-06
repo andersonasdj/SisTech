@@ -54,11 +54,11 @@ public class EmailImportService {
         int quantidade = emailClient.contarEmailsNaoLidos();
         emailStatusService.setQuantidade(quantidade);
 
-        //System.out.println("IA Disponivel? :" + iaDisponivel);
-        //System.out.println("Quantidade emails não lidos : " + emails.size());
+        System.out.println("IA Disponivel? :" + iaDisponivel);
+        System.out.println("Quantidade emails não lidos : " + emails.size());
         for (Message email : emails) {
-        	//System.out.println("\n\n * Remetente do email: " + email.from.emailAddress.address);
-        	//System.out.println(" * Assunto do email: " + email.subject);
+        	System.out.println("\n\n * Remetente do email: " + email.from.emailAddress.address);
+        	System.out.println(" * Assunto do email: " + email.subject);
         	processarEmail(email, funcionario, iaDisponivel);
         	//emailExecutor.execute(() -> {
             //    processarEmail(email, funcionario, iaDisponivel);

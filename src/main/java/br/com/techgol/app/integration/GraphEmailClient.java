@@ -76,7 +76,7 @@ public class GraphEmailClient {
         Message update = new Message();
         update.isRead = true;
         update.categories = List.of("Processado");
-        //System.out.println("MARCANDO EMAIL PROCESSADO!!");
+        System.out.println("MARCANDO EMAIL PROCESSADO!!");
 
         graphClient
             .users(mailbox)
