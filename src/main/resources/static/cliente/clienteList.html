@@ -290,6 +290,10 @@
 								<label class="form-label mt-3" for="tempoContratado"><b>Banco de Horas</b></label>
 								<input type="text" id="tempoContratado" class="form-control" onkeyup="handleComa(event)"><br />
 							</div>
+							<div class="col-md-6">
+								<label class="form-label mt-3" for="ultimologinModal"><b>Ultimo Login</b></label>
+								<input type="text" id="ultimologinModal" class="form-control" readonly><br />
+							</div>
 						</div>
 						
 						<div class="row align-items-end">
@@ -362,6 +366,10 @@
 						<input type="text" id="idAddModal" class="form-control" readonly>
 						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
 						<input type="text" id="nomeAddmodal" class="form-control">
+						<label class="form-label mt-2" for="usernameAddmodal">Usuário</label>
+						<input type="text" id="usernameAddmodal" class="form-control">
+						<label class="form-label mt-2" for="passwordAddmodal">Senha</label>
+						<input type="text" id="passwordAddmodal" class="form-control">
 						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
 						<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
 						<label class="form-label mt-2" for="emailAddmodal">Email</label>
@@ -390,12 +398,25 @@
 								<label class="form-label mt-2" for="nomeEdicaoModal"><b>Nome</b></label>
 								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
 							</div>
+							
 							<div class="col-md-4 ms-auto">
 								<label class="form-label mt-2" for="idEdicaoModal">ID</label>
 								<input type="text" id="idEdicaoModal" class="form-control" readonly>
 								</di>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="usernameEdicaoModal"><b>Usuário</b></label>
+								<input type="text" id="usernameEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="passwordEdicaoModal"><b>Usuário</b></label>
+								<input type="password" id="passwordEdicaoModal" class="form-control"><br />
+							</div>
+						</div>
+						
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
@@ -874,7 +895,9 @@
 					$('#tempoContratado').val("");
 					$('#apitokenModal').val("");
 					$('#dominiomodal').val("");
-					
+					$('#ultimologinModal').val("");
+					$('#usernamemodal').val("");
+					$('#passwordmodal').val("");
 
 					$('#idmodal').val(data.id);
 					$('#nomemodal').val(data.nomeCliente);
@@ -887,6 +910,9 @@
 					$('#tempoContratado').val(data.tempoContratado/60);
 					$('#apitokenModal').val(data.token);
 					$('#dominiomodal').val(data.dominio);
+					$('#ultimologinModal').val(data.dataUltimoLogin);
+					$('#usernamemodal').val(data.username);
+					$('#passwordmodal').val(data.password);
 					
 					
 					if (data.ativo == true) {
@@ -970,10 +996,16 @@
 					$('#statusEdicaoModal').empty();
 					$('#emailEdicaoModal').val("");
 					
+					$('#usernameEdicaoModal').val("");
+					$('#passwordEdicaoModal').val("");
+					
 					$('#idEdicaoModal').val(data.id);
 					$('#nomeEdicaoModal').val(data.nomeColaborador);
 					$('#celularEdicaoModal').val(data.celular);
 					$('#emailEdicaoModal').val(data.email);
+					
+					$('#usernameEdicaoModal').val(data.username);
+					$('#passwordEdicaoModal').val(data.password);
 					
 					if (data.vip == true) {
 						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
@@ -1001,6 +1033,9 @@
 				email = $('#emailEdicaoModal').val(),
 				idCliente = $('#idColaboradoCliente').val();
 				token = $('#apitokenModal').val("");
+				
+				username = $('#usernameEdicaoModal').val(),
+				password = $('#passwordEdicaoModal').val(),
 
 			$.ajax({
 				type: "PUT",
@@ -1013,7 +1048,9 @@
 					"vip": vip,
 					"email": email,
 					"idCliente": idCliente,
-					"token": token
+					"token": token,
+					"username": username,
+					"password": password
 				}),
 				success: function (data) {
 					alert(data);
@@ -1042,6 +1079,9 @@
 		 		nomeAddmodal = $('#nomeAddmodal').val(),
 				celularAddmodal = $('#celularAddmodal').val(),
 				email = $('#emailAddmodal').val();
+				
+				username = $('#usernameAddmodal').val(),
+				password = $('#passwordAddmodal').val(),
 
 			$.ajax({
 				type: "POST",
@@ -1052,13 +1092,18 @@
 						"clienteId": clienteId,
 						"nomeColaborador": nomeAddmodal,
 						"celular": celularAddmodal,
-						"email": email
+						"email": email,
+						"username": username,
+						"password": password
+						
 					}
 				),
 				success: function (data) {
 					$('#nomeAddmodal').val("");
 					$('#celularAddmodal').val("");
 					$('#emailAddmodal').val("");
+					$('#usernameAddmodal').val("");
+					$('#passwordAddmodal').val("");
 					alert(data);
 				},
 				statusCode: {

@@ -5,7 +5,9 @@ public record DtoColaboradorCadastrar(
 		String celular,
 		boolean vip,
 		Long clienteId,
-		String email
+		String email,
+		String username,
+		String password
 		) {
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.techgol.app.dto.DtoColaboradorCadastrar;
@@ -45,6 +46,8 @@ public class ColaboradorService {
 				colaborador.setNomeColaborador(dados.nomeColaborador());
 				colaborador.setVip(dados.vip());
 				colaborador.setEmail(dados.email());
+				colaborador.setUsername(dados.username());
+				colaborador.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()));
 				return "Editado com sucesso!!";
 		}else {
 			return "Colaborador não encontrado!";

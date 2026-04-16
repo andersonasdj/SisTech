@@ -1,5 +1,7 @@
 package br.com.techgol.app.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import br.com.techgol.app.dto.DtoColaboradorCadastrar;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,12 @@ public class Colaborador {
 	
 	private String email;
 	
+	private String username;
+	
+	private String password;
+	
+	private String caminhoFoto;
+	
 	@ManyToOne
 	private Cliente cliente;
 	
@@ -42,6 +50,8 @@ public class Colaborador {
 		this.vip = dados.vip();
 		this.cliente = cliente;
 		this.email = dados.email();
+		this.username = dados.username();
+		this.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()));
 	}
 
 }

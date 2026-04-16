@@ -36,10 +36,13 @@ public class Cliente extends Usuario {
 	@Column(length = 30)
 	private String dominio;
 	
+	
 	@Column(length = 300)
 	private String token;
 	
 	private Long tempoContratado;
+	
+	private String caminhoFoto;
 	
 	public Cliente(DtoCadastroCliente dados) {
 		

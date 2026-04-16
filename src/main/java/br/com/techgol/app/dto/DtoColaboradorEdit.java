@@ -9,11 +9,13 @@ public record DtoColaboradorEdit(
 		String celular, 
 		Boolean vip,
 		String email,
-		Long idCliente
+		Long idCliente,
+		String username,
+		String password
 		) {
 	
 	public DtoColaboradorEdit(Colaborador c) {
-		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip(), c.getEmail(), c.getCliente().getId());
+		this(c.getId(), c.getNomeColaborador(), c.getCelular(), c.isVip(), c.getEmail(), c.getCliente().getId(), c.getUsername(), c.getPassword());
 		
 	}
 	
