@@ -441,7 +441,7 @@
 							</div>
 							<div class="control-group">
 								<div class="controls">
-									<button id="botaoSalvar" class="btn btn-success" disabled>
+									<button id="botaoSalvar" onclick="salvar()" class="btn btn-success" disabled>
 									    <i class="bi bi-save"></i> Salvar
 									</button>
 									
@@ -947,9 +947,9 @@
 				dataAgendado = $('#date').val(),
 				horaAgendado = $('#time').val();
 
-			dataAndamento = $('#opendate').val(),
+				dataAndamento = $('#opendate').val(),
 				horaAndamento = $('#opentime').val();
-			dataFinalizado = $('#closedate').val(),
+				dataFinalizado = $('#closedate').val(),
 				horaFinalizado = $('#closetime').val();
 
 			$.ajax({
@@ -998,6 +998,7 @@
 					$('#opentime').val("");
 					$('#closedate').val("");
 					$('#closetime').val("");
+					$('#botaoSalvar').prop('disabled', true);
 					alert("Solicitação criada com sucesso!");
 				},
 				statusCode: {
@@ -1102,9 +1103,7 @@
 			var json = {"nomeCliente": idCliente};
 
 			if (idCliente > 0) {
-				 $('#botaoSalvar').prop('disabled', false);
-
-
+				$('#botaoSalvar').prop('disabled', false);
 				$('#botaoColaboradores').empty();
 				$('#botaoColaboradores').append(
 					'<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Adicione um novo colaborador" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick="editarColaboradores()"><i class="bi bi-people"></i></button>'
