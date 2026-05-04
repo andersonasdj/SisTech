@@ -51,7 +51,9 @@ public class Colaborador {
 		this.cliente = cliente;
 		this.email = dados.email();
 		this.username = dados.username();
-		this.setPassword(new BCryptPasswordEncoder().encode(dados.password().toString()));
+		if (dados.password() != null && !dados.password().isBlank()) {
+		    this.setPassword(new BCryptPasswordEncoder().encode(dados.password()));
+		}
 	}
 
 }

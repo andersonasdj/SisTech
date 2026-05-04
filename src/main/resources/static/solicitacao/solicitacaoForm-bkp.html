@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/img/favicon.ico">
+	<link rel="stylesheet" href="../assets/css/defaultStyle.css">
+	<link rel="stylesheet" href="../assets/css/StyleSolicitacao.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/password-generator.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="../assets/css/dark.css">
+	<title>Sistech | Solicitação Form</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/sistech/home"><img src="../assets/img/key.png" style="height: 18px;"> SisTech</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/sistech/home">Início</a></li>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solicitações</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/solicitacao/form">Novo</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/list">Listar</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/modelos">Modelos</a></li>	
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/relatorios">Relatórios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Clientes</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/cliente/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/form">Novo</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/cliente/colaborador">Colaboradores</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Funcionarios</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/list">Listar</a></li>
+								<li><a class="dropdown-item" href="/sistech/funcionario/form">Novo</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/dashboard/inicio" target="_blank" style="color: brown; font-weight: bold;">Realtime <i class="bi bi-speedometer2"></i></a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/geral">Solicitações ativas</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/funcionario">Funcionario</a></li>
+								<li><a class="dropdown-item" href="/sistech/solicitacao/dashboard/cliente">Cliente</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ferramentas</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalPasswordGenerator">Password Generator</a></li>
+								<li><a class="dropdown-item" href="/sistech/avisos">Avisos</a></li>
+								<li><a class="dropdown-item" href="/sistech/calendario">Calendário</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle color-text" href="#" role="button" data-bs-toggle="dropdown"aria-expanded="false">Computadores</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/computador/list">Listar</a></li>
+							</ul>
+						</li>
+					</ul>
+					<span class="nav-item">
+						  <button class="btn btn-sm btn-outline-secondary" onclick="toggleDarkMode()" id="toggleDarkBtn">
+						    <i class="bi bi-moon"></i> Modo Escuro
+						  </button>
+						</span>
+						&nbsp; &nbsp; &nbsp; &nbsp;
+					<ul class="navbar-nav mb-3 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="perfil" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/sistech/funcionario/perfil">Perfil</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/gerencia">Gerência</a></li>
+								<li><a class="dropdown-item" href="/sistech/configuracoes">Configurações</a></li><li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/sistech/sobre">Sobre</a></li>
+							</ul>
+						</li>
+							<a href="/sistech/logout"><i class="bi bi-power"style="font-size: 2rem; color: red;"></i></a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- ###################################### BARRA DE NAVEGAÇÃO ###################################### -->
+		<hr class="bg-danger border-2 border-top border-danger">
+
+		<div class="container corpoFormulario" style="display: block;">
+				<div id="form-solicitacao">
+					<fieldset>
+						
+						<h4 class="fw-bold mb-4">
+						    <i class="bi bi-plus-circle"></i> Nova Solicitação - <a href="/sistech/solicitacao/model" data-toggle="tooltip" data-placement="top" title="Modelos prontos de solicitação" class="btn btn-success btn-sm">Usar modelos</a>
+						</h4>
+						
+						<div class="card shadow-sm border-0 mb-4">
+						    <div class="card-body">
+						        <h6 class="mb-3">
+						            <i class="bi bi-info-circle"></i> Informações Gerais
+						        </h6>
+
+						        <div class="row g-3">
+
+						            <div class="col-md-4">
+						                <label><i class="bi bi-building"></i> Cliente *</label>
+						                <select class="form-select mt-2" id="nomeCliente"></select>
+						            </div>
+
+						            <div class="col-md-4">
+						                <label><i class="bi bi-diagram-3"></i> Canal</label>
+										<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+											<option value="TELEFONE">Telefone</option>
+											<option value="EMAIL" selected>E-mail</option>
+											<option value="WHATSAPP">Whatsapp</option>
+											<option value="LOCAL">No local</option>
+											<option value="PROATIVO">Proativo</option>
+										</select>
+						            </div>
+
+						            <div class="col-md-4">
+						                <label><i class="bi bi-exclamation-triangle"></i> Status</label>
+										<select class="form-select mt-2 border-success rounded shadow-sm" id="status" name="status">
+											<option value="ABERTO">ABERTO</option>
+											<option value="ANDAMENTO">ANDAMENTO</option>
+											<option value="AGENDADO">AGENDADO</option>
+											<option value="FINALIZADO" style="color: red;">*FINALIZADO*</option>
+										</select>
+						            </div>
+
+						        </div>
+						    </div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="nomeCliente"><b>Cliente *</b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="nomeCliente" name="nomeCliente">
+											<option> </option>
+										</select>
+									</div>
+								</div>
+								<br />
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="formaAbertura"><b>Canal de Abertura </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="formaAbertura" name="formaAbertura">
+											<option value="TELEFONE">Telefone</option>
+											<option value="EMAIL" selected>E-mail</option>
+											<option value="WHATSAPP">Whatsapp</option>
+											<option value="LOCAL">No local</option>
+											<option value="PROATIVO">Proativo</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label" for="solicitante"><b>Solicitante * </b>
+										<span id="botaoColaboradores"> </span>
+									</label>
+									<div class="controls">
+										<select class="form-control solicitante mt-3" name="solicitante" id="solicitante"> </select>
+									</div>
+									<span style="color: blue;"  id="celSolicitante"> </span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="form-label" for="afetado"><b>Usuário Afetado *</b></label>
+									<div class="controls">
+										<select class="form-control usuario mt-2" name="afetado" id="afetado"> </select>
+									</div>
+									<span style="color: blue;"  id="celAfetado"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group mt-2">
+									
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group mt-1">
+									
+								</div>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="descricao"><b>Problema Relatado *</b></label>
+									<div class="controls">
+										<textarea class="form-control mt-2" rows="4" id="descricao" name="descricao" placeholder="Problema Relatado"
+										onkeyup="limite_textarea_prob(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+										<span id="contProb">500</span> Restantes <br>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<label class="control-label" for="observacao"><b>Observações</b></label>
+								<div class="controls">
+									<textarea class="form-control mt-2" rows="4" id="observacao" name="observacao" placeholder="Observação"
+									onkeyup="limite_textarea_obs(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+									<span id="contObs">500</span> Restantes <br>
+								</div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="categoria"><b>Categoria </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="categoria" name="categoria">
+											<option value="BACKUP">Backup</option>
+											<option value="CABEAMENTO">Cabeamento</option>
+											<option value="COTACAO">Cotação</option>
+											<option value="DOMINIOS">Domínios</option>
+											<option value="EMAIL">Email</option>
+											<option value="HARDWARE">Hardware</option>
+											<option value="HOSPEDAGENS">Hospedagens</option>
+											<option value="INTERNET">Internet</option>
+											<option value="MIGRACAO">Migração</option>
+											<option value="OUTROS">Outros</option>
+											<option value="PROJETO">Projeto</option>
+											<option value="REDE">Rede</option>
+											<option value="SERVIDORES">Servidores</option>
+											<option value="SHAREPOINT">SharePoint</option>
+											<option value="SMARTPHONE">Smartphone</option>
+											<option value="SOFTWARE" selected>Software</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="classificacao"><b>Classificação </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="classificacao" name="classificacao">
+											<option value="ACESSO">Acesso</option>
+											<option value="BACKUP">Backup</option>
+											<option value="EVENTO">Evento</option>
+											<option value="INCIDENTE" selected>Incidente</option>
+											<option value="PROBLEMA">Problema</option>
+											<option value="SOLICITACAO">Solicitação</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="criticidade"><b>Criticidade </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="criticidade" name="criticidade">
+											<option value="ALTA">Alta</option>
+											<option value="BAIXA" selected>Baixa</option> 
+											<option value="CRITICA">Crítico</option>
+											<option value="MEDIA">Media</option>
+											<option value="PLANEJADA">Planejada</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="local"><b>Onsite / Offsite </b></label>
+									<div class="controls">
+										<select class="form-select mt-2" id="local" name="local">
+											<option value="OFFSITE">Offsite</option>
+											<option value="ONSITE">Onsite</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label" for="nomeFuncionario"><b>Técnico Responsável</b></label>
+									<div class="controls">
+										<select class="form-select mt-3" id="nomeFuncionario" name="nomeFuncionario"> </select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								
+								<div class="control-group">
+									
+									<label class="control-label" for="status"><b> Status &nbsp; </b>
+									
+										<b class="blink" style="color: rgb(255, 120, 0); font-size: 20px;"><i class="bi bi-exclamation-triangle"></i></b>	
+									</label>
+									<div class="controls">
+										<select class="form-select mt-2 border-success rounded shadow-sm" id="status" name="status">
+											<option value="ABERTO">ABERTO</option>
+											<option value="ANDAMENTO">ANDAMENTO</option>
+											<option value="AGENDADO">AGENDADO</option>
+											<option value="FINALIZADO" style="color: red;">*FINALIZADO*</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="row" id="resolucaoarea" style="display: none">
+							<div class="col-md-8">
+								<div class="control-group">
+									<label class="control-label" for="resolucao"><b>Resolução*</b></label>
+									<div class="controls">
+										<textarea class="form-control mt-2" rows="4" id="resolucao" name="resolucao" placeholder="Resolução"
+										onkeyup="limite_textarea_resolucao(this.value)" spellcheck="true" class="input-xlarge" required></textarea>
+										<span id="contResolucao">300</span> Restantes <br>
+									</div>
+								</div>
+								<br />
+							</div>
+							
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4" id="agendamentos" style="display: none">
+								<div class="control-group">
+									<label class="control-label"><b>Data Agendamento *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="date" name="date" value="">
+										<span></span>
+										<input type="time" id="time" name="time" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row" id="finalizados" style="display: none">
+							<div class="col-md-4" >
+								<div class="control-group">
+									<label class="control-label"><b>Data Andamento *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="opendate" name="opendate" value="">
+										<span></span>
+										<input type="time" id="opentime" name="opentime" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="control-group">
+									<label class="control-label"><b>Data Finalizado *</b></label>
+									<div class="datetimepicker">
+										<input type="date" id="closedate" name="closedate" value="">
+										<span></span>
+										<input type="time" id="closetime" name="closetime" value="">
+									</div>
+									<div class="info">
+										<strong>Compatibility check:</strong>
+										Date "<span id="date-output"></span>",
+										Time "<span id="time-output"></span>"
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">				
+								<div class="col-md-8">
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(15)">15 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(20)">20 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(30)">30 M</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(60)">1 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(120)">2 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(180)">3 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(240)">4 H</button>
+									<button class="btn btn-sm mt-2 btn-time-custon" onclick="preencheDias(300)">5 H</button>
+								</div>
+							</div>
+						</div>
+						<br />			
+						
+						<div class="control-group">
+							<div class="controls">
+								<span id="botaoSalvar"> </span>
+								<a class="btn btn-primary" href="/sistech/home" role="button">Voltar <i class="fa fa-reply-all fa-lg"> </i></a>
+							</div>
+						</div>
+						<br /><br />
+						<legend> </legend>
+					</fieldset>
+				</div>
+		</div>
+		<footer class="container-fluid text-center text-white">
+				<div class="text-center" style="background-color: rgba(0, 0, 0, 0.2);">
+					2026 Copyright:
+					<a class="text-white" href="#">Techgold</a>
+				</div>
+		</footer>
+		
+		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
+		<div class="modal fade" id="modalColaborador" tabindex="-1" aria-labelledby="modalColaborador"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalColaborador">
+							<button class="btn btn-success btn-sm" data-bs-toggle="modal"
+								data-bs-target="#addColaboradorModal" onclick=novoColaborador()>Novo</button>
+							<input hidden id="idColaboradoCliente" name="idColaboradoCliente">
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+					</div>
+					<table class="table" id="tabela-colaboradores">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Celular</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody id="tbColaboradoresCorpo">
+							<tr> </tr>
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ####################################### MODAL LISTA DE COLABORADORES ########################################### -->
+
+		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
+		<div class="modal fade" id="addColaboradorModal" tabindex="-1" aria-labelledby="addColaboradorModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="addColaboradorModalLabel">Adição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+					</div>
+					<div class="modal-body">
+						<label class="form-label mt-2" for="idAddModal">Id Cliente</label>
+						<input type="text" id="idAddModal" class="form-control" readonly>
+						<label class="form-label mt-2" for="nomeAddmodal">Nome</label>
+						<input type="text" id="nomeAddmodal" class="form-control">
+						<label class="form-label mt-2" for="celularAddmodal">Celular</label>
+						<input type="tel" maxlength="17" onkeyup="handlePhone(event)" id="celularAddmodal" class="form-control">
+						<label class="form-label mt-2" for="emailAddmodal">Email</label>
+						<input type="text" id="emailAddmodal" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="salvarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ####################################### MODAL ADICIONA COLABORADOR ############################################# -->
+		
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+		<div class="modal fade" id="editarColaboradorModal" tabindex="-1" aria-labelledby="editarColaboradorModal"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="editarColaboradorModal">Edição de Colaborador</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-8">
+								<label class="form-label" for="nomeEdicaoModal"><b>Nome</b></label>
+								<input type="text" id="nomeEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-4 ms-auto">
+								<label class="form-label" for="idEdicaoModal">ID</label>
+								<input type="text" id="idEdicaoModal" class="form-control" readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label mt-2" for="celularEdicaoModal"><b>Celular</b></label>
+								<input type="tel" maxlength="15" onkeyup="handlePhone(event)" id="celularEdicaoModal" class="form-control"><br />
+							</div>
+							<div class="col-md-6 ms-auto">
+								<label class="form-label mt-2" for="statusEdicaoModal"><b>VIP</b></label>
+									<select class="form-select" id="statusEdicaoModal" aria-label="Default select example"> </select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="form-label mt-2" for="emailEdicaoModal"><b>Email</b></label>
+								<input type="text" id="emailEdicaoModal" name="emailEdicaoModal" class="form-control"><br />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalColaborador">Fechar</button>
+						<button type="button" class="btn btn-primary" onclick="atualizarColaborador()">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ###################################### MODAL EDIÇÃO DE COLABORADOR ############################################# -->
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+		<div class="modal fade" id="modalPasswordGenerator" tabindex="-1" aria-labelledby="modalPasswordGenerator"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="container-password">
+						<div class="result">
+							<div class="result__info right">click para copiar</div>
+							<div class="result__info left">copiado</div>
+							<div class="result__viewbox" id="result" style="color: aliceblue; "></div>
+							<a id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></a>
+						</div>
+						<div class="length range__slider" data-min="4" data-max="32">
+							<div class="length__title field-title" data-length='0'>Tamanho:</div>
+							<input id="slider" type="range" min="4" max="32" value="16" />
+						</div>
+						<div class="settings">
+							<span class="settings__title field-title">configurações</span>
+							<div class="setting">
+								<input type="checkbox" id="uppercase" checked />
+								<label for="uppercase">Incluir Maiúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="lowercase" checked />
+								<label for="lowercase">Incluir Minúsculo</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="number" checked />
+								<label for="number">Incluir Número</label>
+							</div>
+							<div class="setting">
+								<input type="checkbox" id="symbol" />
+								<label for="symbol">Incluir Símbolo</label>
+							</div>
+						</div>
+						<button class="btn generate" id="generate">Gerar Senha</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ############################################ MODAL PASSWORD GENERATOR ########################################## -->
+	</div>
+	<script src="../assets/js/jquery-3.6.3.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/password-generator.js"></script>
+	<script src="../assets/js/dark.js"></script>
+	<script>
+		function preencheDias(minutos){
+			var data = new Date();
+			var final = new Date();
+			var hoje, mes, dia ;
+			
+			if(data.getMonth()+1 > 12){ mes=1; }
+			else if(data.getMonth()+1 < 10){ mes = "0"+(data.getMonth()+1); }
+			else{ mes = data.getMonth()+1; }
+			
+			if(data.getDate() < 10){ dia = "0"+data.getDate(); }
+			else{ dia = data.getDate(); }
+			var hoje = data.getFullYear()+'-'+mes+'-'+dia;
+			final.setMinutes(data.getMinutes() - minutos)
+			$('#opendate').val(hoje);
+			$('#closetime').val( (data.getHours() < 10 ? '0':'') + data.getHours()+ ':'+ (data.getMinutes() < 10 ? '0' : '') + data.getMinutes());
+			$('#closedate').val(hoje);
+			$('#opentime').val( (final.getHours() < 10 ? '0': '') + final.getHours()+':'+ (final.getMinutes() < 10 ? '0' : '') + final.getMinutes() );
+		}
+				
+		function editarColaboradores() {
+			var idCliente = $('#nomeCliente').val();
+			
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/list/" + idCliente,
+				success: function (data) {
+					$('#tbColaboradoresCorpo, #idColaboradoCliente').empty();
+					$('#idColaboradoCliente').append(idCliente);
+
+					var itens = data.map(i =>
+						'<tr id=linhaModalColaborador' + i.id + '>'
+						+ '<td>' + i.id + '</td>'
+						+ '<td>' + i.nomeColaborador + '</td>'
+						+ '<td>' + i.celular + '</t}>'
+						+ '<td>'
+						+ ' <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarColaboradorModal" onclick=editarColaborador(' + i.id + ')><i class="bi bi-pencil-square"></i></button>'
+						+ ' <button class="btn btn-danger btn-sm" onclick=excluirColaborador(' + i.id + ')><i class="bi bi-trash"></i></button>'
+						+ '</td>'
+						+ '</tr>'
+					);
+					$('#tabela-colaboradores').append(itens);
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
+				}
+			});
+		}
+		
+		function editarColaborador(id){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit/" + id,
+				success: function (data) {
+					$('#idEdicaoModal, #nomeEdicaoModal, #celularEdicaoModal, #emailEdicaoModal').val("");
+					$('#statusEdicaoModal').empty();
+					
+					$('#idEdicaoModal').val(data.id);
+					$('#nomeEdicaoModal').val(data.nomeColaborador);
+					$('#celularEdicaoModal').val(data.celular);
+					$('#emailEdicaoModal').val(data.email);
+					
+					if (data.vip == true) {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=false>false</option>");
+					} else {
+						$('#statusEdicaoModal').append("<option value=" + data.vip + ">" + data.vip + "</option>");
+						$('#statusEdicaoModal').append("<option value=true>true</option>");
+					}
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
+				}
+			});
+		}
+		
+		function atualizarColaborador(){
+			var id = $('#idEdicaoModal').val(),
+				nomeColaborador = $('#nomeEdicaoModal').val(),
+				celular = $('#celularEdicaoModal').val(),
+				vip = $('#statusEdicaoModal').val(),
+				email = $('#emailEdicaoModal').val(),
+				idCliente = $('#nomeCliente').val();
+			$.ajax({
+				type: "PUT",
+				contentType: "application/json",
+				url: "/sistech/colaborador/edit",
+				data: JSON.stringify({
+					"id": id,
+					"nomeColaborador": nomeColaborador,
+					"celular": celular,
+					"vip": vip,
+					"email": email,
+					"idCliente": idCliente
+				}),
+				success: function (data) {
+					editarColaboradores();
+					preencheSolicitante();
+					alert(data);
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					}
+				}
+			});
+		}
+		function novoColaborador() {
+			var id = $('#idColaboradoCliente').text();
+			$('#idAddModal').val("");
+			$('#nomeAddmodal').val("");
+			$('#celularAddmodal').val("");
+			$('#idAddModal').val(id);
+		}
+
+		function salvarColaborador() {
+
+			var clienteId = $('#idAddModal').val(),
+				nomeAddmodal = $('#nomeAddmodal').val(),
+				celularAddmodal = $('#celularAddmodal').val(),
+				emailAddmodal = $('#emailAddmodal').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/colaborador",
+				data: JSON.stringify(
+					{
+						"clienteId": clienteId,
+						"nomeColaborador": nomeAddmodal,
+						"celular": celularAddmodal,
+						"email": emailAddmodal
+					}
+				),
+				success: function (data) {
+					preencheSolicitante();
+					$('#nomeAddmodal').val("");
+					$('#celularAddmodal').val("");
+					$('#emailAddmodal').val("");
+					alert(data);
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
+				    405: function() { alert('Voce não tem permissão!'); }
+				}
+			});
+
+		}
+		function excluirColaborador(id) {
+			if (confirm("Tem certeza que deseja excluir o colaborador de ID: " + id + " ?") == true) {
+				var t = "#linhaModalColaborador" + id;
+				var remove = $(t).closest('tr');
+				$.ajax({
+					type: "DELETE",
+					contentType: "application/json",
+					url: "/sistech/colaborador/delete/" + id,
+					success: function () {
+						if (confirm("Tem certeza que deseja excluir?") == true) {
+							remove.fadeOut(1000, function () {
+								preencheSolicitante();
+								remove.remove();
+							});
+						}
+					},
+					statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
+				    405: function() { alert('Voce não tem permissão para exclusão!'); }
+				}
+				});
+			}
+		}
+	</script>
+
+	<script>
+		$.ajax({
+			type: "GET",
+			contentType: "application/json",
+			url: "/sistech/solicitacao/getData",
+			success: function (data) {
+				
+				if(data.refeicao != true){
+					for (var i = 0; i < data.clientes.length; i++) {
+						$('#nomeCliente').append('<option value="' + data.clientesId[i] + '">' + data.clientes[i] + '</option>');
+					}
+	
+					for (var i = 0; i < data.funcionarios.length; i++) {
+						$('#nomeFuncionario').append('<option value="' + data.funcionariosId[i] + '">' + data.funcionarios[i] + '</option>');
+					}
+				}else {
+					alert("Seu status está Offline, modifique para Online para atendimento!");
+				}
+			},
+			statusCode: {
+			    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+				401: function() { 
+					alert('Realize login novamente!'); 
+					window.location.href = "/sistech/login"; 
+				}
+			}
+		});
+
+		function salvar() {
+			var solicitante = $('#solicitante').val(),
+				descricao = $('#descricao').val(),
+				afetado = $('#afetado').val(),
+				observacao = $('#observacao').val(),
+				resolucao = $('#resolucao').val(),
+				abertoPor = $('#abertoPor').val(),
+				criticidade = $('#criticidade').val(),
+				formaAbertura = $('#formaAbertura').val(),
+				categoria = $('#categoria').val(),
+				classificacao = $('#classificacao').val(),
+				local = $('#local').val(),
+				status = $('#status').val(),
+				nomeCliente = $('#nomeCliente').val(),
+				nomeFuncionario = $('#nomeFuncionario').val(),
+				dataAgendado = $('#date').val(),
+				horaAgendado = $('#time').val();
+				
+				dataAndamento = $('#opendate').val(),
+				horaAndamento = $('#opentime').val();
+				dataFinalizado = $('#closedate').val(),
+				horaFinalizado = $('#closetime').val();
+
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				url: "/sistech/solicitacao",
+				data: JSON.stringify({
+					"solicitante": solicitante,
+					"descricao": descricao,
+					"afetado": afetado,
+					"observacao": observacao,
+					"resolucao": resolucao,
+					"abertoPor": abertoPor,
+					"prioridade": criticidade,
+					"formaAbertura": formaAbertura,
+					"categoria": categoria,
+					"classificacao": classificacao,
+					"local": local,
+					"status": status,
+					"nomeCliente": nomeCliente,
+					"nomeFuncionario": nomeFuncionario,
+					"dataAgendado": dataAgendado,
+					"horaAgendado": horaAgendado,
+					"dataAndamento": dataAndamento,
+					"horaAndamento": horaAndamento,
+					"dataFinalizado": dataFinalizado,
+					"horaFinalizado": horaFinalizado
+					
+				}),
+				success: function (data) {
+					$('#solicitante').val("");
+					$('#descricao').val("");
+					$('#afetado').val("");
+					$('#observacao').val("");
+					$('#resolucao').val(""),
+					$('#abertoPor').val("");
+					$('#nomeCliente').val("");
+					$("#botaoSalvar").empty();
+					$('#botaoColaboradores').empty();
+					$('#solicitante').empty();
+					$('#afetado').empty();
+					$('#date').val("");
+					$('#time').val("");
+					$('#celSolicitante').text("");
+					$('#celAfetado').text("");
+					$('#opendate').val("");
+					$('#opentime').val("");
+					$('#closedate').val("");
+					$('#closetime').val("");
+					alert("Solicitação criada com sucesso!");
+				},
+				statusCode: {
+				    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+					401: function() { 
+						alert('Realize login novamente!'); 
+						window.location.href = "/sistech/login"; 
+					},
+				    405: function() { alert('Verifique se todos os campos foram marcados!'); }
+				}
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			var divCliente = $("#nomeCliente");
+			divCliente.on("change", function () {
+				preencheSolicitante();
+			});
+		});
+		
+		$(document).ready(function () {
+			var divSolicitante = $("#solicitante");
+			divSolicitante.on("change", function () {
+				var nomeColaborador = divSolicitante.val();
+				var id_cliente = $('#nomeCliente').val();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celSolicitante').empty();
+						if(data != null && data != ""){
+							$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
+					}
+				});
+			});
+		});
+		
+		$(document).ready(function () {
+			var divAfetado = $("#afetado");
+			divAfetado.on("change", function () {
+				var nomeColaborador = divAfetado.val();
+				var id_cliente = $('#nomeCliente').val();
+				$.ajax({
+					type: "GET",
+					contentType: "application/json",
+					url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeColaborador,
+					success: function (data) {
+						$('#celAfetado').empty();
+						if(data != null && data != ""){
+							$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
+						}
+					},
+					statusCode: {
+					    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
+					}
+				});
+			});
+		});
+		
+		var divStatus = $("#status");
+		var status = $("#status").val();
+		divStatus.on("change", function(){
+			var status = $("#status").val();
+			if(status === 'AGENDADO'){
+				$("#agendamentos").stop().slideToggle(1000);
+				document.getElementById('finalizados').style.display = 'none';
+				document.getElementById('resolucaoarea').style.display = 'none';
+			}else if(status === 'FINALIZADO'){
+					$("#resolucaoarea").stop().slideToggle(1000);
+					$("#finalizados").stop().slideToggle(1000);
+					document.getElementById('agendamentos').style.display = 'none';
+			}else {
+				document.getElementById('agendamentos').style.display = 'none';
+				document.getElementById('finalizados').style.display = 'none';
+				document.getElementById('resolucaoarea').style.display = 'none';
+			}
+		} );
+		
+		var dateEl = document.getElementById('date');
+		var timeEl = document.getElementById('time');
+		
+		document.getElementById('date-output').innerHTML = dateEl.type === 'date';
+		document.getElementById('time-output').innerHTML = timeEl.type === 'time';
+	</script>
+	<script>
+		function preencheSolicitante(){
+				var idCliente = $("#nomeCliente").val();
+				var json = {"nomeCliente": idCliente};
+			
+				if(idCliente > 0){
+					$("#botaoSalvar").empty();
+					
+					$('#botaoSalvar').append(
+						'<button id="enviar" name="salvar" class="btn btn-success" onclick="salvar()">Salvar <i class="fa fa-floppy-o fa-lg"></i></button>'
+					);
+					
+					$('#botaoColaboradores').empty();
+					$('#botaoColaboradores').append(
+						'<button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Adicione um novo colaborador" data-bs-toggle="modal" data-bs-target="#modalColaborador" onclick="editarColaboradores()"><i class="bi bi-people"></i></button>'
+					);
+					
+					$.ajax({
+					url: "/sistech/colaborador/list/" + idCliente,
+					type: "GET",
+					data: json,
+					success: function (data) {
+
+						if (data != null) {
+							
+							var boxSolicitante = $('#solicitante');
+							boxSolicitante.find('option').remove();
+
+							var boxAfetado = $('#afetado');
+							boxAfetado.find('option').remove();
+
+							$('#boxSolicitante').append('<option value="" slected="selected"></option>');
+							$('#boxAfetado').append('<option value="" slected="selected"></option>');
+
+							$.each(data, function (i, item) {
+								$('#solicitante').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#solicitante').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#solicitante').append('<option value="Geral" slected="selected">Geral</option>');
+
+							$.each(data, function (i, item) {
+								$('#afetado').append('<option value="' + item.nomeColaborador + '" slected="selected">' + item.nomeColaborador + '</option>');
+							});
+							$('#afetado').append('<option value="Suporte" slected="selected">Suporte</option>');
+							$('#afetado').append('<option value="Geral" slected="selected">Geral</option>');
+							
+							var id_cliente = $('#nomeCliente').val();
+							var nomeSolicitante = $("#solicitante").val();
+							
+							$.ajax({
+								type: "GET",
+								contentType: "application/json",
+								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeSolicitante,
+								success: function (data) {
+									$('#celSolicitante').empty();
+									if(data != null && data != ""){
+										$('#celSolicitante').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
+									}
+								},
+								statusCode: {
+								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+									401: function() { 
+										alert('Realize login novamente!'); 
+										window.location.href = "/sistech/login"; 
+									}
+								}
+							});
+							
+							var nomeAfetado = $("#afetado").val();
+							$.ajax({
+								type: "GET",
+								contentType: "application/json",
+								url: "/sistech/colaborador/list/cliente/"+ id_cliente +"/"+ nomeAfetado,
+								success: function (data) {
+									$('#celAfetado').empty();
+									if(data != null && data != ""){
+										$('#celAfetado').append(' <i class="bi bi-whatsapp wpp-color"></i> &nbsp; <a class="color-lnk" href="https://wa.me/55'+ data.replace(/[^0-9]/g, '')+'" target="_blank">'+data+'</a>');
+									}
+								},
+								statusCode: {
+								    500: function() { alert('Erro! Contate o desenvolvedor!'); },
+									401: function() { 
+										alert('Realize login novamente!'); 
+										window.location.href = "/sistech/login"; 
+									}
+								}
+							});
+						}
+					},
+					statusCode: {
+				    	500: function() { alert('Erro! Contate o desenvolvedor!'); },
+						401: function() { 
+							alert('Realize login novamente!'); 
+							window.location.href = "/sistech/login"; 
+						}
+					},
+					complete: function (data) { }
+					})
+				}else{
+					$('#celSolicitante').text("");
+					$('#celAfetado').text("");
+					$("#botaoSalvar").empty();
+					$('#botaoColaboradores').empty();
+					$('#solicitante').empty();
+					$('#afetado').empty();
+				}
+		}
+		
+		function limite_textarea_prob(valor) {
+			quant = 500;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contProb').innerHTML = resto;
+			} else {
+				document.getElementById('descricaoProblema').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_obs(valor) {
+			quant = 500;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contObs').innerHTML = resto;
+			} else {
+				document.getElementById('observacao').value = valor.substr(0, quant);
+			}
+		}
+		function limite_textarea_resolucao(valor) {
+			quant = 500;
+			total = valor.length;
+			if (total <= quant) {
+				resto = quant - total;
+				document.getElementById('contResolucao').innerHTML = resto;
+			} else {
+				document.getElementById('resolucao').value = valor.substr(0, quant);
+			}
+		}
+		
+		const handlePhone = (event) => {
+		  let input = event.target
+		  input.value = phoneMask(input.value)
+		}
+		
+		const phoneMask = (value) => {
+		  if (!value) return ""
+		  value = value.replace(/\D/g,'')
+		  value = value.replace(/(\d{2})(\d)/,"($1) $2")
+		  value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+		  return value
+		}
+	</script>
+</body>
+</html>
