@@ -1399,7 +1399,7 @@
 							+ `<td>
 							    <div class="cliente-info">
 							        <div class="cliente-nome">
-							            ${i.nomeCliente} ${vip} ${redFlag}
+							            ${data.nomeCliente} ${vip} ${redFlag}
 							        </div>
 							    </div>
 							</td>`
@@ -1418,19 +1418,19 @@
 						        class="btn-action btn btn-primary"
 						        data-bs-toggle="modal"
 						        data-bs-target="#exampleModal"
-						        onclick="editar(${i.id})">
+						        onclick="editar(${data.id})">
 						        <i class="bi bi-pencil-square"></i>
 						    </button>
 						    <button
 						        class="btn-action btn btn-secondary"
 						        data-bs-toggle="modal"
 						        data-bs-target="#modalColaborador"
-						        onclick="editarColaboradores(${i.id})">
+						        onclick="editarColaboradores(${data.id})">
 						        <i class="bi bi-people"></i>
 						    </button>
 						    <button
 						        class="btn-action btn btn-danger"
-						        onclick="excluir(${i.id})">
+						        onclick="excluir(${data.id})">
 						        <i class="bi bi-trash"></i>
 						    </button>
 							</div>
