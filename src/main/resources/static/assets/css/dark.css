@@ -160,3 +160,903 @@ body.dark-mode {
 	border-right: 0;
     color: rgb(0, 0, 0);
   }
+  
+  /* =========================
+     MODAL HISTORICO
+  ========================= */
+
+  body.dark-mode #modalHistorico .modal-content {
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+  }
+
+  body.dark-mode #modalHistorico .modal-body,
+  body.dark-mode #modalHistorico .modal-footer,
+  body.dark-mode #modalHistorico .timeline-text,
+  body.dark-mode #modalHistorico .timeline-date,
+  body.dark-mode #modalHistorico .modal-title {
+      color: #f1f1f1 !important;
+  }
+
+  /* Cards timeline */
+  body.dark-mode #modalHistorico .timeline-card {
+      background-color: #2b2b2b;
+      border: 1px solid #444;
+  }
+  
+  /* =========================
+     MODAL TIMESHEET
+  ========================= */
+
+  body.dark-mode #modalTimesheetSolicitacao .modal-content {
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+  }
+
+  body.dark-mode #modalTimesheetSolicitacao .modal-body,
+  body.dark-mode #modalTimesheetSolicitacao .modal-title,
+  body.dark-mode #modalTimesheetSolicitacao table,
+  body.dark-mode #modalTimesheetSolicitacao th,
+  body.dark-mode #modalTimesheetSolicitacao td,
+  body.dark-mode #modalTimesheetSolicitacao small,
+  body.dark-mode #modalTimesheetSolicitacao h4,
+  body.dark-mode #modalTimesheetSolicitacao h5 {
+      color: #f1f1f1 !important;
+  }
+  
+  /* cards */
+  body.dark-mode #modalTimesheetSolicitacao .card {
+      background-color: #2b2b2b;
+      border: 1px solid #444;
+  }
+  /* tabela */
+  body.dark-mode #modalTimesheetSolicitacao .table {
+      --bs-table-bg: #1e1e1e;
+      --bs-table-color: #f1f1f1;
+      --bs-table-border-color: #444;
+  }
+
+  
+  /* cabeçalho tabela */
+  body.dark-mode #modalTimesheetSolicitacao .table-light th {
+      background-color: #2b2b2b !important;
+      color: #ffffff !important;
+  }
+  
+  /* CARD TOTAL CHAMADOS */
+  body.dark-mode .bg-light {
+      background-color: #2b2b2b !important;
+      border-color: #444 !important;
+  }
+
+  body.dark-mode .bg-light small,
+  body.dark-mode .bg-light strong,
+  body.dark-mode .bg-light span,
+  body.dark-mode .bg-light div {
+      color: #f1f1f1 !important;
+  }
+
+  body.dark-mode .bg-light .text-muted {
+      color: #bdbdbd !important;
+  }
+  
+  /* =====================================================
+     FORMULARIO SOLICITACAO - DARK MODE
+  ===================================================== */
+
+  body.dark-mode {
+      background-color: #121212;
+      color: #f1f1f1;
+  }
+
+  /* CARDS */
+  body.dark-mode .card-cor,
+  body.dark-mode .card,
+  body.dark-mode .modal-content {
+      background-color: #1e1e1e !important;
+      color: #f1f1f1 !important;
+      border: 1px solid #333 !important;
+  }
+
+  /* TITULOS */
+  body.dark-mode h1,
+  body.dark-mode h2,
+  body.dark-mode h3,
+  body.dark-mode h4,
+  body.dark-mode h5,
+  body.dark-mode h6,
+  body.dark-mode label,
+  body.dark-mode strong {
+      color: #ffffff !important;
+  }
+
+  /* TEXTOS AUXILIARES */
+  body.dark-mode .text-muted,
+  body.dark-mode small,
+  body.dark-mode p,
+  body.dark-mode li,
+  body.dark-mode span {
+  }
+
+  /* INPUTS */
+  body.dark-mode .form-control,
+  body.dark-mode .form-select,
+  body.dark-mode textarea,
+  body.dark-mode input[type="date"],
+  body.dark-mode input[type="time"] {
+      background-color: #2a2a2a !important;
+      border: 1px solid #444 !important;
+      color: #f1f1f1 !important;
+  }
+
+  /* PLACEHOLDER */
+  body.dark-mode .form-control::placeholder,
+  body.dark-mode textarea::placeholder {
+      color: #9ca3af !important;
+  }
+
+  /* FOCUS */
+  body.dark-mode .form-control:focus,
+  body.dark-mode .form-select:focus {
+      background-color: #2f2f2f !important;
+      color: #ffffff !important;
+      border-color: #0d6efd !important;
+      box-shadow: 0 0 0 .15rem rgba(13,110,253,.25);
+  }
+
+  /* SELECT OPTIONS */
+  body.dark-mode option {
+      background-color: #1e1e1e;
+      color: #ffffff;
+  }
+
+  /* INPUT GROUP */
+  body.dark-mode .input-group-text {
+      background-color: #2b2b2b !important;
+      border-color: #444 !important;
+      color: #f1f1f1 !important;
+  }
+
+  /* DATETIME PICKER */
+  body.dark-mode .datetimepicker,
+  body.dark-mode .datetimepickerModal {
+      background-color: transparent !important;
+      color: #f1f1f1 !important;
+  }
+
+  /* TABELAS */
+  body.dark-mode table,
+ 
+
+  /* TABLE HEADER */
+  body.dark-mode .table thead,
+  body.dark-mode .table-light th {
+      background-color: #2b2b2b !important;
+      color: #ffffff !important;
+  }
+
+  /* DROPDOWN */
+  body.dark-mode .dropdown-menu {
+      background-color: #1e1e1e !important;
+      border: 1px solid #444 !important;
+  }
+
+  body.dark-mode .dropdown-item {
+      color: #f1f1f1 !important;
+  }
+
+  body.dark-mode .dropdown-item:hover {
+      background-color: #2f2f2f !important;
+  }
+  /* =====================================================
+     CLIENTES UI CLEAN
+  ===================================================== */
+
+  .tabela-card,
+  .filtro-sidebar{
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+  }
+
+  /* SIDEBAR */
+
+  .filtro-sidebar{
+      position: sticky;
+      top: 20px;
+  }
+
+  .filtro-sidebar .form-label{
+      font-size: .82rem;
+      margin-bottom: 6px;
+  }
+
+  /* TABELA */
+
+  .tabela-clientes-clean{
+      margin-bottom: 0;
+  }
+
+  .tabela-clientes-clean thead th{
+      border: none !important;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700;
+      padding: 14px 12px;
+  }
+
+  /* LINHAS */
+
+  .tabela-clientes-clean tbody tr{
+      border-bottom: 1px solid #edf2f7;
+      transition: .15s ease;
+  }
+
+  .tabela-clientes-clean tbody tr:hover{
+      background: #f8fafc;
+  }
+
+  /* CELULAS */
+
+  .tabela-clientes-clean td{
+      border: none !important;
+      padding: 14px 12px;
+      vertical-align: middle;
+  }
+
+  /* CLIENTE */
+
+  .cliente-info{
+      display: flex;
+      flex-direction: column;
+  }
+
+  .cliente-nome{
+      font-size: .92rem;
+      font-weight: 600;
+      color: #111827;
+  }
+
+  .cliente-tags{
+      display: flex;
+      gap: 5px;
+      margin-top: 5px;
+  }
+
+  .cliente-tags .badge{
+      font-size: .65rem;
+      padding: 5px 8px;
+  }
+
+  /* STATUS */
+
+  .badge-status{
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .70rem;
+  }
+
+  /* AÇÕES */
+
+  .acoes-cliente{
+      text-align: right;
+      white-space: nowrap;
+  }
+
+  .acoes-wrapper{
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+  }
+
+  .btn-action{
+      width: 33px;
+      height: 33px;
+      border-radius: 10px !important;
+      border: none !important;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: .15s ease;
+  }
+
+  .btn-action:hover{
+      transform: scale(1.05);
+  }
+
+  /* PAGINAÇÃO */
+
+  .pagination .page-link{
+      border: none;
+      border-radius: 10px;
+      margin: 0 3px;
+      color: #374151;
+  }
+
+  /* =====================================================
+     DARK MODE
+  ===================================================== */
+
+  body.dark-mode{
+
+      background: #111315 !important;
+      color: #f1f5f9 !important;
+
+  }
+
+  /* CARDS */
+
+  body.dark-mode .tabela-card,
+  body.dark-mode .filtro-sidebar{
+      background: #181a1d !important;
+      border: 1px solid #2a2d31;
+  }
+
+  /* TABELA */
+
+  body.dark-mode .tabela-clientes-clean{
+      background: transparent !important;
+  }
+
+  body.dark-mode .tabela-clientes-clean thead th{
+
+      color: #cbd5e1 !important;
+
+      border-bottom: 1px solid #2a2d31 !important;
+
+      background: transparent !important;
+
+  }
+
+  /* LINHAS */
+
+  body.dark-mode .tabela-clientes-clean tbody tr{
+      background: transparent !important;
+      border-bottom: 1px solid #23262a !important;
+  }
+
+  body.dark-mode .tabela-clientes-clean tbody tr:hover{
+      background: rgba(255,255,255,.03) !important;
+  }
+
+  /* TEXTOS */
+
+  body.dark-mode .cliente-nome,
+  body.dark-mode .tabela-clientes-clean td,
+  body.dark-mode .text-muted{
+      color: #f1f5f9 !important;
+  }
+
+  /* INPUTS */
+
+  body.dark-mode .form-control,
+  body.dark-mode .form-select,
+  body.dark-mode .input-group-text{
+
+      background: #22252a !important;
+      border-color: #333842 !important;
+      color: #f1f5f9 !important;
+
+  }
+
+  body.dark-mode .form-control::placeholder{
+      color: #8b949e;
+  }
+
+  /* PAGINAÇÃO */
+
+  body.dark-mode .pagination .page-link{
+
+      background: #22252a;
+      border: 1px solid #333842;
+      color: #f1f5f9;
+
+  }
+
+  body.dark-mode .pagination .page-link:hover{
+      background: #2c3138;
+  }
+
+  /* NAVBAR */
+
+  body.dark-mode .navbar,
+  body.dark-mode .bg-light{
+      background: #16181b !important;
+  }
+
+  /* MODAIS */
+
+  body.dark-mode .modal-content{
+      background: #181a1d !important;
+      border: 1px solid #2a2d31;
+  }
+
+  /* DROPDOWN */
+
+  body.dark-mode .dropdown-menu{
+      background: #1d2125 !important;
+      border-color: #2a2d31 !important;
+  }
+
+  body.dark-mode .dropdown-item{
+      color: #f1f5f9 !important;
+  }
+
+  body.dark-mode .dropdown-item:hover{
+      background: #2c3138 !important;
+  }
+
+  /* FOOTER */
+
+  body.dark-mode footer{
+      background: #16181b !important;
+  }
+
+  /* NAVBAR */
+  body.dark-mode .navbar,
+  body.dark-mode .bg-light {
+      background-color: #1a1a1a !important;
+      border-color: #333 !important;
+  }
+
+  /* LINKS */
+  body.dark-mode a {
+      color: #7ab7ff;
+  }
+
+  /* BADGES */
+  body.dark-mode .badge.bg-warning {
+      color: #000 !important;
+  }
+
+  /* FOOTER */
+  body.dark-mode footer {
+      background-color: #1a1a1a !important;
+  }
+
+  /* BOTÕES OUTLINE */
+  body.dark-mode .btn-outline-secondary,
+  body.dark-mode .btn-outline-primary,
+  body.dark-mode .btn-outline-success {
+      border-color: #555 !important;
+      color: #f1f1f1 !important;
+  }
+
+  /* ORIENTAÇÕES LATERAIS */
+  body.dark-mode .position-sticky ul,
+  body.dark-mode .position-sticky p {
+      color: #d1d5db !important;
+  }
+
+  /* STATUS */
+  body.dark-mode #statusBadge {
+      color: #fff !important;
+  }
+
+  /* CARDS CRITICIDADE */
+  body.dark-mode .critica {
+      border-left: 4px solid #ef4444 !important;
+  }
+
+  body.dark-mode .alta {
+      border-left: 4px solid #f59e0b !important;
+  }
+
+  body.dark-mode .media {
+      border-left: 4px solid #3b82f6 !important;
+  }
+
+  body.dark-mode .baixa {
+      border-left: 4px solid #10b981 !important;
+  }
+  
+  
+  /* ======================================================
+     CLIENTES LIST
+  ====================================================== */
+
+  .toolbar-clientes {
+      border-radius: 18px;
+  }
+
+  /* CONTADOR */
+
+  .clientes-counter {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+  }
+
+  .clientes-counter small {
+      color: #6b7280;
+  }
+
+  .clientes-counter strong {
+      font-size: 1.2rem;
+  }
+
+  /* TABELA */
+
+  .tabela-clientes-modern {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+  }
+
+  .tabela-clientes-modern tbody tr {
+      background: #ffffff;
+      transition: .2s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+
+  .tabela-clientes-modern tbody tr:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+
+  .tabela-clientes-modern td,
+  .tabela-clientes-modern th {
+      vertical-align: middle;
+      border: none !important;
+      padding: 16px;
+  }
+
+  /* NOME */
+
+  .cliente-nome {
+      font-weight: 600;
+      color: #111827;
+  }
+
+  .cliente-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 5px;
+  }
+
+  /* BOTÕES */
+
+  .btn-action {
+      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border: none;
+      margin-right: 4px;
+      transition: .2s ease;
+  }
+
+  .btn-action:hover {
+      transform: scale(1.08);
+  }
+
+  .btn-info {
+      background: #0ea5e9 !important;
+      color: white !important;
+  }
+
+  .btn-edit {
+      background: #3b82f6 !important;
+      color: white !important;
+  }
+
+  .btn-users {
+      background: #6b7280 !important;
+      color: white !important;
+  }
+
+  .btn-delete {
+      background: #ef4444 !important;
+      color: white !important;
+  }
+
+  /* PAGINAÇÃO */
+
+  .pagination .page-link {
+      border-radius: 10px;
+      margin: 0 3px;
+      border: none;
+      color: #374151;
+  }
+
+  /* ======================================================
+     DARK MODE
+  ====================================================== */
+
+  body.dark-mode .toolbar-clientes,
+  body.dark-mode .modal-content,
+  body.dark-mode .table-responsive {
+      background: #1e1e1e !important;
+      border: 1px solid #333;
+  }
+
+  body.dark-mode .tabela-clientes-modern tbody tr {
+      background: #232323;
+      box-shadow: none;
+  }
+
+  body.dark-mode .tabela-clientes-modern tbody tr:hover {
+      background: #2d2d2d;
+  }
+
+  body.dark-mode .cliente-nome,
+  body.dark-mode .table,
+  body.dark-mode .th-cliente,
+  body.dark-mode .td-cliente {
+      color: #f1f1f1 !important;
+  }
+
+  body.dark-mode .table thead th {
+      background: transparent !important;
+      color: #9ca3af !important;
+      border-bottom: 1px solid #333 !important;
+  }
+
+  body.dark-mode .pagination .page-link {
+      background: #2a2a2a;
+      color: #f1f1f1;
+  }
+
+  body.dark-mode .pagination .page-link:hover {
+      background: #3a3a3a;
+  }
+
+  body.dark-mode .form-control,
+  body.dark-mode .form-select,
+  body.dark-mode .input-group-text {
+      background: #2a2a2a !important;
+      border-color: #444 !important;
+      color: #f1f1f1 !important;
+  }
+
+  body.dark-mode .form-control::placeholder {
+      color: #9ca3af;
+  }
+
+  body.dark-mode .bg-light,
+  body.dark-mode .navbar {
+      background: #181818 !important;
+  }
+
+  body.dark-mode .dropdown-menu {
+      background: #232323;
+      border-color: #333;
+  }
+
+  body.dark-mode .dropdown-item {
+      color: #f1f1f1;
+  }
+
+  body.dark-mode .dropdown-item:hover {
+      background: #333;
+  }
+
+  body.dark-mode footer {
+      background: #181818;
+  }
+  
+  /* =====================================================
+     MODAL AVISOS - DARK MODE
+  ===================================================== */
+
+  body.dark-mode #modalLabelColaborador .modal-content{
+      background: #181a1d !important;
+      border: 1px solid #2a2d31 !important;
+      color: #f1f5f9 !important;
+  }
+
+  /* HEADER */
+  body.dark-mode #modalLabelColaborador .modal-header{
+      background: #1f2328 !important;
+      border-bottom: 1px solid #2a2d31 !important;
+  }
+
+  body.dark-mode #modalLabelColaborador .modal-title{
+      color: #f1f5f9 !important;
+  }
+
+  /* BODY */
+  body.dark-mode #modalLabelColaborador .modal-body{
+      background: transparent !important;
+      color: #f1f5f9 !important;
+  }
+
+  /* FOOTER */
+  body.dark-mode #modalLabelColaborador .modal-footer{
+      border-top: 1px solid #2a2d31 !important;
+      background: #1b1d21 !important;
+  }
+
+  /* LIST GROUP */
+  body.dark-mode #modalLabelColaborador .list-group-item{
+      background: transparent !important;
+      border-color: #2a2d31 !important;
+      color: #f1f5f9 !important;
+  }
+
+  /* TEXTO MUTED */
+  body.dark-mode #modalLabelColaborador .text-muted{
+      color: #9ca3af !important;
+  }
+
+  /* BOTÃO CLOSE */
+  body.dark-mode #modalLabelColaborador .btn-close{
+      filter: invert(1) grayscale(100%) brightness(200%);
+  }
+
+  /* BOTÃO FECHAR */
+  body.dark-mode #modalLabelColaborador .btn-outline-secondary{
+      border-color: #3b4148 !important;
+      color: #f1f5f9 !important;
+  }
+
+  body.dark-mode #modalLabelColaborador .btn-outline-secondary:hover{
+      background: #2c3138 !important;
+      border-color: #4b5563 !important;
+  }
+
+  /* LOADING */
+  body.dark-mode #avisosLoading{
+      color: #cbd5e1 !important;
+  }
+
+  /* VAZIO */
+  body.dark-mode #avisosVazio{
+      color: #cbd5e1 !important;
+  }
+
+  /* ITENS DOS AVISOS */
+  body.dark-mode #conteudoAvisos .list-group-item{
+      background: rgba(255,255,255,.02) !important;
+      transition: .15s ease;
+  }
+
+  body.dark-mode #conteudoAvisos .list-group-item:hover{
+      background: rgba(255,255,255,.04) !important;
+  }
+  
+  /* =====================================================
+     WIDGET CALENDARIO
+  ===================================================== */
+  .calender{
+      width: 100%;
+      max-width: 155px;
+      min-height: 175px;
+      margin: 0 auto;
+      border-radius: 16px;
+      background: #ffffff;
+  }
+
+  .calender:hover{
+      transform: translateY(-2px);
+      box-shadow:
+          0 8px 20px rgba(0,0,0,.10);
+  }
+
+  /* TOPO */
+  .calender .top{
+      background: linear-gradient(
+          135deg,
+          rgb(153, 193, 241),
+          rgb(26, 95, 180)
+      );
+      color: white;
+      text-align: center;
+      padding: 6px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+  }
+
+  /* DIA */
+  .calender #days{
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      font-size: .68rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+  }
+
+  /* DATA */
+  .calender #dates{
+      display: block;
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #111827;
+      margin-top: 8px;
+  }
+
+  /* ANO */
+  .calender #years{
+      display: block;
+      text-align: center;
+      margin-top: 8px;
+      margin-bottom: 14px;
+      font-size: .75rem;
+      font-weight: 600;
+      color: #6b7280;
+  }
+
+  /* TITULO HORA */
+  .time-title{
+      margin-top: 10px;
+      margin-bottom: 8px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: rgb(243, 244, 246) importante!;
+      text-align: center;
+  }
+
+  /* RELOGIO */
+  .time{
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+  }
+
+  /* BOX HORA */
+  .time div{
+      min-width: 38px;
+      padding: 8px 0;
+      border-radius: 10px;
+      background: #f3f4f6;
+      text-align: center;
+      font-weight: 700;
+      font-size: .82rem;
+      color: #111827;
+      box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.4);
+  }
+
+  /* =====================================================
+     DARK MODE
+  ===================================================== */
+  body.dark-mode .calender{
+      background: #181a1d !important;
+      border: 1px solid #2a2d31;
+      box-shadow: none;
+  }
+
+  body.dark-mode .calender:hover{
+      background: #1d2024 !important;
+  }
+
+  /* TOPO */
+  body.dark-mode .calender .top{
+      background: linear-gradient(
+          135deg,
+          rgb(153, 193, 241),
+          rgb(26, 95, 180)
+      );
+  }
+
+  /* TEXTOS */
+  body.dark-mode .calender #days,
+  body.dark-mode .calender #years,
+  body.dark-mode .time-title{
+      color: rgb(255, 255, 255) !important;
+  }
+
+  body.dark-mode .calender #dates{
+      color: #f1f5f9 !important;
+  }
+
+  /* RELOGIO */
+  body.dark-mode .time div{
+      background: #23262b !important;
+      border: 1px solid #31343a;
+      color: #f1f5f9 !important;
+      box-shadow: none;
+  }
+  
+  .calendar-widget-link{
+      all: unset;
+      cursor: pointer;
+      display: block;
+  }
