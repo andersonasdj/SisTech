@@ -1,47 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">   
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<title>Sistech Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SisTech 2FA</title>
+    <!-- FAVICON OTIMIZADO -->
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <!-- PRELOAD BACKGROUND -->
+    <link rel="preload" as="image" href="assets/img/background-login.avif">
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+	<!-- style login -->
+	<link rel="stylesheet" href="assets/css/login/style-auth.css">
 </head>
 <body>
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<br><br>
-				<h3>2FA</h3>
-			</div>
-			<div class="card-body">
-				<form method="post" action="/sistech/verify-2fa">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><img id="" src="assets/img/asterisk.png" style="width: 30px" alt="..."></span>
-						</div>
-						<input type="number" class="form-control" name="codigo" required maxlength="6" />
-					</div>
-					<br>
-					<span id="resposta" style="color: red; font-weight: bold;"></span>
-					<br>
-					<div class="form-group">
-						<button type="submit" class="btn float-end btn-light mt-5">Verificar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+<!-- ===================================================== -->
+<!-- BACKGROUND -->
+<!-- ===================================================== -->
+<div class="background">
+    <picture>
+        <source srcset="assets/img/background-login.avif" type="image/avif">
+        <source srcset="assets/img/background-login.webp" type="image/webp">
+        <img src="assets/img/background-login.webp" alt="Background">
+    </picture>
 </div>
-</body>
+<div class="overlay"></div>
+<!-- ===================================================== -->
+<!-- CARD -->
+<!-- ===================================================== -->
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <!-- HEADER -->
+        <div class="text-center">
+            <img src="assets/img/login-icon.webp" alt="SisTech" class="logo">
+            <h1 class="auth-title">Verificação 2FA</h1>
+            <p class="auth-subtitle">
+                Digite o código de autenticação enviado
+                para seu e-mail corporativo
+            </p>
+        </div>
+        <!-- FORM -->
+        <form method="POST" action="/sistech/verify-2fa" id="form2fa">
+            <div class="mb-3">
+                <label for="codigo" class="form-label">Código de verificação</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-shield-lock input-icon"></i>
+                    <input type="text" class="form-control" id="codigo"
+                        name="codigo" placeholder="000000" autocomplete="one-time-code"
+                        inputmode="numeric" maxlength="6" required>
+                </div>
+            </div>
+            <!-- ERRO -->
+            <div id="resposta" class="error-message"></div>
+
+            <!-- BOTÃO -->
+            <button type="submit" class="btn-auth mt-3" id="btnVerificar">
+                Verificar código
+            </button>
+        </form>
+
+        <!-- FOOTER -->
+        <div class="security-info">
+            <i class="bi bi-shield-check"></i>
+            Protegido por autenticação em dois fatores
+        </div>
+    </div>
+</div>
+<!-- ===================================================== -->
+<!-- SCRIPT -->
+<!-- ===================================================== -->
+<script defer src="assets/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Apenas números
+    const codigoInput = document.getElementById("codigo");
+
+    codigoInput.addEventListener("input", () => {
+        codigoInput.value = codigoInput.value.replace(/\D/g, "").slice(0, 6);
+    });
+
+    // Loading botão
+    document.getElementById("form2fa").addEventListener("submit", () => {
+
+            const btn = document.getElementById("btnVerificar");
+            btn.disabled = true;
+
+            btn.innerHTML = `
+                <span
+                    class="spinner-border spinner-border-sm me-2">
+                </span>
+                Verificando...
+            `;
+        });
+
+    // Erro URL
     const urlParams = new URLSearchParams(window.location.search);
     const error = urlParams.get('error');
-    if (error) {
-        document.getElementById("resposta").innerHTML += error + "<br>";
+
+    if(error){
+        document.getElementById("resposta").textContent = error;
     }
+    // Autofocus
+    codigoInput.focus();
 </script>
+</body>
 </html>

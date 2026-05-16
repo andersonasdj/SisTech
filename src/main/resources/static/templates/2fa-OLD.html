@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="assets/img/favicon.ico">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">   
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<title>Sistech Login</title>
+</head>
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<br><br>
+				<h3>2FA</h3>
+			</div>
+			<div class="card-body">
+				<form method="post" action="/sistech/verify-2fa">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><img id="" src="assets/img/asterisk.png" style="width: 30px" alt="..."></span>
+						</div>
+						<input type="number" class="form-control" name="codigo" required maxlength="6" />
+					</div>
+					<br>
+					<span id="resposta" style="color: red; font-weight: bold;"></span>
+					<br>
+					<div class="form-group">
+						<button type="submit" class="btn float-end btn-light mt-5">Verificar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+        document.getElementById("resposta").innerHTML += error + "<br>";
+    }
+</script>
+</html>

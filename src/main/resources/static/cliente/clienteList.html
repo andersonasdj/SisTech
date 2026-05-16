@@ -1386,11 +1386,11 @@
 						status = '<span class="badge bg-danger">Desativado</span>';
 					}
 					
-					if(i.vip == true){
+					if(data.vip == true){
 					    vip = '<span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle">VIP</span>';
 					}
 
-					if(i.redFlag == true){
+					if(data.redFlag == true){
 					    redFlag = '<span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle">RED FLAG</span>';
 					}
 
@@ -1411,7 +1411,7 @@
 						    <button
 						        class="btn-action btn btn-outline-info"
 						        title="Infraestrutura"
-						        onclick="abrirInfraCliente(${i.id})">
+						        onclick="abrirInfraCliente(${data.id})">
 						        <i class="bi bi-diagram-3"></i>
 						    </button>
 						    <button

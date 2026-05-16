@@ -1,48 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<title>Sistech Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SisTech Login</title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <!-- PRELOAD IMAGEM -->
+    <link rel="preload" as="image" href="assets/img/background-login.avif">
+	<!-- Bootstrap 5 -->
+   	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+   	<!-- Bootstrap Icons -->
+   	<link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+	<!-- style login -->
+	<link rel="stylesheet" href="assets/css/login/style-login.css">
 </head>
 <body>
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3 style="text-align: center;" >Login</h3>
-				<div class="d-flex justify-content-end social_icon">
-				</div>
-			</div>
-			<div class="card-body mt-4">
-				<form method="POST" action="/sistech/login" >
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="mt-4 form-control"><img id="" src="assets/img/login-user.ico" style="width: 30px" alt="..."></span>
-						</div>
-						<input type="text" class="form-control mt-4" id="username" name="username" placeholder="usuario" autocomplete="off">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="mt-4 form-control"><img id="" src="assets/img/login-key.ico" style="width: 30px" alt="..."></span>
-						</div>
-						<input type="password" class="form-control mt-4" id="password" name="password" placeholder="senha" autocomplete="off">
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn float-end btn-light mt-5">Logar</button>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer mt-4">
-				<div class="d-flex justify-content-center">
-					<a href="mailto:">Esqueceu sua senha?</a>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- ===================================================== -->
+<!-- FUNDO -->
+<!-- ===================================================== -->
+<div class="background">
+    <picture>
+        <!-- AVIF -->
+        <source srcset="assets/img/background-login.avif" type="image/avif">
+        <!-- WEBP -->
+        <source srcset="assets/img/background-login.webp" type="image/webp">
+        <!-- FALLBACK -->
+        <img src="assets/img/background-login.webp" alt="Background">
+    </picture>
 </div>
+<div class="overlay"></div>
+
+<!-- ===================================================== -->
+<!-- LOGIN -->
+<!-- ===================================================== -->
+<div class="login-wrapper">
+
+    <div class="login-card">
+        <!-- HEADER -->
+        <div class="text-center">
+			<img src="assets/img/login-icon.webp" class="logo" alt="SisTech">
+            <h1 class="login-title">SisTech</h1>
+            <p class="login-subtitle">Plataforma inteligente de gestão técnica</p>
+        </div>
+        <!-- FORM -->
+        <form method="POST" action="/sistech/login" id="loginForm">
+            <!-- Usuário -->
+            <div class="mb-4">
+                <label for="username" class="form-label">Usuário</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-person input-icon"></i>
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Digite seu usuário" autocomplete="username" required>
+                </div>
+            </div>
+            <!-- Senha -->
+            <div class="mb-4">
+                <label for="password" class="form-label">Senha</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-lock input-icon"></i>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Digite sua senha" autocomplete="current-password" required>
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- BOTÃO -->
+            <button type="submit" class="btn-login" id="loginBtn">Entrar</button>
+        </form>
+
+        <!-- FOOTER -->
+        <div class="forgot-password">
+            <a href="mailto:suporte@providerone.com.br">
+                Esqueceu sua senha?
+            </a>
+        </div>
+        <div class="copyright">
+            © 2026 TechGold
+        </div>
+    </div>
+</div>
+<!-- ===================================================== -->
+<!-- SCRIPTS -->
+<!-- ===================================================== -->
+<script defer src="assets/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Mostrar senha
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type =
+            isPassword
+                ? "text"
+                : "password";
+
+        togglePassword.innerHTML =
+            isPassword
+                ? '<i class="bi bi-eye-slash"></i>'
+                : '<i class="bi bi-eye"></i>';
+    });
+
+    // Loading login
+    document.getElementById("loginForm").addEventListener("submit", () => {
+            const btn = document.getElementById("loginBtn");
+            btn.disabled = true;
+            btn.innerHTML = `
+                <span
+                    class="spinner-border spinner-border-sm me-2">
+                </span>
+                Entrando...
+            `;
+        });
+</script>
 </body>
 </html>
